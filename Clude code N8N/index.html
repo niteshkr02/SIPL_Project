@@ -1,0 +1,3551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shakambhari Group | Proud to Partner in Our Nation's Progress</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ══ HERO (dark, scoped tokens) ══ */
+    .hero {
+      --bg: #0A0B0E;
+      --surface: #14161C;
+      --surface-2: #1B1E26;
+      --border: #262A34;
+      --ink: #EEEAE1;
+      --ink-dim: #9C9A90;
+      --accent: #FF6A1F;
+      --accent-hot: #FFC24B;
+      --accent-deep: #E23B1F;
+      position: relative;
+      min-height: 96vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 2rem) 1.5rem 2rem;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 115%, rgba(255, 106, 31, .35), transparent 55%),
+        radial-gradient(ellipse at 50% 130%, rgba(255, 194, 75, .2), transparent 45%),
+        var(--bg);
+    }
+
+    #embers {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: -15%;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 108%, rgba(255, 106, 31, .6), transparent 42%),
+        radial-gradient(circle at 26% 96%, rgba(255, 194, 75, .4), transparent 38%),
+        radial-gradient(circle at 74% 100%, rgba(226, 59, 31, .45), transparent 40%);
+      filter: blur(6px);
+      animation: furnaceBreathe 7s ease-in-out infinite;
+      transform-origin: 50% 100%;
+    }
+
+    @keyframes furnaceBreathe {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: .8;
+      }
+
+      50% {
+        transform: scale(1.22);
+        opacity: 1;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      max-width: 920px;
+      animation: heroZoomIn 1.5s cubic-bezier(.16, .84, .44, 1) both;
+    }
+
+    @keyframes heroZoomIn {
+      0% {
+        opacity: 0;
+        transform: scale(1.18);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .35em;
+      color: var(--accent-hot);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6.4vw, 4.6rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    .hero h1 .grad {
+      background: linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: emberShift 6s ease-in-out infinite;
+    }
+
+    @keyframes emberShift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .hero p.lede {
+      margin: 1.6rem auto 0;
+      max-width: 600px;
+      font-size: 1.1rem;
+      color: var(--ink-dim);
+    }
+
+    .hero .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .85rem;
+      margin-top: 2.4rem;
+      padding: .9rem 2rem;
+      border: 1px solid rgba(255, 106, 31, .4);
+      border-radius: 3rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--ink);
+      background: linear-gradient(135deg, rgba(255, 106, 31, .14), rgba(255, 255, 255, .03));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 6px 24px rgba(255, 106, 31, .18), inset 0 1px 0 rgba(255, 255, 255, .1);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .hero .pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(255, 106, 31, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
+    }
+
+    .hero .pill .tag {
+      color: var(--accent-hot);
+      font-weight: 700;
+    }
+
+    .hero .pill .sep {
+      color: rgba(238, 234, 225, .35);
+    }
+
+    .hero .pill .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px 4px var(--accent);
+      flex-shrink: 0;
+    }
+
+    @media(max-width:560px) {
+      .hero .pill {
+        font-size: .8rem;
+        padding: .75rem 1.4rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.4rem;
+      flex-wrap: wrap;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: var(--border);
+      animation: bob 2.2s ease-in-out infinite;
+      z-index: 5;
+    }
+
+    .scroll-cue span {
+      font-family: var(--font-mono);
+      font-size: .6rem;
+      letter-spacing: .25em;
+    }
+
+    @keyframes bob {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px);
+      }
+    }
+
+    /* ══ ABOUT US TEASER (two-column) ══ */
+    .origin-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 5rem 1.75rem 2rem;
+    }
+
+    .origin {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 3.5rem;
+      align-items: center;
+      border-radius: 2rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, .72) 0%, rgba(255, 255, 255, .22) 100%);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, .7);
+      box-shadow: 0 2px 4px rgba(20, 22, 28, .04), 0 24px 56px rgba(20, 22, 28, .1);
+      padding: 3.6rem 3.6rem 3.6rem 3.2rem;
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow .45s ease, border-color .45s ease;
+    }
+
+    .origin::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 106, 31, .1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .origin:hover {
+      border-color: rgba(255, 106, 31, .3);
+      box-shadow: 0 28px 60px rgba(20, 22, 28, .13), 0 0 50px rgba(255, 106, 31, .08);
+    }
+
+    /* Left column */
+    .origin-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .origin-left h2 {
+      font-size: clamp(2rem, 3.8vw, 2.9rem);
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      color: var(--ink);
+    }
+
+    .origin-left h2 em {
+      font-style: normal;
+      background: linear-gradient(100deg, var(--accent), var(--accent-deep));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .origin-left>p {
+      color: var(--ink-soft);
+      font-size: 1.08rem;
+      line-height: 1.75;
+      max-width: 46ch;
+      margin-bottom: 2rem;
+    }
+
+    /* Milestones */
+    .origin-milestones {
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .origin-milestone {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: .85rem 1.1rem;
+      border-radius: .9rem;
+      border: 1px solid rgba(20, 22, 28, .06);
+      background: rgba(255, 255, 255, .5);
+      transition: background .25s ease, border-color .25s ease, transform .25s ease;
+    }
+
+    .origin-milestone:hover {
+      background: rgba(255, 255, 255, .85);
+      border-color: rgba(255, 106, 31, .25);
+      transform: translateX(4px);
+    }
+
+    .origin-milestone-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: .6rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(255, 106, 31, .15), rgba(255, 194, 75, .1));
+      border: 1px solid rgba(255, 106, 31, .2);
+    }
+
+    .origin-milestone-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .origin-milestone-body {
+      flex: 1;
+    }
+
+    .origin-milestone-year {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--accent-ink);
+      margin-bottom: .15rem;
+    }
+
+    .origin-milestone-text {
+      font-size: .9rem;
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* CTA row */
+    .origin-cta-row {
+      display: flex;
+      gap: .9rem;
+      flex-wrap: wrap;
+    }
+
+    /* Right column */
+    .origin-right {
+      position: relative;
+    }
+
+    .origin-visual {
+      border-radius: 1.6rem;
+      padding: 2.6rem 2.2rem;
+      background: linear-gradient(145deg, #14161C 0%, #1B1E26 100%);
+      border: 1px solid #262A34;
+      box-shadow: 0 12px 40px rgba(10, 11, 14, .25), inset 0 1px 0 rgba(255, 255, 255, .05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .origin-visual::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 106, 31, .18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .origin-founded {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: linear-gradient(135deg, rgba(255, 106, 31, .2), rgba(255, 194, 75, .1));
+      border: 1px solid rgba(255, 106, 31, .35);
+      border-radius: 2rem;
+      padding: .45rem 1rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .origin-founded span {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent-hot);
+    }
+
+    .origin-founded-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px 3px var(--accent);
+      flex-shrink: 0;
+    }
+
+    .origin-big-stat {
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #EEEAE1;
+      letter-spacing: -.03em;
+      margin-bottom: .3rem;
+    }
+
+    .origin-big-stat span {
+      font-size: 2rem;
+      background: linear-gradient(100deg, var(--accent-hot), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .origin-big-label {
+      font-size: .88rem;
+      color: #9C9A90;
+      margin-bottom: 2rem;
+    }
+
+    .origin-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+    }
+
+    .origin-pillar {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .6rem .9rem;
+      border-radius: .65rem;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .origin-pillar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .origin-pillar-name {
+      font-size: .85rem;
+      font-weight: 600;
+      color: #EEEAE1;
+      flex: 1;
+    }
+
+    .origin-pillar-tag {
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--accent-hot);
+    }
+
+    @media(max-width:980px) {
+      .origin {
+        grid-template-columns: 1fr;
+        padding: 2.8rem 2rem;
+      }
+
+      .origin-right {
+        display: none;
+      }
+    }
+
+    @media(max-width:600px) {
+      .origin-wrap {
+        padding: 3rem 1.25rem 1.5rem;
+      }
+
+      .origin {
+        padding: 2.2rem 1.5rem;
+      }
+
+      .origin-cta-row {
+        flex-direction: column;
+      }
+    }
+
+    /* ══ PILLAR / SEGMENT CARDS (SINGLE ROW LAYOUT) ══ */
+    .pillars-section-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5rem 1.75rem;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    @media(max-width:1180px) and (min-width:768px) {
+      .pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+    }
+
+    @media(max-width:767px) and (min-width:480px) {
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media(max-width:479px) {
+      .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    /* ══ PILLAR CARD DESIGN ══ */
+    .pillar-card {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(165deg, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, .5) 100%);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, .75);
+      box-shadow: 0 4px 18px rgba(20, 22, 28, .06), 0 1px 3px rgba(20, 22, 28, .04);
+      transition: transform .35s cubic-bezier(.16, .84, .44, 1), box-shadow .35s ease, border-color .35s ease;
+    }
+
+    .pillar-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hot));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+      z-index: 3;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 106, 31, .4);
+      box-shadow: 0 18px 40px rgba(20, 22, 28, .12), 0 0 30px rgba(255, 106, 31, .12);
+    }
+
+    .pillar-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Image wrap */
+    .pillar-img-wrap {
+      width: 100%;
+      height: 185px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #14161C;
+    }
+
+    .pillar-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .55s cubic-bezier(.16, .84, .44, 1);
+    }
+
+    .pillar-card:hover .pillar-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .pillar-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(10, 11, 14, .04) 0%, rgba(10, 11, 14, 0) 40%, rgba(10, 11, 14, .6) 100%);
+    }
+
+    /* Category badge on image */
+    .pillar-badge {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: .54rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #EEEAE1;
+      background: rgba(10, 11, 14, .72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 2rem;
+      padding: .25rem .65rem;
+    }
+
+    /* Content body */
+    .pillar-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1.25rem 1.2rem 1.4rem;
+    }
+
+    .pillar-card h4 {
+      font-size: .98rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      margin-bottom: .5rem;
+      color: var(--ink);
+      letter-spacing: .01em;
+    }
+
+    .pillar-card p {
+      font-size: .85rem;
+      color: var(--ink-soft);
+      margin-bottom: 1rem;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .pillar-card .go {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent-ink);
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      transition: gap .2s ease, color .2s ease;
+    }
+
+    .pillar-card:hover .go {
+      gap: .55rem;
+      color: var(--accent);
+    }
+
+    /* ══ COMPANY CARDS ══ */
+    .companies-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+    }
+
+    @media(max-width:900px) {
+      .companies-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:600px) {
+      .companies-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .company-card {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 1.25rem;
+      transition: transform .35s cubic-bezier(.16, .84, .44, 1), box-shadow .35s ease, border-color .35s ease;
+    }
+
+    .company-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 45px rgba(20, 22, 28, .12), 0 0 35px rgba(255, 106, 31, .1);
+    }
+
+    .company-img-wrap {
+      width: 100%;
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #14161C;
+    }
+
+    .company-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .55s cubic-bezier(.16, .84, .44, 1);
+    }
+
+    .company-card:hover .company-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .company-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(10, 11, 14, .02) 0%, rgba(10, 11, 14, 0) 40%, rgba(10, 11, 14, .4) 100%);
+    }
+
+    .company-card-body {
+      padding: 1.4rem 1.5rem 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .company-card .tag {
+      font-family: var(--font-mono);
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent-ink);
+      margin-bottom: .5rem;
+      display: block;
+    }
+
+    .company-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: none;
+      font-family: var(--font-body);
+      margin-bottom: .55rem;
+      color: var(--ink);
+    }
+
+    .company-card p {
+      font-size: .88rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* ══ QUOTE PANEL (ROYAL BLUE TWO-COLUMN) ══ */
+    .quote-panel {
+      position: relative;
+      border-radius: 1.8rem;
+      padding: 3.5rem 3.5rem 3.5rem 4rem;
+      background: linear-gradient(135deg, #091930 0%, #0D284B 50%, #133968 100%);
+      border: 1px solid rgba(255, 255, 255, .15);
+      box-shadow: 0 24px 60px rgba(9, 25, 48, .3), 0 2px 4px rgba(0, 0, 0, .2);
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3.5rem;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .quote-panel::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 194, 75, .12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .quote-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      right: 200px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 106, 31, .1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .quote-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      z-index: 2;
+    }
+
+    .quote-icon-svg {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 1.2rem;
+      opacity: .9;
+    }
+
+    .quote-panel .quote-text {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+      line-height: 1.55;
+      color: #F4F7FA;
+      text-transform: none;
+      margin-bottom: 1.8rem;
+      max-width: 54ch;
+    }
+
+    .quote-meta {
+      margin-bottom: 2rem;
+    }
+
+    .quote-panel .quote-by {
+      font-family: var(--font-mono);
+      font-size: .92rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: #FFC24B;
+      text-transform: uppercase;
+    }
+
+    .quote-panel .quote-role {
+      font-size: .88rem;
+      color: rgba(238, 234, 225, .75);
+      margin-top: .25rem;
+    }
+
+    .quote-img-wrap {
+      width: 100%;
+      height: 400px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      border-radius: 1.5rem;
+      padding: 6px;
+      background: linear-gradient(135deg, rgba(255, 194, 75, .45) 0%, rgba(255, 106, 31, .25) 50%, rgba(255, 255, 255, .1) 100%);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .45), 0 0 35px rgba(255, 194, 75, .18);
+      transition: transform .5s cubic-bezier(.16, .84, .44, 1), box-shadow .5s ease;
+      overflow: hidden;
+    }
+
+    .quote-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border-radius: 1.2rem;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(to bottom, rgba(9, 25, 48, 0) 50%, rgba(9, 25, 48, .65) 100%);
+    }
+
+    .quote-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 1.2rem;
+      display: block;
+      transition: transform .65s cubic-bezier(.16, .84, .44, 1);
+      filter: contrast(1.05) brightness(1.02);
+    }
+
+    .quote-panel:hover .quote-img-wrap {
+      box-shadow: 0 22px 55px rgba(0, 0, 0, .5), 0 0 45px rgba(255, 194, 75, .3);
+    }
+
+    .quote-panel:hover .quote-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .quote-img-badge {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 1.2rem;
+      z-index: 3;
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #FFC24B;
+      background: rgba(9, 25, 48, .85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 194, 75, .38);
+      border-radius: 2rem;
+      padding: .35rem .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .quote-img-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FFC24B;
+      box-shadow: 0 0 8px #FFC24B;
+      flex-shrink: 0;
+    }
+
+    @media(max-width:980px) {
+      .quote-panel {
+        grid-template-columns: 1fr;
+        padding: 2.8rem 2rem;
+        gap: 2.5rem;
+      }
+
+      .quote-img-wrap {
+        height: 340px;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+    }
+
+    @media(max-width:600px) {
+      .quote-panel {
+        padding: 2.2rem 1.5rem;
+      }
+
+      .quote-img-wrap {
+        height: 280px;
+      }
+    }
+
+    /* ══ MARKET PRESENCE: WORLD & INDIA MAPS ══ */
+    .map-tab-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .map-tab-btn {
+      background: rgba(20, 23, 32, 0.7);
+      border: 1px solid rgba(255, 106, 31, 0.35);
+      color: #C5C2B8;
+      padding: 0.65rem 1.4rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .map-tab-btn:hover,
+    .map-tab-btn.active {
+      background: var(--accent);
+      color: #FFF;
+      border-color: #FFF;
+      box-shadow: 0 4px 18px rgba(255, 106, 31, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .market-full-wrapper {
+      background: #0B0D12;
+      border: 1px solid rgba(255, 106, 31, 0.3);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      color: #EEEAE1;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: visible;
+    }
+
+    .world-map-container,
+    .india-map-container {
+      background: radial-gradient(circle at 50% 40%, #151823, #090B10);
+      border: 1px solid rgba(255, 106, 31, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: visible;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .map-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 106, 31, 0.15);
+      color: var(--accent-hot);
+      border: 1px solid rgba(255, 106, 31, 0.4);
+      padding: 0.35rem 0.85rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulseGlow 1.8s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 1;
+        box-shadow: 0 0 16px var(--accent);
+      }
+
+      100% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+    }
+
+    .map-subtitle {
+      font-size: 0.8rem;
+      color: #9C9A90;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .map-viewport-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 700 / 800;
+      max-height: 700px;
+      margin: 0 auto;
+      user-select: none;
+      overflow: visible;
+    }
+
+    .map-viewport-box.world-box {
+      aspect-ratio: 1000 / 500;
+      max-height: 540px;
+    }
+
+    .india-svg,
+    .world-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.75));
+    }
+
+    .india-landmass {
+      transition: fill 0.3s ease, stroke 0.3s ease;
+    }
+
+    .map-pins-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .map-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 20;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0.2s ease;
+    }
+
+    .map-pin:hover,
+    .map-pin.active {
+      transform: translate(-50%, -50%) scale(1.4);
+      z-index: 999 !important;
+    }
+
+    .pin-beacon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pin-pulse {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      opacity: 0.85;
+      animation: pinWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+    @keyframes pinWave {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2.0);
+        opacity: 0;
+      }
+    }
+
+    .pin-core {
+      width: 13px;
+      height: 13px;
+      background: radial-gradient(circle, #FFF 0%, #FFC24B 40%, #FF6A1F 100%);
+      border: 2px solid #FFFFFF;
+      border-radius: 50%;
+      box-shadow: 0 0 14px rgba(255, 106, 31, 0.95);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .map-pin.is-hq .pin-core {
+      background: radial-gradient(circle, #FFF 0%, #FFE082 50%, #FF6A1F 100%);
+      border-color: #FFF;
+      box-shadow: 0 0 22px #FFC24B, 0 0 35px rgba(255, 106, 31, 0.9);
+      width: 16px;
+      height: 16px;
+    }
+
+    .pin-tag {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      background: rgba(10, 12, 18, 0.92);
+      border: 1px solid rgba(255, 106, 31, 0.45);
+      color: #EEEAE1;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      margin-top: 3px;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      opacity: 0.9;
+      transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .map-pin:hover .pin-tag,
+    .map-pin.active .pin-tag {
+      opacity: 1;
+      background: var(--accent);
+      color: #FFF;
+      border-color: #FFF;
+      box-shadow: 0 0 12px rgba(255, 106, 31, 0.8);
+    }
+
+    /* HIGH-CONTRAST HOVER POPUP TOOLTIP ON PIN */
+    .pin-popover {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      width: 270px;
+      background: rgba(12, 15, 22, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(255, 106, 31, 0.65);
+      border-radius: 14px;
+      padding: 1.1rem;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 106, 31, 0.25);
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+      z-index: 1000;
+    }
+
+    .pin-popover::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px;
+      border-style: solid;
+      border-color: rgba(255, 106, 31, 0.65) transparent transparent transparent;
+    }
+
+    /* SMART POPOVER POSITIONING: BELOW FOR TOP PINS */
+    .pin-popover.popover-below {
+      bottom: auto;
+      top: calc(100% + 14px);
+      transform: translateX(-50%) translateY(-8px);
+    }
+
+    .pin-popover.popover-below::after {
+      top: auto;
+      bottom: 100%;
+      border-color: transparent transparent rgba(255, 106, 31, 0.65) transparent;
+    }
+
+    /* SMART POPOVER POSITIONING: LEFT FOR RIGHT-EDGE PINS */
+    .pin-popover.popover-left {
+      left: auto;
+      right: -15px;
+      transform: translateY(8px);
+    }
+
+    .pin-popover.popover-left::after {
+      left: auto;
+      right: 25px;
+      transform: none;
+    }
+
+    .pin-popover.popover-left.popover-below {
+      transform: translateY(-8px);
+    }
+
+    .map-pin:hover .pin-popover,
+    .map-pin.active .pin-popover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .map-pin:hover .pin-popover.popover-left,
+    .map-pin.active .pin-popover.popover-left {
+      transform: translateY(0);
+    }
+
+    .pop-state {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent-hot);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pop-badge-type {
+      background: rgba(255, 106, 31, 0.18);
+      border: 1px solid rgba(255, 106, 31, 0.4);
+      color: #FFC24B;
+      padding: 0.15rem 0.45rem;
+      border-radius: 10px;
+      font-size: 0.62rem;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .pop-vendor {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+
+    .pop-detail-line {
+      font-size: 0.78rem;
+      color: #C5C2B8;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      line-height: 1.4;
+    }
+
+    .pop-detail-line strong {
+      color: #FFFFFF;
+    }
+
+    .pop-link {
+      color: #FFC24B;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .pop-link:hover {
+      color: var(--accent-hot);
+      text-decoration: underline;
+    }
+
+    /* ══ MARKET PRESENCE SPLIT DASHBOARD LAYOUT ══ */
+    .market-dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .market-dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .vendor-live-card {
+      background: linear-gradient(135deg, #12151F 0%, #090B10 100%);
+      border: 1.5px solid rgba(255, 106, 31, 0.45);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 100px;
+    }
+
+    .vendor-card-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--accent-hot);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .vendor-search-box {
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .vendor-search-input {
+      width: 100%;
+      background: rgba(20, 24, 34, 0.9);
+      border: 1px solid rgba(255, 106, 31, 0.3);
+      color: #FFF;
+      padding: 0.55rem 0.85rem 0.55rem 2.2rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .vendor-search-input:focus {
+      border-color: var(--accent-hot);
+      box-shadow: 0 0 12px rgba(255, 106, 31, 0.35);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .vendor-card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .vendor-card-state {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #FFF;
+      margin: 0 0 0.3rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .vendor-card-company {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #FFC24B;
+      margin-bottom: 0.85rem;
+    }
+
+    .vendor-info-row {
+      margin-bottom: 0.65rem;
+      font-size: 0.8rem;
+      color: #C5C2B8;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .vendor-info-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #9C9A90;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .vendor-info-val {
+      color: #FFF;
+      font-weight: 600;
+    }
+
+    .vendor-btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .v-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .v-btn-call {
+      background: rgba(255, 106, 31, 0.2);
+      border: 1px solid rgba(255, 106, 31, 0.5);
+      color: #FFC24B;
+    }
+
+    .v-btn-call:hover {
+      background: var(--accent);
+      color: #FFF;
+      box-shadow: 0 4px 15px rgba(255, 106, 31, 0.4);
+    }
+
+    .v-btn-mail {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #EEEAE1;
+    }
+
+    .v-btn-mail:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFF;
+      border-color: #FFF;
+    }
+
+    .quick-location-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 0.2rem;
+    }
+
+    .quick-location-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .quick-location-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 106, 31, 0.4);
+      border-radius: 4px;
+    }
+
+    .quick-location-item {
+      background: rgba(20, 24, 34, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.76rem;
+      color: #C5C2B8;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .quick-location-item:hover,
+    .quick-location-item.active {
+      background: rgba(255, 106, 31, 0.2);
+      border-color: rgba(255, 106, 31, 0.5);
+      color: #FFF;
+    }
+
+    .map-legend {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: #9C9A90;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .legend-dot.HQ {
+      background: var(--accent-hot);
+      box-shadow: 0 0 8px var(--accent-hot);
+    }
+
+    /* RIGHT SIDE VENDOR DETAILS CARD & SELECTOR */
+    .market-info-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .vendor-details-card {
+      background: linear-gradient(145deg, #171A24, #10121A);
+      border: 1px solid rgba(255, 106, 31, 0.4);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .vendor-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .vendor-state-badge {
+      background: var(--accent);
+      color: #FFF;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .vendor-hub-type {
+      font-size: 0.7rem;
+      color: var(--accent-hot);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .vendor-partner-name {
+      font-size: 1.15rem;
+      color: #FFF;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .vendor-info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .info-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8C8A80;
+      font-family: var(--font-mono);
+    }
+
+    .info-val {
+      font-size: 0.85rem;
+      color: #EEEAE1;
+      font-weight: 500;
+    }
+
+    .info-val.link {
+      color: var(--accent-hot);
+      text-decoration: none;
+    }
+
+    .info-val.link:hover {
+      text-decoration: underline;
+    }
+
+    .vendor-card-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* STATE SELECTOR PANEL */
+    .state-selector-panel {
+      background: rgba(20, 23, 32, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.1rem;
+    }
+
+    .selector-title {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.8rem;
+    }
+
+    .selector-title span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent-hot);
+      font-family: var(--font-mono);
+    }
+
+    .selector-title small {
+      font-size: 0.7rem;
+      color: #8C8A80;
+    }
+
+    .state-chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 0.3rem;
+    }
+
+    .state-chips-container::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .state-chips-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 106, 31, 0.4);
+      border-radius: 4px;
+    }
+
+    .state-chip-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #DCD8CF;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .state-chip-btn:hover,
+    .state-chip-btn.active {
+      background: var(--accent);
+      color: #FFF;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* GLOBAL PRESENCE CARD */
+    .global-presence-card {
+      background: rgba(18, 21, 28, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.1rem;
+    }
+
+    .global-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .globe-icon {
+      font-size: 1.5rem;
+    }
+
+    .global-head h4 {
+      font-size: 0.85rem;
+      color: #FFF;
+      margin: 0;
+    }
+
+    .global-head p {
+      font-size: 0.72rem;
+      color: var(--accent-hot);
+      margin: 0;
+    }
+
+    .global-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .global-chips .chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #B5B3AA;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+    }
+
+    /* ══ TRUST STRIP LOGO WALL ══ */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+      background: transparent;
+      border: none;
+      border-radius: 14px;
+      overflow: visible;
+      margin-top: 1.5rem;
+    }
+
+    .trust-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      height: 100px;
+      padding: 0.65rem 1rem;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1);
+    }
+
+    .trust-chip:hover {
+      background: #FFFFFF;
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px rgba(255, 106, 31, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .trust-chip img {
+      max-width: 95%;
+      max-height: 76px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      transform: scale(1.3);
+      filter: contrast(105%);
+      transition: all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1);
+    }
+
+    .trust-chip:hover img {
+      filter: contrast(115%);
+      transform: scale(1.42);
+    }
+
+    /* ══ AWARDS & CERTIFICATES SHOWCASE ══ */
+    .awards-section-head {
+      text-align: center;
+      margin: 3.5rem auto 1.5rem;
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+    }
+
+    @media (max-width: 900px) {
+      .awards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .awards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .award-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 250, 0.95));
+      border: 1.5px solid rgba(255, 194, 75, 0.4);
+      border-radius: 16px;
+      padding: 1.1rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.35s cubic-bezier(0.16, 0.84, 0.44, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .award-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, #FFC24B, var(--accent), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+
+    .award-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(255, 106, 31, 0.22);
+      border-color: var(--accent);
+    }
+
+    .award-card:hover::before {
+      opacity: 1;
+    }
+
+    .award-img-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      border-radius: 10px;
+      padding: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+    }
+
+    .award-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      transition: transform 0.35s ease;
+    }
+
+    .award-card:hover .award-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .award-caption {
+      margin-top: 0.9rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .award-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #111111;
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+    }
+
+    .award-issuer {
+      font-size: 0.73rem;
+      color: var(--accent-ink);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: var(--font-mono);
+    }
+
+    /* CERTIFICATE LIGHTBOX MODAL */
+    .cert-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 12, 18, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .cert-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cert-modal-content {
+      max-width: 900px;
+      max-height: 90vh;
+      background: #0F1218;
+      border: 1.5px solid rgba(255, 194, 75, 0.5);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cert-modal-img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .cert-modal-title {
+      color: #FFFFFF;
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .cert-modal-close {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ══ CTA BAND ══ */
+    .cta-band {
+      position: relative;
+      z-index: 1;
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 0 1.75rem 6rem;
+    }
+
+    .cta-inner {
+      border-radius: 1.6rem;
+      padding: 4rem 2.5rem;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 115%, rgba(255, 106, 31, .4), transparent 55%),
+        radial-gradient(ellipse at 50% 130%, rgba(255, 194, 75, .25), transparent 45%),
+        #0A0B0E;
+    }
+
+    .cta-inner h2 {
+      color: #EEEAE1;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-inner p {
+      color: #9C9A90;
+      max-width: 52ch;
+      margin: 0 auto 2rem;
+      font-size: 1.05rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sheen"></div>
+
+  <svg class="defs" aria-hidden="true">
+    <defs>
+      <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#9AA4B2" />
+        <stop offset="100%" stop-color="#3E4550" />
+      </linearGradient>
+      <linearGradient id="oreGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#D08A54" />
+        <stop offset="100%" stop-color="#8A4B2C" />
+      </linearGradient>
+      <linearGradient id="charGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3A3E46" />
+        <stop offset="100%" stop-color="#131519" />
+      </linearGradient>
+      <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#F0C368" />
+        <stop offset="100%" stop-color="#9C6E22" />
+      </linearGradient>
+      <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#C7B489" />
+        <stop offset="100%" stop-color="#8A7550" />
+      </linearGradient>
+      <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="#FFE7B0" />
+        <stop offset="40%" stop-color="#FFC24B" />
+        <stop offset="75%" stop-color="#FF6A1F" />
+        <stop offset="100%" stop-color="#E23B1F" />
+      </radialGradient>
+      <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#7CB86B" />
+        <stop offset="100%" stop-color="#3E7A34" />
+      </linearGradient>
+      <linearGradient id="boltGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFC24B" />
+        <stop offset="100%" stop-color="#E23B1F" />
+      </linearGradient>
+      <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#F2F4F6" />
+        <stop offset="50%" stop-color="#C7CDD5" />
+        <stop offset="100%" stop-color="#8792A2" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,6 94,86 6,86" fill="none" stroke="#14161C" stroke-width="5" stroke-linejoin="round" />
+        <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(-30 50 50)" />
+        <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(30 50 50)" />
+        <ellipse cx="50" cy="50" rx="9" ry="17" fill="url(#emberGrad)" />
+      </svg>
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li class="has-dropdown">
+        <span class="dropdown-label" tabindex="0">About</span>
+        <div class="dropdown">
+          <a href="journey.html">Our Journey</a>
+          <a href="vision.html">Mission, Vision &amp; Values</a>
+          <a href="leadership.html">Leadership</a>
+        </div>
+      </li>
+      <li><a href="companies.html">Group Companies</a></li>
+      <li><a href="quality.html">Quality</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="process.html">Our Process</a></li>
+      <li class="has-dropdown">
+        <span class="dropdown-label">Others</span>
+        <div class="dropdown">
+          <a href="awards.html">Awards &amp; Certifications</a>
+          <a href="csr.html">Corporate Social Responsibility</a>
+          <a href="sustainability.html">Sustainability</a>
+          <a href="clientele.html">Clientele</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Get In Touch</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <canvas id="embers"></canvas>
+    <div class="hero-content">
+      <div class="hero-kicker">STEEL · FERRO ALLOYS · ALUMINIUM · POWER · AGROTECH</div>
+      <h1>Proud to Partner in<br><span class="grad">Our Nation's Progress</span></h1>
+      <p class="lede">One of Eastern India's fastest-growing industrial conglomerates: steel, ferro alloys, captive
+        power, aluminium and agrotech, built from a small Durgapur factory into a ₹10,000+ Cr name trusted by L&amp;T,
+        Adani, Coal India and DRDO, reaching 29+ countries.</p>
+      <div class="hero-cta-row">
+        <a href="process.html" class="btn btn-primary">See Our Process ↓</a>
+        <a href="journey.html" class="btn btn-ghost"
+          style="border-color:#262A34; color:#EEEAE1; background:rgba(255,255,255,.04);">About the Group</a>
+      </div>
+      <div class="pill"><span class="dot"></span><span class="tag">#SteelWithin</span><span
+          class="sep">·</span>Shakambhari Ispat &amp; Power Limited</div>
+    </div>
+    <div class="scroll-cue"><span>SCROLL</span>
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+        <path d="M1 1L7 18L13 1" stroke="#3A3E46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </header>
+
+  <div class="page-shell">
+
+    <!-- STATS -->
+    <section class="section tight">
+      <div class="stat-band">
+        <div class="stat reveal-scale" style="transition-delay:.05s">
+          <div class="stat-num counter" data-target="7" data-suffix="">0</div>
+          <div class="stat-label">Manufacturing Units, West Bengal</div>
+        </div>
+        <div class="stat reveal-scale" style="transition-delay:.15s">
+          <div class="stat-num counter" data-target="10000" data-prefix="₹" data-suffix="+ Cr">₹0+ Cr</div>
+          <div class="stat-label">Annual Turnover</div>
+        </div>
+        <div class="stat reveal-scale" style="transition-delay:.25s">
+          <div class="stat-num counter" data-target="1.5" data-suffix=" MTPA" data-decimal="1">0 MTPA</div>
+          <div class="stat-label">Steel Production Capacity</div>
+        </div>
+        <div class="stat reveal-scale" style="transition-delay:.35s">
+          <div class="stat-num counter" data-target="29" data-suffix="+">0+</div>
+          <div class="stat-label">Countries We Export To</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US TEASER -->
+    <div class="origin-wrap">
+      <section class="origin reveal-scale">
+
+        <!-- LEFT COLUMN -->
+        <div class="origin-left">
+          <div class="kicker" style="margin-bottom:1rem;">ABOUT US</div>
+          <h2>Built in Fire,<br><em>Forged to Last</em></h2>
+          <p>In 1953, one kiln. Today, a ₹10,000+ Cr empire spanning steel, ferro alloys, aluminium, power and
+            agriculture — woven into the backbone of Eastern India. Seven decades of growth, not by luck, but by one
+            unbreakable rule: <strong>we never compromise.</strong></p>
+
+          <div class="origin-milestones">
+            <div class="origin-milestone">
+              <div class="origin-milestone-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M3 21V7l9-4 9 4v14" stroke="url(#boltGrad)" stroke-width="1.8" stroke-linejoin="round" />
+                  <rect x="9" y="13" width="6" height="8" rx="1" stroke="url(#boltGrad)" stroke-width="1.5" />
+                </svg>
+              </div>
+              <div class="origin-milestone-body">
+                <div class="origin-milestone-year">FOUNDED · 1953</div>
+                <div class="origin-milestone-text">A single sponge iron kiln in Durgapur — the spark that lit seven
+                  decades of unbroken growth.</div>
+              </div>
+            </div>
+            <div class="origin-milestone">
+              <div class="origin-milestone-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="9" stroke="url(#goldGrad)" stroke-width="1.8" />
+                  <path d="M12 7v5l3 3" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="origin-milestone-body">
+                <div class="origin-milestone-year">EXPANSION · 2010</div>
+                <div class="origin-milestone-text">177 acres at Madandih: sponge iron, steel melt, rolling mills,
+                  captive power and ferro alloys — fully integrated, zero compromise.</div>
+              </div>
+            </div>
+            <div class="origin-milestone">
+              <div class="origin-milestone-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 7l10 5 10-5-10-5Z" stroke="url(#greenGrad)" stroke-width="1.8"
+                    stroke-linejoin="round" />
+                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#greenGrad)" stroke-width="1.8"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="origin-milestone-body">
+                <div class="origin-milestone-year">GLOBAL REACH · 29+ NATIONS</div>
+                <div class="origin-milestone-text">L&amp;T, Adani, Coal India, DRDO, NHAI — names that trust only the
+                  best. Exported across five continents, built in West Bengal.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="origin-cta-row">
+            <a href="journey.html" class="btn btn-primary">Our Journey &amp; Vision →</a>
+            <a href="leadership.html" class="btn btn-ghost">Meet the Board →</a>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="origin-right">
+          <div class="origin-visual">
+            <div class="origin-founded">
+              <div class="origin-founded-dot"></div>
+              <span>EST. 1953 · WEST BENGAL, INDIA</span>
+            </div>
+            <div class="origin-big-stat">70<span>+</span></div>
+            <div class="origin-big-label">Years of uncompromised manufacturing — and counting.</div>
+            <div class="origin-pillars">
+              <div class="origin-pillar">
+                <div class="origin-pillar-dot" style="background:#9AA4B2;"></div>
+                <span class="origin-pillar-name">Iron &amp; Steel</span>
+                <span class="origin-pillar-tag">1.5 MTPA CAPACITY</span>
+              </div>
+              <div class="origin-pillar">
+                <div class="origin-pillar-dot" style="background:#D08A54;"></div>
+                <span class="origin-pillar-name">Ferro Alloys</span>
+                <span class="origin-pillar-tag">IN-HOUSE · EXPORTED</span>
+              </div>
+              <div class="origin-pillar">
+                <div class="origin-pillar-dot" style="background:#C7CDD5;"></div>
+                <span class="origin-pillar-name">Aluminium Foil</span>
+                <span class="origin-pillar-tag">PHARMA &amp; FMCG GRADE</span>
+              </div>
+              <div class="origin-pillar">
+                <div class="origin-pillar-dot" style="background:#FFC24B;"></div>
+                <span class="origin-pillar-name">Captive Power</span>
+                <span class="origin-pillar-tag">ZERO WASTE ENERGY</span>
+              </div>
+              <div class="origin-pillar">
+                <div class="origin-pillar-dot" style="background:#7CB86B;"></div>
+                <span class="origin-pillar-name">Organic Agrotech</span>
+                <span class="origin-pillar-tag">WEST BENGAL FARMS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- PILLARS -->
+    <section class="section pillars-section-wrap">
+      <div class="section-head reveal">
+        <div class="kicker center">BEYOND STEEL</div>
+        <h2>One Core. Five Strengths.</h2>
+        <p>Steel is where Shakambhari started. What followed — ferro alloys, captive power, aluminium, and organic
+          farming — is the same discipline applied to every corner of industry.</p>
+      </div>
+      <div class="pillars-grid">
+
+        <a href="process.html" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">CORE · FLAGSHIP</span>
+            <img src="images/Iron&amp;Steel.png" alt="Iron &amp; Steel" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Iron &amp; Steel</h4>
+            <p>From raw ore through DRI kilns to ISI-certified QST TMT bars, billets, wire rods and structural steel —
+              1.5 MTPA capacity.</p>
+            <span class="go">WALK THE PROCESS →</span>
+          </div>
+        </a>
+
+        <a href="products.html#ferro-alloys" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">ALLOYS · GLOBAL</span>
+            <img src="images/Ferro_Alloys.png" alt="Ferro Alloys" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Ferro Alloys</h4>
+            <p>Silicomanganese, ferromanganese, ferrosilicon and ferrochrome produced via submerged arc furnaces —
+              feeding steelmakers worldwide.</p>
+            <span class="go">SEE THE ALLOYS →</span>
+          </div>
+        </a>
+
+        <a href="products.html#aluminium-foil" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">PACKAGING · EXPORT</span>
+            <img src="images/Aluminium_Foil.png" alt="Aluminium Foil" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Aluminium Foil</h4>
+            <p>9 to 60 micron pharma and FMCG-grade foil, rolled at our integrated Hooghly facility. Exported to 29+
+              countries.</p>
+            <span class="go">SEE THE FOIL →</span>
+          </div>
+        </a>
+
+        <a href="companies.html" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">ENERGY · CAPTIVE</span>
+            <img src="images/Captive_Power.png" alt="Captive Power" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Captive Power</h4>
+            <p>Waste heat captured from DRI kilns powers our Steel Melting Shop, Rolling Mills and Ferro Alloy Plant —
+              turning waste into clean energy.</p>
+            <span class="go">HOW IT WORKS →</span>
+          </div>
+        </a>
+
+        <a href="companies.html#green-habit" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">ORGANIC · GREEN HABIT</span>
+            <img src="images/Organic_Agriculture.png" alt="Organic Agriculture" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Organic Agriculture</h4>
+            <p>Under the Green Habit brand, exotic organic fruits and vegetables thrive across West Bengal farms —
+              excellence beyond metal.</p>
+            <span class="go">MEET THE FARM →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- GROUP COMPANIES -->
+    <section class="section" id="companies">
+      <div class="section-head reveal">
+        <div class="kicker center">THE GROUP</div>
+        <h2>Seven Units. One Standard.</h2>
+        <p>Seven plants, one purpose: build strength the nation can rely on.</p>
+      </div>
+      <div class="companies-grid">
+        <div class="company-card panel reveal">
+          <div class="company-img-wrap">
+            <img src="images/Madandih_Unit.png" alt="SIPL · Madandih Unit" loading="lazy">
+          </div>
+          <div class="company-card-body">
+            <span class="tag">FLAGSHIP · MADANDIH</span>
+            <h4>SIPL · Madandih Unit</h4>
+            <p>177 acres, taken over in 2010. Houses the Sponge Iron Division, Steel Melt Shop, Rolling Mill, Captive
+              Power Plant and Ferro Alloys division under one roof.</p>
+          </div>
+        </div>
+
+        <div class="company-card panel reveal">
+          <div class="company-img-wrap">
+            <img src="images/Rukni_Unit.png" alt="SIPL · Rukni Unit" loading="lazy">
+          </div>
+          <div class="company-card-body">
+            <span class="tag">PELLET COMPLEX · RUKNI</span>
+            <h4>SIPL · Rukni Unit</h4>
+            <p>Commercial since 2003. The group's dedicated pellet complex, exceeding 0.9 MTPA: the first transformation
+              in every chain that starts with raw ore.</p>
+          </div>
+        </div>
+
+        <div class="company-card panel reveal">
+          <div class="company-img-wrap">
+            <img src="images/Mogra_Unit.png" alt="Unit Mogra: India Foils" loading="lazy">
+          </div>
+          <div class="company-card-body">
+            <span class="tag">ALUMINIUM · MOGRA</span>
+            <h4>Unit Mogra: India Foils</h4>
+            <p>The group's aluminium unit in Hooghly district. 9 to 60 micron foil for pharma and FMCG packaging,
+              exported to 29+ countries under a "metal to foil" philosophy.</p>
+          </div>
+        </div>
+
+        <div class="company-card panel reveal">
+          <div class="company-img-wrap">
+            <img src="images/Durgapur.png" alt="SPS Steels Rolling Mills: I, II &amp; III" loading="lazy">
+          </div>
+          <div class="company-card-body">
+            <span class="tag">BRAND ORIGIN · DURGAPUR</span>
+            <h4>SPS Steels Rolling Mills: I, II &amp; III</h4>
+            <p>Incorporated 1981. Three units that gave the group its Elegant brand, rolling TMT bars, angles and
+              channels alongside Sponge Iron and MS Billets.</p>
+          </div>
+        </div>
+
+        <div class="company-card panel reveal">
+          <div class="company-img-wrap">
+            <img src="images/Eloquent_steel.png" alt="Eloquent Steel Pvt. Ltd." loading="lazy">
+          </div>
+          <div class="company-card-body">
+            <span class="tag">FERRO ALLOYS · 2012</span>
+            <h4>Eloquent Steel Pvt. Ltd.</h4>
+            <p>Built for ferro alloy production with submerged arc and induction furnaces, plus a metal recovery plant
+              that minimises loss at every batch.</p>
+          </div>
+        </div>
+
+        <div class="company-card panel reveal">
+          <div class="company-img-wrap">
+            <img src="images/Shakambhari_Agrotech.png" alt="Shakambhari Agrotech" loading="lazy">
+          </div>
+          <div class="company-card-body">
+            <span class="tag">AGRO · GREEN HABIT</span>
+            <h4>Shakambhari Agrotech</h4>
+            <p>Incorporated 2014. Organic exotic fruits and vegetables under the Green Habit brand, among West Bengal's
+              top organic farms.</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:2.5rem;"><a href="companies.html" class="btn btn-primary reveal">Know
+          More →</a></div>
+    </section>
+
+    <!-- LEADERSHIP QUOTE -->
+    <section class="section" id="leadership">
+      <div class="quote-panel reveal">
+        <div class="quote-content">
+          <svg class="quote-icon-svg" viewBox="0 0 44 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 36V20.8C0 13.8667 1.86667 8.13333 5.6 3.6C9.46667 -0.933333 15 -1.2 19.2 0.8L16.4 6.8C13.2 5.4 10.4 6.6 8.8 8.8C7.2 11 6.4 13.8 6.4 17.2H18V36H0ZM24 36V20.8C24 13.8667 25.8667 8.13333 29.6 3.6C33.4667 -0.933333 39 -1.2 43.2 0.8L40.4 6.8C37.2 5.4 34.4 6.6 32.8 8.8C31.2 11 30.4 13.8 30.4 17.2H42V36H24Z"
+              fill="#FFC24B" opacity="0.85" />
+          </svg>
+          <div class="quote-text">"Our mission is not only to manufacture, but to surge ahead despite adversity. It's
+            not just about supplying products; it's about the relentless pursuit of discipline and excellence."</div>
+          <div class="quote-meta">
+            <div class="quote-by">MR. DEEPAK KUMAR AGARWAL</div>
+            <div class="quote-role">Chairman, Shakambhari Group</div>
+          </div>
+          <a href="leadership.html" class="btn btn-primary">Meet the Board →</a>
+        </div>
+
+        <div class="quote-img-wrap">
+          <img src="images/Chairman.png" alt="Mr. Deepak Kumar Agarwal - Chairman, Shakambhari Group" loading="lazy">
+          <div class="quote-img-badge">
+            <div class="quote-img-badge-dot"></div>
+            <span>CHAIRMAN &amp; MANAGING DIRECTOR</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PRODUCTS TEASER -->
+    <section class="section">
+      <div class="section-head reveal">
+        <div class="kicker center">OUR PRODUCTS</div>
+        <h2 style="font-size:clamp(2.1rem,5vw,3.3rem); max-width:18ch; margin:0 auto .9rem;">TMT Bars, Structural Steel
+          &amp; Wire Rods</h2>
+        <p style="font-size:1.15rem; max-width:62ch; margin:0 auto;">From billets to buildings: premium QST TMT bars,
+          wire rods, structural steel and ferro alloys, manufactured in West Bengal, India, and tested against IS and
+          BIS standards before every shipment.</p>
+      </div>
+      <div class="pillars-grid" style="grid-template-columns:repeat(3,1fr); gap:1.6rem;">
+
+        <a href="products.html#tmt-bars" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">ISI 1786 CERTIFIED</span>
+            <img src="images/QST_TMT_Bars.png" alt="QST TMT Bars" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>QST TMT Bars</h4>
+            <p>Fe 500D / 550D / CRS grades, 6mm–32mm, ISI 1786:2008 certified: our core competency, in the concrete of
+              homes and highways alike. Marketed as Elegant Steel.</p>
+            <span class="go">VIEW SPECIFICATIONS →</span>
+          </div>
+        </a>
+
+        <a href="products.html#wire-rods" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">5.5mm – 12mm COILS</span>
+            <img src="images/Wire_Rodes.png" alt="Wire Rods &amp; Binding Wire" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Wire Rods &amp; Binding Wire</h4>
+            <p>5.5mm–12mm hot-rolled coils, the base material behind more than a thousand finished consumer and
+              industrial structural products.</p>
+            <span class="go">VIEW SPECIFICATIONS →</span>
+          </div>
+        </a>
+
+        <a href="products.html#structural-steel" class="pillar-card panel reveal">
+          <div class="pillar-img-wrap">
+            <span class="pillar-badge">ANGLES, CHANNELS &amp; BEAMS</span>
+            <img src="images/Structural_Steel.png" alt="Structural Steel" loading="lazy">
+          </div>
+          <div class="pillar-body">
+            <h4>Structural Steel</h4>
+            <p>Angles, channels, joists, H-beams and I-beams, the skeleton behind rising skylines. Sold under the
+              Elegant and Elecart brands.</p>
+            <span class="go">VIEW SPECIFICATIONS →</span>
+          </div>
+        </a>
+
+      </div>
+      <div style="text-align:center; margin-top:2.5rem;"><a href="products.html" class="btn btn-primary reveal">Explore
+          Full Catalogue →</a></div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- MARKET PRESENCE -->
+    <section class="section" id="market-presence">
+      <div class="section-head reveal">
+        <div class="kicker center">GLOBAL &amp; DOMESTIC FOOTPRINT</div>
+        <h2>Market Presence Across 29+ Countries &amp; India</h2>
+        <p style="text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem;">
+          Hover over or tap any pinpoint marker on the maps below to view regional channel partner, depot, and vendor
+          contact details.
+        </p>
+      </div>
+
+      <!-- MAP TABS SWITCHER -->
+      <div class="map-tab-controls reveal">
+        <button class="map-tab-btn active" id="tabWorldBtn" data-target="worldMapWrap">
+          🌐 International Presence (29+ Countries)
+        </button>
+        <button class="map-tab-btn" id="tabIndiaBtn" data-target="indiaMapWrap">
+          🇮🇳 Domestic Network (20 Indian States)
+        </button>
+      </div>
+
+      <div class="market-full-wrapper panel reveal">
+        <div class="market-dashboard-grid">
+
+          <!-- LEFT COLUMN: MAP VIEWPORTS -->
+          <div class="map-main-column">
+
+            <!-- 1. INTERNATIONAL WORLD MAP CONTAINER -->
+            <div class="map-tab-content active" id="worldMapWrap">
+              <div class="world-map-container">
+                <div class="map-header">
+                  <span class="map-badge"><span class="pulse-dot"></span> 29+ COUNTRIES • 5 CONTINENTS</span>
+                  <span class="map-subtitle">Interactive Global Export &amp; Distribution Network</span>
+                </div>
+
+                <!-- WORLD MAP SVG & OVERLAY PINS -->
+                <div class="map-viewport-box world-box" id="worldMapViewport">
+                  <svg viewBox="0 0 1000 500" class="world-svg" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="worldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#1E2433" />
+                        <stop offset="100%" stop-color="#121622" />
+                      </linearGradient>
+                      <radialGradient id="worldGlow" cx="70%" cy="45%" r="50%">
+                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.22" />
+                        <stop offset="100%" stop-color="#0A0C12" stop-opacity="0" />
+                      </radialGradient>
+                    </defs>
+
+                    <!-- Grid Mesh -->
+                    <g stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4">
+                      <line x1="0" y1="125" x2="1000" y2="125" />
+                      <line x1="0" y1="250" x2="1000" y2="250" />
+                      <line x1="0" y1="375" x2="1000" y2="375" />
+                      <line x1="200" y1="0" x2="200" y2="500" />
+                      <line x1="400" y1="0" x2="400" y2="500" />
+                      <line x1="600" y1="0" x2="600" y2="500" />
+                      <line x1="800" y1="0" x2="800" y2="500" />
+                    </g>
+
+                    <rect width="1000" height="500" fill="url(#worldGlow)" rx="16" />
+
+                    <!-- Vector Continents Silhouette Paths -->
+                    <g fill="url(#worldGrad)" stroke="#FF6A1F" stroke-width="1.6" stroke-opacity="0.45">
+                      <!-- North America -->
+                      <path d="M 120,70 Q 220,60 280,110 Q 260,180 200,220 Q 150,210 110,150 Z" />
+                      <!-- South America -->
+                      <path d="M 270,240 Q 340,260 350,330 Q 300,430 260,420 Q 240,320 270,240 Z" />
+                      <!-- Europe -->
+                      <path d="M 440,80 Q 520,70 540,120 Q 500,160 440,150 Z" />
+                      <!-- Africa -->
+                      <path d="M 450,170 Q 560,160 570,240 Q 550,380 490,390 Q 440,280 450,170 Z" />
+                      <!-- Asia -->
+                      <path d="M 550,70 Q 820,60 880,160 Q 820,260 680,240 Q 580,200 550,70 Z" />
+                      <!-- India Highlight -->
+                      <path d="M 680,180 L 730,190 L 710,250 L 670,220 Z" fill="#2E374A" stroke="#FF6A1F"
+                        stroke-width="2.2" stroke-opacity="0.9" />
+                      <!-- Australia -->
+                      <path d="M 810,320 Q 910,310 920,380 Q 850,420 800,390 Z" />
+                    </g>
+
+                    <!-- Global Export Trade Trajectory Arcs from India HQ (705, 210) -->
+                    <g fill="none" stroke="rgba(255, 106, 31, 0.35)" stroke-width="1.4" stroke-dasharray="4 4">
+                      <path d="M 705,210 Q 450,80 200,165" /> <!-- to US -->
+                      <path d="M 705,210 Q 570,120 445,125" /> <!-- to UK -->
+                      <path d="M 705,210 Q 590,130 480,135" /> <!-- to Germany -->
+                      <path d="M 705,210 Q 640,170 600,225" /> <!-- to Middle East -->
+                      <path d="M 705,210 Q 630,230 560,285" /> <!-- to Africa -->
+                      <path d="M 705,210 Q 780,220 870,185" /> <!-- to Japan -->
+                      <path d="M 705,210 Q 800,300 875,365" /> <!-- to Australia -->
+                    </g>
+                  </svg>
+
+                  <!-- OVERLAY WORLD PINS LAYER -->
+                  <div class="map-pins-layer" id="worldPinsLayer">
+                    <!-- Pins rendered dynamically via JS -->
+                  </div>
+                </div>
+
+                <div class="map-legend">
+                  <span class="legend-item"><span class="legend-dot"></span> International Partner / Export
+                    Destination</span>
+                  <span class="legend-item"><span class="legend-dot HQ"></span> Shakambhari Corporate HQ (Kolkata,
+                    India)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. DOMESTIC INDIA MAP CONTAINER -->
+            <div class="map-tab-content" id="indiaMapWrap" style="display:none;">
+              <div class="india-map-container">
+                <div class="map-header">
+                  <span class="map-badge"><span class="pulse-dot"></span> 20 STATES COVERED</span>
+                  <span class="map-subtitle">Interactive Domestic Distribution Network</span>
+                </div>
+
+                <div class="map-viewport-box" id="indiaMapViewport">
+                  <svg viewBox="0 0 700 800" class="india-svg" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="indiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#1A202C" />
+                        <stop offset="50%" stop-color="#141822" />
+                        <stop offset="100%" stop-color="#0E121A" />
+                      </linearGradient>
+                      <radialGradient id="mapGlowIn" cx="50%" cy="45%" r="55%">
+                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.2" />
+                        <stop offset="100%" stop-color="#0A0C12" stop-opacity="0" />
+                      </radialGradient>
+                    </defs>
+
+                    <!-- Tactical Grid Lines -->
+                    <g stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4">
+                      <line x1="0" y1="100" x2="700" y2="100" />
+                      <line x1="0" y1="200" x2="700" y2="200" />
+                      <line x1="0" y1="300" x2="700" y2="300" />
+                      <line x1="0" y1="400" x2="700" y2="400" />
+                      <line x1="0" y1="500" x2="700" y2="500" />
+                      <line x1="0" y1="600" x2="700" y2="600" />
+                      <line x1="0" y1="700" x2="700" y2="700" />
+                      <line x1="100" y1="0" x2="100" y2="800" />
+                      <line x1="200" y1="0" x2="200" y2="800" />
+                      <line x1="300" y1="0" x2="300" y2="800" />
+                      <line x1="400" y1="0" x2="400" y2="800" />
+                      <line x1="500" y1="0" x2="500" y2="800" />
+                      <line x1="600" y1="0" x2="600" y2="800" />
+                    </g>
+
+                    <rect width="700" height="800" fill="url(#mapGlowIn)" rx="16" />
+
+                    <!-- Expanded Vector Path of India Landmass -->
+                    <path class="india-landmass" d="
+                      M 290,40
+                      C 310,30 335,45 350,70
+                      C 365,95 385,120 370,145
+                      C 385,155 410,150 425,170
+                      C 440,180 470,185 490,205
+                      C 515,225 540,225 560,230
+                      C 580,220 600,210 620,225
+                      C 640,220 660,230 675,255
+                      C 680,275 665,290 650,310
+                      C 635,325 610,335 595,355
+                      C 585,370 565,360 550,345
+                      C 535,340 520,355 510,375
+                      C 515,400 530,425 510,455
+                      C 490,480 470,495 450,520
+                      C 430,550 410,580 390,620
+                      C 370,660 345,710 325,765
+                      C 318,750 305,710 295,670
+                      C 285,630 260,590 245,550
+                      C 230,515 210,490 195,455
+                      C 180,425 155,410 140,385
+                      C 120,370 90,365 75,375
+                      C 65,390 85,425 105,445
+                      C 120,460 135,470 120,485
+                      C 105,495 85,475 70,460
+                      C 55,440 60,405 70,385
+                      C 80,365 110,355 125,345
+                      C 140,335 150,310 145,285
+                      C 140,260 165,235 175,210
+                      C 185,185 210,165 225,140
+                      C 220,120 230,90 250,65
+                      Z" fill="url(#indiaGrad)" stroke="#FF6A1F" stroke-width="2.5" stroke-opacity="0.5" />
+
+                    <!-- Regional Hub Connection Rays from Kolkata HQ -->
+                    <g stroke="rgba(255,106,31,0.22)" stroke-width="1.2" stroke-dasharray="3 3">
+                      <line x1="540" y1="365" x2="310" y2="95" />
+                      <line x1="540" y1="365" x2="335" y2="150" />
+                      <line x1="540" y1="365" x2="220" y2="280" />
+                      <line x1="540" y1="365" x2="135" y2="400" />
+                      <line x1="540" y1="365" x2="280" y2="490" />
+                      <line x1="540" y1="365" x2="330" y2="680" />
+                      <line x1="540" y1="365" x2="615" y2="260" />
+                      <line x1="540" y1="365" x2="660" y2="260" />
+                    </g>
+                  </svg>
+
+                  <!-- OVERLAY INDIA PINS LAYER -->
+                  <div class="map-pins-layer" id="pinsLayer">
+                    <!-- Pins rendered dynamically via JS -->
+                  </div>
+                </div>
+
+                <div class="map-legend">
+                  <span class="legend-item"><span class="legend-dot"></span> State Vendor Depot / Pin Point</span>
+                  <span class="legend-item"><span class="legend-dot HQ"></span> Corporate HQ &amp; Primary Steel
+                    Complex</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: ACTIVE VENDOR CONTACT CARD & LIVE QUICK DIRECTORY -->
+          <div class="vendor-live-card" id="vendorLiveCard">
+            <div class="vendor-card-badge"><span class="pulse-dot"></span> ACTIVE DEPOT CONTACT</div>
+
+            <div class="vendor-search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="mapSearchInput" class="vendor-search-input"
+                placeholder="Search state or vendor..." />
+            </div>
+
+            <div class="vendor-card-header">
+              <div class="vendor-card-state" id="cardStateName">📍 West Bengal <span class="pop-badge-type"
+                  id="cardBadgeType">Corporate HQ</span></div>
+              <div class="vendor-card-company" id="cardPartnerName">Shakambhari Corporate &amp; Central Depot</div>
+            </div>
+
+            <div class="vendor-info-row">
+              <span class="vendor-info-label">Regional Sales Officer</span>
+              <span class="vendor-info-val" id="cardOfficer">Rajesh Sharma (VP - Sales East)</span>
+            </div>
+
+            <div class="vendor-info-row">
+              <span class="vendor-info-label">Hub Depot Address</span>
+              <span class="vendor-info-val" id="cardAddress">10, Princep Street, Kolkata &amp; Durgapur Plant</span>
+            </div>
+
+            <div class="vendor-btn-group">
+              <a id="cardPhoneBtn" href="tel:+919830012345" class="v-btn v-btn-call">📞 Call Officer</a>
+              <a id="cardEmailBtn" href="mailto:wb.sales@shakambharigroup.com" class="v-btn v-btn-mail">✉️ Email
+                Support</a>
+            </div>
+
+            <div style="margin-top: 1.25rem; border-top: 1px dashed rgba(255,106,31,0.25); padding-top: 0.85rem;">
+              <div class="vendor-info-label" style="margin-bottom: 0.4rem;">⚡ Direct Jump Directory:</div>
+              <div class="quick-location-list" id="quickLocationList">
+                <!-- Location Items dynamically loaded -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="section tight">
+      <div class="kicker center reveal" style="justify-content:center; display:flex;">TRUSTED BY</div>
+      <div class="trust-strip reveal">
+        <div class="trust-chip"><img src="images/logo/L&amp;T.png" alt="L&amp;T" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/adani.png" alt="Adani Group" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/CoalIndia.png" alt="Coal India" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/IndianOil.png" alt="Indian Oil Corporation" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/DRDO.png" alt="DRDO" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/NHAI.png" alt="NHAI" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/BHEL.png" alt="BHEL" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/NPCIL.png" alt="NPCIL" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/BRO.png" alt="Border Roads Organisation" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/B_AND_R.png" alt="Bridge &amp; Roof Co." loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/WBSETCL.png" alt="WBSETCL" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/KALPA_TARU.png" alt="Kalpataru" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/DRA.png" alt="DRA Infracon" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/GAWAR.png" alt="Gawar Construction" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/JUNSL.png" alt="JUNSL" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/KCC.png" alt="KCC Buildcon" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/NPCC.png" alt="NPCC" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/PHED.png" alt="PHED" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/PWC.png" alt="PWC" loading="lazy"></div>
+        <div class="trust-chip"><img src="images/logo/PWD.png" alt="PWD" loading="lazy"></div>
+      </div>
+      <!-- CERTIFICATES & AWARDS GALLERY -->
+      <div class="awards-section-head reveal" id="awards">
+        <div class="kicker center" style="justify-content:center; display:flex;">NATIONAL HONOURS &amp; ACCREDITATIONS
+        </div>
+        <h3 style="font-size:clamp(1.5rem,3vw,2.2rem); text-align:center; margin-top:0.4rem; color:var(--ink);">
+          Recognized for Manufacturing &amp; Export Excellence</h3>
+        <p style="text-align:center; font-size:0.9rem; color:var(--ink-soft); max-width:600px; margin:0.4rem auto 0;">
+          Click on any certificate to view high-resolution official document</p>
+      </div>
+
+      <div class="awards-grid">
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/4Star_Certificate.png', 'Four Star Export House Certification - Govt. of India')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/4Star_Certificate.png" alt="Four Star Export House Certification"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Four Star Export House</div>
+            <div class="award-issuer">Ministry of Commerce &amp; Industry, Govt. of India</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/Silver_Certificate.png', 'Secondary Steel Sector Silver Certificate - Ministry of Steel')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/Silver_Certificate.png" alt="Silver Certificate Award"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Silver Certificate Award</div>
+            <div class="award-issuer">Ministry of Steel, Govt. of India</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/MostTrustedBrand_Award.png', 'Most Trusted Brands of India 2024-25 - Marksmen Daily')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/MostTrustedBrand_Award.png" alt="Most Trusted Brands of India"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Most Trusted Brand of India</div>
+            <div class="award-issuer">Marksmen Daily (2024–25)</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/Iconic_Award.png', 'ET Iconic Brand Award - The Economic Times')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/Iconic_Award.png" alt="ET Iconic Brand Award" loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">ET Iconic Brand Award</div>
+            <div class="award-issuer">The Economic Times</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/MostPrefered_Award.png', 'Most Preferred Brand Award - Secondary Steel')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/MostPrefered_Award.png" alt="Most Preferred Brand Award"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Most Preferred Brand Award</div>
+            <div class="award-issuer">Secondary Steel Sector</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/WorldMostPrefered_Award.png', 'World\'s Most Preferred Brand Award')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/WorldMostPrefered_Award.png" alt="World's Most Preferred Brand"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">World's Most Preferred Brand</div>
+            <div class="award-issuer">Global Steel Excellence</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/LeaderShip_Award.png', 'Business Leadership Excellence Award')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/LeaderShip_Award.png" alt="Business Leadership Award"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Business Leadership Award</div>
+            <div class="award-issuer">Industrial Development Forum</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/Infra_Certificate.png', 'Infra Leadership &amp; Structural Steel Certificate')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/Infra_Certificate.png" alt="Infra Leadership Certificate"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Infra Leadership Certificate</div>
+            <div class="award-issuer">National Steel &amp; Infra Council</div>
+          </div>
+        </div>
+
+        <div class="award-card reveal"
+          onclick="openCertModal('images/Certificates&amp;Award/Certificate_of_Recognition.png', 'Certificate of Recognition for Quality &amp; Manufacturing')">
+          <div class="award-img-wrap">
+            <img src="images/Certificates&amp;Award/Certificate_of_Recognition.png" alt="Certificate of Recognition"
+              loading="lazy">
+          </div>
+          <div class="award-caption">
+            <div class="award-title">Certificate of Recognition</div>
+            <div class="award-issuer">Manufacturing &amp; BIS Quality Standards</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <div class="cta-band reveal-scale">
+      <div class="cta-inner">
+        <h2>Every Legacy Has a Beginning</h2>
+        <p>From a single factory in 1953 to a name trusted across 29+ countries, this is the story of how Shakambhari
+          built itself, decision by decision.</p>
+        <a href="journey.html" class="btn btn-primary">Discover Our Story →</a>
+      </div>
+    </div>
+
+  </div><!-- /page-shell -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-brand">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,6 94,86 6,86" fill="none" stroke="#14161C" stroke-width="5" stroke-linejoin="round" />
+            <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(-30 50 50)" />
+            <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(30 50 50)" />
+            <ellipse cx="50" cy="50" rx="9" ry="17" fill="url(#emberGrad)" />
+          </svg>
+          <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+        </a>
+        <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="process.html">Our Process</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <a href="journey.html">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="companies.html">Group Companies</a>
+        <a href="quality.html">Quality</a>
+      </div>
+      <div class="footer-col">
+        <h5>More</h5>
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html">Clientele</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="tel:+913366255252">033 6625 5252</a>
+        <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+        <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+      <div class="footer-social">
+        <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16"
+            height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z" />
+          </svg></a>
+        <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener"
+          aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z" />
+          </svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+  <script>
+    /* ── STAT COUNTER ANIMATION ── */
+    (function () {
+      const counters = document.querySelectorAll('.counter');
+      const duration = 1800; // ms
+
+      function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+      function animateCounter(el) {
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const prefix = el.dataset.prefix || '';
+        const decimals = parseInt(el.dataset.decimal || '0', 10);
+        const start = performance.now();
+
+        function step(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutExpo(progress);
+          const value = target * eased;
+          el.textContent = prefix + value.toFixed(decimals) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = prefix + target.toFixed(decimals) + suffix;
+        }
+        requestAnimationFrame(step);
+      }
+
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              animateCounter(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        counters.forEach(function (c) { obs.observe(c); });
+      } else {
+        // Fallback: just show final values immediately
+        counters.forEach(function (el) {
+          const target = parseFloat(el.dataset.target);
+          const suffix = el.dataset.suffix || '';
+          const prefix = el.dataset.prefix || '';
+          const decimals = parseInt(el.dataset.decimal || '0', 10);
+          el.textContent = prefix + target.toFixed(decimals) + suffix;
+        });
+      }
+    })();
+  </script>
+  <script>
+    const canvas = document.getElementById('embers');
+    const ctx = canvas.getContext('2d');
+    const heroEl = document.querySelector('.hero');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let particles = [];
+    function resizeCanvas() { canvas.width = heroEl.offsetWidth; canvas.height = heroEl.offsetHeight; }
+    function spawn() {
+      return {
+        x: Math.random() * canvas.width, y: canvas.height + Math.random() * 40,
+        r: 1 + Math.random() * 2.4, vy: .3 + Math.random() * .8, vx: (Math.random() - .5) * .4,
+        life: 0, maxLife: 240 + Math.random() * 260, hue: Math.random() > .5 ? '255,106,31' : '255,194,75'
+      };
+    }
+    function initParticles() { particles = Array.from({ length: 55 }, spawn); }
+    function tick() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.y -= p.vy; p.x += p.vx + Math.sin(p.life * .02) * .3; p.life++;
+        const fade = 1 - p.life / p.maxLife;
+        if (fade <= 0 || p.y < -20) { Object.assign(p, spawn()); return; }
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue},${Math.max(fade, 0) * .85})`;
+        ctx.shadowColor = `rgba(${p.hue},.8)`; ctx.shadowBlur = 6; ctx.fill();
+      });
+      requestAnimationFrame(tick);
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    if (!reduceMotion) { initParticles(); tick(); }
+  </script>
+  <script>
+    (function () {
+      // 1. INTERNATIONAL DESTINATIONS DATA
+      const worldCountriesData = [
+        {
+          id: "tw", name: "Taiwan", code: "TW", left: "82.5%", top: "45.0%",
+          hubType: "East Asia Distribution Hub", partner: "Formosa Pacific Steel Partners",
+          officer: "Chen Wei-Ming (Trade Representative)", phone: "+886 2 2700 8899", email: "taiwan.trade@shakambharigroup.com",
+          address: "Taipei World Trade Center, Taipei"
+        },
+        {
+          id: "tr", name: "Turkey", code: "TR", left: "56.5%", top: "35.0%",
+          hubType: "Eurasian Steel Logistics", partner: "Bosphorus Iron & Alloy Importers",
+          officer: "Hakan Yilmaz", phone: "+90 212 380 4400", email: "turkey.export@shakambharigroup.com",
+          address: "Levent Business Center, Istanbul"
+        },
+        {
+          id: "it", name: "Italy", code: "IT", left: "49.5%", top: "31.0%",
+          hubType: "Southern European Hub", partner: "Lombardia Steel Europe S.r.l.",
+          officer: "Marco Rossi", phone: "+39 02 8901 2345", email: "europe.sales@shakambharigroup.com",
+          address: "Via Montenapoleone, Milan"
+        },
+        {
+          id: "eg", name: "Egypt", code: "EG", left: "53.5%", top: "42.0%",
+          hubType: "North African Logistics Partner", partner: "Nile Infra Metals Co.",
+          officer: "Tariq El-Sayed", phone: "+20 2 2735 6789", email: "egypt.trade@shakambharigroup.com",
+          address: "New Cairo Business District, Cairo"
+        },
+        {
+          id: "jp", name: "Japan", code: "JP", left: "87.0%", top: "36.0%",
+          hubType: "Far East Trade Hub", partner: "Nippon Shakambhari Metals Hub",
+          officer: "Kenji Takahashi", phone: "+81 3 5540 1122", email: "japan.sales@shakambharigroup.com",
+          address: "Chiyoda-ku Industrial Hub, Tokyo"
+        },
+        {
+          id: "kr", name: "South Korea", code: "KR", left: "83.0%", top: "37.0%",
+          hubType: "East Asian Infra Partner", partner: "Han River Structural Steel",
+          officer: "Min-Soo Park", phone: "+82 2 3456 7890", email: "korea.trade@shakambharigroup.com",
+          address: "Gangnam Trade Tower, Seoul"
+        },
+        {
+          id: "sa", name: "Saudi Arabia", code: "SA", left: "58.0%", top: "43.0%",
+          hubType: "Middle East Mega-Projects Hub", partner: "GCC Heavy Infra Supplies",
+          officer: "Faisal Al-Mansoor", phone: "+966 11 460 3344", email: "ksa.sales@shakambharigroup.com",
+          address: "King Fahd Road, Riyadh"
+        },
+        {
+          id: "ae", name: "UAE", code: "AE", left: "61.5%", top: "43.5%",
+          hubType: "Gulf Regional Export Center", partner: "Gulf Commercial Steel Logistics",
+          officer: "Rashid Al-Maktoum", phone: "+971 4 321 9876", email: "uae.trade@shakambharigroup.com",
+          address: "Jebel Ali Free Zone, Dubai"
+        },
+        {
+          id: "np", name: "Nepal", code: "NP", left: "72.8%", top: "41.5%",
+          hubType: "SAARC Regional Partner", partner: "Himalayan Infra Steel Suppliers",
+          officer: "Ramesh Adhikari", phone: "+977 1 422 5566", email: "nepal.sales@shakambharigroup.com",
+          address: "Lazimpat, Kathmandu"
+        },
+        {
+          id: "bd", name: "Bangladesh", code: "BD", left: "74.5%", top: "43.5%",
+          hubType: "Neighboring Exports Hub", partner: "Bengal Delta Metals & Infra",
+          officer: "Rafiqul Islam", phone: "+880 2 988 4433", email: "bd.trade@shakambharigroup.com",
+          address: "Gulshan Commercial Area, Dhaka"
+        },
+        {
+          id: "vn", name: "Vietnam", code: "VN", left: "79.5%", top: "48.0%",
+          hubType: "ASEAN Trade Hub", partner: "ASEAN Structural Steel Corp.",
+          officer: "Nguyen Van Hung", phone: "+84 24 3934 5678", email: "vietnam.sales@shakambharigroup.com",
+          address: "Ho Chi Minh Port Complex"
+        },
+        {
+          id: "de", name: "Germany", code: "DE", left: "48.0%", top: "26.0%",
+          hubType: "Central European Hub", partner: "Rheinland Heavy Metals GmbH",
+          officer: "Stefan Müller", phone: "+49 69 9754 0000", email: "germany.sales@shakambharigroup.com",
+          address: "Frankfurt Industrial Park"
+        },
+        {
+          id: "gb", name: "United Kingdom", code: "GB", left: "44.5%", top: "24.0%",
+          hubType: "UK & European Logistics", partner: "Albion Metals Trading UK Ltd",
+          officer: "David Sterling", phone: "+44 20 7946 0912", email: "uk.sales@shakambharigroup.com",
+          address: "Canary Wharf, London"
+        },
+        {
+          id: "us", name: "United States", code: "US", left: "21.0%", top: "33.0%",
+          hubType: "North American Trade Station", partner: "Trans-Atlantic Steel Alliance",
+          officer: "Robert Vance", phone: "+1 212 555 0199", email: "usa.sales@shakambharigroup.com",
+          address: "Houston Steel Terminal, Texas"
+        },
+        {
+          id: "sg", name: "Singapore", code: "SG", left: "77.5%", top: "55.0%",
+          hubType: "Maritime Trade Center", partner: "Lion City Metals & Shipping Hub",
+          officer: "Marcus Tan", phone: "+65 6789 0123", email: "sg.trade@shakambharigroup.com",
+          address: "Marina Bay Trade Center, Singapore"
+        },
+        {
+          id: "ke", name: "Kenya", code: "KE", left: "56.0%", top: "57.0%",
+          hubType: "East African Logistics Station", partner: "East Africa Infrastructure Steel",
+          officer: "Joseph Ochieng", phone: "+254 20 271 8899", email: "africa.sales@shakambharigroup.com",
+          address: "Industrial Area, Nairobi"
+        },
+        {
+          id: "za", name: "South Africa", code: "ZA", left: "52.0%", top: "76.0%",
+          hubType: "Southern African Hub", partner: "Southern Cross Metals (Pty) Ltd",
+          officer: "Johan van der Merwe", phone: "+27 11 800 1234", email: "sa.sales@shakambharigroup.com",
+          address: "Sandton City, Johannesburg"
+        },
+        {
+          id: "au", name: "Australia", code: "AU", left: "87.5%", top: "73.0%",
+          hubType: "Oceanic Distribution Depot", partner: "Oceanic Steel & Resources",
+          officer: "Liam O'Connor", phone: "+61 2 9250 8800", email: "aus.sales@shakambharigroup.com",
+          address: "Sydney Olympic Park Hub"
+        },
+        {
+          id: "lk", name: "Sri Lanka", code: "LK", left: "71.5%", top: "53.0%",
+          hubType: "Indian Ocean Hub", partner: "Island Infrastructure Links",
+          officer: "Dilshan Perera", phone: "+94 11 230 4567", email: "sl.sales@shakambharigroup.com",
+          address: "Colombo Port Terminal"
+        },
+        {
+          id: "in_hq", name: "India HQ", code: "IN", left: "70.5%", top: "42.0%", isHQ: true,
+          hubType: "Global Manufacturing & Corporate HQ", partner: "Shakambhari Corporate HQ",
+          officer: "Rajesh Sharma (Global Export Sales)", phone: "+91 98300 12345", email: "export.sales@shakambharigroup.com",
+          address: "10, Princep Street, Kolkata, India"
+        }
+      ];
+
+      // 2. DOMESTIC INDIAN STATES DATA
+      const indiaStatesData = [
+        {
+          id: "wb", name: "West Bengal", code: "WB", left: "68.3%", top: "42.8%", isHQ: true,
+          hubType: "Corporate HQ & Primary Steel Complex", partner: "Shakambhari Corporate & Central Depot",
+          officer: "Rajesh Sharma (VP - Sales East)", phone: "+91 98300 12345", email: "wb.sales@shakambharigroup.com",
+          address: "10, Princep Street, Kolkata & Durgapur Plant"
+        },
+        {
+          id: "br", name: "Bihar", code: "BR", left: "61.7%", top: "35.0%",
+          hubType: "Regional Distribution Hub", partner: "Patliputra Steel Depot & Partners",
+          officer: "Amit Kumar Roy", phone: "+91 94310 98765", email: "bihar.depot@shakambharigroup.com",
+          address: "Exhibition Road, Patna - 800001"
+        },
+        {
+          id: "jh", name: "Jharkhand", code: "JH", left: "62.5%", top: "41.4%",
+          hubType: "Industrial Depot & Channel Hub", partner: "Chota Nagpur Iron & Steel Distributors",
+          officer: "Vikash Agarwal", phone: "+91 93341 54321", email: "jharkhand.sales@shakambharigroup.com",
+          address: "Main Road, Ranchi & Jamshedpur Link"
+        },
+        {
+          id: "od", name: "Odisha", code: "OD", left: "60.0%", top: "52.1%",
+          hubType: "Coastal & Mining Steel Depot", partner: "Kalinga Infrastructure Suppliers",
+          officer: "Subhashish Panda", phone: "+91 97770 23456", email: "odisha.sales@shakambharigroup.com",
+          address: "Cuttack Road, Bhubaneswar - 751006"
+        },
+        {
+          id: "rj", name: "Rajasthan", code: "RJ", left: "26.7%", top: "32.8%",
+          hubType: "Western Region Depot", partner: "Marwar Steel Trading Co.",
+          officer: "Mahendra Singh Rathore", phone: "+91 98290 87654", email: "raj.sales@shakambharigroup.com",
+          address: "VKIA Industrial Area, Jaipur - 302013"
+        },
+        {
+          id: "as", name: "Assam", code: "AS", left: "80.8%", top: "31.4%",
+          hubType: "North-East Gateway Hub", partner: "Brahmaputra Steel Distributors",
+          officer: "Dipankar Baruah", phone: "+91 94350 11223", email: "assam.sales@shakambharigroup.com",
+          address: "GS Road, Dispur, Guwahati - 781005"
+        },
+        {
+          id: "tr", name: "Tripura", code: "TR", left: "79.2%", top: "39.3%",
+          hubType: "Regional Channel Partner", partner: "Eastern Horizon Metals & Alloys",
+          officer: "Biplab Debnath", phone: "+91 94361 44556", email: "tripura.sales@shakambharigroup.com",
+          address: "Akhaura Road, Agartala - 799001"
+        },
+        {
+          id: "pb", name: "Punjab", code: "PB", left: "33.3%", top: "21.4%",
+          hubType: "Northern Structural Hub", partner: "Malwa Steel Suppliers",
+          officer: "Harpreet Singh Grewal", phone: "+91 98140 33445", email: "pb.sales@shakambharigroup.com",
+          address: "Focal Point, Ludhiana - 141010"
+        },
+        {
+          id: "hr", name: "Haryana", code: "HR", left: "35.8%", top: "25.0%",
+          hubType: "NCR Infrastructure Depot", partner: "NCR Infra Steel Links",
+          officer: "Ritu Raj Yadav", phone: "+91 98120 55667", email: "haryana.sales@shakambharigroup.com",
+          address: "Udyog Vihar, Phase V, Gurugram - 122016"
+        },
+        {
+          id: "up", name: "Uttar Pradesh", code: "UP", left: "46.7%", top: "30.7%",
+          hubType: "Central Northern Logistics Hub", partner: "Awadh Steel & Structures",
+          officer: "Sanjay Srivastava", phone: "+91 94150 77889", email: "up.sales@shakambharigroup.com",
+          address: "Transport Nagar, Lucknow - 226012"
+        },
+        {
+          id: "hp", name: "Himachal Pradesh", code: "HP", left: "38.3%", top: "17.8%",
+          hubType: "Hill States Industrial Partner", partner: "Mountain Steel Logistics",
+          officer: "Sunil Thakur", phone: "+91 98160 88990", email: "hp.sales@shakambharigroup.com",
+          address: "Industrial Area, Baddi - 173205"
+        },
+        {
+          id: "jk", name: "Jammu & Kashmir", code: "JK", left: "35.0%", top: "12.1%",
+          hubType: "Northern Border Infrastructure Depot", partner: "Valley Infrastructure Metals",
+          officer: "Tariq Ahmad Shah", phone: "+91 94191 22334", email: "jk.sales@shakambharigroup.com",
+          address: "Gangyal Industrial Complex, Jammu - 180010"
+        },
+        {
+          id: "mn", name: "Manipur", code: "MN", left: "86.7%", top: "35.7%",
+          hubType: "Eastern Regional Depot", partner: "Manipur Steel Trade House",
+          officer: "N. Radheshyam Singh", phone: "+91 98620 11998", email: "manipur.sales@shakambharigroup.com",
+          address: "Thangal Bazar, Imphal - 795001"
+        },
+        {
+          id: "nl", name: "Nagaland", code: "NL", left: "87.5%", top: "31.4%",
+          hubType: "Hill Region Channel Partner", partner: "Naga Hills Metals Network",
+          officer: "Kevisezo Kense", phone: "+91 94360 22881", email: "nagaland.sales@shakambharigroup.com",
+          address: "Circular Road, Dimapur - 797112"
+        },
+        {
+          id: "ml", name: "Meghalaya", code: "ML", left: "78.3%", top: "35.0%",
+          hubType: "Sub-Himalayan Distribution", partner: "Khasi Hills Steel Agencies",
+          officer: "Banrap Lyngdoh", phone: "+91 94363 33445", email: "meghalaya.sales@shakambharigroup.com",
+          address: "Mawlai Phudmuri, Shillong - 793008"
+        },
+        {
+          id: "sk", name: "Sikkim", code: "SK", left: "70.8%", top: "30.0%",
+          hubType: "Mountain Projects Partner", partner: "Himalayan Steel Suppliers",
+          officer: "Tashi Bhutia", phone: "+91 94340 77112", email: "sikkim.sales@shakambharigroup.com",
+          address: "Deorali, Gangtok - 737102"
+        },
+        {
+          id: "mh", name: "Maharashtra", code: "MH", left: "33.3%", top: "57.1%",
+          hubType: "Western Commercial Hub", partner: "Western India Steel Corp.",
+          officer: "Nitin Deshmukh", phone: "+91 98200 44556", email: "mh.sales@shakambharigroup.com",
+          address: "Kalamboli Steel Market, Navi Mumbai - 410218"
+        },
+        {
+          id: "mp", name: "Madhya Pradesh", code: "MP", left: "41.7%", top: "46.4%",
+          hubType: "Central India Distribution Hub", partner: "Central India Steel Links",
+          officer: "Alok Sharma", phone: "+91 98260 66778", email: "mp.sales@shakambharigroup.com",
+          address: "Sanwer Road Industrial Area, Indore - 452015"
+        },
+        {
+          id: "gj", name: "Gujarat", code: "GJ", left: "17.5%", top: "47.1%",
+          hubType: "Industrial & Port Logistics Depot", partner: "Gujarat Heavy Steel Depot",
+          officer: "Chirag Patel", phone: "+91 98250 99112", email: "guj.sales@shakambharigroup.com",
+          address: "GIDC Naroda, Ahmedabad - 382330"
+        },
+        {
+          id: "tn", name: "Tamil Nadu", code: "TN", left: "44.2%", top: "78.6%",
+          hubType: "Southern Infrastructure Depot", partner: "Deccan Steel Partners",
+          officer: "K. Venkatesh", phone: "+91 98400 88221", email: "tn.sales@shakambharigroup.com",
+          address: "Ambattur Industrial Estate, Chennai - 600058"
+        }
+      ];
+
+      // 3. ACTIVE VENDOR SIDE CARD & QUICK LIST CONTROLLER
+      const cardStateName = document.getElementById('cardStateName');
+      const cardBadgeType = document.getElementById('cardBadgeType');
+      const cardPartnerName = document.getElementById('cardPartnerName');
+      const cardOfficer = document.getElementById('cardOfficer');
+      const cardAddress = document.getElementById('cardAddress');
+      const cardPhoneBtn = document.getElementById('cardPhoneBtn');
+      const cardEmailBtn = document.getElementById('cardEmailBtn');
+      const quickLocationList = document.getElementById('quickLocationList');
+      const mapSearchInput = document.getElementById('mapSearchInput');
+
+      let activeDataset = worldCountriesData;
+
+      function updateVendorCard(item) {
+        if (!item || !cardStateName) return;
+        cardStateName.innerHTML = `📍 ${item.name} <span class="pop-badge-type" id="cardBadgeType">${item.hubType || 'Regional Hub'}</span>`;
+        if (cardPartnerName) cardPartnerName.textContent = item.partner;
+        if (cardOfficer) cardOfficer.textContent = item.officer;
+        if (cardAddress) cardAddress.textContent = item.address;
+
+        if (cardPhoneBtn) {
+          cardPhoneBtn.href = `tel:${item.phone.replace(/\s+/g, '')}`;
+          cardPhoneBtn.innerHTML = `📞 Call Officer`;
+        }
+        if (cardEmailBtn) {
+          cardEmailBtn.href = `mailto:${item.email}`;
+          cardEmailBtn.innerHTML = `✉️ Email Support`;
+        }
+      }
+
+      function renderQuickList(dataList, filterQuery = '') {
+        if (!quickLocationList) return;
+        quickLocationList.innerHTML = '';
+
+        const filtered = dataList.filter(item => {
+          if (!filterQuery) return true;
+          const q = filterQuery.toLowerCase();
+          return item.name.toLowerCase().includes(q) ||
+            item.partner.toLowerCase().includes(q) ||
+            item.code.toLowerCase().includes(q);
+        });
+
+        if (filtered.length === 0) {
+          quickLocationList.innerHTML = `<div style="font-size:0.75rem; color:#9C9A90; padding:0.4rem;">No matching locations found</div>`;
+          return;
+        }
+
+        filtered.forEach(item => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'quick-location-item' + (item.isHQ ? ' active' : '');
+          itemEl.dataset.id = item.id;
+          itemEl.innerHTML = `<span>${item.isHQ ? '⭐' : '📍'} <strong>${item.name}</strong></span> <span style="font-size:0.68rem; opacity:0.8;">${item.code}</span>`;
+
+          itemEl.addEventListener('click', () => {
+            document.querySelectorAll('.quick-location-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.map-pin.active').forEach(p => p.classList.remove('active'));
+            itemEl.classList.add('active');
+
+            const targetPin = document.querySelector(`.map-pin[data-id="${item.id}"]`);
+            if (targetPin) {
+              targetPin.classList.add('active');
+            }
+            updateVendorCard(item);
+          });
+
+          quickLocationList.appendChild(itemEl);
+        });
+      }
+
+      if (mapSearchInput) {
+        mapSearchInput.addEventListener('input', (e) => {
+          renderQuickList(activeDataset, e.target.value.trim());
+        });
+      }
+
+      // 4. RENDER MAP OVERLAY PINS
+      function renderPins(dataList, containerEl) {
+        if (!containerEl) return;
+        containerEl.innerHTML = '';
+
+        dataList.forEach(item => {
+          const pin = document.createElement('div');
+          pin.className = 'map-pin' + (item.isHQ ? ' is-hq' : '');
+          pin.style.left = item.left;
+          pin.style.top = item.top;
+          pin.dataset.id = item.id;
+
+          const topVal = parseFloat(item.top);
+          const leftVal = parseFloat(item.left);
+
+          let popoverClasses = 'pin-popover';
+          if (topVal < 26) {
+            popoverClasses += ' popover-below';
+          }
+          if (leftVal > 76) {
+            popoverClasses += ' popover-left';
+          }
+
+          pin.innerHTML = `
+            <div class="pin-beacon">
+              <div class="pin-pulse"></div>
+              <div class="pin-core"></div>
+            </div>
+            <div class="pin-tag">${item.code}</div>
+            <div class="${popoverClasses}">
+              <div class="pop-state">
+                <span>📍 ${item.name}</span>
+                <span class="pop-badge-type">${item.hubType || 'Regional Hub'}</span>
+              </div>
+              <div class="pop-vendor">${item.partner}</div>
+              <div class="pop-detail-line">👤 <strong>Officer:</strong> ${item.officer}</div>
+              <div class="pop-detail-line">📞 <strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></div>
+              <div class="pop-detail-line">✉️ <strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></div>
+              <div class="pop-detail-line" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:0.35rem; margin-top:0.35rem;">🏬 <strong>Hub:</strong> ${item.address}</div>
+            </div>
+          `;
+
+          pin.addEventListener('mouseenter', () => {
+            updateVendorCard(item);
+          });
+
+          pin.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.map-pin.active').forEach(p => {
+              if (p !== pin) p.classList.remove('active');
+            });
+            pin.classList.toggle('active');
+            updateVendorCard(item);
+
+            document.querySelectorAll('.quick-location-item').forEach(el => {
+              if (el.dataset.id === item.id) el.classList.add('active');
+              else el.classList.remove('active');
+            });
+          });
+
+          containerEl.appendChild(pin);
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.map-pin') && !e.target.closest('.quick-location-item')) {
+            document.querySelectorAll('.map-pin.active').forEach(p => p.classList.remove('active'));
+          }
+        });
+      }
+
+      const worldPinsLayer = document.getElementById('worldPinsLayer');
+      const indiaPinsLayer = document.getElementById('pinsLayer');
+      renderPins(worldCountriesData, worldPinsLayer);
+      renderPins(indiaStatesData, indiaPinsLayer);
+      renderQuickList(worldCountriesData);
+
+      const tabWorldBtn = document.getElementById('tabWorldBtn');
+      const tabIndiaBtn = document.getElementById('tabIndiaBtn');
+      const worldMapWrap = document.getElementById('worldMapWrap');
+      const indiaMapWrap = document.getElementById('indiaMapWrap');
+
+      if (tabWorldBtn && tabIndiaBtn) {
+        tabWorldBtn.addEventListener('click', () => {
+          tabWorldBtn.classList.add('active');
+          tabIndiaBtn.classList.remove('active');
+          worldMapWrap.style.display = 'block';
+          indiaMapWrap.style.display = 'none';
+          activeDataset = worldCountriesData;
+          renderQuickList(worldCountriesData);
+          if (worldCountriesData.length > 0) updateVendorCard(worldCountriesData[0]);
+        });
+
+        tabIndiaBtn.addEventListener('click', () => {
+          tabIndiaBtn.classList.add('active');
+          tabWorldBtn.classList.remove('active');
+          indiaMapWrap.style.display = 'block';
+          worldMapWrap.style.display = 'none';
+          activeDataset = indiaStatesData;
+          renderQuickList(indiaStatesData);
+          if (indiaStatesData.length > 0) updateVendorCard(indiaStatesData[0]);
+        });
+      }
+    })();
+  </script>
+
+  <!-- CERTIFICATE LIGHTBOX MODAL OVERLAY -->
+  <div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">
+    <div class="cert-modal-content" onclick="event.stopPropagation()">
+      <button class="cert-modal-close" onclick="closeCertModal()">&times;</button>
+      <img id="certModalImg" src="" alt="Official Certificate Document" class="cert-modal-img">
+      <div id="certModalTitle" class="cert-modal-title"></div>
+    </div>
+  </div>
+
+  <script>
+    function openCertModal(imageSrc, titleText) {
+      const modal = document.getElementById('certModal');
+      const img = document.getElementById('certModalImg');
+      const title = document.getElementById('certModalTitle');
+      if (modal && img && title) {
+        img.src = imageSrc;
+        title.textContent = titleText;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeCertModal(e) {
+      if (e && e.target && !e.target.classList.contains('cert-modal-overlay') && !e.target.classList.contains('cert-modal-close')) {
+        return;
+      }
+      const modal = document.getElementById('certModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCertModal();
+    });
+  </script>
+</body>
+
+</html>
