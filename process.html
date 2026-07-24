@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Process — From Earth to Structure | Shakambhari Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* Default tokens = light "brushed steel" content theme. .hero locally overrides to dark — untouched. */
+:root{
+  --bg:#E7EAEE;
+  --surface:#FFFFFF;
+  --surface-2:#EDF0F3;
+  --border:#C7CDD5;
+  --ink:#000000;
+  --ink-dim:#000000;
+  --ink-soft:#3A3D42;
+  --accent:#FF6A1F;
+  --accent-ink:#C1440E;
+  --accent-hot:#FFC24B;
+  --accent-deep:#E23B1F;
+  --font-display:'Oswald','Arial Narrow',sans-serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+}
+html{ scroll-behavior:smooth; }
+body{
+  color:var(--ink);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  position:relative;
+  background-color:#DDE1E6;
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.5) 0px, rgba(255,255,255,.5) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(115deg, rgba(0,0,0,.02) 0px, rgba(0,0,0,.02) 2px, transparent 2px, transparent 5px),
+    linear-gradient(160deg, #CBD1D8 0%, #E3E7EB 24%, #F2F4F6 46%, #DCE1E7 68%, #C3C9D1 100%);
+  background-attachment:fixed;
+}
+.sheen{
+  position:fixed; inset:-20%; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 30% 20%, rgba(255,255,255,.55), transparent 60%);
+  animation:sheenMove 22s ease-in-out infinite;
+  mix-blend-mode:overlay;
+}
+@keyframes sheenMove{
+  0%,100%{ transform:translate(0,0); }
+  50%{ transform:translate(8%,6%); }
+}
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:2000;
+  opacity:.03;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+h1,h2,h3,h4{ font-family:var(--font-display); text-transform:uppercase; text-wrap:balance; color:var(--ink); }
+p{ line-height:1.65; }
+.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; letter-spacing:.02em; }
+::selection{ background:var(--accent); color:#fff; }
+.hl{ font-weight:800; background:linear-gradient(transparent 62%, rgba(255,106,31,.32) 62%); }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+.defs{ position:absolute; width:0; height:0; overflow:hidden; }
+
+/* ══ PROGRESS RAIL (chapters) ══ */
+.rail{
+  position:fixed;
+  left:2.4rem; top:50%;
+  transform:translateY(-50%);
+  z-index:500;
+  display:flex; flex-direction:column; align-items:center;
+}
+.rail-track{ position:relative; width:2px; height:280px; background:var(--border); border-radius:2px; }
+.rail-fill{
+  position:absolute; top:0; left:0; width:100%; height:0%;
+  background:linear-gradient(var(--accent-hot),var(--accent));
+  border-radius:2px;
+  transition:height .15s linear;
+}
+.rail-dots{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.rail-dot{
+  position:relative; width:9px; height:9px; margin-left:-4px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--ink);
+  transition:all .3s ease;
+}
+.rail-dot::after{
+  content:attr(data-label);
+  position:absolute; left:20px; top:50%; transform:translateY(-50%);
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.08em; font-weight:600;
+  color:var(--ink); white-space:nowrap; opacity:0; transition:opacity .25s ease;
+}
+.rail-dot.active{ border-color:var(--accent); background:var(--accent); box-shadow:0 0 0 4px rgba(255,106,31,.18); }
+.rail-dot.active::after{ opacity:1; color:var(--accent-ink); }
+@media(max-width:1080px){ .rail{ display:none; } }
+
+/* ══ HERO — unchanged, dark, scoped tokens ══ */
+.hero{
+  --bg:#0A0B0E; --surface:#14161C; --surface-2:#1B1E26; --border:#262A34;
+  --ink:#EEEAE1; --ink-dim:#9C9A90; --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
+  position:relative;
+  min-height:94vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding:calc(var(--nav-h) + 1.5rem) 1.5rem 1.5rem;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.35), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.2), transparent 45%),
+    var(--bg);
+}
+#embers{ position:absolute; inset:0; width:100%; height:100%; z-index:2; }
+.hero-glow{
+  position:absolute; inset:-15%; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 108%, rgba(255,106,31,.6), transparent 42%),
+    radial-gradient(circle at 26% 96%, rgba(255,194,75,.4), transparent 38%),
+    radial-gradient(circle at 74% 100%, rgba(226,59,31,.45), transparent 40%);
+  filter:blur(6px);
+  animation:furnaceBreathe 7s ease-in-out infinite;
+  transform-origin:50% 100%;
+}
+@keyframes furnaceBreathe{
+  0%,100%{ transform:scale(1); opacity:.8; }
+  50%{ transform:scale(1.22); opacity:1; }
+}
+.hero-content{ position:relative; z-index:5; max-width:900px; animation:heroZoomIn 1.5s cubic-bezier(.16,.84,.44,1) both; }
+@keyframes heroZoomIn{ 0%{ opacity:0; transform:scale(1.18); } 100%{ opacity:1; transform:scale(1); } }
+.hero-kicker{
+  font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.35em;
+  color:var(--accent-hot); margin-bottom:1.4rem;
+}
+.hero-logo{ display:flex; flex-direction:column; align-items:center; gap:.6rem; margin-bottom:2rem; }
+.hero-logo svg{ width:56px; height:56px; animation:furnacePulse 7s ease-in-out infinite; }
+@keyframes furnacePulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+.hero-logo-text{ font-family:var(--font-mono); font-size:.68rem; font-weight:600; letter-spacing:.35em; color:var(--ink-dim); }
+.hero h1{ font-size:clamp(2.6rem,7vw,5.2rem); font-weight:700; line-height:1.02; letter-spacing:-.01em; color:var(--ink); }
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--accent-hot),var(--accent) 60%,var(--accent-deep));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  background-size:200% 100%;
+  animation:emberShift 6s ease-in-out infinite;
+}
+@keyframes emberShift{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+.hero p.lede{ margin:1.6rem auto 0; max-width:560px; font-size:1.05rem; color:var(--ink-dim); }
+.hero .pill{
+  display:inline-flex; align-items:center; gap:.6rem; margin-top:2.2rem;
+  padding:.55rem 1.3rem; border:1px solid var(--border); border-radius:2rem;
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em;
+  color:var(--ink-dim); background:rgba(255,255,255,.02);
+}
+.hero .pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); }
+.scroll-cue{
+  position:absolute; bottom:2.2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:.5rem;
+  color:var(--border); animation:bob 2.2s ease-in-out infinite; z-index:5;
+}
+.scroll-cue span{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.25em; }
+@keyframes bob{ 0%,100%{ transform:translateX(-50%) translateY(0);} 50%{ transform:translateX(-50%) translateY(8px);} }
+
+/* ══ INTRO / MANIFESTO ══ */
+.intro{ position:relative; z-index:1; max-width:800px; margin:0 auto; padding:6.5rem 1.75rem 1.5rem; text-align:center; }
+.intro .kicker{ font-family:var(--font-mono); font-size:.78rem; font-weight:600; letter-spacing:.3em; color:var(--accent-ink); margin-bottom:1.2rem; }
+.intro h2{ font-size:clamp(2.1rem,4.6vw,3rem); margin-bottom:1.3rem; }
+.intro p{ color:var(--ink-soft); font-size:1.18rem; max-width:60ch; margin:0 auto; }
+
+/* ══ SECTION SCAFFOLDING ══ */
+main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1.75rem; }
+.stage{
+  display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+  padding:6.5rem 0; position:relative;
+}
+.stage.reverse .stage-text{ order:2; }
+.stage.reverse .stage-visual{ order:1; }
+@media(max-width:860px){
+  .stage{ grid-template-columns:1fr; gap:2.5rem; padding:4rem 0; }
+  .stage.reverse .stage-text{ order:1; }
+  .stage.reverse .stage-visual{ order:2; }
+}
+
+.stage-code{
+  font-family:var(--font-mono); font-size:.85rem; font-weight:600; letter-spacing:.18em; color:var(--accent-ink);
+  display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
+}
+.stage-code::before{ content:''; width:30px; height:2px; background:var(--accent); }
+.stage-text h2{ font-size:clamp(2rem,3.6vw,2.9rem); font-weight:700; margin-bottom:.5rem; }
+.stage-text h3{
+  font-family:var(--font-body); text-transform:none; font-size:1.15rem; font-weight:700;
+  color:var(--ink-soft); margin-bottom:1.2rem;
+}
+.stage-text p{ color:var(--ink-soft); font-size:1.1rem; max-width:48ch; }
+.chips{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.5rem; }
+.chip{
+  font-family:var(--font-mono); font-size:.8rem; font-weight:600; padding:.5rem 1rem;
+  border:1.5px solid var(--border); border-radius:.4rem; color:var(--ink);
+  background:var(--surface); transition:all .25s ease;
+}
+.chip:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+.chip.hot{ border-color:var(--accent); color:var(--accent-ink); background:#FFF4EC; }
+
+.stage-visual{ display:flex; align-items:center; justify-content:center; }
+.visual-panel{
+  position:relative; width:100%; max-width:380px; aspect-ratio:1/1;
+  border-radius:1.4rem;
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.8), rgba(255,255,255,0) 40%),
+    radial-gradient(circle at 30% 15%, var(--surface-2), var(--surface));
+  border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 1px 2px rgba(20,22,28,.06), 0 16px 36px rgba(20,22,28,.1);
+  overflow:hidden;
+  transition:transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.visual-panel::before{
+  content:'';
+  position:absolute; left:0; right:0; top:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--accent-hot), transparent);
+  opacity:0; transition:opacity .3s ease; z-index:2;
+}
+.visual-panel:hover::before{ opacity:1; animation:scan 1.3s ease-in-out infinite; }
+@keyframes scan{ 0%{ top:0; } 100%{ top:calc(100% - 2px); } }
+.visual-panel:hover{
+  transform:translateY(-6px); border-color:var(--accent);
+  box-shadow:0 24px 50px rgba(20,22,28,.14), 0 0 0 1px rgba(255,106,31,.08), 0 0 44px rgba(255,106,31,.14);
+}
+.visual-panel svg{ width:62%; height:62%; position:relative; z-index:1; }
+.visual-caption{
+  position:absolute; bottom:-2.2rem; left:0; right:0; text-align:center;
+  font-family:var(--font-mono); font-size:.74rem; font-weight:600; letter-spacing:.1em; color:var(--ink);
+}
+
+.connector{ height:110px; display:flex; align-items:center; justify-content:center; position:relative; }
+.connector-line{ width:2px; height:100%; background:repeating-linear-gradient(var(--border) 0 6px, transparent 6px 12px); position:relative; }
+.connector-spark{
+  position:absolute; left:50%; top:0; width:9px; height:9px; margin-left:-4.5px; border-radius:50%;
+  background:var(--accent); box-shadow:0 0 14px 4px rgba(255,106,31,.55);
+  animation:travel 2.4s ease-in-out infinite;
+}
+@keyframes travel{ 0%{ top:0; opacity:0;} 12%{opacity:1;} 88%{opacity:1;} 100%{ top:100%; opacity:0;} }
+
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible{ opacity:1; transform:translateY(0); }
+.reveal-scale{ opacity:0; transform:translateY(20px) scale(.96); transition:opacity .6s ease, transform .6s ease; }
+.reveal-scale.visible{ opacity:1; transform:translateY(0) scale(1); }
+.reveal-left{ opacity:0; transform:translateX(-90px); transition:opacity .8s cubic-bezier(.16,.84,.44,1), transform .8s cubic-bezier(.16,.84,.44,1); }
+.reveal-left.visible{ opacity:1; transform:translateX(0); }
+.reveal-right{ opacity:0; transform:translateX(90px); transition:opacity .8s cubic-bezier(.16,.84,.44,1), transform .8s cubic-bezier(.16,.84,.44,1); }
+.reveal-right.visible{ opacity:1; transform:translateX(0); }
+
+.divider{
+  height:1px; background:linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  margin:0 auto; max-width:1180px;
+}
+
+/* ══ FLOWCHART — pinned, scroll-driven horizontal pan ══ */
+.flowchart-pin{ position:relative; z-index:1; }
+.flowchart-sticky{
+  position:sticky; top:0;
+  height:100vh;
+  display:flex; flex-direction:column; align-items:stretch; justify-content:center;
+  overflow:hidden;
+}
+.flowchart-head{ text-align:center; margin-bottom:2rem; flex-shrink:0; }
+.flowchart-head .stage-code{ justify-content:center; }
+.flowchart-head .stage-code::before{ display:none; }
+.flowchart-head h2{ font-size:clamp(2rem,4.2vw,2.9rem); margin-bottom:.6rem; }
+.flowchart-head p{ color:var(--ink-soft); font-size:1.08rem; max-width:56ch; margin:0 auto; }
+.flowchart-viewport{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  flex-shrink:0;
+}
+.flowchart-track{
+  display:flex;
+  align-items:center;
+  will-change:transform;
+  padding:0 6vw;
+}
+.flowchart-canvas{
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 35%),
+    radial-gradient(circle at 20% 10%, var(--surface-2), var(--surface));
+  border:1px solid var(--border);
+  border-radius:1.2rem;
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 20px 46px rgba(20,22,28,.1);
+  display:block;
+  flex-shrink:0;
+}
+.flowchart-foot{
+  flex-shrink:0;
+  display:flex; align-items:center; gap:1rem;
+  max-width:640px; margin:1.6rem auto 0; padding:0 1.75rem;
+}
+.flowchart-hint{
+  font-family:var(--font-mono); font-size:.74rem; font-weight:600; letter-spacing:.1em;
+  color:var(--accent-ink); white-space:nowrap;
+}
+.flowchart-progress-track{
+  flex:1; height:4px; background:var(--border); border-radius:2px; overflow:hidden;
+}
+.flowchart-progress-fill{
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--accent-hot),var(--accent));
+}
+/* fallback when JS pin is disabled (reduced motion) */
+.flowchart-pin.no-pin{ height:auto !important; }
+.flowchart-pin.no-pin .flowchart-sticky{ position:relative; height:auto; padding:5rem 0 3rem; }
+.flowchart-pin.no-pin .flowchart-viewport{ overflow-x:auto; }
+.flowchart-pin.no-pin .flowchart-track{ transform:none !important; }
+.flowchart-pin.no-pin .flowchart-progress-track{ display:none; }
+@media(max-width:860px){ .flowchart-track{ padding:0 4vw; } }
+
+.fc-node-label{ font-family:'Oswald',sans-serif; font-weight:700; text-transform:uppercase; fill:#000; }
+.fc-node-label.on-dark{ fill:#fff; }
+.fc-node-sub{ font-family:'IBM Plex Mono',monospace; font-weight:600; fill:var(--accent-deep); }
+.fc-edge-label{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; fill:#000; }
+
+/* ══ PULL QUOTES ══ */
+.pull-quote{ position:relative; z-index:1; text-align:center; padding:5.5rem 1.75rem; max-width:940px; margin:0 auto; }
+.pull-quote .line{
+  font-family:var(--font-display); font-weight:700; text-transform:uppercase;
+  font-size:clamp(2.1rem,5.8vw,3.8rem); line-height:1.08; letter-spacing:-.01em;
+  background:linear-gradient(100deg,var(--accent-deep),var(--accent) 55%,var(--accent-hot));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.pull-quote .sub{ margin-top:1.3rem; color:var(--ink-soft); font-size:1.08rem; max-width:54ch; margin-left:auto; margin-right:auto; }
+
+/* ══ PRODUCTS ══ */
+.products-head{ position:relative; z-index:1; text-align:center; padding:6.5rem 0 3rem; }
+.products-head .stage-code{ justify-content:center; }
+.products-head .stage-code::before{ display:none; }
+.products-head h2{ font-size:clamp(2.1rem,4.4vw,3.1rem); }
+.products-head p{ color:var(--ink-soft); font-size:1.1rem; max-width:58ch; margin:.9rem auto 0; }
+
+.products-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; padding-bottom:6.5rem; }
+@media(max-width:860px){ .products-grid{ grid-template-columns:1fr; } }
+.prod-card{
+  background:linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), var(--surface);
+  border:1px solid var(--border); border-radius:1.1rem;
+  padding:2.1rem 1.9rem 2.3rem;
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 12px 30px rgba(20,22,28,.07);
+  transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.prod-card:hover{
+  transform:translateY(-8px); border-color:var(--accent);
+  box-shadow:0 24px 50px rgba(20,22,28,.12), 0 0 44px rgba(255,106,31,.12);
+}
+.prod-card svg{ width:64px; height:64px; margin-bottom:1.2rem; }
+.prod-card h4{ font-size:1.2rem; font-weight:700; margin-bottom:.6rem; text-transform:none; font-family:var(--font-body); }
+.prod-card p{ font-size:.98rem; color:var(--ink-soft); margin-bottom:1.3rem; }
+.prod-badge{ display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink); }
+.prod-badge::before{ content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+
+/* ══ INTEGRATION ══ */
+.integration{ position:relative; z-index:1; margin:0 auto 4rem; max-width:1180px; padding:0 1.75rem; }
+.integration-box{
+  position:relative; border:1px solid var(--border); border-radius:1.4rem; padding:3.2rem 2.6rem; text-align:center;
+  background:linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), radial-gradient(ellipse at 50% 0%, rgba(255,106,31,.06), transparent 60%), var(--surface);
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 16px 38px rgba(20,22,28,.09);
+  overflow:hidden;
+}
+.integration-box h3{ font-size:1.7rem; margin-bottom:1rem; }
+.integration-box p{ color:var(--ink-soft); max-width:64ch; margin:0 auto 1.9rem; font-size:1.05rem; }
+.flow-strip{ display:flex; align-items:center; justify-content:center; gap:0; margin-top:1rem; }
+.flow-node{ display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+.flow-node svg{ width:38px; height:38px; }
+.flow-node span{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.1em; color:var(--ink); }
+.flow-track{
+  flex:1; max-width:120px; height:2px; margin:0 .5rem 1.4rem;
+  background:repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 12px);
+  position:relative; overflow:hidden;
+}
+.flow-track::after{
+  content:''; position:absolute; top:0; left:-30%; width:30%; height:100%;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation:slide 2.6s linear infinite;
+}
+@keyframes slide{ 0%{ left:-30%; } 100%{ left:100%; } }
+
+/* ══ BRAND CLOSE ══ */
+.brand-close{ position:relative; z-index:1; text-align:center; padding:5rem 1.75rem 6rem; max-width:840px; margin:0 auto; }
+.brand-close .tag{
+  font-family:var(--font-display); font-weight:700; letter-spacing:-.01em;
+  font-size:clamp(2.6rem,8.5vw,5.1rem);
+  background:linear-gradient(100deg,var(--accent-deep),var(--accent) 55%,var(--accent-hot));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.brand-close p{ margin-top:1.5rem; color:var(--ink-soft); font-size:1.12rem; max-width:58ch; margin-left:auto; margin-right:auto; }
+
+/* ══ FOOTER ══ */
+footer{ position:relative; z-index:1; border-top:1px solid var(--border); padding:2.2rem 1.5rem; text-align:center; color:var(--ink); font-size:.9rem; font-weight:500; }
+footer .accent-text{ color:var(--accent-ink); font-weight:700; }
+</style>
+</head>
+<body>
+<div class="sheen"></div>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/>
+    </linearGradient>
+    <linearGradient id="steelGradLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C3CAD4"/><stop offset="100%" stop-color="#6C7686"/>
+    </linearGradient>
+    <linearGradient id="charGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A3E46"/><stop offset="100%" stop-color="#131519"/>
+    </linearGradient>
+    <linearGradient id="oreGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D08A54"/><stop offset="100%" stop-color="#8A4B2C"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0C368"/><stop offset="100%" stop-color="#9C6E22"/>
+    </linearGradient>
+    <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/>
+      <stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/>
+    </radialGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C7B489"/><stop offset="100%" stop-color="#8A7550"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7F8FA"/><stop offset="100%" stop-color="#D7DCE2"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#FF6A1F"/>
+    </marker>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,6 94,86 6,86" fill="none" stroke="#14161C" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(-30 50 50)"/>
+      <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(30 50 50)"/>
+      <ellipse cx="50" cy="50" rx="9" ry="17" fill="url(#emberGrad)"/>
+    </svg>
+    <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">About</span>
+      <div class="dropdown">
+        <a href="journey.html">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+      </div>
+    </li>
+    <li><a href="companies.html">Group Companies</a></li>
+    <li><a href="quality.html">Quality</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="process.html" class="active">Our Process</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label">Others</span>
+      <div class="dropdown">
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html">Clientele</a>
+      </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<nav class="rail" id="rail" aria-hidden="true">
+  <div class="rail-track">
+    <div class="rail-fill" id="railFill"></div>
+    <div class="rail-dots" id="railDots">
+      <div class="rail-dot" data-target="s1" data-label="I · EARTH"></div>
+      <div class="rail-dot" data-target="s2" data-label="II · SHAPE"></div>
+      <div class="rail-dot" data-target="s3" data-label="III · STRIP"></div>
+      <div class="rail-dot" data-target="s4" data-label="IV · UNITE"></div>
+      <div class="rail-dot" data-target="s5" data-label="V · CAST"></div>
+      <div class="rail-dot" data-target="s6" data-label="VI · PRESS"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <canvas id="embers"></canvas>
+  <div class="hero-content">
+    <div class="hero-kicker">FORGED, NOT ASSEMBLED</div>
+    <div class="hero-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,6 94,86 6,86" fill="none" stroke="#9C9A90" stroke-width="4" stroke-linejoin="round"/>
+        <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(-30 50 50)"/>
+        <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(30 50 50)"/>
+        <ellipse cx="50" cy="50" rx="9" ry="17" fill="url(#emberGrad)"/>
+      </svg>
+      <div class="hero-logo-text">SHAKAMBHARI GROUP</div>
+    </div>
+    <h1>Integrated Steel<br>Production<br><span class="grad">From Earth to Structure</span></h1>
+    <p class="lede">We didn't buy into the steel industry — we built it from the ground up. Our own mines, our own furnace, our own hands, at every stage between raw earth and reinforced tomorrow.</p>
+    <div class="pill"><span class="dot"></span> Shakambhari Ispat &amp; Power Limited · #SteelWithin</div>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M1 1L7 18L13 1" stroke="#3A3E46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</header>
+
+<!-- MANIFESTO -->
+<section class="intro reveal">
+  <div class="kicker">OUR PROCESS</div>
+  <h2>Everything Begins Underground</h2>
+  <p>Long before a beam holds a roof or a bar reinforces a wall, there is only rock and fire. Shakambhari chose not to buy steel, but to build the entire chain that makes it — our own mines, our own reduction, our own furnace, our own hands at every stage. What follows is that journey, six stages from raw earth to reinforced tomorrow. <span class="hl">#SteelWithin</span> isn't a line on a label; it's the discipline running through all six, so that whatever carries our name carries the strength of everything that came before it.</p>
+</section>
+
+<!-- ═══ FULL PROCESS FLOWCHART — pinned, scroll-driven ═══ -->
+<section class="flowchart-pin" id="flowchartPin">
+  <div class="flowchart-sticky">
+    <div class="flowchart-head reveal">
+      <div class="stage-code">THE FULL CHAIN</div>
+      <h2>One Continuous Process</h2>
+      <p>Every input, every merge, every transformation — mapped in a single unbroken chain. Keep scrolling: the chain moves with you, left to right, like material through a mill.</p>
+    </div>
+    <div class="flowchart-viewport">
+      <div class="flowchart-track" id="flowchartTrack">
+      <svg class="flowchart-canvas" viewBox="0 0 2000 640" width="2000" height="640" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- ═ EDGES (drawn first, under nodes) ═ -->
+        <g stroke="#7C8797" stroke-width="3" fill="none" opacity=".85">
+          <path d="M260,74 L320,74" marker-end="url(#arrowhead)"/>
+          <path d="M260,254 L320,254" marker-end="url(#arrowhead)"/>
+          <path d="M430,108 L430,220" marker-end="url(#arrowhead)"/>
+          <path d="M540,254 L600,254" marker-end="url(#arrowhead)"/>
+          <path d="M820,254 L880,254" marker-end="url(#arrowhead)"/>
+          <path d="M990,400 L990,288" marker-end="url(#arrowhead)"/>
+          <path d="M1100,254 L1160,254" marker-end="url(#arrowhead)"/>
+          <path d="M1380,254 L1440,254" marker-end="url(#arrowhead)"/>
+          <path d="M1550,288 L1550,400" marker-end="url(#arrowhead)"/>
+          <path d="M1660,434 L1660,354 L1720,354" marker-end="url(#arrowhead)"/>
+          <path d="M1660,434 L1720,434" marker-end="url(#arrowhead)"/>
+          <path d="M1660,434 L1660,514 L1720,514" marker-end="url(#arrowhead)"/>
+        </g>
+
+        <!-- traveling energy pulses along each edge -->
+        <g fill="url(#emberGrad)">
+          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M260,74 L320,74"/></circle>
+          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.3s" path="M260,254 L320,254"/></circle>
+          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.6s" path="M430,108 L430,220"/></circle>
+          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.9s" path="M540,254 L600,254"/></circle>
+          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s" path="M820,254 L880,254"/></circle>
+          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.5s" path="M990,400 L990,288"/></circle>
+          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s" path="M1100,254 L1160,254"/></circle>
+          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.1s" path="M1380,254 L1440,254"/></circle>
+          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="2.4s" path="M1550,288 L1550,400"/></circle>
+          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="2.7s" path="M1660,434 L1660,354 L1720,354"/></circle>
+          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="3.0s" path="M1660,434 L1720,434"/></circle>
+          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="3.3s" path="M1660,434 L1660,514 L1720,514"/></circle>
+        </g>
+
+        <!-- edge labels -->
+        <g class="fc-edge-label" text-anchor="middle">
+          <text x="430" y="170">IRON PELLETS</text>
+          <text x="770" y="240">~950°C · DRI</text>
+          <text x="1230" y="240">~1600°C · LIQUID STEEL</text>
+        </g>
+
+        <!-- ═ NODES ═ -->
+        <!-- ORE -->
+        <g>
+          <rect x="40" y="40" width="220" height="68" rx="12" fill="url(#oreGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label on-dark" x="150" y="80" text-anchor="middle" font-size="17">IRON ORE</text>
+        </g>
+        <!-- COAL -->
+        <g>
+          <rect x="40" y="220" width="220" height="68" rx="12" fill="url(#charGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label on-dark" x="150" y="260" text-anchor="middle" font-size="17">COAL</text>
+        </g>
+        <!-- PELLETIZER -->
+        <g>
+          <rect x="320" y="40" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="430" y="80" text-anchor="middle" font-size="17">PELLETIZER</text>
+        </g>
+        <!-- KILN -->
+        <g>
+          <rect x="320" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="430" y="253" text-anchor="middle" font-size="16">ROTARY</text>
+          <text class="fc-node-label" x="430" y="273" text-anchor="middle" font-size="16">KILN</text>
+        </g>
+        <!-- SPONGE IRON -->
+        <g>
+          <rect x="600" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="710" y="253" text-anchor="middle" font-size="16">SPONGE</text>
+          <text class="fc-node-label" x="710" y="273" text-anchor="middle" font-size="16">IRON</text>
+        </g>
+        <!-- EAF -->
+        <g>
+          <rect x="880" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="990" y="248" text-anchor="middle" font-size="15">ELECTRIC ARC</text>
+          <text class="fc-node-label" x="990" y="266" text-anchor="middle" font-size="15">FURNACE</text>
+        </g>
+        <!-- SCRAP + SIMN -->
+        <g>
+          <rect x="880" y="400" width="220" height="68" rx="12" fill="url(#goldGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label on-dark" x="990" y="433" text-anchor="middle" font-size="14">SCRAP + PIG IRON</text>
+          <text class="fc-node-label on-dark" x="990" y="452" text-anchor="middle" font-size="14">+ IN-HOUSE SiMn ⭐</text>
+        </g>
+        <!-- CASTING -->
+        <g>
+          <rect x="1160" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="1270" y="253" text-anchor="middle" font-size="15">CONTINUOUS</text>
+          <text class="fc-node-label" x="1270" y="272" text-anchor="middle" font-size="15">CASTING</text>
+        </g>
+        <!-- BILLETS -->
+        <g>
+          <rect x="1440" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="1550" y="262" text-anchor="middle" font-size="17">BILLETS</text>
+        </g>
+        <!-- ROLLING -->
+        <g>
+          <rect x="1440" y="400" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+          <text class="fc-node-label" x="1550" y="433" text-anchor="middle" font-size="16">ROLLING</text>
+          <text class="fc-node-label" x="1550" y="452" text-anchor="middle" font-size="16">MILL</text>
+        </g>
+        <!-- OUTPUTS -->
+        <g>
+          <rect x="1720" y="320" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#000" stroke-width="1.5"/>
+          <rect x="1720" y="320" width="220" height="6" rx="3" fill="#FF6A1F"/>
+          <text class="fc-node-label on-dark" x="1830" y="358" text-anchor="middle" font-size="16">TMT BARS</text>
+        </g>
+        <g>
+          <rect x="1720" y="400" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#000" stroke-width="1.5"/>
+          <rect x="1720" y="400" width="220" height="6" rx="3" fill="#FF6A1F"/>
+          <text class="fc-node-label on-dark" x="1830" y="438" text-anchor="middle" font-size="16">STRIPS</text>
+        </g>
+        <g>
+          <rect x="1720" y="480" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#000" stroke-width="1.5"/>
+          <rect x="1720" y="480" width="220" height="6" rx="3" fill="#FF6A1F"/>
+          <text class="fc-node-label on-dark" x="1830" y="512" text-anchor="middle" font-size="14">STRUCTURAL</text>
+          <text class="fc-node-label on-dark" x="1830" y="529" text-anchor="middle" font-size="14">STEEL</text>
+        </g>
+      </svg>
+      </div>
+    </div>
+    <div class="flowchart-foot">
+      <span class="flowchart-hint">WATCHING THE CHAIN MOVE</span>
+      <div class="flowchart-progress-track"><div class="flowchart-progress-fill" id="flowchartProgress"></div></div>
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <!-- ═══ I — THE EARTH GIVES ═══ -->
+  <section class="stage" id="s1">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER I</div>
+      <h2>The Earth Gives</h2>
+      <h3>Raw Materials — Iron Ore &amp; Coal</h3>
+      <p>Before a single beam is cast, there is only rock. Iron ore fines are sourced from trusted market suppliers; coal is drawn straight from Shakambhari's <span class="hl">own mines</span> — the first link in a chain we chose to own end to end, not rent piece by piece.</p>
+      <div class="chips">
+        <div class="chip">Iron Ore Fines · Market Purchase</div>
+        <div class="chip hot">Coal · Own Mines ⭐</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="38" cy="70" rx="30" ry="20" fill="url(#oreGrad)"/>
+          <ellipse cx="30" cy="55" rx="18" ry="13" fill="url(#oreGrad)" opacity=".85"/>
+          <ellipse cx="82" cy="72" rx="28" ry="18" fill="url(#charGrad)"/>
+          <ellipse cx="90" cy="58" rx="16" ry="11" fill="url(#charGrad)" opacity=".9"/>
+          <circle cx="38" cy="60" r="4" fill="#F0C79A" opacity=".6"/>
+          <circle cx="86" cy="62" r="3" fill="#7C8797" opacity=".5"/>
+        </svg>
+        <div class="visual-caption">ORE + COAL</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark"></div></div></div>
+
+  <!-- ═══ II — SHAPED FOR PURPOSE ═══ -->
+  <section class="stage reverse" id="s2">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER II</div>
+      <h2>Shaped for Purpose</h2>
+      <h3>Pelletization — SIPL Dhukuma, Bravo Plant</h3>
+      <p>Raw ore fines alone are unruly — too fine, too inconsistent for the kiln ahead. At our Bravo Plant they're agglomerated into uniform spherical pellets, engineered for the <span class="hl">permeability</span> that clean, efficient reduction demands.</p>
+      <div class="chips">
+        <div class="chip">Bravo Plant</div>
+        <div class="chip">Spherical Pellets</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="24" y="38" width="72" height="46" rx="6" fill="url(#steelGrad)"/>
+          <rect x="30" y="44" width="60" height="32" rx="4" fill="url(#steelGradLight)" opacity=".5"/>
+          <polygon points="40,22 80,22 72,38 48,38" fill="#4A5560"/>
+          <circle cx="46" cy="98" r="7" fill="url(#oreGrad)"/>
+          <circle cx="63" cy="102" r="7" fill="url(#oreGrad)"/>
+          <circle cx="80" cy="98" r="7" fill="url(#oreGrad)"/>
+          <circle cx="55" cy="108" r="5" fill="url(#oreGrad)" opacity=".85"/>
+          <circle cx="72" cy="108" r="5" fill="url(#oreGrad)" opacity=".85"/>
+          <circle cx="60" cy="61" r="9" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/>
+        </svg>
+        <div class="visual-caption">PELLETIZER</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:.6s"></div></div></div>
+
+  <!-- ═══ III — THE STRIPPING AWAY ═══ -->
+  <section class="stage" id="s3">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER III</div>
+      <h2>The Stripping Away</h2>
+      <h3>Direct Reduced Iron — Rotary Kiln</h3>
+      <p>At roughly 950°C, pellets and mined coal meet inside the rotary kiln. Oxygen is stripped away; only metallic iron remains. <span class="hl">No coking, no blast furnace</span> — impurities fall, and what's left is closer to the strength we're building toward.</p>
+      <div class="chips">
+        <div class="chip hot mono">~950°C</div>
+        <div class="chip">Non-Coking Coal</div>
+        <div class="chip">No Blast Furnace</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="60" cy="34" rx="34" ry="11" fill="#3E4550"/>
+          <rect x="26" y="34" width="68" height="56" fill="url(#steelGrad)"/>
+          <ellipse cx="60" cy="90" rx="34" ry="11" fill="#2E343D"/>
+          <line x1="42" y1="48" x2="42" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" filter="url(#glow)"/>
+          <line x1="60" y1="44" x2="60" y2="80" stroke="url(#emberGrad)" stroke-width="3" opacity=".75" filter="url(#glow)"/>
+          <line x1="78" y1="48" x2="78" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" filter="url(#glow)"/>
+          <ellipse cx="60" cy="94" rx="13" ry="8" fill="url(#emberGrad)" filter="url(#glow)"/>
+        </svg>
+        <div class="visual-caption">ROTARY KILN</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- pull quote 1 -->
+  <div class="pull-quote reveal">
+    <div class="line">Strength isn't added.<br>It's revealed.</div>
+    <p class="sub">What remains after reduction becomes the core of everything Shakambhari builds — the #SteelWithin, before it has a name.</p>
+  </div>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:1.2s"></div></div></div>
+
+  <!-- ═══ IV — WHERE IT BECOMES ONE ═══ -->
+  <section class="stage reverse" id="s4">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER IV</div>
+      <h2>Where It Becomes One</h2>
+      <h3>Steel Making — Electric Arc Furnace</h3>
+      <p>Sponge iron meets externally sourced scrap and pig iron, and silicomanganese made entirely <span class="hl">in-house</span> — three sources, melted at roughly 1600°C into one liquid steel. Almost none of it was bought as a finished input we simply had to have; nearly all of it, we made ourselves.</p>
+      <div class="chips">
+        <div class="chip hot mono">~1600°C</div>
+        <div class="chip">Scrap &amp; Pig Iron · External</div>
+        <div class="chip hot">Silicomanganese · In-House ⭐</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="40" width="76" height="60" rx="8" fill="url(#steelGrad)"/>
+          <rect x="28" y="46" width="64" height="48" rx="6" fill="#2E343D"/>
+          <ellipse cx="60" cy="82" rx="26" ry="9" fill="url(#emberGrad)" filter="url(#glow)"/>
+          <rect x="42" y="12" width="7" height="32" rx="3" fill="#7C8797"/>
+          <rect x="57" y="10" width="7" height="34" rx="3" fill="#7C8797"/>
+          <rect x="72" y="12" width="7" height="32" rx="3" fill="#7C8797"/>
+          <line x1="45" y1="46" x2="45" y2="58" stroke="#3E9FD8" stroke-width="2" filter="url(#glow)"/>
+          <line x1="60" y1="44" x2="60" y2="56" stroke="#3E9FD8" stroke-width="2" filter="url(#glow)"/>
+          <line x1="75" y1="46" x2="75" y2="58" stroke="#3E9FD8" stroke-width="2" filter="url(#glow)"/>
+        </svg>
+        <div class="visual-caption">ELECTRIC ARC FURNACE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:1.8s"></div></div></div>
+
+  <!-- ═══ V — DISCIPLINE TAKES FORM ═══ -->
+  <section class="stage" id="s5">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER V</div>
+      <h2>Discipline Takes Form</h2>
+      <h3>Continuous Casting — Billets</h3>
+      <p>Liquid steel is poured into water-cooled molds and drawn out continuously — no batch, no interruption. What emerges is a billet with a grain structure disciplined enough to <span class="hl">hold whatever shape</span> comes next.</p>
+      <div class="chips">
+        <div class="chip">Water-Cooled Molds</div>
+        <div class="chip">Homogeneous Structure</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 16 Q60 10 90 16 L84 46 Q60 52 36 46 Z" fill="url(#steelGrad)"/>
+          <rect x="55" y="48" width="10" height="20" rx="3" fill="url(#emberGrad)" filter="url(#glow)"/>
+          <rect x="42" y="68" width="36" height="16" rx="3" fill="#3E4550"/>
+          <rect x="46" y="84" width="28" height="30" rx="2" fill="url(#steelGradLight)"/>
+          <rect x="46" y="84" width="28" height="4" fill="url(#emberGrad)" opacity=".7"/>
+        </svg>
+        <div class="visual-caption">CASTING MACHINE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:2.4s"></div></div></div>
+
+  <!-- ═══ VI — PRESSURE REVEALS PURPOSE ═══ -->
+  <section class="stage reverse" id="s6">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER VI</div>
+      <h2>Pressure Reveals Purpose</h2>
+      <h3>Rolling Mills — Finished Long Products</h3>
+      <p>Billets are reheated and driven through rolling mills under enormous pressure, elongating and refining into three distinct products — each one built to <span class="hl">hold something up</span>: a wall, a roof, a skyline.</p>
+      <div class="chips">
+        <div class="chip">3 Finished Products</div>
+        <div class="chip">Pan-India Distribution</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="24" width="84" height="72" rx="7" fill="url(#steelGrad)"/>
+          <ellipse cx="60" cy="50" rx="30" ry="11" fill="#2E343D"/>
+          <ellipse cx="60" cy="72" rx="30" ry="11" fill="#2E343D"/>
+          <rect x="30" y="56" width="60" height="10" rx="2" fill="url(#barGrad)"/>
+          <circle cx="24" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
+          <circle cx="96" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
+          <circle cx="24" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
+          <circle cx="96" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
+        </svg>
+        <div class="visual-caption">ROLLING MILL</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ PRODUCTS ═══ -->
+  <section class="products-head reveal">
+    <div class="stage-code">WHAT THIS BUILDS</div>
+    <h2>From One Furnace, Three Futures</h2>
+    <p>Every stage before this exists to arrive here — steel with #SteelWithin inside it, headed into the walls, roofs, and skylines of a growing nation.</p>
+  </section>
+
+  <div class="products-grid">
+    <div class="prod-card reveal">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="22" width="44" height="12" rx="3" fill="url(#barGrad)"/>
+        <rect x="12" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
+        <rect x="20" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
+        <rect x="28" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
+        <rect x="36" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
+        <circle cx="8" cy="28" r="5" fill="url(#barGrad)" stroke="#6B5A3B" stroke-width="1"/>
+        <circle cx="48" cy="28" r="5" fill="url(#barGrad)" stroke="#6B5A3B" stroke-width="1"/>
+      </svg>
+      <h4>TMT Bars</h4>
+      <p>Thermomechanically treated reinforcement bars for RCC construction — marketed as Elegant Steel / QST TMT Bars. Somewhere right now, one of these is holding up a roof over someone's family.</p>
+      <div class="prod-badge">Core Product</div>
+    </div>
+    <div class="prod-card reveal">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="32" width="44" height="7" rx="2" fill="url(#barGrad)"/>
+        <rect x="6" y="24" width="44" height="7" rx="2" fill="url(#barGrad)" opacity=".85"/>
+        <rect x="6" y="16" width="44" height="7" rx="2" fill="url(#barGrad)" opacity=".7"/>
+        <ellipse cx="44" cy="46" rx="7" ry="5" fill="none" stroke="#8792A2" stroke-width="1.5"/>
+        <rect x="37" y="41" width="14" height="10" fill="none" stroke="#545C6B" stroke-width="1"/>
+      </svg>
+      <h4>Narrow Strips (Hot Rolled)</h4>
+      <p>Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills — the raw material other builders build with.</p>
+      <div class="prod-badge">Semi-Finished</div>
+    </div>
+    <div class="prod-card reveal">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="14" width="36" height="6" rx="1" fill="url(#barGrad)"/>
+        <rect x="22" y="20" width="12" height="16" rx="1" fill="#6B5A3B"/>
+        <rect x="10" y="36" width="36" height="6" rx="1" fill="url(#barGrad)"/>
+        <rect x="40" y="12" width="5" height="28" rx="1" fill="url(#barGrad)" opacity=".7"/>
+        <rect x="32" y="38" width="13" height="5" rx="1" fill="url(#barGrad)" opacity=".7"/>
+      </svg>
+      <h4>Structural Steel</h4>
+      <p>Angles, channels, joists, H-beams and I-beams, rolled to standard sizes — the skeleton inside the skylines rising across India.</p>
+      <div class="prod-badge">Construction</div>
+    </div>
+  </div>
+
+  <!-- ═══ INTEGRATION ═══ -->
+  <section class="integration">
+    <div class="integration-box reveal">
+      <h3>Mine to Market. Core to Skyline.</h3>
+      <p>Shakambhari controls the entire value chain — our own coal mines, our own pelletization, our own reduction, our own furnace, our own mills. Waste streams are captured and recycled internally. Silicomanganese is produced in-house. Nothing here was outsourced because it was easier — it was built this way because pioneers don't rent the parts that matter.</p>
+      <div class="flow-strip">
+        <div class="flow-node">
+          <svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="24" rx="15" ry="10" fill="url(#charGrad)"/><ellipse cx="14" cy="16" rx="9" ry="6" fill="url(#charGrad)" opacity=".85"/></svg>
+          <span>MINE</span>
+        </div>
+        <div class="flow-track"></div>
+        <div class="flow-node">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="8" y="12" width="24" height="18" rx="3" fill="url(#steelGrad)"/><ellipse cx="20" cy="32" rx="10" ry="7" fill="url(#emberGrad)" filter="url(#glow)"/></svg>
+          <span>MILL</span>
+        </div>
+        <div class="flow-track"></div>
+        <div class="flow-node">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="10" y="16" width="20" height="16" fill="url(#barGrad)"/><polygon points="20,6 32,16 8,16" fill="url(#barGrad)" opacity=".8"/></svg>
+          <span>MARKET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BRAND CLOSE ═══ -->
+  <section class="brand-close reveal">
+    <div class="tag">#SteelWithin</div>
+    <p>Every structure standing on our steel is standing, in part, on a decision made underground, at a mine, at the very start of this story — the decision to build the whole chain ourselves, so that whatever bears our name carries our strength from the core outward.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,6 94,86 6,86" fill="none" stroke="#14161C" stroke-width="5" stroke-linejoin="round"/>
+          <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(-30 50 50)"/>
+          <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(30 50 50)"/>
+          <ellipse cx="50" cy="50" rx="9" ry="17" fill="url(#emberGrad)"/>
+        </svg>
+        <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+      </a>
+      <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="process.html">Our Process</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="journey.html">Our Journey</a>
+      <a href="vision.html">Mission, Vision &amp; Values</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="companies.html">Group Companies</a>
+      <a href="quality.html">Quality</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="awards.html">Awards &amp; Certifications</a>
+      <a href="csr.html">Corporate Social Responsibility</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="clientele.html">Clientele</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+913366255252">033 6625 5252</a>
+      <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+      <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+    <div class="footer-social">
+      <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z"/></svg></a>
+      <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── glass nav: scroll state + mobile toggle ──
+(function(){
+  const nav = document.querySelector('.site-nav');
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  function onNavScroll(){ if(!nav) return; nav.classList.toggle('scrolled', window.scrollY > 20); }
+  window.addEventListener('scroll', onNavScroll, { passive:true });
+  onNavScroll();
+  if(toggle && links){
+    toggle.addEventListener('click', ()=>{ toggle.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{ toggle.classList.remove('open'); links.classList.remove('open'); }));
+  }
+  document.querySelectorAll('.has-dropdown').forEach(item=>{
+    let closeTimer;
+    const open = ()=>{ clearTimeout(closeTimer); item.classList.add('open'); };
+    const scheduleClose = ()=>{ closeTimer = setTimeout(()=>item.classList.remove('open'), 350); };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', scheduleClose);
+    item.addEventListener('focusin', open);
+    item.addEventListener('focusout', scheduleClose);
+  });
+})();
+
+const reduceMotionPref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ── pinned, scroll-driven flowchart pan ──
+(function setupFlowchartPin(){
+  const pin = document.getElementById('flowchartPin');
+  const track = document.getElementById('flowchartTrack');
+  const viewport = document.querySelector('.flowchart-viewport');
+  const progressFill = document.getElementById('flowchartProgress');
+  if(!pin || !track || !viewport) return;
+
+  if(reduceMotionPref){ pin.classList.add('no-pin'); return; }
+
+  const SPEED = 1.6; // >1 slows the perceived pan speed relative to scroll distance
+  let maxScroll = 0, extra = 0, pinTop = 0;
+
+  function measure(){
+    const trackWidth = track.scrollWidth;
+    const viewportWidth = viewport.clientWidth;
+    maxScroll = Math.max(0, trackWidth - viewportWidth);
+    extra = maxScroll * SPEED;
+    pin.style.height = (window.innerHeight + extra) + 'px';
+    pinTop = pin.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function onScroll(){
+    const start = pinTop;
+    const end = pinTop + extra;
+    let progress = extra > 0 ? (window.scrollY - start) / (end - start) : 0;
+    progress = Math.min(Math.max(progress, 0), 1);
+    track.style.transform = `translateX(-${progress * maxScroll}px)`;
+    if(progressFill) progressFill.style.width = (progress * 100) + '%';
+  }
+
+  measure();
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', ()=>{ measure(); onScroll(); });
+  window.addEventListener('load', ()=>{ measure(); onScroll(); });
+})();
+
+const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+const revealObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+},{ threshold:.15 });
+revealEls.forEach(el=>revealObs.observe(el));
+
+const railFill = document.getElementById('railFill');
+const dots = document.querySelectorAll('.rail-dot');
+const stages = [...dots].map(d=>document.getElementById(d.dataset.target));
+
+function updateRail(){
+  const main = document.querySelector('main');
+  const rect = main.getBoundingClientRect();
+  const total = main.offsetHeight - window.innerHeight * .5;
+  const scrolled = Math.min(Math.max(-rect.top, 0), total);
+  const pct = total > 0 ? (scrolled/total)*100 : 0;
+  railFill.style.height = pct + '%';
+}
+window.addEventListener('scroll', updateRail, { passive:true });
+updateRail();
+
+const stageObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    const idx = stages.indexOf(e.target);
+    if(idx === -1) return;
+    if(e.isIntersecting){ dots.forEach(d=>d.classList.remove('active')); dots[idx].classList.add('active'); }
+  });
+},{ rootMargin:'-45% 0px -45% 0px', threshold:0 });
+stages.forEach(s=> s && stageObs.observe(s));
+
+const canvas = document.getElementById('embers');
+const ctx = canvas.getContext('2d');
+const heroEl = document.querySelector('.hero');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let particles = [];
+
+function resizeCanvas(){ canvas.width = heroEl.offsetWidth; canvas.height = heroEl.offsetHeight; }
+function spawn(){
+  return {
+    x: Math.random()*canvas.width, y: canvas.height + Math.random()*40,
+    r: 1 + Math.random()*2.4, vy: .3 + Math.random()*.8, vx: (Math.random()-.5)*.4,
+    life: 0, maxLife: 240 + Math.random()*260,
+    hue: Math.random() > .5 ? '255,106,31' : '255,194,75'
+  };
+}
+function initParticles(){ particles = Array.from({length: 55}, spawn); }
+function tick(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y -= p.vy; p.x += p.vx + Math.sin(p.life*.02)*.3; p.life++;
+    const fade = 1 - p.life/p.maxLife;
+    if(fade <= 0 || p.y < -20){ Object.assign(p, spawn()); return; }
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(${p.hue},${Math.max(fade,0)*.85})`;
+    ctx.shadowColor = `rgba(${p.hue},.8)`; ctx.shadowBlur = 6; ctx.fill();
+  });
+  requestAnimationFrame(tick);
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+if(!reduceMotion){ initParticles(); tick(); }
+</script>
+</body>
+</html>
