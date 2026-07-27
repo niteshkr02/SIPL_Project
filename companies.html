@@ -19,6 +19,41 @@
 
 .market-tags{ display:flex; flex-wrap:wrap; gap:.55rem; }
 
+/* ══ BRAND SHOWCASE ══ */
+.brand-showcase-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+@media(max-width:800px){ .brand-showcase-grid{ grid-template-columns:1fr; } }
+.brand-showcase{
+  position:relative; min-height:420px; border-radius:1.3rem; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:flex-end; padding:2.2rem;
+  border:1px solid var(--border);
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 12px 30px rgba(20,22,28,.1);
+  transition:transform .35s ease, box-shadow .35s ease;
+}
+.brand-showcase:hover{ transform:translateY(-8px); box-shadow:0 24px 50px rgba(20,22,28,.22); }
+.brand-showcase-bg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+}
+.brand-showcase::after{
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(0deg, rgba(10,11,14,.92) 0%, rgba(10,11,14,.55) 45%, rgba(10,11,14,.1) 75%);
+}
+.brand-showcase-content{ position:relative; z-index:2; }
+.brand-showcase-tag{
+  font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent-hot, #FFC24B); margin-bottom:.6rem; display:block;
+}
+.brand-showcase h3{
+  font-family:var(--font-display); font-size:clamp(1.8rem,3.2vw,2.4rem); color:#EEEAE1; margin-bottom:.7rem; text-transform:none;
+}
+.brand-showcase p{ color:#C7CDD5; font-size:.95rem; max-width:42ch; margin-bottom:1.1rem; }
+.brand-showcase-link{
+  font-family:var(--font-mono); font-size:.75rem; font-weight:700; letter-spacing:.08em;
+  color:#EEEAE1; text-decoration:none; display:inline-flex; align-items:center; gap:.4rem;
+  border-bottom:1px solid rgba(238,234,225,.4); padding-bottom:.2rem; width:fit-content;
+  transition:border-color .25s ease, color .25s ease;
+}
+.brand-showcase-link:hover{ color:var(--accent-hot, #FFC24B); border-color:var(--accent-hot, #FFC24B); }
+
 /* ══ CTA BAND ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
 .cta-inner{
@@ -92,17 +127,17 @@
   <div class="companies-grid-full" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.4rem;">
     <div class="panel reveal" style="padding:1.8rem;">
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">01 · FLAGSHIP · MADANDIH, PURULIA</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SIPL · Unit Madandih</h4>
+      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SIPL Madandih</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Incorporated in 2001 as Ma Chhinnamastika Steel &amp; Power Pvt Ltd, renamed Shakambhari Ispat &amp; Power Ltd in 2010. An integrated plant with an Iron Beneficiation Plant, Coal Beneficiation Plant, Rotary Kilns for DRI, an Induction Furnace with Continuous Casting, and Horizontal and Vertical Rolling Mills, backed by its own Captive Power Plant.</p>
     </div>
     <div class="panel reveal" style="padding:1.8rem;">
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">02 · PELLET &amp; SPONGE IRON · MOHUDA, PURULIA</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Bravo Sponge Iron Pvt. Ltd. (BSIPL)</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">Associated with the group since 2004. Its Iron Pellets are produced at a scale that makes it a raw material source for other group plants, alongside its own Sponge Iron, Steel Melting and Captive Power facilities. A Hot Strip Mill and hollow and tubular pipe manufacturing are both underway.</p>
+      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SIPL Rukni</h4>
+      <p style="color:var(--ink-soft); font-size:.9rem;">Incorporated as Bravo Sponge Iron Pvt. Ltd. (BSIPL) in 1997, commercial since 2003, and associated with the group since 2004. Its Iron Pellets are produced at a scale that makes it a raw material source for other group plants, alongside its own Sponge Iron, Steel Melting and Captive Power facilities. A Hot Strip Mill and hollow and tubular pipe manufacturing are both underway.</p>
     </div>
     <div class="panel reveal" style="padding:1.8rem;">
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">03 · ALUMINIUM</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Unit Mogra: India Foils</h4>
+      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SIPL Mogra — India Foils</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Our unit in Hooghly district, and the one place in the group that doesn't work in iron. Rolls 9–60 micron aluminium foil, bare and printed pharmaceutical foil, household foil, semi-rigid container foil and lidding foils, certified ISO 9001:2015, ISO 14001:2015 and BIS, reaching customers in 29+ countries.</p>
     </div>
     <div class="panel reveal" style="padding:1.8rem;">
@@ -137,17 +172,25 @@
     <h2>Two Names, Trusted on Their Own</h2>
     <p>Beneath the company names sit the brands customers actually ask for by name.</p>
   </div>
-  <div class="companies-grid-full" style="display:grid; grid-template-columns:1fr 1fr; gap:1.4rem;">
-    <div class="panel reveal" style="padding:2rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">BRAND · SINCE 1993</span>
-      <h4 style="font-size:1.15rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Elegant Steel</h4>
-      <p style="color:var(--ink-soft); font-size:.92rem;">The TMT bars, angles and channels rolled at SPS Steels' Durgapur and Purulia units carry the Elegant name, a brand born in 1993 and part of the Shakambhari Group since April 2019. It's the mark customers look for on every rebar leaving the rolling mills.</p>
-    </div>
-    <div class="panel reveal" style="padding:2rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">BRAND · ALUMINIUM FOIL</span>
-      <h4 style="font-size:1.15rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">India Foils</h4>
-      <p style="color:var(--ink-soft); font-size:.92rem;">The aluminium foil rolled at Unit Mogra in Hooghly carries the India Foils name, reaching pharmaceutical, food and FMCG customers in 29+ countries under a brand with decades of standing in the industry.</p>
-    </div>
+  <div class="brand-showcase-grid">
+    <a href="products.html#finished-steel" class="brand-showcase reveal">
+      <img src="images/QST_TMT_Bars.png" alt="Elegant Steel TMT bars" class="brand-showcase-bg" loading="lazy">
+      <div class="brand-showcase-content">
+        <span class="brand-showcase-tag">Brand · Since 1993</span>
+        <h3>Elegant Steel</h3>
+        <p>The TMT bars, angles and channels rolled at SPS Steels' Durgapur and Purulia units carry the Elegant name, part of the Shakambhari Group since April 2019 — the mark customers look for on every rebar leaving the rolling mills.</p>
+        <span class="brand-showcase-link">VIEW ELEGANT PRODUCTS →</span>
+      </div>
+    </a>
+    <a href="products.html#aluminium-foil" class="brand-showcase reveal">
+      <img src="images/Aluminium_Foil.png" alt="India Foils pharma-grade aluminium foil production line" class="brand-showcase-bg" loading="lazy">
+      <div class="brand-showcase-content">
+        <span class="brand-showcase-tag">Brand · Aluminium Foil</span>
+        <h3>India Foils</h3>
+        <p>The aluminium foil rolled at SIPL Mogra in Hooghly carries the India Foils name, reaching pharmaceutical, food and FMCG customers in 29+ countries under a brand with decades of standing in the industry.</p>
+        <span class="brand-showcase-link">VIEW INDIA FOILS PRODUCTS →</span>
+      </div>
+    </a>
   </div>
 </section>
 
