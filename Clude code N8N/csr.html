@@ -9,19 +9,140 @@
 .page-header{
   --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
   --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
+  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4rem; text-align:center; overflow:hidden;
   background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
 }
 .page-header .kicker{ justify-content:center; color:var(--accent-hot); }
 .page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
+.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.4rem); max-width:20ch; margin:0 auto; }
+.page-header h1 .grad{
+  background:linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-quote-panel{
+  max-width:800px; margin:2rem auto 0; padding:1.5rem 2rem; border-radius:1.2rem;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.hero-quote-panel p{ color:#C9C6BC; font-size:1rem; line-height:1.75; margin:0; }
+.hero-quote-panel .hl{ color:var(--accent-hot); font-weight:600; }
 
-.csr-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.1rem; }
-@media(max-width:700px){ .csr-grid{ grid-template-columns:1fr; } }
-.csr-item{ display:flex; gap:.9rem; align-items:flex-start; padding:1.2rem 1.3rem; }
-.csr-item svg{ width:26px; height:26px; flex-shrink:0; margin-top:.15rem; }
-.csr-item span{ font-size:.9rem; color:var(--ink-soft); line-height:1.5; }
+/* ══ IN THE FIELD (photo + pledge card) ══ */
+.csr-field-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:1.4rem; align-items:stretch; }
+@media(max-width:900px){ .csr-field-grid{ grid-template-columns:1fr; } }
+
+.csr-field-photo{ position:relative; border-radius:1.4rem; overflow:hidden; min-height:320px; }
+.csr-field-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.csr-field-caption{
+  position:absolute; left:0; right:0; bottom:0; padding:1.8rem 1.6rem 1.4rem;
+  background:linear-gradient(to top, rgba(10,11,14,.92), transparent);
+}
+.csr-field-caption .tag{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.12em; color:var(--accent-hot); text-transform:uppercase; margin-bottom:.4rem; display:block; }
+.csr-field-caption p{ color:#EEEAE1; font-size:.94rem; margin:0; }
+
+.csr-pledge-card{ padding:2.1rem 2rem; display:flex; flex-direction:column; justify-content:center; }
+.csr-pledge-card .kicker{ margin-bottom:.9rem; }
+.csr-pledge-card p{ color:var(--ink-soft); font-size:.95rem; line-height:1.7; margin-bottom:1.6rem; }
+.csr-pledge-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; border-top:1px solid var(--border); padding-top:1.3rem; }
+.csr-pledge-stats .stat-num{ font-family:var(--font-display); font-weight:800; font-size:1.5rem; color:var(--accent-ink); line-height:1; }
+.csr-pledge-stats .stat-label{ font-family:var(--font-mono); font-size:.6rem; font-weight:700; letter-spacing:.06em; color:var(--ink-dim); margin-top:.4rem; text-transform:uppercase; line-height:1.3; }
+
+/* ══ SIX INITIATIVE CARDS ══ */
+.csr-cards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+@media(max-width:980px){ .csr-cards-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:620px){ .csr-cards-grid{ grid-template-columns:1fr; } }
+
+.csr-card{ padding:1.9rem 1.7rem; }
+.csr-card-icon{
+  width:52px; height:52px; border-radius:.9rem; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(255,106,31,.16), rgba(255,194,75,.1));
+  border:1px solid rgba(255,106,31,.28);
+  margin-bottom:1.1rem;
+}
+.csr-card-icon svg{ width:26px; height:26px; }
+.csr-card h4{ font-size:1.02rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.55rem; color:var(--ink); }
+.csr-card p{ font-size:.9rem; color:var(--ink-soft); line-height:1.6; }
+.csr-card p a{ color:var(--accent-ink); font-weight:600; }
+
+/* ══ GALLERY (real photos) ══ */
+.gallery-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+@media(max-width:900px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:620px){ .gallery-grid{ grid-template-columns:1fr; } }
+
+.gallery-tile{ overflow:hidden; padding:0; }
+.gallery-visual{ position:relative; aspect-ratio:4/3; overflow:hidden; background:#14161C; }
+.gallery-visual img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .7s cubic-bezier(.16,.84,.44,1);
+}
+.gallery-tile:hover .gallery-visual img{ transform:scale(1.09); }
+.gallery-visual::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to top, rgba(10,11,14,.92) 0%, rgba(10,11,14,.32) 42%, transparent 65%);
+}
+.gallery-tag{
+  position:absolute; top:1rem; left:1rem; z-index:2;
+  font-family:var(--font-mono); font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:#fff; background:rgba(10,11,14,.55); border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  padding:.4rem .85rem; border-radius:2rem;
+}
+.gallery-caption{
+  position:absolute; left:0; right:0; bottom:0; z-index:2;
+  padding:1.4rem 1.15rem 1.1rem; font-size:.86rem; line-height:1.5; color:#EEEAE1; margin:0;
+}
+
+/* ══ FLAGSHIP SPOTLIGHT ══ */
+.flagship-wrap{
+  border-radius:1.6rem; overflow:hidden; border:1px solid rgba(255,194,75,.3);
+  box-shadow:0 24px 55px rgba(0,0,0,.4);
+  background:#28409E;
+}
+
+.flagship-banner{ position:relative; min-height:520px; overflow:hidden; display:flex; align-items:flex-end; }
+.flagship-banner img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; display:block; z-index:0; }
+.flagship-banner::after{
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top, rgba(9,14,40,.95) 12%, rgba(9,14,40,.35) 52%, transparent 78%);
+}
+.flagship-banner-badge{
+  position:absolute; top:2rem; left:2.2rem; z-index:2;
+  display:inline-flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.7rem; font-weight:700;
+  letter-spacing:.1em; color:var(--accent-hot); background:rgba(9,14,30,.6); border:1px solid rgba(255,106,31,.45);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  padding:.5rem 1rem; border-radius:2rem; text-transform:uppercase;
+}
+.flagship-banner-badge::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+.flagship-banner-content{ position:relative; z-index:2; padding:2.4rem 2.2rem 2.2rem; }
+.flagship-banner-sub{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.12em; color:var(--accent-hot); text-transform:uppercase; margin-bottom:.6rem; }
+.flagship-banner-content h2{ color:#fff; font-size:clamp(1.6rem,3.6vw,2.6rem); margin:0; max-width:34ch; }
+.flagship-banner-content h2 .accent-word{ color:var(--accent); }
+
+.flagship-detail{ padding:2.4rem 2.4rem 2.6rem; }
+.flagship-detail-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:2.2rem; align-items:start; }
+@media(max-width:800px){ .flagship-detail-grid{ grid-template-columns:1fr; } }
+.flagship-detail-text{ color:#DCE4FA; font-size:.98rem; line-height:1.75; }
+
+.flagship-plaque{
+  border-radius:1.1rem; overflow:hidden; border:1px solid rgba(255,194,75,.35);
+  background:rgba(8,9,25,.28); box-shadow:0 16px 38px rgba(0,0,0,.3);
+  transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.flagship-plaque:hover{ transform:translateY(-6px); border-color:rgba(255,194,75,.6); box-shadow:0 24px 50px rgba(0,0,0,.4); }
+.flagship-plaque-image{ background:#0A0B14; }
+.flagship-plaque-image img{ width:100%; display:block; }
+.flagship-plaque-data{ padding:1rem 1.1rem 1.1rem; }
+.flagship-plaque-label{
+  display:flex; align-items:center; gap:.5rem; margin-bottom:.6rem;
+  font-family:var(--font-mono); font-size:.64rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#FFC24B;
+}
+.flagship-plaque-label::before{ content:''; width:16px; height:2px; background:#FFC24B; }
+.flagship-plaque-cap{ font-size:.78rem; color:#C7D2F2; line-height:1.5; padding-top:.7rem; border-top:1px solid rgba(255,255,255,.16); }
+
+.flagship-mini-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.8rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.18); }
+.flagship-mini-num{ font-family:var(--font-display); font-weight:800; color:#FFC24B; font-size:1.2rem; }
+.flagship-mini-label{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.08em; color:#B9C5EE; text-transform:uppercase; margin-top:.3rem; line-height:1.3; }
 
 /* ══ CTA BAND ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
@@ -43,6 +164,9 @@
   <defs>
     <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
     <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F0C368"/><stop offset="100%" stop-color="#9C6E22"/></linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7CB86B"/><stop offset="100%" stop-color="#3E7A34"/></linearGradient>
+    <linearGradient id="boltGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFC24B"/><stop offset="100%" stop-color="#E23B1F"/></linearGradient>
   </defs>
 </svg>
 
@@ -89,23 +213,203 @@
 <!-- PAGE HEADER -->
 <header class="page-header">
   <div class="kicker reveal">CORPORATE SOCIAL RESPONSIBILITY</div>
-  <h1 class="reveal">Corporate Social Responsibility</h1>
-  <p class="reveal">Hygiene, safety, education and medical assistance, starting at the plant gate and reaching into the surrounding community.</p>
+  <h1 class="reveal">The Strongest Thing We Build Isn't Steel — <span class="grad">It's the Communities Around Us</span></h1>
+  <div class="hero-quote-panel reveal">
+    <p>At Shakambhari Group, community work isn't confined to a CSR office — it happens on the ground, through the same plants that make our steel. <span class="hl">Classrooms, clinics, clean water</span> and skill workshops for the villages around us: giving back is simply <span class="hl">part of how we operate</span>.</p>
+  </div>
 </header>
 
+<!-- IN THE FIELD + PLEDGE -->
 <section class="section" id="csr">
   <div class="section-head reveal">
-    <div class="kicker center">CORPORATE SOCIAL RESPONSIBILITY</div>
-    <h2>Starting From the Workplace, Ending in the Community</h2>
-    <p>"CSR remains in the core business strategy of the group," not an initiative that runs alongside the business, but one written into it.</p>
+    <div class="kicker center">OUR PHILOSOPHY</div>
+    <h2>Written Into the Business, Not Bolted On</h2>
+    <p>Community investment runs alongside every plant we operate — ongoing work in the field, not a once-a-year report.</p>
   </div>
-  <div class="csr-grid">
-    <div class="csr-item panel reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M4 10L12 4L20 10V19H4V10Z" fill="url(#steelGrad)"/></svg><span>Providing amenities to village schools and local hospitals near our plants.</span></div>
-    <div class="csr-item panel reveal"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="url(#steelGrad)" opacity=".6"/><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2"/></svg><span>Free medical check-up camps and healthcare diagnosis for surrounding villages.</span></div>
-    <div class="csr-item panel reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20h16M12 20V6M6 10l6-6 6 6" stroke="url(#steelGrad)" stroke-width="2" fill="none"/></svg><span>Road development and clean drinking water infrastructure for rural communities.</span></div>
-    <div class="csr-item panel reveal"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" fill="url(#steelGrad)"/><circle cx="17" cy="9" r="3" fill="url(#steelGrad)" opacity=".6"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5" stroke="url(#steelGrad)" stroke-width="2" fill="none"/></svg><span>Vocational skill-training programmes for local youth, and NGO partnerships supporting underprivileged children.</span></div>
+  <div class="csr-field-grid">
+
+    <div class="csr-field-photo panel reveal">
+      <img src="images/School_img.png" alt="Sarad Bhaktivedanta Public School, Purulia" loading="lazy">
+      <div class="csr-field-caption">
+        <span class="tag">In the Field</span>
+        <p>Sarad Bhaktivedanta Public School, Purulia — one of the places our community work comes together.</p>
+      </div>
+    </div>
+
+    <div class="csr-pledge-card panel reveal">
+      <div class="kicker">OUR PLEDGE</div>
+      <p>We measure more than tonnes rolled. Progress also looks like children staying in school, families seen by a doctor without a bill, wells that hold water through the dry months, and land that's greener than we found it.</p>
+      <div class="csr-pledge-stats">
+        <div>
+          <div class="stat-num counter" data-target="12" data-suffix="+">0+</div>
+          <div class="stat-label">Villages Served</div>
+        </div>
+        <div>
+          <div class="stat-num counter" data-target="50" data-suffix="k+">0k+</div>
+          <div class="stat-label">Trees Planted</div>
+        </div>
+        <div>
+          <div class="stat-num counter" data-target="20" data-suffix="+">0+</div>
+          <div class="stat-label">NGO Partners</div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <p style="text-align:center; max-width:60ch; margin:2.2rem auto 0; color:var(--ink-soft); font-size:.92rem;" class="reveal">Environmental initiatives, tree plantation, green belts, rain-water harvesting, live on the <a href="sustainability.html" style="color:var(--accent-ink); font-weight:600;">Sustainability page →</a></p>
+</section>
+
+<div class="divider"></div>
+
+<!-- SIX INITIATIVE AREAS -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">WHERE IT GOES</div>
+    <h2>Six Ways We Show Up</h2>
+    <p>From the school gate to the hospital ward, community investment follows the same discipline as the plants themselves.</p>
+  </div>
+  <div class="csr-cards-grid">
+
+    <div class="csr-card panel reveal">
+      <div class="csr-card-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 8-4v6h1.5V8L12 3Z" fill="url(#goldGrad)"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" stroke="url(#goldGrad)" stroke-width="1.6" fill="none"/></svg>
+      </div>
+      <h4>Schools That Stand Taller</h4>
+      <p>Desks, fans, learning aids and sanitation blocks for village schools and local hospitals near our plants — the everyday basics a classroom or a ward shouldn't have to go without.</p>
+    </div>
+
+    <div class="csr-card panel reveal">
+      <div class="csr-card-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 5 10 5 15A7 7 0 0 0 19 15C19 10 12 2 12 2Z" fill="#3E9FD8"/></svg>
+      </div>
+      <h4>Clean Water, Better Roads</h4>
+      <p>Hand-pumps, water lines and paved roads for the settlements around our units — infrastructure built to outlast a single monsoon, not just survive it.</p>
+    </div>
+
+    <div class="csr-card panel reveal">
+      <div class="csr-card-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z" fill="url(#boltGrad)" opacity=".75"/></svg>
+      </div>
+      <h4>Care Without a Price Tag</h4>
+      <p>Free medical check-up camps bring doctors, diagnostics and medicines directly to families who'd otherwise travel hours to be seen.</p>
+    </div>
+
+    <div class="csr-card panel reveal">
+      <div class="csr-card-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="5" fill="url(#goldGrad)"/><path d="M8.5 12.5L6 21l6-3 6 3-2.5-8.5" stroke="url(#goldGrad)" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
+      </div>
+      <h4>Skills That Outlast a Shift</h4>
+      <p>Hands-on training for local women and youth — trades and confidence that keep paying off long after the workshop ends.</p>
+    </div>
+
+    <div class="csr-card panel reveal">
+      <div class="csr-card-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 7c-1.6-2-4.6-2.1-6-.2-1.5 2-.9 4.6 1.2 6.4L12 17l4.8-3.8c2.1-1.8 2.7-4.4 1.2-6.4-1.4-1.9-4.4-1.8-6 .2Z" fill="url(#boltGrad)" opacity=".85"/><path d="M3.5 21c1.7-2.5 5-4 8.5-4s6.8 1.5 8.5 4" stroke="url(#boltGrad)" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".55"/></svg>
+      </div>
+      <h4>Standing With Every Child</h4>
+      <p>Partnerships with NGOs fund nutrition, schooling and creative programmes for underprivileged children, so where a child starts doesn't decide where they end up.</p>
+    </div>
+
+    <div class="csr-card panel reveal">
+      <div class="csr-card-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M20 34C20 34 8 28 8 16C8 10 13 6 20 6C27 6 32 10 32 16C32 28 20 34 20 34Z" fill="url(#greenGrad)" transform="scale(0.6) translate(2,2)"/></svg>
+      </div>
+      <h4>Greener Than We Found It</h4>
+      <p>Tree-plantation drives, maintained green patches and rainwater harvesting around our sites — our way of putting something back into the land that feeds our furnaces.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section class="section tight">
+  <div class="section-head reveal">
+    <div class="kicker center">ON THE GROUND</div>
+    <h2>Where the Work Actually Happens</h2>
+    <p>A few moments from recent plantation drives, health camps and training sessions.</p>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-tile panel reveal">
+      <div class="gallery-visual">
+        <img src="images/Planting.png" alt="Tree-plantation drive with plant staff and village volunteers" loading="lazy">
+        <span class="gallery-tag">Plantation Drive</span>
+        <p class="gallery-caption">Plant staff and village volunteers on a tree-plantation day.</p>
+      </div>
+    </div>
+
+    <div class="gallery-tile panel reveal">
+      <div class="gallery-visual">
+        <img src="images/MedicalCheck-up.png" alt="Free medical check-up camp" loading="lazy">
+        <span class="gallery-tag">Health Camp</span>
+        <p class="gallery-caption">A free health check-up camp in progress.</p>
+      </div>
+    </div>
+
+    <div class="gallery-tile panel reveal">
+      <div class="gallery-visual">
+        <img src="images/SkillTraining.png" alt="Skill-training workshop for villagers" loading="lazy">
+        <span class="gallery-tag">Skill Training</span>
+        <p class="gallery-caption">Villagers at a skill-training session run by our foundation.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FLAGSHIP PROGRAMME -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">FLAGSHIP PROGRAMME</div>
+    <h2>A School Built to Outlast a Single Generation</h2>
+  </div>
+
+  <div class="flagship-wrap reveal-scale">
+    <div class="flagship-banner">
+      <img src="images/School_img.png" alt="Sarad Bhaktivedanta Public School, Purulia">
+      <span class="flagship-banner-badge">Flagship CSR Initiative</span>
+      <div class="flagship-banner-content">
+        <div class="flagship-banner-sub">Educating Today, Investing in Tomorrow</div>
+        <h2>Sarad Bhaktivedanta Public School, <span class="accent-word">Purulia</span></h2>
+      </div>
+    </div>
+    <div class="flagship-detail">
+      <div class="flagship-detail-grid">
+        <div class="flagship-detail-text">
+          <p>Run by the Elegant Care Foundation, the group's CSR wing, this school in Purulia opened its doors on 19 December 2023, inaugurated by Smt. Premlata Devi Agarwal.</p>
+          <p>It carries the name of Late Sarad Agarwal Ji — a memorial that now shapes the education of children from the villages around our plants.</p>
+          <div class="flagship-mini-stats">
+            <div>
+              <div class="flagship-mini-num">2023</div>
+              <div class="flagship-mini-label">Inaugurated</div>
+            </div>
+            <div>
+              <div class="flagship-mini-num">Purulia</div>
+              <div class="flagship-mini-label">West Bengal</div>
+            </div>
+            <div>
+              <div class="flagship-mini-num">Elegant Care</div>
+              <div class="flagship-mini-label">CSR Foundation</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flagship-plaque">
+            <div class="flagship-plaque-image">
+              <img src="images/MarblePlate.png" alt="School inauguration plaque, dated 19 December 2023">
+            </div>
+            <div class="flagship-plaque-data">
+              <div class="flagship-plaque-label">Memorial Plaque</div>
+              <div class="flagship-plaque-cap">Inaugurated by Smt. Premlata Devi Agarwal · 19 December 2023</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CTA BAND -->
@@ -171,5 +475,53 @@
 </footer>
 
 <script src="site.js"></script>
+<script>
+  /* ── STAT COUNTER ANIMATION ── */
+  (function () {
+    const counters = document.querySelectorAll('.counter');
+    const duration = 1800; // ms
+
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const decimals = parseInt(el.dataset.decimal || '0', 10);
+      const start = performance.now();
+
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutExpo(progress);
+        const value = target * eased;
+        el.textContent = prefix + value.toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target.toFixed(decimals) + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function (c) { obs.observe(c); });
+    } else {
+      counters.forEach(function (el) {
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const prefix = el.dataset.prefix || '';
+        const decimals = parseInt(el.dataset.decimal || '0', 10);
+        el.textContent = prefix + target.toFixed(decimals) + suffix;
+      });
+    }
+  })();
+</script>
 </body>
 </html>

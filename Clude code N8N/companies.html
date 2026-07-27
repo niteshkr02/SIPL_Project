@@ -30,6 +30,18 @@
 }
 .cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
 .cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+
+/* ══ COMPANY CARD IMAGES ══ */
+.companies-grid-full .panel{ padding:0; overflow:hidden; display:flex; flex-direction:column; }
+.company-img-wrap{ width:100%; height:190px; position:relative; overflow:hidden; flex-shrink:0; background:#14161C; }
+.company-img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s cubic-bezier(.16,.84,.44,1); }
+.panel:hover .company-img-wrap img{ transform:scale(1.08); }
+.company-img-wrap::after{ content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to bottom, rgba(10,11,14,.02) 0%, rgba(10,11,14,0) 40%, rgba(10,11,14,.4) 100%); }
+.companies-grid-full .panel > span, .companies-grid-full .panel > h4, .companies-grid-full .panel > p,
+#green-habit > span, #green-habit > h4, #green-habit > p{ padding-left:1.8rem; padding-right:1.8rem; }
+.companies-grid-full .panel > span{ margin-top:1.8rem; }
+.companies-grid-full .panel > p{ padding-bottom:1.8rem; }
+#green-habit .company-img-wrap{ height:230px; }
 </style>
 </head>
 <body>
@@ -95,42 +107,49 @@
     <p>Every plant sits inside a single state, mapped and numbered. None of them cut corners to get there.</p>
   </div>
   <div class="companies-grid-full" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.4rem;">
-    <div class="panel reveal" style="padding:1.8rem;">
+    <div class="panel reveal">
+      <div class="company-img-wrap"><img src="images/Madandih_Unit.png" alt="SIPL · Unit Madandih" loading="lazy"></div>
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">01 · FLAGSHIP · MADANDIH, PURULIA</span>
       <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SIPL · Unit Madandih</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Incorporated in 2001 as Ma Chhinnamastika Steel &amp; Power Pvt Ltd, renamed Shakambhari Ispat &amp; Power Ltd in 2010. An integrated plant with an Iron Beneficiation Plant, Coal Beneficiation Plant, Rotary Kilns for DRI, an Electric Arc Furnace with Continuous Casting, and Horizontal and Vertical Rolling Mills, backed by its own Captive Power Plant.</p>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
+    <div class="panel reveal">
+      <div class="company-img-wrap"><img src="images/Rukni_Unit.png" alt="Bravo Sponge Iron Pvt. Ltd. (BSIPL)" loading="lazy"></div>
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">02 · PELLET &amp; SPONGE IRON · MOHUDA, PURULIA</span>
       <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Bravo Sponge Iron Pvt. Ltd. (BSIPL)</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Associated with the group since 2004. Its Iron Pellets are produced at a scale that makes it a raw material source for other group plants, alongside its own Sponge Iron, Steel Melting and Captive Power facilities. A Hot Strip Mill and hollow and tubular pipe manufacturing are both underway.</p>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
+    <div class="panel reveal">
+      <div class="company-img-wrap"><img src="images/Mogra_Unit.png" alt="Unit Mogra: India Foils" loading="lazy"></div>
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">03 · ALUMINIUM</span>
       <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Unit Mogra: India Foils</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Our unit in Hooghly district, and the one place in the group that doesn't work in iron. Rolls 9–60 micron aluminium foil, bare and printed pharmaceutical foil, household foil, semi-rigid container foil and lidding foils, certified ISO 9001:2015, ISO 14001:2015 and BIS, reaching customers in 29+ countries.</p>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
+    <div class="panel reveal">
+      <div class="company-img-wrap"><img src="images/Durgapur.png" alt="SPS Steels · Unit I" loading="lazy"></div>
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">04 · INTEGRATED · DURGAPUR</span>
       <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SPS Steels · Unit I</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Incorporated 26 December 1981, acquired by Shakambhari Group in 2019. An integrated plant in Durgapur rolling TMT bars, angles and channels, with its own Sponge Iron and MS Billet capacity feeding a DRI plant, Steel Melting Shop and automatic Rolling Mills.</p>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
+    <div class="panel reveal">
+      <div class="company-img-wrap"><img src="images/Durgapur.png" alt="SPS Steels · Unit II" loading="lazy"></div>
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">05 · MEGA INTEGRATED · PORADIHA, PURULIA</span>
       <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SPS Steels · Unit II</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">The group's most recently acquired facility, in Poradiha village, Purulia, now being revived as a Mega Integrated Steel Plant: Sponge Iron through DRI Kilns, Ferro Alloys through a Submerged Arc Furnace, MS and CRS Billets through its Steel Melting Plant, QST Bars, and its own Captive Power Plant.</p>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
+    <div class="panel reveal">
+      <div class="company-img-wrap"><img src="images/Eloquent_steel.png" alt="Eloquent Steel Private Limited" loading="lazy"></div>
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">06 · FERRO ALLOYS · NACROJORIA</span>
       <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Eloquent Steel Private Limited</h4>
       <p style="color:var(--ink-soft); font-size:.9rem;">Producing high quality Ferro Alloys at Nacrojoria, West Bardhaman, for captive consumption and export markets, through a Submerged Arc Furnace and Induction Furnace. Built on two acquired plants, Hira Concast Ltd and Impex Steel Ltd, with Structural Steel next on the roadmap.</p>
     </div>
   </div>
 
-  <div class="panel reveal" style="padding:2.2rem; margin-top:1.6rem; text-align:center;" id="green-habit">
-    <span style="font-family:var(--font-mono); font-size:.68rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">AGRO · GREEN HABIT · INCORPORATED 21 JULY 2014</span>
+  <div class="panel reveal" style="margin-top:1.6rem; text-align:center;" id="green-habit">
+    <div class="company-img-wrap"><img src="images/Shakambhari_Agrotech.png" alt="Shakambhari Agrotech Private Limited" loading="lazy"></div>
+    <span style="font-family:var(--font-mono); font-size:.68rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; margin-top:2.2rem; display:block;">AGRO · GREEN HABIT · INCORPORATED 21 JULY 2014</span>
     <h4 style="font-size:1.15rem; font-weight:700; font-family:var(--font-body); margin:.7rem 0;">Shakambhari Agrotech Private Limited</h4>
-    <p style="color:var(--ink-soft); font-size:.94rem; max-width:64ch; margin:0 auto;">Under the Green Habit brand, SAPL grows a wide range of unadulterated organic fruits and vegetables, making fresh, natural nutrition accessible with every product. Beyond nutrition, it's become a source of employment for local farmers and the communities around them, proof that the group's discipline isn't confined to metal.</p>
+    <p style="color:var(--ink-soft); font-size:.94rem; max-width:64ch; margin:0 auto 2.2rem;">Under the Green Habit brand, SAPL grows a wide range of unadulterated organic fruits and vegetables, making fresh, natural nutrition accessible with every product. Beyond nutrition, it's become a source of employment for local farmers and the communities around them, proof that the group's discipline isn't confined to metal.</p>
   </div>
 </section>
 
