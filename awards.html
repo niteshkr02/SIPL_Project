@@ -23,6 +23,62 @@
 .award-item svg{ width:22px; height:22px; flex-shrink:0; margin-top:.1rem; }
 .award-item span{ font-size:.9rem; color:var(--ink-soft); line-height:1.5; }
 
+/* ══ CERTIFICATES & AWARDS GALLERY ══ */
+.awards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1200px; margin:0 auto; }
+@media(max-width:900px){ .awards-grid{ grid-template-columns:repeat(2,1fr); gap:1.2rem; } }
+@media(max-width:580px){ .awards-grid{ grid-template-columns:1fr; gap:1rem; } }
+
+.award-card{
+  background:linear-gradient(145deg, rgba(255,255,255,.98), rgba(245,247,250,.95));
+  border:1.5px solid rgba(255,194,75,.4); border-radius:16px; padding:1.1rem;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  display:flex; flex-direction:column; align-items:center;
+  transition:all .35s cubic-bezier(.16,.84,.44,1); cursor:pointer; position:relative; overflow:hidden;
+}
+.award-card::before{
+  content:''; position:absolute; inset:0; border-radius:16px; padding:1.5px;
+  background:linear-gradient(135deg, #FFC24B, var(--accent), transparent);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.4; transition:opacity .3s ease;
+}
+.award-card:hover{ transform:translateY(-6px); box-shadow:0 16px 40px rgba(255,106,31,.22); border-color:var(--accent); }
+.award-card:hover::before{ opacity:1; }
+.award-card.no-scan{ cursor:default; }
+.award-card.no-scan:hover{ transform:none; box-shadow:0 8px 25px rgba(0,0,0,.08); border-color:rgba(255,194,75,.4); }
+.award-card.no-scan:hover::before{ opacity:.4; }
+.award-img-wrap{
+  width:100%; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+  background:#FFFFFF; border-radius:10px; padding:.75rem; border:1px solid rgba(0,0,0,.06);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.04); overflow:hidden;
+}
+.award-img-wrap img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; transition:transform .35s ease; }
+.award-card:hover .award-img-wrap img{ transform:scale(1.06); }
+.award-caption{ margin-top:.9rem; text-align:center; width:100%; }
+.award-title{ font-size:.88rem; font-weight:800; color:#111111; line-height:1.3; margin-bottom:.25rem; }
+.award-issuer{ font-size:.73rem; color:var(--accent-ink); font-weight:700; text-transform:uppercase; letter-spacing:.06em; font-family:var(--font-mono); }
+
+/* CERTIFICATE LIGHTBOX MODAL */
+.cert-modal-overlay{
+  position:fixed; inset:0; background:rgba(10,12,18,.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  z-index:9999; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+  opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease;
+}
+.cert-modal-overlay.active{ opacity:1; visibility:visible; }
+.cert-modal-content{
+  max-width:900px; max-height:90vh; background:#0F1218; border:1.5px solid rgba(255,194,75,.5); border-radius:16px;
+  padding:1.5rem; position:relative; box-shadow:0 25px 60px rgba(0,0,0,.8);
+  display:flex; flex-direction:column; align-items:center;
+}
+.cert-modal-img{ max-width:100%; max-height:75vh; object-fit:contain; border-radius:8px; }
+.cert-modal-title{ color:#FFFFFF; font-size:1.05rem; font-weight:800; margin-top:1rem; text-align:center; }
+.cert-modal-close{
+  position:absolute; top:-15px; right:-15px; width:36px; height:36px; background:var(--accent); color:#FFFFFF;
+  border:2px solid #FFFFFF; border-radius:50%; font-size:1.2rem; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+
 /* ══ CTA BAND ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
 .cta-inner{
@@ -93,22 +149,116 @@
   <p class="reveal">A decade of external validation, from the Ministry of Steel to the country's biggest brand rankings, for standards we'd hold ourselves to regardless.</p>
 </header>
 
+
+<!-- CERTIFICATES & AWARDS GALLERY -->
 <section class="section" id="awards">
   <div class="section-head reveal">
-    <div class="kicker center">AWARDS &amp; CERTIFICATIONS</div>
-    <h2>Recognition We Earned, Not Chased</h2>
+    <div class="kicker center">NATIONAL HONOURS &amp; ACCREDITATIONS</div>
+    <h2>Certificates &amp; Awards Gallery</h2>
+    <p>Click on any certificate to view the high-resolution official document.</p>
   </div>
-  <div class="awards-list">
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Four Star Export House</strong>, Ministry of Commerce &amp; Industry, Govt. of India</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Secondary Steel Sector Award 2016–17</strong> (Silver Certificate), Ministry of Steel</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Most Preferred Workplace</strong> 2023–2024 (Manufacturing Edition)</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Most Trusted Brands of India</strong> 2024–25 (4th Edition), Marksmen Daily</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Most Preferred Brands</strong> 2024–25, Elegant named "Epitome of New-Age Success"</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>ET Iconic Brand Award</strong>, The Economic Times</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Best Employer Brand Award</strong>, West Bengal Leadership Awards 2019</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Iconic Brands</strong>, Bihar &amp; Jharkhand Certificate of Recognition</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Excellence in Construction Award</strong> 2025, Infrastructure Conclave</span></div>
-    <div class="award-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg><span><strong>Green Pro Certificate</strong>, CII-Green Products &amp; Services Limited</span></div>
+  <div class="awards-grid">
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/MostTrustedBrand_Award.png', 'Most Trusted Brands of India 2024-25 (4th Edition) - Marksmen Daily')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/MostTrustedBrand_Award.png" alt="Most Trusted Brands of India" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Most Trusted Brands of India</div>
+        <div class="award-issuer">Marksmen Daily · 4th Edition, 2024–25</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/Iconic_Award.png', 'ET Iconic Brand Award 2020 - ET Edge')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/Iconic_Award.png" alt="ET Iconic Brand Award" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">ET Iconic Brand Award</div>
+        <div class="award-issuer">The Economic Times (ET Edge), 2020</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/Certificate_of_Recognition.png', 'Iconic Brands of Bihar-Jharkhand - Certificate of Recognition, Zee Media')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/Certificate_of_Recognition.png" alt="Iconic Brands of Bihar-Jharkhand Certificate of Recognition" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Iconic Brands of Bihar-Jharkhand</div>
+        <div class="award-issuer">Certificate of Recognition · Zee Media</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/MostPrefered_Award.png', 'Most Preferred Brands 2024-25 - Epitome of New-Age Success, Marksmen Daily')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/MostPrefered_Award.png" alt="Most Preferred Brands 2024-25" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Most Preferred Brands 2024–25</div>
+        <div class="award-issuer">Marksmen Daily · Epitome of New-Age Success</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/WorldMostPrefered_Award.png', 'World\'s Most Preferred Workplace 2023-2024 (Manufacturing Edition)')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/WorldMostPrefered_Award.png" alt="World's Most Preferred Workplace" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">World's Most Preferred Workplace</div>
+        <div class="award-issuer">2023–2024 · Manufacturing Edition</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/LeaderShip_Award.png', 'Best Employer Brand Award - West Bengal Leadership Awards 2019')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/LeaderShip_Award.png" alt="Best Employer Brand Award" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Best Employer Brand Award</div>
+        <div class="award-issuer">West Bengal Leadership Awards 2019</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/4Star_Certificate.png', 'Four Star Export House Certification - Govt. of India')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/4Star_Certificate.png" alt="Four Star Export House Certification" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Four Star Export House</div>
+        <div class="award-issuer">Ministry of Commerce &amp; Industry, Govt. of India</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/Silver_Certificate.png', 'Secondary Steel Sector Award 2016-17 (Silver Certificate) - Ministry of Steel')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/Silver_Certificate.png" alt="Silver Certificate Award" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Secondary Steel Sector Award</div>
+        <div class="award-issuer">Silver Certificate · Ministry of Steel, 2016–17</div>
+      </div>
+    </div>
+
+    <div class="award-card reveal" onclick="openCertModal('images/Certificates&amp;Award/Infra_Certificate.png', 'Excellence in Construction Award 2025 - The Infrastructure Conclave')">
+      <div class="award-img-wrap">
+        <img src="images/Certificates&amp;Award/Infra_Certificate.png" alt="Excellence in Construction Award" loading="lazy">
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Excellence in Construction Award</div>
+        <div class="award-issuer">The Infrastructure Conclave (ET Infra), 2025</div>
+      </div>
+    </div>
+
+    <div class="award-card no-scan reveal">
+      <div class="award-img-wrap">
+        <svg viewBox="0 0 24 24" fill="none" style="width:56px;height:56px;"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5Z" fill="url(#goldGrad)"/></svg>
+      </div>
+      <div class="award-caption">
+        <div class="award-title">Green Pro Certificate</div>
+        <div class="award-issuer">CII-Green Products &amp; Services Limited</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -175,5 +325,43 @@
 </footer>
 
 <script src="site.js"></script>
+
+<!-- CERTIFICATE LIGHTBOX MODAL OVERLAY -->
+<div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">
+  <div class="cert-modal-content" onclick="event.stopPropagation()">
+    <button class="cert-modal-close" onclick="closeCertModal()">&times;</button>
+    <img id="certModalImg" src="" alt="Official Certificate Document" class="cert-modal-img">
+    <div id="certModalTitle" class="cert-modal-title"></div>
+  </div>
+</div>
+
+<script>
+  function openCertModal(imageSrc, titleText) {
+    const modal = document.getElementById('certModal');
+    const img = document.getElementById('certModalImg');
+    const title = document.getElementById('certModalTitle');
+    if (modal && img && title) {
+      img.src = imageSrc;
+      title.textContent = titleText;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeCertModal(e) {
+    if (e && e.target && !e.target.classList.contains('cert-modal-overlay') && !e.target.classList.contains('cert-modal-close')) {
+      return;
+    }
+    const modal = document.getElementById('certModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCertModal();
+  });
+</script>
 </body>
 </html>
