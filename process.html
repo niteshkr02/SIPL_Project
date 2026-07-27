@@ -322,6 +322,49 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 
 .fc-node-label{ font-family:'Oswald',sans-serif; font-weight:700; text-transform:uppercase; fill:#000; }
 
+.fc-node{ cursor:pointer; outline:none; }
+.fc-node rect:first-child{ transition:filter .2s ease, transform .2s ease; transform-box:fill-box; transform-origin:center; }
+.fc-node:hover rect:first-child, .fc-node:focus-visible rect:first-child{ filter:brightness(1.1); transform:scale(1.015); }
+.fc-node:focus-visible rect:first-child{ stroke-dasharray:6 3; }
+.fc-legend{ display:flex; gap:1.4rem; justify-content:center; align-items:center; margin-top:1.2rem; flex-wrap:wrap; }
+.fc-legend-item{ display:flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.05em; color:var(--ink-soft); }
+.fc-legend-swatch{ width:14px; height:14px; border-radius:4px; }
+.fc-legend-swatch.machine{ background:#1D4E7A; }
+.fc-legend-swatch.product{ background:#8A5A15; }
+.fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
+
+/* ══ SPEC MODAL ══ */
+.spec-modal-overlay{
+  position:fixed; inset:0; z-index:3000; display:none;
+  background:rgba(10,11,14,.72); backdrop-filter:blur(3px);
+  align-items:center; justify-content:center; padding:1.5rem;
+}
+.spec-modal-overlay.open{ display:flex; }
+.spec-modal{
+  background:var(--surface); border-radius:1.2rem; max-width:560px; width:100%;
+  max-height:85vh; overflow-y:auto; position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+.spec-modal-img{ width:100%; height:220px; object-fit:cover; display:block; border-radius:1.2rem 1.2rem 0 0; background:#DDE1E6; }
+.spec-modal-body{ padding:2rem; }
+.spec-modal-badge{
+  display:inline-block; font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.1em;
+  padding:.3rem .7rem; border-radius:.4rem; color:#fff; margin-bottom:.9rem;
+}
+.spec-modal-badge.machine{ background:#1D4E7A; }
+.spec-modal-badge.product{ background:#8A5A15; }
+.spec-modal h3{ font-size:1.5rem; margin-bottom:.8rem; }
+.spec-modal p{ color:var(--ink-soft); font-size:.96rem; line-height:1.6; margin-bottom:1.2rem; }
+.spec-modal-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.spec-modal-close{
+  position:absolute; top:1rem; right:1rem; z-index:1;
+  width:36px; height:36px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(10,11,14,.55); color:#fff; font-size:1.1rem; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s ease;
+}
+.spec-modal-close:hover{ background:rgba(10,11,14,.8); }
+
 /* ══ ISOMETRIC CAMPUS LAYOUT ══ */
 .iso-campus-frame{
   max-width:1180px; margin:0 auto; padding:1.5rem;
@@ -537,6 +580,11 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       <div class="stage-code">THE FULL CHAIN</div>
       <h2>One Continuous Process</h2>
       <p>Every input, every merge, every transformation — mapped in a single unbroken chain. Keep scrolling: the chain moves with you, left to right, like material through a mill.</p>
+      <div class="fc-legend">
+        <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
+        <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
+        <span class="fc-legend-hint">— click any box for details</span>
+      </div>
     </div>
     <div class="flowchart-viewport">
       <div class="flowchart-track" id="flowchartTrack">
@@ -583,78 +631,118 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 
         <!-- ═ NODES ═ -->
         <!-- ORE -->
-        <g>
-          <rect x="40" y="40" width="220" height="68" rx="12" fill="url(#oreGrad)" stroke="#000" stroke-width="1.5"/>
+        <g class="fc-node fc-product" data-node="iron-ore" tabindex="0" role="button" aria-label="ORE">
+          <rect x="40" y="40" width="220" height="68" rx="12" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="3"/>
           <text class="fc-node-label on-dark" x="150" y="80" text-anchor="middle" font-size="17">IRON ORE</text>
+          <rect x="48" y="46" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="79" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
+
         <!-- COAL -->
-        <g>
-          <rect x="40" y="220" width="220" height="68" rx="12" fill="url(#charGrad)" stroke="#000" stroke-width="1.5"/>
+        <g class="fc-node fc-product" data-node="coal" tabindex="0" role="button" aria-label="COAL">
+          <rect x="40" y="220" width="220" height="68" rx="12" fill="url(#charGrad)" stroke="#8A5A15" stroke-width="3"/>
           <text class="fc-node-label on-dark" x="150" y="260" text-anchor="middle" font-size="17">COAL</text>
+          <rect x="48" y="226" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="79" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
+
         <!-- PELLET PLANT -->
-        <g>
-          <rect x="320" y="40" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+        <g class="fc-node fc-machine" data-node="pellet-plant" tabindex="0" role="button" aria-label="PELLET PLANT">
+          <rect x="320" y="40" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
           <text class="fc-node-label" x="430" y="72" text-anchor="middle" font-size="16">PELLET</text>
           <text class="fc-node-label" x="430" y="90" text-anchor="middle" font-size="16">PLANT</text>
+          <rect x="328" y="46" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+          <text x="359" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
         </g>
-        <!-- KILN -->
-        <g>
-          <rect x="320" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- ROTARY KILN -->
+        <g class="fc-node fc-machine" data-node="rotary-kiln" tabindex="0" role="button" aria-label="ROTARY KILN">
+          <rect x="320" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
           <text class="fc-node-label" x="430" y="253" text-anchor="middle" font-size="16">ROTARY</text>
           <text class="fc-node-label" x="430" y="273" text-anchor="middle" font-size="16">KILN</text>
+          <rect x="328" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+          <text x="359" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
         </g>
+
         <!-- SPONGE IRON -->
-        <g>
-          <rect x="600" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+        <g class="fc-node fc-product" data-node="sponge-iron" tabindex="0" role="button" aria-label="SPONGE IRON">
+          <rect x="600" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
           <text class="fc-node-label" x="710" y="253" text-anchor="middle" font-size="16">SPONGE</text>
           <text class="fc-node-label" x="710" y="273" text-anchor="middle" font-size="16">IRON</text>
+          <rect x="608" y="226" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="639" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
+
         <!-- INDUCTION FURNACE -->
-        <g>
-          <rect x="880" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+        <g class="fc-node fc-machine" data-node="induction-furnace" tabindex="0" role="button" aria-label="INDUCTION FURNACE">
+          <rect x="880" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
           <text class="fc-node-label" x="990" y="248" text-anchor="middle" font-size="15">INDUCTION</text>
           <text class="fc-node-label" x="990" y="266" text-anchor="middle" font-size="15">FURNACE</text>
+          <rect x="888" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+          <text x="919" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
         </g>
-        <!-- SCRAP + SIMN -->
-        <g>
-          <rect x="880" y="400" width="220" height="68" rx="12" fill="url(#goldGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- SCRAP + PIG IRON + IN-HOUSE SIMN -->
+        <g class="fc-node fc-product" data-node="scrap-simn" tabindex="0" role="button" aria-label="SCRAP + PIG IRON + IN-HOUSE SIMN">
+          <rect x="880" y="400" width="220" height="68" rx="12" fill="url(#goldGrad)" stroke="#8A5A15" stroke-width="3"/>
           <text class="fc-node-label on-dark" x="990" y="433" text-anchor="middle" font-size="14">SCRAP + PIG IRON</text>
           <text class="fc-node-label on-dark" x="990" y="452" text-anchor="middle" font-size="14">+ IN-HOUSE SiMn ⭐</text>
+          <rect x="888" y="406" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="919" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
-        <!-- CASTING -->
-        <g>
-          <rect x="1160" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- CONTINUOUS CASTING -->
+        <g class="fc-node fc-machine" data-node="continuous-casting" tabindex="0" role="button" aria-label="CONTINUOUS CASTING">
+          <rect x="1160" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
           <text class="fc-node-label" x="1270" y="253" text-anchor="middle" font-size="15">CONTINUOUS</text>
           <text class="fc-node-label" x="1270" y="272" text-anchor="middle" font-size="15">CASTING</text>
+          <rect x="1168" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+          <text x="1199" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
         </g>
+
         <!-- BILLETS -->
-        <g>
-          <rect x="1440" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+        <g class="fc-node fc-product" data-node="billets" tabindex="0" role="button" aria-label="BILLETS">
+          <rect x="1440" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
           <text class="fc-node-label" x="1550" y="262" text-anchor="middle" font-size="17">BILLETS</text>
+          <rect x="1448" y="226" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="1479" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
-        <!-- ROLLING -->
-        <g>
-          <rect x="1440" y="400" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- ROLLING MILL -->
+        <g class="fc-node fc-machine" data-node="rolling-mill" tabindex="0" role="button" aria-label="ROLLING MILL">
+          <rect x="1440" y="400" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
           <text class="fc-node-label" x="1550" y="433" text-anchor="middle" font-size="16">ROLLING</text>
           <text class="fc-node-label" x="1550" y="452" text-anchor="middle" font-size="16">MILL</text>
+          <rect x="1448" y="406" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+          <text x="1479" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
         </g>
-        <!-- OUTPUTS -->
-        <g>
-          <rect x="1720" y="320" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- TMT BARS -->
+        <g class="fc-node fc-product" data-node="tmt-bars" tabindex="0" role="button" aria-label="TMT BARS">
+          <rect x="1720" y="320" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
           <rect x="1720" y="320" width="220" height="6" rx="3" fill="#FF6A1F"/>
           <text class="fc-node-label on-dark" x="1830" y="358" text-anchor="middle" font-size="16">TMT BARS</text>
+          <rect x="1728" y="326" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="1759" y="337" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
-        <g>
-          <rect x="1720" y="400" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- STRIPS -->
+        <g class="fc-node fc-product" data-node="strips" tabindex="0" role="button" aria-label="STRIPS">
+          <rect x="1720" y="400" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
           <rect x="1720" y="400" width="220" height="6" rx="3" fill="#FF6A1F"/>
           <text class="fc-node-label on-dark" x="1830" y="438" text-anchor="middle" font-size="16">STRIPS</text>
+          <rect x="1728" y="406" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="1759" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
-        <g>
-          <rect x="1720" y="480" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#000" stroke-width="1.5"/>
+
+        <!-- STRUCTURAL STEEL -->
+        <g class="fc-node fc-product" data-node="structural-steel" tabindex="0" role="button" aria-label="STRUCTURAL STEEL">
+          <rect x="1720" y="480" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
           <rect x="1720" y="480" width="220" height="6" rx="3" fill="#FF6A1F"/>
           <text class="fc-node-label on-dark" x="1830" y="512" text-anchor="middle" font-size="14">STRUCTURAL</text>
           <text class="fc-node-label on-dark" x="1830" y="529" text-anchor="middle" font-size="14">STEEL</text>
+          <rect x="1728" y="486" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+          <text x="1759" y="497" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
         </g>
       </svg>
       </div>
@@ -1094,6 +1182,20 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </div>
 </footer>
 
+<!-- SPEC MODAL -->
+<div class="spec-modal-overlay" id="specModalOverlay">
+  <div class="spec-modal" role="dialog" aria-modal="true" aria-labelledby="specModalTitle">
+    <button class="spec-modal-close" id="specModalClose" aria-label="Close">✕</button>
+    <img class="spec-modal-img" id="specModalImg" alt="" style="display:none;">
+    <div class="spec-modal-body">
+      <span class="spec-modal-badge" id="specModalBadge"></span>
+      <h3 id="specModalTitle"></h3>
+      <p id="specModalDesc"></p>
+      <div class="spec-modal-tags" id="specModalTags"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ── glass nav: scroll state + mobile toggle ──
 (function(){
@@ -1219,6 +1321,118 @@ function tick(){
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 if(!reduceMotion){ initParticles(); tick(); }
+
+// ── flowchart node spec modal ──
+(function setupSpecModal(){
+  const specData = {
+    'iron-ore': {
+      category: 'product', title: 'Iron Ore',
+      desc: 'Before a single beam is cast, there is only rock. Iron ore fines are sourced from trusted market suppliers — the first link in a chain built to be owned end to end, not rented piece by piece.',
+      tags: ['Iron Ore Fines']
+    },
+    'coal': {
+      category: 'product', title: 'Coal',
+      desc: 'Coal is drawn straight from Shakambhari\'s own mines, feeding the rotary kiln as the reducing agent that strips oxygen from iron ore.',
+      tags: ['Own Mines']
+    },
+    'pellet-plant': {
+      category: 'machine', title: 'Pellet Plant — SIPL Rukni',
+      img: 'images/Rukni_Unit.png',
+      desc: 'Raw ore fines alone are too fine and inconsistent for the kiln ahead. At SIPL Rukni they\'re agglomerated into uniform spherical pellets, engineered for the permeability that clean, efficient reduction demands.',
+      tags: ['SIPL Rukni', 'Spherical Pellets', 'Commercial Since 2003']
+    },
+    'rotary-kiln': {
+      category: 'machine', title: 'Rotary Kiln',
+      img: 'images/Madandih_Unit.png',
+      desc: 'At roughly 950°C, pellets and mined coal meet inside the rotary kiln. Oxygen is stripped away; only metallic iron remains — no coking, no blast furnace.',
+      tags: ['~950°C', 'Non-Coking Coal', 'No Blast Furnace']
+    },
+    'sponge-iron': {
+      category: 'product', title: 'Sponge Iron',
+      desc: 'Solid-state direct reduced metallic iron, made by removing oxygen from raw ore. India is the world\'s largest producer of this, and it\'s the primary feed for our induction furnace route.',
+      tags: ['Coal-Based DRI', 'High Metallisation']
+    },
+    'induction-furnace': {
+      category: 'machine', title: 'Induction Furnace',
+      img: 'images/Madandih_Unit.png',
+      desc: 'Sponge iron meets externally sourced scrap and pig iron, and silicomanganese made entirely in-house — three sources, melted at roughly 1600°C into one liquid steel.',
+      tags: ['~1600°C', 'Continuous Casting Feed']
+    },
+    'scrap-simn': {
+      category: 'product', title: 'Scrap + Pig Iron + In-House SiMn',
+      img: 'images/Ferro_Alloys.png',
+      desc: 'Externally sourced scrap and pig iron combine with silicomanganese produced entirely in-house at Eloquent Steel — almost nothing here was bought as a finished input we simply had to have.',
+      tags: ['External Scrap & Pig Iron', 'In-House SiMn']
+    },
+    'continuous-casting': {
+      category: 'machine', title: 'Continuous Casting',
+      img: 'images/Madandih_Unit.png',
+      desc: 'Liquid steel is poured into water-cooled molds and drawn out continuously — no batch, no interruption — producing a billet with a homogeneous grain structure.',
+      tags: ['Water-Cooled Molds', 'Homogeneous Structure']
+    },
+    'billets': {
+      category: 'product', title: 'M.S. / CRS Billets',
+      desc: 'High-grade semi-finished feed for rolling mills, produced by melting sponge iron, pig iron and select ferro alloys at ~1600°C, then shaped via continuous casting.',
+      tags: ['100mm–160mm', 'IS 2830:2012']
+    },
+    'rolling-mill': {
+      category: 'machine', title: 'Rolling Mill',
+      img: 'images/Durgapur.png',
+      desc: 'Billets are reheated and driven through rolling mills under enormous pressure, elongating and refining into three distinct finished products, distributed pan-India.',
+      tags: ['3 Finished Products', 'Pan-India Distribution']
+    },
+    'tmt-bars': {
+      category: 'product', title: 'TMT Bars',
+      img: 'images/QST_TMT_Bars.png',
+      desc: 'Thermomechanically treated reinforcement bars for RCC construction, marketed as Elegant Steel / QST TMT Bars — quenched and self-tempered via our TEMPCORE system.',
+      tags: ['6–32mm', 'Fe 500D / 550D / CRS', 'ISI 1786:2008']
+    },
+    'strips': {
+      category: 'product', title: 'Narrow Strips (Hot Rolled)',
+      desc: 'Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills — the raw material other builders build with.',
+      tags: ['Semi-Finished', 'Pipe Manufacturing Feed']
+    },
+    'structural-steel': {
+      category: 'product', title: 'Structural Steel',
+      img: 'images/Structural_Steel.png',
+      desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
+      tags: ['Elegant', 'Elecart']
+    }
+  };
+
+  const overlay = document.getElementById('specModalOverlay');
+  const imgEl = document.getElementById('specModalImg');
+  const badgeEl = document.getElementById('specModalBadge');
+  const titleEl = document.getElementById('specModalTitle');
+  const descEl = document.getElementById('specModalDesc');
+  const tagsEl = document.getElementById('specModalTags');
+  const closeBtn = document.getElementById('specModalClose');
+  if(!overlay) return;
+
+  function openModal(id){
+    const d = specData[id];
+    if(!d) return;
+    if(d.img){ imgEl.src = d.img; imgEl.alt = d.title; imgEl.style.display = 'block'; }
+    else { imgEl.style.display = 'none'; imgEl.removeAttribute('src'); }
+    badgeEl.textContent = d.category === 'machine' ? 'MACHINE / DIVISION' : 'MATERIAL / PRODUCT';
+    badgeEl.className = 'spec-modal-badge ' + d.category;
+    titleEl.textContent = d.title;
+    descEl.textContent = d.desc;
+    tagsEl.innerHTML = (d.tags || []).map(t => `<span class="chip">${t}</span>`).join('');
+    overlay.classList.add('open');
+  }
+  function closeModal(){ overlay.classList.remove('open'); }
+
+  document.querySelectorAll('.fc-node').forEach(node => {
+    node.addEventListener('click', () => openModal(node.dataset.node));
+    node.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(node.dataset.node); }
+    });
+  });
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+})();
 </script>
 </body>
 </html>
