@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Journey | Shakambhari Group</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.page-header{
+  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
+  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
+  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
+  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
+}
+.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
+.page-header .kicker::before{ background:var(--accent); }
+.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
+.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
+
+/* ══ TIMELINE ══ */
+.timeline{ position:relative; max-width:760px; margin:0 auto; padding-left:2rem; }
+.timeline::before{ content:''; position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--border); }
+.tl-item{ position:relative; padding-bottom:2.4rem; }
+.tl-item:last-child{ padding-bottom:0; }
+.tl-item::before{ content:''; position:absolute; left:-2rem; top:4px; width:12px; height:12px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px rgba(255,106,31,.15); }
+.tl-year{ font-family:var(--font-mono); font-weight:700; font-size:.85rem; color:var(--accent-ink); letter-spacing:.08em; }
+.tl-item h4{ font-size:1.05rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin:.3rem 0 .4rem; }
+.tl-item p{ font-size:.95rem; color:var(--ink-soft); max-width:56ch; }
+
+/* ══ PRESENT & FUTURE ══ */
+.quality-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; }
+@media(max-width:700px){ .quality-grid{ grid-template-columns:1fr; } }
+.quality-card{ padding:1.8rem 1.7rem; }
+.quality-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.quality-card p{ font-size:.92rem; color:var(--ink-soft); }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+</style>
+</head>
+<body>
+<div class="sheen"></div>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <img src="images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo">
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">About</span>
+      <div class="dropdown">
+        <a href="journey.html" class="active">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+      </div>
+    </li>
+    <li><a href="companies.html">Group Companies</a></li>
+    <li><a href="quality.html">Quality</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="process.html">Our Process</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label">Others</span>
+      <div class="dropdown">
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html">Clientele</a>
+      </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="kicker reveal">ABOUT · OUR JOURNEY</div>
+  <h1 class="reveal">Our Journey</h1>
+  <p class="reveal">From a single factory in Durgapur in 1953 to where Shakambhari stands today, and where it's headed next.</p>
+</header>
+
+<section class="section" id="history">
+  <div class="section-head reveal">
+    <div class="kicker center">OUR HISTORY</div>
+    <h2>Built One Decade at a Time</h2>
+    <p>No single leap explains Shakambhari. It's a sequence of decisions, each one making the next one possible.</p>
+  </div>
+  <div class="timeline">
+    <div class="tl-item reveal-left"><div class="tl-year">1953</div><h4>A Small Factory in Durgapur</h4><p>The group's entire history starts here: a modest industrial unit in Durgapur, West Bengal, with none of the scale that would follow.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">1981</div><h4>SPS Steels Rolling Mills Incorporated</h4><p>Incorporated on 26 December 1981, independent of Shakambhari at the time. Decades later, this plant would become part of the group.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">1993</div><h4>The Elegant Brand Is Born</h4><p>SPS Steels Rolling Mills Limited launches Elegant as its flagship brand, more than 25 years before Shakambhari would come to own it.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">1996</div><h4>Formally Established as a Conglomerate</h4><p>The commercial scaling benchmark begins: active investment in modernisation and structural integration across the group.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">1997 – 2003</div><h4>BSIPL Incorporated, Then Commercial</h4><p>BSIPL, today's SIPL Rukni Unit, is incorporated as a private limited company in 1997 and begins commercial operations in 2003.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">2010</div><h4>SIPL Madandih Comes Under One Roof</h4><p>On 13 December 2010, Shakambhari Ispat &amp; Power Ltd takes over the Madandih unit, consolidating the group's integrated steel capability.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">2012</div><h4>Eloquent Steel Pvt. Ltd. Founded</h4><p>Built specifically for ferro alloy production. The group starts making, not just buying, the alloys its own furnace depends on.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">2014</div><h4>Green Habit Is Born</h4><p>Shakambhari Agrotech is incorporated on 21 July 2014, launching Green Habit: organic exotic fruits and vegetables grown in West Bengal.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">2019</div><h4>Elegant Joins the Group</h4><p>Shakambhari officially acquires the SPS Steel Plant and takes control of the Elegant brand in April 2019, inheriting a name that had already been on TMT bars and structural steel since 1993.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">2023</div><h4>India Foils Joins the Group</h4><p>Shakambhari Ispat &amp; Power Limited wins the highest bid in an NCLT e-auction for Ess Dee Aluminium Limited, owner of India Foils. The Kolkata Bench approves the acquisition on 24 February 2023, bringing an aluminium foil plant into a group that had only ever worked in iron.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">2025</div><h4>One Company, One Name</h4><p>In June 2025, the acquired assets are amalgamated and the merged entity is renamed Shakambhari Ispat and Power Limited.</p></div>
+    <div class="tl-item reveal-left"><div class="tl-year">Present</div><h4>Multiple Sectors, One Umbrella</h4><p>Multiple sectors, seven state-of-the-art units, under one umbrella: Shakambhari Ispat and Power Limited, part of Shakambhari Group. The diversification that started with a single Durgapur factory in 1953 is still moving.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRESENT & FUTURE -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">2026 AND BEYOND</div>
+    <h2>Still Building, Still Diversifying</h2>
+    <p>A conglomerate is judged by what it adds next, not just what it already owns.</p>
+  </div>
+  <div class="quality-grid">
+    <div class="quality-card panel reveal">
+      <h4>Where We Stand Today</h4>
+      <p>Shakambhari is no longer a steel company that happens to make a few other things. It is five businesses under one standard: integrated steel across seven units in West Bengal, ferro alloys produced in-house, captive power that keeps the whole chain running, an aluminium foil division reaching 29+ countries, and an organic agriculture venture that proves the same discipline travels beyond metal. Every one of them exists for the reason the first factory did in 1953: to build something the nation can rely on.</p>
+    </div>
+    <div class="quality-card panel reveal">
+      <h4>Where We're Headed</h4>
+      <p>Diversification here was never the endpoint. Ferro alloys in 2012, agriculture in 2014, aluminium foil in 2023, each was a deliberate step into a part of the economy Shakambhari believed it could serve better by owning rather than depending on. That instinct does not stop at 2026. The group keeps looking at where backward integration, in-house quality, and long-term ownership can be applied again, and whatever comes next will be judged by the same standard as everything that came before it: does it help build the nation forward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>Watch Earth Become Strength</h2>
+    <p>Multiple stages, one continuous chain: raw ore from a mine becomes the reinforcement holding up buildings across the nation. This is where #SteelWithin begins.</p>
+    <a href="process.html" class="btn btn-primary">Walk The Process →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <img src="images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo">
+          <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+      </a>
+      <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="process.html">Our Process</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="journey.html">Our Journey</a>
+      <a href="vision.html">Mission, Vision &amp; Values</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="companies.html">Group Companies</a>
+      <a href="quality.html">Quality</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="awards.html">Awards &amp; Certifications</a>
+      <a href="csr.html">Corporate Social Responsibility</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="clientele.html">Clientele</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+913366255252">033 6625 5252</a>
+      <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+      <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+    <div class="footer-social">
+      <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z"/></svg></a>
+      <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
