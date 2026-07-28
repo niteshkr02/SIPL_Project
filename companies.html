@@ -30,6 +30,34 @@
 }
 .cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
 .cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+
+/* ══ COMPANY / PLANT CARDS ══ */
+.companies-grid-full{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+.companies-grid-full.cols-2{ grid-template-columns:repeat(2,1fr); }
+@media(max-width:860px){ .companies-grid-full{ grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .companies-grid-full{ grid-template-columns:1fr; } .companies-grid-full.cols-2{ grid-template-columns:1fr; } }
+
+.company-card{
+  padding:0; overflow:hidden; display:flex; flex-direction:column; border-radius:1.25rem;
+  transition:transform .35s cubic-bezier(.16,.84,.44,1), box-shadow .35s ease, border-color .35s ease;
+}
+.company-card:hover{
+  transform:translateY(-6px); border-color:var(--accent);
+  box-shadow:0 20px 45px rgba(20,22,28,.12), 0 0 35px rgba(255,106,31,.1);
+}
+.company-img-wrap{ width:100%; height:190px; position:relative; overflow:hidden; flex-shrink:0; background:#14161C; }
+.company-img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s cubic-bezier(.16,.84,.44,1); }
+.company-card:hover .company-img-wrap img{ transform:scale(1.08); }
+.company-img-wrap::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(10,11,14,.02) 0%, rgba(10,11,14,0) 40%, rgba(10,11,14,.4) 100%);
+}
+.company-card-body{ padding:1.4rem 1.5rem 1.6rem; flex:1; display:flex; flex-direction:column; }
+.company-card-body.centered{ text-align:center; align-items:center; padding:1.7rem 2.2rem 2rem; }
+.company-card .tag{ font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink); margin-bottom:.5rem; display:block; }
+.company-card h4{ font-size:1.05rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.55rem; color:var(--ink); }
+.company-card p{ font-size:.88rem; color:var(--ink-soft); line-height:1.6; }
+.company-card-body.centered p{ max-width:64ch; }
 </style>
 </head>
 <body>
@@ -90,43 +118,64 @@
     <h2>One Group, Many Plants</h2>
     <p>Every plant sits inside a single state, mapped and numbered. None of them cut corners to get there.</p>
   </div>
-  <div class="companies-grid-full" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.4rem;">
-    <div class="panel reveal" style="padding:1.8rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">01 · FLAGSHIP · MADANDIH, PURULIA</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SIPL · Unit Madandih</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">Incorporated in 2001 as Ma Chhinnamastika Steel &amp; Power Pvt Ltd, renamed Shakambhari Ispat &amp; Power Ltd in 2010. An integrated plant with an Iron Beneficiation Plant, Coal Beneficiation Plant, Rotary Kilns for DRI, an Electric Arc Furnace with Continuous Casting, and Horizontal and Vertical Rolling Mills, backed by its own Captive Power Plant.</p>
+  <div class="companies-grid-full">
+    <div class="panel company-card reveal">
+      <div class="company-img-wrap"><img src="images/Madandih_Unit.png" alt="SIPL · Unit Madandih" loading="lazy"></div>
+      <div class="company-card-body">
+        <span class="tag">01 · FLAGSHIP · MADANDIH, PURULIA</span>
+        <h4>SIPL · Unit Madandih</h4>
+        <p>Incorporated in 2001 as Ma Chhinnamastika Steel &amp; Power Pvt Ltd, renamed Shakambhari Ispat &amp; Power Ltd in 2010. An integrated plant with an Iron Beneficiation Plant, Coal Beneficiation Plant, Rotary Kilns for DRI, an Electric Arc Furnace with Continuous Casting, and Horizontal and Vertical Rolling Mills, backed by its own Captive Power Plant.</p>
+      </div>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">02 · PELLET &amp; SPONGE IRON · MOHUDA, PURULIA</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Bravo Sponge Iron Pvt. Ltd. (BSIPL)</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">Associated with the group since 2004. Its Iron Pellets are produced at a scale that makes it a raw material source for other group plants, alongside its own Sponge Iron, Steel Melting and Captive Power facilities. A Hot Strip Mill and hollow and tubular pipe manufacturing are both underway.</p>
+    <div class="panel company-card reveal">
+      <div class="company-img-wrap"><img src="images/Rukni_Unit.png" alt="Bravo Sponge Iron Pvt. Ltd. (BSIPL)" loading="lazy"></div>
+      <div class="company-card-body">
+        <span class="tag">02 · PELLET &amp; SPONGE IRON · MOHUDA, PURULIA</span>
+        <h4>Bravo Sponge Iron Pvt. Ltd. (BSIPL)</h4>
+        <p>Associated with the group since 2004. Its Iron Pellets are produced at a scale that makes it a raw material source for other group plants, alongside its own Sponge Iron, Steel Melting and Captive Power facilities. A Hot Strip Mill and hollow and tubular pipe manufacturing are both underway.</p>
+      </div>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">03 · ALUMINIUM</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Unit Mogra: India Foils</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">Our unit in Hooghly district, and the one place in the group that doesn't work in iron. Rolls 9–60 micron aluminium foil, bare and printed pharmaceutical foil, household foil, semi-rigid container foil and lidding foils, certified ISO 9001:2015, ISO 14001:2015 and BIS, reaching customers in 29+ countries.</p>
+    <div class="panel company-card reveal">
+      <div class="company-img-wrap"><img src="images/Mogra_Unit.png" alt="Unit Mogra: India Foils" loading="lazy"></div>
+      <div class="company-card-body">
+        <span class="tag">03 · ALUMINIUM</span>
+        <h4>Unit Mogra: India Foils</h4>
+        <p>Our unit in Hooghly district, and the one place in the group that doesn't work in iron. Rolls 9–60 micron aluminium foil, bare and printed pharmaceutical foil, household foil, semi-rigid container foil and lidding foils, certified ISO 9001:2015, ISO 14001:2015 and BIS, reaching customers in 29+ countries.</p>
+      </div>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">04 · INTEGRATED · DURGAPUR</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SPS Steels · Unit I</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">Incorporated 26 December 1981, acquired by Shakambhari Group in 2019. An integrated plant in Durgapur rolling TMT bars, angles and channels, with its own Sponge Iron and MS Billet capacity feeding a DRI plant, Steel Melting Shop and automatic Rolling Mills.</p>
+    <div class="panel company-card reveal">
+      <div class="company-img-wrap"><img src="images/Durgapur.png" alt="SPS Steels · Unit I" loading="lazy"></div>
+      <div class="company-card-body">
+        <span class="tag">04 · INTEGRATED · DURGAPUR</span>
+        <h4>SPS Steels · Unit I</h4>
+        <p>Incorporated 26 December 1981, acquired by Shakambhari Group in 2019. An integrated plant in Durgapur rolling TMT bars, angles and channels, with its own Sponge Iron and MS Billet capacity feeding a DRI plant, Steel Melting Shop and automatic Rolling Mills.</p>
+      </div>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">05 · MEGA INTEGRATED · PORADIHA, PURULIA</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">SPS Steels · Unit II</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">The group's most recently acquired facility, in Poradiha village, Purulia, now being revived as a Mega Integrated Steel Plant: Sponge Iron through DRI Kilns, Ferro Alloys through a Submerged Arc Furnace, MS and CRS Billets through its Steel Melting Plant, QST Bars, and its own Captive Power Plant.</p>
+    <div class="panel company-card reveal">
+      <div class="company-img-wrap"><img src="images/Durgapur.png" alt="SPS Steels · Unit II" loading="lazy"></div>
+      <div class="company-card-body">
+        <span class="tag">05 · MEGA INTEGRATED · PORADIHA, PURULIA</span>
+        <h4>SPS Steels · Unit II</h4>
+        <p>The group's most recently acquired facility, in Poradiha village, Purulia, now being revived as a Mega Integrated Steel Plant: Sponge Iron through DRI Kilns, Ferro Alloys through a Submerged Arc Furnace, MS and CRS Billets through its Steel Melting Plant, QST Bars, and its own Captive Power Plant.</p>
+      </div>
     </div>
-    <div class="panel reveal" style="padding:1.8rem;">
-      <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">06 · FERRO ALLOYS · NACROJORIA</span>
-      <h4 style="font-size:1.05rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Eloquent Steel Private Limited</h4>
-      <p style="color:var(--ink-soft); font-size:.9rem;">Producing high quality Ferro Alloys at Nacrojoria, West Bardhaman, for captive consumption and export markets, through a Submerged Arc Furnace and Induction Furnace. Built on two acquired plants, Hira Concast Ltd and Impex Steel Ltd, with Structural Steel next on the roadmap.</p>
+    <div class="panel company-card reveal">
+      <div class="company-img-wrap"><img src="images/Eloquent_steel.png" alt="Eloquent Steel Private Limited" loading="lazy"></div>
+      <div class="company-card-body">
+        <span class="tag">06 · FERRO ALLOYS · NACROJORIA</span>
+        <h4>Eloquent Steel Private Limited</h4>
+        <p>Producing high quality Ferro Alloys at Nacrojoria, West Bardhaman, for captive consumption and export markets, through a Submerged Arc Furnace and Induction Furnace. Built on two acquired plants, Hira Concast Ltd and Impex Steel Ltd, with Structural Steel next on the roadmap.</p>
+      </div>
     </div>
   </div>
 
-  <div class="panel reveal" style="padding:2.2rem; margin-top:1.6rem; text-align:center;" id="green-habit">
-    <span style="font-family:var(--font-mono); font-size:.68rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">AGRO · GREEN HABIT · INCORPORATED 21 JULY 2014</span>
-    <h4 style="font-size:1.15rem; font-weight:700; font-family:var(--font-body); margin:.7rem 0;">Shakambhari Agrotech Private Limited</h4>
-    <p style="color:var(--ink-soft); font-size:.94rem; max-width:64ch; margin:0 auto;">Under the Green Habit brand, SAPL grows a wide range of unadulterated organic fruits and vegetables, making fresh, natural nutrition accessible with every product. Beyond nutrition, it's become a source of employment for local farmers and the communities around them, proof that the group's discipline isn't confined to metal.</p>
+  <div class="panel company-card reveal" style="margin-top:1.6rem;" id="green-habit">
+    <div class="company-img-wrap"><img src="images/Shakambhari_Agrotech.png" alt="Shakambhari Agrotech Private Limited" loading="lazy"></div>
+    <div class="company-card-body centered">
+      <span class="tag">AGRO · GREEN HABIT · INCORPORATED 21 JULY 2014</span>
+      <h4 style="font-size:1.15rem;">Shakambhari Agrotech Private Limited</h4>
+      <p>Under the Green Habit brand, SAPL grows a wide range of unadulterated organic fruits and vegetables, making fresh, natural nutrition accessible with every product. Beyond nutrition, it's become a source of employment for local farmers and the communities around them, proof that the group's discipline isn't confined to metal.</p>
+    </div>
   </div>
 </section>
 
@@ -138,7 +187,7 @@
     <h2>Two Names, Trusted on Their Own</h2>
     <p>Beneath the company names sit the brands customers actually ask for by name.</p>
   </div>
-  <div class="companies-grid-full" style="display:grid; grid-template-columns:1fr 1fr; gap:1.4rem;">
+  <div class="companies-grid-full cols-2">
     <div class="panel reveal" style="padding:2rem;">
       <span style="font-family:var(--font-mono); font-size:.66rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em;">BRAND · SINCE 1993</span>
       <h4 style="font-size:1.15rem; font-weight:700; font-family:var(--font-body); margin:.6rem 0;">Elegant Steel</h4>
