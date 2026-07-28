@@ -19,7 +19,7 @@
       --accent-hot: #FFC24B;
       --accent-deep: #E23B1F;
       position: relative;
-      min-height: 96vh;
+      min-height: 105vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -31,6 +31,36 @@
         radial-gradient(ellipse at 50% 115%, rgba(255, 106, 31, .35), transparent 55%),
         radial-gradient(ellipse at 50% 130%, rgba(255, 194, 75, .2), transparent 45%),
         var(--bg);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 90%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 90%);
+      pointer-events: none;
+    }
+
+    /* cursor-following ember spotlight */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: radial-gradient(circle 280px at var(--mx, 50%) var(--my, 40%), rgba(255, 194, 75, .16), transparent 70%);
+      opacity: 0;
+      transition: opacity .5s ease;
+      pointer-events: none;
+    }
+
+    .hero:hover::after {
+      opacity: 1;
     }
 
     #embers {
@@ -88,6 +118,58 @@
       }
     }
 
+    /* staggered reveal for hero content */
+    .hero-kicker,
+    .hero h1,
+    .hero p.lede,
+    .hero-cta-row {
+      animation: heroFadeUp .9s cubic-bezier(.16, .84, .44, 1) both;
+    }
+
+    .hero-kicker {
+      animation-delay: .1s;
+    }
+
+    .hero h1 {
+      animation-delay: .25s;
+    }
+
+    .hero p.lede {
+      animation-delay: .4s;
+    }
+
+    .hero-cta-row {
+      animation-delay: .55s;
+    }
+
+    @keyframes heroFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* fade-only: keeps `transform` free for the hover lift/scale below */
+    .hero .pill {
+      animation: heroFadeIn .9s ease both;
+      animation-delay: .7s;
+    }
+
+    @keyframes heroFadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
     .hero-kicker {
       font-family: var(--font-mono);
       font-size: .72rem;
@@ -95,6 +177,12 @@
       letter-spacing: .35em;
       color: var(--accent-hot);
       margin-bottom: 1.4rem;
+      transition: letter-spacing .35s ease, color .35s ease;
+    }
+
+    .hero-kicker:hover {
+      letter-spacing: .42em;
+      color: var(--ink);
     }
 
     .hero h1 {
@@ -154,7 +242,8 @@
     }
 
     .hero .pill:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.03);
+      border-color: rgba(255, 106, 31, .7);
       box-shadow: 0 10px 32px rgba(255, 106, 31, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
     }
 
@@ -174,6 +263,21 @@
       background: var(--accent);
       box-shadow: 0 0 14px 4px var(--accent);
       flex-shrink: 0;
+      animation: dotPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes dotPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 14px 4px var(--accent);
+        opacity: 1;
+      }
+
+      50% {
+        box-shadow: 0 0 20px 8px var(--accent);
+        opacity: .7;
+      }
     }
 
     @media(max-width:560px) {
@@ -194,6 +298,29 @@
       flex-wrap: wrap;
     }
 
+    /* shine-sweep hover on hero CTAs only */
+    .hero-cta-row .btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-cta-row .btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .45), transparent);
+      transform: skewX(-20deg);
+      transition: left .6s ease;
+      pointer-events: none;
+    }
+
+    .hero-cta-row .btn:hover::after {
+      left: 125%;
+    }
+
     .scroll-cue {
       position: absolute;
       bottom: 1.8rem;
@@ -204,14 +331,36 @@
       align-items: center;
       gap: .5rem;
       color: var(--border);
+      text-decoration: none;
+      cursor: pointer;
       animation: bob 2.2s ease-in-out infinite;
+      transition: color .3s ease;
       z-index: 5;
+    }
+
+    .scroll-cue:hover {
+      color: var(--accent-hot);
+    }
+
+    .scroll-cue:hover svg path {
+      stroke: var(--accent-hot);
     }
 
     .scroll-cue span {
       font-family: var(--font-mono);
       font-size: .6rem;
       letter-spacing: .25em;
+      transition: letter-spacing .3s ease;
+    }
+
+    .scroll-cue:hover span {
+      letter-spacing: .32em;
+    }
+
+    @media (max-height: 700px) {
+      .scroll-cue {
+        display: none;
+      }
     }
 
     @keyframes bob {
@@ -247,7 +396,7 @@
       padding: 3.6rem 3.6rem 3.6rem 3.2rem;
       overflow: hidden;
       position: relative;
-      transition: box-shadow .45s ease, border-color .45s ease;
+      transition: box-shadow .45s ease, border-color .45s ease, opacity .6s ease, transform .6s ease;
     }
 
     .origin::before {
@@ -2275,17 +2424,17 @@
       <div class="pill"><span class="dot"></span><span class="tag">#SteelWithin</span><span
           class="sep">·</span>Shakambhari Ispat &amp; Power Limited</div>
     </div>
-    <div class="scroll-cue"><span>SCROLL</span>
+    <a class="scroll-cue" href="#stats-section" aria-label="Scroll to stats"><span>SCROLL</span>
       <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
         <path d="M1 1L7 18L13 1" stroke="#3A3E46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
-    </div>
+    </a>
   </header>
 
   <div class="page-shell">
 
     <!-- STATS -->
-    <section class="section tight">
+    <section class="section tight" id="stats-section">
       <div class="stat-band">
         <div class="stat reveal-scale" style="transition-delay:.05s">
           <div class="stat-num counter" data-target="7" data-suffix="">0</div>
@@ -2311,7 +2460,7 @@
       <section class="origin reveal-scale">
 
         <!-- LEFT COLUMN -->
-        <div class="origin-left">
+        <div class="origin-left reveal-left" style="transition-delay:.3s">
           <div class="kicker" style="margin-bottom:1rem;">ABOUT US</div>
           <h2>Built in Fire,<br><em>Forged to Last</em></h2>
           <p>In 1953, one kiln. Today, a ₹10,000+ Cr empire spanning steel, ferro alloys, aluminium, power and
@@ -2370,7 +2519,7 @@
         </div>
 
         <!-- RIGHT COLUMN: LEADERSHIP QUOTE -->
-        <div class="origin-right">
+        <div class="origin-right reveal-right" style="transition-delay:.3s">
           <div class="origin-leader">
             <div class="origin-leader-portrait">
               <img src="images/Chairman.png" alt="Mr. Deepak Kumar Agarwal - Chairman, Shakambhari Group"
@@ -3572,6 +3721,26 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     if (!reduceMotion) { initParticles(); tick(); }
+  </script>
+  <script>
+    (function () {
+      const hero = heroEl;
+      if (!hero) return;
+      let raf = null, pending = null;
+      hero.addEventListener('pointermove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        pending = {
+          x: ((e.clientX - rect.left) / rect.width) * 100,
+          y: ((e.clientY - rect.top) / rect.height) * 100
+        };
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          hero.style.setProperty('--mx', pending.x + '%');
+          hero.style.setProperty('--my', pending.y + '%');
+          raf = null;
+        });
+      });
+    })();
   </script>
   <script>
     (function () {
