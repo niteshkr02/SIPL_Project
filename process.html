@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Process — From Earth to Structure | Shakambhari Group</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -24,9 +21,9 @@
   --accent-ink:#C1440E;
   --accent-hot:#FFC24B;
   --accent-deep:#E23B1F;
-  --font-display:'Oswald','Arial Narrow',sans-serif;
-  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 html{ scroll-behavior:smooth; }
 body{
@@ -320,10 +317,10 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .flowchart-pin.no-pin .flowchart-progress-track{ display:none; }
 @media(max-width:860px){ .flowchart-track{ padding:0 4vw; } }
 
-.fc-node-label{ font-family:'Oswald',sans-serif; font-weight:700; text-transform:uppercase; fill:#000; }
+.fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
 .fc-node-label.on-dark{ fill:#fff; }
-.fc-node-sub{ font-family:'IBM Plex Mono',monospace; font-weight:600; fill:var(--accent-deep); }
-.fc-edge-label{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; fill:#000; }
+.fc-node-sub{ font-family:var(--font-mono); font-weight:600; fill:var(--accent-deep); }
+.fc-edge-label{ font-family:var(--font-mono); font-size:12px; font-weight:600; fill:#000; }
 
 /* ══ PULL QUOTES ══ */
 .pull-quote{ position:relative; z-index:1; text-align:center; padding:5.5rem 1.75rem; max-width:940px; margin:0 auto; }
