@@ -21,11 +21,12 @@
 /* ══ SPEC CARDS ══ */
 .spec-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
 @media(max-width:800px){ .spec-grid{ grid-template-columns:1fr; } }
-.spec-card{ padding:1.9rem 1.8rem; }
+.spec-card{ padding:1.9rem 1.8rem; overflow:hidden; }
 .spec-card .spec-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:.8rem; }
 .spec-card h4{ font-size:1.08rem; font-weight:700; text-transform:none; font-family:var(--font-body); }
 .spec-card .icon-wrap{ width:46px; height:46px; border-radius:.8rem; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
 .spec-card .icon-wrap svg{ width:26px; height:26px; }
+.spec-card-photo{ width:calc(100% + 3.6rem); margin:-1.9rem -1.8rem 1.2rem; height:170px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
 .spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
 .spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
 .spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
@@ -107,22 +108,26 @@
   </div>
   <div class="spec-grid">
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Iron Pellets</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><circle cx="14" cy="16" r="7" fill="url(#oreGrad)"/><circle cx="26" cy="18" r="7" fill="url(#oreGrad)" opacity=".85"/><circle cx="19" cy="27" r="6" fill="url(#oreGrad)" opacity=".7"/></svg></div></div>
+      <img src="images/Iron_Pellets.jpeg" alt="Iron Pellets" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Iron Pellets</h4></div>
       <p>Spheroids of 6–16mm, mixing iron ore fines with limestone, dolomite and bentonite binders before thermal hardening, premium feedstock for DRI kilns and blast furnaces alike.</p>
       <div class="spec-tags"><span class="spec-tag">6–16mm</span><span class="spec-tag">SIPL Rukni</span><span class="spec-tag">0.9+ MTPA</span></div>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Sponge Iron</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="8" y="10" width="24" height="18" rx="4" fill="#8B7355"/><circle cx="15" cy="17" r="2" fill="#6B5335"/><circle cx="23" cy="15" r="2" fill="#6B5335"/><circle cx="19" cy="22" r="2" fill="#6B5335"/></svg></div></div>
-      <p>Solid-state direct reduced metallic iron, made by removing oxygen from raw ore. India is the world's largest producer of this, and it's the primary feed for our electric furnace route.</p>
+      <img src="images/Sponge_Iron.jpeg" alt="Sponge Iron" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Sponge Iron</h4></div>
+      <p>Solid-state direct reduced metallic iron, made by removing oxygen from raw ore. India is the world's largest producer of this, and it's the primary feed for our induction furnace route.</p>
       <div class="spec-tags"><span class="spec-tag">Coal-Based DRI</span><span class="spec-tag">High Metallisation</span></div>
     </div>
     <div class="spec-card panel reveal" id="ferro-alloys">
-      <div class="spec-top"><h4>Ferro Alloys</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="10" y="10" width="20" height="20" rx="4" fill="url(#goldGrad)"/></svg></div></div>
+      <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Ferro Alloys</h4></div>
       <p>Silicomanganese, Ferromanganese, Ferrosilicon and Ferrochrome: iron alloys rich in manganese, silicon and chromium, made in-house for our own furnace and for stainless steel producers worldwide.</p>
       <div class="spec-tags"><span class="spec-tag">SiMn</span><span class="spec-tag">FeMn</span><span class="spec-tag">FeSi</span><span class="spec-tag">FeCr</span></div>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>M.S. Billets</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="6" y="14" width="28" height="10" rx="2" fill="url(#barGrad)"/></svg></div></div>
+      <img src="images/MS_Billets.jpeg" alt="M.S. Billets" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>M.S. Billets</h4></div>
       <p>High-grade semi-finished feed for rolling mills, produced by melting sponge iron, pig iron and select ferro alloys at ~1600°C, then shaped via Continuous Casting.</p>
       <div class="spec-tags"><span class="spec-tag">100mm–160mm</span><span class="spec-tag">IS 2830:2012</span></div>
     </div>
@@ -144,7 +149,8 @@
       <div class="spec-tags"><span class="spec-tag">6–32mm</span><span class="spec-tag">Fe 500D / 550D / CRS</span><span class="spec-tag">ISI 1786:2008</span></div>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Wire Rods</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="11" fill="none" stroke="url(#steelGrad)" stroke-width="4"/></svg></div></div>
+      <img src="images/Wire_Rods_Photo.jpeg" alt="Wire Rods" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Wire Rods</h4></div>
       <p>Hot-rolled coiled round bars, cooled and coiled from continuously cast billets, the base material behind more than 1,000 distinct finished consumer products.</p>
       <div class="spec-tags"><span class="spec-tag">5.5–12mm</span><span class="spec-tag">IS 2062:2011</span></div>
     </div>
@@ -159,7 +165,8 @@
       <div class="spec-tags"><span class="spec-tag">Cold Rolling Feed</span><span class="spec-tag">Galvanizing</span><span class="spec-tag">Fabrication</span></div>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Binding Wire</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><path d="M8 20c4-6 8 6 12 0s8 6 12 0" stroke="url(#steelGrad)" stroke-width="3" fill="none"/></svg></div></div>
+      <img src="images/Binding_Wire.jpeg" alt="Binding Wire" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Binding Wire</h4></div>
       <p>Annealed mild steel wire, cold-drawn from round wire rods, softness and flexibility tuned specifically for tying rebar joints tight inside a structure.</p>
       <div class="spec-tags"><span class="spec-tag">12–23 SWG</span></div>
     </div>
