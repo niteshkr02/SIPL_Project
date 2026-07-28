@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers | Shakambhari Group</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.page-header{
+  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
+  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
+  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 3.5rem; text-align:center; overflow:hidden;
+  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
+}
+.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
+.page-header .kicker::before{ background:var(--accent); }
+.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
+.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
+
+/* ══ APPLICATION FORM ══ */
+.apply-shell{ max-width:840px; margin:0 auto; }
+/* This panel is thousands of px tall, so it skips the shared .panel hover
+   lift/shadow-transition (fine on a small card, a visible repaint cost on
+   something this size) and the scroll-gated .reveal fade (which stayed
+   invisible until 15% of it had scrolled into view — reading as "stuck
+   loading"). It renders at full opacity immediately; only its inner
+   sections animate in. */
+.apply-panel{ padding:clamp(1.6rem,4vw,3rem); transition:none; position:relative; overflow:hidden; }
+.apply-panel:hover{ transform:none; box-shadow:0 1px 2px rgba(20,22,28,.05), 0 12px 30px rgba(20,22,28,.07); border-color:var(--border); }
+.apply-panel::before{ content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--accent-hot),var(--accent),var(--accent-deep)); }
+
+/* ══ STICKY COMPLETION PROGRESS ══ */
+.apply-progress{
+  position:sticky; top:calc(var(--nav-h) + 14px); z-index:50;
+  display:flex; align-items:center; gap:.9rem;
+  background:rgba(255,255,255,.9); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border:1px solid var(--border); border-radius:2.5rem;
+  padding:.65rem 1.1rem .65rem 1.3rem; margin-bottom:1.4rem;
+  box-shadow:0 10px 26px rgba(20,22,28,.1);
+}
+.apply-progress-track{ flex:1; height:8px; border-radius:999px; background:var(--surface-2); overflow:hidden; }
+.apply-progress-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--accent-hot),var(--accent)); transition:width .4s ease; }
+.apply-progress-label{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; color:var(--accent-ink); white-space:nowrap; }
+
+@keyframes formBlockIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+.form-block{ padding-bottom:2.2rem; margin-bottom:2.2rem; border-bottom:1px solid var(--border); animation:formBlockIn .5s ease both; }
+.form-block:last-of-type{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+@media (prefers-reduced-motion: reduce){ .form-block{ animation:none; } }
+.form-block-head{ display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
+.form-block-head .icon-wrap{
+  flex-shrink:0; width:48px; height:48px; border-radius:1rem; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border);
+  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.form-block-head .icon-wrap svg{ width:24px; height:24px; }
+.form-block:hover .form-block-head .icon-wrap{ transform:scale(1.08) rotate(-4deg); border-color:var(--accent); box-shadow:0 8px 20px rgba(255,106,31,.22); }
+.form-block-head .eyebrow{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.4rem; }
+.form-block-head h3{ font-size:1.28rem; margin-bottom:.35rem; }
+.form-block-head p{ color:var(--ink-soft); font-size:.86rem; }
+
+.field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 1.5rem; }
+@media(max-width:640px){ .field-grid{ grid-template-columns:1fr; } }
+.field{ display:flex; flex-direction:column; gap:.5rem; }
+.field.full{ grid-column:1/-1; }
+.field + .field-grid, .field-grid + .field{ margin-top:1.3rem; }
+.form-block .field-grid + .field-grid{ margin-top:1.3rem; }
+
+.field label{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink); }
+.field label .req{ color:var(--accent-ink); }
+.field label .opt{ color:var(--ink-soft); font-weight:500; text-transform:none; letter-spacing:0; font-size:.72rem; }
+
+.field input[type=text], .field input[type=email], .field input[type=tel], .field input[type=number], .field select, .field textarea{
+  font-family:var(--font-body); font-size:.94rem; color:var(--ink);
+  padding:.75rem .9rem; border:1.5px solid var(--border); border-radius:.6rem;
+  background:var(--surface); transition:border-color .2s ease, box-shadow .2s ease; width:100%;
+}
+.field textarea{ resize:vertical; min-height:88px; font-family:var(--font-body); }
+.field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
+.field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus):not([readonly]){ border-color:var(--accent-hot); }
+.field select{ cursor:pointer; }
+/* Native <input type=date> renders mm/dd/yyyy or dd/mm/yyyy purely off OS/browser
+   locale — the lang attribute doesn't override it in Chromium, so there's no
+   reliable way to force DD/MM/YYYY that way. Three explicit selects in DD/MM/YYYY
+   order sidestep the ambiguity entirely; a hidden field carries the ISO value. */
+.dob-row{ display:flex; flex-wrap:wrap; gap:.6rem; }
+.dob-row select{ width:auto; min-width:78px; text-align:center; }
+.dob-row select#dobYear{ min-width:96px; }
+.field textarea[readonly]{ background:var(--surface-2); color:var(--ink-soft); }
+.field input[type=file]{
+  font-family:var(--font-body); font-size:.86rem; padding:.7rem .8rem; color:var(--ink-soft);
+  border:1.5px dashed var(--border); border-radius:.6rem; background:var(--surface-2);
+  transition:border-color .2s ease, background .2s ease;
+}
+.field input[type=file]:hover{ border-color:var(--accent); background:rgba(255,106,31,.07); cursor:pointer; }
+.field .hint{ font-size:.76rem; color:var(--ink-soft); }
+
+/* ══ FRESHER / EXPERIENCED TOGGLE ══ */
+.segmented-toggle{
+  position:relative; display:inline-flex; padding:.3rem; border-radius:2.5rem;
+  background:var(--surface-2); border:1.5px solid var(--border); width:max-content; max-width:100%;
+}
+.segmented-toggle input{ position:absolute; opacity:0; width:1px; height:1px; pointer-events:none; }
+.segmented-toggle label{
+  position:relative; z-index:1; padding:.6rem 1.6rem; border-radius:2rem; cursor:pointer;
+  font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-soft); text-align:center; min-width:112px; user-select:none;
+  transition:color .3s ease;
+}
+.segmented-toggle label:hover{ color:var(--ink); }
+.segmented-toggle input:checked + label{ color:#fff; }
+.segmented-toggle input:checked + label:hover{ color:#fff; }
+.segmented-toggle input:focus-visible + label{ outline:2px solid var(--accent); outline-offset:2px; }
+.segmented-thumb{
+  position:absolute; top:.3rem; left:.3rem; height:calc(100% - .6rem); width:calc(50% - .3rem);
+  border-radius:2rem; background:linear-gradient(135deg,var(--accent-hot),var(--accent));
+  box-shadow:0 6px 16px rgba(255,106,31,.32); opacity:0; z-index:0;
+  transition:transform .35s cubic-bezier(.65,0,.35,1), opacity .25s ease;
+}
+.segmented-toggle.is-fresher .segmented-thumb, .segmented-toggle.is-experienced .segmented-thumb{ opacity:1; }
+.segmented-toggle.is-experienced .segmented-thumb{ transform:translateX(100%); }
+
+.field.experienced-only{
+  overflow:hidden; max-height:120px; opacity:1; margin-top:0;
+  transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease, visibility 0s linear 0s;
+}
+.field.experienced-only.is-collapsed{
+  max-height:0; opacity:0; margin-top:0; visibility:hidden; pointer-events:none;
+  transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease, visibility 0s linear .35s;
+}
+
+.choice-row{ display:flex; flex-wrap:wrap; gap:.6rem .7rem; }
+.choice-pill{ display:flex; align-items:center; gap:.5rem; padding:.65rem 1.05rem; border:1.5px solid var(--border); border-radius:2rem; font-size:.86rem; cursor:pointer; background:var(--surface); transition:border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease; }
+.choice-pill input{ accent-color:var(--accent); }
+.choice-pill:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); box-shadow:0 8px 18px rgba(255,106,31,.18); }
+.choice-pill.is-checked{ border-color:var(--accent); background:rgba(255,106,31,.1); color:var(--accent-ink); font-weight:700; transform:translateY(-1px); }
+.choice-pill.is-checked::after{ content:'✓'; color:var(--accent); font-weight:800; }
+.choice-pill.is-checked:hover{ transform:translateY(-2px); }
+
+.shift-field{
+  display:flex; flex-direction:column; gap:.5rem; grid-column:1/-1;
+  max-height:0; opacity:0; margin-top:0; overflow:hidden; visibility:hidden;
+  transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease, visibility 0s linear .35s;
+}
+.shift-field.show{
+  max-height:140px; opacity:1; margin-top:.3rem; visibility:visible;
+  transition:max-height .35s ease, opacity .3s ease .05s, margin-top .3s ease;
+}
+
+.consent-block{ display:flex; flex-direction:column; gap:.9rem; }
+.consent-item{
+  display:flex; align-items:flex-start; gap:.7rem; font-size:.86rem; color:var(--ink-soft); line-height:1.55; cursor:pointer;
+  padding:.5rem .6rem; margin:-.5rem -.6rem; border-radius:.6rem; transition:background .2s ease, color .2s ease;
+}
+.consent-item:hover{ background:var(--surface-2); color:var(--ink); }
+.consent-item input{ margin-top:.25rem; accent-color:var(--accent); flex-shrink:0; }
+/* Beats the more specific ".field label" uppercase/mono styling when a .consent-item
+   checkbox sits inside a .field wrapper (e.g. the "same as current address" toggle). */
+.field .consent-item{ font-family:var(--font-body); font-size:.85rem; font-weight:500; letter-spacing:normal; text-transform:none; color:var(--ink-soft); }
+
+.form-submit{ text-align:center; margin-top:.5rem; }
+.form-submit .btn{ border:none; cursor:pointer; }
+.form-submit .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+.form-note{ font-size:.78rem; color:var(--ink-soft); text-align:center; margin-top:1.1rem; }
+.form-error{ display:none; text-align:center; margin-top:1.1rem; font-size:.86rem; color:var(--accent-deep); font-weight:600; }
+
+.form-success{ display:none; text-align:center; padding:2.4rem 1rem 1rem; }
+.form-success.show{ display:block; }
+.form-success .icon-wrap{ width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.3rem; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
+.form-success h3{ font-size:1.5rem; margin-bottom:.7rem; }
+.form-success p{ color:var(--ink-soft); max-width:46ch; margin:0 auto 1.6rem; }
+</style>
+</head>
+<body>
+<div class="sheen"></div>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
+    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <img src="images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo">
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">About</span>
+      <div class="dropdown">
+        <a href="journey.html">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+      </div>
+    </li>
+    <li><a href="companies.html">Group Companies</a></li>
+    <li><a href="quality.html">Quality</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="process.html">Our Process</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label">Others</span>
+      <div class="dropdown">
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html">Clientele</a>
+      </div>
+    </li>
+    <li><a href="careers.html" class="active">Careers</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="kicker reveal">CAREERS</div>
+  <h1 class="reveal">Apply to Join Shakambhari Group</h1>
+  <p class="reveal">Fill in your details below and our HR team will reach out as roles matching your profile open up across our plants and corporate offices.</p>
+</header>
+
+<!-- APPLICATION FORM -->
+<section class="section">
+  <div class="apply-shell">
+    <div class="apply-progress">
+      <div class="apply-progress-track"><div class="apply-progress-fill" id="applyProgressFill"></div></div>
+      <span class="apply-progress-label" id="applyProgressLabel">0% Complete</span>
+    </div>
+    <form class="panel apply-panel" id="careerApplyForm" novalidate>
+
+      <!-- 1. PERSONAL DETAILS -->
+      <div class="form-block" style="animation-delay:.03s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="url(#steelGrad)"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5" stroke="url(#steelGrad)" stroke-width="1.8" fill="none"/></svg></div>
+          <div>
+            <div class="eyebrow">01 · Personal Details</div>
+            <h3>Tell Us Who You Are</h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="fullName">Full Name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="fullName" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile Number <span class="req">*</span></label>
+            <input type="tel" id="mobile" name="mobile" autocomplete="tel" pattern="[0-9+\-\s]{7,15}" required>
+          </div>
+          <div class="field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="city">Current City / Location <span class="req">*</span></label>
+            <input type="text" id="city" name="currentCity" required>
+          </div>
+          <div class="field full">
+            <label for="address">Current Address <span class="req">*</span></label>
+            <textarea id="address" name="currentAddress" rows="2" required></textarea>
+          </div>
+          <div class="field full">
+            <label class="consent-item" style="font-size:.82rem;">
+              <input type="checkbox" id="sameAsCurrent"> Permanent address is the same as current address
+            </label>
+          </div>
+          <div class="field full">
+            <label for="permanentAddress">Permanent Address <span class="req">*</span></label>
+            <textarea id="permanentAddress" name="permanentAddress" rows="2" required></textarea>
+          </div>
+          <div class="field full">
+            <label>Date of Birth <span class="req">*</span></label>
+            <div class="dob-row">
+              <select id="dobDay" required aria-label="Day">
+                <option value="" disabled selected>DD</option>
+              </select>
+              <select id="dobMonth" required aria-label="Month">
+                <option value="" disabled selected>MM</option>
+              </select>
+              <select id="dobYear" required aria-label="Year">
+                <option value="" disabled selected>YYYY</option>
+              </select>
+              <input type="hidden" id="dob" name="dateOfBirth">
+            </div>
+            <span class="hint">Format: DD / MM / YYYY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. POSITION APPLYING FOR -->
+      <div class="form-block" style="animation-delay:.08s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="12" rx="2" fill="url(#steelGrad)"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#3E4550" stroke-width="1.6" fill="none"/></svg></div>
+          <div>
+            <div class="eyebrow">02 · Position Applying For</div>
+            <h3>The Role You Want</h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="department">Department / Function <span class="req">*</span></label>
+            <select id="department" name="department" required>
+              <option value="" disabled selected>Select a department</option>
+              <option value="manufacturing-plant-ops">Manufacturing &amp; Plant Operations</option>
+              <option value="quality-rd">Quality &amp; R&amp;D</option>
+              <option value="sales-bd">Sales &amp; Business Development</option>
+              <option value="supply-chain-logistics">Supply Chain &amp; Logistics</option>
+              <option value="finance-corporate">Finance &amp; Corporate</option>
+              <option value="hr-admin">HR &amp; Administration</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="jobTitle">Specific Job Title <span class="opt">(if known)</span></label>
+            <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Shift Engineer – Melt Shop">
+          </div>
+          <div class="field full">
+            <label>Career Track <span class="req">*</span></label>
+            <div class="choice-row" data-pill-group>
+              <label class="choice-pill"><input type="radio" name="careerTrack" value="plant-engineering" required> Plant &amp; Engineering</label>
+              <label class="choice-pill"><input type="radio" name="careerTrack" value="corporate-ho" required> Corporate / Head Office</label>
+              <label class="choice-pill"><input type="radio" name="careerTrack" value="graduate-trainee" required> Graduate Trainee / Apprentice</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="preferredLocation">Preferred Plant / Location <span class="req">*</span></label>
+            <select id="preferredLocation" name="preferredLocation" required>
+              <option value="" disabled selected>Select a location</option>
+              <option value="madandih-purulia">Unit Madandih, Purulia (SIPL)</option>
+              <option value="mohuda-purulia">Unit Mohuda, Purulia (Bravo Sponge Iron)</option>
+              <option value="mogra-hooghly">Unit Mogra, Hooghly (India Foils)</option>
+              <option value="durgapur">SPS Steels Unit I, Durgapur</option>
+              <option value="poradiha-purulia">SPS Steels Unit II, Poradiha, Purulia</option>
+              <option value="nacrojoria">Eloquent Steel, Nacrojoria</option>
+              <option value="kolkata-ho">Corporate Head Office, Kolkata</option>
+              <option value="any">Open to Any Location (PAN India)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Willing to Relocate? <span class="req">*</span></label>
+            <div class="choice-row" data-pill-group>
+              <label class="choice-pill"><input type="radio" name="willingToRelocate" value="yes" required> Yes</label>
+              <label class="choice-pill"><input type="radio" name="willingToRelocate" value="no" required> No</label>
+            </div>
+          </div>
+          <div class="field full shift-field" id="shiftField">
+            <label>Willing to Work Rotational Shifts?</label>
+            <div class="choice-row" data-pill-group>
+              <label class="choice-pill"><input type="radio" name="rotationalShifts" value="yes"> Yes</label>
+              <label class="choice-pill"><input type="radio" name="rotationalShifts" value="no"> No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. EDUCATION -->
+      <div class="form-block" style="animation-delay:.13s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 2 8l10 5 10-5-10-5Z" fill="url(#steelGrad)"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4" stroke="#3E4550" stroke-width="1.4" fill="none"/></svg></div>
+          <div>
+            <div class="eyebrow">03 · Education</div>
+            <h3>Academic Background</h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="qualification">Highest Qualification <span class="req">*</span></label>
+            <select id="qualification" name="highestQualification" required>
+              <option value="" disabled selected>Select qualification</option>
+              <option value="below-10th">Below 10th</option>
+              <option value="10th">10th / Matriculation</option>
+              <option value="12th">12th / Higher Secondary</option>
+              <option value="iti-diploma">ITI / Diploma</option>
+              <option value="bachelors">Bachelor's Degree</option>
+              <option value="masters">Master's Degree</option>
+              <option value="doctorate">Doctorate</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="specialization">Specialization / Branch</label>
+            <input type="text" id="specialization" name="specialization" placeholder="e.g. Metallurgy, Mechanical, Electrical, Instrumentation">
+          </div>
+          <div class="field">
+            <label for="institute">Institute / University Name <span class="req">*</span></label>
+            <input type="text" id="institute" name="institute" required>
+          </div>
+          <div class="field">
+            <label for="yearOfPassing">Year of Passing <span class="req">*</span></label>
+            <input type="number" id="yearOfPassing" name="yearOfPassing" min="1960" max="2030" placeholder="e.g. 2022" required>
+          </div>
+          <div class="field">
+            <label for="marks">Percentage / CGPA <span class="req">*</span></label>
+            <input type="text" id="marks" name="percentageOrCgpa" placeholder="e.g. 72% or 8.1 CGPA" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. WORK EXPERIENCE -->
+      <div class="form-block" style="animation-delay:.18s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="url(#steelGrad)" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+          <div>
+            <div class="eyebrow">04 · Work Experience</div>
+            <h3>Where You've Worked</h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field full">
+            <label>Employment Status <span class="req">*</span></label>
+            <div class="segmented-toggle" id="experienceToggle">
+              <input type="radio" name="employmentStatus" id="statusFresher" value="fresher" required>
+              <label for="statusFresher">Fresher</label>
+              <input type="radio" name="employmentStatus" id="statusExperienced" value="experienced" required>
+              <label for="statusExperienced">Experienced</label>
+              <span class="segmented-thumb" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="totalExperience">Total Years of Experience <span class="req">*</span></label>
+            <select id="totalExperience" name="totalExperience" required>
+              <option value="" disabled selected>Select experience</option>
+              <option value="fresher">Fresher (0 years)</option>
+              <option value="0-1">0 – 1 years</option>
+              <option value="1-3">1 – 3 years</option>
+              <option value="3-5">3 – 5 years</option>
+              <option value="5-10">5 – 10 years</option>
+              <option value="10-15">10 – 15 years</option>
+              <option value="15-plus">15+ years</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Relevant Industry Experience <span class="opt">(Steel / Manufacturing / Heavy Industry)</span></label>
+            <div class="choice-row" data-pill-group>
+              <label class="choice-pill"><input type="radio" name="relevantIndustryExperience" value="yes"> Yes</label>
+              <label class="choice-pill"><input type="radio" name="relevantIndustryExperience" value="no"> No</label>
+            </div>
+          </div>
+          <div class="field experienced-only is-collapsed">
+            <label for="employer">Current / Last Employer</label>
+            <input type="text" id="employer" name="currentEmployer">
+          </div>
+          <div class="field experienced-only is-collapsed">
+            <label for="designation">Designation / Role</label>
+            <input type="text" id="designation" name="designation">
+          </div>
+          <div class="field experienced-only is-collapsed">
+            <label for="noticePeriod">Notice Period</label>
+            <select id="noticePeriod" name="noticePeriod">
+              <option value="" disabled selected>Select notice period</option>
+              <option value="immediate">Immediate</option>
+              <option value="15-days">15 Days</option>
+              <option value="1-month">1 Month</option>
+              <option value="2-months">2 Months</option>
+              <option value="3-months">3 Months</option>
+              <option value="serving-notice">Currently Serving Notice</option>
+              <option value="not-applicable">Not Applicable</option>
+            </select>
+          </div>
+          <div class="field experienced-only is-collapsed">
+            <label for="currentCtc">Current CTC <span class="opt">(per annum)</span></label>
+            <input type="text" id="currentCtc" name="currentCtc" placeholder="e.g. ₹4,50,000 or Not Applicable">
+          </div>
+          <div class="field">
+            <label for="expectedCtc">Expected CTC <span class="opt">(per annum)</span></label>
+            <input type="text" id="expectedCtc" name="expectedCtc" placeholder="e.g. ₹6,00,000">
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. SKILLS & CERTIFICATIONS -->
+      <div class="form-block" style="animation-delay:.23s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" fill="url(#steelGrad)"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="url(#steelGrad)" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <div>
+            <div class="eyebrow">05 · Skills &amp; Certifications</div>
+            <h3>What You Bring</h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field full">
+            <label for="technicalSkills">Technical Skills Relevant to the Role <span class="req">*</span></label>
+            <textarea id="technicalSkills" name="technicalSkills" rows="3" placeholder="e.g. PLC/SCADA, AutoCAD, SAP, quality inspection, rolling mill operations…" required></textarea>
+          </div>
+          <div class="field full">
+            <label>Safety / Equipment Certifications <span class="req">*</span> <span class="opt">(select all that apply, or "None")</span></label>
+            <div class="choice-row" data-pill-group>
+              <label class="choice-pill"><input type="checkbox" name="certifications" value="boiler-operation"> Boiler Operation</label>
+              <label class="choice-pill"><input type="checkbox" name="certifications" value="crane-eot"> Crane / EOT Operation</label>
+              <label class="choice-pill"><input type="checkbox" name="certifications" value="welding"> Welding Certification</label>
+              <label class="choice-pill"><input type="checkbox" name="certifications" value="fire-safety"> First Aid / Fire Safety</label>
+              <label class="choice-pill"><input type="checkbox" name="certifications" value="none"> None</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="certOther">Other Certifications <span class="opt">(optional)</span></label>
+            <input type="text" id="certOther" name="certificationsOther" placeholder="List any other relevant certifications">
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. RESUME / PORTFOLIO -->
+      <div class="form-block" style="animation-delay:.28s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" fill="url(#steelGrad)"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="1.3"/></svg></div>
+          <div>
+            <div class="eyebrow">06 · Resume / Portfolio</div>
+            <h3>Attach Your Documents</h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field full">
+            <label for="resume">Resume / CV <span class="req">*</span></label>
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            <span class="hint">PDF or Word document, up to 5 MB.</span>
+          </div>
+          <div class="field full">
+            <label for="coverLetter">Cover Letter / Why This Role <span class="opt">(optional)</span></label>
+            <textarea id="coverLetter" name="coverLetter" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. REFERENCES -->
+      <div class="form-block" style="animation-delay:.33s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.2" fill="url(#steelGrad)"/><circle cx="17" cy="10.5" r="2.4" fill="url(#steelGrad)" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8" stroke="#3E4550" stroke-width="1.4" fill="none"/></svg></div>
+          <div>
+            <div class="eyebrow">07 · References</div>
+            <h3>Professional References <span class="opt">(optional)</span></h3>
+          </div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="ref1Name">Reference 1 Name</label>
+            <input type="text" id="ref1Name" name="ref1Name">
+          </div>
+          <div class="field">
+            <label for="ref1Contact">Reference 1 Contact</label>
+            <input type="text" id="ref1Contact" name="ref1Contact" placeholder="Phone or email">
+          </div>
+          <div class="field">
+            <label for="ref2Name">Reference 2 Name</label>
+            <input type="text" id="ref2Name" name="ref2Name">
+          </div>
+          <div class="field">
+            <label for="ref2Contact">Reference 2 Contact</label>
+            <input type="text" id="ref2Contact" name="ref2Contact" placeholder="Phone or email">
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. DECLARATION & CONSENT -->
+      <div class="form-block" style="animation-delay:.38s">
+        <div class="form-block-head">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z" stroke="url(#steelGrad)" stroke-width="1.6" fill="none"/><path d="M8 12l3 3 5-6" stroke="#FF6A1F" stroke-width="1.8" fill="none"/></svg></div>
+          <div>
+            <div class="eyebrow">08 · Declaration &amp; Consent</div>
+            <h3>Before You Submit</h3>
+          </div>
+        </div>
+        <div class="consent-block">
+          <label class="consent-item">
+            <input type="checkbox" name="declarationAccurate" required>
+            I confirm that the information provided in this application is true and accurate to the best of my knowledge.
+          </label>
+          <label class="consent-item">
+            <input type="checkbox" name="declarationConsent" required>
+            I consent to Shakambhari Group collecting, storing and processing my personal data for recruitment purposes, in accordance with applicable data privacy norms.
+          </label>
+        </div>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn btn-primary" id="applySubmitBtn">Submit Application →</button>
+        <p class="form-note">Fields marked <span class="req">*</span> are required. We typically respond within 2–3 weeks if your profile matches an open role.</p>
+        <p class="form-error" id="applyError"></p>
+      </div>
+    </form>
+
+    <div class="panel apply-panel form-success" id="applySuccess">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z" fill="url(#steelGrad)"/><path d="M8 12l3 3 5-6" stroke="#FF6A1F" stroke-width="1.8" fill="none"/></svg></div>
+      <h3>Application Received</h3>
+      <p>Thank you for applying to Shakambhari Group. Our HR team will review your profile and reach out if there's a match with an open role.</p>
+      <button type="button" class="btn btn-ghost" id="applyAgainBtn">Submit Another Application</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <img src="images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo">
+          <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+      </a>
+      <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="process.html">Our Process</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="journey.html">Our Journey</a>
+      <a href="vision.html">Mission, Vision &amp; Values</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="companies.html">Group Companies</a>
+      <a href="quality.html">Quality</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="awards.html">Awards &amp; Certifications</a>
+      <a href="csr.html">Corporate Social Responsibility</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="clientele.html">Clientele</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+913366255252">033 6625 5252</a>
+      <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+      <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+    <div class="footer-social">
+      <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z"/></svg></a>
+      <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script>
+// Careers application form: pill-style choice UI, conditional shift question,
+// and submission to an n8n webhook (multipart/form-data, so the resume file rides along).
+(function(){
+  const form = document.getElementById('careerApplyForm');
+  if(!form) return;
+
+  const successPanel = document.getElementById('applySuccess');
+  const errorMsg = document.getElementById('applyError');
+  const submitBtn = document.getElementById('applySubmitBtn');
+  const shiftField = document.getElementById('shiftField');
+
+  // TODO: replace with the Production URL of your n8n Webhook node
+  // (Method: POST, accepts multipart/form-data so the resume upload comes through as a binary field).
+  const CAREERS_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+
+  document.querySelectorAll('[data-pill-group]').forEach(group=>{
+    const sync = ()=>{
+      group.querySelectorAll('.choice-pill').forEach(pill=>{
+        pill.classList.toggle('is-checked', pill.querySelector('input').checked);
+      });
+    };
+    group.addEventListener('change', sync);
+    sync();
+  });
+
+  form.querySelectorAll('input[name="careerTrack"]').forEach(radio=>{
+    radio.addEventListener('change', function(){
+      shiftField.classList.toggle('show', this.value === 'plant-engineering');
+    });
+  });
+
+  // Fresher / Experienced toggle: collapses the fields that only make sense for
+  // someone with a current or previous job (employer, designation, notice period,
+  // current CTC), and keeps "Total Years of Experience" in sync with the choice.
+  (function(){
+    const experienceToggle = document.getElementById('experienceToggle');
+    const totalExperience = document.getElementById('totalExperience');
+    const experiencedOnlyFields = document.querySelectorAll('.experienced-only');
+    if(!experienceToggle || !totalExperience) return;
+
+    experienceToggle.querySelectorAll('input[name="employmentStatus"]').forEach(radio=>{
+      radio.addEventListener('change', function(){
+        const isExperienced = this.value === 'experienced';
+        experienceToggle.classList.toggle('is-experienced', isExperienced);
+        experienceToggle.classList.toggle('is-fresher', !isExperienced);
+        experiencedOnlyFields.forEach(f => f.classList.toggle('is-collapsed', !isExperienced));
+        if(isExperienced){
+          if(totalExperience.value === 'fresher') totalExperience.value = '';
+        } else {
+          totalExperience.value = 'fresher';
+        }
+        updateProgress();
+      });
+    });
+  })();
+
+  // Date of Birth: three plain selects in DD / MM / YYYY order (see the CSS note
+  // above on why a native <input type=date> can't be forced into that format),
+  // combined into a hidden ISO field for submission. Day count adjusts for the
+  // chosen month/year (leap Februaries included) and the year list is capped at
+  // 18 years before today so nobody can pick a future or under-18 date.
+  (function(){
+    const pad2 = n => String(n).padStart(2, '0');
+    const dobDay = document.getElementById('dobDay');
+    const dobMonth = document.getElementById('dobMonth');
+    const dobYear = document.getElementById('dobYear');
+    const dobHidden = document.getElementById('dob');
+    if(!dobDay || !dobMonth || !dobYear || !dobHidden) return;
+
+    for(let m = 1; m <= 12; m++){
+      const opt = document.createElement('option');
+      opt.value = pad2(m);
+      opt.textContent = pad2(m);
+      dobMonth.appendChild(opt);
+    }
+
+    const thisYear = new Date().getFullYear();
+    const maxYear = thisYear - 18;
+    for(let y = maxYear; y >= 1950; y--){
+      const opt = document.createElement('option');
+      opt.value = String(y);
+      opt.textContent = String(y);
+      dobYear.appendChild(opt);
+    }
+
+    function daysInMonth(month, year){
+      if(!month) return 31;
+      return new Date(year || 2000, Number(month), 0).getDate();
+    }
+
+    function refreshDayOptions(){
+      const prevValue = dobDay.value;
+      const max = daysInMonth(dobMonth.value, dobYear.value ? Number(dobYear.value) : null);
+      dobDay.querySelectorAll('option[data-day]').forEach(o => o.remove());
+      for(let d = 1; d <= max; d++){
+        const opt = document.createElement('option');
+        opt.value = pad2(d);
+        opt.textContent = pad2(d);
+        opt.dataset.day = '1';
+        dobDay.appendChild(opt);
+      }
+      if(prevValue && Number(prevValue) <= max) dobDay.value = prevValue;
+    }
+    refreshDayOptions();
+
+    function updateDobValue(){
+      if(dobDay.value && dobMonth.value && dobYear.value){
+        dobHidden.value = `${dobYear.value}-${dobMonth.value}-${dobDay.value}`;
+        const adultCutoff = new Date();
+        adultCutoff.setFullYear(adultCutoff.getFullYear() - 18);
+        const picked = new Date(dobHidden.value);
+        if(picked > adultCutoff){
+          dobYear.setCustomValidity('You must be at least 18 years old to apply.');
+        } else {
+          dobYear.setCustomValidity('');
+        }
+      } else {
+        dobHidden.value = '';
+        dobYear.setCustomValidity('');
+      }
+    }
+
+    [dobDay, dobMonth, dobYear].forEach(sel=>{
+      sel.addEventListener('change', function(){
+        if(sel !== dobDay) refreshDayOptions();
+        updateDobValue();
+      });
+    });
+  })();
+
+  const sameAsCurrent = document.getElementById('sameAsCurrent');
+  const currentAddress = document.getElementById('address');
+  const permanentAddress = document.getElementById('permanentAddress');
+  sameAsCurrent.addEventListener('change', function(){
+    permanentAddress.readOnly = this.checked;
+    if(this.checked) permanentAddress.value = currentAddress.value;
+  });
+  currentAddress.addEventListener('input', function(){
+    if(sameAsCurrent.checked) permanentAddress.value = this.value;
+  });
+
+  // Safety / Equipment Certifications: a plain per-checkbox `required` would force
+  // ALL of them checked, which isn't the intent — at least one (including "None")
+  // must be picked. Custom validity is anchored to the first checkbox in the group.
+  const certCheckboxes = form.querySelectorAll('input[name="certifications"]');
+  function validateCertifications(){
+    const anyChecked = Array.from(certCheckboxes).some(cb => cb.checked);
+    certCheckboxes[0].setCustomValidity(anyChecked ? '' : 'Please select at least one option (choose "None" if not applicable).');
+  }
+  certCheckboxes.forEach(cb => cb.addEventListener('change', validateCertifications));
+  validateCertifications();
+
+  const progressFill = document.getElementById('applyProgressFill');
+  const progressLabel = document.getElementById('applyProgressLabel');
+  function updateProgress(){
+    const seen = new Set();
+    let total = 0, done = 0;
+    form.querySelectorAll('[required]').forEach(el=>{
+      const key = el.type === 'radio' ? 'radio:' + el.name : (el.name || el.id);
+      if(seen.has(key)) return;
+      seen.add(key);
+      total++;
+      let satisfied;
+      if(el.type === 'radio') satisfied = !!form.querySelector(`input[name="${el.name}"]:checked`);
+      else if(el.type === 'checkbox') satisfied = el.checked;
+      else if(el.type === 'file') satisfied = el.files && el.files.length > 0;
+      else satisfied = el.value.trim() !== '';
+      if(satisfied) done++;
+    });
+    // Certifications is a checkbox group without the native `required` attribute
+    // (see validateCertifications above), so count it as one requirement by hand.
+    total++;
+    if(Array.from(certCheckboxes).some(cb => cb.checked)) done++;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = pct + '% Complete';
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+  updateProgress();
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    if(CAREERS_WEBHOOK_URL.startsWith('REPLACE_WITH')){
+      errorMsg.textContent = "Application submission isn't connected yet. Please email your details to info@shakambharigroup.in in the meantime.";
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    fetch(CAREERS_WEBHOOK_URL, { method:'POST', body:new FormData(form) })
+      .then(res=>{
+        if(!res.ok) throw new Error('Request failed');
+        form.style.display = 'none';
+        successPanel.classList.add('show');
+      })
+      .catch(()=>{
+        errorMsg.textContent = 'Something went wrong submitting your application. Please try again, or email your details to info@shakambharigroup.in.';
+        errorMsg.style.display = 'block';
+      })
+      .finally(()=>{
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application →';
+      });
+  });
+
+  document.getElementById('applyAgainBtn').addEventListener('click', ()=>{
+    form.reset();
+    document.querySelectorAll('[data-pill-group] .choice-pill').forEach(p=>p.classList.remove('is-checked'));
+    shiftField.classList.remove('show');
+    permanentAddress.readOnly = false;
+    successPanel.classList.remove('show');
+    form.style.display = '';
+    updateProgress();
+  });
+})();
+</script>
+</body>
+</html>
