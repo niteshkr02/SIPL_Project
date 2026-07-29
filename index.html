@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shakambhari Group | Proud to Partner in Our Nation's Progress</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="beyond-steel-slider.css">
   <style>
     /* ══ HERO (dark, scoped tokens) ══ */
     .hero {
@@ -931,80 +932,6 @@
     .pillar-card:hover .go {
       gap: .55rem;
       color: var(--accent);
-    }
-
-    /* ══ BEYOND STEEL: DRAGGABLE PEEK CAROUSEL ══ */
-    .pillars-carousel {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      cursor: grab;
-      touch-action: pan-y;
-    }
-
-    .pillars-carousel.dragging {
-      cursor: grabbing;
-    }
-
-    .pillars-track {
-      display: flex;
-      width: max-content;
-      gap: 1.25rem;
-      will-change: transform;
-      user-select: none;
-      perspective: 1400px;
-    }
-
-    /* curved coverflow shape: each card tilts on its Y-axis based on distance
-       from the carousel's center (--tilt-y/--tilt-scale set every frame in JS) */
-    .pillars-track .pillar-card {
-      flex: 0 0 320px;
-      width: 320px;
-      border-radius: 1.75rem;
-      transform: rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-scale, 1));
-      transition: box-shadow .35s ease, border-color .35s ease;
-    }
-
-    .pillars-track .pillar-card:hover {
-      transform: translateY(-6px) rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-scale, 1));
-    }
-
-    .pillars-track .pillar-card img {
-      -webkit-user-drag: none;
-      pointer-events: none;
-    }
-
-    @media(max-width:1180px) and (min-width:768px) {
-      .pillars-track {
-        gap: 1.1rem;
-      }
-
-      .pillars-track .pillar-card {
-        flex-basis: 270px;
-        width: 270px;
-      }
-    }
-
-    @media(max-width:767px) and (min-width:480px) {
-      .pillars-track {
-        gap: 1rem;
-      }
-
-      .pillars-track .pillar-card {
-        flex-basis: 250px;
-        width: 250px;
-      }
-    }
-
-    @media(max-width:479px) {
-      .pillars-track {
-        gap: .85rem;
-      }
-
-      .pillars-track .pillar-card {
-        flex-basis: 78vw;
-        width: 78vw;
-      }
     }
 
     /* ══ COMPANY CARDS: INFINITE CAROUSEL ══ */
@@ -2648,140 +2575,111 @@
         <p>Steel is where Shakambhari started. What followed — ferro alloys, captive power, aluminium, and organic
           farming — is the same discipline applied to every corner of industry.</p>
       </div>
-      <div class="pillars-carousel reveal" id="beyondSteelCarousel">
-        <div class="pillars-track" id="beyondSteelTrack">
+      <!-- ══ BEYOND STEEL: PREMIUM 3D CARD SLIDER (isolated component —
+           see beyond-steel-slider.css / beyond-steel-slider.js) ══ -->
+      <div class="bs3d reveal" id="bs3d">
+        <div class="bs3d-floor-shadow" aria-hidden="true"></div>
+        <div class="bs3d-viewport">
+          <div class="bs3d-stage" id="bs3dStage" tabindex="0" role="region" aria-roledescription="carousel"
+            aria-label="Beyond Steel — our five business pillars. Use the arrow keys to browse.">
 
-          <a href="process.html" class="pillar-card panel">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">CORE · FLAGSHIP</span>
-              <img src="images/Iron&amp;Steel.png" alt="Iron &amp; Steel" loading="lazy">
+            <div class="bs3d-slot">
+              <a href="process.html" class="pillar-card bs3d-card">
+                <div class="bs3d-shine" aria-hidden="true"></div>
+                <div class="pillar-img-wrap">
+                  <span class="pillar-badge">CORE · FLAGSHIP</span>
+                  <img src="images/Iron&amp;Steel.png" alt="Iron &amp; Steel" loading="lazy" draggable="false">
+                </div>
+                <div class="pillar-body">
+                  <h4>Iron &amp; Steel</h4>
+                  <p>From raw ore through DRI kilns to ISI-certified QST TMT bars, billets, wire rods and structural
+                    steel — 1.5 MTPA capacity.</p>
+                  <span class="go">WALK THE PROCESS →</span>
+                </div>
+              </a>
             </div>
-            <div class="pillar-body">
-              <h4>Iron &amp; Steel</h4>
-              <p>From raw ore through DRI kilns to ISI-certified QST TMT bars, billets, wire rods and structural steel
-                — 1.5 MTPA capacity.</p>
-              <span class="go">WALK THE PROCESS →</span>
-            </div>
-          </a>
 
-          <a href="products.html#ferro-alloys" class="pillar-card panel">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">ALLOYS · GLOBAL</span>
-              <img src="images/Ferro_Alloys.png" alt="Ferro Alloys" loading="lazy">
+            <div class="bs3d-slot">
+              <a href="products.html#ferro-alloys" class="pillar-card bs3d-card">
+                <div class="bs3d-shine" aria-hidden="true"></div>
+                <div class="pillar-img-wrap">
+                  <span class="pillar-badge">ALLOYS · GLOBAL</span>
+                  <img src="images/Ferro_Alloys.png" alt="Ferro Alloys" loading="lazy" draggable="false">
+                </div>
+                <div class="pillar-body">
+                  <h4>Ferro Alloys</h4>
+                  <p>Silicomanganese, ferromanganese, ferrosilicon and ferrochrome produced via submerged arc furnaces
+                    — feeding steelmakers worldwide.</p>
+                  <span class="go">SEE THE ALLOYS →</span>
+                </div>
+              </a>
             </div>
-            <div class="pillar-body">
-              <h4>Ferro Alloys</h4>
-              <p>Silicomanganese, ferromanganese, ferrosilicon and ferrochrome produced via submerged arc furnaces —
-                feeding steelmakers worldwide.</p>
-              <span class="go">SEE THE ALLOYS →</span>
-            </div>
-          </a>
 
-          <a href="products.html#aluminium-foil" class="pillar-card panel">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">PACKAGING · EXPORT</span>
-              <img src="images/Aluminium_Foil.png" alt="Aluminium Foil" loading="lazy">
+            <div class="bs3d-slot">
+              <a href="products.html#aluminium-foil" class="pillar-card bs3d-card">
+                <div class="bs3d-shine" aria-hidden="true"></div>
+                <div class="pillar-img-wrap">
+                  <span class="pillar-badge">PACKAGING · EXPORT</span>
+                  <img src="images/Aluminium_Foil.png" alt="Aluminium Foil" loading="lazy" draggable="false">
+                </div>
+                <div class="pillar-body">
+                  <h4>Aluminium Foil</h4>
+                  <p>9 to 60 micron pharma and FMCG-grade foil, rolled at our integrated Hooghly facility. Exported to
+                    29+ countries.</p>
+                  <span class="go">SEE THE FOIL →</span>
+                </div>
+              </a>
             </div>
-            <div class="pillar-body">
-              <h4>Aluminium Foil</h4>
-              <p>9 to 60 micron pharma and FMCG-grade foil, rolled at our integrated Hooghly facility. Exported to 29+
-                countries.</p>
-              <span class="go">SEE THE FOIL →</span>
-            </div>
-          </a>
 
-          <a href="companies.html" class="pillar-card panel">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">ENERGY · CAPTIVE</span>
-              <img src="images/Captive_Power.png" alt="Captive Power" loading="lazy">
+            <div class="bs3d-slot">
+              <a href="companies.html" class="pillar-card bs3d-card">
+                <div class="bs3d-shine" aria-hidden="true"></div>
+                <div class="pillar-img-wrap">
+                  <span class="pillar-badge">ENERGY · CAPTIVE</span>
+                  <img src="images/Captive_Power.png" alt="Captive Power" loading="lazy" draggable="false">
+                </div>
+                <div class="pillar-body">
+                  <h4>Captive Power</h4>
+                  <p>Waste heat captured from DRI kilns powers our Steel Melting Shop, Rolling Mills and Ferro Alloy
+                    Plant — turning waste into clean energy.</p>
+                  <span class="go">HOW IT WORKS →</span>
+                </div>
+              </a>
             </div>
-            <div class="pillar-body">
-              <h4>Captive Power</h4>
-              <p>Waste heat captured from DRI kilns powers our Steel Melting Shop, Rolling Mills and Ferro Alloy Plant
-                — turning waste into clean energy.</p>
-              <span class="go">HOW IT WORKS →</span>
-            </div>
-          </a>
 
-          <a href="companies.html#green-habit" class="pillar-card panel">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">ORGANIC · GREEN HABIT</span>
-              <img src="images/Organic_Agriculture.png" alt="Organic Agriculture" loading="lazy">
+            <div class="bs3d-slot">
+              <a href="companies.html#green-habit" class="pillar-card bs3d-card">
+                <div class="bs3d-shine" aria-hidden="true"></div>
+                <div class="pillar-img-wrap">
+                  <span class="pillar-badge">ORGANIC · GREEN HABIT</span>
+                  <img src="images/Organic_Agriculture.png" alt="Organic Agriculture" loading="lazy" draggable="false">
+                </div>
+                <div class="pillar-body">
+                  <h4>Organic Agriculture</h4>
+                  <p>Under the Green Habit brand, exotic organic fruits and vegetables thrive across West Bengal farms
+                    — excellence beyond metal.</p>
+                  <span class="go">MEET THE FARM →</span>
+                </div>
+              </a>
             </div>
-            <div class="pillar-body">
-              <h4>Organic Agriculture</h4>
-              <p>Under the Green Habit brand, exotic organic fruits and vegetables thrive across West Bengal farms —
-                excellence beyond metal.</p>
-              <span class="go">MEET THE FARM →</span>
-            </div>
-          </a>
 
-          <!-- duplicate set: purely visual, enables the seamless infinite loop -->
-          <a href="process.html" class="pillar-card panel" aria-hidden="true" tabindex="-1">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">CORE · FLAGSHIP</span>
-              <img src="images/Iron&amp;Steel.png" alt="" loading="lazy">
-            </div>
-            <div class="pillar-body">
-              <h4>Iron &amp; Steel</h4>
-              <p>From raw ore through DRI kilns to ISI-certified QST TMT bars, billets, wire rods and structural steel
-                — 1.5 MTPA capacity.</p>
-              <span class="go">WALK THE PROCESS →</span>
-            </div>
-          </a>
+          </div>
+        </div>
 
-          <a href="products.html#ferro-alloys" class="pillar-card panel" aria-hidden="true" tabindex="-1">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">ALLOYS · GLOBAL</span>
-              <img src="images/Ferro_Alloys.png" alt="" loading="lazy">
-            </div>
-            <div class="pillar-body">
-              <h4>Ferro Alloys</h4>
-              <p>Silicomanganese, ferromanganese, ferrosilicon and ferrochrome produced via submerged arc furnaces —
-                feeding steelmakers worldwide.</p>
-              <span class="go">SEE THE ALLOYS →</span>
-            </div>
-          </a>
-
-          <a href="products.html#aluminium-foil" class="pillar-card panel" aria-hidden="true" tabindex="-1">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">PACKAGING · EXPORT</span>
-              <img src="images/Aluminium_Foil.png" alt="" loading="lazy">
-            </div>
-            <div class="pillar-body">
-              <h4>Aluminium Foil</h4>
-              <p>9 to 60 micron pharma and FMCG-grade foil, rolled at our integrated Hooghly facility. Exported to 29+
-                countries.</p>
-              <span class="go">SEE THE FOIL →</span>
-            </div>
-          </a>
-
-          <a href="companies.html" class="pillar-card panel" aria-hidden="true" tabindex="-1">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">ENERGY · CAPTIVE</span>
-              <img src="images/Captive_Power.png" alt="" loading="lazy">
-            </div>
-            <div class="pillar-body">
-              <h4>Captive Power</h4>
-              <p>Waste heat captured from DRI kilns powers our Steel Melting Shop, Rolling Mills and Ferro Alloy Plant
-                — turning waste into clean energy.</p>
-              <span class="go">HOW IT WORKS →</span>
-            </div>
-          </a>
-
-          <a href="companies.html#green-habit" class="pillar-card panel" aria-hidden="true" tabindex="-1">
-            <div class="pillar-img-wrap">
-              <span class="pillar-badge">ORGANIC · GREEN HABIT</span>
-              <img src="images/Organic_Agriculture.png" alt="" loading="lazy">
-            </div>
-            <div class="pillar-body">
-              <h4>Organic Agriculture</h4>
-              <p>Under the Green Habit brand, exotic organic fruits and vegetables thrive across West Bengal farms —
-                excellence beyond metal.</p>
-              <span class="go">MEET THE FARM →</span>
-            </div>
-          </a>
-
+        <div class="bs3d-controls">
+          <button type="button" class="bs3d-arrow bs3d-prev" aria-label="Previous pillar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+          <div class="bs3d-dots" id="bs3dDots" role="tablist" aria-label="Select a pillar"></div>
+          <button type="button" class="bs3d-arrow bs3d-next" aria-label="Next pillar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -4437,136 +4335,10 @@
       updateState();
     })();
   </script>
-  <script>
-    (function () {
-      const carousel = document.getElementById('beyondSteelCarousel');
-      const track = document.getElementById('beyondSteelTrack');
-      if (!carousel || !track) return;
-
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const idleSpeed = reduceMotion ? 0 : -22; // px/s, negative = leftward drift
-
-      let setWidth = 0; // px width of one full (non-duplicated) card set, incl. gap to the next
-      let cardList = []; // cached {el, center} — center is resting offsetLeft + half its width
-      const MAX_TILT_DEG = 10;
-      const MAX_TILT_SHRINK = .06;
-      function measure() {
-        const cards = track.querySelectorAll('.pillar-card');
-        const half = cards.length / 2;
-        if (half > 0) setWidth = cards[half].offsetLeft - cards[0].offsetLeft;
-        cardList = Array.from(cards).map(el => ({ el, center: el.offsetLeft + el.offsetWidth / 2 }));
-      }
-      measure();
-      window.addEventListener('resize', measure);
-
-      function updateTilt() {
-        if (reduceMotion || !cardList.length) return;
-        const halfCarousel = carousel.offsetWidth / 2;
-        cardList.forEach(({ el, center }) => {
-          const norm = Math.max(-1, Math.min(1, (center + x - halfCarousel) / halfCarousel));
-          el.style.setProperty('--tilt-y', (-norm * MAX_TILT_DEG).toFixed(2) + 'deg');
-          el.style.setProperty('--tilt-scale', (1 - Math.abs(norm) * MAX_TILT_SHRINK).toFixed(3));
-        });
-      }
-
-      let x = 0;
-      let velocity = idleSpeed;
-      let bend = 0;
-      let dragging = false;
-      let hoverPaused = false;
-      let dragMoved = 0;
-      let startPointerX = 0;
-      let startX = 0;
-      let lastPointerX = 0;
-      let lastMoveTime = 0;
-
-      function wrap() {
-        if (!setWidth) return;
-        while (x <= -setWidth) x += setWidth;
-        while (x > 0) x -= setWidth;
-      }
-
-      function render() {
-        track.style.transform = `translateX(${x}px) skewX(${bend}deg)`;
-        updateTilt();
-      }
-
-      let lastFrame = null;
-      function tick(now) {
-        if (lastFrame === null) lastFrame = now;
-        const dt = Math.min((now - lastFrame) / 1000, .05);
-        lastFrame = now;
-
-        if (!dragging && !hoverPaused) {
-          velocity += (idleSpeed - velocity) * Math.min(dt * 2, 1);
-          x += velocity * dt;
-          wrap();
-        }
-        if (!dragging) bend += (0 - bend) * Math.min(dt * 6, 1);
-
-        render();
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-
-      carousel.addEventListener('mouseenter', () => { hoverPaused = true; });
-      carousel.addEventListener('mouseleave', () => { hoverPaused = false; });
-
-      let captured = false;
-      const DRAG_THRESHOLD = 6; // px — below this, treat as a plain click, not a drag
-
-      carousel.addEventListener('pointerdown', (e) => {
-        dragging = true;
-        captured = false;
-        dragMoved = 0;
-        carousel.classList.add('dragging');
-        startPointerX = e.clientX;
-        startX = x;
-        lastPointerX = e.clientX;
-        lastMoveTime = performance.now();
-        velocity = 0;
-      });
-
-      carousel.addEventListener('pointermove', (e) => {
-        if (!dragging) return;
-        const now = performance.now();
-        const dx = e.clientX - lastPointerX;
-        const dtMs = Math.max(now - lastMoveTime, 1);
-        velocity = reduceMotion ? 0 : (dx / (dtMs / 1000));
-        x = startX + (e.clientX - startPointerX);
-        dragMoved += Math.abs(dx);
-        bend = reduceMotion ? 0 : Math.max(-6, Math.min(6, velocity / 120));
-        wrap();
-        lastPointerX = e.clientX;
-        lastMoveTime = now;
-
-        // Only take pointer capture once a real drag is confirmed — capturing
-        // on every pointerdown retargets the compat click event away from the
-        // <a>, silently breaking plain-click navigation on every card.
-        if (!captured && dragMoved > DRAG_THRESHOLD) {
-          captured = true;
-          carousel.setPointerCapture(e.pointerId);
-        }
-      });
-
-      function endDrag() {
-        if (!dragging) return;
-        dragging = false;
-        carousel.classList.remove('dragging');
-        if (reduceMotion) velocity = 0;
-        if (dragMoved > DRAG_THRESHOLD) {
-          const suppressClick = (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            track.removeEventListener('click', suppressClick, true);
-          };
-          track.addEventListener('click', suppressClick, true);
-        }
-      }
-      window.addEventListener('pointerup', endDrag);
-      carousel.addEventListener('pointercancel', endDrag);
-    })();
-  </script>
+  <!-- GSAP powers the Beyond Steel 3D card slider only; beyond-steel-slider.js
+       falls back to plain CSS transitions if this CDN request ever fails. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="beyond-steel-slider.js"></script>
 </body>
 
 </html>
