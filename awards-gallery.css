@@ -1,0 +1,717 @@
+/* ════════════════════════════════════════════════════════════════════
+   AWARDS & RECOGNITION — Premium Museum-Style Gallery
+   Isolated, reusable component. Header reuses the site's existing
+   .kicker / .section-head components for visual consistency; the
+   certificate lightbox modal (.cert-modal-*) is untouched and reused
+   as-is for the "View Details" action.
+
+   Motion contract: only transform / opacity / filter are animated.
+   Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.awx {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5rem 1.75rem 6rem;
+}
+
+/* ── ambient background: mesh + blueprint + dot grid + glow + noise ── */
+.awx-mesh {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 2rem;
+  background:
+    radial-gradient(ellipse 55% 45% at 20% 15%, rgba(255, 145, 40, .05), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 82% 20%, rgba(241, 243, 246, .85), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(228, 231, 236, .5), transparent 65%),
+    linear-gradient(180deg, #FCFCFD 0%, #F5F6F8 100%);
+}
+
+.awx-blueprint {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 42px),
+    repeating-linear-gradient(0deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 42px);
+  opacity: .03;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 30%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 30%, transparent 90%);
+}
+
+.awx-dots {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(15, 23, 42, .05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 65%, #000 35%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 65%, #000 35%, transparent 95%);
+}
+
+.awx-glow {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  width: 65%;
+  height: 55%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 106, 31, .08), transparent 65%);
+  filter: blur(46px);
+}
+
+.awx-noise {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── header: reuses .kicker / .section-head, adds a tiny animated underline ── */
+.awx-head {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+}
+
+.awx-kicker-glow {
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin: -.7rem auto 1.2rem;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 12px 1px rgba(255, 106, 31, .55);
+  border-radius: 2px;
+  animation: awxUnderlinePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes awxUnderlinePulse {
+
+  0%,
+  100% {
+    opacity: .65;
+    transform: scaleX(.82);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.awx-gallery-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--accent-ink);
+  text-decoration: none;
+  transition: gap .25s ease, color .25s ease;
+}
+
+.awx-gallery-link:hover {
+  gap: .6rem;
+  color: var(--accent);
+}
+
+/* ── year timeline filter ── */
+.awx-timeline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  margin: 3rem auto 0;
+  max-width: 720px;
+  padding-bottom: .5rem;
+}
+
+.awx-timeline::before {
+  content: '';
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 6px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(15, 23, 42, .14) 12%, rgba(15, 23, 42, .14) 88%, transparent);
+}
+
+.awx-year-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0 0 .6rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: .02em;
+  transition: color .3s ease;
+}
+
+.awx-year-btn::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: 0 auto .55rem;
+  border-radius: 50%;
+  background: #FFF;
+  border: 1.5px solid rgba(15, 23, 42, .22);
+  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+
+.awx-year-btn:hover {
+  color: var(--ink);
+}
+
+.awx-year-btn.active {
+  color: var(--accent-ink);
+}
+
+.awx-year-btn.active::before {
+  background: linear-gradient(135deg, #FF9128, #FF6A1F);
+  border-color: transparent;
+  box-shadow: 0 0 0 4px rgba(255, 106, 31, .14), 0 0 12px rgba(255, 106, 31, .5);
+  transform: scale(1.15);
+}
+
+.awx-year-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.awx-timeline-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  width: 32px;
+  background: linear-gradient(90deg, var(--accent-hot), var(--accent));
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255, 106, 31, .5);
+  transition: transform .45s cubic-bezier(.16, .84, .44, 1), width .45s cubic-bezier(.16, .84, .44, 1);
+  pointer-events: none;
+}
+
+/* ── carousel viewport ── */
+.awx-viewport {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: 3.5rem;
+  overflow: visible;
+}
+
+.awx-track {
+  position: relative;
+  height: 480px;
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.awx-track.dragging {
+  cursor: grabbing;
+}
+
+.awx-track:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 106, 31, .35);
+  border-radius: 1.75rem;
+}
+
+/* static positioning wrapper — the carousel logic (x / scale / opacity)
+   only ever touches this element */
+.awx-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 440px;
+  margin: -220px 0 0 -150px;
+}
+
+/* the breathing float + hover lift live here, one layer in from .awx-slot,
+   so the two transform systems never fight over the same inline style */
+.awx-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
+  border: 1px solid rgba(255, 145, 40, .15);
+  border-radius: 28px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  box-shadow: 0 40px 80px -20px rgba(15, 23, 42, .16), 0 10px 26px rgba(15, 23, 42, .07);
+  overflow: hidden;
+  cursor: default;
+  will-change: transform;
+}
+
+.awx-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(15, 23, 42, .015);
+}
+
+/* reflection sweep, revealed on hover */
+.awx-card::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 42%;
+  height: 220%;
+  background: linear-gradient(75deg, transparent 0%, rgba(255, 255, 255, .65) 45%, transparent 62%);
+  transform: translateX(-160%) rotate(10deg);
+  transition: transform .8s cubic-bezier(.16, .84, .44, 1);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.awx-slot.is-hovered .awx-card::after {
+  transform: translateX(220%) rotate(10deg);
+}
+
+.awx-slot.is-hovered .awx-card {
+  border-color: rgba(255, 106, 31, .4);
+  box-shadow: 0 52px 100px -20px rgba(15, 23, 42, .22), 0 0 40px rgba(255, 106, 31, .18);
+}
+
+/* ── image display frame ── */
+.awx-frame {
+  position: relative;
+  flex-shrink: 0;
+  height: 180px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .95), rgba(250, 248, 244, .8));
+  border: 1px solid rgba(255, 145, 40, .22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(15, 23, 42, .02), inset 0 -14px 26px -18px rgba(15, 23, 42, .12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+/* soft spotlight behind the image */
+.awx-frame::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 70%;
+  height: 70%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(255, 194, 75, .28), transparent 68%);
+  pointer-events: none;
+}
+
+/* reflection layer under the image */
+.awx-frame::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 34%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, .55), transparent);
+  pointer-events: none;
+}
+
+.awx-frame img {
+  position: relative;
+  z-index: 1;
+  max-width: 78%;
+  max-height: 72%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, .16));
+  transition: transform .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+.awx-slot.is-hovered .awx-frame img {
+  transform: scale(1.05);
+}
+
+/* ── card body content ── */
+.awx-category {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: var(--accent-ink);
+  margin-bottom: .55rem;
+}
+
+.awx-title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 800;
+  text-transform: none;
+  color: #111;
+  line-height: 1.28;
+  margin-bottom: .4rem;
+}
+
+.awx-issuer {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: .15rem;
+}
+
+.awx-year {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 700;
+  color: #9C9A90;
+  letter-spacing: .04em;
+  margin-bottom: .7rem;
+}
+
+.awx-desc {
+  font-size: .82rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.awx-details-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--accent-ink);
+  cursor: pointer;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1), gap .3s ease, color .3s ease;
+}
+
+.awx-details-btn:hover,
+.awx-details-btn:focus-visible {
+  gap: .65rem;
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.awx-details-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── prestige effect: only the truly-active (center) card ── */
+.awx-slot.is-active .awx-card {
+  border-color: rgba(255, 194, 75, .55);
+  box-shadow: 0 48px 90px -18px rgba(15, 23, 42, .18), 0 0 50px rgba(255, 194, 75, .22);
+}
+
+.awx-slot.is-active .awx-frame {
+  border-color: rgba(255, 194, 75, .4);
+}
+
+.awx-spotlight {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 194, 75, .16), transparent 62%);
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+
+.awx-slot.is-active .awx-spotlight {
+  opacity: 1;
+  animation: awxSpotlightBreathe 4s ease-in-out infinite;
+}
+
+@keyframes awxSpotlightBreathe {
+
+  0%,
+  100% {
+    opacity: .75;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.awx-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+.awx-slot.is-active .awx-particles {
+  opacity: 1;
+}
+
+.awx-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFC24B, rgba(255, 106, 31, 0));
+  opacity: 0;
+  animation: awxParticleFloat 5s ease-in-out infinite;
+}
+
+.awx-slot.is-active .awx-particle {
+  animation-play-state: running;
+}
+
+.awx-particle:nth-child(1) {
+  left: 18%;
+  top: 70%;
+  animation-delay: 0s;
+}
+
+.awx-particle:nth-child(2) {
+  left: 40%;
+  top: 20%;
+  animation-delay: 1.1s;
+}
+
+.awx-particle:nth-child(3) {
+  left: 68%;
+  top: 60%;
+  animation-delay: 2.2s;
+}
+
+.awx-particle:nth-child(4) {
+  left: 82%;
+  top: 30%;
+  animation-delay: 3.1s;
+}
+
+.awx-particle:nth-child(5) {
+  left: 55%;
+  top: 85%;
+  animation-delay: 4s;
+}
+
+@keyframes awxParticleFloat {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  15% {
+    opacity: .8;
+  }
+
+  85% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-34px);
+  }
+}
+
+/* ── navigation + progress ── */
+.awx-controls {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 640px;
+  margin: 2.5rem auto 0;
+}
+
+.awx-arrow {
+  position: relative;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  overflow: hidden;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(15, 23, 42, .08);
+  color: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, .1);
+  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+
+.awx-arrow svg {
+  width: 18px;
+  height: 18px;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.awx-arrow:hover {
+  background: var(--accent);
+  color: #FFF;
+  border-color: var(--accent);
+  box-shadow: 0 14px 32px rgba(255, 106, 31, .35);
+  transform: scale(1.08);
+}
+
+.awx-arrow.prev:hover svg {
+  transform: translateX(-2px);
+}
+
+.awx-arrow.next:hover svg {
+  transform: translateX(2px);
+}
+
+.awx-arrow:active {
+  transform: scale(.95);
+}
+
+.awx-arrow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.awx-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .55);
+  transform: scale(0);
+  opacity: .6;
+  pointer-events: none;
+  animation: awxRippleAnim .6s ease-out forwards;
+}
+
+@keyframes awxRippleAnim {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.awx-progress {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: rgba(15, 23, 42, .08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.awx-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent-hot), var(--accent));
+  box-shadow: 0 0 10px rgba(255, 106, 31, .6);
+  transition: left .5s cubic-bezier(.16, .84, .44, 1), width .5s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* ── responsive: 4 / 2 / 1 visible cards ── */
+@media (max-width: 1180px) and (min-width: 769px) {
+  .awx-track {
+    height: 460px;
+  }
+
+  .awx-slot {
+    width: 260px;
+    height: 420px;
+    margin: -210px 0 0 -130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .awx-track {
+    height: 460px;
+  }
+
+  .awx-slot {
+    width: min(78vw, 300px);
+    height: 420px;
+    margin-top: -210px;
+    margin-left: calc(min(78vw, 300px) / -2);
+  }
+
+  .awx-timeline {
+    gap: 1rem;
+  }
+
+  .awx-controls {
+    max-width: 100%;
+  }
+}
+
+.awx-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .awx-kicker-glow,
+  .awx-spotlight,
+  .awx-particle {
+    animation: none;
+  }
+
+  .awx-card,
+  .awx-card::after,
+  .awx-frame img {
+    transition: none;
+  }
+}

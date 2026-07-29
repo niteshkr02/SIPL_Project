@@ -7,6 +7,9 @@
   <title>Shakambhari Group | Proud to Partner in Our Nation's Progress</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="beyond-steel-slider.css">
+  <link rel="stylesheet" href="market-presence-panel.css">
+  <link rel="stylesheet" href="trusted-by-section.css">
+  <link rel="stylesheet" href="awards-gallery.css">
   <style>
     /* ══ HERO (dark, scoped tokens) ══ */
     .hero {
@@ -104,72 +107,13 @@
       position: relative;
       z-index: 5;
       max-width: 920px;
-      animation: heroZoomIn 1.5s cubic-bezier(.16, .84, .44, 1) both;
     }
 
-    @keyframes heroZoomIn {
-      0% {
-        opacity: 0;
-        transform: scale(1.18);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* staggered reveal for hero content */
-    .hero-kicker,
-    .hero h1,
-    .hero p.lede,
-    .hero-cta-row {
-      animation: heroFadeUp .9s cubic-bezier(.16, .84, .44, 1) both;
-    }
-
-    .hero-kicker {
-      animation-delay: .1s;
-    }
-
-    .hero h1 {
-      animation-delay: .25s;
-    }
-
-    .hero p.lede {
-      animation-delay: .4s;
-    }
-
-    .hero-cta-row {
-      animation-delay: .55s;
-    }
-
-    @keyframes heroFadeUp {
-      0% {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* fade-only: keeps `transform` free for the hover lift/scale below */
-    .hero .pill {
-      animation: heroFadeIn .9s ease both;
-      animation-delay: .7s;
-    }
-
-    @keyframes heroFadeIn {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
+    /* Entrance (badge / headline lines / lede / CTAs / stats / background)
+       is now orchestrated by hero-cinematic.js via GSAP, replacing the old
+       CSS-keyframe stagger — the two can't coexist on the same elements
+       since a running CSS animation always wins over inline styles for the
+       properties it's animating. */
 
     .hero-kicker {
       font-family: var(--font-mono);
@@ -222,51 +166,7 @@
       color: var(--ink-dim);
     }
 
-    .hero .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: .85rem;
-      margin-top: 2.4rem;
-      padding: .9rem 2rem;
-      border: 1px solid rgba(255, 106, 31, .4);
-      border-radius: 3rem;
-      font-family: var(--font-mono);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      color: var(--ink);
-      background: linear-gradient(135deg, rgba(255, 106, 31, .14), rgba(255, 255, 255, .03));
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 6px 24px rgba(255, 106, 31, .18), inset 0 1px 0 rgba(255, 255, 255, .1);
-      transition: transform .3s ease, box-shadow .3s ease;
-    }
-
-    .hero .pill:hover {
-      transform: translateY(-2px) scale(1.03);
-      border-color: rgba(255, 106, 31, .7);
-      box-shadow: 0 10px 32px rgba(255, 106, 31, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
-    }
-
-    .hero .pill .tag {
-      color: var(--accent-hot);
-      font-weight: 700;
-    }
-
-    .hero .pill .sep {
-      color: rgba(238, 234, 225, .35);
-    }
-
-    .hero .pill .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 14px 4px var(--accent);
-      flex-shrink: 0;
-      animation: dotPulse 1.8s ease-in-out infinite;
-    }
-
+    /* .pill removed — replaced by .hero-stats (see hero-cinematic.css) */
     @keyframes dotPulse {
 
       0%,
@@ -278,16 +178,6 @@
       50% {
         box-shadow: 0 0 20px 8px var(--accent);
         opacity: .7;
-      }
-    }
-
-    @media(max-width:560px) {
-      .hero .pill {
-        font-size: .8rem;
-        padding: .75rem 1.4rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
       }
     }
 
@@ -341,10 +231,6 @@
 
     .scroll-cue:hover {
       color: var(--accent-hot);
-    }
-
-    .scroll-cue:hover svg path {
-      stroke: var(--accent-hot);
     }
 
     .scroll-cue span {
@@ -1486,7 +1372,7 @@
     /* ══ MARKET PRESENCE SPLIT DASHBOARD LAYOUT ══ */
     .market-dashboard-grid {
       display: grid;
-      grid-template-columns: 1fr 350px;
+      grid-template-columns: 1fr 440px;
       gap: 1.5rem;
       align-items: start;
     }
@@ -1497,189 +1383,8 @@
       }
     }
 
-    .vendor-live-card {
-      background: linear-gradient(160deg, rgba(255, 255, 255, .09) 0%, rgba(255, 255, 255, .025) 100%);
-      border: 1.5px solid rgba(255, 106, 31, 0.45);
-      border-radius: 16px;
-      padding: 1.25rem;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      position: sticky;
-      top: 100px;
-    }
-
-    .vendor-card-badge {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: var(--accent-hot);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .vendor-search-box {
-      margin-bottom: 1rem;
-      position: relative;
-    }
-
-    .vendor-search-input {
-      width: 100%;
-      background: rgba(20, 24, 34, 0.9);
-      border: 1px solid rgba(255, 106, 31, 0.3);
-      color: #FFF;
-      padding: 0.55rem 0.85rem 0.55rem 2.2rem;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .vendor-search-input:focus {
-      border-color: var(--accent-hot);
-      box-shadow: 0 0 12px rgba(255, 106, 31, 0.35);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.85rem;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .vendor-card-header {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 0.85rem;
-      margin-bottom: 1rem;
-    }
-
-    .vendor-card-state {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #FFF;
-      margin: 0 0 0.3rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .vendor-card-company {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #FFC24B;
-      margin-bottom: 0.85rem;
-    }
-
-    .vendor-info-row {
-      margin-bottom: 0.65rem;
-      font-size: 0.8rem;
-      color: #C5C2B8;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .vendor-info-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: #9C9A90;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .vendor-info-val {
-      color: #FFF;
-      font-weight: 600;
-    }
-
-    .vendor-btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-
-    .v-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      text-align: center;
-    }
-
-    .v-btn-call {
-      background: rgba(255, 106, 31, 0.2);
-      border: 1px solid rgba(255, 106, 31, 0.5);
-      color: #FFC24B;
-    }
-
-    .v-btn-call:hover {
-      background: var(--accent);
-      color: #FFF;
-      box-shadow: 0 4px 15px rgba(255, 106, 31, 0.4);
-    }
-
-    .v-btn-mail {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #EEEAE1;
-    }
-
-    .v-btn-mail:hover {
-      background: rgba(255, 255, 255, 0.18);
-      color: #FFF;
-      border-color: #FFF;
-    }
-
-    .quick-location-list {
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      max-height: 180px;
-      overflow-y: auto;
-      padding-right: 0.2rem;
-    }
-
-    .quick-location-list::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .quick-location-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 106, 31, 0.4);
-      border-radius: 4px;
-    }
-
-    .quick-location-item {
-      background: rgba(20, 24, 34, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
-      padding: 0.4rem 0.65rem;
-      font-size: 0.76rem;
-      color: #C5C2B8;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.2s ease;
-    }
-
-    .quick-location-item:hover,
-    .quick-location-item.active {
-      background: rgba(255, 106, 31, 0.2);
-      border-color: rgba(255, 106, 31, 0.5);
-      color: #FFF;
-    }
+    /* Vendor info panel styles now live in market-presence-panel.css
+       (.mpp / .quick-location-item*) */
 
     .map-legend {
       display: flex;
@@ -1709,529 +1414,9 @@
       box-shadow: 0 0 8px var(--accent-hot);
     }
 
-    /* RIGHT SIDE VENDOR DETAILS CARD & SELECTOR */
-    .market-info-side {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    /* Trusted By section styles now live in trusted-by-section.css (.tby*) */
 
-    .vendor-details-card {
-      background: linear-gradient(145deg, #171A24, #10121A);
-      border: 1px solid rgba(255, 106, 31, 0.4);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-
-    .vendor-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .vendor-state-badge {
-      background: var(--accent);
-      color: #FFF;
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      letter-spacing: 0.05em;
-    }
-
-    .vendor-hub-type {
-      font-size: 0.7rem;
-      color: var(--accent-hot);
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-    }
-
-    .vendor-partner-name {
-      font-size: 1.15rem;
-      color: #FFF;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-
-    .vendor-info-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .info-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .info-label {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #8C8A80;
-      font-family: var(--font-mono);
-    }
-
-    .info-val {
-      font-size: 0.85rem;
-      color: #EEEAE1;
-      font-weight: 500;
-    }
-
-    .info-val.link {
-      color: var(--accent-hot);
-      text-decoration: none;
-    }
-
-    .info-val.link:hover {
-      text-decoration: underline;
-    }
-
-    .vendor-card-action {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    /* STATE SELECTOR PANEL */
-    .state-selector-panel {
-      background: rgba(20, 23, 32, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 1.1rem;
-    }
-
-    .selector-title {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 0.8rem;
-    }
-
-    .selector-title span {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--accent-hot);
-      font-family: var(--font-mono);
-    }
-
-    .selector-title small {
-      font-size: 0.7rem;
-      color: #8C8A80;
-    }
-
-    .state-chips-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      max-height: 180px;
-      overflow-y: auto;
-      padding-right: 0.3rem;
-    }
-
-    .state-chips-container::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .state-chips-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 106, 31, 0.4);
-      border-radius: 4px;
-    }
-
-    .state-chip-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #DCD8CF;
-      padding: 0.3rem 0.65rem;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .state-chip-btn:hover,
-    .state-chip-btn.active {
-      background: var(--accent);
-      color: #FFF;
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    /* GLOBAL PRESENCE CARD */
-    .global-presence-card {
-      background: rgba(18, 21, 28, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 1.1rem;
-    }
-
-    .global-head {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .globe-icon {
-      font-size: 1.5rem;
-    }
-
-    .global-head h4 {
-      font-size: 0.85rem;
-      color: #FFF;
-      margin: 0;
-    }
-
-    .global-head p {
-      font-size: 0.72rem;
-      color: var(--accent-hot);
-      margin: 0;
-    }
-
-    .global-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .global-chips .chip {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #B5B3AA;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-    }
-
-    /* ══ TRUST STRIP LOGO WALL ══ */
-    .trust-strip {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 14px;
-      background: transparent;
-      border: none;
-      border-radius: 14px;
-      overflow: visible;
-      margin-top: 1.5rem;
-    }
-
-    .trust-chip {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100px;
-      height: 100px;
-      padding: 0.65rem 1rem;
-      background: rgba(255, 255, 255, 0.98);
-      border: 1.5px solid rgba(255, 255, 255, 0.9);
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1);
-    }
-
-    .trust-chip:hover {
-      background: #FFFFFF;
-      border-color: var(--accent);
-      box-shadow: 0 12px 30px rgba(255, 106, 31, 0.25);
-      transform: translateY(-4px);
-    }
-
-    .trust-chip img {
-      max-width: 95%;
-      max-height: 76px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      transform: scale(1.3);
-      filter: contrast(105%);
-      transition: all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1);
-    }
-
-    .trust-chip:hover img {
-      filter: contrast(115%);
-      transform: scale(1.42);
-    }
-
-    /* ══ AWARDS & CERTIFICATES SHOWCASE ══ */
-    .awards-section-head {
-      text-align: center;
-      margin: 3.5rem auto 1.5rem;
-    }
-
-    .awards-scroll-wrap {
-      position: relative;
-      max-width: 1200px;
-      margin: 1.5rem auto 0;
-    }
-
-    .awards-scroll-nav {
-      appearance: none;
-      -webkit-appearance: none;
-      padding: 0;
-      font-size: 1.1rem;
-      position: absolute;
-      top: 40%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #FFFFFF;
-      border: 1.5px solid rgba(255, 194, 75, 0.6);
-      color: var(--accent-ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
-      z-index: 4;
-      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-    }
-
-    .awards-scroll-nav:hover {
-      background: var(--accent);
-      color: #FFFFFF;
-      box-shadow: 0 10px 26px rgba(255, 106, 31, 0.35);
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .awards-scroll-nav:active { transform: translateY(-50%) scale(0.94); }
-
-    .awards-scroll-nav.prev { left: -6px; }
-    .awards-scroll-nav.next { right: -6px; }
-
-    .awards-scroll-nav:disabled {
-      opacity: 0.3;
-      cursor: default;
-      box-shadow: none;
-    }
-
-    .awards-scroll-nav:disabled:hover {
-      background: #FFFFFF;
-      color: var(--accent-ink);
-      transform: translateY(-50%);
-    }
-
-    @media (max-width: 700px) {
-      .awards-scroll-nav { display: none; }
-    }
-
-    .awards-edge-fade {
-      position: absolute;
-      top: 0;
-      bottom: 1.75rem;
-      width: 4.5rem;
-      pointer-events: none;
-      z-index: 2;
-      transition: opacity 0.35s ease;
-    }
-
-    .awards-edge-fade.left {
-      left: 0;
-      background: linear-gradient(to right, rgba(231, 234, 238, 0.92) 10%, rgba(231, 234, 238, 0) 100%);
-    }
-
-    .awards-edge-fade.right {
-      right: 0;
-      background: linear-gradient(to left, rgba(231, 234, 238, 0.92) 10%, rgba(231, 234, 238, 0) 100%);
-    }
-
-    .awards-scroll-wrap.at-start .awards-edge-fade.left { opacity: 0; }
-    .awards-scroll-wrap.at-end .awards-edge-fade.right { opacity: 0; }
-
-    @media (max-width: 700px) {
-      .awards-edge-fade { width: 2.25rem; }
-    }
-
-    .awards-grid {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding: 0.5rem 2.75rem 1.75rem;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      cursor: grab;
-      user-select: none;
-    }
-
-    .awards-grid.dragging {
-      scroll-snap-type: none;
-      scroll-behavior: auto;
-      cursor: grabbing;
-    }
-
-    @media (max-width: 700px) {
-      .awards-grid { padding: 0.5rem 1.25rem 1.75rem; }
-    }
-
-    .awards-grid::-webkit-scrollbar { display: none; }
-
-    .awards-progress {
-      position: relative;
-      height: 4px;
-      margin: 0 2.75rem;
-      background: rgba(0, 0, 0, 0.08);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .awards-progress-fill {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 30%;
-      background: linear-gradient(90deg, var(--accent-hot), var(--accent));
-      border-radius: 4px;
-      transition: left 0.15s ease-out, width 0.15s ease-out;
-    }
-
-    @media (max-width: 700px) {
-      .awards-progress { margin: 0 1.25rem; }
-    }
-
-    .award-card {
-      flex: 0 0 auto;
-      width: 250px;
-      scroll-snap-align: start;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 250, 0.95));
-      border: 1.5px solid rgba(255, 194, 75, 0.4);
-      border-radius: 16px;
-      padding: 1.1rem;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: opacity 0.7s ease, background 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), transform 0.35s cubic-bezier(0.16, 0.84, 0.44, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .award-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      padding: 1.5px;
-      background: linear-gradient(135deg, #FFC24B, var(--accent), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.4;
-      transition: opacity 0.3s ease;
-    }
-
-    .award-card:hover {
-      background: linear-gradient(150deg, var(--accent) 0%, var(--accent-deep) 100%);
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(255, 106, 31, 0.3);
-      border-color: var(--accent);
-    }
-
-    .award-card:hover::before {
-      opacity: 1;
-    }
-
-    .award-img-wrap {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #FFFFFF;
-      border-radius: 10px;
-      padding: 0.75rem;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
-      overflow: hidden;
-    }
-
-    .award-img-wrap img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      transition: transform 0.35s ease;
-    }
-
-    .award-card:hover .award-img-wrap img {
-      transform: scale(1.06);
-    }
-
-    .award-caption {
-      margin-top: 0.9rem;
-      text-align: center;
-      width: 100%;
-    }
-
-    .award-title {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #111111;
-      line-height: 1.3;
-      margin-bottom: 0.25rem;
-      transition: color 0.35s ease;
-    }
-
-    .award-issuer {
-      font-size: 0.73rem;
-      color: var(--accent-ink);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-family: var(--font-mono);
-      transition: color 0.35s ease;
-    }
-
-    .award-card:hover .award-title { color: #FFFFFF; }
-    .award-card:hover .award-issuer { color: rgba(255, 255, 255, 0.85); }
-
-    .award-plus-btn {
-      appearance: none;
-      -webkit-appearance: none;
-      padding: 0;
-      font-family: inherit;
-      text-decoration: none;
-      position: absolute;
-      right: 0.85rem;
-      bottom: 0.85rem;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #FFFFFF;
-      border: 2px solid #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1;
-      cursor: pointer;
-      z-index: 2;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transition: transform 0.35s cubic-bezier(0.16, 0.84, 0.44, 1), background 0.3s ease, color 0.3s ease;
-    }
-
-    .award-card:hover .award-plus-btn {
-      background: #FFFFFF;
-      color: var(--accent-deep);
-      transform: rotate(90deg);
-    }
+    /* Awards & Recognition gallery styles now live in awards-gallery.css (.awx*) */
 
     /* CERTIFICATE LIGHTBOX MODAL */
     .cert-modal-overlay {
@@ -2337,6 +1522,9 @@
       font-size: 1.05rem;
     }
   </style>
+  <!-- loaded after the inline hero styles above so it wins the cascade for
+       the couple of rules it deliberately extends (e.g. .hero h1 .grad) -->
+  <link rel="stylesheet" href="hero-cinematic.css">
 </head>
 
 <body>
@@ -2422,28 +1610,149 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO: CINEMATIC INDUSTRIAL BACKDROP (isolated component —
+       see hero-cinematic.css / hero-cinematic.js). Content stays exactly
+       centered; the storytelling lives entirely in the background layers. -->
   <header class="hero">
-    <div class="hero-glow"></div>
-    <canvas id="embers"></canvas>
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-glow-wrap">
+        <div class="hero-glow"></div>
+      </div>
+      <canvas id="embers"></canvas>
+
+      <!-- industrial skyline: factory blocks, blast furnace, smokestacks,
+           a crane, a transmission tower, container stacks, a rail line -->
+      <div class="hero-skyline">
+        <svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+          <line class="sky-line" x1="0" y1="214" x2="1200" y2="214" stroke-width="1" />
+          <rect class="sky-shape" x="40" y="150" width="70" height="64" />
+          <rect class="sky-shape" x="120" y="120" width="46" height="94" />
+          <rect class="sky-shape" x="900" y="140" width="90" height="74" />
+          <rect class="sky-shape" x="1010" y="110" width="50" height="104" />
+          <rect class="sky-shape" x="180" y="188" width="34" height="26" />
+          <rect class="sky-shape" x="216" y="196" width="34" height="18" />
+          <rect class="sky-shape" x="1080" y="190" width="30" height="24" />
+          <rect class="sky-shape" x="520" y="90" width="26" height="124" />
+          <polygon class="sky-shape" points="520,90 546,90 538,68 528,68" />
+          <rect class="sky-shape" x="600" y="70" width="10" height="144" />
+          <rect class="sky-shape" x="624" y="86" width="10" height="128" />
+          <ellipse class="hero-smoke sky-shape" cx="605" cy="58" rx="10" ry="7" opacity=".4" />
+          <ellipse class="hero-smoke d2 sky-shape" cx="629" cy="74" rx="9" ry="6" opacity=".35" />
+          <line class="sky-line" x1="760" y1="214" x2="760" y2="100" stroke-width="2" />
+          <line class="sky-line" x1="760" y1="100" x2="840" y2="100" stroke-width="2" />
+          <line class="sky-line" x1="826" y1="100" x2="826" y2="118" stroke-width="1.5" />
+          <path class="sky-line" d="M340,214 L358,120 L376,214 M346,170 L370,170 M350,145 L366,145"
+            stroke-width="1.3" />
+          <line class="sky-line" x1="300" y1="126" x2="416" y2="126" stroke-width="1" stroke-dasharray="2 6" />
+        </svg>
+      </div>
+
+      <!-- global trade network: slowly flowing export routes -->
+      <div class="hero-routes">
+        <svg viewBox="0 0 1000 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heroRouteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0" />
+              <stop offset="50%" stop-color="#FFC24B" stop-opacity=".9" />
+              <stop offset="100%" stop-color="#FF6A1F" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <path d="M60,340 Q300,180 560,260 T980,140" />
+          <path class="r2" d="M120,120 Q420,260 700,180 T940,320" />
+          <path class="r3" d="M40,420 Q360,380 620,440 T960,380" />
+          <circle cx="60" cy="340" r="3.5" />
+          <circle cx="560" cy="260" r="3.5" />
+          <circle cx="980" cy="140" r="3.5" />
+          <circle cx="700" cy="180" r="3.5" />
+          <circle cx="940" cy="320" r="3.5" />
+        </svg>
+      </div>
+
+      <!-- faint rotating industrial wireframes -->
+      <div class="hero-wireframe">
+        <div class="hero-wireframe-spin">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="100,10 173,50 173,150 100,190 27,150 27,50" />
+            <circle cx="100" cy="100" r="60" />
+            <line x1="100" y1="10" x2="100" y2="190" />
+            <line x1="27" y1="50" x2="173" y2="150" />
+            <line x1="173" y1="50" x2="27" y2="150" />
+          </svg>
+        </div>
+      </div>
+      <div class="hero-wireframe two">
+        <div class="hero-wireframe-spin">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="30" width="140" height="140" />
+            <circle cx="100" cy="100" r="80" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-rays"></div>
+      <div class="hero-fog"></div>
+      <div class="hero-scanlines"></div>
+
+      <!-- tiny industrial HUD markers -->
+      <div class="hero-markers">
+        <span class="hero-marker m1"><svg viewBox="0 0 18 18">
+            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
+          </svg></span>
+        <span class="hero-marker m2"><svg viewBox="0 0 18 18">
+            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
+          </svg></span>
+        <span class="hero-marker m3"><svg viewBox="0 0 18 18">
+            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
+          </svg></span>
+        <span class="hero-marker m4"><svg viewBox="0 0 18 18">
+            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
+          </svg></span>
+      </div>
+    </div>
+
     <div class="hero-content">
-      <div class="hero-kicker">STEEL · FERRO ALLOYS · ALUMINIUM · POWER · AGROTECH</div>
-      <h1>Proud to Partner in<br><span class="grad">Our Nation's Progress</span></h1>
+      <div class="hero-kicker"><span class="hero-kicker-dot" aria-hidden="true"></span>STEEL · FERRO ALLOYS ·
+        ALUMINIUM · POWER · AGROTECH</div>
+      <h1>
+        <span class="hero-line"><span class="hero-line-inner">Proud to Partner in</span></span>
+        <span class="hero-line"><span class="hero-line-inner"><span class="grad">Our Nation's Progress</span></span></span>
+      </h1>
       <p class="lede">One of Eastern India's fastest-growing industrial conglomerates: steel, ferro alloys, captive
         power, aluminium and agrotech, built from a small Durgapur factory into a ₹10,000+ Cr name trusted by L&amp;T,
         Adani, Coal India and DRDO, reaching 29+ countries.</p>
       <div class="hero-cta-row">
-        <a href="process.html" class="btn btn-primary">See Our Process ↓</a>
-        <a href="journey.html" class="btn btn-ghost"
-          style="border-color:#262A34; color:#EEEAE1; background:rgba(255,255,255,.04);">About the Group</a>
+        <a href="process.html" class="btn btn-primary hero-btn-primary">See Our Process <span class="hero-btn-arrow"
+            aria-hidden="true">↓</span></a>
+        <a href="journey.html" class="btn btn-ghost hero-btn-secondary">About the Group</a>
       </div>
-      <div class="pill"><span class="dot"></span><span class="tag">#SteelWithin</span><span
-          class="sep">·</span>Shakambhari Ispat &amp; Power Limited</div>
+      <div class="hero-stats" role="group" aria-label="Company milestones">
+        <div class="hero-stat">
+          <div class="hero-stat-num hero-counter" data-target="50" data-suffix="+">0+</div>
+          <div class="hero-stat-label">Years of Excellence</div>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num hero-counter" data-target="29" data-suffix="+">0+</div>
+          <div class="hero-stat-label">Export Countries</div>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num hero-counter" data-target="20" data-suffix="+">0+</div>
+          <div class="hero-stat-label">States Served</div>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num hero-counter" data-target="100" data-suffix="+">0+</div>
+          <div class="hero-stat-label">Enterprise Clients</div>
+        </div>
+      </div>
     </div>
-    <a class="scroll-cue" href="#stats-section" aria-label="Scroll to stats"><span>SCROLL</span>
-      <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
-        <path d="M1 1L7 18L13 1" stroke="#3A3E46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
+
+    <a class="scroll-cue" href="#stats-section" aria-label="Scroll to explore">
+      <div class="scroll-cue-icon" aria-hidden="true">
+        <span class="scroll-cue-line"></span>
+      </div>
+      <span>SCROLL</span>
     </a>
   </header>
 
@@ -3413,41 +2722,59 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: ACTIVE VENDOR CONTACT CARD & LIVE QUICK DIRECTORY -->
-          <div class="vendor-live-card" id="vendorLiveCard">
-            <div class="vendor-card-badge"><span class="pulse-dot"></span> ACTIVE DEPOT CONTACT</div>
+          <!-- RIGHT COLUMN: PREMIUM ENTERPRISE INFO CONSOLE
+               (isolated component — see market-presence-panel.css) -->
+          <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details">
+            <div class="mpp-ambient" aria-hidden="true"></div>
+            <div class="mpp-texture" aria-hidden="true"></div>
+            <div class="mpp-noise" aria-hidden="true"></div>
 
-            <div class="vendor-search-box">
-              <span class="search-icon">🔍</span>
-              <input type="text" id="mapSearchInput" class="vendor-search-input"
-                placeholder="Search state or vendor..." />
+            <div class="mpp-status">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span class="mpp-status-live">LIVE</span>
+              <span class="mpp-status-label">Active Distribution Center</span>
             </div>
 
-            <div class="vendor-card-header">
-              <div class="vendor-card-state" id="cardStateName">📍 West Bengal <span class="pop-badge-type"
+            <div class="mpp-search" role="search">
+              <span class="mpp-search-icon" aria-hidden="true">🔍</span>
+              <input type="text" id="mapSearchInput" class="mpp-search-input"
+                placeholder="Search state or vendor..." aria-label="Search state or vendor" />
+            </div>
+
+            <div class="mpp-header">
+              <div class="mpp-state" id="cardStateName" aria-live="polite">📍 West Bengal <span class="mpp-hq-badge"
                   id="cardBadgeType">Corporate HQ</span></div>
-              <div class="vendor-card-company" id="cardPartnerName">Shakambhari Corporate &amp; Central Depot</div>
+              <div class="mpp-company" id="cardPartnerName">Shakambhari Corporate &amp; Central Depot</div>
             </div>
 
-            <div class="vendor-info-row">
-              <span class="vendor-info-label">Regional Sales Officer</span>
-              <span class="vendor-info-val" id="cardOfficer">Rajesh Sharma (VP - Sales East)</span>
+            <div class="mpp-body" id="mppBody">
+              <div class="mpp-mini">
+                <span class="mpp-mini-icon" aria-hidden="true">👤</span>
+                <div class="mpp-mini-text">
+                  <span class="mpp-label">Regional Sales Officer</span>
+                  <span class="mpp-value" id="cardOfficer">Rajesh Sharma (VP - Sales East)</span>
+                </div>
+              </div>
+
+              <div class="mpp-mini">
+                <span class="mpp-mini-icon" aria-hidden="true">🏬</span>
+                <div class="mpp-mini-text">
+                  <span class="mpp-label">Hub Depot Address</span>
+                  <span class="mpp-value" id="cardAddress">10, Princep Street, Kolkata &amp; Durgapur Plant</span>
+                </div>
+              </div>
+
+              <div class="mpp-actions">
+                <a id="cardPhoneBtn" href="tel:+919830012345" class="mpp-btn mpp-btn-primary">
+                  <span class="mpp-btn-icon" aria-hidden="true">📞</span> Call Officer</a>
+                <a id="cardEmailBtn" href="mailto:wb.sales@shakambharigroup.com" class="mpp-btn mpp-btn-secondary">
+                  <span class="mpp-btn-icon" aria-hidden="true">✉️</span> Email Support</a>
+              </div>
             </div>
 
-            <div class="vendor-info-row">
-              <span class="vendor-info-label">Hub Depot Address</span>
-              <span class="vendor-info-val" id="cardAddress">10, Princep Street, Kolkata &amp; Durgapur Plant</span>
-            </div>
-
-            <div class="vendor-btn-group">
-              <a id="cardPhoneBtn" href="tel:+919830012345" class="v-btn v-btn-call">📞 Call Officer</a>
-              <a id="cardEmailBtn" href="mailto:wb.sales@shakambharigroup.com" class="v-btn v-btn-mail">✉️ Email
-                Support</a>
-            </div>
-
-            <div style="margin-top: 1.25rem; border-top: 1px dashed rgba(255,106,31,0.25); padding-top: 0.85rem;">
-              <div class="vendor-info-label" style="margin-bottom: 0.4rem;">⚡ Direct Jump Directory:</div>
-              <div class="quick-location-list" id="quickLocationList">
+            <div class="mpp-directory">
+              <div class="mpp-directory-title"><span aria-hidden="true">⚡</span> Direct Jump Directory</div>
+              <div class="mpp-directory-list" id="quickLocationList">
                 <!-- Location Items dynamically loaded -->
               </div>
             </div>
@@ -3458,173 +2785,362 @@
       </div>
     </section>
 
-    <!-- TRUST STRIP -->
-    <section class="section tight">
-      <div class="kicker center reveal" style="justify-content:center; display:flex;">TRUSTED BY</div>
-      <h3 class="reveal"
-        style="font-size:clamp(1.4rem, 2.5vw, 1.8rem); text-align:center; margin:0.4rem 0 0.5rem; color:var(--ink);">
-        India's Infrastructure Leaders, PSUs &amp; Global Industrial Giants</h3>
-      <p class="reveal"
-        style="text-align:center; font-size:0.95rem; color:var(--ink-soft); max-width:650px; margin:0.4rem auto 1.5rem;">
-        Empowering flagship nation-building projects in partnership with premier construction conglomerates, public
-        sector undertakings, and industrial leaders.</p>
-      <div class="trust-strip reveal">
-        <div class="trust-chip"><img src="images/logo/L&amp;T.png" alt="L&amp;T" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/adani.png" alt="Adani Group" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/CoalIndia.png" alt="Coal India" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/IndianOil.png" alt="Indian Oil Corporation" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/DRDO.png" alt="DRDO" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/NHAI.png" alt="NHAI" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/BHEL.png" alt="BHEL" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/NPCIL.png" alt="NPCIL" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/BRO.png" alt="Border Roads Organisation" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/B_AND_R.png" alt="Bridge &amp; Roof Co." loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/WBSETCL.png" alt="WBSETCL" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/KALPA_TARU.png" alt="Kalpataru" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/DRA.png" alt="DRA Infracon" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/GAWAR.png" alt="Gawar Construction" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/JUNSL.png" alt="JUNSL" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/KCC.png" alt="KCC Buildcon" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/NPCC.png" alt="NPCC" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/PHED.png" alt="PHED" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/PWC.png" alt="PWC" loading="lazy"></div>
-        <div class="trust-chip"><img src="images/logo/PWD.png" alt="PWD" loading="lazy"></div>
-      </div>
-      <!-- CERTIFICATES & AWARDS GALLERY -->
-      <div class="awards-section-head reveal" id="awards">
-        <div class="kicker center" style="justify-content:center; display:flex;">NATIONAL HONOURS &amp; ACCREDITATIONS
-        </div>
-        <h3 style="font-size:clamp(1.5rem,3vw,2.2rem); text-align:center; margin-top:0.4rem; color:var(--ink);">
-          Recognized for Manufacturing &amp; Export Excellence</h3>
-        <p style="text-align:center; font-size:0.9rem; color:var(--ink-soft); max-width:600px; margin:0.4rem auto 0;">
-          Scroll sideways to explore, tap <strong>+</strong> on any card for the full Awards &amp; Certifications gallery</p>
+    <!-- TRUSTED BY: PREMIUM CLIENT CREDIBILITY SHOWCASE (isolated component —
+         see trusted-by-section.css / trusted-by-section.js) -->
+    <section class="tby" id="trustedBy" aria-labelledby="tbyHeading">
+      <div class="tby-mesh" aria-hidden="true"></div>
+      <div class="tby-dots" aria-hidden="true"></div>
+      <div class="tby-blueprint" aria-hidden="true"></div>
+      <div class="tby-glow" aria-hidden="true"></div>
+      <div class="tby-noise" aria-hidden="true"></div>
+
+      <div class="section-head tby-head reveal">
+        <div class="kicker center">TRUSTED BY</div>
+        <span class="tby-kicker-glow" aria-hidden="true"></span>
+        <h2 id="tbyHeading">India's Infrastructure Leaders, PSUs &amp; Global Industrial Giants</h2>
+        <p>Empowering flagship infrastructure projects across India through trusted partnerships with leading EPC
+          companies, government organizations, PSUs and global industrial enterprises.</p>
       </div>
 
-      <div class="awards-scroll-wrap">
-        <button type="button" class="awards-scroll-nav prev" aria-label="Scroll left" onclick="scrollAwards(-1)">&#8592;</button>
-        <button type="button" class="awards-scroll-nav next" aria-label="Scroll right" onclick="scrollAwards(1)">&#8594;</button>
-        <div class="awards-edge-fade left" aria-hidden="true"></div>
-        <div class="awards-edge-fade right" aria-hidden="true"></div>
-
-        <div class="awards-grid" id="awardsScroll">
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/MostTrustedBrand_Award.png', 'Most Trusted Brands of India 2024-25 - Marksmen Daily')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/MostTrustedBrand_Award.png" alt="Most Trusted Brands of India"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Most Trusted Brand of India</div>
-            <div class="award-issuer">Marksmen Daily (2024–25)</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+      <div class="tby-grid" id="tbyGrid">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Larsen &amp; Toubro — Strategic Partner">
+          <span class="tby-ribbon">Strategic Partner</span>
+          <img src="images/logo/L&amp;T.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/Iconic_Award.png', 'ET Iconic Brand Award - The Economic Times')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/Iconic_Award.png" alt="ET Iconic Brand Award" loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">ET Iconic Brand Award</div>
-            <div class="award-issuer">The Economic Times</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Adani Group — Strategic Partner">
+          <span class="tby-ribbon">Strategic Partner</span>
+          <img src="images/logo/adani.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/Certificate_of_Recognition.png', 'Certificate of Recognition for Quality &amp; Manufacturing')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/Certificate_of_Recognition.png" alt="Certificate of Recognition"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Certificate of Recognition</div>
-            <div class="award-issuer">Manufacturing &amp; BIS Quality Standards</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Coal India — Strategic Partner">
+          <span class="tby-ribbon">Strategic Partner</span>
+          <img src="images/logo/CoalIndia.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/MostPrefered_Award.png', 'Most Preferred Brand Award - Secondary Steel')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/MostPrefered_Award.png" alt="Most Preferred Brand Award"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Most Preferred Brand Award</div>
-            <div class="award-issuer">Secondary Steel Sector</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Indian Oil Corporation — Strategic Partner">
+          <span class="tby-ribbon">Strategic Partner</span>
+          <img src="images/logo/IndianOil.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/WorldMostPrefered_Award.png', 'World\'s Most Preferred Brand Award')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/WorldMostPrefered_Award.png" alt="World's Most Preferred Brand"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">World's Most Preferred Brand</div>
-            <div class="award-issuer">Global Steel Excellence</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="DRDO — Strategic Partner">
+          <span class="tby-ribbon">Strategic Partner</span>
+          <img src="images/logo/DRDO.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/LeaderShip_Award.png', 'Business Leadership Excellence Award')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/LeaderShip_Award.png" alt="Business Leadership Award"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Business Leadership Award</div>
-            <div class="award-issuer">Industrial Development Forum</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card" tabindex="0" role="img" aria-label="NHAI">
+          <img src="images/logo/NHAI.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/4Star_Certificate.png', 'Four Star Export House Certification - Govt. of India')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/4Star_Certificate.png" alt="Four Star Export House Certification"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Four Star Export House</div>
-            <div class="award-issuer">Ministry of Commerce &amp; Industry, Govt. of India</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card" tabindex="0" role="img" aria-label="BHEL">
+          <img src="images/logo/BHEL.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/Silver_Certificate.png', 'Secondary Steel Sector Silver Certificate - Ministry of Steel')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/Silver_Certificate.png" alt="Silver Certificate Award"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Silver Certificate Award</div>
-            <div class="award-issuer">Ministry of Steel, Govt. of India</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card" tabindex="0" role="img" aria-label="NPCIL">
+          <img src="images/logo/NPCIL.png" alt="" loading="lazy">
         </div>
-
-        <div class="award-card reveal"
-          onclick="openCertModal('images/Certificates&amp;Award/Infra_Certificate.png', 'Infra Leadership &amp; Structural Steel Certificate')">
-          <div class="award-img-wrap">
-            <img src="images/Certificates&amp;Award/Infra_Certificate.png" alt="Infra Leadership Certificate"
-              loading="lazy">
-          </div>
-          <div class="award-caption">
-            <div class="award-title">Infra Leadership Certificate</div>
-            <div class="award-issuer">National Steel &amp; Infra Council</div>
-          </div>
-          <a href="awards.html" class="award-plus-btn" aria-label="View all Awards &amp; Certifications" onclick="event.stopPropagation()">+</a>
+        <div class="tby-card" tabindex="0" role="img" aria-label="Border Roads Organisation">
+          <img src="images/logo/BRO.png" alt="" loading="lazy">
         </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="Bridge &amp; Roof Co.">
+          <img src="images/logo/B_AND_R.png" alt="" loading="lazy">
         </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="WBSETCL">
+          <img src="images/logo/WBSETCL.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="Kalpataru">
+          <img src="images/logo/KALPA_TARU.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="DRA Infracon">
+          <img src="images/logo/DRA.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="Gawar Construction">
+          <img src="images/logo/GAWAR.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="JUNSL">
+          <img src="images/logo/JUNSL.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="KCC Buildcon">
+          <img src="images/logo/KCC.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="NPCC">
+          <img src="images/logo/NPCC.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="PHED">
+          <img src="images/logo/PHED.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="PWC">
+          <img src="images/logo/PWC.png" alt="" loading="lazy">
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="PWD">
+          <img src="images/logo/PWD.png" alt="" loading="lazy">
+        </div>
+      </div>
 
-        <div class="awards-progress" aria-hidden="true"><div class="awards-progress-fill" id="awardsProgressFill"></div></div>
+      <div class="tby-stats-wrap reveal-scale">
+        <div class="stat-band">
+          <div class="stat">
+            <div class="stat-num counter" data-target="20" data-suffix="+">0+</div>
+            <div class="stat-label">States Served</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num counter" data-target="100" data-suffix="+">0+</div>
+            <div class="stat-label">Enterprise Clients</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num counter" data-target="15" data-suffix="+">0+</div>
+            <div class="stat-label">Government Organizations</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num counter" data-target="500" data-suffix="+">0+</div>
+            <div class="stat-label">Major Infrastructure Projects</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- AWARDS & RECOGNITION: PREMIUM MUSEUM-STYLE GALLERY (isolated component —
+         see awards-gallery.css / awards-gallery.js) -->
+    <section class="awx" id="awardsGallery" aria-labelledby="awxHeading">
+      <div class="awx-mesh" aria-hidden="true"></div>
+      <div class="awx-blueprint" aria-hidden="true"></div>
+      <div class="awx-dots" aria-hidden="true"></div>
+      <div class="awx-glow" aria-hidden="true"></div>
+      <div class="awx-noise" aria-hidden="true"></div>
+
+      <div class="section-head awx-head reveal" id="awards">
+        <div class="kicker center">🏆 National Honours &amp; Accreditations</div>
+        <span class="awx-kicker-glow" aria-hidden="true"></span>
+        <h2 id="awxHeading">Recognized for Manufacturing &amp; Export Excellence</h2>
+        <p>Celebrating our commitment to engineering excellence, innovation, manufacturing quality, export
+          leadership and nationally recognized industrial achievements.</p>
+        <a href="awards.html" class="awx-gallery-link">Explore the complete archive →</a>
+      </div>
+
+      <!-- YEAR TIMELINE FILTER -->
+      <div class="awx-timeline" id="awxTimeline" role="group" aria-label="Filter awards by year">
+        <button type="button" class="awx-year-btn active" data-year="all" aria-pressed="true">All</button>
+        <button type="button" class="awx-year-btn" data-year="2018" aria-pressed="false">2018</button>
+        <button type="button" class="awx-year-btn" data-year="2020" aria-pressed="false">2020</button>
+        <button type="button" class="awx-year-btn" data-year="2022" aria-pressed="false">2022</button>
+        <button type="button" class="awx-year-btn" data-year="2024" aria-pressed="false">2024</button>
+        <button type="button" class="awx-year-btn" data-year="2025" aria-pressed="false">2025</button>
+        <span class="awx-timeline-indicator" id="awxTimelineIndicator" aria-hidden="true"></span>
+      </div>
+
+      <div class="awx-sr-only" id="awxLiveRegion" role="status" aria-live="polite"></div>
+
+      <!-- CAROUSEL -->
+      <div class="awx-viewport">
+        <div class="awx-track" id="awxTrack" tabindex="0" role="region" aria-roledescription="carousel"
+          aria-label="Awards and recognitions. Use the arrow keys to browse.">
+
+          <div class="awx-slot" data-year="2024">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/MostTrustedBrand_Award.png" alt="Most Trusted Brand of India award" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Brand Recognition</div>
+              <div class="awx-title">Most Trusted Brand of India</div>
+              <div class="awx-issuer">Marksmen Daily</div>
+              <div class="awx-year">2024</div>
+              <p class="awx-desc">Recognized among India's most trusted industrial brands for consistent quality and
+                nationwide reliability.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/MostTrustedBrand_Award.png"
+                data-cert-title="Most Trusted Brands of India 2024-25 - Marksmen Daily">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2024">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/Iconic_Award.png" alt="ET Iconic Brand Award" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Media Recognition</div>
+              <div class="awx-title">ET Iconic Brand Award</div>
+              <div class="awx-issuer">The Economic Times</div>
+              <div class="awx-year">2024</div>
+              <p class="awx-desc">Honoured by The Economic Times for iconic brand stature in India's steel and
+                infrastructure sector.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/Iconic_Award.png"
+                data-cert-title="ET Iconic Brand Award - The Economic Times">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2022">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/Certificate_of_Recognition.png" alt="Certificate of Recognition" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Quality Standards</div>
+              <div class="awx-title">Certificate of Recognition</div>
+              <div class="awx-issuer">Manufacturing &amp; BIS Quality Standards</div>
+              <div class="awx-year">2022</div>
+              <p class="awx-desc">Certified for excellence in manufacturing processes and adherence to BIS quality
+                standards.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/Certificate_of_Recognition.png"
+                data-cert-title="Certificate of Recognition for Quality &amp; Manufacturing">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2024">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/MostPrefered_Award.png" alt="Most Preferred Brand Award" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Brand Recognition</div>
+              <div class="awx-title">Most Preferred Brand Award</div>
+              <div class="awx-issuer">Secondary Steel Sector</div>
+              <div class="awx-year">2024</div>
+              <p class="awx-desc">Recognized as the most preferred brand within India's secondary steel sector.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/MostPrefered_Award.png"
+                data-cert-title="Most Preferred Brand Award - Secondary Steel">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2025">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/WorldMostPrefered_Award.png" alt="World's Most Preferred Brand" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Global Excellence</div>
+              <div class="awx-title">World's Most Preferred Brand</div>
+              <div class="awx-issuer">Global Steel Excellence</div>
+              <div class="awx-year">2025</div>
+              <p class="awx-desc">Acknowledged on a global stage for excellence in steel manufacturing and export
+                quality.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/WorldMostPrefered_Award.png"
+                data-cert-title="World's Most Preferred Brand Award">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2022">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/LeaderShip_Award.png" alt="Business Leadership Award" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Leadership Excellence</div>
+              <div class="awx-title">Business Leadership Award</div>
+              <div class="awx-issuer">Industrial Development Forum</div>
+              <div class="awx-year">2022</div>
+              <p class="awx-desc">Awarded for visionary leadership driving industrial growth and development.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/LeaderShip_Award.png"
+                data-cert-title="Business Leadership Excellence Award">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2020">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/4Star_Certificate.png" alt="Four Star Export House Certification" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Export Excellence</div>
+              <div class="awx-title">Four Star Export House</div>
+              <div class="awx-issuer">Ministry of Commerce &amp; Industry, Govt. of India</div>
+              <div class="awx-year">2020</div>
+              <p class="awx-desc">Conferred Four Star Export House status by the Government of India for sustained
+                export performance.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/4Star_Certificate.png"
+                data-cert-title="Four Star Export House Certification - Govt. of India">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2018">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/Silver_Certificate.png" alt="Silver Certificate Award" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Government Recognition</div>
+              <div class="awx-title">Silver Certificate Award</div>
+              <div class="awx-issuer">Ministry of Steel, Govt. of India</div>
+              <div class="awx-year">2018</div>
+              <p class="awx-desc">Silver Certificate awarded by the Ministry of Steel for excellence in secondary
+                steel production.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/Silver_Certificate.png"
+                data-cert-title="Secondary Steel Sector Silver Certificate - Ministry of Steel">View Details →</button>
+            </div>
+          </div>
+
+          <div class="awx-slot" data-year="2025">
+            <div class="awx-card">
+              <div class="awx-spotlight" aria-hidden="true"></div>
+              <div class="awx-particles" aria-hidden="true">
+                <span class="awx-particle"></span><span class="awx-particle"></span><span class="awx-particle"></span>
+                <span class="awx-particle"></span><span class="awx-particle"></span>
+              </div>
+              <div class="awx-frame">
+                <img src="images/Certificates&amp;Award/Infra_Certificate.png" alt="Infra Leadership Certificate" loading="lazy">
+              </div>
+              <div class="awx-category">🏆 Infrastructure Leadership</div>
+              <div class="awx-title">Infra Leadership Certificate</div>
+              <div class="awx-issuer">National Steel &amp; Infra Council</div>
+              <div class="awx-year">2025</div>
+              <p class="awx-desc">Recognized by the National Steel &amp; Infra Council for leadership in
+                infrastructure-grade steel supply.</p>
+              <button type="button" class="awx-details-btn"
+                data-cert-img="images/Certificates&amp;Award/Infra_Certificate.png"
+                data-cert-title="Infra Leadership &amp; Structural Steel Certificate">View Details →</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="awx-controls">
+        <button type="button" class="awx-arrow prev" aria-label="Previous award">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 6l-6 6 6 6" />
+          </svg>
+        </button>
+        <div class="awx-progress" aria-hidden="true"><div class="awx-progress-fill" id="awxProgressFill"></div></div>
+        <button type="button" class="awx-arrow next" aria-label="Next award">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -4062,18 +3578,34 @@
 
       function updateVendorCard(item) {
         if (!item || !cardStateName) return;
-        cardStateName.innerHTML = `📍 ${item.name} <span class="pop-badge-type" id="cardBadgeType">${item.hubType || 'Regional Hub'}</span>`;
-        if (cardPartnerName) cardPartnerName.textContent = item.partner;
-        if (cardOfficer) cardOfficer.textContent = item.officer;
-        if (cardAddress) cardAddress.textContent = item.address;
 
-        if (cardPhoneBtn) {
-          cardPhoneBtn.href = `tel:${item.phone.replace(/\s+/g, '')}`;
-          cardPhoneBtn.innerHTML = `📞 Call Officer`;
-        }
-        if (cardEmailBtn) {
-          cardEmailBtn.href = `mailto:${item.email}`;
-          cardEmailBtn.innerHTML = `✉️ Email Support`;
+        const applyContent = () => {
+          cardStateName.innerHTML = `📍 ${item.name} <span class="mpp-hq-badge" id="cardBadgeType">${item.hubType || 'Regional Hub'}</span>`;
+          if (cardPartnerName) cardPartnerName.textContent = item.partner;
+          if (cardOfficer) cardOfficer.textContent = item.officer;
+          if (cardAddress) cardAddress.textContent = item.address;
+          if (cardPhoneBtn) cardPhoneBtn.href = `tel:${item.phone.replace(/\s+/g, '')}`;
+          if (cardEmailBtn) cardEmailBtn.href = `mailto:${item.email}`;
+        };
+
+        // Premium state-change transition: blur/slide the current info out,
+        // swap the content, then slide/blur the new info back in.
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const targets = [document.querySelector('.mpp-header'), document.getElementById('mppBody')].filter(Boolean);
+
+        if (window.gsap && targets.length && !reduceMotion) {
+          gsap.to(targets, {
+            opacity: 0, y: -10, filter: 'blur(6px)', duration: .18, ease: 'power2.in', overwrite: 'auto',
+            onComplete: () => {
+              applyContent();
+              gsap.fromTo(targets,
+                { opacity: 0, y: 14, filter: 'blur(6px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', duration: .45, ease: 'power3.out', clearProps: 'filter' }
+              );
+            }
+          });
+        } else {
+          applyContent();
         }
       }
 
@@ -4090,7 +3622,7 @@
         });
 
         if (filtered.length === 0) {
-          quickLocationList.innerHTML = `<div style="font-size:0.75rem; color:#9C9A90; padding:0.4rem;">No matching locations found</div>`;
+          quickLocationList.innerHTML = `<div class="mpp-empty">No matching locations found</div>`;
           return;
         }
 
@@ -4098,9 +3630,12 @@
           const itemEl = document.createElement('div');
           itemEl.className = 'quick-location-item' + (item.isHQ ? ' active' : '');
           itemEl.dataset.id = item.id;
-          itemEl.innerHTML = `<span>${item.isHQ ? '⭐' : '📍'} <strong>${item.name}</strong></span> <span style="font-size:0.68rem; opacity:0.8;">${item.code}</span>`;
+          itemEl.setAttribute('role', 'button');
+          itemEl.setAttribute('tabindex', '0');
+          itemEl.setAttribute('aria-label', `${item.name} (${item.code}) — view depot details`);
+          itemEl.innerHTML = `<span class="ql-indicator" aria-hidden="true"></span><span class="ql-icon" aria-hidden="true">${item.isHQ ? '⭐' : '📍'}</span><span class="ql-name">${item.name}</span><span class="ql-code">${item.code}</span>`;
 
-          itemEl.addEventListener('click', () => {
+          const activate = () => {
             document.querySelectorAll('.quick-location-item').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.map-pin.active').forEach(p => p.classList.remove('active'));
             itemEl.classList.add('active');
@@ -4110,6 +3645,14 @@
               targetPin.classList.add('active');
             }
             updateVendorCard(item);
+          };
+
+          itemEl.addEventListener('click', activate);
+          itemEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              activate();
+            }
           });
 
           quickLocationList.appendChild(itemEl);
@@ -4263,82 +3806,16 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeCertModal();
     });
-
-    function scrollAwards(direction) {
-      const track = document.getElementById('awardsScroll');
-      if (!track) return;
-      const card = track.querySelector('.award-card');
-      const step = card ? card.getBoundingClientRect().width + 24 : 280;
-      track.scrollBy({ left: direction * step, behavior: 'smooth' });
-    }
-
-    (function initAwardsCarousel() {
-      const wrap = document.querySelector('.awards-scroll-wrap');
-      const track = document.getElementById('awardsScroll');
-      const fill = document.getElementById('awardsProgressFill');
-      if (!wrap || !track) return;
-      const prevBtn = wrap.querySelector('.awards-scroll-nav.prev');
-      const nextBtn = wrap.querySelector('.awards-scroll-nav.next');
-
-      function updateState() {
-        const max = track.scrollWidth - track.clientWidth;
-        const atStart = track.scrollLeft <= 4;
-        const atEnd = track.scrollLeft >= max - 4;
-        wrap.classList.toggle('at-start', atStart);
-        wrap.classList.toggle('at-end', atEnd);
-        if (prevBtn) prevBtn.disabled = atStart;
-        if (nextBtn) nextBtn.disabled = atEnd || max <= 0;
-        if (fill) {
-          const thumbPct = Math.max(10, Math.min(100, (track.clientWidth / track.scrollWidth) * 100));
-          const travel = 100 - thumbPct;
-          const progress = max > 0 ? track.scrollLeft / max : 0;
-          fill.style.width = thumbPct + '%';
-          fill.style.left = (progress * travel) + '%';
-        }
-      }
-
-      track.addEventListener('scroll', updateState, { passive: true });
-      window.addEventListener('resize', updateState);
-
-      let isDown = false, startX = 0, startScroll = 0, didDrag = false;
-
-      track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        didDrag = false;
-        track.classList.add('dragging');
-        startX = e.pageX;
-        startScroll = track.scrollLeft;
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        const dx = e.pageX - startX;
-        if (Math.abs(dx) > 6) didDrag = true;
-        track.scrollLeft = startScroll - dx;
-        e.preventDefault();
-      });
-
-      window.addEventListener('mouseup', () => {
-        if (!isDown) return;
-        isDown = false;
-        track.classList.remove('dragging');
-      });
-
-      track.addEventListener('click', (e) => {
-        if (didDrag) {
-          e.stopPropagation();
-          e.preventDefault();
-          didDrag = false;
-        }
-      }, true);
-
-      updateState();
-    })();
   </script>
-  <!-- GSAP powers the Beyond Steel 3D card slider only; beyond-steel-slider.js
-       falls back to plain CSS transitions if this CDN request ever fails. -->
+  <!-- GSAP powers the Beyond Steel slider, Market Presence panel, Trusted By
+       showcase and Awards gallery; each falls back to plain CSS transitions
+       if this CDN request ever fails. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="beyond-steel-slider.js"></script>
+  <script src="market-presence-panel.js"></script>
+  <script src="trusted-by-section.js"></script>
+  <script src="awards-gallery.js"></script>
+  <script src="hero-cinematic.js"></script>
 </body>
 
 </html>
