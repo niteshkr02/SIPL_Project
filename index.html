@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="market-presence-panel.css">
   <link rel="stylesheet" href="trusted-by-section.css">
   <link rel="stylesheet" href="awards-gallery.css">
+  <link rel="stylesheet" href="group-showcase.css">
   <style>
     /* ══ HERO (dark, scoped tokens) ══ */
     .hero {
@@ -820,140 +821,7 @@
       color: var(--accent);
     }
 
-    /* ══ COMPANY CARDS: INFINITE CAROUSEL ══ */
-    .companies-carousel {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
-    }
-
-    .companies-track {
-      display: flex;
-      width: max-content;
-      gap: 1.6rem;
-      animation: companiesScroll 36s linear infinite;
-    }
-
-    .companies-carousel:hover .companies-track {
-      animation-play-state: paused;
-    }
-
-    @keyframes companiesScroll {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    .companies-track .company-card {
-      flex: 0 0 340px;
-      width: 340px;
-    }
-
-    @media(max-width:900px) {
-      .companies-track {
-        gap: 1.25rem;
-        animation-duration: 28s;
-      }
-
-      .companies-track .company-card {
-        flex-basis: 280px;
-        width: 280px;
-      }
-    }
-
-    @media(max-width:600px) {
-      .companies-track {
-        gap: 1rem;
-        animation-duration: 22s;
-      }
-
-      .companies-track .company-card {
-        flex-basis: 250px;
-        width: 250px;
-      }
-    }
-
-    .company-card {
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      border-radius: 1.25rem;
-      transition: transform .35s cubic-bezier(.16, .84, .44, 1), box-shadow .35s ease, border-color .35s ease;
-    }
-
-    .company-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
-      box-shadow: 0 20px 45px rgba(20, 22, 28, .12), 0 0 35px rgba(255, 106, 31, .1);
-    }
-
-    .company-img-wrap {
-      width: 100%;
-      height: 190px;
-      position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      background: #14161C;
-    }
-
-    .company-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .55s cubic-bezier(.16, .84, .44, 1);
-    }
-
-    .company-card:hover .company-img-wrap img {
-      transform: scale(1.08);
-    }
-
-    .company-img-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(10, 11, 14, .02) 0%, rgba(10, 11, 14, 0) 40%, rgba(10, 11, 14, .4) 100%);
-    }
-
-    .company-card-body {
-      padding: 1.4rem 1.5rem 1.6rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .company-card .tag {
-      font-family: var(--font-mono);
-      font-size: .66rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      color: var(--accent-ink);
-      margin-bottom: .5rem;
-      display: block;
-    }
-
-    .company-card h4 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-transform: none;
-      font-family: var(--font-body);
-      margin-bottom: .55rem;
-      color: var(--ink);
-    }
-
-    .company-card p {
-      font-size: .88rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-    }
+    /* The Group showcase styles now live in group-showcase.css (.grp*) */
 
     /* ══ MARKET PRESENCE: WORLD & INDIA MAPS ══ */
     .map-tab-controls {
@@ -1995,188 +1863,273 @@
 
     <div class="divider"></div>
 
-    <!-- GROUP COMPANIES -->
-    <section class="section" id="companies">
-      <div class="section-head reveal">
+    <!-- THE GROUP: PREMIUM INDUSTRIAL SHOWCASE (isolated component —
+         see group-showcase.css / group-showcase.js) -->
+    <section class="grp" id="groupShowcase" aria-labelledby="grpHeading">
+      <div class="grp-mesh" aria-hidden="true"></div>
+      <div class="grp-blueprint" aria-hidden="true"></div>
+      <div class="grp-dots" aria-hidden="true"></div>
+      <div class="grp-glow" aria-hidden="true"></div>
+      <div class="grp-noise" aria-hidden="true"></div>
+
+      <div class="section-head grp-head reveal">
         <div class="kicker center">THE GROUP</div>
-        <h2>Seven Units. One Standard.</h2>
-        <p>Seven plants, one purpose: build strength the nation can rely on.</p>
+        <span class="grp-kicker-glow" aria-hidden="true"></span>
+        <h2 id="grpHeading">Seven Units. One Standard.</h2>
+        <p>Discover the integrated manufacturing ecosystem powering Shakambhari Group across Steel, Ferro Alloys,
+          Aluminium, Power and Agrotech.</p>
       </div>
-      <div class="companies-carousel reveal">
-        <div class="companies-track">
-          <!-- Set A -->
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Madandih_Unit.png" alt="SIPL · Madandih Unit" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">FLAGSHIP · MADANDIH</span>
-              <h4>SIPL · Madandih Unit</h4>
-              <p>177 acres, taken over in 2010. Houses the Sponge Iron Division, Steel Melt Shop, Rolling Mill, Captive
-                Power Plant and Ferro Alloys division under one roof.</p>
+
+      <div class="grp-viewport">
+        <div class="grp-track" id="grpTrack" tabindex="0" role="region" aria-roledescription="carousel"
+          aria-label="The Group's seven units. Use the arrow keys to browse.">
+
+          <div class="grp-connector" aria-hidden="true">
+            <span class="grp-pulse p1"></span>
+            <span class="grp-pulse p2"></span>
+            <span class="grp-pulse p3"></span>
+          </div>
+
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Madandih_Unit.png" alt="SIPL · Unit Madandih" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:28%; left:22%;">
+                  <span class="grp-hotspot-tip">⚙ DRI Kilns</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:62%; left:72%;">
+                  <span class="grp-hotspot-tip">⚡ Captive Power</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Integrated Steel Complex</div>
+                <div class="grp-name">SIPL · Unit Madandih</div>
+                <div class="grp-location">Madandih, Purulia</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 Purulia</span>
+                  <span class="grp-chip">📅 Since 2010</span>
+                  <span class="grp-chip">🏭 Integrated Plant</span>
+                  <span class="grp-chip">⚡ Captive Power</span>
+                </div>
+                <p class="grp-desc">An integrated flagship complex — DRI kilns, an electric arc furnace with
+                  continuous casting, and its own captive power plant under one roof.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
             </div>
           </div>
 
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Rukni_Unit.png" alt="SIPL · Rukni Unit" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">PELLET COMPLEX · RUKNI</span>
-              <h4>SIPL · Rukni Unit</h4>
-              <p>Commercial since 2003. The group's dedicated pellet complex, exceeding 0.9 MTPA: the first transformation
-                in every chain that starts with raw ore.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Mogra_Unit.png" alt="Unit Mogra: India Foils" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">ALUMINIUM · MOGRA</span>
-              <h4>SIPL Mogra: India Foils</h4>
-              <p>The group's aluminium unit in Hooghly district. 9 to 60 micron foil for pharma and FMCG packaging,
-                exported to 29+ countries under a "metal to foil" philosophy.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Durgapur.png" alt="SPS Steels · Unit I" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">INTEGRATED · DURGAPUR</span>
-              <h4>SPS Steels · Unit I</h4>
-              <p>Incorporated 1981, acquired 2019. Rolls TMT bars, angles and channels in Durgapur, backed by its own
-                Sponge Iron, MS Billets and Steel Melting Shop.</p>
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Rukni_Unit.png" alt="Bravo Sponge Iron Pvt. Ltd. (BSIPL) · Rukni Unit" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:30%; left:26%;">
+                  <span class="grp-hotspot-tip">📦 Pellet Plant</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:64%; left:68%;">
+                  <span class="grp-hotspot-tip">⚙ Sponge Iron</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Pellet &amp; Sponge Iron Plant</div>
+                <div class="grp-name">SIPL · Rukni Unit</div>
+                <div class="grp-location">Mohuda, Purulia</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 Purulia</span>
+                  <span class="grp-chip">📅 Since 2004</span>
+                  <span class="grp-chip">🏭 Pellet Complex</span>
+                  <span class="grp-chip">📦 0.9+ MTPA</span>
+                </div>
+                <p class="grp-desc">The group's dedicated pellet and sponge iron complex, exceeding 0.9 MTPA — the
+                  first transformation in every chain that starts with raw ore.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
             </div>
           </div>
 
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Durgapur.png" alt="SPS Steels · Unit II" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">MEGA INTEGRATED · PORADIHA</span>
-              <h4>SPS Steels · Unit II</h4>
-              <p>The group's newest acquisition, in Poradiha, Purulia: DRI kilns, a Submerged Arc Furnace for ferro
-                alloys, Steel Melting for MS/CRS billets, QST bars and captive power.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Eloquent_steel.png" alt="Eloquent Steel Pvt. Ltd." loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">FERRO ALLOYS · 2012</span>
-              <h4>Eloquent Steel Pvt. Ltd.</h4>
-              <p>Built for ferro alloy production with submerged arc and induction furnaces, plus a metal recovery plant
-                that minimises loss at every batch.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel">
-            <div class="company-img-wrap">
-              <img src="images/Shakambhari_Agrotech.png" alt="Shakambhari Agrotech" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">AGRO · GREEN HABIT</span>
-              <h4>Shakambhari Agrotech</h4>
-              <p>Incorporated 2014. Organic exotic fruits and vegetables under the Green Habit brand, among West Bengal's
-                top organic farms.</p>
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Mogra_Unit.png" alt="Unit Mogra: India Foils" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:32%; left:30%;">
+                  <span class="grp-hotspot-tip">🎞 Foil Mill</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:60%; left:70%;">
+                  <span class="grp-hotspot-tip">📦 Export Bay</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Aluminium Foil Plant</div>
+                <div class="grp-name">Unit Mogra: India Foils</div>
+                <div class="grp-location">Hooghly, West Bengal</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 Hooghly</span>
+                  <span class="grp-chip">🏭 Foil Rolling Mill</span>
+                  <span class="grp-chip">📦 29+ Countries</span>
+                </div>
+                <p class="grp-desc">9 to 60 micron pharma and FMCG-grade aluminium foil, ISO-certified and exported
+                  to 29+ countries under the India Foils name.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
             </div>
           </div>
 
-          <!-- Set B (duplicate, for seamless looping) -->
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Madandih_Unit.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">FLAGSHIP · MADANDIH</span>
-              <h4>SIPL · Madandih Unit</h4>
-              <p>177 acres, taken over in 2010. Houses the Sponge Iron Division, Steel Melt Shop, Rolling Mill, Captive
-                Power Plant and Ferro Alloys division under one roof.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Rukni_Unit.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">PELLET COMPLEX · RUKNI</span>
-              <h4>SIPL · Rukni Unit</h4>
-              <p>Commercial since 2003. The group's dedicated pellet complex, exceeding 0.9 MTPA: the first transformation
-                in every chain that starts with raw ore.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Mogra_Unit.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">ALUMINIUM · MOGRA</span>
-              <h4>Unit Mogra: India Foils</h4>
-              <p>The group's aluminium unit in Hooghly district. 9 to 60 micron foil for pharma and FMCG packaging,
-                exported to 29+ countries under a "metal to foil" philosophy.</p>
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Durgapur.png" alt="SPS Steels · Unit I" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:26%; left:24%;">
+                  <span class="grp-hotspot-tip">🏭 Rolling Mill</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:66%; left:66%;">
+                  <span class="grp-hotspot-tip">⚙ Steel Melt Shop</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Integrated Steel Plant</div>
+                <div class="grp-name">SPS Steels · Unit I</div>
+                <div class="grp-location">Durgapur, West Bengal</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 Durgapur</span>
+                  <span class="grp-chip">📅 Since 1981</span>
+                  <span class="grp-chip">🏭 Integrated Plant</span>
+                  <span class="grp-chip">📦 TMT · Angles</span>
+                </div>
+                <p class="grp-desc">Rolls TMT bars, angles and channels in Durgapur, backed by its own sponge iron,
+                  MS billet and steel melting capacity.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
             </div>
           </div>
 
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Durgapur.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">INTEGRATED · DURGAPUR</span>
-              <h4>SPS Steels · Unit I</h4>
-              <p>Incorporated 1981, acquired 2019. Rolls TMT bars, angles and channels in Durgapur, backed by its own
-                Sponge Iron, MS Billets and Steel Melting Shop.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Durgapur.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">MEGA INTEGRATED · PORADIHA</span>
-              <h4>SPS Steels · Unit II</h4>
-              <p>The group's newest acquisition, in Poradiha, Purulia: DRI kilns, a Submerged Arc Furnace for ferro
-                alloys, Steel Melting for MS/CRS billets, QST bars and captive power.</p>
-            </div>
-          </div>
-
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Eloquent_steel.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">FERRO ALLOYS · 2012</span>
-              <h4>Eloquent Steel Pvt. Ltd.</h4>
-              <p>Built for ferro alloy production with submerged arc and induction furnaces, plus a metal recovery plant
-                that minimises loss at every batch.</p>
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Durgapur.png" alt="SPS Steels · Unit II" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:28%; left:28%;">
+                  <span class="grp-hotspot-tip">⚙ DRI Kilns</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:62%; left:70%;">
+                  <span class="grp-hotspot-tip">⚡ Captive Power</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Mega Integrated Steel Plant</div>
+                <div class="grp-name">SPS Steels · Unit II</div>
+                <div class="grp-location">Poradiha, Purulia</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 Purulia</span>
+                  <span class="grp-chip">📅 Newest Unit</span>
+                  <span class="grp-chip">🏭 Mega Integrated</span>
+                  <span class="grp-chip">⚡ Captive Power</span>
+                </div>
+                <p class="grp-desc">The group's newest acquisition — DRI kilns, a submerged arc furnace, steel
+                  melting and captive power, being revived as a mega integrated plant.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
             </div>
           </div>
 
-          <div class="company-card panel" aria-hidden="true">
-            <div class="company-img-wrap">
-              <img src="images/Shakambhari_Agrotech.png" alt="" loading="lazy">
-            </div>
-            <div class="company-card-body">
-              <span class="tag">AGRO · GREEN HABIT</span>
-              <h4>Shakambhari Agrotech</h4>
-              <p>Incorporated 2014. Organic exotic fruits and vegetables under the Green Habit brand, among West Bengal's
-                top organic farms.</p>
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Eloquent_steel.png" alt="Eloquent Steel Private Limited" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:30%; left:26%;">
+                  <span class="grp-hotspot-tip">⚙ SAF Furnace</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:64%; left:68%;">
+                  <span class="grp-hotspot-tip">🔥 Induction Furnace</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Ferro Alloys Plant</div>
+                <div class="grp-name">Eloquent Steel Pvt. Ltd.</div>
+                <div class="grp-location">Nacrojoria, West Bardhaman</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 W. Bardhaman</span>
+                  <span class="grp-chip">📅 Since 2012</span>
+                  <span class="grp-chip">🏭 Ferro Alloys</span>
+                  <span class="grp-chip">📦 SAF &amp; Induction</span>
+                </div>
+                <p class="grp-desc">High-quality ferro alloys for captive consumption and export, produced through
+                  submerged arc and induction furnaces.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
             </div>
           </div>
+
+          <div class="grp-slot">
+            <div class="grp-card">
+              <div class="grp-image-wrap">
+                <img src="images/Shakambhari_Agrotech.png" alt="Shakambhari Agrotech Private Limited" loading="lazy">
+                <button type="button" class="grp-hotspot" style="top:30%; left:30%;">
+                  <span class="grp-hotspot-tip">🌿 Organic Fields</span>
+                </button>
+                <button type="button" class="grp-hotspot" style="top:62%; left:68%;">
+                  <span class="grp-hotspot-tip">📦 Green Habit</span>
+                </button>
+              </div>
+              <div class="grp-body">
+                <div class="grp-category">Organic Agriculture Unit</div>
+                <div class="grp-name">Shakambhari Agrotech</div>
+                <div class="grp-location">West Bengal</div>
+                <div class="grp-chips">
+                  <span class="grp-chip">📍 West Bengal</span>
+                  <span class="grp-chip">📅 Since 2014</span>
+                  <span class="grp-chip">🌿 Green Habit</span>
+                  <span class="grp-chip">📦 Organic Produce</span>
+                </div>
+                <p class="grp-desc">Organic, unadulterated fruits and vegetables under the Green Habit brand —
+                  discipline that extends beyond metal.</p>
+                <a href="companies.html" class="grp-explore">Explore Unit →</a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div style="text-align:center; margin-top:2.5rem;"><a href="companies.html" class="btn btn-primary reveal">Know
-          More →</a></div>
+
+      <div class="grp-controls">
+        <button type="button" class="grp-arrow prev" aria-label="Previous unit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M15 6l-6 6 6 6" />
+          </svg>
+        </button>
+        <div class="grp-stepper" id="grpStepper" role="tablist" aria-label="Jump to a unit">
+          <button type="button" class="grp-step active" role="tab" aria-selected="true">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Madandih</span>
+          </button>
+          <button type="button" class="grp-step" role="tab" aria-selected="false">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Rukni</span>
+          </button>
+          <button type="button" class="grp-step" role="tab" aria-selected="false">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Mogra</span>
+          </button>
+          <button type="button" class="grp-step" role="tab" aria-selected="false">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Durgapur I</span>
+          </button>
+          <button type="button" class="grp-step" role="tab" aria-selected="false">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Purulia II</span>
+          </button>
+          <button type="button" class="grp-step" role="tab" aria-selected="false">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Eloquent</span>
+          </button>
+          <button type="button" class="grp-step" role="tab" aria-selected="false">
+            <span class="grp-step-dot"></span><span class="grp-step-label">Agrotech</span>
+          </button>
+        </div>
+        <button type="button" class="grp-arrow next" aria-label="Next unit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="grp-cta-wrap">
+        <a href="companies.html" class="btn btn-primary grp-cta reveal">Know More <span class="grp-cta-arrow"
+            aria-hidden="true">→</span></a>
+      </div>
     </section>
 
     <!-- PROCESS TEASER -->
@@ -3815,6 +3768,7 @@
   <script src="market-presence-panel.js"></script>
   <script src="trusted-by-section.js"></script>
   <script src="awards-gallery.js"></script>
+  <script src="group-showcase.js"></script>
   <script src="hero-cinematic.js"></script>
 </body>
 
