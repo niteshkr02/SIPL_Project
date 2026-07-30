@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="market-presence-panel.css">
+<link rel="stylesheet" href="market-presence-map.css">
 <style>
 .page-header{
   --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
@@ -50,646 +52,6 @@
 .link-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.5rem; }
 .link-card p{ font-size:.86rem; color:var(--ink-soft); margin-bottom:.8rem; }
 .link-card .go{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; word-break:break-all; }
-
-/* ══ MARKET PRESENCE: WORLD & INDIA MAPS ══ */
-.map-tab-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.map-tab-btn {
-  background: rgba(20, 23, 32, 0.7);
-  border: 1px solid rgba(255, 106, 31, 0.35);
-  color: #C5C2B8;
-  padding: 0.65rem 1.4rem;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.map-tab-btn:hover,
-.map-tab-btn.active {
-  background: var(--accent);
-  color: #FFF;
-  border-color: #FFF;
-  box-shadow: 0 4px 18px rgba(255, 106, 31, 0.35);
-  transform: translateY(-2px);
-}
-
-.market-full-wrapper {
-  background: linear-gradient(160deg, #12151F 0%, #0B0D12 60%, #0A0C11 100%);
-  border: 1px solid rgba(255, 194, 75, 0.28);
-  border-radius: 20px;
-  padding: 2rem 1.5rem;
-  color: #EEEAE1;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 106, 31, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  position: relative;
-  overflow: visible;
-  transition: border-color .4s ease, box-shadow .4s ease;
-}
-
-.market-full-wrapper:hover {
-  border-color: rgba(255, 194, 75, 0.4);
-  box-shadow: 0 28px 66px rgba(0, 0, 0, 0.65), 0 0 70px rgba(255, 106, 31, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.world-map-container,
-.india-map-container {
-  background: radial-gradient(circle at 74% 37%, #1B2536 0%, #10131D 55%, #090B10 100%);
-  border: 1px solid rgba(255, 194, 75, 0.22);
-  border-radius: 16px;
-  padding: 1.5rem;
-  position: relative;
-  overflow: visible;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.map-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.25rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.map-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 106, 31, 0.15);
-  color: var(--accent-hot);
-  border: 1px solid rgba(255, 106, 31, 0.4);
-  padding: 0.35rem 0.85rem;
-  border-radius: 30px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent);
-  animation: pulseGlow 1.8s infinite;
-}
-
-@keyframes pulseGlow {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-
-  50% {
-    transform: scale(1.3);
-    opacity: 1;
-    box-shadow: 0 0 16px var(--accent);
-  }
-
-  100% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-}
-
-.map-subtitle {
-  font-size: 0.8rem;
-  color: #9C9A90;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.map-viewport-box {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 700 / 800;
-  max-height: 700px;
-  margin: 0 auto;
-  user-select: none;
-  overflow: visible;
-}
-
-.map-viewport-box.world-box {
-  aspect-ratio: 1000 / 500;
-  max-height: 540px;
-}
-
-.india-svg,
-.world-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.75));
-}
-
-/* Real, geographically-accurate country / state silhouettes */
-.country-shape {
-  fill: url(#worldGrad);
-  stroke: #FF6A1F;
-  stroke-width: 0.6;
-  stroke-opacity: 0.55;
-  stroke-linejoin: round;
-  cursor: pointer;
-  transition: fill 0.25s ease, stroke-opacity 0.25s ease;
-}
-
-.country-shape:hover {
-  fill: #3A4A6B;
-  stroke-opacity: 0.9;
-}
-
-.country-shape.india-hi {
-  fill: url(#worldGradIndia);
-  stroke: #FFC24B;
-  stroke-width: 1.4;
-  stroke-opacity: 0.95;
-}
-
-.country-shape.india-hi:hover {
-  fill: url(#worldGradIndia);
-}
-
-.state-shape {
-  fill: url(#indiaGrad);
-  stroke: #FF6A1F;
-  stroke-width: 1.1;
-  stroke-opacity: 0.6;
-  stroke-linejoin: round;
-  cursor: pointer;
-  transition: fill 0.25s ease, stroke-opacity 0.25s ease;
-}
-
-.state-shape:hover {
-  fill: #3A4A6B;
-  stroke: #FFC24B;
-  stroke-opacity: 0.95;
-}
-
-.map-pins-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.map-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  pointer-events: auto;
-  cursor: pointer;
-  z-index: 20;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0.2s ease;
-}
-
-.map-pin:hover,
-.map-pin.active {
-  transform: translate(-50%, -50%) scale(1.4);
-  z-index: 999 !important;
-}
-
-.pin-beacon {
-  width: 24px;
-  height: 24px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pin-pulse {
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  opacity: 0.85;
-  animation: pinWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-
-@keyframes pinWave {
-  0% {
-    transform: scale(0.5);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(2.0);
-    opacity: 0;
-  }
-}
-
-.pin-core {
-  width: 13px;
-  height: 13px;
-  background: radial-gradient(circle, #FFF 0%, #FFC24B 40%, #FF6A1F 100%);
-  border: 2px solid #FFFFFF;
-  border-radius: 50%;
-  box-shadow: 0 0 14px rgba(255, 106, 31, 0.95);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.map-pin.is-hq .pin-core {
-  background: radial-gradient(circle, #FFF 0%, #FFE082 50%, #FF6A1F 100%);
-  border-color: #FFF;
-  box-shadow: 0 0 22px #FFC24B, 0 0 35px rgba(255, 106, 31, 0.9);
-  width: 16px;
-  height: 16px;
-}
-
-.pin-tag {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  background: rgba(10, 12, 18, 0.92);
-  border: 1px solid rgba(255, 106, 31, 0.45);
-  color: #EEEAE1;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  margin-top: 3px;
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
-  opacity: 0.9;
-  transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.map-pin:hover .pin-tag,
-.map-pin.active .pin-tag {
-  opacity: 1;
-  background: var(--accent);
-  color: #FFF;
-  border-color: #FFF;
-  box-shadow: 0 0 12px rgba(255, 106, 31, 0.8);
-}
-
-/* HIGH-CONTRAST HOVER POPUP TOOLTIP ON PIN */
-.pin-popover {
-  position: absolute;
-  bottom: calc(100% + 14px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  width: 270px;
-  background: rgba(12, 15, 22, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(255, 106, 31, 0.65);
-  border-radius: 14px;
-  padding: 1.1rem;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 106, 31, 0.25);
-  pointer-events: auto;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-  z-index: 1000;
-}
-
-.pin-popover::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px;
-  border-style: solid;
-  border-color: rgba(255, 106, 31, 0.65) transparent transparent transparent;
-}
-
-/* SMART POPOVER POSITIONING: BELOW FOR TOP PINS */
-.pin-popover.popover-below {
-  bottom: auto;
-  top: calc(100% + 14px);
-  transform: translateX(-50%) translateY(-8px);
-}
-
-.pin-popover.popover-below::after {
-  top: auto;
-  bottom: 100%;
-  border-color: transparent transparent rgba(255, 106, 31, 0.65) transparent;
-}
-
-/* SMART POPOVER POSITIONING: LEFT FOR RIGHT-EDGE PINS */
-.pin-popover.popover-left {
-  left: auto;
-  right: -15px;
-  transform: translateY(8px);
-}
-
-.pin-popover.popover-left::after {
-  left: auto;
-  right: 25px;
-  transform: none;
-}
-
-.pin-popover.popover-left.popover-below {
-  transform: translateY(-8px);
-}
-
-.map-pin:hover .pin-popover,
-.map-pin.active .pin-popover {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.map-pin:hover .pin-popover.popover-left,
-.map-pin.active .pin-popover.popover-left {
-  transform: translateY(0);
-}
-
-.pop-state {
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: var(--accent-hot);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.pop-badge-type {
-  background: rgba(255, 106, 31, 0.18);
-  border: 1px solid rgba(255, 106, 31, 0.4);
-  color: #FFC24B;
-  padding: 0.15rem 0.45rem;
-  border-radius: 10px;
-  font-size: 0.62rem;
-  text-transform: none;
-  letter-spacing: normal;
-}
-
-.pop-vendor {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  line-height: 1.3;
-  margin-bottom: 0.6rem;
-}
-
-.pop-detail-line {
-  font-size: 0.78rem;
-  color: #C5C2B8;
-  margin-bottom: 0.35rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45rem;
-  line-height: 1.4;
-}
-
-.pop-detail-line strong {
-  color: #FFFFFF;
-}
-
-.pop-link {
-  color: #FFC24B;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.pop-link:hover {
-  color: var(--accent-hot);
-  text-decoration: underline;
-}
-
-/* ══ MARKET PRESENCE SPLIT DASHBOARD LAYOUT ══ */
-.market-dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-@media (max-width: 992px) {
-  .market-dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.vendor-live-card {
-  background: linear-gradient(160deg, rgba(255, 255, 255, .09) 0%, rgba(255, 255, 255, .025) 100%);
-  border: 1.5px solid rgba(255, 106, 31, 0.45);
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  position: sticky;
-  top: 100px;
-}
-
-.vendor-card-badge {
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: var(--accent-hot);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.vendor-search-box {
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.vendor-search-input {
-  width: 100%;
-  background: rgba(20, 24, 34, 0.9);
-  border: 1px solid rgba(255, 106, 31, 0.3);
-  color: #FFF;
-  padding: 0.55rem 0.85rem 0.55rem 2.2rem;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.vendor-search-input:focus {
-  border-color: var(--accent-hot);
-  box-shadow: 0 0 12px rgba(255, 106, 31, 0.35);
-}
-
-.search-icon {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.85rem;
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.vendor-card-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 0.85rem;
-  margin-bottom: 1rem;
-}
-
-.vendor-card-state {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #FFF;
-  margin: 0 0 0.3rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.vendor-card-company {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #FFC24B;
-  margin-bottom: 0.85rem;
-}
-
-.vendor-info-row {
-  margin-bottom: 0.65rem;
-  font-size: 0.8rem;
-  color: #C5C2B8;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.vendor-info-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #9C9A90;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.vendor-info-val {
-  color: #FFF;
-  font-weight: 600;
-}
-
-.vendor-btn-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.v-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.v-btn-call {
-  background: rgba(255, 106, 31, 0.2);
-  border: 1px solid rgba(255, 106, 31, 0.5);
-  color: #FFC24B;
-}
-
-.v-btn-call:hover {
-  background: var(--accent);
-  color: #FFF;
-  box-shadow: 0 4px 15px rgba(255, 106, 31, 0.4);
-}
-
-.v-btn-mail {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #EEEAE1;
-}
-
-.v-btn-mail:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: #FFF;
-  border-color: #FFF;
-}
-
-.quick-location-list {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  max-height: 180px;
-  overflow-y: auto;
-  padding-right: 0.2rem;
-}
-
-.quick-location-list::-webkit-scrollbar {
-  width: 4px;
-}
-
-.quick-location-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 106, 31, 0.4);
-  border-radius: 4px;
-}
-
-.quick-location-item {
-  background: rgba(20, 24, 34, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  padding: 0.4rem 0.65rem;
-  font-size: 0.76rem;
-  color: #C5C2B8;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.2s ease;
-}
-
-.quick-location-item:hover,
-.quick-location-item.active {
-  background: rgba(255, 106, 31, 0.2);
-  border-color: rgba(255, 106, 31, 0.5);
-  color: #FFF;
-}
-
-.map-legend {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-top: 1rem;
-  font-size: 0.75rem;
-  color: #9C9A90;
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.legend-dot.HQ {
-  background: var(--accent-hot);
-  box-shadow: 0 0 8px var(--accent-hot);
-}
 
 /* ══ THREE WAYS TO REACH US ══ */
 .reach-section{ max-width:1400px; }
@@ -867,8 +229,15 @@
 
     <!-- MARKET PRESENCE -->
     <section class="section" id="market-presence">
-      <div class="section-head reveal">
+      <div class="mp-mesh" aria-hidden="true"></div>
+      <div class="mp-blueprint" aria-hidden="true"></div>
+      <div class="mp-dots" aria-hidden="true"></div>
+      <div class="mp-glow" aria-hidden="true"></div>
+      <div class="mp-noise" aria-hidden="true"></div>
+
+      <div class="section-head mp-head reveal">
         <div class="kicker center">GLOBAL &amp; DOMESTIC FOOTPRINT</div>
+        <span class="mp-kicker-glow" aria-hidden="true"></span>
         <h2>Market Presence Across 29+ Countries &amp; India</h2>
         <p style="text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem;">
           Hover over or tap any pinpoint marker on the maps below to view regional channel partner, depot, and vendor
@@ -905,28 +274,28 @@
                   <svg viewBox="0 0 1000 500" class="world-svg" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="worldOcean" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#0D3B66" />
-                        <stop offset="55%" stop-color="#0A1F3D" />
-                        <stop offset="100%" stop-color="#080D18" />
+                        <stop offset="0%" stop-color="#F4F6F9" />
+                        <stop offset="55%" stop-color="#EBEFF3" />
+                        <stop offset="100%" stop-color="#DCE3EA" />
                       </linearGradient>
                       <linearGradient id="worldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#25304A" />
-                        <stop offset="100%" stop-color="#161D30" />
+                        <stop offset="0%" stop-color="#F1F3F5" />
+                        <stop offset="100%" stop-color="#E3E7EB" />
                       </linearGradient>
                       <linearGradient id="worldGradIndia" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#3A4A6B" />
-                        <stop offset="100%" stop-color="#242F49" />
+                        <stop offset="0%" stop-color="#FFE9D6" />
+                        <stop offset="100%" stop-color="#FFD8B8" />
                       </linearGradient>
                       <radialGradient id="worldGlow" cx="74.5%" cy="37%" r="55%">
-                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.25" />
-                        <stop offset="100%" stop-color="#0A0C12" stop-opacity="0" />
+                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
                       </radialGradient>
                     </defs>
 
                     <rect width="1000" height="500" rx="16" fill="url(#worldOcean)" />
 
                     <!-- Graticule: longitude / latitude reference grid -->
-                    <g stroke="rgba(255,255,255,0.055)" stroke-width="1">
+                    <g class="mp-graticule" stroke="rgba(255,255,255,0.055)" stroke-width="1">
                       <line x1="0" y1="83" x2="1000" y2="83" />
                       <line x1="0" y1="166" x2="1000" y2="166" />
                       <line x1="0" y1="250" x2="1000" y2="250" stroke-opacity="1.8" />
@@ -1125,14 +494,23 @@
                     </g>
 
                     <!-- Global export trade trajectory arcs from India HQ (745, 187) -->
-                    <g fill="none" stroke="rgba(255, 194, 75, 0.4)" stroke-width="1.4" stroke-dasharray="4 4">
-                      <path d="M745,187 Q 480,60 235,167" /> <!-- to USA -->
-                      <path d="M745,187 Q 620,80 500,107" /> <!-- to UK -->
-                      <path d="M745,187 Q 630,90 524,111" /> <!-- to Germany -->
-                      <path d="M745,187 Q 690,150 654,180" /> <!-- to Middle East -->
-                      <path d="M745,187 Q 670,230 578,300" /> <!-- to Africa -->
-                      <path d="M745,187 Q 820,150 888,151" /> <!-- to Japan -->
-                      <path d="M745,187 Q 850,260 920,344" /> <!-- to Australia -->
+                    <g fill="none">
+                      <path class="mp-route" data-target="us" d="M745,187 Q 480,60 235,167" /> <!-- to USA -->
+                      <path class="mp-route" data-target="gb" d="M745,187 Q 620,80 500,107" /> <!-- to UK -->
+                      <path class="mp-route" data-target="de" d="M745,187 Q 630,90 524,111" /> <!-- to Germany -->
+                      <path class="mp-route" data-target="sa" d="M745,187 Q 690,150 654,180" /> <!-- to Middle East -->
+                      <path class="mp-route" data-target="za" d="M745,187 Q 670,230 578,300" /> <!-- to Africa -->
+                      <path class="mp-route" data-target="jp" d="M745,187 Q 820,150 888,151" /> <!-- to Japan -->
+                      <path class="mp-route" data-target="au" d="M745,187 Q 850,260 920,344" /> <!-- to Australia -->
+                    </g>
+                    <g class="mp-route-particles">
+                      <circle class="mp-route-particle" data-target="us" r="2.6"><animateMotion dur="3.4s" repeatCount="indefinite" path="M745,187 Q 480,60 235,167" /></circle>
+                      <circle class="mp-route-particle" data-target="gb" r="2.6"><animateMotion dur="3.6s" repeatCount="indefinite" path="M745,187 Q 620,80 500,107" /></circle>
+                      <circle class="mp-route-particle" data-target="de" r="2.6"><animateMotion dur="3.2s" repeatCount="indefinite" path="M745,187 Q 630,90 524,111" /></circle>
+                      <circle class="mp-route-particle" data-target="sa" r="2.6"><animateMotion dur="2.6s" repeatCount="indefinite" path="M745,187 Q 690,150 654,180" /></circle>
+                      <circle class="mp-route-particle" data-target="za" r="2.6"><animateMotion dur="3.8s" repeatCount="indefinite" path="M745,187 Q 670,230 578,300" /></circle>
+                      <circle class="mp-route-particle" data-target="jp" r="2.6"><animateMotion dur="3s" repeatCount="indefinite" path="M745,187 Q 820,150 888,151" /></circle>
+                      <circle class="mp-route-particle" data-target="au" r="2.6"><animateMotion dur="4s" repeatCount="indefinite" path="M745,187 Q 850,260 920,344" /></circle>
                     </g>
                   </svg>
 
@@ -1163,18 +541,18 @@
                   <svg viewBox="0 0 700 800" class="india-svg" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="indiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#2A3550" />
-                        <stop offset="55%" stop-color="#1B2436" />
-                        <stop offset="100%" stop-color="#11151F" />
+                        <stop offset="0%" stop-color="#F1F3F5" />
+                        <stop offset="55%" stop-color="#EAEDF0" />
+                        <stop offset="100%" stop-color="#E3E7EB" />
                       </linearGradient>
                       <radialGradient id="mapGlowIn" cx="67.7%" cy="46.8%" r="60%">
-                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.22" />
-                        <stop offset="100%" stop-color="#0A0C12" stop-opacity="0" />
+                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
                       </radialGradient>
                     </defs>
 
                     <!-- Tactical Grid Lines -->
-                    <g stroke="rgba(255,255,255,0.055)" stroke-width="1" stroke-dasharray="4 4">
+                    <g class="mp-graticule" stroke="rgba(255,255,255,0.055)" stroke-width="1" stroke-dasharray="4 4">
                       <line x1="0" y1="100" x2="700" y2="100" />
                       <line x1="0" y1="200" x2="700" y2="200" />
                       <line x1="0" y1="300" x2="700" y2="300" />
@@ -1233,15 +611,25 @@
                     </g>
 
                     <!-- Regional Hub Connection Rays from Kolkata HQ -->
-                    <g stroke="rgba(255,194,75,0.28)" stroke-width="1.2" stroke-dasharray="3 3">
-                      <line x1="474" y1="374" x2="176" y2="124" /> <!-- to J&amp;K -->
-                      <line x1="474" y1="374" x2="196" y2="267" /> <!-- to Rajasthan -->
-                      <line x1="474" y1="374" x2="125" y2="364" /> <!-- to Gujarat -->
-                      <line x1="474" y1="374" x2="137" y2="462" /> <!-- to Maharashtra -->
-                      <line x1="474" y1="374" x2="293" y2="609" /> <!-- to Tamil Nadu -->
-                      <line x1="474" y1="374" x2="418" y2="431" /> <!-- to Odisha -->
-                      <line x1="474" y1="374" x2="548" y2="286" /> <!-- to Assam -->
-                      <line x1="474" y1="374" x2="592" y2="292" /> <!-- to Nagaland -->
+                    <g>
+                      <line class="mp-route" data-target="jk" x1="474" y1="374" x2="176" y2="124" /> <!-- to J&amp;K -->
+                      <line class="mp-route" data-target="rj" x1="474" y1="374" x2="196" y2="267" /> <!-- to Rajasthan -->
+                      <line class="mp-route" data-target="gj" x1="474" y1="374" x2="125" y2="364" /> <!-- to Gujarat -->
+                      <line class="mp-route" data-target="mh" x1="474" y1="374" x2="137" y2="462" /> <!-- to Maharashtra -->
+                      <line class="mp-route" data-target="tn" x1="474" y1="374" x2="293" y2="609" /> <!-- to Tamil Nadu -->
+                      <line class="mp-route" data-target="od" x1="474" y1="374" x2="418" y2="431" /> <!-- to Odisha -->
+                      <line class="mp-route" data-target="as" x1="474" y1="374" x2="548" y2="286" /> <!-- to Assam -->
+                      <line class="mp-route" data-target="nl" x1="474" y1="374" x2="592" y2="292" /> <!-- to Nagaland -->
+                    </g>
+                    <g class="mp-route-particles">
+                      <circle class="mp-route-particle" data-target="jk" r="2.6"><animateMotion dur="2.4s" repeatCount="indefinite" path="M474,374 L176,124" /></circle>
+                      <circle class="mp-route-particle" data-target="rj" r="2.6"><animateMotion dur="1.9s" repeatCount="indefinite" path="M474,374 L196,267" /></circle>
+                      <circle class="mp-route-particle" data-target="gj" r="2.6"><animateMotion dur="2.1s" repeatCount="indefinite" path="M474,374 L125,364" /></circle>
+                      <circle class="mp-route-particle" data-target="mh" r="2.6"><animateMotion dur="2.3s" repeatCount="indefinite" path="M474,374 L137,462" /></circle>
+                      <circle class="mp-route-particle" data-target="tn" r="2.6"><animateMotion dur="2.8s" repeatCount="indefinite" path="M474,374 L293,609" /></circle>
+                      <circle class="mp-route-particle" data-target="od" r="2.6"><animateMotion dur="1.6s" repeatCount="indefinite" path="M474,374 L418,431" /></circle>
+                      <circle class="mp-route-particle" data-target="as" r="2.6"><animateMotion dur="2.2s" repeatCount="indefinite" path="M474,374 L548,286" /></circle>
+                      <circle class="mp-route-particle" data-target="nl" r="2.6"><animateMotion dur="2.2s" repeatCount="indefinite" path="M474,374 L592,292" /></circle>
                     </g>
                   </svg>
 
@@ -1261,47 +649,90 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: ACTIVE VENDOR CONTACT CARD & LIVE QUICK DIRECTORY -->
-          <div class="vendor-live-card" id="vendorLiveCard">
-            <div class="vendor-card-badge"><span class="pulse-dot"></span> ACTIVE DEPOT CONTACT</div>
+          <!-- RIGHT COLUMN: PREMIUM ENTERPRISE INFO CONSOLE
+               (isolated component — see market-presence-panel.css) -->
+          <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details">
+            <div class="mpp-ambient" aria-hidden="true"></div>
+            <div class="mpp-texture" aria-hidden="true"></div>
+            <div class="mpp-noise" aria-hidden="true"></div>
 
-            <div class="vendor-search-box">
-              <span class="search-icon">🔍</span>
-              <input type="text" id="mapSearchInput" class="vendor-search-input"
-                placeholder="Search state or vendor..." />
+            <div class="mpp-status">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span class="mpp-status-live">LIVE</span>
+              <span class="mpp-status-label">Active Distribution Center</span>
             </div>
 
-            <div class="vendor-card-header">
-              <div class="vendor-card-state" id="cardStateName">📍 West Bengal <span class="pop-badge-type"
-                  id="cardBadgeType">Corporate HQ</span></div>
-              <div class="vendor-card-company" id="cardPartnerName">Shakambhari Corporate &amp; Central Depot</div>
+            <div class="mpp-search" role="search">
+              <span class="mpp-search-icon" aria-hidden="true">🔍</span>
+              <input type="text" id="mapSearchInput" class="mpp-search-input"
+                placeholder="Search state or vendor..." aria-label="Search state or vendor" />
             </div>
 
-            <div class="vendor-info-row">
-              <span class="vendor-info-label">Regional Sales Officer</span>
-              <span class="vendor-info-val" id="cardOfficer">Rajesh Sharma (VP - Sales East)</span>
+            <div class="mpp-header">
+              <div class="mpp-state" id="cardStateName" aria-live="polite">
+                <span class="mpp-empty-icon" aria-hidden="true">🗺️</span> Hover a Marker
+              </div>
+              <div class="mpp-company" id="cardPartnerName"></div>
             </div>
 
-            <div class="vendor-info-row">
-              <span class="vendor-info-label">Hub Depot Address</span>
-              <span class="vendor-info-val" id="cardAddress">10, Princep Street, Kolkata &amp; Durgapur Plant</span>
+            <div class="mpp-body is-empty" id="mppBody">
+              <p class="mpp-empty-hint" id="mppEmptyHint">Hover over any marker, state, or directory entry below to
+                view its regional channel partner, depot, and vendor contact details.</p>
+
+              <div class="mpp-mini">
+                <span class="mpp-mini-icon" aria-hidden="true">👤</span>
+                <div class="mpp-mini-text">
+                  <span class="mpp-label">Regional Sales Officer</span>
+                  <span class="mpp-value" id="cardOfficer"></span>
+                </div>
+              </div>
+
+              <div class="mpp-mini">
+                <span class="mpp-mini-icon" aria-hidden="true">🏬</span>
+                <div class="mpp-mini-text">
+                  <span class="mpp-label">Hub Depot Address</span>
+                  <span class="mpp-value" id="cardAddress"></span>
+                </div>
+              </div>
+
+              <div class="mpp-actions">
+                <a id="cardPhoneBtn" href="#" class="mpp-btn mpp-btn-primary">
+                  <span class="mpp-btn-icon" aria-hidden="true">📞</span> Call Officer</a>
+                <a id="cardEmailBtn" href="#" class="mpp-btn mpp-btn-secondary">
+                  <span class="mpp-btn-icon" aria-hidden="true">✉️</span> Email Support</a>
+              </div>
             </div>
 
-            <div class="vendor-btn-group">
-              <a id="cardPhoneBtn" href="tel:+919830012345" class="v-btn v-btn-call">📞 Call Officer</a>
-              <a id="cardEmailBtn" href="mailto:wb.sales@shakambharigroup.com" class="v-btn v-btn-mail">✉️ Email
-                Support</a>
-            </div>
-
-            <div style="margin-top: 1.25rem; border-top: 1px dashed rgba(255,106,31,0.25); padding-top: 0.85rem;">
-              <div class="vendor-info-label" style="margin-bottom: 0.4rem;">⚡ Direct Jump Directory:</div>
-              <div class="quick-location-list" id="quickLocationList">
+            <div class="mpp-directory">
+              <div class="mpp-directory-title"><span aria-hidden="true">⚡</span> Direct Jump Directory</div>
+              <div class="mpp-directory-list" id="quickLocationList">
                 <!-- Location Items dynamically loaded -->
               </div>
             </div>
 
           </div>
 
+        </div>
+
+        <div class="mp-metrics-row reveal-scale">
+          <div class="stat-band">
+            <div class="stat">
+              <div class="stat-num counter" data-target="20" data-suffix="+">0+</div>
+              <div class="stat-label">States Covered</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num counter" data-target="29" data-suffix="+">0+</div>
+              <div class="stat-label">Export Countries</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num counter" data-target="100" data-suffix="+">0+</div>
+              <div class="stat-label">Distribution Partners</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num" style="font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,2.8vw,2.2rem); color:var(--accent-ink);">24/7</div>
+              <div class="stat-label">Industrial Support</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1488,435 +919,687 @@
 </footer>
 
 <script src="site.js"></script>
-<script>
-  (function () {
-    // 1. INTERNATIONAL DESTINATIONS DATA
-    const worldCountriesData = [
-      {
-        id: "tw", name: "Taiwan", code: "TW", left: "83.8%", top: "36.1%",
-        hubType: "East Asia Distribution Hub", partner: "Formosa Pacific Steel Partners",
-        officer: "Chen Wei-Ming (Trade Representative)", phone: "+886 2 2700 8899", email: "taiwan.trade@shakambharigroup.com",
-        address: "Taipei World Trade Center, Taipei"
-      },
-      {
-        id: "tr", name: "Turkey", code: "TR", left: "58.1%", top: "27.2%",
-        hubType: "Eurasian Steel Logistics", partner: "Bosphorus Iron & Alloy Importers",
-        officer: "Hakan Yilmaz", phone: "+90 212 380 4400", email: "turkey.export@shakambharigroup.com",
-        address: "Levent Business Center, Istanbul"
-      },
-      {
-        id: "it", name: "Italy", code: "IT", left: "52.6%", top: "24.7%",
-        hubType: "Southern European Hub", partner: "Lombardia Steel Europe S.r.l.",
-        officer: "Marco Rossi", phone: "+39 02 8901 2345", email: "europe.sales@shakambharigroup.com",
-        address: "Via Montenapoleone, Milan"
-      },
-      {
-        id: "eg", name: "Egypt", code: "EG", left: "58.7%", top: "33.3%",
-        hubType: "North African Logistics Partner", partner: "Nile Infra Metals Co.",
-        officer: "Tariq El-Sayed", phone: "+20 2 2735 6789", email: "egypt.trade@shakambharigroup.com",
-        address: "New Cairo Business District, Cairo"
-      },
-      {
-        id: "jp", name: "Japan", code: "JP", left: "88.8%", top: "30.2%",
-        hubType: "Far East Trade Hub", partner: "Nippon Shakambhari Metals Hub",
-        officer: "Kenji Takahashi", phone: "+81 3 5540 1122", email: "japan.sales@shakambharigroup.com",
-        address: "Chiyoda-ku Industrial Hub, Tokyo"
-      },
-      {
-        id: "kr", name: "South Korea", code: "KR", left: "85.3%", top: "29.1%",
-        hubType: "East Asian Infra Partner", partner: "Han River Structural Steel",
-        officer: "Min-Soo Park", phone: "+82 2 3456 7890", email: "korea.trade@shakambharigroup.com",
-        address: "Gangnam Trade Tower, Seoul"
-      },
-      {
-        id: "sa", name: "Saudi Arabia", code: "SA", left: "63.0%", top: "36.3%",
-        hubType: "Middle East Mega-Projects Hub", partner: "GCC Heavy Infra Supplies",
-        officer: "Faisal Al-Mansoor", phone: "+966 11 460 3344", email: "ksa.sales@shakambharigroup.com",
-        address: "King Fahd Road, Riyadh"
-      },
-      {
-        id: "ae", name: "UAE", code: "AE", left: "65.4%", top: "36.0%",
-        hubType: "Gulf Regional Export Center", partner: "Gulf Commercial Steel Logistics",
-        officer: "Rashid Al-Maktoum", phone: "+971 4 321 9876", email: "uae.trade@shakambharigroup.com",
-        address: "Jebel Ali Free Zone, Dubai"
-      },
-      {
-        id: "np", name: "Nepal", code: "NP", left: "73.7%", top: "34.6%",
-        hubType: "SAARC Regional Partner", partner: "Himalayan Infra Steel Suppliers",
-        officer: "Ramesh Adhikari", phone: "+977 1 422 5566", email: "nepal.sales@shakambharigroup.com",
-        address: "Lazimpat, Kathmandu"
-      },
-      {
-        id: "bd", name: "Bangladesh", code: "BD", left: "75.1%", top: "36.8%",
-        hubType: "Neighboring Exports Hub", partner: "Bengal Delta Metals & Infra",
-        officer: "Rafiqul Islam", phone: "+880 2 988 4433", email: "bd.trade@shakambharigroup.com",
-        address: "Gulshan Commercial Area, Dhaka"
-      },
-      {
-        id: "vn", name: "Vietnam", code: "VN", left: "79.6%", top: "44.0%",
-        hubType: "ASEAN Trade Hub", partner: "ASEAN Structural Steel Corp.",
-        officer: "Nguyen Van Hung", phone: "+84 24 3934 5678", email: "vietnam.sales@shakambharigroup.com",
-        address: "Ho Chi Minh Port Complex"
-      },
-      {
-        id: "de", name: "Germany", code: "DE", left: "52.4%", top: "22.2%",
-        hubType: "Central European Hub", partner: "Rheinland Heavy Metals GmbH",
-        officer: "Stefan Müller", phone: "+49 69 9754 0000", email: "germany.sales@shakambharigroup.com",
-        address: "Frankfurt Industrial Park"
-      },
-      {
-        id: "gb", name: "United Kingdom", code: "GB", left: "50.0%", top: "21.4%",
-        hubType: "UK & European Logistics", partner: "Albion Metals Trading UK Ltd",
-        officer: "David Sterling", phone: "+44 20 7946 0912", email: "uk.sales@shakambharigroup.com",
-        address: "Canary Wharf, London"
-      },
-      {
-        id: "us", name: "United States", code: "US", left: "23.5%", top: "33.5%",
-        hubType: "North American Trade Station", partner: "Trans-Atlantic Steel Alliance",
-        officer: "Robert Vance", phone: "+1 212 555 0199", email: "usa.sales@shakambharigroup.com",
-        address: "Houston Steel Terminal, Texas"
-      },
-      {
-        id: "sg", name: "Singapore", code: "SG", left: "78.8%", top: "49.3%",
-        hubType: "Maritime Trade Center", partner: "Lion City Metals & Shipping Hub",
-        officer: "Marcus Tan", phone: "+65 6789 0123", email: "sg.trade@shakambharigroup.com",
-        address: "Marina Bay Trade Center, Singapore"
-      },
-      {
-        id: "ke", name: "Kenya", code: "KE", left: "60.2%", top: "50.7%",
-        hubType: "East African Logistics Station", partner: "East Africa Infrastructure Steel",
-        officer: "Joseph Ochieng", phone: "+254 20 271 8899", email: "africa.sales@shakambharigroup.com",
-        address: "Industrial Area, Nairobi"
-      },
-      {
-        id: "za", name: "South Africa", code: "ZA", left: "57.8%", top: "64.6%",
-        hubType: "Southern African Hub", partner: "Southern Cross Metals (Pty) Ltd",
-        officer: "Johan van der Merwe", phone: "+27 11 800 1234", email: "sa.sales@shakambharigroup.com",
-        address: "Sandton City, Johannesburg"
-      },
-      {
-        id: "au", name: "Australia", code: "AU", left: "92.0%", top: "68.8%",
-        hubType: "Oceanic Distribution Depot", partner: "Oceanic Steel & Resources",
-        officer: "Liam O'Connor", phone: "+61 2 9250 8800", email: "aus.sales@shakambharigroup.com",
-        address: "Sydney Olympic Park Hub"
-      },
-      {
-        id: "lk", name: "Sri Lanka", code: "LK", left: "72.2%", top: "46.2%",
-        hubType: "Indian Ocean Hub", partner: "Island Infrastructure Links",
-        officer: "Dilshan Perera", phone: "+94 11 230 4567", email: "sl.sales@shakambharigroup.com",
-        address: "Colombo Port Terminal"
-      },
-      {
-        id: "in_hq", name: "India HQ", code: "IN", left: "74.5%", top: "37.5%", isHQ: true,
-        hubType: "Global Manufacturing & Corporate HQ", partner: "Shakambhari Corporate HQ",
-        officer: "Rajesh Sharma (Global Export Sales)", phone: "+91 98300 12345", email: "export.sales@shakambharigroup.com",
-        address: "10, Princep Street, Kolkata, India"
-      }
-    ];
+  <script>
+    (function () {
+      // 1. INTERNATIONAL DESTINATIONS DATA
+      const worldCountriesData = [
+        {
+          id: "tw", name: "Taiwan", code: "TW", left: "83.8%", top: "36.1%",
+          hubType: "East Asia Distribution Hub", partner: "Formosa Pacific Steel Partners",
+          officer: "Chen Wei-Ming (Trade Representative)", phone: "+886 2 2700 8899", email: "taiwan.trade@shakambharigroup.com",
+          address: "Taipei World Trade Center, Taipei"
+        },
+        {
+          id: "tr", name: "Turkey", code: "TR", left: "58.1%", top: "27.2%",
+          hubType: "Eurasian Steel Logistics", partner: "Bosphorus Iron & Alloy Importers",
+          officer: "Hakan Yilmaz", phone: "+90 212 380 4400", email: "turkey.export@shakambharigroup.com",
+          address: "Levent Business Center, Istanbul"
+        },
+        {
+          id: "it", name: "Italy", code: "IT", left: "52.6%", top: "24.7%",
+          hubType: "Southern European Hub", partner: "Lombardia Steel Europe S.r.l.",
+          officer: "Marco Rossi", phone: "+39 02 8901 2345", email: "europe.sales@shakambharigroup.com",
+          address: "Via Montenapoleone, Milan"
+        },
+        {
+          id: "eg", name: "Egypt", code: "EG", left: "58.7%", top: "33.3%",
+          hubType: "North African Logistics Partner", partner: "Nile Infra Metals Co.",
+          officer: "Tariq El-Sayed", phone: "+20 2 2735 6789", email: "egypt.trade@shakambharigroup.com",
+          address: "New Cairo Business District, Cairo"
+        },
+        {
+          id: "jp", name: "Japan", code: "JP", left: "88.8%", top: "30.2%",
+          hubType: "Far East Trade Hub", partner: "Nippon Shakambhari Metals Hub",
+          officer: "Kenji Takahashi", phone: "+81 3 5540 1122", email: "japan.sales@shakambharigroup.com",
+          address: "Chiyoda-ku Industrial Hub, Tokyo"
+        },
+        {
+          id: "kr", name: "South Korea", code: "KR", left: "85.3%", top: "29.1%",
+          hubType: "East Asian Infra Partner", partner: "Han River Structural Steel",
+          officer: "Min-Soo Park", phone: "+82 2 3456 7890", email: "korea.trade@shakambharigroup.com",
+          address: "Gangnam Trade Tower, Seoul"
+        },
+        {
+          id: "sa", name: "Saudi Arabia", code: "SA", left: "63.0%", top: "36.3%",
+          hubType: "Middle East Mega-Projects Hub", partner: "GCC Heavy Infra Supplies",
+          officer: "Faisal Al-Mansoor", phone: "+966 11 460 3344", email: "ksa.sales@shakambharigroup.com",
+          address: "King Fahd Road, Riyadh"
+        },
+        {
+          id: "ae", name: "UAE", code: "AE", left: "65.4%", top: "36.0%",
+          hubType: "Gulf Regional Export Center", partner: "Gulf Commercial Steel Logistics",
+          officer: "Rashid Al-Maktoum", phone: "+971 4 321 9876", email: "uae.trade@shakambharigroup.com",
+          address: "Jebel Ali Free Zone, Dubai"
+        },
+        {
+          id: "np", name: "Nepal", code: "NP", left: "73.7%", top: "34.6%",
+          hubType: "SAARC Regional Partner", partner: "Himalayan Infra Steel Suppliers",
+          officer: "Ramesh Adhikari", phone: "+977 1 422 5566", email: "nepal.sales@shakambharigroup.com",
+          address: "Lazimpat, Kathmandu"
+        },
+        {
+          id: "bd", name: "Bangladesh", code: "BD", left: "75.1%", top: "36.8%",
+          hubType: "Neighboring Exports Hub", partner: "Bengal Delta Metals & Infra",
+          officer: "Rafiqul Islam", phone: "+880 2 988 4433", email: "bd.trade@shakambharigroup.com",
+          address: "Gulshan Commercial Area, Dhaka"
+        },
+        {
+          id: "vn", name: "Vietnam", code: "VN", left: "79.6%", top: "44.0%",
+          hubType: "ASEAN Trade Hub", partner: "ASEAN Structural Steel Corp.",
+          officer: "Nguyen Van Hung", phone: "+84 24 3934 5678", email: "vietnam.sales@shakambharigroup.com",
+          address: "Ho Chi Minh Port Complex"
+        },
+        {
+          id: "de", name: "Germany", code: "DE", left: "52.4%", top: "22.2%",
+          hubType: "Central European Hub", partner: "Rheinland Heavy Metals GmbH",
+          officer: "Stefan Müller", phone: "+49 69 9754 0000", email: "germany.sales@shakambharigroup.com",
+          address: "Frankfurt Industrial Park"
+        },
+        {
+          id: "gb", name: "United Kingdom", code: "GB", left: "50.0%", top: "21.4%",
+          hubType: "UK & European Logistics", partner: "Albion Metals Trading UK Ltd",
+          officer: "David Sterling", phone: "+44 20 7946 0912", email: "uk.sales@shakambharigroup.com",
+          address: "Canary Wharf, London"
+        },
+        {
+          id: "us", name: "United States", code: "US", left: "23.5%", top: "33.5%",
+          hubType: "North American Trade Station", partner: "Trans-Atlantic Steel Alliance",
+          officer: "Robert Vance", phone: "+1 212 555 0199", email: "usa.sales@shakambharigroup.com",
+          address: "Houston Steel Terminal, Texas"
+        },
+        {
+          id: "sg", name: "Singapore", code: "SG", left: "78.8%", top: "49.3%",
+          hubType: "Maritime Trade Center", partner: "Lion City Metals & Shipping Hub",
+          officer: "Marcus Tan", phone: "+65 6789 0123", email: "sg.trade@shakambharigroup.com",
+          address: "Marina Bay Trade Center, Singapore"
+        },
+        {
+          id: "ke", name: "Kenya", code: "KE", left: "60.2%", top: "50.7%",
+          hubType: "East African Logistics Station", partner: "East Africa Infrastructure Steel",
+          officer: "Joseph Ochieng", phone: "+254 20 271 8899", email: "africa.sales@shakambharigroup.com",
+          address: "Industrial Area, Nairobi"
+        },
+        {
+          id: "za", name: "South Africa", code: "ZA", left: "57.8%", top: "64.6%",
+          hubType: "Southern African Hub", partner: "Southern Cross Metals (Pty) Ltd",
+          officer: "Johan van der Merwe", phone: "+27 11 800 1234", email: "sa.sales@shakambharigroup.com",
+          address: "Sandton City, Johannesburg"
+        },
+        {
+          id: "au", name: "Australia", code: "AU", left: "92.0%", top: "68.8%",
+          hubType: "Oceanic Distribution Depot", partner: "Oceanic Steel & Resources",
+          officer: "Liam O'Connor", phone: "+61 2 9250 8800", email: "aus.sales@shakambharigroup.com",
+          address: "Sydney Olympic Park Hub"
+        },
+        {
+          id: "lk", name: "Sri Lanka", code: "LK", left: "72.2%", top: "46.2%",
+          hubType: "Indian Ocean Hub", partner: "Island Infrastructure Links",
+          officer: "Dilshan Perera", phone: "+94 11 230 4567", email: "sl.sales@shakambharigroup.com",
+          address: "Colombo Port Terminal"
+        },
+        {
+          id: "in_hq", name: "India HQ", code: "IN", left: "74.5%", top: "37.5%", isHQ: true,
+          hubType: "Global Manufacturing & Corporate HQ", partner: "Shakambhari Corporate HQ",
+          officer: "Rajesh Sharma (Global Export Sales)", phone: "+91 98300 12345", email: "export.sales@shakambharigroup.com",
+          address: "10, Princep Street, Kolkata, India"
+        }
+      ];
 
-    // 2. DOMESTIC INDIAN STATES DATA
-    const indiaStatesData = [
-      {
-        id: "wb", name: "West Bengal", code: "WB", left: "67.7%", top: "46.8%", isHQ: true,
-        hubType: "Corporate HQ & Primary Steel Complex", partner: "Shakambhari Corporate & Central Depot",
-        officer: "Rajesh Sharma (VP - Sales East)", phone: "+91 98300 12345", email: "wb.sales@shakambharigroup.com",
-        address: "10, Princep Street, Kolkata & Durgapur Plant"
-      },
-      {
-        id: "br", name: "Bihar", code: "BR", left: "57.5%", top: "37.5%",
-        hubType: "Regional Distribution Hub", partner: "Patliputra Steel Depot & Partners",
-        officer: "Amit Kumar Roy", phone: "+91 94310 98765", email: "bihar.depot@shakambharigroup.com",
-        address: "Exhibition Road, Patna - 800001"
-      },
-      {
-        id: "jh", name: "Jharkhand", code: "JH", left: "58.1%", top: "44.5%",
-        hubType: "Industrial Depot & Channel Hub", partner: "Chota Nagpur Iron & Steel Distributors",
-        officer: "Vikash Agarwal", phone: "+91 93341 54321", email: "jharkhand.sales@shakambharigroup.com",
-        address: "Main Road, Ranchi & Jamshedpur Link"
-      },
-      {
-        id: "od", name: "Odisha", code: "OD", left: "59.7%", top: "53.9%",
-        hubType: "Coastal & Mining Steel Depot", partner: "Kalinga Infrastructure Suppliers",
-        officer: "Subhashish Panda", phone: "+91 97770 23456", email: "odisha.sales@shakambharigroup.com",
-        address: "Cuttack Road, Bhubaneswar - 751006"
-      },
-      {
-        id: "rj", name: "Rajasthan", code: "RJ", left: "28.0%", top: "33.4%",
-        hubType: "Western Region Depot", partner: "Marwar Steel Trading Co.",
-        officer: "Mahendra Singh Rathore", phone: "+91 98290 87654", email: "raj.sales@shakambharigroup.com",
-        address: "VKIA Industrial Area, Jaipur - 302013"
-      },
-      {
-        id: "as", name: "Assam", code: "AS", left: "78.3%", top: "35.8%",
-        hubType: "North-East Gateway Hub", partner: "Brahmaputra Steel Distributors",
-        officer: "Dipankar Baruah", phone: "+91 94350 11223", email: "assam.sales@shakambharigroup.com",
-        address: "GS Road, Dispur, Guwahati - 781005"
-      },
-      {
-        id: "tp", name: "Tripura", code: "TR", left: "76.9%", top: "43.0%",
-        hubType: "Regional Channel Partner", partner: "Eastern Horizon Metals & Alloys",
-        officer: "Biplab Debnath", phone: "+91 94361 44556", email: "tripura.sales@shakambharigroup.com",
-        address: "Akhaura Road, Agartala - 799001"
-      },
-      {
-        id: "pb", name: "Punjab", code: "PB", left: "28.3%", top: "21.1%",
-        hubType: "Northern Structural Hub", partner: "Malwa Steel Suppliers",
-        officer: "Harpreet Singh Grewal", phone: "+91 98140 33445", email: "pb.sales@shakambharigroup.com",
-        address: "Focal Point, Ludhiana - 141010"
-      },
-      {
-        id: "hr", name: "Haryana", code: "HR", left: "32.0%", top: "28.7%",
-        hubType: "NCR Infrastructure Depot", partner: "NCR Infra Steel Links",
-        officer: "Ritu Raj Yadav", phone: "+91 98120 55667", email: "haryana.sales@shakambharigroup.com",
-        address: "Udyog Vihar, Phase V, Gurugram - 122016"
-      },
-      {
-        id: "up", name: "Uttar Pradesh", code: "UP", left: "44.3%", top: "33.6%",
-        hubType: "Central Northern Logistics Hub", partner: "Awadh Steel & Structures",
-        officer: "Sanjay Srivastava", phone: "+91 94150 77889", email: "up.sales@shakambharigroup.com",
-        address: "Transport Nagar, Lucknow - 226012"
-      },
-      {
-        id: "hp", name: "Himachal Pradesh", code: "HP", left: "31.2%", top: "20.9%",
-        hubType: "Hill States Industrial Partner", partner: "Mountain Steel Logistics",
-        officer: "Sunil Thakur", phone: "+91 98160 88990", email: "hp.sales@shakambharigroup.com",
-        address: "Industrial Area, Baddi - 173205"
-      },
-      {
-        id: "jk", name: "Jammu & Kashmir", code: "JK", left: "25.1%", top: "15.5%",
-        hubType: "Northern Border Infrastructure Depot", partner: "Valley Infrastructure Metals",
-        officer: "Tariq Ahmad Shah", phone: "+91 94191 22334", email: "jk.sales@shakambharigroup.com",
-        address: "Gangyal Industrial Complex, Jammu - 180010"
-      },
-      {
-        id: "mn", name: "Manipur", code: "MN", left: "85.3%", top: "39.9%",
-        hubType: "Eastern Regional Depot", partner: "Manipur Steel Trade House",
-        officer: "N. Radheshyam Singh", phone: "+91 98620 11998", email: "manipur.sales@shakambharigroup.com",
-        address: "Thangal Bazar, Imphal - 795001"
-      },
-      {
-        id: "nl", name: "Nagaland", code: "NL", left: "84.6%", top: "36.5%",
-        hubType: "Hill Region Channel Partner", partner: "Naga Hills Metals Network",
-        officer: "Kevisezo Kense", phone: "+91 94360 22881", email: "nagaland.sales@shakambharigroup.com",
-        address: "Circular Road, Dimapur - 797112"
-      },
-      {
-        id: "ml", name: "Meghalaya", code: "ML", left: "78.8%", top: "37.6%",
-        hubType: "Sub-Himalayan Distribution", partner: "Khasi Hills Steel Agencies",
-        officer: "Banrap Lyngdoh", phone: "+91 94363 33445", email: "meghalaya.sales@shakambharigroup.com",
-        address: "Mawlai Phudmuri, Shillong - 793008"
-      },
-      {
-        id: "sk", name: "Sikkim", code: "SK", left: "68.5%", top: "32.1%",
-        hubType: "Mountain Projects Partner", partner: "Himalayan Steel Suppliers",
-        officer: "Tashi Bhutia", phone: "+91 94340 77112", email: "sikkim.sales@shakambharigroup.com",
-        address: "Deorali, Gangtok - 737102"
-      },
-      {
-        id: "mh", name: "Maharashtra", code: "MH", left: "19.6%", top: "57.8%",
-        hubType: "Western Commercial Hub", partner: "Western India Steel Corp.",
-        officer: "Nitin Deshmukh", phone: "+91 98200 44556", email: "mh.sales@shakambharigroup.com",
-        address: "Kalamboli Steel Market, Navi Mumbai - 410218"
-      },
-      {
-        id: "mp", name: "Madhya Pradesh", code: "MP", left: "28.3%", top: "46.4%",
-        hubType: "Central India Distribution Hub", partner: "Central India Steel Links",
-        officer: "Alok Sharma", phone: "+91 98260 66778", email: "mp.sales@shakambharigroup.com",
-        address: "Sanwer Road Industrial Area, Indore - 452015"
-      },
-      {
-        id: "gj", name: "Gujarat", code: "GJ", left: "17.9%", top: "45.5%",
-        hubType: "Industrial & Port Logistics Depot", partner: "Gujarat Heavy Steel Depot",
-        officer: "Chirag Patel", phone: "+91 98250 99112", email: "guj.sales@shakambharigroup.com",
-        address: "GIDC Naroda, Ahmedabad - 382330"
-      },
-      {
-        id: "tn", name: "Tamil Nadu", code: "TN", left: "41.8%", top: "76.1%",
-        hubType: "Southern Infrastructure Depot", partner: "Deccan Steel Partners",
-        officer: "K. Venkatesh", phone: "+91 98400 88221", email: "tn.sales@shakambharigroup.com",
-        address: "Ambattur Industrial Estate, Chennai - 600058"
-      }
-    ];
+      // 2. DOMESTIC INDIAN STATES DATA
+      const indiaStatesData = [
+        {
+          id: "wb", name: "West Bengal", code: "WB", left: "67.7%", top: "46.8%", isHQ: true,
+          hubType: "Corporate HQ & Primary Steel Complex", partner: "Shakambhari Corporate & Central Depot",
+          officer: "Rajesh Sharma (VP - Sales East)", phone: "+91 98300 12345", email: "wb.sales@shakambharigroup.com",
+          address: "10, Princep Street, Kolkata & Durgapur Plant"
+        },
+        {
+          id: "br", name: "Bihar", code: "BR", left: "57.5%", top: "37.5%",
+          hubType: "Regional Distribution Hub", partner: "Patliputra Steel Depot & Partners",
+          officer: "Amit Kumar Roy", phone: "+91 94310 98765", email: "bihar.depot@shakambharigroup.com",
+          address: "Exhibition Road, Patna - 800001"
+        },
+        {
+          id: "jh", name: "Jharkhand", code: "JH", left: "58.1%", top: "44.5%",
+          hubType: "Industrial Depot & Channel Hub", partner: "Chota Nagpur Iron & Steel Distributors",
+          officer: "Vikash Agarwal", phone: "+91 93341 54321", email: "jharkhand.sales@shakambharigroup.com",
+          address: "Main Road, Ranchi & Jamshedpur Link"
+        },
+        {
+          id: "od", name: "Odisha", code: "OD", left: "59.7%", top: "53.9%",
+          hubType: "Coastal & Mining Steel Depot", partner: "Kalinga Infrastructure Suppliers",
+          officer: "Subhashish Panda", phone: "+91 97770 23456", email: "odisha.sales@shakambharigroup.com",
+          address: "Cuttack Road, Bhubaneswar - 751006"
+        },
+        {
+          id: "rj", name: "Rajasthan", code: "RJ", left: "28.0%", top: "33.4%",
+          hubType: "Western Region Depot", partner: "Marwar Steel Trading Co.",
+          officer: "Mahendra Singh Rathore", phone: "+91 98290 87654", email: "raj.sales@shakambharigroup.com",
+          address: "VKIA Industrial Area, Jaipur - 302013"
+        },
+        {
+          id: "as", name: "Assam", code: "AS", left: "78.3%", top: "35.8%",
+          hubType: "North-East Gateway Hub", partner: "Brahmaputra Steel Distributors",
+          officer: "Dipankar Baruah", phone: "+91 94350 11223", email: "assam.sales@shakambharigroup.com",
+          address: "GS Road, Dispur, Guwahati - 781005"
+        },
+        {
+          id: "tp", name: "Tripura", code: "TR", left: "76.9%", top: "43.0%",
+          hubType: "Regional Channel Partner", partner: "Eastern Horizon Metals & Alloys",
+          officer: "Biplab Debnath", phone: "+91 94361 44556", email: "tripura.sales@shakambharigroup.com",
+          address: "Akhaura Road, Agartala - 799001"
+        },
+        {
+          id: "pb", name: "Punjab", code: "PB", left: "28.3%", top: "21.1%",
+          hubType: "Northern Structural Hub", partner: "Malwa Steel Suppliers",
+          officer: "Harpreet Singh Grewal", phone: "+91 98140 33445", email: "pb.sales@shakambharigroup.com",
+          address: "Focal Point, Ludhiana - 141010"
+        },
+        {
+          id: "hr", name: "Haryana", code: "HR", left: "32.0%", top: "28.7%",
+          hubType: "NCR Infrastructure Depot", partner: "NCR Infra Steel Links",
+          officer: "Ritu Raj Yadav", phone: "+91 98120 55667", email: "haryana.sales@shakambharigroup.com",
+          address: "Udyog Vihar, Phase V, Gurugram - 122016"
+        },
+        {
+          id: "up", name: "Uttar Pradesh", code: "UP", left: "44.3%", top: "33.6%",
+          hubType: "Central Northern Logistics Hub", partner: "Awadh Steel & Structures",
+          officer: "Sanjay Srivastava", phone: "+91 94150 77889", email: "up.sales@shakambharigroup.com",
+          address: "Transport Nagar, Lucknow - 226012"
+        },
+        {
+          id: "hp", name: "Himachal Pradesh", code: "HP", left: "31.2%", top: "20.9%",
+          hubType: "Hill States Industrial Partner", partner: "Mountain Steel Logistics",
+          officer: "Sunil Thakur", phone: "+91 98160 88990", email: "hp.sales@shakambharigroup.com",
+          address: "Industrial Area, Baddi - 173205"
+        },
+        {
+          id: "jk", name: "Jammu & Kashmir", code: "JK", left: "25.1%", top: "15.5%",
+          hubType: "Northern Border Infrastructure Depot", partner: "Valley Infrastructure Metals",
+          officer: "Tariq Ahmad Shah", phone: "+91 94191 22334", email: "jk.sales@shakambharigroup.com",
+          address: "Gangyal Industrial Complex, Jammu - 180010"
+        },
+        {
+          id: "mn", name: "Manipur", code: "MN", left: "85.3%", top: "39.9%",
+          hubType: "Eastern Regional Depot", partner: "Manipur Steel Trade House",
+          officer: "N. Radheshyam Singh", phone: "+91 98620 11998", email: "manipur.sales@shakambharigroup.com",
+          address: "Thangal Bazar, Imphal - 795001"
+        },
+        {
+          id: "nl", name: "Nagaland", code: "NL", left: "84.6%", top: "36.5%",
+          hubType: "Hill Region Channel Partner", partner: "Naga Hills Metals Network",
+          officer: "Kevisezo Kense", phone: "+91 94360 22881", email: "nagaland.sales@shakambharigroup.com",
+          address: "Circular Road, Dimapur - 797112"
+        },
+        {
+          id: "ml", name: "Meghalaya", code: "ML", left: "78.8%", top: "37.6%",
+          hubType: "Sub-Himalayan Distribution", partner: "Khasi Hills Steel Agencies",
+          officer: "Banrap Lyngdoh", phone: "+91 94363 33445", email: "meghalaya.sales@shakambharigroup.com",
+          address: "Mawlai Phudmuri, Shillong - 793008"
+        },
+        {
+          id: "sk", name: "Sikkim", code: "SK", left: "68.5%", top: "32.1%",
+          hubType: "Mountain Projects Partner", partner: "Himalayan Steel Suppliers",
+          officer: "Tashi Bhutia", phone: "+91 94340 77112", email: "sikkim.sales@shakambharigroup.com",
+          address: "Deorali, Gangtok - 737102"
+        },
+        {
+          id: "mh", name: "Maharashtra", code: "MH", left: "19.6%", top: "57.8%",
+          hubType: "Western Commercial Hub", partner: "Western India Steel Corp.",
+          officer: "Nitin Deshmukh", phone: "+91 98200 44556", email: "mh.sales@shakambharigroup.com",
+          address: "Kalamboli Steel Market, Navi Mumbai - 410218"
+        },
+        {
+          id: "mp", name: "Madhya Pradesh", code: "MP", left: "28.3%", top: "46.4%",
+          hubType: "Central India Distribution Hub", partner: "Central India Steel Links",
+          officer: "Alok Sharma", phone: "+91 98260 66778", email: "mp.sales@shakambharigroup.com",
+          address: "Sanwer Road Industrial Area, Indore - 452015"
+        },
+        {
+          id: "gj", name: "Gujarat", code: "GJ", left: "17.9%", top: "45.5%",
+          hubType: "Industrial & Port Logistics Depot", partner: "Gujarat Heavy Steel Depot",
+          officer: "Chirag Patel", phone: "+91 98250 99112", email: "guj.sales@shakambharigroup.com",
+          address: "GIDC Naroda, Ahmedabad - 382330"
+        },
+        {
+          id: "tn", name: "Tamil Nadu", code: "TN", left: "41.8%", top: "76.1%",
+          hubType: "Southern Infrastructure Depot", partner: "Deccan Steel Partners",
+          officer: "K. Venkatesh", phone: "+91 98400 88221", email: "tn.sales@shakambharigroup.com",
+          address: "Ambattur Industrial Estate, Chennai - 600058"
+        }
+      ];
 
-    // 3. ACTIVE VENDOR SIDE CARD & QUICK LIST CONTROLLER
-    const cardStateName = document.getElementById('cardStateName');
-    const cardBadgeType = document.getElementById('cardBadgeType');
-    const cardPartnerName = document.getElementById('cardPartnerName');
-    const cardOfficer = document.getElementById('cardOfficer');
-    const cardAddress = document.getElementById('cardAddress');
-    const cardPhoneBtn = document.getElementById('cardPhoneBtn');
-    const cardEmailBtn = document.getElementById('cardEmailBtn');
-    const quickLocationList = document.getElementById('quickLocationList');
-    const mapSearchInput = document.getElementById('mapSearchInput');
+      // 3. ACTIVE VENDOR SIDE CARD & QUICK LIST CONTROLLER
+      const cardStateName = document.getElementById('cardStateName');
+      const cardBadgeType = document.getElementById('cardBadgeType');
+      const cardPartnerName = document.getElementById('cardPartnerName');
+      const cardOfficer = document.getElementById('cardOfficer');
+      const cardAddress = document.getElementById('cardAddress');
+      const cardPhoneBtn = document.getElementById('cardPhoneBtn');
+      const cardEmailBtn = document.getElementById('cardEmailBtn');
+      const mppBody = document.getElementById('mppBody');
+      const quickLocationList = document.getElementById('quickLocationList');
+      const mapSearchInput = document.getElementById('mapSearchInput');
 
-    let activeDataset = indiaStatesData;
+      let activeDataset = indiaStatesData;
 
-    function updateVendorCard(item) {
-      if (!item || !cardStateName) return;
-      cardStateName.innerHTML = `📍 ${item.name} <span class="pop-badge-type" id="cardBadgeType">${item.hubType || 'Regional Hub'}</span>`;
-      if (cardPartnerName) cardPartnerName.textContent = item.partner;
-      if (cardOfficer) cardOfficer.textContent = item.officer;
-      if (cardAddress) cardAddress.textContent = item.address;
+      // ── shared selection state machine ──
+      // "locked" = the last clicked/activated item per dataset (persists);
+      // hovering/focusing any marker, state shape or directory row shows a
+      // temporary "preview" that reverts to the locked item on mouse-leave.
+      // One set of functions drives markers, state-shape tinting, route
+      // brightening and the map "focus" zoom consistently no matter which
+      // of those four entry points triggered it.
+      // Nothing is locked by default — the panel shows an empty "hover a
+      // marker" hint until the user actually interacts with the map.
+      const lockedSelection = { india: null, world: null };
 
-      if (cardPhoneBtn) {
-        cardPhoneBtn.href = `tel:${item.phone.replace(/\s+/g, '')}`;
-        cardPhoneBtn.innerHTML = `📞 Call Officer`;
-      }
-      if (cardEmailBtn) {
-        cardEmailBtn.href = `mailto:${item.email}`;
-        cardEmailBtn.innerHTML = `✉️ Email Support`;
-      }
-    }
-
-    function renderQuickList(dataList, filterQuery = '') {
-      if (!quickLocationList) return;
-      quickLocationList.innerHTML = '';
-
-      const filtered = dataList.filter(item => {
-        if (!filterQuery) return true;
-        const q = filterQuery.toLowerCase();
-        return item.name.toLowerCase().includes(q) ||
-          item.partner.toLowerCase().includes(q) ||
-          item.code.toLowerCase().includes(q);
-      });
-
-      if (filtered.length === 0) {
-        quickLocationList.innerHTML = `<div style="font-size:0.75rem; color:#9C9A90; padding:0.4rem;">No matching locations found</div>`;
-        return;
+      function datasetKey(dataList) {
+        return dataList === worldCountriesData ? 'world' : 'india';
       }
 
-      filtered.forEach(item => {
-        const itemEl = document.createElement('div');
-        itemEl.className = 'quick-location-item' + (item.isHQ ? ' active' : '');
-        itemEl.dataset.id = item.id;
-        itemEl.innerHTML = `<span>${item.isHQ ? '⭐' : '📍'} <strong>${item.name}</strong></span> <span style="font-size:0.68rem; opacity:0.8;">${item.code}</span>`;
+      function pinLayerFor(dataList) {
+        return dataList === worldCountriesData ? worldPinsLayer : indiaPinsLayer;
+      }
 
-        itemEl.addEventListener('click', () => {
-          document.querySelectorAll('.quick-location-item').forEach(el => el.classList.remove('active'));
-          document.querySelectorAll('.map-pin.active').forEach(p => p.classList.remove('active'));
-          itemEl.classList.add('active');
+      function setIndiaHighlight(id) {
+        const statesGroup = document.querySelector('.states-group');
+        if (!statesGroup) return;
+        statesGroup.classList.toggle('has-active', !!id);
+        statesGroup.querySelectorAll('.state-shape').forEach((s) => {
+          s.classList.toggle('state-active', !!id && STATE_SLUG_TO_ID[s.dataset.state] === id);
+        });
+      }
 
-          const targetPin = document.querySelector(`.map-pin[data-id="${item.id}"]`);
-          if (targetPin) {
-            targetPin.classList.add('active');
+      function focusMapOnItem(item, dataList) {
+        if (!window.gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const viewport = dataList === worldCountriesData
+          ? document.getElementById('worldMapViewport')
+          : document.getElementById('indiaMapViewport');
+        if (!viewport) return;
+        gsap.to(viewport, {
+          duration: .7, ease: 'power3.out', overwrite: 'auto',
+          transformOrigin: `${item.left} ${item.top}`,
+          scale: 1.07
+        });
+      }
+
+      function scaleBeacon(pin, scale) {
+        if (!pin) return;
+        const beacon = pin.querySelector('.pin-beacon');
+        if (!beacon) return;
+        if (window.gsap) {
+          gsap.to(beacon, { scale, duration: .3, ease: scale > 1 ? 'back.out(2.5)' : 'power2.out', overwrite: 'auto' });
+        }
+      }
+
+      // preview = temporary highlight from hover/focus (map pin, state shape,
+      // or directory row) — updates the panel + routes + state tint, but
+      // does not disturb whichever item is actually locked-in via click.
+      //
+      // Every one of these three guards `dataList !== activeDataset` first:
+      // switching tabs can leave a pin in the now-hidden layer still
+      // focused (clicking the tab button itself steals focus from it),
+      // and that pin's own blur/mouseleave handler fires regardless of
+      // which tab is visible now — without the guard it would reach back
+      // into the inactive dataset's lockedSelection and stomp the panel
+      // content the tab switch had just set.
+      function previewItem(item, dataList) {
+        if (dataList !== activeDataset) return;
+        updateVendorCard(item);
+        const pin = pinLayerFor(dataList) && pinLayerFor(dataList).querySelector(`.map-pin[data-id="${item.id}"]`);
+        if (pin && !pin.classList.contains('active')) {
+          pin.classList.add('preview');
+          scaleBeacon(pin, 1.25);
+        }
+        if (dataList === indiaStatesData) setIndiaHighlight(item.id);
+      }
+
+      function clearPreview(item, dataList) {
+        if (dataList !== activeDataset) return;
+        const key = datasetKey(dataList);
+        const pin = pinLayerFor(dataList) && pinLayerFor(dataList).querySelector(`.map-pin[data-id="${item.id}"]`);
+        if (pin && !pin.classList.contains('active')) {
+          pin.classList.remove('preview');
+          scaleBeacon(pin, 1);
+        }
+        if (dataList === indiaStatesData) setIndiaHighlight(lockedSelection.india);
+
+        // details are hover-only — once the mouse leaves, fall back to
+        // whichever item is actually locked in (or the empty hint if none is)
+        const lockedId = lockedSelection[key];
+        const lockedItem = lockedId ? dataList.find(d => d.id === lockedId) : null;
+        updateVendorCard(lockedItem);
+      }
+
+      // lock = a real click/activation (marker, state shape or directory
+      // row) — persists until a different item is locked.
+      function lockItem(item, dataList) {
+        if (dataList !== activeDataset) return;
+        const key = datasetKey(dataList);
+        lockedSelection[key] = item.id;
+
+        const layer = pinLayerFor(dataList);
+        if (layer) {
+          layer.querySelectorAll('.map-pin').forEach((p) => {
+            p.classList.remove('preview');
+            p.classList.toggle('active', p.dataset.id === item.id);
+            scaleBeacon(p, 1);
+          });
+        }
+        document.querySelectorAll('.quick-location-item').forEach((el) => {
+          el.classList.toggle('active', el.dataset.id === item.id);
+        });
+
+        if (dataList === indiaStatesData) setIndiaHighlight(item.id);
+        updateVendorCard(item);
+        focusMapOnItem(item, dataList);
+      }
+
+      // bumped on every call so a stale, still-in-flight crossfade from an
+      // earlier call (e.g. mouseleave immediately followed by a click or a
+      // tab switch) can never overwrite a newer call's content once it
+      // finally resolves — only the most recent call is allowed to render.
+      let vendorCardToken = 0;
+
+      function updateVendorCard(item) {
+        if (!cardStateName) return;
+        const myToken = ++vendorCardToken;
+
+        document.querySelectorAll('.mp-route[data-target], .mp-route-particle[data-target]').forEach(r => {
+          r.classList.toggle('is-active-route', !!item && r.dataset.target === item.id);
+        });
+
+        const applyContent = () => {
+          if (myToken !== vendorCardToken) return;
+          if (item) {
+            cardStateName.innerHTML = `📍 ${item.name} <span class="mpp-hq-badge" id="cardBadgeType">${item.hubType || 'Regional Hub'}</span>`;
+            if (cardPartnerName) cardPartnerName.textContent = item.partner;
+            if (cardOfficer) cardOfficer.textContent = item.officer;
+            if (cardAddress) cardAddress.textContent = item.address;
+            if (cardPhoneBtn) cardPhoneBtn.href = `tel:${item.phone.replace(/\s+/g, '')}`;
+            if (cardEmailBtn) cardEmailBtn.href = `mailto:${item.email}`;
+            if (mppBody) mppBody.classList.remove('is-empty');
+          } else {
+            cardStateName.innerHTML = `<span class="mpp-empty-icon" aria-hidden="true">🗺️</span> Hover a Marker`;
+            if (cardPartnerName) cardPartnerName.textContent = '';
+            if (mppBody) mppBody.classList.add('is-empty');
           }
-          updateVendorCard(item);
+        };
+
+        // Premium state-change transition: blur/slide the current info out,
+        // swap the content, then slide/blur the new info back in.
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const targets = [document.querySelector('.mpp-header'), document.getElementById('mppBody')].filter(Boolean);
+
+        if (window.gsap && targets.length && !reduceMotion) {
+          // explicitly kill any tween left over from a still-in-flight call
+          // (e.g. a rapid hover -> click -> tab-switch sequence) rather than
+          // relying solely on overwrite:'auto', which only overwrites the
+          // *next* tween created — a callback already queued by an in-flight
+          // tween (like the fade-in this fade-out's own onComplete is about
+          // to start) can otherwise still land after this one.
+          gsap.killTweensOf(targets);
+          gsap.to(targets, {
+            opacity: 0, y: -10, filter: 'blur(6px)', duration: .18, ease: 'power2.in',
+            onComplete: () => {
+              applyContent();
+              gsap.fromTo(targets,
+                { opacity: 0, y: 14, filter: 'blur(6px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', duration: .45, ease: 'power3.out', clearProps: 'filter' }
+              );
+            }
+          });
+        } else {
+          applyContent();
+        }
+      }
+
+      function renderQuickList(dataList, filterQuery = '') {
+        if (!quickLocationList) return;
+        quickLocationList.innerHTML = '';
+
+        const filtered = dataList.filter(item => {
+          if (!filterQuery) return true;
+          const q = filterQuery.toLowerCase();
+          return item.name.toLowerCase().includes(q) ||
+            item.partner.toLowerCase().includes(q) ||
+            item.code.toLowerCase().includes(q);
         });
 
-        quickLocationList.appendChild(itemEl);
-      });
-    }
-
-    if (mapSearchInput) {
-      mapSearchInput.addEventListener('input', (e) => {
-        renderQuickList(activeDataset, e.target.value.trim());
-      });
-    }
-
-    // 4. RENDER MAP OVERLAY PINS
-    function renderPins(dataList, containerEl) {
-      if (!containerEl) return;
-      containerEl.innerHTML = '';
-
-      dataList.forEach(item => {
-        const pin = document.createElement('div');
-        pin.className = 'map-pin' + (item.isHQ ? ' is-hq' : '');
-        pin.style.left = item.left;
-        pin.style.top = item.top;
-        pin.dataset.id = item.id;
-
-        const topVal = parseFloat(item.top);
-        const leftVal = parseFloat(item.left);
-
-        let popoverClasses = 'pin-popover';
-        if (topVal < 26) {
-          popoverClasses += ' popover-below';
-        }
-        if (leftVal > 76) {
-          popoverClasses += ' popover-left';
+        if (filtered.length === 0) {
+          quickLocationList.innerHTML = `<div class="mpp-empty">No matching locations found</div>`;
+          return;
         }
 
-        pin.innerHTML = `
-          <div class="pin-beacon">
-            <div class="pin-pulse"></div>
-            <div class="pin-core"></div>
-          </div>
-          <div class="pin-tag">${item.code}</div>
-          <div class="${popoverClasses}">
-            <div class="pop-state">
-              <span>📍 ${item.name}</span>
-              <span class="pop-badge-type">${item.hubType || 'Regional Hub'}</span>
+        filtered.forEach(item => {
+          const itemEl = document.createElement('div');
+          const isLocked = item.id === lockedSelection[datasetKey(dataList)];
+          itemEl.className = 'quick-location-item' + (isLocked ? ' active' : '');
+          itemEl.dataset.id = item.id;
+          itemEl.setAttribute('role', 'button');
+          itemEl.setAttribute('tabindex', '0');
+          itemEl.setAttribute('aria-label', `${item.name} (${item.code}) — view depot details`);
+          itemEl.innerHTML = `<span class="ql-indicator" aria-hidden="true"></span><span class="ql-icon" aria-hidden="true">${item.isHQ ? '⭐' : '📍'}</span><span class="ql-name">${item.name}</span><span class="ql-code">${item.code}</span>`;
+
+          // hover/focus previews the marker + state tint without disturbing
+          // whichever item is actually locked in; click/Enter locks it in —
+          // "trigger exactly the same interaction as clicking the marker".
+          itemEl.addEventListener('mouseenter', () => previewItem(item, dataList));
+          itemEl.addEventListener('mouseleave', () => clearPreview(item, dataList));
+          itemEl.addEventListener('focus', () => previewItem(item, dataList));
+          itemEl.addEventListener('blur', () => clearPreview(item, dataList));
+
+          const activate = () => lockItem(item, dataList);
+
+          itemEl.addEventListener('click', activate);
+          itemEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              activate();
+            }
+          });
+
+          quickLocationList.appendChild(itemEl);
+        });
+      }
+
+      if (mapSearchInput) {
+        mapSearchInput.addEventListener('input', (e) => {
+          const query = e.target.value.trim();
+          renderQuickList(activeDataset, query);
+          applySearchDim(activeDataset, query);
+        });
+      }
+
+      // dim markers that don't match the live search query; when exactly
+      // one remains, automatically select it ("focus on the selected result")
+      function applySearchDim(dataList, query) {
+        const layer = pinLayerFor(dataList);
+        if (!layer) return;
+        const q = query.toLowerCase();
+        const pins = Array.from(layer.querySelectorAll('.map-pin'));
+
+        if (!q) {
+          pins.forEach(p => p.classList.remove('search-dim'));
+          return;
+        }
+
+        const matches = [];
+        pins.forEach(p => {
+          const item = dataList.find(d => d.id === p.dataset.id);
+          const isMatch = item && (
+            item.name.toLowerCase().includes(q) ||
+            item.partner.toLowerCase().includes(q) ||
+            item.code.toLowerCase().includes(q)
+          );
+          p.classList.toggle('search-dim', !isMatch);
+          if (isMatch) matches.push(item);
+        });
+
+        if (matches.length === 1) lockItem(matches[0], dataList);
+      }
+
+      // 4. RENDER MAP OVERLAY PINS
+      function renderPins(dataList, containerEl) {
+        if (!containerEl) return;
+        containerEl.innerHTML = '';
+
+        dataList.forEach(item => {
+          const pin = document.createElement('div');
+          const isLocked = item.id === lockedSelection[datasetKey(dataList)];
+          pin.className = 'map-pin' + (item.isHQ ? ' is-hq' : '') + (isLocked ? ' active' : '');
+          pin.style.left = item.left;
+          pin.style.top = item.top;
+          pin.dataset.id = item.id;
+          pin.setAttribute('role', 'button');
+          pin.setAttribute('tabindex', '0');
+          pin.setAttribute('aria-label', `${item.name} — ${item.hubType || 'Regional Hub'}. Press Enter to view details.`);
+
+          // independent animation timing per marker so the map "breathes"
+          // organically rather than every beacon pulsing in lockstep
+          pin.style.setProperty('--breathe-dur', (2.6 + Math.random() * 1.6).toFixed(2) + 's');
+          pin.style.setProperty('--breathe-delay', (Math.random() * 2).toFixed(2) + 's');
+          pin.style.setProperty('--pulse-jitter', (Math.random() * 1.4).toFixed(2) + 's');
+
+          const topVal = parseFloat(item.top);
+          const leftVal = parseFloat(item.left);
+
+          let popoverClasses = 'pin-popover';
+          if (topVal < 26) {
+            popoverClasses += ' popover-below';
+          }
+          if (leftVal > 76) {
+            popoverClasses += ' popover-left';
+          }
+
+          pin.innerHTML = `
+            <div class="pin-beacon">
+              <div class="pin-pulse"></div>
+              <div class="pin-ripple"></div>
+              <div class="pin-core"></div>
             </div>
-            <div class="pop-vendor">${item.partner}</div>
-            <div class="pop-detail-line">👤 <strong>Officer:</strong> ${item.officer}</div>
-            <div class="pop-detail-line">📞 <strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></div>
-            <div class="pop-detail-line">✉️ <strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></div>
-            <div class="pop-detail-line" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:0.35rem; margin-top:0.35rem;">🏬 <strong>Hub:</strong> ${item.address}</div>
-          </div>
-        `;
+            <div class="pin-tag">${item.code}</div>
+            <div class="${popoverClasses}">
+              <div class="pop-state">
+                <span>📍 ${item.name}</span>
+                <span class="pop-badge-type">${item.hubType || 'Regional Hub'}</span>
+              </div>
+              <div class="pop-vendor">${item.partner}</div>
+              <div class="pop-detail-line">👤 <strong>Officer:</strong> ${item.officer}</div>
+              <div class="pop-detail-line">📞 <strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></div>
+              <div class="pop-detail-line">✉️ <strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></div>
+              <div class="pop-detail-line" style="border-top:1px solid var(--border); padding-top:0.35rem; margin-top:0.35rem;">🏬 <strong>Hub:</strong> ${item.address}</div>
+              <div class="pop-icons" aria-hidden="true" title="Rail · Manufacturing · Power Grid">🚂 🏭 ⚡</div>
+              <div class="pop-cta">Click to view details →</div>
+            </div>
+          `;
 
-        pin.addEventListener('mouseenter', () => {
-          updateVendorCard(item);
-        });
+          pin.addEventListener('mouseenter', () => previewItem(item, dataList));
+          pin.addEventListener('mouseleave', () => clearPreview(item, dataList));
+          pin.addEventListener('focus', () => previewItem(item, dataList));
+          pin.addEventListener('blur', () => clearPreview(item, dataList));
 
-        pin.addEventListener('click', (e) => {
-          e.stopPropagation();
-          document.querySelectorAll('.map-pin.active').forEach(p => {
-            if (p !== pin) p.classList.remove('active');
+          pin.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lockItem(item, dataList);
           });
-          pin.classList.toggle('active');
-          updateVendorCard(item);
 
-          document.querySelectorAll('.quick-location-item').forEach(el => {
-            if (el.dataset.id === item.id) el.classList.add('active');
-            else el.classList.remove('active');
+          pin.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              lockItem(item, dataList);
+            } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+              e.preventDefault();
+              const pins = Array.from(containerEl.querySelectorAll('.map-pin'));
+              const idx = pins.indexOf(pin);
+              const dir = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : -1;
+              const next = pins[(idx + dir + pins.length) % pins.length];
+              if (next) next.focus();
+            }
           });
+
+          containerEl.appendChild(pin);
         });
+      }
 
-        containerEl.appendChild(pin);
-      });
+      const worldPinsLayer = document.getElementById('worldPinsLayer');
+      const indiaPinsLayer = document.getElementById('pinsLayer');
+      renderPins(worldCountriesData, worldPinsLayer);
+      renderPins(indiaStatesData, indiaPinsLayer);
+      renderQuickList(indiaStatesData);
 
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.map-pin') && !e.target.closest('.quick-location-item')) {
-          document.querySelectorAll('.map-pin.active').forEach(p => p.classList.remove('active'));
+      // 5. STATE / COUNTRY SHAPE HOVER: native tooltip with the region's
+      // name (India's <path> shapes have no <title>, unlike the world
+      // map's) + sync the info panel & active pin when a shape maps to a
+      // known depot, so the whole colored region is interactive, not just
+      // the small pin dot inside it.
+      const STATE_SLUG_TO_ID = {
+        'west-bengal': 'wb', 'bihar': 'br', 'jharkhand': 'jh', 'odisha': 'od', 'rajasthan': 'rj',
+        'assam': 'as', 'tripura': 'tp', 'punjab': 'pb', 'haryana': 'hr', 'uttar-pradesh': 'up',
+        'himachal-pradesh': 'hp', 'jammu-and-kashmir': 'jk', 'manipur': 'mn', 'nagaland': 'nl',
+        'meghalaya': 'ml', 'sikkim': 'sk', 'maharashtra': 'mh', 'madhya-pradesh': 'mp',
+        'gujarat': 'gj', 'tamil-nadu': 'tn'
+      };
+
+      function slugToStateName(slug) {
+        return slug.split('-').map(w => w === 'and' ? 'and' : w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      }
+
+      document.querySelectorAll('.state-shape[data-state]').forEach((shape) => {
+        const slug = shape.dataset.state;
+        const titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        titleEl.textContent = slugToStateName(slug);
+        shape.insertBefore(titleEl, shape.firstChild);
+
+        const id = STATE_SLUG_TO_ID[slug];
+        if (id) {
+          shape.addEventListener('mouseenter', () => {
+            const item = indiaStatesData.find(s => s.id === id);
+            if (item) previewItem(item, indiaStatesData);
+          });
+          shape.addEventListener('mouseleave', () => {
+            const item = indiaStatesData.find(s => s.id === id);
+            if (item) clearPreview(item, indiaStatesData);
+          });
+          shape.addEventListener('click', () => {
+            const item = indiaStatesData.find(s => s.id === id);
+            if (item) lockItem(item, indiaStatesData);
+          });
         }
       });
-    }
 
-    const worldPinsLayer = document.getElementById('worldPinsLayer');
-    const indiaPinsLayer = document.getElementById('pinsLayer');
-    renderPins(worldCountriesData, worldPinsLayer);
-    renderPins(indiaStatesData, indiaPinsLayer);
-    renderQuickList(indiaStatesData);
+      const tabWorldBtn = document.getElementById('tabWorldBtn');
+      const tabIndiaBtn = document.getElementById('tabIndiaBtn');
+      const worldMapWrap = document.getElementById('worldMapWrap');
+      const indiaMapWrap = document.getElementById('indiaMapWrap');
 
-    const tabWorldBtn = document.getElementById('tabWorldBtn');
-    const tabIndiaBtn = document.getElementById('tabIndiaBtn');
-    const worldMapWrap = document.getElementById('worldMapWrap');
-    const indiaMapWrap = document.getElementById('indiaMapWrap');
+      if (tabWorldBtn && tabIndiaBtn) {
+        tabWorldBtn.addEventListener('click', () => {
+          tabWorldBtn.classList.add('active');
+          tabIndiaBtn.classList.remove('active');
+          if (window.mpSwitchMapTab) window.mpSwitchMapTab(worldMapWrap, indiaMapWrap);
+          else { worldMapWrap.style.display = 'block'; indiaMapWrap.style.display = 'none'; }
+          activeDataset = worldCountriesData;
+          renderQuickList(worldCountriesData);
+          const current = lockedSelection.world ? worldCountriesData.find(d => d.id === lockedSelection.world) : null;
+          updateVendorCard(current);
+        });
 
-    if (tabWorldBtn && tabIndiaBtn) {
-      tabWorldBtn.addEventListener('click', () => {
-        tabWorldBtn.classList.add('active');
-        tabIndiaBtn.classList.remove('active');
-        worldMapWrap.style.display = 'block';
-        indiaMapWrap.style.display = 'none';
-        activeDataset = worldCountriesData;
-        renderQuickList(worldCountriesData);
-        if (worldCountriesData.length > 0) updateVendorCard(worldCountriesData[0]);
-      });
-
-      tabIndiaBtn.addEventListener('click', () => {
-        tabIndiaBtn.classList.add('active');
-        tabWorldBtn.classList.remove('active');
-        indiaMapWrap.style.display = 'block';
-        worldMapWrap.style.display = 'none';
-        activeDataset = indiaStatesData;
-        renderQuickList(indiaStatesData);
-        if (indiaStatesData.length > 0) updateVendorCard(indiaStatesData[0]);
-      });
-    }
-  })();
-</script>
+        tabIndiaBtn.addEventListener('click', () => {
+          tabIndiaBtn.classList.add('active');
+          tabWorldBtn.classList.remove('active');
+          if (window.mpSwitchMapTab) window.mpSwitchMapTab(indiaMapWrap, worldMapWrap);
+          else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
+          activeDataset = indiaStatesData;
+          renderQuickList(indiaStatesData);
+          const current = lockedSelection.india ? indiaStatesData.find(d => d.id === lockedSelection.india) : null;
+          updateVendorCard(current);
+          setIndiaHighlight(lockedSelection.india);
+        });
+      }
+    })();
+  </script>
 <script>
   (function () {
     const options = document.querySelectorAll('.reach-option');
@@ -1979,5 +1662,8 @@
     });
   })();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="market-presence-panel.js"></script>
+<script src="market-presence-map.js"></script>
 </body>
 </html>
