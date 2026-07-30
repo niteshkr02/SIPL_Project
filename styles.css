@@ -221,33 +221,6 @@ a{ color:inherit; }
 .btn-ghost{ color:var(--ink); border:1.5px solid var(--border); background:var(--surface); }
 .btn-ghost:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-3px); }
 
-/* ══ LOGO WALL / TRUST STRIP ══ */
-.trust-strip{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
-  gap:14px;
-  background:transparent;
-  border:none;
-  border-radius:14px;
-  overflow:visible;
-  margin-top:1.5rem;
-}
-.trust-chip{
-  display:flex; align-items:center; justify-content:center;
-  min-height:95px; height:95px;
-  padding:.75rem 1.1rem;
-  text-align:center;
-  background:rgba(255,255,255,.96); color:var(--ink-soft);
-  border:1.5px solid rgba(255,255,255,.85);
-  border-radius:12px;
-  box-shadow:0 4px 18px rgba(0,0,0,.06);
-  overflow:hidden;
-  transition:all .3s cubic-bezier(.16,.84,.44,1);
-}
-.trust-chip:hover{ background:#FFFFFF; border-color:var(--accent); box-shadow:0 12px 30px rgba(255,106,31,.25); transform:translateY(-4px); }
-.trust-chip img{ max-width:92%; max-height:72px; width:auto; height:auto; object-fit:contain; transform:scale(1.22); filter:contrast(105%); transition:all .3s cubic-bezier(.16,.84,.44,1); }
-.trust-chip:hover img{ transform:scale(1.35); filter:contrast(115%); }
-
 /* ══ STAT BAND ══ */
 .stat-band{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
 @media(max-width:860px){ .stat-band{ grid-template-columns:repeat(2,1fr); } }

@@ -314,6 +314,17 @@
   margin-bottom: 1.25rem;
 }
 
+/* <picture> is the actual flex child here (not the <img>), and its own
+   box can resolve wider than the rendered image; centering it directly
+   keeps the badge/certificate centered instead of drifting to the left. */
+.awx-frame picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 /* soft spotlight behind the image */
 .awx-frame::before {
   content: '';
