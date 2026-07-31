@@ -21,7 +21,6 @@
   --accent: #FF6A1F;
   --accent-hot: #FFC24B;
   --accent-deep: #E23B1F;
-  --accent-green: #7CB86B;
   position: relative;
   min-height: clamp(640px, 92vh, 940px);
   display: flex;
@@ -32,7 +31,7 @@
   padding: calc(var(--nav-h) + 3rem) 1.5rem 3rem;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 112%, rgba(124, 184, 107, .28), transparent 55%),
+    radial-gradient(ellipse at 50% 112%, rgba(255, 106, 31, .28), transparent 55%),
     radial-gradient(ellipse at 50% 130%, rgba(255, 194, 75, .16), transparent 45%),
     var(--bg);
 }
@@ -43,7 +42,7 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: radial-gradient(circle 320px at var(--mx, 50%) var(--my, 38%), rgba(124, 184, 107, .16), transparent 70%);
+  background: radial-gradient(circle 320px at var(--mx, 50%) var(--my, 38%), rgba(255, 194, 75, .16), transparent 70%);
   opacity: 0;
   transition: opacity .6s ease;
   pointer-events: none;
@@ -76,8 +75,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(90deg, rgba(124, 184, 107, .5) 0, rgba(124, 184, 107, .5) 1px, transparent 1px, transparent 21px),
-    repeating-linear-gradient(0deg, rgba(124, 184, 107, .5) 0, rgba(124, 184, 107, .5) 1px, transparent 1px, transparent 21px);
+    repeating-linear-gradient(90deg, rgba(255, 194, 75, .5) 0, rgba(255, 194, 75, .5) 1px, transparent 1px, transparent 21px),
+    repeating-linear-gradient(0deg, rgba(255, 194, 75, .5) 0, rgba(255, 194, 75, .5) 1px, transparent 1px, transparent 21px);
   opacity: .025;
   mask-image: radial-gradient(ellipse 60% 55% at 50% 42%, #000 20%, transparent 85%);
   -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 42%, #000 20%, transparent 85%);
@@ -103,7 +102,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 105%, rgba(124, 184, 107, .5), transparent 42%),
+    radial-gradient(circle at 50% 105%, rgba(255, 106, 31, .5), transparent 42%),
     radial-gradient(circle at 22% 92%, rgba(255, 194, 75, .28), transparent 38%),
     radial-gradient(circle at 78% 96%, rgba(255, 106, 31, .3), transparent 40%);
   filter: blur(8px);
@@ -137,13 +136,13 @@
   background:
     conic-gradient(from 250deg at 50% 100%,
       transparent 0deg,
-      rgba(124, 184, 107, .06) 8deg,
+      rgba(255, 106, 31, .06) 8deg,
       transparent 16deg,
       transparent 42deg,
       rgba(255, 194, 75, .045) 52deg,
       transparent 62deg,
       transparent 102deg,
-      rgba(124, 184, 107, .04) 110deg,
+      rgba(255, 106, 31, .04) 110deg,
       transparent 120deg);
   animation: sushRaysSway 18s ease-in-out infinite;
   mix-blend-mode: screen;
@@ -185,7 +184,7 @@
 
 .sush-art {
   position: absolute;
-  stroke: var(--accent-green);
+  stroke: var(--accent);
   fill: none;
   stroke-width: 1;
   opacity: .12;
@@ -229,7 +228,7 @@
   transform: translate(-50%, -50%);
   opacity: .045;
   stroke: none;
-  fill: url(#greenGrad);
+  fill: url(#emberGrad);
 }
 
 @keyframes sushArtFloat {
@@ -258,8 +257,8 @@
   width: var(--ps, 3px);
   height: var(--ps, 3px);
   border-radius: 50%;
-  background: var(--pc, var(--accent-green));
-  box-shadow: 0 0 6px 1px var(--pc, var(--accent-green));
+  background: var(--pc, var(--accent-hot));
+  box-shadow: 0 0 6px 1px var(--pc, var(--accent-hot));
   opacity: 0;
   animation: sushParticleDrift var(--pd, 12s) ease-in var(--pdelay, 0s) infinite;
 }
@@ -312,16 +311,16 @@
   align-items: center;
   gap: .6rem;
   padding: .55rem 1.2rem;
-  border: 1px solid rgba(124, 184, 107, .4);
+  border: 1px solid rgba(255, 194, 75, .4);
   border-radius: 2rem;
-  background: rgba(124, 184, 107, .08);
+  background: rgba(255, 194, 75, .08);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   font-family: var(--font-mono);
   font-size: .72rem;
   font-weight: 700;
   letter-spacing: .3em;
-  color: var(--accent-green);
+  color: var(--accent-hot);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
 }
 
@@ -329,8 +328,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-green);
-  box-shadow: 0 0 8px 2px var(--accent-green);
+  background: var(--accent-hot);
+  box-shadow: 0 0 8px 2px var(--accent-hot);
   flex-shrink: 0;
   animation: sushDotPulse 1.8s ease-in-out infinite;
 }
@@ -339,12 +338,12 @@
 
   0%,
   100% {
-    box-shadow: 0 0 14px 4px var(--accent-green);
+    box-shadow: 0 0 14px 4px var(--accent-hot);
     opacity: 1;
   }
 
   50% {
-    box-shadow: 0 0 20px 8px var(--accent-green);
+    box-shadow: 0 0 20px 8px var(--accent-hot);
     opacity: .7;
   }
 }
@@ -369,13 +368,13 @@
 }
 
 .sush-heading .grad {
-  background: linear-gradient(100deg, var(--accent-green), var(--accent-hot) 60%, var(--accent));
+  background: linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   background-size: 200% 100%;
   animation: sushGradShift 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(124, 184, 107, .3));
+  filter: drop-shadow(0 0 10px rgba(255, 194, 75, .3));
 }
 
 @keyframes sushGradShift {
@@ -420,7 +419,7 @@
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(1.4rem, 2.4vw, 1.85rem);
-  color: var(--accent-green);
+  color: var(--accent-hot);
   line-height: 1;
   letter-spacing: -.01em;
 }
@@ -460,14 +459,14 @@
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(135deg, var(--accent-green), var(--accent-hot));
+  background: linear-gradient(135deg, var(--accent), var(--accent-hot));
   border: 1px solid rgba(255, 255, 255, .25);
-  box-shadow: 0 10px 26px rgba(124, 184, 107, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
+  box-shadow: 0 10px 26px rgba(255, 106, 31, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
   transition: box-shadow .35s ease;
 }
 
 .sush-cta:hover {
-  box-shadow: 0 16px 36px rgba(124, 184, 107, .5), inset 0 1px 0 rgba(255, 255, 255, .35);
+  box-shadow: 0 16px 36px rgba(255, 106, 31, .5), inset 0 1px 0 rgba(255, 255, 255, .35);
 }
 
 .sush-cta-shine {
