@@ -320,8 +320,8 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
 
 .fc-node{ cursor:pointer; outline:none; }
-.fc-node rect:first-child{ transition:filter .2s ease, transform .2s ease; transform-box:fill-box; transform-origin:center; }
-.fc-node:hover rect:first-child, .fc-node:focus-visible rect:first-child{ filter:brightness(1.1); transform:scale(1.015); }
+.fc-node rect:first-child{ transition:filter .25s cubic-bezier(.16,.84,.44,1), transform .25s cubic-bezier(.16,.84,.44,1); transform-box:fill-box; transform-origin:center; }
+.fc-node:hover rect:first-child, .fc-node:focus-visible rect:first-child{ filter:brightness(1.12); transform:scale(1.05); }
 .fc-node:focus-visible rect:first-child{ stroke-dasharray:6 3; }
 .fc-legend{ display:flex; gap:1.4rem; justify-content:center; align-items:center; margin-top:1.2rem; flex-wrap:wrap; }
 .fc-legend-item{ display:flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.05em; color:var(--ink-soft); }
@@ -331,36 +331,29 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
 
 /* ══ SPEC MODAL ══ */
-.spec-modal-overlay{
-  position:fixed; inset:0; z-index:3000; display:none;
-  background:rgba(10,11,14,.72); backdrop-filter:blur(3px);
-  align-items:center; justify-content:center; padding:1.5rem;
+/* ══ HOVER SPEC CARD (replaces click modal) ══ */
+.spec-hovercard{
+  position:fixed; z-index:3000; width:300px; max-width:88vw;
+  background:var(--surface); border-radius:1rem; overflow:hidden;
+  box-shadow:0 24px 60px rgba(20,22,28,.28), 0 0 0 1px rgba(20,22,28,.06);
+  opacity:0; transform:scale(.92) translateY(6px);
+  transform-origin:var(--hc-origin-x,50%) var(--hc-origin-y,100%);
+  pointer-events:none;
+  transition:opacity .2s cubic-bezier(.16,.84,.44,1), transform .28s cubic-bezier(.16,.84,.44,1);
 }
-.spec-modal-overlay.open{ display:flex; }
-.spec-modal{
-  background:var(--surface); border-radius:1.2rem; max-width:560px; width:100%;
-  max-height:85vh; overflow-y:auto; position:relative;
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
+.spec-hovercard.visible{ opacity:1; transform:scale(1) translateY(0); }
+.spec-hovercard-img{ width:100%; height:140px; object-fit:cover; display:block; background:#DDE1E6; }
+.spec-hovercard-body{ padding:1.3rem 1.4rem; }
+.spec-hovercard-badge{
+  display:inline-block; font-family:var(--font-mono); font-size:.65rem; font-weight:700; letter-spacing:.08em;
+  padding:.28rem .6rem; border-radius:.4rem; color:#fff; margin-bottom:.7rem;
 }
-.spec-modal-img{ width:100%; height:220px; object-fit:cover; display:block; border-radius:1.2rem 1.2rem 0 0; background:#DDE1E6; }
-.spec-modal-body{ padding:2rem; }
-.spec-modal-badge{
-  display:inline-block; font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.1em;
-  padding:.3rem .7rem; border-radius:.4rem; color:#fff; margin-bottom:.9rem;
-}
-.spec-modal-badge.machine{ background:#1D4E7A; }
-.spec-modal-badge.product{ background:#8A5A15; }
-.spec-modal h3{ font-size:1.5rem; margin-bottom:.8rem; }
-.spec-modal p{ color:var(--ink-soft); font-size:.96rem; line-height:1.6; margin-bottom:1.2rem; }
-.spec-modal-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
-.spec-modal-close{
-  position:absolute; top:1rem; right:1rem; z-index:1;
-  width:36px; height:36px; border-radius:50%; border:none; cursor:pointer;
-  background:rgba(10,11,14,.55); color:#fff; font-size:1.1rem; line-height:1;
-  display:flex; align-items:center; justify-content:center;
-  transition:background .2s ease;
-}
-.spec-modal-close:hover{ background:rgba(10,11,14,.8); }
+.spec-hovercard-badge.machine{ background:#1D4E7A; }
+.spec-hovercard-badge.product{ background:#8A5A15; }
+.spec-hovercard h4{ font-size:1.12rem; margin-bottom:.5rem; font-family:var(--font-display); text-transform:none; }
+.spec-hovercard p{ color:var(--ink-soft); font-size:.86rem; line-height:1.55; margin-bottom:.8rem; }
+.spec-hovercard-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.spec-hovercard-tags .chip{ font-size:.68rem; padding:.28rem .55rem; }
 
 /* ══ ISOMETRIC CAMPUS LAYOUT ══ */
 .iso-campus-frame{
@@ -590,7 +583,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       <div class="fc-legend">
         <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
         <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
-        <span class="fc-legend-hint">— click any box for details</span>
+        <span class="fc-legend-hint">— hover over any box for details</span>
       </div>
     </div>
     <div class="flowchart-viewport">
@@ -770,7 +763,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     <div class="fc-legend">
       <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
       <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
-      <span class="fc-legend-hint">— click any box for details</span>
+      <span class="fc-legend-hint">— hover over any box for details</span>
     </div>
   </div>
   <div class="iso-campus-frame reveal">
@@ -1316,17 +1309,14 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </div>
 </footer>
 
-<!-- SPEC MODAL -->
-<div class="spec-modal-overlay" id="specModalOverlay">
-  <div class="spec-modal" role="dialog" aria-modal="true" aria-labelledby="specModalTitle">
-    <button class="spec-modal-close" id="specModalClose" aria-label="Close">✕</button>
-    <img class="spec-modal-img" id="specModalImg" alt="" style="display:none;">
-    <div class="spec-modal-body">
-      <span class="spec-modal-badge" id="specModalBadge"></span>
-      <h3 id="specModalTitle"></h3>
-      <p id="specModalDesc"></p>
-      <div class="spec-modal-tags" id="specModalTags"></div>
-    </div>
+<!-- SPEC HOVER CARD -->
+<div class="spec-hovercard" id="specHoverCard" role="tooltip">
+  <img class="spec-hovercard-img" id="hcImg" alt="" style="display:none;">
+  <div class="spec-hovercard-body">
+    <span class="spec-hovercard-badge" id="hcBadge"></span>
+    <h4 id="hcTitle"></h4>
+    <p id="hcDesc"></p>
+    <div class="spec-hovercard-tags" id="hcTags"></div>
   </div>
 </div>
 
@@ -1519,18 +1509,19 @@ if(!reduceMotion){ initParticles(); tick(); }
     },
     'tmt-bars': {
       category: 'product', title: 'TMT Bars',
-      img: 'images/QST_TMT_Bars.png',
+      img: 'images/elegant_qst_bar.jpeg',
       desc: 'Thermomechanically treated reinforcement bars for RCC construction, marketed as Elegant Steel / QST TMT Bars — quenched and self-tempered via our TEMPCORE system.',
       tags: ['6–32mm', 'Fe 500D / 550D / CRS', 'ISI 1786:2008']
     },
     'strips': {
       category: 'product', title: 'Narrow Strips (Hot Rolled)',
+      img: 'images/hot strip coils.jpeg',
       desc: 'Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills — the raw material other builders build with.',
       tags: ['Semi-Finished', 'Pipe Manufacturing Feed']
     },
     'structural-steel': {
       category: 'product', title: 'Structural Steel',
-      img: 'images/Structural_Steel.png',
+      img: 'images/Structural steel.jpeg',
       desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
       tags: ['Elegant', 'Elecart']
     },
@@ -1570,38 +1561,81 @@ if(!reduceMotion){ initParticles(); tick(); }
     }
   };
 
-  const overlay = document.getElementById('specModalOverlay');
-  const imgEl = document.getElementById('specModalImg');
-  const badgeEl = document.getElementById('specModalBadge');
-  const titleEl = document.getElementById('specModalTitle');
-  const descEl = document.getElementById('specModalDesc');
-  const tagsEl = document.getElementById('specModalTags');
-  const closeBtn = document.getElementById('specModalClose');
-  if(!overlay) return;
+  const card = document.getElementById('specHoverCard');
+  const imgEl = document.getElementById('hcImg');
+  const badgeEl = document.getElementById('hcBadge');
+  const titleEl = document.getElementById('hcTitle');
+  const descEl = document.getElementById('hcDesc');
+  const tagsEl = document.getElementById('hcTags');
+  if(!card) return;
 
-  function openModal(id){
-    const d = specData[id];
-    if(!d) return;
+  let currentNode = null;
+  let hideTimer = null;
+
+  function render(d){
     if(d.img){ imgEl.src = d.img; imgEl.alt = d.title; imgEl.style.display = 'block'; }
     else { imgEl.style.display = 'none'; imgEl.removeAttribute('src'); }
     badgeEl.textContent = d.category === 'machine' ? 'MACHINE / DIVISION' : 'MATERIAL / PRODUCT';
-    badgeEl.className = 'spec-modal-badge ' + d.category;
+    badgeEl.className = 'spec-hovercard-badge ' + d.category;
     titleEl.textContent = d.title;
     descEl.textContent = d.desc;
     tagsEl.innerHTML = (d.tags || []).map(t => `<span class="chip">${t}</span>`).join('');
-    overlay.classList.add('open');
   }
-  function closeModal(){ overlay.classList.remove('open'); }
+
+  function position(node){
+    const r = node.getBoundingClientRect();
+    const gap = 14;
+    const cardW = card.offsetWidth || 300;
+    const cardH = card.offsetHeight || 220;
+    const cx = r.left + r.width / 2;
+    let top, originY;
+    if(r.top - cardH - gap > 10){
+      top = r.top - cardH - gap;
+      originY = '100%';
+    } else {
+      top = r.bottom + gap;
+      originY = '0%';
+    }
+    let left = cx - cardW / 2;
+    left = Math.max(10, Math.min(left, window.innerWidth - cardW - 10));
+    const originX = ((cx - left) / cardW * 100) + '%';
+    card.style.setProperty('--hc-origin-x', originX);
+    card.style.setProperty('--hc-origin-y', originY);
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  function show(node){
+    const d = specData[node.dataset.node];
+    if(!d) return;
+    currentNode = node;
+    render(d);
+    position(node);
+    requestAnimationFrame(() => {
+      if(currentNode !== node) return;
+      position(node);
+      card.classList.add('visible');
+    });
+  }
+  function hide(node){
+    if(currentNode !== node) return;
+    card.classList.remove('visible');
+    currentNode = null;
+  }
 
   document.querySelectorAll('.fc-node').forEach(node => {
-    node.addEventListener('click', () => openModal(node.dataset.node));
-    node.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(node.dataset.node); }
+    node.addEventListener('mouseenter', () => { clearTimeout(hideTimer); show(node); });
+    node.addEventListener('mouseleave', () => { hideTimer = setTimeout(() => hide(node), 60); });
+    node.addEventListener('focus', () => show(node));
+    node.addEventListener('blur', () => hide(node));
+    node.addEventListener('click', () => {
+      if(currentNode === node && card.classList.contains('visible')) hide(node);
+      else show(node);
     });
   });
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+  window.addEventListener('scroll', () => { if(currentNode) position(currentNode); }, { passive:true, capture:true });
+  window.addEventListener('resize', () => { if(currentNode) position(currentNode); });
 })();
 </script>
 </body>
