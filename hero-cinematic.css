@@ -1,0 +1,563 @@
+/* ════════════════════════════════════════════════════════════════════
+   HERO — Cinematic Industrial Backdrop
+   Isolated, additive layer on top of the existing .hero (kept exactly as
+   defined inline in index.html: dark scoped tokens, centered content,
+   .hero-glow furnace breathe, #embers canvas, cursor-spotlight). This
+   file only adds the new background scene (skyline / trade routes /
+   wireframe / rays / fog / scanlines / markers) and restyles the badge,
+   headline lines, CTAs, trust stats and scroll cue — the centered,
+   single-column composition itself is never touched.
+
+   Every new background layer is position:absolute, pointer-events:none,
+   and sits behind .hero-content — the layout can never become a
+   left/right split by construction.
+
+   Motion contract: only transform / opacity / minimal filter are
+   animated. Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* consumed by the existing .hero::before blueprint grid so scroll can fade
+   it out without JS ever needing to touch a pseudo-element directly */
+.hero::before {
+  opacity: var(--blueprint-fade, 1);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* .hero-glow keeps its own CSS breathing animation untouched; this wrapper
+   is what the scroll effect dims, so the two opacities simply multiply
+   instead of the JS fighting the CSS animation for the same property */
+.hero-glow-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── industrial skyline silhouette ── */
+.hero-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .5;
+  color: #1B1E26;
+}
+
+.hero-skyline svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-skyline .sky-shape {
+  fill: currentColor;
+}
+
+.hero-skyline .sky-line {
+  stroke: rgba(255, 106, 31, .35);
+  stroke-width: 1;
+  fill: none;
+}
+
+.hero-smoke {
+  transform-origin: 50% 100%;
+  animation: heroSmokeDrift 9s ease-in-out infinite;
+}
+
+.hero-smoke.d2 {
+  animation-delay: 1.4s;
+  animation-duration: 11s;
+}
+
+.hero-smoke.d3 {
+  animation-delay: 2.6s;
+  animation-duration: 8s;
+}
+
+@keyframes heroSmokeDrift {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: .3;
+  }
+
+  50% {
+    transform: translateY(-14px) scale(1.12);
+    opacity: .55;
+  }
+}
+
+/* ── global trade network: slowly flowing arcs ── */
+.hero-routes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .32;
+}
+
+.hero-routes svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-routes path {
+  fill: none;
+  stroke: url(#heroRouteGrad);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-dasharray: 3 9;
+  animation: heroRouteFlow 14s linear infinite;
+}
+
+.hero-routes path.r2 {
+  animation-duration: 18s;
+  animation-direction: reverse;
+}
+
+.hero-routes path.r3 {
+  animation-duration: 22s;
+}
+
+.hero-routes circle {
+  fill: var(--accent-hot);
+  opacity: .8;
+  animation: heroNodePulse 3s ease-in-out infinite;
+}
+
+@keyframes heroRouteFlow {
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+
+@keyframes heroNodePulse {
+
+  0%,
+  100% {
+    opacity: .45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── faint rotating industrial wireframe ──
+   Split into an outer positioning element (the parallax target, JS-driven)
+   and an inner rotating element (its own CSS animation) — the two never
+   touch the same element's transform, so nothing fights over it. */
+.hero-wireframe {
+  position: absolute;
+  top: 8%;
+  right: -6%;
+  width: 46vw;
+  max-width: 620px;
+  aspect-ratio: 1;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .05;
+}
+
+.hero-wireframe.two {
+  top: auto;
+  bottom: 4%;
+  right: auto;
+  left: -10%;
+  width: 34vw;
+  max-width: 460px;
+  opacity: .04;
+}
+
+.hero-wireframe-spin {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: heroWireframeSpin 90s linear infinite;
+}
+
+.hero-wireframe.two .hero-wireframe-spin {
+  animation-duration: 120s;
+  animation-direction: reverse;
+}
+
+.hero-wireframe svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--accent-hot);
+  fill: none;
+  stroke-width: 1;
+}
+
+@keyframes heroWireframeSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── ambient light rays from the furnace glow ── */
+.hero-rays {
+  position: absolute;
+  left: 50%;
+  bottom: -10%;
+  width: 140%;
+  height: 90%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    conic-gradient(from 250deg at 50% 100%,
+      transparent 0deg,
+      rgba(255, 194, 75, .05) 8deg,
+      transparent 16deg,
+      transparent 40deg,
+      rgba(255, 106, 31, .045) 50deg,
+      transparent 60deg,
+      transparent 100deg,
+      rgba(255, 194, 75, .04) 108deg,
+      transparent 118deg);
+  animation: heroRaysSway 16s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes heroRaysSway {
+
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translateX(-50%) rotate(1.5deg);
+  }
+}
+
+/* ── soft ground fog ── */
+.hero-fog {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 22%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(238, 234, 225, .05), transparent);
+  background-size: 200% 100%;
+  animation: heroFogDrift 22s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+@keyframes heroFogDrift {
+
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+/* ── subtle scanlines, industrial-monitor texture ── */
+.hero-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .035;
+  background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
+}
+
+/* ── tiny industrial HUD markers ── */
+.hero-markers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-marker {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  animation: heroMarkerBlink 5s ease-in-out infinite;
+}
+
+.hero-marker svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--accent-hot);
+  fill: none;
+  stroke-width: 1.4;
+}
+
+.hero-marker.m1 {
+  top: 18%;
+  left: 10%;
+  animation-delay: .3s;
+}
+
+.hero-marker.m2 {
+  top: 28%;
+  right: 12%;
+  animation-delay: 1.8s;
+}
+
+.hero-marker.m3 {
+  bottom: 30%;
+  left: 16%;
+  animation-delay: 3.2s;
+}
+
+.hero-marker.m4 {
+  top: 60%;
+  right: 8%;
+  animation-delay: 2.4s;
+}
+
+@keyframes heroMarkerBlink {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  10%,
+  30% {
+    opacity: .5;
+  }
+
+  40% {
+    opacity: 0;
+  }
+}
+
+/* ══ FOREGROUND CONTENT ══ */
+
+/* small industry badge (was a plain kicker line — now a proper pill badge) */
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .5rem 1.1rem;
+  border: 1px solid rgba(255, 106, 31, .3);
+  border-radius: 2rem;
+  background: rgba(255, 106, 31, .06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero-kicker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-hot);
+  box-shadow: 0 0 8px 2px var(--accent-hot);
+  flex-shrink: 0;
+  animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+/* per-line headline reveal: .hero-line is a static clipping mask,
+   .hero-line-inner is the part GSAP actually animates (wipes up into view) */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .12em;
+}
+
+.hero-line-inner {
+  display: block;
+}
+
+.hero h1 .grad {
+  animation: emberShift 6s ease-in-out infinite, heroGradGlow 4s ease-in-out infinite;
+}
+
+@keyframes heroGradGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 106, 31, .25));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 18px rgba(255, 106, 31, .5));
+  }
+}
+
+/* ── CTA row: magnetic hover + ripple + arrow slide (secondary = glass) ── */
+.hero-cta-row .btn {
+  position: relative;
+}
+
+.hero-btn-primary {
+  overflow: hidden;
+}
+
+.hero-btn-arrow {
+  display: inline-block;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.hero-btn-primary:hover .hero-btn-arrow {
+  transform: translateX(5px);
+}
+
+.hero-btn-secondary {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .04) !important;
+  border: 1.5px solid rgba(255, 255, 255, .18) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.hero-btn-secondary:hover {
+  border-color: rgba(255, 106, 31, .55) !important;
+  box-shadow: 0 0 24px rgba(255, 106, 31, .18);
+  background: rgba(255, 106, 31, .07) !important;
+}
+
+.hero-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .5);
+  transform: scale(0);
+  opacity: .55;
+  pointer-events: none;
+  animation: heroRippleAnim .6s ease-out forwards;
+}
+
+@keyframes heroRippleAnim {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ── trust stat strip (replaces the #SteelWithin hashtag pill) ── */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+}
+
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  color: var(--accent-hot);
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+
+.hero-stat-label {
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.hero-stat-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, .12);
+}
+
+@media (max-width: 640px) {
+  .hero-stats {
+    gap: 1.1rem;
+  }
+
+  .hero-stat-divider {
+    display: none;
+  }
+}
+
+/* ── redesigned scroll indicator: mouse icon + moving line ── */
+.scroll-cue-icon {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, .3);
+  border-radius: 12px;
+  transition: border-color .3s ease;
+}
+
+.scroll-cue:hover .scroll-cue-icon {
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 12px rgba(255, 194, 75, .3);
+}
+
+.scroll-cue-line {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent-hot);
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px 1px rgba(255, 194, 75, .6);
+  animation: scrollCueDrop 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollCueDrop {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: .4;
+  }
+
+  100% {
+    transform: translate(-50%, 12px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-smoke,
+  .hero-routes path,
+  .hero-routes circle,
+  .hero-wireframe-spin,
+  .hero-rays,
+  .hero-fog,
+  .hero-marker,
+  .hero h1 .grad,
+  .scroll-cue-line,
+  .hero-kicker-dot {
+    animation: none !important;
+  }
+}

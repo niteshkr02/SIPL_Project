@@ -1,0 +1,242 @@
+/* ════════════════════════════════════════════════════════════════════
+   TRUSTED BY — Premium Client Credibility Showcase
+   Isolated, reusable component. Reuses the site's existing .kicker,
+   .section-head, .stat-band/.stat/.stat-num/.stat-label components for
+   full visual consistency — this file only adds what's genuinely new:
+   the section's ambient background and the floating logo cards.
+
+   Motion contract: only transform / opacity / filter are animated.
+   Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.tby {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5rem 1.75rem;
+}
+
+/* soft white-to-grey mesh + faint blueprint grid, confined to the section
+   with a slight bleed past its own edges (matches .pillars-section-wrap) */
+.tby-mesh {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 2rem;
+  background:
+    radial-gradient(ellipse 55% 50% at 16% 20%, rgba(255, 255, 255, .9), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 84% 15%, rgba(241, 243, 246, .85), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 50% 100%, rgba(228, 231, 236, .55), transparent 65%),
+    linear-gradient(180deg, #FCFCFD 0%, #F4F5F7 100%);
+}
+
+.tby-dots {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(15, 23, 42, .06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 25%, #000 40%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 25%, #000 40%, transparent 95%);
+}
+
+.tby-blueprint {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(15, 23, 42, .4) 0, rgba(15, 23, 42, .4) 1px, transparent 1px, transparent 34px),
+    repeating-linear-gradient(-45deg, rgba(15, 23, 42, .4) 0, rgba(15, 23, 42, .4) 1px, transparent 1px, transparent 34px);
+  opacity: .035;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 30%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 30%, transparent 90%);
+}
+
+.tby-glow {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: 70%;
+  height: 55%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 106, 31, .07), transparent 65%);
+  filter: blur(40px);
+}
+
+.tby-noise {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── header: reuses .kicker / .section-head, just widened + a glow line ── */
+.tby-head {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+}
+
+.tby-kicker-glow {
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin: -.7rem auto 1.2rem;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 12px 1px rgba(255, 106, 31, .55);
+  border-radius: 2px;
+}
+
+/* ── logo showcase grid ── */
+.tby-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
+  transform-style: preserve-3d;
+}
+
+@media (max-width: 900px) {
+  .tby-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .tby-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.tby-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 1.5rem 1.25rem;
+  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
+  border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, .08);
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  will-change: transform;
+  transition: box-shadow .45s cubic-bezier(.16, .84, .44, 1), border-color .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* very subtle inner highlight, keeps the "floating card" feel */
+.tby-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(15, 23, 42, .015);
+}
+
+/* animated reflection sweep */
+.tby-card::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(75deg, transparent 0%, rgba(255, 255, 255, .7) 45%, transparent 62%);
+  transform: translateX(-160%) rotate(10deg);
+  transition: transform .8s cubic-bezier(.16, .84, .44, 1);
+  pointer-events: none;
+}
+
+.tby-card:hover,
+.tby-card:focus-visible {
+  border-color: rgba(255, 106, 31, .35);
+  box-shadow: 0 32px 70px rgba(15, 23, 42, .14), 0 0 34px rgba(255, 106, 31, .16);
+}
+
+.tby-card:hover::after,
+.tby-card:focus-visible::after {
+  transform: translateX(220%) rotate(10deg);
+}
+
+.tby-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.tby-card img {
+  max-width: 72%;
+  max-height: 52px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: contrast(105%);
+  transition: filter .45s ease, transform .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+.tby-card:hover img,
+.tby-card:focus-visible img {
+  filter: contrast(112%) brightness(1.06);
+  transform: scale(1.04);
+}
+
+/* ── featured / flagship clients ── */
+.tby-card.featured {
+  padding-top: 2.5rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, .11);
+}
+
+.tby-card.featured::before {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(255, 106, 31, .07);
+}
+
+.tby-ribbon {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #FFF;
+  background: linear-gradient(135deg, #FF9128, #FF6A1F);
+  padding: .28rem .55rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(255, 106, 31, .35);
+}
+
+/* ── bottom trust bar: thin rules either side of the reused .stat-band ── */
+.tby-stats-wrap {
+  position: relative;
+  z-index: 1;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(15, 23, 42, .08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tby-card {
+    transition: none;
+  }
+
+  .tby-card::after {
+    transition: none;
+  }
+}

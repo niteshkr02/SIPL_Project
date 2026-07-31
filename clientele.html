@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientele | Shakambhari Group</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="clientele-hero.css">
+<link rel="stylesheet" href="clientele-showcase.css">
+<style>
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+</style>
+</head>
+<body>
+<div class="sheen"></div>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo" width="219" height="252" decoding="async">
+</picture>
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">About</span>
+      <div class="dropdown">
+        <a href="journey.html">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+      </div>
+    </li>
+    <li><a href="companies.html">Group Companies</a></li>
+    <li><a href="quality.html">Quality</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="process.html">Our Process</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label">Others</span>
+      <div class="dropdown">
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html" class="active">Clientele</a>
+      </div>
+    </li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO: CINEMATIC TRUST HERO (isolated component — see clientele-hero.css / clientele-hero.js) -->
+<header class="clh" id="clienteleHero" aria-labelledby="clhHeading">
+  <div class="clh-bg" aria-hidden="true">
+    <div class="clh-grid"></div>
+    <div class="clh-blueprint"></div>
+    <div class="clh-glow-wrap"><div class="clh-glow"></div></div>
+    <div class="clh-rays"></div>
+
+    <div class="clh-icons">
+      <svg class="clh-bicon handshake" viewBox="0 0 24 24"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>
+      <svg class="clh-bicon shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg>
+      <svg class="clh-bicon award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M9 12.5 7 21l5-2.5L17 21l-2-8.5"/></svg>
+      <svg class="clh-bicon building" viewBox="0 0 24 24"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg>
+      <svg class="clh-bicon plant" viewBox="0 0 24 24"><path d="M2 21V12l5-3v3l5-3v3l5-3v11H2Z"/><path d="M17 10V6h3v3"/><path d="M2 21h16"/></svg>
+      <svg class="clh-bicon certificate" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M6 8h6M6 11h9"/><circle cx="17.5" cy="19" r="2.3"/><path d="M16 21l1.5-1 1.5 1v-2.6"/></svg>
+    </div>
+
+    <div class="clh-particles" id="clhParticles" aria-hidden="true"></div>
+    <div class="clh-scanlines"></div>
+    <div class="clh-noise"></div>
+  </div>
+
+  <!-- LEFT: floating award composition -->
+  <div class="clh-left" aria-hidden="true">
+    <div class="clh-plaque trophy">
+      <svg viewBox="0 0 24 24"><path d="M8 4h8v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4V4Z"/><path d="M8 5H5a3 3 0 0 0 3 3"/><path d="M16 5h3a3 3 0 0 1-3 3"/><path d="M12 11v3.5"/><path d="M9 19h6"/><path d="M9 19c0-2.2 1-2.8 3-2.8s3 .6 3 2.8"/></svg>
+      <span>Luxury<br>Trophy</span>
+    </div>
+    <div class="clh-plaque cert">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M6 8h6M6 11h9"/><circle cx="17.5" cy="19" r="2.3"/><path d="M16 21l1.5-1 1.5 1v-2.6"/></svg>
+      <span>Certificate of<br>Excellence</span>
+    </div>
+    <div class="clh-plaque seal">
+      <svg viewBox="0 0 24 24"><path d="M9 3 6.5 10"/><path d="M15 3l2.5 7"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.3l.9 1.85 2.05.3-1.48 1.45.35 2.05L12 16.95l-1.82.95.35-2.05-1.48-1.45 2.05-.3Z"/></svg>
+      <span>Recognition<br>Seal</span>
+    </div>
+  </div>
+
+  <!-- RIGHT: glowing India network -->
+  <div class="clh-right" aria-hidden="true">
+    <svg class="clh-india-svg" viewBox="0 0 100 120">
+      <path class="clh-india-outline" d="M48,4 C58,8 64,14 68,18 C74,24 76,28 78,32 C83,37 86,41 88,45 C91,49 93,52 94,55 C89,58 85,60 82,62 C85,66 87,70 88,75 C86,81 83,86 80,92 C75,98 71,103 68,108 C64,112 61,115 58,118 C54,114 51,110 48,106 C44,101 41,95 38,90 C35,85 32,80 30,75 C27,69 24,64 22,58 C19,52 17,47 16,42 C19,37 21,32 24,28 C28,23 31,18 34,14 C38,10 43,6 48,4 Z"/>
+
+      <path class="clh-route" d="M78,62 Q65,40 52,30"/>
+      <path class="clh-route" d="M78,62 Q55,70 30,68"/>
+      <path class="clh-route" d="M78,62 Q75,82 66,96"/>
+      <path class="clh-route" d="M78,62 Q62,85 52,92"/>
+
+      <circle class="clh-route-dot" r="1.4"><animateMotion dur="3.2s" repeatCount="indefinite" path="M78,62 Q65,40 52,30"/></circle>
+      <circle class="clh-route-dot" r="1.4"><animateMotion dur="2.8s" repeatCount="indefinite" path="M78,62 Q55,70 30,68"/></circle>
+      <circle class="clh-route-dot" r="1.4"><animateMotion dur="3s" repeatCount="indefinite" path="M78,62 Q75,82 66,96"/></circle>
+      <circle class="clh-route-dot" r="1.4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M78,62 Q62,85 52,92"/></circle>
+
+      <circle class="clh-node-pulse" cx="52" cy="30" r="2"/>
+      <circle class="clh-node-pulse" cx="30" cy="68" r="2"/>
+      <circle class="clh-node-pulse" cx="66" cy="96" r="2"/>
+      <circle class="clh-node-pulse" cx="52" cy="92" r="2"/>
+      <circle class="clh-node-pulse" cx="78" cy="62" r="2.6"/>
+
+      <circle class="clh-node" cx="52" cy="30" r="1.6"/>
+      <circle class="clh-node" cx="30" cy="68" r="1.6"/>
+      <circle class="clh-node" cx="66" cy="96" r="1.6"/>
+      <circle class="clh-node" cx="52" cy="92" r="1.6"/>
+      <circle class="clh-node hq" cx="78" cy="62" r="2.4"/>
+    </svg>
+  </div>
+
+  <div class="clh-content">
+    <div class="clh-badge">
+      <span class="clh-badge-dot" aria-hidden="true"></span>
+      <span>Clientele</span>
+    </div>
+
+    <h1 class="clh-heading" id="clhHeading">
+      <span class="clh-line"><span class="clh-line-inner">Who Builds</span></span>
+      <span class="clh-line"><span class="clh-line-inner">With Our <span class="grad">Steel</span></span></span>
+    </h1>
+
+    <p class="clh-desc">India's largest infrastructure organisations, government bodies and industrial leaders trust Shakambhari Group — a client list built on engineering excellence and long-term partnership, not the lowest bid.</p>
+
+    <div class="clh-stats-bar" role="group" aria-label="Client trust metrics">
+      <div class="clh-stat">
+        <span class="clh-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div class="clh-stat-num counter" data-target="50" data-suffix="+">0+</div>
+        <div class="clh-stat-label">Trusted Clients</div>
+      </div>
+      <span class="clh-stat-divider" aria-hidden="true"></span>
+      <div class="clh-stat">
+        <span class="clh-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></span>
+        <div class="clh-stat-num counter" data-target="25" data-suffix="+">0+</div>
+        <div class="clh-stat-label">PSU Partners</div>
+      </div>
+      <span class="clh-stat-divider" aria-hidden="true"></span>
+      <div class="clh-stat">
+        <span class="clh-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18M5 4h11l-2 3 2 3H5"/></svg></span>
+        <div class="clh-stat-num counter" data-target="300" data-suffix="+">0+</div>
+        <div class="clh-stat-label">Projects Delivered</div>
+      </div>
+    </div>
+
+    <div class="clh-cta-row">
+      <a href="#clientele" class="clh-cta">
+        <span class="clh-cta-shine" aria-hidden="true"></span>
+        <span>Explore Our Partnerships</span>
+        <span class="clh-cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- CLIENTELE: PREMIUM CLIENT TRUST ECOSYSTEM (isolated component — see clientele-showcase.css / clientele-showcase.js) -->
+<section class="cli" id="clientele" aria-labelledby="cliHeading">
+  <div class="cli-mesh" aria-hidden="true"></div>
+  <div class="cli-dots" aria-hidden="true"></div>
+  <div class="cli-blueprint" aria-hidden="true"></div>
+  <div class="cli-wave" aria-hidden="true">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path class="w1" d="M0,80 C150,40 350,120 600,80 C850,40 1050,120 1200,80" />
+      <path class="w2" d="M0,100 C150,70 350,130 600,100 C850,70 1050,130 1200,100" />
+    </svg>
+  </div>
+  <div class="cli-lineart" aria-hidden="true">
+    <svg class="cli-art bridge" viewBox="0 0 120 60"><path d="M2 56h116M18 56V28M36 56V16M54 56V10M72 56V16M90 56V28M108 56V40M10 56l8-18M28 56l8-28M46 56l8-34M64 56l-8-34M82 56l-8-28M100 56l-8-18"/></svg>
+    <svg class="cli-art crane" viewBox="0 0 60 60"><path d="M12 58V8M12 8l36 6M12 16h12M46 16l-6 42M20 20l-4 38M12 30h8"/></svg>
+  </div>
+  <div class="cli-glow" aria-hidden="true"></div>
+  <div class="cli-noise" aria-hidden="true"></div>
+  <div class="cli-particles" aria-hidden="true"></div>
+
+  <div class="section-head cli-head reveal">
+    <div class="cli-badge"><span class="cli-badge-dot" aria-hidden="true"></span><span>Clientele</span></div>
+    <h2 id="cliHeading">Who Builds With Our <span class="grad">Steel</span></h2>
+    <div class="cli-divider" aria-hidden="true">
+      <span class="cli-divider-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4h16M4 20h16M9 4v16M15 4v16"/></svg></span>
+    </div>
+    <p>Public infrastructure bodies, leading EPC companies, PSUs, defence organisations and industrial leaders that trust Shakambhari Group.</p>
+  </div>
+
+  <!-- TRUST METRICS -->
+  <div class="cli-metrics reveal">
+    <div class="cli-metric">
+      <span class="cli-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <div class="cli-metric-num counter" data-target="100" data-suffix="+">0+</div>
+      <div class="cli-metric-label">Trusted Clients</div>
+    </div>
+    <div class="cli-metric">
+      <span class="cli-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></span>
+      <div class="cli-metric-num counter" data-target="15" data-suffix="+">0+</div>
+      <div class="cli-metric-label">PSU &amp; Govt. Partners</div>
+    </div>
+    <div class="cli-metric">
+      <span class="cli-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18M5 4h11l-2 3 2 3H5"/></svg></span>
+      <div class="cli-metric-num counter" data-target="500" data-suffix="+">0+</div>
+      <div class="cli-metric-label">Projects Delivered</div>
+    </div>
+    <div class="cli-metric">
+      <span class="cli-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+      <div class="cli-metric-num counter" data-target="50" data-suffix="+">0+</div>
+      <div class="cli-metric-label">Years of Trust</div>
+    </div>
+    <div class="cli-metric">
+      <span class="cli-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+      <div class="cli-metric-num">Pan India</div>
+      <div class="cli-metric-label">Presence</div>
+    </div>
+  </div>
+
+  <!-- FILTER CHIPS -->
+  <div class="cli-filters reveal" role="group" aria-label="Filter clients by sector">
+    <button type="button" class="cli-filter-btn active" data-filter="all">All</button>
+    <button type="button" class="cli-filter-btn" data-filter="government">Government</button>
+    <button type="button" class="cli-filter-btn" data-filter="psu">PSU</button>
+    <button type="button" class="cli-filter-btn" data-filter="infrastructure">Infrastructure</button>
+    <button type="button" class="cli-filter-btn" data-filter="defence">Defence</button>
+    <button type="button" class="cli-filter-btn" data-filter="power">Power</button>
+    <button type="button" class="cli-filter-btn" data-filter="construction">Construction</button>
+  </div>
+
+  <!-- CLIENT GRID -->
+  <div class="cli-grid" role="list">
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/NHAI.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/NHAI.webp">
+  <img src="optimized-images/images/logo/NHAI.png" alt="NHAI" loading="lazy" width="480" height="262" decoding="async">
+</picture></div>
+      <div class="cli-card-name">NHAI</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/NAIDCL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/NAIDCL.webp">
+  <img src="optimized-images/images/logo/NAIDCL.png" alt="NAIDCL" loading="lazy" width="480" height="335" decoding="async">
+</picture></div>
+      <div class="cli-card-name">NAIDCL</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="psu government infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/NPCC.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/NPCC.webp">
+  <img src="optimized-images/images/logo/NPCC.png" alt="NPCC" loading="lazy" width="480" height="466" decoding="async">
+</picture></div>
+      <div class="cli-card-name">NPCC</div>
+      <span class="cli-card-tag">PSU</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="defence government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/BRO.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/BRO.webp">
+  <img src="optimized-images/images/logo/BRO.png" alt="Border Roads Organisation" loading="lazy" width="480" height="262" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Border Roads Organisation</div>
+      <span class="cli-card-tag">Defence</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/BRIDCUL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/BRIDCUL.webp">
+  <img src="optimized-images/images/logo/BRIDCUL.png" alt="BRIDCUL" loading="lazy" width="480" height="394" decoding="async">
+</picture></div>
+      <div class="cli-card-name">BRIDCUL</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="psu power infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/BHEL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/BHEL.webp">
+  <img src="optimized-images/images/logo/BHEL.png" alt="BHEL" loading="lazy" width="480" height="375" decoding="async">
+</picture></div>
+      <div class="cli-card-name">BHEL</div>
+      <span class="cli-card-tag">Engineering</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="defence government">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/DRDO.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/DRDO.webp">
+  <img src="optimized-images/images/logo/DRDO.png" alt="DRDO" loading="lazy" width="480" height="479" decoding="async">
+</picture></div>
+      <div class="cli-card-name">DRDO</div>
+      <span class="cli-card-tag">Defence</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="psu power">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/CoalIndia.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/CoalIndia.webp">
+  <img src="optimized-images/images/logo/CoalIndia.png" alt="Coal India" loading="lazy" width="480" height="682" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Coal India</div>
+      <span class="cli-card-tag">Energy</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="psu power">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/IndianOil.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/IndianOil.webp">
+  <img src="optimized-images/images/logo/IndianOil.png" alt="Indian Oil Corporation" loading="lazy" width="480" height="262" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Indian Oil Corporation</div>
+      <span class="cli-card-tag">Energy</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government power">
+      <div class="cli-card-name">DVC</div>
+      <span class="cli-card-tag">Power</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="psu power">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/NPCIL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/NPCIL.webp">
+  <img src="optimized-images/images/logo/NPCIL.png" alt="NPCIL" loading="lazy" width="480" height="262" decoding="async">
+</picture></div>
+      <div class="cli-card-name">NPCIL</div>
+      <span class="cli-card-tag">Power</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/UP%20State%20Bridge%20Corp..avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/UP%20State%20Bridge%20Corp..webp">
+  <img src="optimized-images/images/logo/UP%20State%20Bridge%20Corp..png" alt="UP State Bridge Corp." loading="lazy" width="480" height="458" decoding="async">
+</picture></div>
+      <div class="cli-card-name">UP State Bridge Corp.</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="psu infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/B_AND_R.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/B_AND_R.webp">
+  <img src="optimized-images/images/logo/B_AND_R.png" alt="Bridge &amp; Roof Co." loading="lazy" width="480" height="489" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Bridge &amp; Roof Co.</div>
+      <span class="cli-card-tag">PSU</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/PWD.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/PWD.webp">
+  <img src="optimized-images/images/logo/PWD.png" alt="PWD West Bengal" loading="lazy" width="480" height="487" decoding="async">
+</picture></div>
+      <div class="cli-card-name">PWD West Bengal</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/PHED.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/PHED.webp">
+  <img src="optimized-images/images/logo/PHED.png" alt="PHED" loading="lazy" width="480" height="262" decoding="async">
+</picture></div>
+      <div class="cli-card-name">PHED</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government power">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/WBSEDCL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/WBSEDCL.webp">
+  <img src="optimized-images/images/logo/WBSEDCL.png" alt="WBSEDCL" loading="lazy" width="480" height="479" decoding="async">
+</picture></div>
+      <div class="cli-card-name">WBSEDCL</div>
+      <span class="cli-card-tag">Power</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government power">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/WBSETCL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/WBSETCL.webp">
+  <img src="optimized-images/images/logo/WBSETCL.png" alt="WBSETCL" loading="lazy" width="480" height="491" decoding="async">
+</picture></div>
+      <div class="cli-card-name">WBSETCL</div>
+      <span class="cli-card-tag">Power</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/CMDA.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/CMDA.webp">
+  <img src="optimized-images/images/logo/CMDA.png" alt="CMDA" loading="lazy" width="480" height="253" decoding="async">
+</picture></div>
+      <div class="cli-card-name">CMDA</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure power construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/adani.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/adani.webp">
+  <img src="optimized-images/images/logo/adani.png" alt="Adani Group" loading="lazy" width="480" height="682" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Adani Group</div>
+      <span class="cli-card-tag">Infrastructure</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/Ashoka%20Buildcon.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/Ashoka%20Buildcon.webp">
+  <img src="optimized-images/images/logo/Ashoka%20Buildcon.png" alt="Ashoka Buildcon" loading="lazy" width="480" height="216" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Ashoka Buildcon</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/Dilip%20Buildcon.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/Dilip%20Buildcon.webp">
+  <img src="optimized-images/images/logo/Dilip%20Buildcon.png" alt="Dilip Buildcon" loading="lazy" width="480" height="445" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Dilip Buildcon</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/DRA.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/DRA.webp">
+  <img src="optimized-images/images/logo/DRA.png" alt="DRA Infracon" loading="lazy" width="480" height="485" decoding="async">
+</picture></div>
+      <div class="cli-card-name">DRA Infracon</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/GPT%20Group.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/GPT%20Group.webp">
+  <img src="optimized-images/images/logo/GPT%20Group.png" alt="GPT Group" loading="lazy" width="480" height="445" decoding="async">
+</picture></div>
+      <div class="cli-card-name">GPT Group</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/GR%20Infraprojects%20(GRIL).avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/GR%20Infraprojects%20(GRIL).webp">
+  <img src="optimized-images/images/logo/GR%20Infraprojects%20(GRIL).png" alt="GR Infraprojects (GRIL)" loading="lazy" width="480" height="477" decoding="async">
+</picture></div>
+      <div class="cli-card-name">GR Infraprojects</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/GAWAR.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/GAWAR.webp">
+  <img src="optimized-images/images/logo/GAWAR.png" alt="Gawar Construction" loading="lazy" width="480" height="307" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Gawar Construction</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure power construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/KALPA_TARU.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/KALPA_TARU.webp">
+  <img src="optimized-images/images/logo/KALPA_TARU.png" alt="Kalpataru" loading="lazy" width="480" height="119" decoding="async">
+</picture></div>
+      <div class="cli-card-name">Kalpataru</div>
+      <span class="cli-card-tag">Infrastructure</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/KCC.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/KCC.webp">
+  <img src="optimized-images/images/logo/KCC.png" alt="KCC Buildcon" loading="lazy" width="480" height="262" decoding="async">
+</picture></div>
+      <div class="cli-card-name">KCC Buildcon</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="power infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/KEC%20International.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/KEC%20International.webp">
+  <img src="optimized-images/images/logo/KEC%20International.png" alt="KEC International" loading="lazy" width="480" height="322" decoding="async">
+</picture></div>
+      <div class="cli-card-name">KEC International</div>
+      <span class="cli-card-tag">Power</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-name">Krishna Construction</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure power construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/L&amp;T.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/L&amp;T.webp">
+  <img src="optimized-images/images/logo/L&amp;T.png" alt="L&amp;T" loading="lazy" width="480" height="300" decoding="async">
+</picture></div>
+      <div class="cli-card-name">L&amp;T</div>
+      <span class="cli-card-tag">Infrastructure</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="infrastructure construction">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/PNC%20Infratech.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/PNC%20Infratech.webp">
+  <img src="optimized-images/images/logo/PNC%20Infratech.png" alt="PNC Infratech" loading="lazy" width="480" height="340" decoding="async">
+</picture></div>
+      <div class="cli-card-name">PNC Infratech</div>
+      <span class="cli-card-tag">Construction</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/PWD%20Rajasthan.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/PWD%20Rajasthan.webp">
+  <img src="optimized-images/images/logo/PWD%20Rajasthan.png" alt="PWD Rajasthan" loading="lazy" width="480" height="469" decoding="async">
+</picture></div>
+      <div class="cli-card-name">PWD Rajasthan</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+    <div class="cli-card" role="listitem" tabindex="0" aria-haspopup="dialog" data-category="government infrastructure">
+      <div class="cli-card-logo"><picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/PWD%20Assam.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/PWD%20Assam.webp">
+  <img src="optimized-images/images/logo/PWD%20Assam.png" alt="PWD Assam" loading="lazy" width="480" height="492" decoding="async">
+</picture></div>
+      <div class="cli-card-name">PWD Assam</div>
+      <span class="cli-card-tag">Government</span>
+      <span class="cli-card-trusted">✓ Trusted Partner</span>
+    </div>
+  </div>
+
+  <div class="cli-cta-row reveal">
+    <a href="products.html" class="cli-cta">
+      <span class="cli-cta-shine" aria-hidden="true"></span>
+      <span>Explore Our Projects</span>
+      <span class="cli-cta-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- CLIENT DETAIL PANEL -->
+<div class="cli-panel-overlay" id="cliPanelOverlay" role="dialog" aria-modal="true" aria-labelledby="cliPanelName">
+  <div class="cli-panel">
+    <button type="button" class="cli-panel-close" aria-label="Close">&times;</button>
+    <div class="cli-panel-logo" id="cliPanelLogo"></div>
+    <div class="cli-panel-name" id="cliPanelName"></div>
+    <div class="cli-panel-tags" id="cliPanelTags"></div>
+    <p class="cli-panel-desc" id="cliPanelDesc"></p>
+    <a href="contact.html" class="btn btn-primary">Start a Partnership →</a>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>Watch Earth Become Strength</h2>
+    <p>Multiple stages, one continuous chain: raw ore from a mine becomes the reinforcement holding up buildings across the nation. This is where #SteelWithin begins.</p>
+    <a href="process.html" class="btn btn-primary">Walk The Process →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async">
+</picture>
+          <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+      </a>
+      <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="process.html">Our Process</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="journey.html">Our Journey</a>
+      <a href="vision.html">Mission, Vision &amp; Values</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="companies.html">Group Companies</a>
+      <a href="quality.html">Quality</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="awards.html">Awards &amp; Certifications</a>
+      <a href="csr.html">Corporate Social Responsibility</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="clientele.html">Clientele</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+913366255252">033 6625 5252</a>
+      <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+      <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+    <div class="footer-social">
+      <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z"/></svg></a>
+      <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="clientele-hero.js"></script>
+<script src="clientele-showcase.js"></script>
+</body>
+</html>

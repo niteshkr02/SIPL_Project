@@ -1,0 +1,548 @@
+/* ════════════════════════════════════════════════════════════════════
+   MARKET PRESENCE — Premium Enterprise Info Console
+   Isolated, reusable component for the floating console next to the
+   India / World distribution maps. The map itself (SVG, pins, popovers,
+   legend, tab switcher — see market-presence-map.css) is untouched here
+   — this file only styles the floating console: #vendorLiveCard (.mpp)
+   and its children, in the site's white/orange premium glass theme.
+
+   Motion contract: only transform / opacity / filter are animated.
+   Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.mpp {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 1.6rem 1.5rem;
+  color: var(--ink);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .94) 0%, rgba(248, 249, 251, .92) 50%, rgba(237, 240, 243, .9) 100%);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 106, 31, .28);
+  border-radius: 28px;
+  box-shadow: 0 35px 80px rgba(20, 22, 28, .14), inset 0 1px 0 rgba(255, 255, 255, .8);
+  isolation: isolate;
+}
+
+/* soft radial orange glow behind the active section, top-right */
+.mpp-ambient {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at top right, rgba(255, 145, 40, .10), transparent 60%);
+  pointer-events: none;
+}
+
+/* almost-invisible industrial grid + grain, purely decorative */
+.mpp-texture {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: .5;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, .035) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, #000 40%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, #000 40%, transparent 95%);
+}
+
+.mpp-noise {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: .04;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── status bar ── */
+.mpp-status {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  background: rgba(255, 255, 255, .6);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .5rem .75rem;
+  margin-bottom: 1.15rem;
+}
+
+.mpp-status-live {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: var(--accent-ink);
+}
+
+.mpp-status-label {
+  margin-left: auto;
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* ── search ── */
+.mpp-search {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.3rem;
+}
+
+.mpp-search-icon {
+  position: absolute;
+  left: .95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: .85rem;
+  opacity: .6;
+  pointer-events: none;
+}
+
+.mpp-search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, .7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  padding: .75rem .95rem .75rem 2.5rem;
+  border-radius: 18px;
+  font-size: .85rem;
+  outline: none;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.mpp-search-input::placeholder {
+  color: var(--ink-soft);
+  opacity: .7;
+}
+
+.mpp-search-input:focus {
+  border-color: rgba(255, 106, 31, .65);
+  background: rgba(255, 255, 255, .9);
+  animation: mppSearchGlow 1.8s ease-in-out infinite;
+}
+
+@keyframes mppSearchGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(255, 106, 31, .08), 0 0 16px rgba(255, 106, 31, .14);
+  }
+
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 106, 31, .14), 0 0 26px rgba(255, 106, 31, .28);
+  }
+}
+
+/* ── state hero header ── */
+.mpp-header {
+  position: relative;
+  z-index: 1;
+}
+
+.mpp-state {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .55rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .55rem;
+}
+
+/* JS stamps this exact class on the badge span it (re)creates on every
+   state change — see updateVendorCard() in the map script below. */
+.mpp-hq-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #FFF;
+  background: linear-gradient(135deg, #FF9128, #FF6A1F);
+  padding: .32rem .7rem;
+  border-radius: 999px;
+  box-shadow: 0 0 16px rgba(255, 106, 31, .35);
+}
+
+.mpp-company {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  margin-bottom: 1.15rem;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.mpp-company:empty {
+  display: none;
+}
+
+.mpp-empty-icon {
+  opacity: .6;
+}
+
+/* ── dynamic body: mini info-cards + contact actions ── */
+.mpp-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+}
+
+/* default / no-hover state — nothing selected yet, so no vendor details
+   render at all; only the hint paragraph shows until a marker, state
+   shape, or directory row is hovered or clicked (see previewItem /
+   lockItem / clearPreview in the shared inline script) */
+.mpp-empty-hint {
+  display: none;
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+}
+
+.mpp-body.is-empty .mpp-empty-hint {
+  display: block;
+}
+
+.mpp-body.is-empty .mpp-mini,
+.mpp-body.is-empty .mpp-actions {
+  display: none;
+}
+
+.mpp-mini {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: .75rem .85rem;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease;
+}
+
+.mpp-mini:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 106, 31, .4);
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 0 14px 30px rgba(20, 22, 28, .1);
+}
+
+.mpp-mini-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  line-height: 1;
+  border-radius: 10px;
+  background: rgba(255, 106, 31, .12);
+  border: 1px solid rgba(255, 106, 31, .22);
+}
+
+.mpp-mini-text {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  min-width: 0;
+}
+
+.mpp-label {
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-soft);
+}
+
+.mpp-value {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── contact actions ── */
+.mpp-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .65rem;
+  margin-top: .35rem;
+}
+
+.mpp-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .75rem .6rem;
+  border-radius: 14px;
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .25s cubic-bezier(.16, .84, .44, 1), box-shadow .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
+}
+
+.mpp-btn:active {
+  transform: translateY(-1px) scale(.98);
+}
+
+.mpp-btn-icon {
+  display: inline-block;
+  transition: transform .3s ease;
+}
+
+.mpp-btn:hover .mpp-btn-icon {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+.mpp-btn-primary {
+  background: linear-gradient(135deg, #FF9128, #FF6A1F);
+  color: #FFF;
+  border: 1px solid rgba(255, 255, 255, .35);
+  box-shadow: 0 10px 24px rgba(255, 106, 31, .3);
+}
+
+.mpp-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(255, 106, 31, .4), 0 0 26px rgba(255, 145, 40, .3);
+  color: #FFF;
+}
+
+.mpp-btn-secondary {
+  background: rgba(255, 255, 255, .65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+
+.mpp-btn-secondary:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 106, 31, .6);
+  color: var(--accent-ink);
+  background: rgba(255, 106, 31, .08);
+}
+
+.mpp-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 106, 31, .4);
+  transform: scale(0);
+  opacity: .6;
+  pointer-events: none;
+  animation: mppRipple .6s ease-out forwards;
+}
+
+@keyframes mppRipple {
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* ── quick jump directory ── */
+.mpp-directory {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.35rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255, 106, 31, .3);
+}
+
+.mpp-directory-title {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-soft);
+  margin-bottom: .6rem;
+}
+
+.mpp-directory-list {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: .25rem;
+  scrollbar-width: thin;
+}
+
+.mpp-directory-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mpp-directory-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 106, 31, .4);
+  border-radius: 4px;
+}
+
+.mpp-empty {
+  font-size: .78rem;
+  color: var(--ink-soft);
+  padding: .6rem;
+}
+
+/* .quick-location-item is generated by the shared map script (renderQuickList) —
+   the class name itself must stay exactly this, since JS creates elements with
+   it directly. Everything below is safe to restyle freely. */
+.quick-location-item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: .55rem .75rem .55rem 1rem;
+  font-size: .8rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.16, .84, .44, 1), background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+}
+
+.quick-location-item:hover {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, .85);
+  border-color: rgba(255, 106, 31, .35);
+  color: var(--ink);
+}
+
+.quick-location-item.active {
+  background: rgba(255, 106, 31, .12);
+  border-color: rgba(255, 106, 31, .55);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(255, 106, 31, .18) inset, 0 8px 20px rgba(255, 106, 31, .12);
+}
+
+.quick-location-item:focus-visible {
+  outline: 2px solid var(--accent, #FF6A1F);
+  outline-offset: 2px;
+}
+
+.ql-indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 60%;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, #FFC24B, #FF6A1F);
+  box-shadow: 0 0 10px rgba(255, 106, 31, .6);
+  transform: translateY(-50%) scaleY(0);
+  transform-origin: center;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.quick-location-item:hover .ql-indicator,
+.quick-location-item.active .ql-indicator {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.ql-icon {
+  flex-shrink: 0;
+  font-size: .82rem;
+}
+
+.ql-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ql-code {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, .7);
+  border: 1px solid var(--border);
+  padding: .18rem .42rem;
+  border-radius: 6px;
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.quick-location-item:hover .ql-code,
+.quick-location-item.active .ql-code {
+  color: var(--accent-ink);
+  border-color: rgba(255, 106, 31, .4);
+}
+
+/* ── accessibility ── */
+.mpp-search-input:focus-visible,
+.mpp-btn:focus-visible {
+  outline: 2px solid var(--accent, #FF6A1F);
+  outline-offset: 2px;
+}
+
+/* ── responsive ── */
+@media (max-width: 992px) {
+  .mpp {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mpp {
+    max-width: none;
+    padding: 1.4rem 1.25rem;
+  }
+
+  .mpp-state {
+    font-size: 1.5rem;
+  }
+
+  .mpp-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .mpp-search-input:focus,
+  .mpp-ripple {
+    animation: none;
+  }
+
+  .mpp-mini,
+  .mpp-btn,
+  .quick-location-item,
+  .ql-indicator {
+    transition: none;
+  }
+}

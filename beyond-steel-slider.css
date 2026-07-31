@@ -1,0 +1,265 @@
+/* ════════════════════════════════════════════════════════════════════
+   BEYOND STEEL — Premium 3D Card View Slider
+   Isolated, reusable component. Visual language borrows the site's
+   existing .pillar-card / .pillar-img-wrap / .pillar-body / .pillar-badge
+   classes (defined in index.html) so it blends into the page as-is.
+
+   Motion contract: only transform / opacity / filter are animated.
+   Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.bs3d {
+  position: relative;
+  width: 100%;
+  padding-bottom: .5rem;
+}
+
+/* large soft ambient shadow the whole stage appears to float above */
+.bs3d-floor-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  width: min(70%, 640px);
+  height: 70px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(10, 11, 14, .28) 0%, rgba(10, 11, 14, 0) 72%);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bs3d-viewport {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  z-index: 1;
+}
+
+.bs3d-stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;
+  transition: transform .5s cubic-bezier(.16, .84, .44, 1);
+  /* In a preserve-3d context, this untransformed wrapper sits at the near
+     z=0 plane and otherwise wins hit-testing over its own translateZ()-pushed-
+     back children (a known cross-browser 3D quirk) — hand pointer-events back
+     to the cards themselves so side cards stay clickable. */
+  pointer-events: none;
+}
+
+.bs3d-stage.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.bs3d-stage:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 106, 31, .45);
+  border-radius: 1.75rem;
+}
+
+/* static centering wrapper — never animated; only its child .bs3d-card moves */
+.bs3d-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 400px;
+  margin: -200px 0 0 -160px;
+  transform-style: preserve-3d;
+}
+
+.bs3d-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity, filter;
+  transform-origin: 50% 50% 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 30px 60px -22px rgba(20, 22, 28, .38), 0 10px 24px rgba(20, 22, 28, .12);
+  pointer-events: auto;
+}
+
+.bs3d-card.is-hovered {
+  box-shadow: 0 42px 84px -22px rgba(20, 22, 28, .48), 0 14px 32px rgba(255, 106, 31, .2);
+}
+
+/* soft inner highlight ring, echoes a glass edge catching light */
+.bs3d-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65), inset 0 0 0 1px rgba(255, 255, 255, .3);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* diagonal glass reflection sweep */
+.bs3d-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.bs3d-shine::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -35%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(75deg, transparent 0%, rgba(255, 255, 255, .5) 45%, transparent 62%);
+  transform: translateX(-160%) rotate(8deg);
+  transition: transform 1s cubic-bezier(.16, .84, .44, 1);
+  opacity: .55;
+}
+
+.bs3d-card.is-hovered .bs3d-shine::after {
+  transform: translateX(220%) rotate(8deg);
+}
+
+.bs3d-card:focus-visible {
+  outline: 2px solid var(--accent, #FF6A1F);
+  outline-offset: 4px;
+}
+
+/* ── controls: arrows + pagination dots, sit below the stage ── */
+.bs3d-controls {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.bs3d-arrow {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(255, 194, 75, .6);
+  color: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+  transition: background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+
+.bs3d-arrow:hover {
+  background: var(--accent, #FF6A1F);
+  color: #FFFFFF;
+  box-shadow: 0 10px 26px rgba(255, 106, 31, .35);
+  transform: scale(1.08);
+}
+
+.bs3d-arrow:active {
+  transform: scale(.94);
+}
+
+.bs3d-arrow:focus-visible {
+  outline: 2px solid var(--accent, #FF6A1F);
+  outline-offset: 2px;
+}
+
+.bs3d-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.bs3d-dots {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+.bs3d-dot {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  width: 22px;
+  height: 6px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent, #FF6A1F);
+  opacity: .28;
+  cursor: pointer;
+  transform: scaleX(.4);
+  transform-origin: center;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1), opacity .35s ease;
+}
+
+.bs3d-dot:hover {
+  opacity: .55;
+}
+
+.bs3d-dot.active {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.bs3d-dot:focus-visible {
+  outline: 2px solid var(--accent, #FF6A1F);
+  outline-offset: 2px;
+}
+
+/* ══ RESPONSIVE: tablet ≈ 2 cards read as visible, mobile ≈ 1 centered card ══ */
+@media (max-width: 1022px) and (min-width: 641px) {
+  .bs3d-viewport {
+    height: 420px;
+  }
+
+  .bs3d-slot {
+    width: 260px;
+    height: 360px;
+    margin: -180px 0 0 -130px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bs3d-viewport {
+    height: 420px;
+  }
+
+  .bs3d-slot {
+    width: min(84vw, 300px);
+    height: 360px;
+    margin-top: -180px;
+    margin-left: calc(min(84vw, 300px) / -2);
+  }
+
+  .bs3d-controls {
+    gap: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs3d-stage {
+    transition: none;
+  }
+
+  .bs3d-shine::after {
+    transition: none;
+  }
+
+  .bs3d-card {
+    transition: none;
+  }
+}

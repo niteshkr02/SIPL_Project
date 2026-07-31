@@ -1,0 +1,726 @@
+/* ════════════════════════════════════════════════════════════════════
+   CLIENTELE — Cinematic Trust Hero
+   Isolated component (see clientele-hero.js). Replaces the plain
+   .page-header banner on clientele.html only — the nav, the logo and
+   everything from the Clientele grid section downward are untouched.
+   Dark scoped tokens mirror the site's existing .hero / .page-header
+   convention, so this reads as the same premium theme, not a new one.
+
+   Motion contract: only transform / opacity / filter are animated.
+   Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.clh {
+  --bg: #0B0B0D;
+  --surface: #151515;
+  --border: #262A34;
+  --ink: #EEEAE1;
+  --ink-dim: #9C9A90;
+  --accent: #FF7A1A;
+  --accent-hot: #FFC24B;
+  --accent-deep: #E23B1F;
+  position: relative;
+  min-height: clamp(680px, 94vh, 980px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-h) + 3rem) 1.5rem 3rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 112%, rgba(255, 122, 26, .32), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255, 194, 75, .18), transparent 45%),
+    var(--bg);
+}
+
+/* cursor-following spotlight */
+.clh::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: radial-gradient(circle 340px at var(--mx, 50%) var(--my, 40%), rgba(255, 194, 75, .12), transparent 70%);
+  opacity: 0;
+  transition: opacity .6s ease;
+  pointer-events: none;
+}
+
+.clh:hover::after {
+  opacity: 1;
+}
+
+.clh-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ── engineering blueprint grid + finer cross-hatch ── */
+.clh-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(ellipse 72% 62% at 50% 38%, #000 40%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 38%, #000 40%, transparent 92%);
+}
+
+.clh-blueprint {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 194, 75, .5) 0, rgba(255, 194, 75, .5) 1px, transparent 1px, transparent 22px),
+    repeating-linear-gradient(0deg, rgba(255, 194, 75, .5) 0, rgba(255, 194, 75, .5) 1px, transparent 1px, transparent 22px);
+  opacity: .025;
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 42%, #000 20%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 42%, #000 20%, transparent 85%);
+}
+
+/* ── volumetric orange lighting, breathing slowly ── */
+.clh-glow-wrap {
+  position: absolute;
+  inset: -15%;
+}
+
+.clh-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 105%, rgba(255, 122, 26, .5), transparent 42%),
+    radial-gradient(circle at 22% 90%, rgba(255, 194, 75, .3), transparent 38%),
+    radial-gradient(circle at 78% 96%, rgba(226, 59, 31, .32), transparent 40%);
+  filter: blur(8px);
+  animation: clhBreathe 9s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+
+@keyframes clhBreathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .75;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.clh-rays {
+  position: absolute;
+  left: 50%;
+  bottom: -12%;
+  width: 140%;
+  height: 90%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background:
+    conic-gradient(from 250deg at 50% 100%,
+      transparent 0deg,
+      rgba(255, 194, 75, .05) 8deg,
+      transparent 16deg,
+      transparent 42deg,
+      rgba(255, 122, 26, .045) 52deg,
+      transparent 62deg,
+      transparent 102deg,
+      rgba(255, 194, 75, .04) 110deg,
+      transparent 120deg);
+  animation: clhRaysSway 19s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes clhRaysSway {
+
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-1.4deg);
+  }
+
+  50% {
+    transform: translateX(-50%) rotate(1.4deg);
+  }
+}
+
+.clh-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .03;
+  background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
+}
+
+.clh-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── glowing dust + floating embers (one system, two size classes) ── */
+.clh-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.clh-particle {
+  position: absolute;
+  bottom: -6%;
+  left: var(--px, 50%);
+  width: var(--ps, 3px);
+  height: var(--ps, 3px);
+  border-radius: 50%;
+  background: var(--pc, var(--accent-hot));
+  box-shadow: 0 0 6px 1px var(--pc, var(--accent-hot));
+  opacity: 0;
+  animation: clhParticleDrift var(--pd, 12s) ease-in var(--pdelay, 0s) infinite;
+}
+
+.clh-particle.ember {
+  filter: blur(1px);
+  box-shadow: 0 0 12px 3px var(--pc, var(--accent));
+}
+
+@keyframes clhParticleDrift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: .85;
+  }
+
+  85% {
+    opacity: .3;
+  }
+
+  100% {
+    transform: translate(var(--pdx, 20px), -108vh);
+    opacity: 0;
+  }
+}
+
+/* ── large outline icons, background set-dressing ── */
+.clh-icons {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 44% 52% at 50% 42%, transparent 25%, #000 78%);
+  -webkit-mask-image: radial-gradient(ellipse 44% 52% at 50% 42%, transparent 25%, #000 78%);
+}
+
+.clh-bicon {
+  position: absolute;
+  stroke: var(--accent-hot);
+  fill: none;
+  stroke-width: .6;
+  opacity: .09;
+  filter: blur(.5px);
+  animation: clhIconFloat 14s ease-in-out infinite;
+}
+
+.clh-bicon.handshake {
+  top: 10%;
+  left: 3%;
+  width: clamp(120px, 13vw, 210px);
+}
+
+.clh-bicon.shield {
+  top: 58%;
+  left: 8%;
+  width: clamp(90px, 9vw, 150px);
+  animation-delay: 2s;
+}
+
+.clh-bicon.award {
+  top: 8%;
+  right: 4%;
+  width: clamp(100px, 10vw, 170px);
+  animation-delay: 4s;
+}
+
+.clh-bicon.building {
+  bottom: 6%;
+  right: 6%;
+  width: clamp(120px, 13vw, 210px);
+  animation-delay: 1s;
+}
+
+.clh-bicon.plant {
+  bottom: 10%;
+  left: 45%;
+  width: clamp(90px, 9vw, 150px);
+  animation-delay: 3s;
+}
+
+.clh-bicon.certificate {
+  top: 46%;
+  right: 2%;
+  width: clamp(90px, 9vw, 150px);
+  animation-delay: 5s;
+}
+
+@keyframes clhIconFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ══ LEFT: floating award composition ══ */
+.clh-left {
+  position: absolute;
+  left: clamp(1rem, 4vw, 4.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: clamp(140px, 15vw, 210px);
+  pointer-events: none;
+}
+
+.clh-plaque {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 1.1rem;
+  border-radius: 1rem;
+  background: linear-gradient(155deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 122, 26, .35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .5), 0 0 24px rgba(255, 122, 26, .12), inset 0 1px 0 rgba(255, 255, 255, .12);
+  animation: clhFloat 7s ease-in-out infinite;
+}
+
+.clh-plaque::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, .18), transparent 40%);
+  pointer-events: none;
+}
+
+.clh-plaque svg {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  stroke: var(--accent-hot);
+  fill: none;
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 6px rgba(255, 194, 75, .5));
+}
+
+.clh-plaque span {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: left;
+  line-height: 1.3;
+}
+
+.clh-plaque.trophy {
+  margin-left: 0;
+  animation-delay: 0s;
+}
+
+.clh-plaque.cert {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  animation-delay: 1.4s;
+}
+
+.clh-plaque.seal {
+  margin-left: -.5rem;
+  margin-top: 1rem;
+  animation-delay: 2.6s;
+}
+
+@keyframes clhFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+/* ══ RIGHT: glowing India network ══ */
+.clh-right {
+  position: absolute;
+  right: clamp(.5rem, 3vw, 3.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: clamp(160px, 17vw, 260px);
+  opacity: .9;
+  pointer-events: none;
+}
+
+.clh-india-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.clh-india-outline {
+  fill: none;
+  stroke: var(--accent-hot);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  opacity: .55;
+}
+
+.clh-route {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: .5;
+}
+
+.clh-node {
+  fill: var(--accent-hot);
+  filter: drop-shadow(0 0 5px rgba(255, 194, 75, .8));
+}
+
+.clh-node.hq {
+  fill: #fff;
+}
+
+.clh-node-pulse {
+  fill: none;
+  stroke: var(--accent-hot);
+  stroke-width: 1;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: clhNodePulse 2.6s ease-out infinite;
+}
+
+@keyframes clhNodePulse {
+  0% {
+    transform: scale(.6);
+    opacity: .9;
+  }
+
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.clh-route-dot {
+  fill: var(--accent-hot);
+  filter: drop-shadow(0 0 4px rgba(255, 194, 75, .9));
+}
+
+@media (max-width: 1180px) {
+
+  .clh-left,
+  .clh-right {
+    display: none;
+  }
+}
+
+/* ══ FOREGROUND CONTENT ══ */
+.clh-content {
+  position: relative;
+  z-index: 5;
+  max-width: 1020px;
+}
+
+.clh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .55rem 1.2rem;
+  border: 1px solid rgba(255, 122, 26, .35);
+  border-radius: 2rem;
+  background: rgba(255, 122, 26, .07);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .3em;
+  color: var(--accent-hot);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 0 rgba(255, 122, 26, 0);
+  animation: clhBadgeGlow 3s ease-in-out infinite;
+}
+
+@keyframes clhBadgeGlow {
+
+  0%,
+  100% {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 14px rgba(255, 122, 26, .1);
+  }
+
+  50% {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 22px rgba(255, 122, 26, .28);
+  }
+}
+
+.clh-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-hot);
+  box-shadow: 0 0 8px 2px var(--accent-hot);
+  flex-shrink: 0;
+  animation: clhDotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes clhDotPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .6;
+  }
+}
+
+.clh-heading {
+  margin-top: 1.5rem;
+  font-size: clamp(2.6rem, 6.4vw, 5.6rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+
+.clh-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .1em;
+}
+
+.clh-line-inner {
+  display: block;
+}
+
+.clh-heading .grad {
+  background: linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: clhEmberShift 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(255, 122, 26, .3));
+}
+
+@keyframes clhEmberShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.clh-desc {
+  margin: 1.5rem auto 0;
+  max-width: 700px;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--ink-dim);
+}
+
+/* ── single glass trust-metrics bar ── */
+.clh-stats-bar {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 2.6rem auto 0;
+  padding: 1.5rem clamp(1rem, 3vw, 2.2rem);
+  max-width: 980px;
+  border-radius: 24px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 122, 26, .3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+.clh-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem 1.3rem;
+  border-radius: 1rem;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1), background .35s ease;
+}
+
+.clh-stat:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 122, 26, .08);
+}
+
+.clh-stat-icon {
+  width: 26px;
+  height: 26px;
+  color: var(--accent-hot);
+}
+
+.clh-stat-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.clh-stat-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  color: var(--accent-hot);
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+
+.clh-stat-label {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: center;
+}
+
+.clh-stat-divider {
+  width: 1px;
+  align-self: center;
+  height: 44px;
+  background: rgba(255, 255, 255, .14);
+  flex-shrink: 0;
+}
+
+/* ── CTA ── */
+.clh-cta-row {
+  margin-top: 2.6rem;
+}
+
+.clh-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  padding: 1rem 2.2rem;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow: 0 12px 28px rgba(255, 122, 26, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
+  transition: box-shadow .35s ease;
+}
+
+.clh-cta:hover {
+  box-shadow: 0 18px 40px rgba(255, 122, 26, .5), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+
+.clh-cta-shine {
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+  pointer-events: none;
+}
+
+.clh-cta:hover .clh-cta-shine {
+  left: 125%;
+}
+
+.clh-cta-arrow {
+  display: inline-block;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.clh-cta:hover .clh-cta-arrow {
+  transform: translateX(5px);
+}
+
+.clh-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .5);
+  transform: scale(0);
+  opacity: .55;
+  pointer-events: none;
+  animation: clhRippleAnim .6s ease-out forwards;
+}
+
+@keyframes clhRippleAnim {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .clh-stats-bar {
+    gap: .5rem;
+  }
+
+  .clh-stat {
+    padding: .4rem .8rem;
+  }
+
+  .clh-stat-divider {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .clh-glow,
+  .clh-rays,
+  .clh-bicon,
+  .clh-particle,
+  .clh-badge,
+  .clh-badge-dot,
+  .clh-plaque,
+  .clh-node-pulse,
+  .clh-heading .grad {
+    animation: none !important;
+  }
+}
