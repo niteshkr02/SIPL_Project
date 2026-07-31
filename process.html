@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Process — From Earth to Structure | Shakambhari Group</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -24,9 +21,9 @@
   --accent-ink:#C1440E;
   --accent-hot:#FFC24B;
   --accent-deep:#E23B1F;
-  --font-display:'Oswald','Arial Narrow',sans-serif;
-  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 html{ scroll-behavior:smooth; }
 body{
@@ -320,7 +317,7 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .flowchart-pin.no-pin .flowchart-progress-track{ display:none; }
 @media(max-width:860px){ .flowchart-track{ padding:0 4vw; } }
 
-.fc-node-label{ font-family:'Oswald',sans-serif; font-weight:700; text-transform:uppercase; fill:#000; }
+.fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
 
 .fc-node{ cursor:pointer; outline:none; }
 .fc-node rect:first-child{ transition:filter .2s ease, transform .2s ease; transform-box:fill-box; transform-origin:center; }
@@ -378,8 +375,8 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .part2-note h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
 .part2-note p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
 .fc-node-label.on-dark{ fill:#fff; }
-.fc-node-sub{ font-family:'IBM Plex Mono',monospace; font-weight:600; fill:var(--accent-deep); }
-.fc-edge-label{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; fill:#000; }
+.fc-node-sub{ font-family:var(--font-mono); font-weight:600; fill:var(--accent-deep); }
+.fc-edge-label{ font-family:var(--font-mono); font-size:12px; font-weight:600; fill:#000; }
 
 /* ══ PULL QUOTES ══ */
 .pull-quote{ position:relative; z-index:1; text-align:center; padding:5.5rem 1.75rem; max-width:940px; margin:0 auto; }
@@ -501,7 +498,11 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 <!-- NAV -->
 <nav class="site-nav">
   <a href="index.html" class="nav-brand">
-    <img src="images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo">
+    <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo" width="219" height="252" decoding="async">
+</picture>
       <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
   </a>
   <ul class="nav-links" id="navLinks">
@@ -527,6 +528,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
         <a href="clientele.html">Clientele</a>
       </div>
     </li>
+    <li><a href="careers.html">Careers</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
@@ -1267,7 +1269,11 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   <div class="footer-grid">
     <div>
       <a href="index.html" class="footer-brand">
-        <img src="images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async">
+</picture>
           <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
       </a>
       <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>

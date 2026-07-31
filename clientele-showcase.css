@@ -1,0 +1,779 @@
+/* ════════════════════════════════════════════════════════════════════
+   CLIENTELE — Premium Client Trust Ecosystem
+   Isolated component (see clientele-showcase.js). Replaces the flat
+   .trust-strip logo wall on clientele.html only. Reuses the site's
+   existing white/orange theme tokens, .kicker / .section-head rhythm
+   and the .stat glass-card language already used elsewhere on the
+   site — nothing about the palette or the rest of the page changes.
+
+   Motion contract: only transform / opacity / filter are animated.
+   Width, height, margin, left and top are never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.cli {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5rem 1.75rem 6rem;
+}
+
+/* ── ambient background: mesh + dots + blueprint + wave + glow + noise ── */
+.cli-mesh {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 2rem;
+  background:
+    radial-gradient(ellipse 55% 48% at 18% 12%, rgba(255, 145, 40, .05), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 84% 18%, rgba(241, 243, 246, .85), transparent 60%),
+    radial-gradient(ellipse 62% 55% at 50% 100%, rgba(228, 231, 236, .5), transparent 65%),
+    linear-gradient(180deg, #FCFCFD 0%, #F5F6F8 100%);
+}
+
+.cli-dots {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(15, 23, 42, .055) 1px, transparent 1px);
+  background-size: 25px 25px;
+  mask-image: radial-gradient(ellipse 82% 70% at 50% 30%, #000 35%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 82% 70% at 50% 30%, #000 35%, transparent 95%);
+}
+
+.cli-blueprint {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(0deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 40px);
+  opacity: .03;
+  mask-image: radial-gradient(ellipse 72% 60% at 50% 38%, #000 25%, transparent 88%);
+  -webkit-mask-image: radial-gradient(ellipse 72% 60% at 50% 38%, #000 25%, transparent 88%);
+}
+
+/* soft industrial wave, sits low behind the grid */
+.cli-wave {
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  bottom: -2%;
+  height: 40%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .5;
+}
+
+.cli-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cli-wave path {
+  fill: none;
+  stroke: rgba(255, 106, 31, .1);
+  stroke-width: 1.4;
+}
+
+.cli-wave path.w2 {
+  stroke: rgba(255, 194, 75, .12);
+}
+
+/* faint architectural line-art: girders / bridge / skyline, kept out from
+   behind the heading via a center-fading mask so it never competes with it */
+.cli-lineart {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 44% 55% at 50% 30%, transparent 25%, #000 75%);
+  -webkit-mask-image: radial-gradient(ellipse 44% 55% at 50% 30%, transparent 25%, #000 75%);
+}
+
+.cli-art {
+  position: absolute;
+  stroke: rgba(15, 23, 42, .5);
+  fill: none;
+  stroke-width: 1;
+  opacity: .06;
+}
+
+.cli-art.bridge {
+  top: 8%;
+  left: 4%;
+  width: clamp(140px, 14vw, 220px);
+}
+
+.cli-art.crane {
+  top: 12%;
+  right: 5%;
+  width: clamp(100px, 10vw, 160px);
+}
+
+.cli-glow {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: 68%;
+  height: 55%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 106, 31, .08), transparent 65%);
+  filter: blur(44px);
+  animation: cliGlowBreathe 9s ease-in-out infinite;
+}
+
+@keyframes cliGlowBreathe {
+
+  0%,
+  100% {
+    opacity: .75;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+.cli-noise {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* floating orange dust, appears only occasionally (see JS) */
+.cli-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cli-particle {
+  position: absolute;
+  bottom: -4%;
+  left: var(--px, 50%);
+  width: var(--ps, 3px);
+  height: var(--ps, 3px);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px 1px rgba(255, 106, 31, .5);
+  opacity: 0;
+  animation: cliParticleDrift var(--pd, 9s) ease-in var(--pdelay, 0s) infinite;
+}
+
+@keyframes cliParticleDrift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: .6;
+  }
+
+  85% {
+    opacity: .2;
+  }
+
+  100% {
+    transform: translate(var(--pdx, 16px), -60vh);
+    opacity: 0;
+  }
+}
+
+/* ── header ── */
+.cli-head {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+}
+
+.cli-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .5rem 1.1rem;
+  border: 1px solid rgba(255, 106, 31, .3);
+  border-radius: 2rem;
+  background: rgba(255, 106, 31, .06);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .3em;
+  color: var(--accent-ink);
+}
+
+.cli-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px 2px rgba(255, 106, 31, .6);
+  flex-shrink: 0;
+  animation: cliDotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes cliDotPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px 2px rgba(255, 106, 31, .55);
+    opacity: 1;
+  }
+
+  50% {
+    box-shadow: 0 0 16px 6px rgba(255, 106, 31, .35);
+    opacity: .75;
+  }
+}
+
+.cli-head h2 {
+  margin-top: 1.4rem;
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+}
+
+.cli-head h2 .grad {
+  background: linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cli-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  margin: 1.3rem auto;
+}
+
+.cli-divider::before,
+.cli-divider::after {
+  content: '';
+  width: 46px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border));
+}
+
+.cli-divider::after {
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+.cli-divider-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 106, 31, .3);
+  background: rgba(255, 106, 31, .06);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.cli-divider-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cli-head p {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* ── trust metrics: floating glass panel ── */
+.cli-metrics {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.1rem;
+  margin-top: 3.2rem;
+}
+
+@media (max-width: 960px) {
+  .cli-metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cli-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cli-metric {
+  position: relative;
+  text-align: center;
+  padding: 1.9rem 1.1rem;
+  border-radius: 1.3rem;
+  background: linear-gradient(155deg, rgba(255, 255, 255, .75), rgba(255, 255, 255, .3));
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, .65);
+  box-shadow: 0 1px 2px rgba(20, 22, 28, .04), 0 14px 32px rgba(20, 22, 28, .07);
+  overflow: hidden;
+  transition: transform .45s cubic-bezier(.16, .84, .44, 1), box-shadow .45s ease, border-color .45s ease;
+}
+
+.cli-metric::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: scaleX(0);
+  transition: transform .45s ease;
+}
+
+.cli-metric:hover {
+  transform: translateY(-7px) scale(1.02);
+  border-color: rgba(255, 106, 31, .4);
+  box-shadow: 0 22px 46px rgba(20, 22, 28, .12), 0 0 36px rgba(255, 106, 31, .14);
+}
+
+.cli-metric:hover::before {
+  transform: scaleX(1);
+}
+
+.cli-metric-icon {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto .7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.cli-metric-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cli-metric-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  color: var(--accent-ink);
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+
+.cli-metric-label {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  color: var(--ink);
+  margin-top: .6rem;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ── filter chips ── */
+.cli-filters {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  margin: 3rem auto 0;
+}
+
+.cli-filter-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 2rem;
+  padding: .5rem 1.1rem;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.cli-filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  transform: translateY(-2px);
+}
+
+.cli-filter-btn.active {
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 106, 31, .3);
+}
+
+.cli-filter-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── client grid ── */
+.cli-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.6rem;
+  margin-top: 2.8rem;
+}
+
+@media (max-width: 960px) {
+  .cli-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .cli-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: .9rem;
+  }
+}
+
+.cli-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  min-height: 168px;
+  padding: 1.5rem 1.1rem 1.25rem;
+  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
+  border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: 22px;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, .08);
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  will-change: transform;
+  transition: box-shadow .45s cubic-bezier(.16, .84, .44, 1), border-color .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+.cli-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(15, 23, 42, .015);
+}
+
+/* glass reflection sweep */
+.cli-card::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(75deg, transparent 0%, rgba(255, 255, 255, .7) 45%, transparent 62%);
+  transform: translateX(-160%) rotate(10deg);
+  transition: transform .8s cubic-bezier(.16, .84, .44, 1);
+  pointer-events: none;
+}
+
+.cli-card:hover,
+.cli-card:focus-visible {
+  border-color: rgba(255, 106, 31, .45);
+  box-shadow: 0 30px 64px rgba(15, 23, 42, .15), 0 0 34px rgba(255, 106, 31, .18);
+}
+
+.cli-card:hover::after,
+.cli-card:focus-visible::after {
+  transform: translateX(220%) rotate(10deg);
+}
+
+.cli-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.cli-card-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
+}
+
+.cli-card-logo img {
+  max-width: 78%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: contrast(105%);
+  transition: filter .45s ease, transform .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+.cli-card-logo picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cli-card:hover .cli-card-logo img,
+.cli-card:focus-visible .cli-card-logo img {
+  filter: contrast(112%) brightness(1.05);
+  transform: scale(1.05);
+}
+
+.cli-card-name {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.cli-card-tag {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: rgba(255, 106, 31, .08);
+  border: 1px solid rgba(255, 106, 31, .2);
+  border-radius: 999px;
+  padding: .2rem .6rem;
+  transition: background .3s ease, transform .3s ease;
+}
+
+.cli-card:hover .cli-card-tag,
+.cli-card:focus-visible .cli-card-tag {
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.cli-card-trusted {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 6px);
+  font-family: var(--font-mono);
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+.cli-card:hover .cli-card-trusted,
+.cli-card:focus-visible .cli-card-trusted {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.cli-card.is-hidden {
+  display: none;
+}
+
+/* ── detail panel ── */
+.cli-panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(10, 12, 18, .55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+.cli-panel-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cli-panel {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem 2.25rem 2.25rem;
+  box-shadow: 0 40px 90px rgba(15, 23, 42, .35);
+  text-align: center;
+  transform: translateY(24px) scale(.97);
+  opacity: 0;
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1), opacity .4s ease;
+}
+
+.cli-panel-overlay.active .cli-panel {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.cli-panel-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+}
+
+.cli-panel-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  margin: 0 auto 1.2rem;
+}
+
+.cli-panel-logo img {
+  max-width: 60%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.cli-panel-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: .7rem;
+}
+
+.cli-panel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem;
+  margin-bottom: 1.2rem;
+}
+
+.cli-panel-desc {
+  color: var(--ink-soft);
+  font-size: .95rem;
+  line-height: 1.6;
+  margin-bottom: 1.6rem;
+}
+
+/* ── bottom CTA ── */
+.cli-cta-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.cli-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  padding: 1rem 2.1rem;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .3);
+  box-shadow: 0 12px 28px rgba(255, 106, 31, .3), inset 0 1px 0 rgba(255, 255, 255, .3);
+  transition: box-shadow .35s ease;
+}
+
+.cli-cta:hover {
+  box-shadow: 0 18px 38px rgba(255, 106, 31, .42), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+
+.cli-cta-shine {
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+  pointer-events: none;
+}
+
+.cli-cta:hover .cli-cta-shine {
+  left: 125%;
+}
+
+.cli-cta-arrow {
+  display: inline-block;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.cli-cta:hover .cli-cta-arrow {
+  transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cli-glow,
+  .cli-badge-dot,
+  .cli-particle {
+    animation: none !important;
+  }
+
+  .cli-card,
+  .cli-card::after,
+  .cli-metric,
+  .cli-panel,
+  .cli-panel-overlay {
+    transition: none !important;
+  }
+}
