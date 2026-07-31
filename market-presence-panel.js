@@ -46,6 +46,15 @@
     panel.style.transformPerspective = 1000;
 
     panel.addEventListener('mousemove', (e) => {
+      // The quick-jump directory holds clickable state names — tilting the
+      // whole card while the pointer is over them shifts the name out from
+      // under the cursor as it rotates, so clicks there miss. Hold the card
+      // flat (and hands off further movement) whenever the pointer is inside it.
+      if (e.target.closest('.mpp-directory')) {
+        quickX(0);
+        quickY(0);
+        return;
+      }
       const rect = panel.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width - .5;
       const ny = (e.clientY - rect.top) / rect.height - .5;

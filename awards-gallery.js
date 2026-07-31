@@ -67,7 +67,7 @@
     const w = window.innerWidth;
     if (w <= 768) return 1;
     if (w <= 1180) return 2;
-    return 4;
+    return 3;
   }
 
   function windowRange(count) {

@@ -1238,9 +1238,19 @@
       // One set of functions drives markers, state-shape tinting, route
       // brightening and the map "focus" zoom consistently no matter which
       // of those four entry points triggered it.
-      // Nothing is locked by default — the panel shows an empty "hover a
-      // marker" hint until the user actually interacts with the map.
+      // Nothing is locked by default — no pin, state tint or route on the
+      // map itself is pre-selected until the user actually interacts with
+      // it. (The card's own default text, shown before any interaction,
+      // is handled separately by showDefaultCardText() below — it never
+      // touches the map.)
       const lockedSelection = { india: null, world: null };
+
+      // Card-only defaults: which item's details the info card shows before
+      // the user has hovered/clicked anything. Deliberately kept apart from
+      // lockedSelection so this never lights up a pin, tints a state or
+      // highlights a route on the map — it only ever writes into the text
+      // fields of the card beside the map.
+      const DEFAULT_CARD_ITEM_ID = { india: 'wb', world: 'in_hq' };
 
       function datasetKey(dataList) {
         return dataList === worldCountriesData ? 'world' : 'india';
@@ -1401,6 +1411,21 @@
         } else {
           applyContent();
         }
+      }
+
+      // Card-only default text — deliberately does NOT touch pins, route
+      // highlighting or state tint (unlike updateVendorCard), so the map
+      // stays fully neutral while the card still shows real details before
+      // the user has hovered/clicked anything.
+      function showDefaultCardText(item) {
+        if (!cardStateName || !item) return;
+        cardStateName.innerHTML = `📍 ${item.name} <span class="mpp-hq-badge" id="cardBadgeType">${item.hubType || 'Regional Hub'}</span>`;
+        if (cardPartnerName) cardPartnerName.textContent = item.partner;
+        if (cardOfficer) cardOfficer.textContent = item.officer;
+        if (cardAddress) cardAddress.textContent = item.address;
+        if (cardPhoneBtn) cardPhoneBtn.href = `tel:${item.phone.replace(/\s+/g, '')}`;
+        if (cardEmailBtn) cardEmailBtn.href = `mailto:${item.email}`;
+        if (mppBody) mppBody.classList.remove('is-empty');
       }
 
       function renderQuickList(dataList, filterQuery = '') {
@@ -1630,8 +1655,11 @@
           else { worldMapWrap.style.display = 'block'; indiaMapWrap.style.display = 'none'; }
           activeDataset = worldCountriesData;
           renderQuickList(worldCountriesData);
-          const current = lockedSelection.world ? worldCountriesData.find(d => d.id === lockedSelection.world) : null;
-          updateVendorCard(current);
+          if (lockedSelection.world) {
+            updateVendorCard(worldCountriesData.find(d => d.id === lockedSelection.world));
+          } else {
+            showDefaultCardText(worldCountriesData.find(d => d.id === DEFAULT_CARD_ITEM_ID.world));
+          }
         });
 
         tabIndiaBtn.addEventListener('click', () => {
@@ -1641,11 +1669,19 @@
           else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
           activeDataset = indiaStatesData;
           renderQuickList(indiaStatesData);
-          const current = lockedSelection.india ? indiaStatesData.find(d => d.id === lockedSelection.india) : null;
-          updateVendorCard(current);
+          if (lockedSelection.india) {
+            updateVendorCard(indiaStatesData.find(d => d.id === lockedSelection.india));
+          } else {
+            showDefaultCardText(indiaStatesData.find(s => s.id === DEFAULT_CARD_ITEM_ID.india));
+          }
           setIndiaHighlight(lockedSelection.india);
         });
       }
+
+      // India tab is the one shown on load — populate the card's default
+      // West Bengal text now (map itself stays untouched: no pin, tint or
+      // route lights up until the user actually hovers/clicks something).
+      showDefaultCardText(indiaStatesData.find(s => s.id === DEFAULT_CARD_ITEM_ID.india));
     })();
   </script>
 <script>
