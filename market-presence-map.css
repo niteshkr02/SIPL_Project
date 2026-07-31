@@ -404,6 +404,11 @@
   cursor: pointer;
   z-index: 20;
   transition: opacity .3s ease, filter .3s ease;
+  /* GPU hint: the beacon inside keeps animating (pulse/ripple/breathe)
+     continuously — promoting the pin to its own compositor layer keeps
+     that animation isolated so it never forces a repaint of the map/SVG
+     underneath it (rule 5 / rule 2 "excessive repaint regions") */
+  backface-visibility: hidden;
 }
 
 .map-pin:hover,
@@ -444,6 +449,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* this is the element JS scales on hover/active (scaleBeacon()) — hinting
+     the browser up front avoids the first-frame paint jump that otherwise
+     reads as a flicker when a fresh compositor layer is created mid-hover */
+  will-change: transform;
 }
 
 .pin-beacon::before {
@@ -481,6 +490,9 @@
   opacity: 0.85;
   animation: pinWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   animation-delay: var(--pulse-jitter, 0s);
+  /* runs forever, independent of hover — its own layer keeps this endless
+     scale/opacity loop from repainting siblings on every frame */
+  will-change: transform, opacity;
 }
 
 .pin-ripple {
@@ -510,6 +522,8 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
   animation: pinBreathe var(--breathe-dur, 3.2s) ease-in-out infinite;
   animation-delay: var(--breathe-delay, 0s);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes pinBreathe {

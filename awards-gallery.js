@@ -4,7 +4,7 @@
    on each .awx-slot; title/issuer/description already in the markup),
    so the HTML stays the single source of truth. Drives an infinite,
    index-based carousel — the same proven approach as the Beyond Steel
-   slider, generalized to a variable visible-card count (4/2/1) and a
+   slider, generalized to a variable visible-card count (3/2/1) and a
    filterable dataset (the year timeline).
 
    Reuses the existing global openCertModal()/closeCertModal() for the
@@ -67,7 +67,7 @@
     const w = window.innerWidth;
     if (w <= 768) return 1;
     if (w <= 1180) return 2;
-    return 4;
+    return 3;
   }
 
   function windowRange(count) {

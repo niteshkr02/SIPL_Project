@@ -149,6 +149,12 @@
 .mpp-header {
   position: relative;
   z-index: 1;
+  /* this + .mpp-body are the two elements the JS crossfade (opacity +
+     translateY) runs on every hover/click — promoting them to their own
+     compositor layer up front stops the "pop" as a layer is created mid
+     animation, which is what read as a flash/flicker on state changes */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .mpp-state {
@@ -161,6 +167,10 @@
   color: var(--ink);
   line-height: 1.15;
   margin: 0 0 .55rem;
+  /* reserve height for two lines so switching between a short state name
+     (no wrap) and a longer one + badge (wraps) never jumps the layout —
+     the crossfade should read as a fade, never as a resize */
+  min-height: calc(1.75rem * 1.15 * 2);
 }
 
 /* JS stamps this exact class on the badge span it (re)creates on every
@@ -204,6 +214,9 @@
   display: flex;
   flex-direction: column;
   gap: .65rem;
+  /* see .mpp-header — same crossfade target, same GPU-layer reasoning */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* default / no-hover state — nothing selected yet, so no vendor details
@@ -388,10 +401,10 @@
 }
 
 .mpp-directory-list {
-  display: flex;
-  flex-direction: column;
-  gap: .4rem;
-  max-height: 200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5rem;
+  max-height: 240px;
   overflow-y: auto;
   padding-right: .25rem;
   scrollbar-width: thin;
@@ -407,6 +420,7 @@
 }
 
 .mpp-empty {
+  grid-column: 1 / -1;
   font-size: .78rem;
   color: var(--ink-soft);
   padding: .6rem;
@@ -428,13 +442,13 @@
   font-size: .8rem;
   color: var(--ink-soft);
   cursor: pointer;
-  transition: transform .25s cubic-bezier(.16, .84, .44, 1), background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+  transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
 }
 
 .quick-location-item:hover {
-  transform: translateX(3px);
   background: rgba(255, 255, 255, .85);
   border-color: rgba(255, 106, 31, .35);
+  box-shadow: 0 6px 16px rgba(255, 106, 31, .1);
   color: var(--ink);
 }
 
@@ -528,6 +542,12 @@
   }
 
   .mpp-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .mpp-directory-list {
     grid-template-columns: 1fr;
   }
 }

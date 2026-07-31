@@ -27,10 +27,15 @@
       cards.forEach((c) => { c.style.opacity = 1; });
       return;
     }
-    gsap.set(cards, { opacity: 0, y: 40, scale: .92, filter: 'blur(10px)' });
+    // No filter/blur here: animating blur on 20 cards at once is expensive
+    // enough that weaker devices can drop or stall the tween mid-flight,
+    // leaving logos looking like they never finished loading in. Opacity +
+    // transform alone stays cheap and reliable, and a tighter stagger gets
+    // every card fully visible in well under a second either way.
+    gsap.set(cards, { opacity: 0, y: 40, scale: .92 });
     gsap.to(cards, {
-      opacity: 1, y: 0, scale: 1, filter: 'blur(0px)',
-      duration: .8, ease: EASE, stagger: .08,
+      opacity: 1, y: 0, scale: 1,
+      duration: .6, ease: EASE, stagger: { each: .035, from: 'start' },
     });
   }
 
