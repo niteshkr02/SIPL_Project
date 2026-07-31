@@ -37,7 +37,7 @@
       p.style.setProperty('--pd', (10 + Math.random() * 10).toFixed(1) + 's');
       p.style.setProperty('--pdelay', (-Math.random() * 20).toFixed(1) + 's');
       p.style.setProperty('--pdx', ((Math.random() - .5) * 60).toFixed(0) + 'px');
-      p.style.setProperty('--pc', Math.random() > .5 ? 'var(--accent-green)' : 'var(--accent-hot)');
+      p.style.setProperty('--pc', Math.random() > .5 ? 'var(--accent)' : 'var(--accent-hot)');
       particlesLayer.appendChild(p);
     }
   }
