@@ -412,7 +412,9 @@
   border-radius: 2rem;
   padding: .5rem 1.1rem;
   cursor: pointer;
-  transition: all .25s ease;
+  /* explicit properties only — "transition: all" forces the browser to watch
+     every property (including layout ones) for changes every frame */
+  transition: color .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
 
 .cli-filter-btn:hover {
@@ -441,6 +443,12 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 1.6rem;
   margin-top: 2.8rem;
+  /* pre-promote the grid to its own compositor layer so the mousemove tilt
+     (rotationX/rotationY, set in JS) is a pure GPU recomposite — without
+     this, rotating the parent forces the browser to repaint every card
+     inside it on each mousemove, which is the main source of the flicker */
+  will-change: transform;
+  contain: layout;
 }
 
 @media (max-width: 960px) {
@@ -473,8 +481,21 @@
   overflow: hidden;
   cursor: pointer;
   outline: none;
-  will-change: transform;
+  /* isolate + contain: hovering/lifting one card can never force a repaint of
+     sibling cards — each card paints and lays out independently */
+  contain: layout paint style;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   transition: box-shadow .45s cubic-bezier(.16, .84, .44, 1), border-color .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* will-change only while a card is actually interactive — keeping it on all
+   ~30 cards permanently would pin that many compositor layers in memory for
+   no benefit, so it's scoped to the active/focused card only */
+.cli-card:hover,
+.cli-card:focus-visible {
+  will-change: transform;
 }
 
 .cli-card::before {
@@ -739,17 +760,22 @@
 .cli-cta-shine {
   position: absolute;
   top: 0;
+  /* left is set once and never animated (animating "left" forces a layout
+     recalc on every frame); the sweep itself is driven purely by transform,
+     which the compositor can animate without touching layout at all */
   left: -75%;
   width: 45%;
   height: 100%;
   background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .55), transparent);
-  transform: skewX(-20deg);
-  transition: left .6s ease;
+  transform: translateX(0) skewX(-20deg);
+  transition: transform .6s ease;
   pointer-events: none;
 }
 
 .cli-cta:hover .cli-cta-shine {
-  left: 125%;
+  /* 444% of the element's own (45%-of-parent) width reproduces the exact
+     same travel distance as the original left:-75% -> left:125% sweep */
+  transform: translateX(444%) skewX(-20deg);
 }
 
 .cli-cta-arrow {
