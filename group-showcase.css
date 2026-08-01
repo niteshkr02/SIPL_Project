@@ -124,7 +124,7 @@
 
 .grp-track {
   position: relative;
-  height: 560px;
+  height: 640px;
   outline: none;
   cursor: grab;
   touch-action: pan-y;
@@ -200,8 +200,8 @@
   top: 50%;
   left: 50%;
   width: 380px;
-  height: 520px;
-  margin: -260px 0 0 -190px;
+  height: 580px;
+  margin: -290px 0 0 -190px;
 }
 
 /* breathing float + hover lift live one layer in, so they never fight the
@@ -262,7 +262,7 @@
 .grp-image-wrap {
   position: relative;
   flex-shrink: 0;
-  height: 64%;
+  height: 52%;
   overflow: hidden;
   background: #14161C;
 }
@@ -446,7 +446,6 @@
   font-size: .8rem;
   line-height: 1.5;
   color: var(--ink-soft);
-  flex: 1;
   margin-bottom: .85rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -458,6 +457,7 @@
   appearance: none;
   -webkit-appearance: none;
   align-self: flex-start;
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
   gap: .4rem;
@@ -676,25 +676,25 @@
 /* ── responsive: 3 / 2 / 1 visible units ── */
 @media (max-width: 1180px) and (min-width: 769px) {
   .grp-track {
-    height: 540px;
+    height: 640px;
   }
 
   .grp-slot {
     width: 320px;
-    height: 500px;
-    margin: -250px 0 0 -160px;
+    height: 580px;
+    margin: -290px 0 0 -160px;
   }
 }
 
 @media (max-width: 768px) {
   .grp-track {
-    height: 540px;
+    height: 640px;
   }
 
   .grp-slot {
     width: min(80vw, 360px);
-    height: 500px;
-    margin-top: -250px;
+    height: 580px;
+    margin-top: -290px;
     margin-left: calc(min(80vw, 360px) / -2);
   }
 
