@@ -1046,3 +1046,31 @@
   transition: opacity .25s ease, transform .25s ease;
 }
 .csa-link:hover .csa-tooltip { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+/* ══ DARK MODE ══ */
+/* "Why Join Us" / Values / Benefits premium card — was a bright white
+   glass gradient with a matching white border ring */
+html[data-theme="dark"] .car-card {
+  background: linear-gradient(155deg, rgba(27, 31, 38, .85), rgba(18, 21, 26, .5));
+  border-color: rgba(255, 255, 255, .1);
+}
+
+/* Learning & Development roadmap milestone node badge */
+html[data-theme="dark"] .cld-node {
+  background: linear-gradient(155deg, var(--surface), var(--surface-2));
+}
+
+/* Open Positions job card */
+html[data-theme="dark"] .cop-card {
+  background: linear-gradient(155deg, rgba(27, 31, 38, .8), rgba(18, 21, 26, .5));
+}
+
+/* Newsletter band */
+html[data-theme="dark"] .cnl-band {
+  background: linear-gradient(155deg, rgba(27, 31, 38, .8), rgba(18, 21, 26, .45));
+}
+
+/* Sticky quick-actions rail — floating frosted-glass pill nav */
+html[data-theme="dark"] .csa-rail {
+  background: rgba(27, 31, 38, .85);
+}

@@ -1,8 +1,20 @@
-// Shared site behavior: glass nav scroll state, mobile menu, reveal-on-scroll.
+// Shared site behavior: glass nav scroll state, mobile menu, dark mode, reveal-on-scroll.
 (function(){
   const nav = document.querySelector('.site-nav');
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
+  const themeToggle = document.querySelector('.theme-toggle');
+
+  if(themeToggle){
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeToggle.setAttribute('aria-pressed', String(isDark));
+    themeToggle.addEventListener('click', ()=>{
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      themeToggle.setAttribute('aria-pressed', String(next === 'dark'));
+      try{ localStorage.setItem('theme', next); }catch(e){}
+    });
+  }
 
   function onScroll(){
     if(!nav) return;

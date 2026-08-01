@@ -803,3 +803,31 @@
     transition: none !important;
   }
 }
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .cli-mesh {
+  background:
+    radial-gradient(ellipse 55% 48% at 18% 12%, rgba(255, 145, 40, .07), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 84% 18%, rgba(255, 255, 255, .03), transparent 60%),
+    radial-gradient(ellipse 62% 55% at 50% 100%, rgba(255, 255, 255, .02), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+
+html[data-theme="dark"] .cli-metric {
+  background: linear-gradient(155deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+  border-color: rgba(255, 255, 255, .12);
+}
+
+html[data-theme="dark"] .cli-filter-btn {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .cli-card {
+  background: linear-gradient(165deg, #1B1F26 0%, #20242C 100%);
+  border-color: rgba(255, 255, 255, .08);
+}
+
+html[data-theme="dark"] .cli-panel {
+  background: var(--surface);
+}
