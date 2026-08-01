@@ -33,6 +33,7 @@
 .apply-progress-track{ flex:1; height:8px; border-radius:999px; background:var(--surface-2); overflow:hidden; }
 .apply-progress-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--accent-hot),var(--accent)); transition:width .4s ease; }
 .apply-progress-label{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; color:var(--accent-ink); white-space:nowrap; }
+html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 
 @keyframes formBlockIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
 .form-block{ padding-bottom:2.2rem; margin-bottom:2.2rem; border-bottom:1px solid var(--border); animation:formBlockIn .5s ease both; }
