@@ -1419,36 +1419,12 @@
           }
         };
 
-        // Premium state-change transition: slide/fade the current info out,
-        // swap the content, then slide/fade the new info back in. Only
-        // transform + opacity are animated (no filter/blur — that property
-        // is expensive to repaint and was contributing to the flicker), and
-        // opacity never reaches 0, so the panel fades but never fully
-        // disappears or flashes blank between states.
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Instant swap: the state name/vendor details replace immediately,
+        // no fade/slide crossfade — kill any leftover tween from an earlier
+        // in-flight call so it can't still land and re-animate this content.
         const targets = [mppHeaderEl, mppBody].filter(Boolean);
-
-        if (window.gsap && targets.length && !reduceMotion) {
-          // explicitly kill any tween left over from a still-in-flight call
-          // (e.g. a rapid hover -> click -> tab-switch sequence) rather than
-          // relying solely on overwrite:'auto', which only overwrites the
-          // *next* tween created — a callback already queued by an in-flight
-          // tween (like the fade-in this fade-out's own onComplete is about
-          // to start) can otherwise still land after this one.
-          gsap.killTweensOf(targets);
-          gsap.to(targets, {
-            opacity: .4, y: -6, duration: .15, ease: 'power2.in', force3D: true,
-            onComplete: () => {
-              applyContent();
-              gsap.fromTo(targets,
-                { opacity: .4, y: 6 },
-                { opacity: 1, y: 0, duration: .35, ease: 'power3.out', force3D: true }
-              );
-            }
-          });
-        } else {
-          applyContent();
-        }
+        if (window.gsap && targets.length) gsap.killTweensOf(targets);
+        applyContent();
       }
 
       function renderQuickList(dataList, filterQuery = '') {
@@ -1670,6 +1646,14 @@
           });
         }
       });
+
+      // Default landing state: show West Bengal (HQ) and its vendor details
+      // as soon as the domestic map loads, instead of the empty "hover a
+      // marker" hint. lockItem() drives the same pin/shape/list highlighting
+      // as a real click, so it stays in sync with whatever the user hovers
+      // or clicks next.
+      const defaultIndiaItem = indiaStatesData.find(s => s.id === 'wb');
+      if (defaultIndiaItem) lockItem(defaultIndiaItem, indiaStatesData);
 
       const tabWorldBtn = document.getElementById('tabWorldBtn');
       const tabIndiaBtn = document.getElementById('tabIndiaBtn');
