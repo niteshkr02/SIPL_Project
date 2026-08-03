@@ -5,9 +5,9 @@
    which sections are present. Global .reveal/.reveal-* fade-ins are
    already handled by site.js — this file only adds behavior that
    fade-in alone can't: counters, SVG line draw-in, staggered timeline
-   reveal, the gallery lightbox, the testimonial slider, job filtering,
-   the FAQ accordion, the newsletter form, the office map, the floating
-   HR assistant, and the sticky quick-actions rail.
+   reveal, the testimonial slider, job filtering, the FAQ accordion,
+   the newsletter form, the office map, the floating HR assistant, and
+   the sticky quick-actions rail.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -79,61 +79,6 @@
   staggerReveal(document.querySelector('.cld-roadmap'), '.cld-milestone');
   staggerReveal(document.querySelector('.ccj-timeline'), '.ccj-step', { itemDelay: 140 });
   staggerReveal(document.querySelector('.crp-row'), '.crp-step', { itemDelay: 110 });
-
-  // ════════════════════ LIFE AT SIPL — GALLERY LIGHTBOX ════════════════════
-  (function initGallery() {
-    const items = Array.from(document.querySelectorAll('.cls-item[data-full]'));
-    const lightbox = document.getElementById('clsLightbox');
-    if (!items.length || !lightbox) return;
-
-    const imgEl = lightbox.querySelector('.cls-lightbox-img');
-    const captionEl = lightbox.querySelector('.cls-lightbox-caption');
-    const closeBtn = lightbox.querySelector('.cls-lightbox-close');
-    const prevBtn = lightbox.querySelector('.cls-lightbox-nav.prev');
-    const nextBtn = lightbox.querySelector('.cls-lightbox-nav.next');
-    let index = 0;
-    let lastFocused = null;
-
-    function show(i) {
-      index = (i + items.length) % items.length;
-      const item = items[index];
-      imgEl.src = item.dataset.full;
-      imgEl.alt = item.dataset.caption || '';
-      captionEl.textContent = item.dataset.caption || '';
-    }
-
-    function open(i) {
-      lastFocused = document.activeElement;
-      show(i);
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      closeBtn.focus();
-    }
-
-    function close() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-      if (lastFocused) lastFocused.focus();
-    }
-
-    items.forEach((item, i) => {
-      item.addEventListener('click', () => open(i));
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
-      });
-    });
-
-    closeBtn.addEventListener('click', close);
-    prevBtn.addEventListener('click', () => show(index - 1));
-    nextBtn.addEventListener('click', () => show(index + 1));
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('active')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(index - 1);
-      if (e.key === 'ArrowRight') show(index + 1);
-    });
-  })();
 
   // ════════════════════ EMPLOYEE SUCCESS STORIES — SLIDER ════════════════════
   (function initTestimonialSlider() {

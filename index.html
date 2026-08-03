@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="trusted-by-section.css">
   <link rel="stylesheet" href="awards-gallery.css">
   <link rel="stylesheet" href="group-showcase.css">
+  <link rel="stylesheet" href="quality-section.css">
   <style>
     /* ══ HERO (dark, scoped tokens) ══ */
     .hero {
@@ -942,6 +943,132 @@
       margin: 0 auto 2rem;
       font-size: 1.05rem;
     }
+
+    /* ══ NEWSLETTER BAND ══ */
+    .newsletter-band {
+      position: relative;
+      z-index: 1;
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 0 1.75rem 6rem;
+    }
+
+    .newsletter-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      border-radius: 1.6rem;
+      padding: 3rem 3.5rem;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 0% 50%, rgba(255, 106, 31, .3), transparent 55%),
+        radial-gradient(ellipse at 100% 120%, rgba(255, 194, 75, .2), transparent 45%),
+        #0B1440;
+    }
+
+    .newsletter-copy {
+      flex: 1 1 360px;
+      text-align: left;
+    }
+
+    .newsletter-copy .kicker {
+      color: #FFC24B;
+      justify-content: flex-start;
+    }
+
+    .newsletter-copy .kicker::before {
+      background: #FF6A1F;
+    }
+
+    .newsletter-copy h2 {
+      color: #EEEAE1;
+      font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+      margin: .7rem 0 .6rem;
+    }
+
+    .newsletter-copy p {
+      color: #9C9A90;
+      max-width: 46ch;
+      font-size: 1rem;
+    }
+
+    .newsletter-form {
+      flex: 1 1 380px;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .newsletter-field {
+      display: flex;
+      gap: .75rem;
+    }
+
+    .newsletter-field input {
+      flex: 1;
+      min-width: 0;
+      padding: .85rem 1.2rem;
+      border-radius: 2.5rem;
+      border: 1.5px solid #2A3466;
+      background: #101B4F;
+      color: #EEEAE1;
+      font-size: .95rem;
+    }
+
+    .newsletter-field input::placeholder {
+      color: #6B6E76;
+    }
+
+    .newsletter-field input:focus {
+      outline: none;
+      border-color: #FF6A1F;
+    }
+
+    .newsletter-submit {
+      flex: none;
+      white-space: nowrap;
+    }
+
+    .newsletter-status {
+      font-size: .85rem;
+      margin-top: .9rem;
+      line-height: 1.5;
+      color: #9C9A90;
+    }
+
+    .newsletter-status.error {
+      color: #FFB199;
+    }
+
+    .newsletter-status.success {
+      color: #8CE0A0;
+    }
+
+    @media (max-width: 760px) {
+      .newsletter-inner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 2.75rem 1.75rem;
+      }
+
+      .newsletter-copy {
+        text-align: center;
+      }
+
+      .newsletter-copy .kicker {
+        justify-content: center;
+      }
+
+      .newsletter-copy p {
+        margin: 0 auto;
+      }
+
+      .newsletter-field {
+        flex-direction: column;
+      }
+    }
   </style>
   <!-- loaded after the inline hero styles above so it wins the cascade for
        the couple of rules it deliberately extends (e.g. .hero h1 .grad) -->
@@ -1121,6 +1248,14 @@
       <div class="hero-rays"></div>
       <div class="hero-fog"></div>
       <div class="hero-scanlines"></div>
+
+      <!-- floating ambient glow orbs, independent of the furnace-breathe glow -->
+      <div class="hero-orbs" aria-hidden="true">
+        <span class="hero-orb o1"></span>
+        <span class="hero-orb o2"></span>
+        <span class="hero-orb o3"></span>
+        <span class="hero-orb o4"></span>
+      </div>
 
       <!-- tiny industrial HUD markers -->
       <div class="hero-markers">
@@ -1442,6 +1577,220 @@
               <path d="M9 6l6 6-6 6" />
             </svg>
           </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- QUALITY WITHOUT COMPROMISE (isolated component — see
+         quality-section.css / quality-section.js) -->
+    <section class="qw" id="qualitySection" aria-labelledby="qwHeading">
+      <div class="qw-mesh" aria-hidden="true"></div>
+      <div class="qw-grid" aria-hidden="true"></div>
+      <div class="qw-glow" aria-hidden="true"></div>
+      <div class="qw-orb o1" aria-hidden="true"></div>
+      <div class="qw-orb o2" aria-hidden="true"></div>
+      <div class="qw-orb o3" aria-hidden="true"></div>
+      <div class="qw-noise" aria-hidden="true"></div>
+
+      <div class="qw-inner">
+        <div class="section-head qw-head reveal">
+          <div class="kicker center">QUALITY</div>
+          <h2 id="qwHeading">Quality Without Compromise</h2>
+          <p>Delivering excellence through certified processes, cutting-edge manufacturing, rigorous quality
+            control, and a commitment to global standards.</p>
+        </div>
+
+        <div class="qw-layout">
+          <div class="qw-visual reveal-left" aria-hidden="true">
+            <div class="qw-visual-glow"></div>
+            <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle class="qw-visual-ring" cx="210" cy="210" r="190" stroke="url(#steelGrad)" stroke-width="1"
+                stroke-dasharray="3 9" opacity=".35" />
+              <circle class="qw-visual-ring rev" cx="210" cy="210" r="155" stroke="url(#goldGrad)" stroke-width="1"
+                stroke-dasharray="2 7" opacity=".3" />
+              <rect class="qw-visual-plate" x="95" y="95" width="230" height="230" rx="24" stroke-width="1" />
+              <clipPath id="qwScanClip">
+                <rect x="95" y="95" width="230" height="230" rx="24" />
+              </clipPath>
+              <g clip-path="url(#qwScanClip)">
+                <rect class="qw-visual-scan" x="95" y="208" width="230" height="2" fill="url(#emberGrad)" />
+              </g>
+              <g transform="translate(210,210)">
+                <g fill="url(#steelGrad)">
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(45)" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(90)" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(135)" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(180)" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(225)" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(270)" />
+                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(315)" />
+                </g>
+                <circle r="58" fill="url(#steelGrad)" />
+                <circle r="58" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2" />
+                <circle r="22" fill="url(#emberGrad)" />
+                <circle r="9" fill="#0A0B0E" opacity=".55" />
+              </g>
+              <g transform="translate(300,300)">
+                <path d="M0 -26 L22 -16 V6 C22 22 0 32 0 32 C0 32 -22 22 -22 6 V-16 Z" fill="url(#goldGrad)"
+                  opacity=".95" />
+                <path d="M-9 2 L-2 9 L11 -7" stroke="#0A0B0E" stroke-width="3" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </g>
+            </svg>
+          </div>
+
+          <div class="qw-content">
+            <div class="qw-cards">
+              <div class="qw-card" data-icon="gear" tabindex="0">
+                <div class="qw-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                </div>
+                <h3>Precision Manufacturing</h3>
+                <p>Advanced production techniques and closely toleranced processes ensure every batch meets
+                  exacting engineering specifications.</p>
+              </div>
+
+              <div class="qw-card" data-icon="shield" tabindex="0">
+                <div class="qw-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <h3>Certified Standards</h3>
+                <p>Manufacturing operations aligned with ISO-compliant systems, upheld consistently across every
+                  unit and every shift.</p>
+              </div>
+
+              <div class="qw-card" data-icon="check" tabindex="0">
+                <div class="qw-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    <path d="M8.5 11l1.8 1.8L14 9" />
+                  </svg>
+                </div>
+                <h3>Rigorous Testing</h3>
+                <p>Multi-stage inspections and laboratory-grade checks catch deviations long before material
+                  leaves the plant.</p>
+              </div>
+
+              <div class="qw-card" data-icon="handshake" tabindex="0">
+                <div class="qw-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M11 17l-1.6 1.6a2 2 0 0 1-2.83 0l-.17-.17a2 2 0 0 1 0-2.83L8 14" />
+                    <path d="M13 17l1.6 1.6a2 2 0 0 0 2.83 0l.17-.17a2 2 0 0 0 0-2.83L16 14" />
+                    <path d="M8 14l3.3-3.3a1 1 0 0 1 1.4 0L16 14" />
+                    <path d="M2 10l4-3 3 1.5" />
+                    <path d="M22 10l-4-3-3 1.5" />
+                  </svg>
+                </div>
+                <h3>Customer Satisfaction</h3>
+                <p>A firm commitment to consistent, reliable products that our partners can build on, shipment
+                  after shipment.</p>
+              </div>
+            </div>
+
+            <div class="qw-rings">
+              <div class="qw-ring-item" data-pct="98">
+                <svg class="qw-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="qwRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFC24B" />
+                      <stop offset="100%" stop-color="#FF6A1F" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="qw-ring-track" cx="60" cy="60" r="50" />
+                  <circle class="qw-ring-progress" cx="60" cy="60" r="50" />
+                </svg>
+                <div class="qw-ring-num-wrap"><span class="qw-ring-num counter" data-target="98"
+                    data-suffix="%">0%</span></div>
+                <span class="qw-ring-label">Product Accuracy</span>
+              </div>
+
+              <div class="qw-ring-item" data-pct="99">
+                <svg class="qw-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="qw-ring-track" cx="60" cy="60" r="50" />
+                  <circle class="qw-ring-progress" cx="60" cy="60" r="50" />
+                </svg>
+                <div class="qw-ring-num-wrap"><span class="qw-ring-num counter" data-target="99"
+                    data-suffix="%">0%</span></div>
+                <span class="qw-ring-label">Inspection Success</span>
+              </div>
+
+              <div class="qw-ring-item" data-pct="100">
+                <svg class="qw-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="qw-ring-track" cx="60" cy="60" r="50" />
+                  <circle class="qw-ring-progress" cx="60" cy="60" r="50" />
+                </svg>
+                <div class="qw-ring-num-wrap"><span class="qw-ring-num counter" data-target="100"
+                    data-suffix="%">0%</span></div>
+                <span class="qw-ring-label">Quality Commitment</span>
+              </div>
+            </div>
+
+            <div class="qw-timeline">
+              <div class="qw-timeline-title">Quality Journey</div>
+              <div class="qw-timeline-rail">
+                <span class="qw-timeline-pulse" aria-hidden="true"></span>
+                <ol class="qw-timeline-track">
+                  <li class="qw-step">
+                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2 2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                      </svg></span>
+                    <span class="qw-step-label">Raw Material</span>
+                  </li>
+                  <li class="qw-step">
+                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                      </svg></span>
+                    <span class="qw-step-label">Manufacturing</span>
+                  </li>
+                  <li class="qw-step">
+                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg></span>
+                    <span class="qw-step-label">Testing</span>
+                  </li>
+                  <li class="qw-step">
+                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11l3 3L22 4" />
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                      </svg></span>
+                    <span class="qw-step-label">Inspection</span>
+                  </li>
+                  <li class="qw-step">
+                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="3" width="15" height="13" rx="2" />
+                        <path d="M16 8h4l3 3v5h-7V8z" />
+                        <circle cx="5.5" cy="18.5" r="2.5" />
+                        <circle cx="18.5" cy="18.5" r="2.5" />
+                      </svg></span>
+                    <span class="qw-step-label">Delivery</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2812,6 +3161,24 @@
       </div>
     </div>
 
+    <!-- NEWSLETTER -->
+    <div class="newsletter-band reveal-scale">
+      <div class="newsletter-inner">
+        <div class="newsletter-copy">
+          <span class="kicker">Stay Updated</span>
+          <h2>Get Our Newsletter</h2>
+          <p>Plant updates, product notes and industry insights — one concise email a month. No spam.</p>
+        </div>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <div class="newsletter-field">
+            <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address">
+            <button type="submit" class="btn btn-primary newsletter-submit">Subscribe →</button>
+          </div>
+          <p class="newsletter-status" hidden></p>
+        </form>
+      </div>
+    </div>
+
   </div><!-- /page-shell -->
 
   <!-- FOOTER -->
@@ -3735,6 +4102,58 @@
       if (e.key === 'Escape') closeCertModal();
     });
   </script>
+  <script>
+    (function () {
+      const form = document.getElementById('newsletterForm');
+      if (!form) return;
+      const status = form.querySelector('.newsletter-status');
+
+      // TODO: replace with the Production URL of your n8n Webhook node (Method: POST, application/json)
+      const NEWSLETTER_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.hidden = false;
+        status.className = 'newsletter-status';
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        if (NEWSLETTER_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+          status.textContent = "This form isn't connected yet — please email info@shakambharigroup.in and our team will add you directly.";
+          status.classList.add('error');
+          return;
+        }
+
+        const submitBtn = form.querySelector('.newsletter-submit');
+        const originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        fetch(NEWSLETTER_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        })
+          .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
+          .then(function () {
+            status.textContent = "Thanks for subscribing — you'll hear from us soon.";
+            status.classList.add('success');
+            form.reset();
+          })
+          .catch(function () {
+            status.textContent = 'Something went wrong. Please try again or email info@shakambharigroup.in.';
+            status.classList.add('error');
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          });
+      });
+    })();
+  </script>
   <!-- GSAP powers the Beyond Steel slider, Market Presence panel, Trusted By
        showcase and Awards gallery; each falls back to plain CSS transitions
        if this CDN request ever fails. -->
@@ -3746,6 +4165,7 @@
   <script src="awards-gallery.js"></script>
   <script src="group-showcase.js"></script>
   <script src="hero-cinematic.js"></script>
+  <script src="quality-section.js"></script>
 </body>
 
 </html>

@@ -133,8 +133,20 @@
   overflow: hidden;
   cursor: pointer;
   outline: none;
-  will-change: transform;
+  /* isolate + contain: hovering/lifting one card can never force a repaint of
+     sibling cards — each card paints and lays out independently */
+  contain: layout paint style;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   transition: box-shadow .45s cubic-bezier(.16, .84, .44, 1), border-color .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* will-change only while a card is actually interactive — keeping it on all
+   ~20 cards permanently would force that many compositor layers at once */
+.tby-card:hover,
+.tby-card:focus-visible {
+  will-change: transform;
 }
 
 /* very subtle inner highlight, keeps the "floating card" feel */
