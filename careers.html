@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="careers-hero.css">
 <link rel="stylesheet" href="careers-content.css">
+<link rel="stylesheet" href="career-benefits-carousel.css">
 <style>
 /* ══ APPLICATION FORM ══ */
 .apply-shell{ max-width:840px; margin:0 auto; }
@@ -310,144 +311,84 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     <h2>Built For People Who Build Things</h2>
     <p>Six reasons our people choose to stay and grow with Shakambhari Group.</p>
   </div>
-  <div class="cwj-grid">
-    <div class="car-card reveal">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
-      <h3>Career Growth</h3>
-      <p>Clear progression paths from graduate roles to leadership, built on merit and measurable impact.</p>
+  <div class="cbc" id="cbcCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Why Join Us — career benefits">
+    <div class="cbc-bg" aria-hidden="true">
+      <div class="cbc-mesh"></div>
+      <div class="cbc-texture"></div>
+      <div class="cbc-glow"></div>
+      <div class="cbc-shape s1"></div>
+      <div class="cbc-shape s2"></div>
+      <div class="cbc-shape s3"></div>
     </div>
-    <div class="car-card reveal" style="transition-delay:.05s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div>
-      <h3>Learning &amp; Development</h3>
-      <p>Structured technical training, SAP certification and leadership programmes at every stage.</p>
+
+    <div class="cbc-viewport">
+      <button type="button" class="cbc-nav cbc-prev" aria-label="Previous benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+
+      <div class="cbc-track-wrap" role="region" aria-roledescription="carousel" aria-label="Career benefits slides" tabindex="0">
+        <div class="cbc-track" id="cbcTrack">
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Career Growth">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+              <h3>Career Growth</h3>
+              <p>Clear progression paths from graduate roles to leadership, built on merit and measurable impact.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Learning &amp; Development">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div>
+              <h3>Learning &amp; Development</h3>
+              <p>Structured technical training, SAP certification and leadership programmes at every stage.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Innovation">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a6 6 0 0 0-4 10.5V15h8v-2.5A6 6 0 0 0 12 2Z"/><path d="M9.5 18h5M10.5 21h3"/></svg></div>
+              <h3>Innovation</h3>
+              <p>Modern process technology and continuous improvement, from melt shop to market.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Inclusive Culture">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg></div>
+              <h3>Inclusive Culture</h3>
+              <p>A workplace where plant floor and corporate office share the same respect and voice.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Competitive Benefits">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+              <h3>Competitive Benefits</h3>
+              <p>Health cover, retirement savings and recognition programmes that support life beyond work.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Work-Life Balance">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></div>
+              <h3>Work-Life Balance</h3>
+              <p>Rotational shift planning and paid leave designed around real life, not just rosters.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="cbc-nav cbc-next" aria-label="Next benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
     </div>
-    <div class="car-card reveal" style="transition-delay:.1s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a6 6 0 0 0-4 10.5V15h8v-2.5A6 6 0 0 0 12 2Z"/><path d="M9.5 18h5M10.5 21h3"/></svg></div>
-      <h3>Innovation</h3>
-      <p>Modern process technology and continuous improvement, from melt shop to market.</p>
-    </div>
-    <div class="car-card reveal" style="transition-delay:.15s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg></div>
-      <h3>Inclusive Culture</h3>
-      <p>A workplace where plant floor and corporate office share the same respect and voice.</p>
-    </div>
-    <div class="car-card reveal" style="transition-delay:.2s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>Competitive Benefits</h3>
-      <p>Health cover, retirement savings and recognition programmes that support life beyond work.</p>
-    </div>
-    <div class="car-card reveal" style="transition-delay:.25s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></div>
-      <h3>Work-Life Balance</h3>
-      <p>Rotational shift planning and paid leave designed around real life, not just rosters.</p>
-    </div>
+
+    <div class="cbc-dots" id="cbcDots" role="tablist" aria-label="Choose a benefit"></div>
+    <div class="cbc-sr-only cbc-sr-status" aria-live="polite" aria-atomic="true"></div>
   </div>
 </section>
-
-<!-- ══════════════════ LIFE AT SIPL — GALLERY ══════════════════ -->
-<section class="section" id="lifeAtSipl">
-  <div class="section-head reveal">
-    <div class="kicker center">LIFE AT SIPL</div>
-    <h2>A Look Inside Our World</h2>
-    <p>Our plants, our people and the moments in between.</p>
-  </div>
-  <div class="cls-masonry">
-    <div class="cls-item is-placeholder reveal-scale" tabindex="-1">
-      <div class="cls-placeholder-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/><circle cx="8" cy="9" r="1.5"/></svg>
-        <div class="cls-placeholder-cat">Office</div>
-        <div class="cls-placeholder-label">[Gallery Image]</div>
-      </div>
-    </div>
-    <div class="cls-item reveal-scale" data-full="optimized-images/images/Madandih_Unit.jpg" data-caption="Unit Madandih, Purulia — manufacturing plant" tabindex="0" role="button" aria-label="View larger image: Unit Madandih, Purulia">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/Madandih_Unit.avif">
-        <source type="image/webp" srcset="optimized-images/images/Madandih_Unit.webp">
-        <img src="optimized-images/images/Madandih_Unit.jpg" alt="Unit Madandih, Purulia manufacturing plant" loading="lazy" decoding="async">
-      </picture>
-      <div class="cls-overlay"><div class="cls-overlay-cat">Plant</div><div class="cls-overlay-title">Unit Madandih, Purulia</div></div>
-    </div>
-    <div class="cls-item reveal-scale" data-full="optimized-images/images/SkillTraining.jpg" data-caption="Skill training workshop for plant staff" tabindex="0" role="button" aria-label="View larger image: Skill training workshop">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/SkillTraining.avif">
-        <source type="image/webp" srcset="optimized-images/images/SkillTraining.webp">
-        <img src="optimized-images/images/SkillTraining.jpg" alt="Skill training workshop" loading="lazy" decoding="async">
-      </picture>
-      <div class="cls-overlay"><div class="cls-overlay-cat">Training</div><div class="cls-overlay-title">Skill-Training Workshop</div></div>
-    </div>
-    <div class="cls-item reveal-scale" data-full="optimized-images/images/Planting.jpg" data-caption="Tree-plantation drive with plant staff and village volunteers" tabindex="0" role="button" aria-label="View larger image: Tree-plantation drive">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/Planting.avif">
-        <source type="image/webp" srcset="optimized-images/images/Planting.webp">
-        <img src="optimized-images/images/Planting.jpg" alt="Tree-plantation drive" loading="lazy" decoding="async">
-      </picture>
-      <div class="cls-overlay"><div class="cls-overlay-cat">CSR</div><div class="cls-overlay-title">Tree-Plantation Drive</div></div>
-    </div>
-    <div class="cls-item is-placeholder reveal-scale" tabindex="-1">
-      <div class="cls-placeholder-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg>
-        <div class="cls-placeholder-cat">Team Events</div>
-        <div class="cls-placeholder-label">[Gallery Image]</div>
-      </div>
-    </div>
-    <div class="cls-item reveal-scale" data-full="optimized-images/images/Mogra_Unit.jpg" data-caption="Unit Mogra, Hooghly — India Foils plant" tabindex="0" role="button" aria-label="View larger image: Unit Mogra, Hooghly">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/Mogra_Unit.avif">
-        <source type="image/webp" srcset="optimized-images/images/Mogra_Unit.webp">
-        <img src="optimized-images/images/Mogra_Unit.jpg" alt="Unit Mogra, Hooghly plant" loading="lazy" decoding="async">
-      </picture>
-      <div class="cls-overlay"><div class="cls-overlay-cat">Plant</div><div class="cls-overlay-title">Unit Mogra, Hooghly</div></div>
-    </div>
-    <div class="cls-item is-placeholder reveal-scale" tabindex="-1">
-      <div class="cls-placeholder-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M8 5v4"/></svg>
-        <div class="cls-placeholder-cat">Meetings</div>
-        <div class="cls-placeholder-label">[Gallery Image]</div>
-      </div>
-    </div>
-    <div class="cls-item reveal-scale" data-full="optimized-images/images/MedicalCheck-up.jpg" data-caption="Free medical check-up camp for the local community" tabindex="0" role="button" aria-label="View larger image: Medical check-up camp">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/MedicalCheck-up.avif">
-        <source type="image/webp" srcset="optimized-images/images/MedicalCheck-up.webp">
-        <img src="optimized-images/images/MedicalCheck-up.jpg" alt="Medical check-up camp" loading="lazy" decoding="async">
-      </picture>
-      <div class="cls-overlay"><div class="cls-overlay-cat">CSR</div><div class="cls-overlay-title">Medical Check-Up Camp</div></div>
-    </div>
-    <div class="cls-item is-placeholder reveal-scale" tabindex="-1">
-      <div class="cls-placeholder-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/><path d="M8 12l3 3 5-6"/></svg>
-        <div class="cls-placeholder-cat">Celebrations</div>
-        <div class="cls-placeholder-label">[Gallery Image]</div>
-      </div>
-    </div>
-    <div class="cls-item reveal-scale" data-full="optimized-images/images/Durgapur.jpg" data-caption="SPS Steels Unit I, Durgapur" tabindex="0" role="button" aria-label="View larger image: SPS Steels Unit I, Durgapur">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/Durgapur.avif">
-        <source type="image/webp" srcset="optimized-images/images/Durgapur.webp">
-        <img src="optimized-images/images/Durgapur.jpg" alt="SPS Steels Unit I, Durgapur" loading="lazy" decoding="async">
-      </picture>
-      <div class="cls-overlay"><div class="cls-overlay-cat">Plant</div><div class="cls-overlay-title">SPS Steels Unit I, Durgapur</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- gallery lightbox overlay -->
-<div class="cls-lightbox" id="clsLightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <div class="cls-lightbox-inner">
-    <button type="button" class="cls-lightbox-close" aria-label="Close">&times;</button>
-    <button type="button" class="cls-lightbox-nav prev" aria-label="Previous image">&#8249;</button>
-    <button type="button" class="cls-lightbox-nav next" aria-label="Next image">&#8250;</button>
-    <img class="cls-lightbox-img" src="" alt="">
-    <p class="cls-lightbox-caption"></p>
-  </div>
-</div>
 
 <!-- ══════════════════ OUR VALUES ══════════════════ -->
 <section class="section" id="ourValues">
   <div class="section-head reveal">
     <div class="kicker center">OUR VALUES</div>
     <h2>What Guides Every Decision</h2>
-    <p>Six principles that shape how we work, build and grow together.</p>
+    <p>Three principles that shape how we work, build and grow together.</p>
   </div>
   <div class="cov-grid">
     <div class="car-card cov-card reveal">
@@ -465,21 +406,6 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <h3>Safety</h3>
       <p>Every person goes home the way they arrived. No exceptions.</p>
     </div>
-    <div class="car-card cov-card reveal" style="transition-delay:.15s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div>
-      <h3>Customer First</h3>
-      <p>We build relationships on delivery, not just on price.</p>
-    </div>
-    <div class="car-card cov-card reveal" style="transition-delay:.2s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M3 12h3M18 12h3M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
-      <h3>Excellence</h3>
-      <p>Good enough never is. We hold our own standard high.</p>
-    </div>
-    <div class="car-card cov-card reveal" style="transition-delay:.25s">
-      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21V12l5-3v3l5-3v3l5-3v11H2Z"/><path d="M17 10V6h3v3"/></svg></div>
-      <h3>Sustainability</h3>
-      <p>We build for the long term — for our people and the planet.</p>
-    </div>
   </div>
 </section>
 
@@ -496,12 +422,11 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <path class="cld-line-progress" d="M2,2 H98"/>
     </svg>
     <div class="cld-milestone"><div class="cld-node">01</div><div class="cld-label">Employee Onboarding</div><div class="cld-sub">Week 1</div></div>
-    <div class="cld-milestone"><div class="cld-node">02</div><div class="cld-label">Technical Training</div><div class="cld-sub">Month 1–3</div></div>
-    <div class="cld-milestone"><div class="cld-node">03</div><div class="cld-label">SAP Training</div><div class="cld-sub">Month 2–4</div></div>
-    <div class="cld-milestone"><div class="cld-node">04</div><div class="cld-label">Mentorship</div><div class="cld-sub">Ongoing</div></div>
-    <div class="cld-milestone"><div class="cld-node">05</div><div class="cld-label">Skill Development</div><div class="cld-sub">Year 1+</div></div>
-    <div class="cld-milestone"><div class="cld-node">06</div><div class="cld-label">Leadership</div><div class="cld-sub">Year 2+</div></div>
-    <div class="cld-milestone"><div class="cld-node">07</div><div class="cld-label">Career Growth</div><div class="cld-sub">Ongoing</div></div>
+    <div class="cld-milestone"><div class="cld-node">02</div><div class="cld-label">Training</div><div class="cld-sub">Month 1–4</div></div>
+    <div class="cld-milestone"><div class="cld-node">03</div><div class="cld-label">Mentorship</div><div class="cld-sub">Ongoing</div></div>
+    <div class="cld-milestone"><div class="cld-node">04</div><div class="cld-label">Skill Development</div><div class="cld-sub">Year 1+</div></div>
+    <div class="cld-milestone"><div class="cld-node">05</div><div class="cld-label">Leadership</div><div class="cld-sub">Year 2+</div></div>
+    <div class="cld-milestone"><div class="cld-node">06</div><div class="cld-label">Career Growth</div><div class="cld-sub">Ongoing</div></div>
   </div>
 </section>
 
@@ -522,45 +447,6 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     <div class="ccj-step"><div class="ccj-dot">06</div><div class="ccj-content"><h3>Manager</h3><p>Ownership of a department's performance, planning and people.</p></div></div>
     <div class="ccj-step"><div class="ccj-dot">07</div><div class="ccj-content"><h3>Senior Manager</h3><p>Strategic input across departments, budget and resourcing authority.</p></div></div>
     <div class="ccj-step"><div class="ccj-dot">08</div><div class="ccj-content"><h3>Leadership</h3><p>Shaping the direction of a plant, function or the group itself.</p></div></div>
-  </div>
-</section>
-
-<!-- ══════════════════ MEET OUR TEAM ══════════════════ -->
-<section class="section" id="meetOurTeam">
-  <div class="section-head reveal">
-    <div class="kicker center">MEET OUR TEAM</div>
-    <h2>The People Behind The Steel</h2>
-    <p><span class="car-placeholder-tag">Sample layout</span> — real team profiles will replace these placeholders.</p>
-  </div>
-  <div class="cmt-grid">
-    <div class="cmt-card reveal">
-      <div class="cmt-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
-      <div class="cmt-name">[Employee Name]</div>
-      <div class="cmt-role">[Designation]</div>
-      <p class="cmt-quote">"[Employee Quote]"</p>
-      <span class="cmt-linkedin" aria-disabled="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg> LinkedIn</span>
-    </div>
-    <div class="cmt-card reveal" style="transition-delay:.05s">
-      <div class="cmt-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
-      <div class="cmt-name">[Employee Name]</div>
-      <div class="cmt-role">[Designation]</div>
-      <p class="cmt-quote">"[Employee Quote]"</p>
-      <span class="cmt-linkedin" aria-disabled="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg> LinkedIn</span>
-    </div>
-    <div class="cmt-card reveal" style="transition-delay:.1s">
-      <div class="cmt-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
-      <div class="cmt-name">[Employee Name]</div>
-      <div class="cmt-role">[Designation]</div>
-      <p class="cmt-quote">"[Employee Quote]"</p>
-      <span class="cmt-linkedin" aria-disabled="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg> LinkedIn</span>
-    </div>
-    <div class="cmt-card reveal" style="transition-delay:.15s">
-      <div class="cmt-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
-      <div class="cmt-name">[Employee Name]</div>
-      <div class="cmt-role">[Designation]</div>
-      <p class="cmt-quote">"[Employee Quote]"</p>
-      <span class="cmt-linkedin" aria-disabled="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg> LinkedIn</span>
-    </div>
   </div>
 </section>
 
@@ -642,22 +528,6 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   </div>
 </section>
 
-<!-- ══════════════════ CAREER STATISTICS ══════════════════ -->
-<section class="section tight">
-  <div class="section-head reveal">
-    <div class="kicker center">CAREER STATISTICS</div>
-    <h2>Shakambhari Group, By The Numbers</h2>
-  </div>
-  <div class="ccs-band reveal-scale">
-    <div class="stat ccs-stat"><div class="stat-num counter" data-target="50" data-suffix="+">0+</div><div class="stat-label">Years of Legacy</div></div>
-    <div class="stat ccs-stat"><div class="stat-num counter" data-target="7" data-suffix="">0</div><div class="stat-label">Manufacturing Units</div></div>
-    <div class="stat ccs-stat"><div class="stat-num counter" data-target="29" data-suffix="+">0+</div><div class="stat-label">Export Countries</div></div>
-    <div class="stat ccs-stat"><div class="stat-num">₹10,000+ Cr</div><div class="stat-label">Annual Turnover</div></div>
-    <div class="stat ccs-stat is-placeholder"><div class="stat-num">[Company Statistics]</div><div class="stat-label">Employees</div></div>
-    <div class="stat ccs-stat is-placeholder"><div class="stat-num">[Company Statistics]</div><div class="stat-label">Training Sessions</div></div>
-  </div>
-</section>
-
 <!-- ══════════════════ OPEN POSITIONS ══════════════════ -->
 <section class="section" id="openPositions">
   <div class="section-head reveal">
@@ -701,48 +571,48 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   <div class="cop-count" id="copCount"></div>
 
   <div class="cop-grid" id="copGrid">
-    <div class="cop-card" data-dept="manufacturing-plant-ops" data-location="madandih-purulia" data-experience="1-3" data-search="[job title] manufacturing plant operations madandih purulia">
-      <div class="cop-card-top"><div><div class="cop-card-title">[Job Title]</div><div class="cop-card-dept">Manufacturing &amp; Plant Operations</div></div><span class="cop-badge">[Employment Type]</span></div>
+    <div class="cop-card" data-dept="manufacturing-plant-ops" data-location="madandih-purulia" data-experience="1-3" data-search="production engineer manufacturing plant operations madandih purulia">
+      <div class="cop-card-top"><div><div class="cop-card-title">Production Engineer</div><div class="cop-card-dept">Manufacturing &amp; Plant Operations</div></div><span class="cop-badge">Full-Time</span></div>
       <div class="cop-meta">
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Unit Madandih, Purulia</span>
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
       </div>
       <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="cop-card" data-dept="quality-rd" data-location="mogra-hooghly" data-experience="3-5" data-search="[job title] quality r&d mogra hooghly">
-      <div class="cop-card-top"><div><div class="cop-card-title">[Job Title]</div><div class="cop-card-dept">Quality &amp; R&amp;D</div></div><span class="cop-badge">[Employment Type]</span></div>
+    <div class="cop-card" data-dept="quality-rd" data-location="mogra-hooghly" data-experience="3-5" data-search="quality control engineer quality r&d mogra hooghly">
+      <div class="cop-card-top"><div><div class="cop-card-title">Quality Control Engineer</div><div class="cop-card-dept">Quality &amp; R&amp;D</div></div><span class="cop-badge">Full-Time</span></div>
       <div class="cop-meta">
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Unit Mogra, Hooghly</span>
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
       </div>
       <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="cop-card" data-dept="sales-bd" data-location="kolkata-ho" data-experience="5-plus" data-search="[job title] sales business development kolkata head office">
-      <div class="cop-card-top"><div><div class="cop-card-title">[Job Title]</div><div class="cop-card-dept">Sales &amp; Business Development</div></div><span class="cop-badge">[Employment Type]</span></div>
+    <div class="cop-card" data-dept="sales-bd" data-location="kolkata-ho" data-experience="5-plus" data-search="business development manager sales business development kolkata head office">
+      <div class="cop-card-top"><div><div class="cop-card-title">Business Development Manager</div><div class="cop-card-dept">Sales &amp; Business Development</div></div><span class="cop-badge">Full-Time</span></div>
       <div class="cop-meta">
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Corporate HO, Kolkata</span>
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
       </div>
       <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="cop-card" data-dept="supply-chain-logistics" data-location="durgapur" data-experience="3-5" data-search="[job title] supply chain logistics durgapur">
-      <div class="cop-card-top"><div><div class="cop-card-title">[Job Title]</div><div class="cop-card-dept">Supply Chain &amp; Logistics</div></div><span class="cop-badge">[Employment Type]</span></div>
+    <div class="cop-card" data-dept="supply-chain-logistics" data-location="durgapur" data-experience="3-5" data-search="logistics manager supply chain logistics durgapur">
+      <div class="cop-card-top"><div><div class="cop-card-title">Logistics Manager</div><div class="cop-card-dept">Supply Chain &amp; Logistics</div></div><span class="cop-badge">Full-Time</span></div>
       <div class="cop-meta">
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>SPS Steels, Durgapur</span>
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
       </div>
       <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="cop-card" data-dept="finance-corporate" data-location="kolkata-ho" data-experience="1-3" data-search="[job title] finance corporate kolkata head office">
-      <div class="cop-card-top"><div><div class="cop-card-title">[Job Title]</div><div class="cop-card-dept">Finance &amp; Corporate</div></div><span class="cop-badge">[Employment Type]</span></div>
+    <div class="cop-card" data-dept="finance-corporate" data-location="kolkata-ho" data-experience="1-3" data-search="finance executive finance corporate kolkata head office">
+      <div class="cop-card-top"><div><div class="cop-card-title">Finance Executive</div><div class="cop-card-dept">Finance &amp; Corporate</div></div><span class="cop-badge">Full-Time</span></div>
       <div class="cop-meta">
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Corporate HO, Kolkata</span>
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
       </div>
       <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="cop-card" data-dept="hr-admin" data-location="mohuda-purulia" data-experience="fresher" data-search="[job title] hr administration mohuda purulia">
-      <div class="cop-card-top"><div><div class="cop-card-title">[Job Title]</div><div class="cop-card-dept">HR &amp; Administration</div></div><span class="cop-badge">[Employment Type]</span></div>
+    <div class="cop-card" data-dept="hr-admin" data-location="mohuda-purulia" data-experience="fresher" data-search="hr executive hr administration mohuda purulia">
+      <div class="cop-card-top"><div><div class="cop-card-title">HR Executive</div><div class="cop-card-dept">HR &amp; Administration</div></div><span class="cop-badge">Full-Time</span></div>
       <div class="cop-meta">
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Unit Mohuda, Purulia</span>
         <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
@@ -816,8 +686,9 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <div class="crp-step"><div class="crp-step-num">2</div><h3>Screening</h3><p>Our HR team reviews your profile against open roles.</p></div>
       <div class="crp-step"><div class="crp-step-num">3</div><h3>Technical Interview</h3><p>A conversation on your skills and experience.</p></div>
       <div class="crp-step"><div class="crp-step-num">4</div><h3>HR Interview</h3><p>Fit, expectations and offer discussion.</p></div>
-      <div class="crp-step"><div class="crp-step-num">5</div><h3>Offer</h3><p>A formal offer is extended if it's a match.</p></div>
-      <div class="crp-step"><div class="crp-step-num">6</div><h3>Onboarding</h3><p>Structured induction into your team and role.</p></div>
+      <div class="crp-step"><div class="crp-step-num">5</div><h3>Team Interview</h3><p>Meet the team and manager you'll be working with directly.</p></div>
+      <div class="crp-step"><div class="crp-step-num">6</div><h3>Offer</h3><p>A formal offer is extended if it's a match.</p></div>
+      <div class="crp-step"><div class="crp-step-num">7</div><h3>Onboarding</h3><p>Structured induction into your team and role.</p></div>
     </div>
   </div>
 </section>
@@ -859,61 +730,6 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <div class="col-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></div>
         <div><div class="col-item-name">SPS Steels Unit I</div><div class="col-item-addr">Durgapur, West Bengal</div></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ AWARDS & RECOGNITION ══════════════════ -->
-<section class="section tight" id="awardsRecognition">
-  <div class="section-head reveal">
-    <div class="kicker center">AWARDS &amp; RECOGNITION</div>
-    <h2>Recognised Across Industry</h2>
-  </div>
-  <div class="caw-marquee-wrap reveal">
-    <div class="caw-marquee-track">
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Most Trusted Brands of India</h3><span>Marksmen Daily, 2024–25</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>ET Iconic Brand Award</h3><span>The Economic Times, 2020</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/></svg></div><h3>World's Most Preferred Workplace</h3><span>Manufacturing Edition, 2023–24</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Best Employer Brand Award</h3><span>West Bengal Leadership Awards, 2019</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16M4 20h16M9 4v16M15 4v16"/></svg></div><h3>Four Star Export House</h3><span>Ministry of Commerce &amp; Industry, GoI</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Secondary Steel Sector Award</h3><span>Ministry of Steel, 2016–17</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/></svg></div><h3>Excellence in Construction Award</h3><span>ET Infra, 2025</span></div>
-      <div class="caw-card"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 21V12l5-3v3l5-3v3l5-3v11H2Z"/></svg></div><h3>Green Pro Certificate</h3><span>CII-Green Products &amp; Services Ltd.</span></div>
-      <!-- duplicated for a seamless marquee loop -->
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Most Trusted Brands of India</h3><span>Marksmen Daily, 2024–25</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>ET Iconic Brand Award</h3><span>The Economic Times, 2020</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/></svg></div><h3>World's Most Preferred Workplace</h3><span>Manufacturing Edition, 2023–24</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Best Employer Brand Award</h3><span>West Bengal Leadership Awards, 2019</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16M4 20h16M9 4v16M15 4v16"/></svg></div><h3>Four Star Export House</h3><span>Ministry of Commerce &amp; Industry, GoI</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Secondary Steel Sector Award</h3><span>Ministry of Steel, 2016–17</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/></svg></div><h3>Excellence in Construction Award</h3><span>ET Infra, 2025</span></div>
-      <div class="caw-card" aria-hidden="true"><div class="caw-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 21V12l5-3v3l5-3v3l5-3v11H2Z"/></svg></div><h3>Green Pro Certificate</h3><span>CII-Green Products &amp; Services Ltd.</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ LATEST HIRING UPDATES ══════════════════ -->
-<section class="section" id="hiringUpdates">
-  <div class="section-head reveal">
-    <div class="kicker center">LATEST HIRING UPDATES</div>
-    <h2>What's Happening Right Now</h2>
-    <p><span class="car-placeholder-tag">Sample layout</span> — real updates will replace these placeholders as they're announced.</p>
-  </div>
-  <div class="chu-grid">
-    <div class="chu-card reveal">
-      <div class="chu-top"><span class="chu-cat">Walk-In Drive</span><span class="chu-date">[Date]</span></div>
-      <h3>[Hiring Update]</h3>
-      <p>Details of the next walk-in drive will be posted here once scheduled.</p>
-    </div>
-    <div class="chu-card reveal" style="transition-delay:.05s">
-      <div class="chu-top"><span class="chu-cat">Campus Hiring</span><span class="chu-date">[Date]</span></div>
-      <h3>[Hiring Update]</h3>
-      <p>Upcoming campus visits and eligible institutions will be listed here.</p>
-    </div>
-    <div class="chu-card reveal" style="transition-delay:.1s">
-      <div class="chu-top"><span class="chu-cat">Internship</span><span class="chu-date">[Date]</span></div>
-      <h3>[Hiring Update]</h3>
-      <p>New internship cohort announcements will appear here when open.</p>
     </div>
   </div>
 </section>
@@ -1459,6 +1275,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="careers-hero.js"></script>
 <script src="careers-content.js"></script>
+<script src="career-benefits-carousel.js"></script>
 <script>
 // Careers application form: pill-style choice UI, conditional shift question,
 // and submission to an n8n webhook (multipart/form-data, so the resume file rides along).

@@ -133,8 +133,20 @@
   overflow: hidden;
   cursor: pointer;
   outline: none;
-  will-change: transform;
+  /* isolate + contain: hovering/lifting one card can never force a repaint of
+     sibling cards — each card paints and lays out independently */
+  contain: layout paint style;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   transition: box-shadow .45s cubic-bezier(.16, .84, .44, 1), border-color .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* will-change only while a card is actually interactive — keeping it on all
+   ~20 cards permanently would force that many compositor layers at once */
+.tby-card:hover,
+.tby-card:focus-visible {
+  will-change: transform;
 }
 
 /* very subtle inner highlight, keeps the "floating card" feel */
@@ -250,9 +262,14 @@ html[data-theme="dark"] .tby-mesh {
     linear-gradient(180deg, #12151A 0%, #161A20 100%);
 }
 
+/* client logo artwork is flat opaque-white PNG (not theme-aware), so the
+   card stays on the same light plate as light mode instead of flipping
+   dark — a dark card would otherwise show every logo as a washed-out
+   white box floating on top of it */
 html[data-theme="dark"] .tby-card {
-  background: linear-gradient(165deg, #1B1F26 0%, #20242C 100%);
-  border-color: rgba(255, 255, 255, .08);
+  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
+  border-color: rgba(0, 0, 0, .05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
 }
 
 html[data-theme="dark"] .tby-stats-wrap {

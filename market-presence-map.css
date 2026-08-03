@@ -277,10 +277,11 @@
   filter: drop-shadow(0 20px 45px rgba(20, 22, 28, .12)) drop-shadow(0 0 40px rgba(255, 106, 31, .08));
 }
 
-/* India domestic map: flatter, plain-outline look (kept apart from the
-   world map's warmer glow so state highlighting still reads clearly) */
+/* India domestic map: plain black-outline coloring-map look (kept apart
+   from the world map's warmer glow so state highlighting still reads
+   clearly) — no drop-shadow, so it sits flat like a printed map */
 .india-svg {
-  filter: drop-shadow(0 14px 32px rgba(20, 22, 28, .10));
+  filter: none;
 }
 
 /* faint blueprint reference grid inside the map itself (raw stroke= attribute
@@ -319,9 +320,9 @@
 
 .state-shape {
   fill: url(#indiaGrad);
-  stroke: #FF6A1F;
-  stroke-width: 0.85;
-  stroke-opacity: 0.8;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-opacity: 0.85;
   stroke-linejoin: round;
   cursor: pointer;
   transition: fill 0.3s ease, stroke 0.3s ease, stroke-opacity 0.3s ease, stroke-width 0.3s ease, opacity 0.35s ease, filter 0.35s ease;

@@ -51,4 +51,39 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
   },{ threshold:.15 });
   revealEls.forEach(el=>revealObs.observe(el));
+
+  // Cursor spotlight + subtle tilt on generic .panel cards (shared across pages).
+  // Rect is cached on mouseenter (not re-read on every mousemove) and the
+  // style update is coalesced into a single requestAnimationFrame per frame,
+  // so a fast mouse sweep never forces more than one layout read + one style
+  // write per painted frame.
+  const canHover = window.matchMedia('(hover: hover)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(canHover && !reduceMotion){
+    document.querySelectorAll('.panel').forEach(panel=>{
+      let rect = null;
+      let raf = null;
+      let px = .5, py = .5;
+      panel.addEventListener('mouseenter', ()=>{ rect = panel.getBoundingClientRect(); });
+      panel.addEventListener('mousemove', e=>{
+        if(!rect) rect = panel.getBoundingClientRect();
+        px = (e.clientX - rect.left) / rect.width;
+        py = (e.clientY - rect.top) / rect.height;
+        if(raf) return;
+        raf = requestAnimationFrame(()=>{
+          raf = null;
+          panel.style.setProperty('--mx', (px*100)+'%');
+          panel.style.setProperty('--my', (py*100)+'%');
+          panel.style.setProperty('--ry', ((px-.5)*6)+'deg');
+          panel.style.setProperty('--rx', ((.5-py)*6)+'deg');
+        });
+      });
+      panel.addEventListener('mouseleave', ()=>{
+        rect = null;
+        if(raf){ cancelAnimationFrame(raf); raf = null; }
+        panel.style.setProperty('--rx','0deg');
+        panel.style.setProperty('--ry','0deg');
+      });
+    });
+  }
 })();
