@@ -124,8 +124,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 140px;
-  padding: 1.5rem 1.25rem;
+  min-height: 170px;
+  padding: 1.25rem 1.25rem;
   background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
   border: 1px solid rgba(0, 0, 0, .05);
   border-radius: 24px;
@@ -190,8 +190,8 @@
 }
 
 .tby-card img {
-  max-width: 78%;
-  max-height: 68px;
+  max-width: 92%;
+  max-height: 118px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -207,7 +207,7 @@
 
 /* ── featured / flagship clients ── */
 .tby-card.featured {
-  padding-top: 2.5rem;
+  padding-top: 2.25rem;
   box-shadow: 0 24px 60px rgba(15, 23, 42, .11);
 }
 

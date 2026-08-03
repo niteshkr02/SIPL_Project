@@ -600,6 +600,13 @@
   transform: translateY(-2px);
 }
 
+/* the sector tag reads better as part of the click-through detail panel
+   than as clutter under every logo in the grid itself — kept in the DOM
+   (still cloned into #cliPanelTags on open) but hidden on the card view */
+.cli-grid .cli-card-tag {
+  display: none;
+}
+
 .cli-card-trusted {
   position: absolute;
   bottom: 10px;
