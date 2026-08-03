@@ -240,3 +240,21 @@
     transition: none;
   }
 }
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .tby-mesh {
+  background:
+    radial-gradient(ellipse 55% 50% at 16% 20%, rgba(32, 36, 44, .55), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 84% 15%, rgba(27, 31, 38, .5), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 50% 100%, rgba(18, 21, 26, .6), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+
+html[data-theme="dark"] .tby-card {
+  background: linear-gradient(165deg, #1B1F26 0%, #20242C 100%);
+  border-color: rgba(255, 255, 255, .08);
+}
+
+html[data-theme="dark"] .tby-stats-wrap {
+  border-top-color: rgba(255, 255, 255, .08);
+}

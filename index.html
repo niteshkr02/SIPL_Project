@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shakambhari Group | Proud to Partner in Our Nation's Progress</title>
@@ -710,6 +711,12 @@
       transform: scaleX(1);
     }
 
+    html[data-theme="dark"] .pillar-card {
+      background: linear-gradient(165deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, .02) 100%);
+      border-color: rgba(255, 255, 255, .1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, .25), 0 1px 3px rgba(0, 0, 0, .2);
+    }
+
     /* Image wrap */
     .pillar-img-wrap {
       width: 100%;
@@ -1025,6 +1032,10 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <a href="contact.html" class="nav-cta">Get In Touch</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+      <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+    </button>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 
@@ -2195,12 +2206,12 @@
                   <svg viewBox="0 0 700 800" class="india-svg" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="indiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#F1F3F5" />
-                        <stop offset="55%" stop-color="#EAEDF0" />
-                        <stop offset="100%" stop-color="#E3E7EB" />
+                        <stop offset="0%" stop-color="#FFFFFF" />
+                        <stop offset="55%" stop-color="#FCFDFD" />
+                        <stop offset="100%" stop-color="#F6F7F8" />
                       </linearGradient>
                       <radialGradient id="mapGlowIn" cx="67.7%" cy="46.8%" r="60%">
-                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.12" />
+                        <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0.05" />
                         <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
                       </radialGradient>
                     </defs>
@@ -2410,7 +2421,6 @@
 
       <div class="tby-grid" id="tbyGrid">
         <div class="tby-card featured" tabindex="0" role="img" aria-label="Larsen &amp; Toubro — Strategic Partner">
-          <span class="tby-ribbon">Strategic Partner</span>
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/L&amp;T.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/L&amp;T.webp">
@@ -2418,35 +2428,31 @@
 </picture>
         </div>
         <div class="tby-card featured" tabindex="0" role="img" aria-label="Adani Group — Strategic Partner">
-          <span class="tby-ribbon">Strategic Partner</span>
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/adani.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/adani.webp">
   <img src="optimized-images/images/logo/adani.png" alt="" loading="lazy" width="480" height="222" decoding="async">
 </picture>
         </div>
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="Coal India — Strategic Partner">
-          <span class="tby-ribbon">Strategic Partner</span>
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="BHEL — Strategic Partner">
           <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/CoalIndia.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/CoalIndia.webp">
-  <img src="optimized-images/images/logo/CoalIndia.png" alt="" loading="lazy" width="480" height="666" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="Indian Oil Corporation — Strategic Partner">
-          <span class="tby-ribbon">Strategic Partner</span>
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/IndianOil.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/IndianOil.webp">
-  <img src="optimized-images/images/logo/IndianOil.png" alt="" loading="lazy" width="480" height="348" decoding="async">
+  <source type="image/avif" srcset="optimized-images/images/logo/BHEL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/BHEL.webp">
+  <img src="optimized-images/images/logo/BHEL.png" alt="" loading="lazy" width="480" height="382" decoding="async">
 </picture>
         </div>
         <div class="tby-card featured" tabindex="0" role="img" aria-label="DRDO — Strategic Partner">
-          <span class="tby-ribbon">Strategic Partner</span>
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/DRDO.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/DRDO.webp">
   <img src="optimized-images/images/logo/DRDO.png" alt="" loading="lazy" width="480" height="479" decoding="async">
+</picture>
+        </div>
+        <div class="tby-card" tabindex="0" role="img" aria-label="PWC">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/logo/PWC.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/PWC.webp">
+  <img src="optimized-images/images/logo/PWC.png" alt="" loading="lazy" width="480" height="466" decoding="async">
 </picture>
         </div>
         <div class="tby-card" tabindex="0" role="img" aria-label="NHAI">
@@ -2456,74 +2462,11 @@
   <img src="optimized-images/images/logo/NHAI.png" alt="" loading="lazy" width="480" height="303" decoding="async">
 </picture>
         </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="BHEL">
+        <div class="tby-card" tabindex="0" role="img" aria-label="NAIDCL">
           <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/BHEL.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/BHEL.webp">
-  <img src="optimized-images/images/logo/BHEL.png" alt="" loading="lazy" width="480" height="382" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="NPCIL">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/NPCIL.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/NPCIL.webp">
-  <img src="optimized-images/images/logo/NPCIL.png" alt="" loading="lazy" width="480" height="485" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="Border Roads Organisation">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/BRO.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/BRO.webp">
-  <img src="optimized-images/images/logo/BRO.png" alt="" loading="lazy" width="480" height="495" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="Bridge &amp; Roof Co.">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/B_AND_R.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/B_AND_R.webp">
-  <img src="optimized-images/images/logo/B_AND_R.png" alt="" loading="lazy" width="480" height="456" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="WBSETCL">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/WBSETCL.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/WBSETCL.webp">
-  <img src="optimized-images/images/logo/WBSETCL.png" alt="" loading="lazy" width="480" height="479" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="Kalpataru">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/KALPA_TARU.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/KALPA_TARU.webp">
-  <img src="optimized-images/images/logo/KALPA_TARU.png" alt="" loading="lazy" width="480" height="119" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="DRA Infracon">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/DRA.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/DRA.webp">
-  <img src="optimized-images/images/logo/DRA.png" alt="" loading="lazy" width="480" height="485" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="Gawar Construction">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/GAWAR.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/GAWAR.webp">
-  <img src="optimized-images/images/logo/GAWAR.png" alt="" loading="lazy" width="480" height="372" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="JUNSL">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/JUNSL.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/JUNSL.webp">
-  <img src="optimized-images/images/logo/JUNSL.png" alt="" loading="lazy" width="480" height="475" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="KCC Buildcon">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/KCC.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/KCC.webp">
-  <img src="optimized-images/images/logo/KCC.png" alt="" loading="lazy" width="480" height="358" decoding="async">
+  <source type="image/avif" srcset="optimized-images/images/logo/NAIDCL.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/NAIDCL.webp">
+  <img src="optimized-images/images/logo/NAIDCL.png" alt="" loading="lazy" width="480" height="335" decoding="async">
 </picture>
         </div>
         <div class="tby-card" tabindex="0" role="img" aria-label="NPCC">
@@ -2533,18 +2476,11 @@
   <img src="optimized-images/images/logo/NPCC.png" alt="" loading="lazy" width="480" height="398" decoding="async">
 </picture>
         </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="PHED">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Indian Oil Corporation — Strategic Partner">
           <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/PHED.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/PHED.webp">
-  <img src="optimized-images/images/logo/PHED.png" alt="" loading="lazy" width="480" height="262" decoding="async">
-</picture>
-        </div>
-        <div class="tby-card" tabindex="0" role="img" aria-label="PWC">
-          <picture>
-  <source type="image/avif" srcset="optimized-images/images/logo/PWC.avif">
-  <source type="image/webp" srcset="optimized-images/images/logo/PWC.webp">
-  <img src="optimized-images/images/logo/PWC.png" alt="" loading="lazy" width="480" height="466" decoding="async">
+  <source type="image/avif" srcset="optimized-images/images/logo/IndianOil.avif">
+  <source type="image/webp" srcset="optimized-images/images/logo/IndianOil.webp">
+  <img src="optimized-images/images/logo/IndianOil.png" alt="" loading="lazy" width="480" height="348" decoding="async">
 </picture>
         </div>
         <div class="tby-card" tabindex="0" role="img" aria-label="PWD">
@@ -3407,9 +3343,11 @@
         if (dataList === indiaStatesData) setIndiaHighlight(lockedSelection.india);
 
         // details are hover-only — once the mouse leaves, fall back to
-        // whichever item is actually locked in (or the empty hint if none is)
+        // whichever item is actually locked in, or (India only) the default
+        // West Bengal card, instead of the empty hint.
         const lockedId = lockedSelection[key];
-        const lockedItem = lockedId ? dataList.find(d => d.id === lockedId) : null;
+        let lockedItem = lockedId ? dataList.find(d => d.id === lockedId) : null;
+        if (!lockedItem && dataList === indiaStatesData) lockedItem = defaultIndiaItem;
         scheduleVendorCardUpdate(lockedItem);
       }
 
@@ -3491,36 +3429,12 @@
           }
         };
 
-        // Premium state-change transition: slide/fade the current info out,
-        // swap the content, then slide/fade the new info back in. Only
-        // transform + opacity are animated (no filter/blur — that property
-        // is expensive to repaint and was contributing to the flicker), and
-        // opacity never reaches 0, so the panel fades but never fully
-        // disappears or flashes blank between states.
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Instant swap: the state name/vendor details replace immediately,
+        // no fade/slide crossfade — kill any leftover tween from an earlier
+        // in-flight call so it can't still land and re-animate this content.
         const targets = [mppHeaderEl, mppBody].filter(Boolean);
-
-        if (window.gsap && targets.length && !reduceMotion) {
-          // explicitly kill any tween left over from a still-in-flight call
-          // (e.g. a rapid hover -> click -> tab-switch sequence) rather than
-          // relying solely on overwrite:'auto', which only overwrites the
-          // *next* tween created — a callback already queued by an in-flight
-          // tween (like the fade-in this fade-out's own onComplete is about
-          // to start) can otherwise still land after this one.
-          gsap.killTweensOf(targets);
-          gsap.to(targets, {
-            opacity: .4, y: -6, duration: .15, ease: 'power2.in', force3D: true,
-            onComplete: () => {
-              applyContent();
-              gsap.fromTo(targets,
-                { opacity: .4, y: 6 },
-                { opacity: 1, y: 0, duration: .35, ease: 'power3.out', force3D: true }
-              );
-            }
-          });
-        } else {
-          applyContent();
-        }
+        if (window.gsap && targets.length) gsap.killTweensOf(targets);
+        applyContent();
       }
 
       function renderQuickList(dataList, filterQuery = '') {
@@ -3743,6 +3657,14 @@
         }
       });
 
+      // Default landing state: show West Bengal (HQ) vendor details in the
+      // info card as soon as the domestic map loads, instead of the empty
+      // "hover a marker" hint — card only. The map itself (state tint, pin,
+      // quick-list row) stays unhighlighted until the user actually hovers
+      // or clicks, so nothing looks pre-selected on the map.
+      const defaultIndiaItem = indiaStatesData.find(s => s.id === 'wb');
+      if (defaultIndiaItem) updateVendorCard(defaultIndiaItem);
+
       const tabWorldBtn = document.getElementById('tabWorldBtn');
       const tabIndiaBtn = document.getElementById('tabIndiaBtn');
       const worldMapWrap = document.getElementById('worldMapWrap');
@@ -3767,7 +3689,7 @@
           else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
           activeDataset = indiaStatesData;
           renderQuickList(indiaStatesData);
-          const current = lockedSelection.india ? indiaStatesData.find(d => d.id === lockedSelection.india) : null;
+          const current = lockedSelection.india ? indiaStatesData.find(d => d.id === lockedSelection.india) : defaultIndiaItem;
           updateVendorCard(current);
           setIndiaHighlight(lockedSelection.india);
         });

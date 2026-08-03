@@ -566,3 +566,45 @@
     transition: none;
   }
 }
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .mpp {
+  background: linear-gradient(180deg, rgba(27, 31, 38, .94) 0%, rgba(32, 36, 44, .92) 50%, rgba(18, 21, 26, .9) 100%);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+
+html[data-theme="dark"] .mpp-status {
+  background: rgba(27, 31, 38, .6);
+}
+
+html[data-theme="dark"] .mpp-search-input {
+  background: rgba(27, 31, 38, .7);
+}
+
+html[data-theme="dark"] .mpp-search-input:focus {
+  background: rgba(27, 31, 38, .9);
+}
+
+html[data-theme="dark"] .mpp-mini {
+  background: rgba(27, 31, 38, .55);
+}
+
+html[data-theme="dark"] .mpp-mini:hover {
+  background: rgba(27, 31, 38, .8);
+}
+
+html[data-theme="dark"] .mpp-btn-secondary {
+  background: rgba(27, 31, 38, .65);
+}
+
+html[data-theme="dark"] .quick-location-item {
+  background: rgba(27, 31, 38, .55);
+}
+
+html[data-theme="dark"] .quick-location-item:hover {
+  background: rgba(27, 31, 38, .85);
+}
+
+html[data-theme="dark"] .ql-code {
+  background: rgba(27, 31, 38, .7);
+}
