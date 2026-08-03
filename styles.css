@@ -389,6 +389,13 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 .pillars-section-wrap ~ .cta-band h3, .pillars-section-wrap ~ .cta-band h4{
   color:#EEEAE1;
 }
+/* Exception: Global & Domestic Footprint (market-presence) is shared verbatim
+   with contact.html — keep its heading color identical on both pages instead
+   of picking up the homepage-only navy override. */
+.pillars-section-wrap ~ #market-presence h1, .pillars-section-wrap ~ #market-presence h2,
+.pillars-section-wrap ~ #market-presence h3, .pillars-section-wrap ~ #market-presence h4{
+  color:var(--ink);
+}
 
 .defs{ position:absolute; width:0; height:0; overflow:hidden; }
 
@@ -445,4 +452,8 @@ html[data-theme="dark"] .pillars-section-wrap ~ * h3, html[data-theme="dark"] .p
 html[data-theme="dark"] .pillars-section-wrap ~ .cta-band h1, html[data-theme="dark"] .pillars-section-wrap ~ .cta-band h2,
 html[data-theme="dark"] .pillars-section-wrap ~ .cta-band h3, html[data-theme="dark"] .pillars-section-wrap ~ .cta-band h4{
   color:#EEEAE1;
+}
+html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h1, html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h2,
+html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h3, html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h4{
+  color:var(--ink);
 }
