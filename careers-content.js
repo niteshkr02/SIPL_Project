@@ -254,28 +254,6 @@
     });
   })();
 
-  // ════════════════════ OFFICE LOCATIONS — MAP ════════════════════
-  (function initOfficeMap() {
-    const wrap = document.querySelector('.col-wrap');
-    if (!wrap) return;
-    const markers = Array.from(wrap.querySelectorAll('.col-marker'));
-    const items = Array.from(wrap.querySelectorAll('.col-item'));
-
-    function activate(key) {
-      markers.forEach((m) => m.classList.toggle('active', m.dataset.key === key));
-      items.forEach((it) => it.classList.toggle('active', it.dataset.key === key));
-    }
-
-    markers.forEach((m) => {
-      m.addEventListener('mouseenter', () => activate(m.dataset.key));
-      m.addEventListener('click', () => activate(m.dataset.key));
-    });
-    items.forEach((it) => {
-      it.addEventListener('mouseenter', () => activate(it.dataset.key));
-      it.addEventListener('click', () => activate(it.dataset.key));
-    });
-  })();
-
   // ════════════════════ FINAL CTA — PARTICLES ════════════════════
   (function initFinalCta() {
     const layer = document.querySelector('.cfc-particles');
@@ -330,7 +308,7 @@
     // service or human agent; it's a fast, honest FAQ + navigation helper.
     const RESPONSES = {
       openings: { label: 'See open roles', reply: 'Here you go — I\'ve scrolled you to our Open Positions board, where you can filter by department, location and experience.', action: () => document.getElementById('openPositions') },
-      apply: { label: 'How do I apply?', reply: 'Scroll down to the Application Form, fill in your details across the 8 sections, attach your resume, and submit. You\'ll get a confirmation on screen once it goes through.', action: () => document.getElementById('careerApplyForm') },
+      apply: { label: 'How do I apply?', reply: 'Click any "Apply" button on the page to open the application form, fill in your details across the 8 sections, attach your resume, and submit. You\'ll get a confirmation on screen once it goes through.', action: () => { if (typeof window.openCareerApplyModal === 'function') window.openCareerApplyModal(); return null; } },
       internship: { label: 'Internship info', reply: 'Check out the Internship & Campus Hiring section for programme types, and use the CTA there to register your interest.', action: () => document.getElementById('internshipHiring') },
       hr: { label: 'Contact HR', reply: 'You can reach our HR team directly at info@shakambharigroup.in or 033 6625 5252 — I\'ve also added a link below.', action: null },
     };
