@@ -25,11 +25,124 @@
 .value-card .num{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; margin-bottom:.5rem; }
 .value-card p{ font-size:.94rem; color:var(--ink-soft); }
 
+/* ══ QC CHECKPOINT FLOWCHART (futuristic HUD) ══ */
+.qc-flow-frame{
+  position:relative; border-radius:1.4rem; overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 0%, rgba(255,106,31,.18), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(29,78,122,.25), transparent 60%),
+    #0A0B0E;
+  border:1px solid #262A34;
+  padding:2.6rem 1.5rem 2.2rem;
+}
+.qc-flow-frame::before{
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.06;
+  background-image:
+    repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px),
+    repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px);
+}
+.qc-flow-legend{ display:flex; gap:1.3rem; justify-content:center; align-items:center; flex-wrap:wrap; margin-bottom:2rem; position:relative; z-index:1; }
+.qc-flow-legend-item{ display:flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; color:#9C9A90; text-transform:uppercase; }
+.qc-flow-legend-swatch{ width:11px; height:11px; border-radius:3px; }
+.qc-flow-legend-swatch.lab{ background:#C9962A; }
+.qc-flow-legend-swatch.monitor{ background:#3E9FD8; }
+.qc-flow-legend-swatch.control{ background:#7C8797; }
+.qc-flow-legend-swatch.dispatch{ background:#FF6A1F; }
+.qc-flow-legend-hint{ font-size:.66rem; color:#6B6960; }
+
+.qc-flow-scroll{ overflow-x:auto; overflow-y:visible; padding:1.2rem .3rem 1.6rem; position:relative; z-index:1; }
+.qc-flow-track{ display:flex; align-items:center; gap:0; min-width:max-content; margin:0 auto; width:fit-content; }
+
+.qc-node{
+  position:relative; width:148px; flex-shrink:0; cursor:pointer; outline:none;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.qc-node-badge{
+  position:absolute; top:-10px; left:-6px; z-index:3;
+  font-family:var(--font-mono); font-size:.65rem; font-weight:800; letter-spacing:.03em;
+  width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:#fff; border:2px solid #0A0B0E; box-shadow:0 0 0 1px rgba(255,255,255,.15);
+}
+.qc-node[data-cat="lab"] .qc-node-badge{ background:#C9962A; }
+.qc-node[data-cat="monitor"] .qc-node-badge{ background:#3E9FD8; }
+.qc-node[data-cat="control"] .qc-node-badge{ background:#7C8797; }
+.qc-node[data-cat="dispatch"] .qc-node-badge{ background:#FF6A1F; }
+
+.qc-node-media{
+  width:112px; height:112px; border-radius:1rem; overflow:hidden; position:relative;
+  background:linear-gradient(155deg, #1B1E26, #14161C);
+  border:1.5px solid #262A34;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .3s ease, box-shadow .3s ease, transform .3s cubic-bezier(.16,.84,.44,1);
+}
+.qc-node-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.qc-node-media svg{ width:44px; height:44px; }
+.qc-node[data-cat="lab"] .qc-node-media{ box-shadow:inset 0 0 0 1px rgba(201,150,42,.15); }
+.qc-node[data-cat="monitor"] .qc-node-media{ box-shadow:inset 0 0 0 1px rgba(62,159,216,.15); }
+.qc-node[data-cat="control"] .qc-node-media{ box-shadow:inset 0 0 0 1px rgba(124,135,151,.15); }
+.qc-node[data-cat="dispatch"] .qc-node-media{ box-shadow:inset 0 0 0 1px rgba(255,106,31,.15); }
+
+.qc-node:hover .qc-node-media, .qc-node:focus-visible .qc-node-media{ transform:scale(1.06); }
+.qc-node[data-cat="lab"]:hover .qc-node-media{ border-color:#C9962A; box-shadow:0 0 24px rgba(201,150,42,.35); }
+.qc-node[data-cat="monitor"]:hover .qc-node-media{ border-color:#3E9FD8; box-shadow:0 0 24px rgba(62,159,216,.35); }
+.qc-node[data-cat="control"]:hover .qc-node-media{ border-color:#7C8797; box-shadow:0 0 24px rgba(124,135,151,.35); }
+.qc-node[data-cat="dispatch"]:hover .qc-node-media{ border-color:#FF6A1F; box-shadow:0 0 24px rgba(255,106,31,.35); }
+
+.qc-node-title{
+  margin-top:.85rem; font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.03em;
+  text-transform:uppercase; color:#EEEAE1; line-height:1.4; max-width:130px;
+}
+
+.qc-connector{ position:relative; width:56px; height:112px; flex-shrink:0; display:flex; align-items:center; }
+.qc-connector-line{ width:100%; height:2px; background:repeating-linear-gradient(90deg, #3A3E46 0 6px, transparent 6px 11px); position:relative; }
+.qc-connector-arrow{ position:absolute; right:-1px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:4px solid transparent; border-bottom:4px solid transparent; border-left:6px solid #3A3E46; }
+.qc-pulse{
+  position:absolute; top:50%; left:0; width:6px; height:6px; margin-top:-3px; border-radius:50%;
+  background:var(--accent-hot); box-shadow:0 0 10px 3px rgba(255,194,75,.7);
+  animation:qcPulseMove 2.6s linear infinite;
+}
+@keyframes qcPulseMove{
+  0%{ left:0; opacity:0; }
+  10%{ opacity:1; }
+  90%{ opacity:1; }
+  100%{ left:100%; opacity:0; }
+}
+
+@media(max-width:640px){
+  .qc-node{ width:120px; }
+  .qc-node-media{ width:92px; height:92px; }
+  .qc-connector{ width:36px; height:92px; }
+}
+
 .quality-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
 @media(max-width:860px){ .quality-grid{ grid-template-columns:1fr; } }
 .quality-card{ padding:1.8rem 1.7rem; }
 .quality-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
 .quality-card p{ font-size:.92rem; color:var(--ink-soft); }
+
+/* ══ QC HOVER CARD ══ */
+.qc-hovercard{
+  position:fixed; z-index:3000; width:300px; max-width:88vw;
+  background:var(--surface); border-radius:1rem; overflow:hidden;
+  box-shadow:0 24px 60px rgba(20,22,28,.35), 0 0 0 1px rgba(20,22,28,.06);
+  opacity:0; transform:scale(.92) translateY(6px);
+  transform-origin:var(--hc-origin-x,50%) var(--hc-origin-y,100%);
+  pointer-events:none;
+  transition:opacity .2s cubic-bezier(.16,.84,.44,1), transform .28s cubic-bezier(.16,.84,.44,1);
+}
+.qc-hovercard.visible{ opacity:1; transform:scale(1) translateY(0); }
+.qc-hovercard-img{ width:100%; height:140px; object-fit:cover; display:block; background:#14161C; }
+.qc-hovercard-body{ padding:1.3rem 1.4rem; }
+.qc-hovercard-badge{
+  display:inline-block; font-family:var(--font-mono); font-size:.65rem; font-weight:700; letter-spacing:.08em;
+  padding:.28rem .6rem; border-radius:.4rem; color:#fff; margin-bottom:.7rem;
+}
+.qc-hovercard-badge.lab{ background:#9C6E22; }
+.qc-hovercard-badge.monitor{ background:#1D4E7A; }
+.qc-hovercard-badge.control{ background:#4A5058; }
+.qc-hovercard-badge.dispatch{ background:#C1440E; }
+.qc-hovercard h4{ font-size:1.08rem; margin-bottom:.5rem; font-family:var(--font-display); text-transform:none; }
+.qc-hovercard p{ color:var(--ink-soft); font-size:.86rem; line-height:1.55; }
 
 /* ══ CTA BAND ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
@@ -110,15 +223,107 @@
     <h2>Eight Checkpoints, Zero Shortcuts</h2>
     <p>Our motto is our quality statement: the scope of work starts at raw material procurement and doesn't end until the customer is satisfied.</p>
   </div>
-  <div class="value-grid">
-    <div class="value-card panel reveal"><div class="num">01</div><p>Chemical analysis of incoming Iron Ore, Coal &amp; Dolomite. Only accepted material reaches production. Rejected material goes straight back to the supplier.</p></div>
-    <div class="value-card panel reveal"><div class="num">02</div><p>Heat temperature and feed rate tracked live by the control room; final chemical analysis of Sponge Iron carried out in the DRI lab.</p></div>
-    <div class="value-card panel reveal"><div class="num">03</div><p>Chemical analysis of Sponge Iron, Pig Iron, Ferro Alloys and other elements, carried out by the SMS lab.</p></div>
-    <div class="value-card panel reveal"><div class="num">04</div><p>After melting and slag removal, crude steel is refined and dosed with alloys to the required ratio, checked with "Lollypop" sampling for composition.</p></div>
-    <div class="value-card panel reveal"><div class="num">05</div><p>Visual inspection, temperature checks and final chemical analysis of the Billets, fully documented.</p></div>
-    <div class="value-card panel reveal"><div class="num">06</div><p>During rolling: incoming Billet temperature, water temperature and pressure checks; outgoing bar and equalizing temperature recorded.</p></div>
-    <div class="value-card panel reveal"><div class="num">07</div><p>Physical, mechanical and chemical properties of the finished material checked and documented before anything ships.</p></div>
-    <div class="value-card panel reveal"><div class="num">08</div><p>Lot identification and tagging marked. Material cleared for dispatch, traceable from that point on.</p></div>
+  <div class="qc-flow-frame reveal">
+    <div class="qc-flow-legend">
+      <span class="qc-flow-legend-item"><span class="qc-flow-legend-swatch lab"></span>Lab Test</span>
+      <span class="qc-flow-legend-item"><span class="qc-flow-legend-swatch monitor"></span>Live Monitoring</span>
+      <span class="qc-flow-legend-item"><span class="qc-flow-legend-swatch control"></span>Process Control</span>
+      <span class="qc-flow-legend-item"><span class="qc-flow-legend-swatch dispatch"></span>Dispatch</span>
+      <span class="qc-flow-legend-hint">— hover over any checkpoint for details</span>
+    </div>
+    <div class="qc-flow-scroll">
+      <div class="qc-flow-track">
+
+        <div class="qc-node" data-cat="lab" data-step="qc1" tabindex="0" role="button" aria-label="Incoming Material Analysis">
+          <div class="qc-node-badge">01</div>
+          <div class="qc-node-media">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#C9962A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h10M18 5v9.5L10 33a3 3 0 0 0 2.7 4.3h18.6A3 3 0 0 0 34 33l-8-18.5V5"/><path d="M13.5 27h17"/></svg>
+          </div>
+          <div class="qc-node-title">Incoming Material Analysis</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse"></span></div></div>
+
+        <div class="qc-node" data-cat="monitor" data-step="qc2" tabindex="0" role="button" aria-label="DRI Live Monitoring">
+          <div class="qc-node-badge">02</div>
+          <div class="qc-node-media">
+            <img src="images/Sponge_Iron.jpeg" alt="Sponge Iron — DRI lab analysis" loading="lazy">
+          </div>
+          <div class="qc-node-title">DRI Live Monitoring &amp; Lab Analysis</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse" style="animation-delay:.3s"></span></div></div>
+
+        <div class="qc-node" data-cat="lab" data-step="qc3" tabindex="0" role="button" aria-label="SMS Lab Analysis">
+          <div class="qc-node-badge">03</div>
+          <div class="qc-node-media">
+            <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys — SMS lab analysis" loading="lazy">
+          </div>
+          <div class="qc-node-title">SMS Lab Analysis</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse" style="animation-delay:.6s"></span></div></div>
+
+        <div class="qc-node" data-cat="control" data-step="qc4" tabindex="0" role="button" aria-label="Alloy Dosing and Lollypop Sampling">
+          <div class="qc-node-badge">04</div>
+          <div class="qc-node-media">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#7C8797" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="24" r="11"/><path d="M22 24V8M17 8h10"/><circle cx="22" cy="24" r="3.5" fill="#7C8797" stroke="none"/></svg>
+          </div>
+          <div class="qc-node-title">Alloy Dosing &amp; Lollypop Sampling</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse" style="animation-delay:.9s"></span></div></div>
+
+        <div class="qc-node" data-cat="lab" data-step="qc5" tabindex="0" role="button" aria-label="Billet Inspection and Documentation">
+          <div class="qc-node-badge">05</div>
+          <div class="qc-node-media">
+            <img src="images/MS_Billets.jpeg" alt="Billets — inspection and documentation" loading="lazy">
+          </div>
+          <div class="qc-node-title">Billet Inspection &amp; Documentation</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse" style="animation-delay:1.2s"></span></div></div>
+
+        <div class="qc-node" data-cat="monitor" data-step="qc6" tabindex="0" role="button" aria-label="Rolling Process Monitoring">
+          <div class="qc-node-badge">06</div>
+          <div class="qc-node-media">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#3E9FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h8v5.5l3 3V33a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V14.5l3-3Z"/><path d="M18 24h8"/><circle cx="22" cy="30" r="2.4" fill="#3E9FD8" stroke="none"/></svg>
+          </div>
+          <div class="qc-node-title">Rolling Process Monitoring</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse" style="animation-delay:1.5s"></span></div></div>
+
+        <div class="qc-node" data-cat="lab" data-step="qc7" tabindex="0" role="button" aria-label="Finished Material Testing">
+          <div class="qc-node-badge">07</div>
+          <div class="qc-node-media">
+            <img src="images/elegant_qst_bar.jpeg" alt="Elegant QST TMT Bars — finished material testing" loading="lazy">
+          </div>
+          <div class="qc-node-title">Finished Material Testing</div>
+        </div>
+
+        <div class="qc-connector"><div class="qc-connector-line"><div class="qc-connector-arrow"></div><span class="qc-pulse" style="animation-delay:1.8s"></span></div></div>
+
+        <div class="qc-node" data-cat="dispatch" data-step="qc8" tabindex="0" role="button" aria-label="Lot Tagging and Dispatch Clearance">
+          <div class="qc-node-badge">08</div>
+          <div class="qc-node-media">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21.5 21.5 6H33a4 4 0 0 1 4 4v11.5L21.5 36 6 21.5Z"/><circle cx="26" cy="14" r="2.2" fill="#FF6A1F" stroke="none"/><path d="M17 25l3 3 6-7"/></svg>
+          </div>
+          <div class="qc-node-title">Lot Tagging &amp; Dispatch Clearance</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QC HOVER CARD -->
+  <div class="qc-hovercard" id="qcHoverCard" role="tooltip">
+    <img class="qc-hovercard-img" id="qcHcImg" alt="" style="display:none;">
+    <div class="qc-hovercard-body">
+      <span class="qc-hovercard-badge" id="qcHcBadge"></span>
+      <h4 id="qcHcTitle"></h4>
+      <p id="qcHcDesc"></p>
+    </div>
   </div>
   <p style="text-align:center; max-width:60ch; margin:2rem auto 0; color:var(--ink-soft); font-size:.92rem;" class="reveal">Between steps 06 and 07, our TEMPCORE quenching leaves every QST bar with a hard <strong>martensite</strong> outer rim around a softer <strong>ferrite-pearlite core</strong>: the exact microstructure that gives Elegant Steel its bend without breaking.</p>
 </section>
@@ -199,5 +404,123 @@
 </footer>
 
 <script src="site.js"></script>
+<script>
+(function setupQcHoverCard(){
+  const qcData = {
+    qc1: {
+      category: 'lab', title: 'Incoming Material Analysis',
+      desc: 'Chemical analysis of incoming Iron Ore, Coal & Dolomite. Only accepted material reaches production — rejected material goes straight back to the supplier.'
+    },
+    qc2: {
+      category: 'monitor', title: 'DRI Live Monitoring & Lab Analysis',
+      img: 'images/Sponge_Iron.jpeg',
+      desc: 'Heat temperature and feed rate tracked live by the control room; final chemical analysis of Sponge Iron carried out in the DRI lab.'
+    },
+    qc3: {
+      category: 'lab', title: 'SMS Lab Analysis',
+      img: 'images/Ferro_Alloy_Photo.jpeg',
+      desc: 'Chemical analysis of Sponge Iron, Pig Iron, Ferro Alloys and other elements, carried out by the SMS lab.'
+    },
+    qc4: {
+      category: 'control', title: 'Alloy Dosing & Lollypop Sampling',
+      desc: 'After melting and slag removal, crude steel is refined and dosed with alloys to the required ratio, checked with "Lollypop" sampling for composition.'
+    },
+    qc5: {
+      category: 'lab', title: 'Billet Inspection & Documentation',
+      img: 'images/MS_Billets.jpeg',
+      desc: 'Visual inspection, temperature checks and final chemical analysis of the Billets, fully documented.'
+    },
+    qc6: {
+      category: 'monitor', title: 'Rolling Process Monitoring',
+      desc: 'During rolling: incoming Billet temperature, water temperature and pressure checks; outgoing bar and equalizing temperature recorded.'
+    },
+    qc7: {
+      category: 'lab', title: 'Finished Material Testing',
+      img: 'images/elegant_qst_bar.jpeg',
+      desc: 'Physical, mechanical and chemical properties of the finished material checked and documented before anything ships.'
+    },
+    qc8: {
+      category: 'dispatch', title: 'Lot Tagging & Dispatch Clearance',
+      desc: 'Lot identification and tagging marked. Material cleared for dispatch, traceable from that point on.'
+    }
+  };
+
+  const CATEGORY_LABEL = { lab: 'LAB TEST', monitor: 'LIVE MONITORING', control: 'PROCESS CONTROL', dispatch: 'DISPATCH' };
+
+  const card = document.getElementById('qcHoverCard');
+  const imgEl = document.getElementById('qcHcImg');
+  const badgeEl = document.getElementById('qcHcBadge');
+  const titleEl = document.getElementById('qcHcTitle');
+  const descEl = document.getElementById('qcHcDesc');
+  if(!card) return;
+
+  let currentNode = null;
+  let hideTimer = null;
+
+  function render(d){
+    if(d.img){ imgEl.src = d.img; imgEl.alt = d.title; imgEl.style.display = 'block'; }
+    else { imgEl.style.display = 'none'; imgEl.removeAttribute('src'); }
+    badgeEl.textContent = CATEGORY_LABEL[d.category];
+    badgeEl.className = 'qc-hovercard-badge ' + d.category;
+    titleEl.textContent = d.title;
+    descEl.textContent = d.desc;
+  }
+
+  function position(node){
+    const r = node.getBoundingClientRect();
+    const gap = 14;
+    const cardW = card.offsetWidth || 300;
+    const cardH = card.offsetHeight || 200;
+    const cx = r.left + r.width / 2;
+    let top, originY;
+    if(r.top - cardH - gap > 10){
+      top = r.top - cardH - gap;
+      originY = '100%';
+    } else {
+      top = r.bottom + gap;
+      originY = '0%';
+    }
+    let left = cx - cardW / 2;
+    left = Math.max(10, Math.min(left, window.innerWidth - cardW - 10));
+    const originX = ((cx - left) / cardW * 100) + '%';
+    card.style.setProperty('--hc-origin-x', originX);
+    card.style.setProperty('--hc-origin-y', originY);
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  function show(node){
+    const d = qcData[node.dataset.step];
+    if(!d) return;
+    currentNode = node;
+    render(d);
+    position(node);
+    requestAnimationFrame(() => {
+      if(currentNode !== node) return;
+      position(node);
+      card.classList.add('visible');
+    });
+  }
+  function hide(node){
+    if(currentNode !== node) return;
+    card.classList.remove('visible');
+    currentNode = null;
+  }
+
+  document.querySelectorAll('.qc-node').forEach(node => {
+    node.addEventListener('mouseenter', () => { clearTimeout(hideTimer); show(node); });
+    node.addEventListener('mouseleave', () => { hideTimer = setTimeout(() => hide(node), 60); });
+    node.addEventListener('focus', () => show(node));
+    node.addEventListener('blur', () => hide(node));
+    node.addEventListener('click', () => {
+      if(currentNode === node && card.classList.contains('visible')) hide(node);
+      else show(node);
+    });
+  });
+
+  window.addEventListener('scroll', () => { if(currentNode) position(currentNode); }, { passive:true, capture:true });
+  window.addEventListener('resize', () => { if(currentNode) position(currentNode); });
+})();
+</script>
 </body>
 </html>
