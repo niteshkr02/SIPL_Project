@@ -315,6 +315,7 @@ html[data-theme="dark"] .cld-tooltip-list { color: rgba(238, 234, 225, .75); }
 .ccj-head { max-width: 900px; }
 .ccj-head h2 { color: #111827; }
 .ccj-highlight { color: #ff6b2c; }
+html[data-theme="dark"] .ccj-head h2 { color: var(--ink); }
 
 /* -- track + steps -- */
 .ccj-timeline { margin-top: 4.5rem; }
