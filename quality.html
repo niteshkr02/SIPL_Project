@@ -25,11 +25,106 @@
 .value-card .num{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; margin-bottom:.5rem; }
 .value-card p{ font-size:.94rem; color:var(--ink-soft); }
 
+/* ══ QC CHECKPOINT DEEP-DIVE SECTIONS (futuristic, one per step) ══ */
+.qc-checkpoints{ display:flex; flex-direction:column; gap:1.6rem; }
+.qc-checkpoint{
+  position:relative; border-radius:1.6rem; overflow:hidden;
+  background:#0A0B0E; border:1px solid #262A34;
+  padding:2.8rem 1.75rem 2.6rem;
+  scroll-margin-top:calc(var(--nav-h) + 1rem);
+}
+.qc-checkpoint[data-cat="lab"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(201,150,42,.16), transparent 60%), #0A0B0E; }
+.qc-checkpoint[data-cat="monitor"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(62,159,216,.16), transparent 60%), #0A0B0E; }
+.qc-checkpoint[data-cat="control"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(124,135,151,.16), transparent 60%), #0A0B0E; }
+.qc-checkpoint[data-cat="dispatch"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(255,106,31,.18), transparent 60%), #0A0B0E; }
+.qc-checkpoint::before{
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.05;
+  background-image:
+    repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px),
+    repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px);
+}
+.qc-checkpoint-top{ position:relative; z-index:1; display:flex; align-items:flex-start; gap:1.4rem; margin-bottom:2rem; max-width:78ch; }
+.qc-checkpoint-num{ font-family:var(--font-mono); font-size:2.6rem; font-weight:800; color:#fff; opacity:.16; line-height:1; flex-shrink:0; }
+.qc-checkpoint-heading{ flex:1; }
+.qc-checkpoint-badge{
+  display:inline-block; font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.09em;
+  padding:.3rem .65rem; border-radius:.4rem; color:#fff; margin-bottom:.7rem;
+}
+.qc-checkpoint[data-cat="lab"] .qc-checkpoint-badge{ background:#9C6E22; }
+.qc-checkpoint[data-cat="monitor"] .qc-checkpoint-badge{ background:#1D4E7A; }
+.qc-checkpoint[data-cat="control"] .qc-checkpoint-badge{ background:#4A5058; }
+.qc-checkpoint[data-cat="dispatch"] .qc-checkpoint-badge{ background:#C1440E; }
+.qc-checkpoint h3{ color:#EEEAE1; font-size:clamp(1.4rem,2.4vw,1.9rem); margin-bottom:.7rem; text-transform:none; font-family:var(--font-display); }
+.qc-checkpoint-intro{ color:#9C9A90; font-size:.98rem; line-height:1.65; }
+
+.qc-checkpoint-body{ position:relative; z-index:1; display:grid; grid-template-columns:280px 1fr; gap:2rem; align-items:stretch; }
+@media(max-width:860px){ .qc-checkpoint-body{ grid-template-columns:1fr; } }
+
+.qc-checkpoint-hero{ border-radius:1.2rem; overflow:hidden; min-height:260px; border:1.5px solid #262A34; }
+.qc-checkpoint-hero img{ width:100%; height:100%; object-fit:cover; display:block; min-height:260px; }
+.qc-checkpoint-hero.icon-hero{
+  display:flex; align-items:center; justify-content:center; min-height:260px;
+  background:linear-gradient(155deg, #1B1E26, #14161C);
+}
+.qc-checkpoint-hero.icon-hero svg{ width:104px; height:104px; opacity:.9; }
+
+.qc-mini-flow{ display:flex; flex-wrap:wrap; align-items:stretch; gap:.6rem; align-content:flex-start; }
+.qc-substep{
+  flex:1 1 175px; min-width:165px; position:relative;
+  background:linear-gradient(155deg, #16181F, #101216);
+  border:1.5px solid #262A34; border-radius:1rem;
+  padding:1.2rem 1.2rem 1.3rem; cursor:pointer; outline:none;
+  transition:border-color .3s ease, box-shadow .3s ease, transform .25s cubic-bezier(.16,.84,.44,1);
+}
+.qc-substep:hover, .qc-substep:focus-visible{ transform:translateY(-3px); }
+.qc-checkpoint[data-cat="lab"] .qc-substep.open, .qc-checkpoint[data-cat="lab"] .qc-substep:hover{ border-color:#C9962A; box-shadow:0 8px 26px rgba(201,150,42,.22); }
+.qc-checkpoint[data-cat="monitor"] .qc-substep.open, .qc-checkpoint[data-cat="monitor"] .qc-substep:hover{ border-color:#3E9FD8; box-shadow:0 8px 26px rgba(62,159,216,.22); }
+.qc-checkpoint[data-cat="control"] .qc-substep.open, .qc-checkpoint[data-cat="control"] .qc-substep:hover{ border-color:#7C8797; box-shadow:0 8px 26px rgba(124,135,151,.22); }
+.qc-checkpoint[data-cat="dispatch"] .qc-substep.open, .qc-checkpoint[data-cat="dispatch"] .qc-substep:hover{ border-color:#FF6A1F; box-shadow:0 8px 26px rgba(255,106,31,.22); }
+
+.qc-substep-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:.6rem; }
+.qc-substep-icon{ width:34px; height:34px; flex-shrink:0; }
+.qc-substep-icon svg{ width:100%; height:100%; }
+.qc-substep-plus{
+  width:22px; height:22px; border-radius:50%; border:1.5px solid #3A3E46; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; color:#9C9A90;
+  transition:transform .3s ease, border-color .3s ease, color .3s ease;
+}
+.qc-substep.open .qc-substep-plus{ transform:rotate(45deg); }
+.qc-checkpoint[data-cat="lab"] .qc-substep.open .qc-substep-plus{ border-color:#C9962A; color:#C9962A; }
+.qc-checkpoint[data-cat="monitor"] .qc-substep.open .qc-substep-plus{ border-color:#3E9FD8; color:#3E9FD8; }
+.qc-checkpoint[data-cat="control"] .qc-substep.open .qc-substep-plus{ border-color:#7C8797; color:#7C8797; }
+.qc-checkpoint[data-cat="dispatch"] .qc-substep.open .qc-substep-plus{ border-color:#FF6A1F; color:#FF6A1F; }
+
+.qc-substep-label{ font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.02em; color:#EEEAE1; margin-top:.75rem; line-height:1.35; }
+.qc-substep-detail{
+  max-height:0; overflow:hidden; opacity:0;
+  transition:max-height .35s cubic-bezier(.16,.84,.44,1), opacity .28s ease, margin-top .35s ease;
+  font-size:.82rem; line-height:1.55; color:#9C9A90;
+}
+.qc-substep.open .qc-substep-detail{ max-height:220px; opacity:1; margin-top:.65rem; }
+
+.qc-mini-arrow{
+  display:flex; align-items:center; justify-content:center; flex:0 0 22px; color:#3A3E46; align-self:center;
+}
+.qc-mini-arrow svg{ width:18px; height:18px; }
+@media(max-width:860px){ .qc-mini-arrow{ transform:rotate(90deg); flex-basis:14px; } }
+
+.qc-checkpoint-nav{ display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin:0 0 1.6rem; }
+.qc-checkpoint-nav a{
+  width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:.7rem; font-weight:700; text-decoration:none;
+  border:1.5px solid var(--border); color:var(--ink-soft); background:var(--surface);
+  transition:border-color .25s ease, color .25s ease, transform .25s ease;
+}
+.qc-checkpoint-nav a:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+
 .quality-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
 @media(max-width:860px){ .quality-grid{ grid-template-columns:1fr; } }
 .quality-card{ padding:1.8rem 1.7rem; }
 .quality-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
 .quality-card p{ font-size:.92rem; color:var(--ink-soft); }
+
 
 /* ══ CTA BAND ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
@@ -108,19 +203,466 @@
   <div class="section-head reveal">
     <div class="kicker center">QUALITY</div>
     <h2>Eight Checkpoints, Zero Shortcuts</h2>
-    <p>Our motto is our quality statement: the scope of work starts at raw material procurement and doesn't end until the customer is satisfied.</p>
+    <p>Our motto is our quality statement: the scope of work starts at raw material procurement and doesn't end until the customer is satisfied. Every checkpoint below breaks down into its own workflow — click any step to see how it actually happens.</p>
   </div>
-  <div class="value-grid">
-    <div class="value-card panel reveal"><div class="num">01</div><p>Chemical analysis of incoming Iron Ore, Coal &amp; Dolomite. Only accepted material reaches production. Rejected material goes straight back to the supplier.</p></div>
-    <div class="value-card panel reveal"><div class="num">02</div><p>Heat temperature and feed rate tracked live by the control room; final chemical analysis of Sponge Iron carried out in the DRI lab.</p></div>
-    <div class="value-card panel reveal"><div class="num">03</div><p>Chemical analysis of Sponge Iron, Pig Iron, Ferro Alloys and other elements, carried out by the SMS lab.</p></div>
-    <div class="value-card panel reveal"><div class="num">04</div><p>After melting and slag removal, crude steel is refined and dosed with alloys to the required ratio, checked with "Lollypop" sampling for composition.</p></div>
-    <div class="value-card panel reveal"><div class="num">05</div><p>Visual inspection, temperature checks and final chemical analysis of the Billets, fully documented.</p></div>
-    <div class="value-card panel reveal"><div class="num">06</div><p>During rolling: incoming Billet temperature, water temperature and pressure checks; outgoing bar and equalizing temperature recorded.</p></div>
-    <div class="value-card panel reveal"><div class="num">07</div><p>Physical, mechanical and chemical properties of the finished material checked and documented before anything ships.</p></div>
-    <div class="value-card panel reveal"><div class="num">08</div><p>Lot identification and tagging marked. Material cleared for dispatch, traceable from that point on.</p></div>
+  <div class="qc-checkpoint-nav reveal">
+    <a href="#qc-1">01</a><a href="#qc-2">02</a><a href="#qc-3">03</a><a href="#qc-4">04</a>
+    <a href="#qc-5">05</a><a href="#qc-6">06</a><a href="#qc-7">07</a><a href="#qc-8">08</a>
   </div>
-  <p style="text-align:center; max-width:60ch; margin:2rem auto 0; color:var(--ink-soft); font-size:.92rem;" class="reveal">Between steps 06 and 07, our TEMPCORE quenching leaves every QST bar with a hard <strong>martensite</strong> outer rim around a softer <strong>ferrite-pearlite core</strong>: the exact microstructure that gives Elegant Steel its bend without breaking.</p>
+  <div class="qc-checkpoints">
+<section class="qc-checkpoint" data-cat="lab" id="qc-1">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">01</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">LAB TEST</span>
+      <h3>Incoming Material Analysis</h3>
+      <p class="qc-checkpoint-intro">Before anything enters the plant, it has to earn its place there. Every incoming batch of iron ore, coal and dolomite is sampled and tested against a defined chemical benchmark — nothing moves to production until it clears that bar.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#C9962A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h10M18 5v9.5L10 33a3 3 0 0 0 2.7 4.3h18.6A3 3 0 0 0 34 33l-8-18.5V5"/><path d="M13.5 27h17"/></svg></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v13a2 2 0 0 0 4 0V3"/><path d="M10 13h4"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Sample Collection</div>
+          <div class="qc-substep-detail">A representative sample is drawn from every incoming batch, not just the top layer of a delivery.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Chemical Composition Testing</div>
+          <div class="qc-substep-detail">The sample is broken down and tested against the composition range each material is expected to meet.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Pass / Fail Evaluation</div>
+          <div class="qc-substep-detail">Results are checked against the accepted range before any material is cleared.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="7" height="14" rx="1"/><path d="M13 12h8M17 8l4 4-4 4"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Accepted → Production</div>
+          <div class="qc-substep-detail">Cleared material moves straight into the production stockyard.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">5. Rejected → Returned</div>
+          <div class="qc-substep-detail">Anything outside range is rejected and sent back to the supplier, no exceptions.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="monitor" id="qc-2">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">02</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">LIVE MONITORING</span>
+      <h3>DRI Live Monitoring &amp; Lab Analysis</h3>
+      <p class="qc-checkpoint-intro">Reduction is a live process, not a set-and-forget one. Temperature and feed rate are watched continuously while the kiln runs, and the sponge iron that comes out the other end still has to pass its own lab check before it counts as finished.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero"><img src="images/Sponge_Iron.jpeg" alt="Sponge Iron output" loading="lazy"></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Feed Rate Control</div>
+          <div class="qc-substep-detail">Pellets and coal are fed in at a rate tracked continuously from the control room.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5V4a2 2 0 1 0-4 0v10.5a4 4 0 1 0 4 0Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Live Temperature Tracking</div>
+          <div class="qc-substep-detail">Kiln temperature is monitored in real time throughout the reduction cycle.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2 3-2 4-2 7a4 4 0 1 0 8 0c0-1.5-1-2.5-1-2.5.5 2-.5 3-1.5 3 1-3-1-4.5-1-6.5-1 1-2 1.5-2 3.5 0-2.5-2-3-2-4.5Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Reduction in Progress</div>
+          <div class="qc-substep-detail">Oxygen is stripped from the ore as it moves through the kiln.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="7" height="14" rx="1"/><path d="M13 12h8M17 8l4 4-4 4"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Sponge Iron Output</div>
+          <div class="qc-substep-detail">The reduced material exits the kiln as sponge iron.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">5. DRI Lab Analysis</div>
+          <div class="qc-substep-detail">A final chemical analysis in the lab confirms the output meets specification.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="lab" id="qc-3">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">03</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">LAB TEST</span>
+      <h3>SMS Lab Analysis</h3>
+      <p class="qc-checkpoint-intro">Three different inputs converge before melting — sponge iron, pig iron and ferro alloys — and each has to be individually verified. All three are checked before anything is cleared into the furnace.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero"><img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" loading="lazy"></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Sponge Iron Check</div>
+          <div class="qc-substep-detail">Composition of incoming sponge iron is verified.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Pig Iron Check</div>
+          <div class="qc-substep-detail">Composition of incoming pig iron is verified.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Ferro Alloy Check</div>
+          <div class="qc-substep-detail">Composition of incoming ferro alloys is verified.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Combined Clearance</div>
+          <div class="qc-substep-detail">All three inputs are cleared together before melting begins.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="control" id="qc-4">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">04</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">PROCESS CONTROL</span>
+      <h3>Alloy Dosing &amp; Lollypop Sampling</h3>
+      <p class="qc-checkpoint-intro">Melting is only half the job — what happens after determines the final composition. Once slag is removed, the crude steel is refined and dosed with alloys to a precise ratio, verified with a quick sample pulled straight from the melt.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#7C8797" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="24" r="11"/><path d="M22 24V8M17 8h10"/><circle cx="22" cy="24" r="3.5" fill="#7C8797" stroke="none"/></svg></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2 3-2 4-2 7a4 4 0 1 0 8 0c0-1.5-1-2.5-1-2.5.5 2-.5 3-1.5 3 1-3-1-4.5-1-6.5-1 1-2 1.5-2 3.5 0-2.5-2-3-2-4.5Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Melting</div>
+          <div class="qc-substep-detail">Inputs are melted down into crude steel.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16l-6 8v6l-4 2v-8Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Slag Removal</div>
+          <div class="qc-substep-detail">Impurities that rise to the surface are removed.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Refining</div>
+          <div class="qc-substep-detail">The remaining steel is refined to tighten its composition.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v13a2 2 0 0 0 4 0V3"/><path d="M10 13h4"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Alloy Dosing</div>
+          <div class="qc-substep-detail">Alloys are added in a controlled ratio to hit the target grade.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">5. Lollypop Sampling</div>
+          <div class="qc-substep-detail">A sample is pulled directly from the melt and tested before the heat is finalised.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="lab" id="qc-5">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">05</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">LAB TEST</span>
+      <h3>Billet Inspection &amp; Documentation</h3>
+      <p class="qc-checkpoint-intro">What comes out of continuous casting gets checked from every angle — how it looks, how hot it is, and what it's made of — with every result logged before the billet is cleared for rolling.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero"><img src="images/MS_Billets.jpeg" alt="M.S. Billets" loading="lazy"></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="7" height="14" rx="1"/><path d="M13 12h8M17 8l4 4-4 4"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Casting Output</div>
+          <div class="qc-substep-detail">Billets emerge from the continuous casting line.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Visual Inspection</div>
+          <div class="qc-substep-detail">Surface and shape are checked for defects.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5V4a2 2 0 1 0-4 0v10.5a4 4 0 1 0 4 0Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Temperature Check</div>
+          <div class="qc-substep-detail">Billet temperature is verified against the expected range.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Final Chemical Analysis</div>
+          <div class="qc-substep-detail">A closing composition check confirms the billet matches its target grade.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">5. Documentation</div>
+          <div class="qc-substep-detail">Every result is logged against that billet's own record.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="monitor" id="qc-6">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">06</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">LIVE MONITORING</span>
+      <h3>Rolling Process Monitoring</h3>
+      <p class="qc-checkpoint-intro">Rolling runs under continuous temperature and pressure supervision — every billet is tracked in, the cooling water is watched throughout, and every bar is tracked back out, so nothing about the pass goes unrecorded.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#3E9FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h8v5.5l3 3V33a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V14.5l3-3Z"/><path d="M18 24h8"/><circle cx="22" cy="30" r="2.4" fill="#3E9FD8" stroke="none"/></svg></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5V4a2 2 0 1 0-4 0v10.5a4 4 0 1 0 4 0Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Incoming Billet Temperature</div>
+          <div class="qc-substep-detail">Each billet's temperature is checked before it enters the mill.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s7 7.5 7 12a7 7 0 1 1-14 0c0-4.5 7-12 7-12Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Water Temperature &amp; Pressure</div>
+          <div class="qc-substep-detail">Cooling water is monitored throughout the rolling pass.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Rolling Pass</div>
+          <div class="qc-substep-detail">The billet is progressively rolled down to its final section.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5V4a2 2 0 1 0-4 0v10.5a4 4 0 1 0 4 0Z"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Outgoing Bar Temperature</div>
+          <div class="qc-substep-detail">Exit temperature is recorded as the finished bar leaves the mill.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">5. Equalizing Temperature</div>
+          <div class="qc-substep-detail">A final equalizing temperature is logged to confirm consistent quenching.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="lab" id="qc-7">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">07</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">LAB TEST</span>
+      <h3>Finished Material Testing</h3>
+      <p class="qc-checkpoint-intro">Before anything ships, the finished product is tested across every property that matters — physical, mechanical and chemical — and the results are documented against that batch.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero"><img src="images/elegant_qst_bar.jpeg" alt="Elegant QST TMT Bars" loading="lazy"></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Physical Property Testing</div>
+          <div class="qc-substep-detail">Dimensions, weight and surface finish are checked against specification.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Mechanical Property Testing</div>
+          <div class="qc-substep-detail">Strength and ductility are tested to confirm the grade holds up.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Chemical Property Testing</div>
+          <div class="qc-substep-detail">A closing composition check confirms the finished material's chemistry.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Documentation &amp; Clearance</div>
+          <div class="qc-substep-detail">Results are logged and the batch is cleared to ship.</div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="qc-checkpoint" data-cat="dispatch" id="qc-8">
+  <div class="qc-checkpoint-top reveal">
+    <div class="qc-checkpoint-num">08</div>
+    <div class="qc-checkpoint-heading">
+      <span class="qc-checkpoint-badge">DISPATCH</span>
+      <h3>Lot Tagging &amp; Dispatch Clearance</h3>
+      <p class="qc-checkpoint-intro">Nothing leaves without a traceable identity. Every lot is tagged, logged and cleared before dispatch, so any bar that leaves the plant can be traced straight back to the batch it came from.</p>
+    </div>
+  </div>
+  <div class="qc-checkpoint-body reveal">
+    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21.5 21.5 6H33a4 4 0 0 1 4 4v11.5L21.5 36 6 21.5Z"/><circle cx="26" cy="14" r="2.2" fill="#FF6A1F" stroke="none"/><path d="M17 25l3 3 6-7"/></svg></div>
+    <div class="qc-mini-flow">
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">1. Lot Identification</div>
+          <div class="qc-substep-detail">Every finished lot is assigned its own identifying record.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 11.5 3H19a2 2 0 0 1 2 2v7.5L12.5 21 3 11.5Z"/><circle cx="15" cy="8" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">2. Physical Tagging</div>
+          <div class="qc-substep-detail">Tags are attached marking the lot for tracking.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">3. Traceability Record</div>
+          <div class="qc-substep-detail">The lot's full production history is logged against its tag.</div>
+        </div>
+        <div class="qc-mini-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="qc-substep" data-open="false" tabindex="0" role="button">
+          <div class="qc-substep-row">
+            <div class="qc-substep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v10H2Z"/><path d="M13 10h4l3 3v4h-7Z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg></div>
+            <div class="qc-substep-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+          <div class="qc-substep-label">4. Dispatch Clearance</div>
+          <div class="qc-substep-detail">The lot is cleared and released for shipment.</div>
+        </div>
+    </div>
+  </div>
+</section>
+  </div>
 </section>
 
 <div class="divider"></div>
@@ -199,5 +741,21 @@
 </footer>
 
 <script src="site.js"></script>
+<script>
+(function setupQcSubsteps(){
+  document.querySelectorAll('.qc-substep').forEach(step => {
+    function toggle(){
+      const open = step.classList.toggle('open');
+      step.dataset.open = open ? 'true' : 'false';
+      step.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    step.setAttribute('aria-expanded', 'false');
+    step.addEventListener('click', toggle);
+    step.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+})();
+</script>
 </body>
 </html>

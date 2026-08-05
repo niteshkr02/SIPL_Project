@@ -259,64 +259,13 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
   margin:0 auto; max-width:1180px;
 }
 
-/* ══ FLOWCHART — pinned, scroll-driven horizontal pan ══ */
-.flowchart-pin{ position:relative; z-index:1; }
-.flowchart-sticky{
-  position:sticky; top:0;
-  height:100vh;
-  display:flex; flex-direction:column; align-items:stretch; justify-content:center;
-  overflow:hidden;
-}
-.flowchart-head{ text-align:center; margin-bottom:2rem; flex-shrink:0; }
+/* ══ FLOWCHART — vertical, scroll-revealed ══ */
+.flowchart-head{ text-align:center; margin-bottom:2rem; }
 .flowchart-head .stage-code{ justify-content:center; }
 .flowchart-head .stage-code::before{ display:none; }
 .flowchart-head h2{ font-size:clamp(2rem,4.2vw,2.9rem); margin-bottom:.6rem; }
 .flowchart-head p{ color:var(--ink-soft); font-size:1.08rem; max-width:56ch; margin:0 auto; }
-.flowchart-viewport{
-  position:relative;
-  overflow:hidden;
-  width:100%;
-  flex-shrink:0;
-}
-.flowchart-track{
-  display:flex;
-  align-items:center;
-  will-change:transform;
-  padding:0 6vw;
-}
-.flowchart-canvas{
-  background:
-    linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 35%),
-    radial-gradient(circle at 20% 10%, var(--surface-2), var(--surface));
-  border:1px solid var(--border);
-  border-radius:1.2rem;
-  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 20px 46px rgba(20,22,28,.1);
-  display:block;
-  flex-shrink:0;
-}
-.flowchart-foot{
-  flex-shrink:0;
-  display:flex; align-items:center; gap:1rem;
-  max-width:640px; margin:1.6rem auto 0; padding:0 1.75rem;
-}
-.flowchart-hint{
-  font-family:var(--font-mono); font-size:.74rem; font-weight:600; letter-spacing:.1em;
-  color:var(--accent-ink); white-space:nowrap;
-}
-.flowchart-progress-track{
-  flex:1; height:4px; background:var(--border); border-radius:2px; overflow:hidden;
-}
-.flowchart-progress-fill{
-  height:100%; width:0%;
-  background:linear-gradient(90deg,var(--accent-hot),var(--accent));
-}
-/* fallback when JS pin is disabled (reduced motion) */
-.flowchart-pin.no-pin{ height:auto !important; }
-.flowchart-pin.no-pin .flowchart-sticky{ position:relative; height:auto; padding:5rem 0 3rem; }
-.flowchart-pin.no-pin .flowchart-viewport{ overflow-x:auto; }
-.flowchart-pin.no-pin .flowchart-track{ transform:none !important; }
-.flowchart-pin.no-pin .flowchart-progress-track{ display:none; }
-@media(max-width:860px){ .flowchart-track{ padding:0 4vw; } }
+.vflow-svg .reveal-scale{ transform-box:fill-box; transform-origin:center; }
 
 .fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
 
@@ -329,8 +278,28 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .fc-legend-swatch{ width:14px; height:14px; border-radius:4px; }
 .fc-legend-swatch.machine{ background:#1D4E7A; }
 .fc-legend-swatch.product{ background:#8A5A15; }
+<<<<<<< HEAD
 .fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
 
+=======
+.fc-legend-swatch.step{ background:#FF6A1F; }
+.fc-legend-swatch.material{ background:#E4E8EC; border:1px solid #8792A2; }
+.fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
+
+/* ══ FLAT 2D PROCESS DIAGRAM ══ */
+.flow2-frame{
+  max-width:1300px; margin:0 auto; padding:1.5rem;
+  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
+  overflow-x:auto;
+}
+.flow2-svg{ width:100%; min-width:920px; height:auto; display:block; background:#F7F8FA; border-radius:.85rem; }
+.flow2-notes{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.6rem; }
+@media(max-width:800px){ .flow2-notes{ grid-template-columns:1fr; } }
+.flow2-notes .panel{ padding:1.8rem; }
+.flow2-notes .panel h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.flow2-notes .panel p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
+
+>>>>>>> 6855ae82aeb53e5dd502f3fae270c1f1ccd72db0
 /* ══ SPEC MODAL ══ */
 /* ══ HOVER SPEC CARD (replaces click modal) ══ */
 .spec-hovercard{
@@ -356,6 +325,7 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .spec-hovercard-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
 .spec-hovercard-tags .chip{ font-size:.68rem; padding:.28rem .55rem; }
 
+<<<<<<< HEAD
 /* ══ ISOMETRIC CAMPUS LAYOUT ══ */
 .iso-campus-frame{
   max-width:1180px; margin:0 auto; padding:1.5rem;
@@ -368,6 +338,8 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .part2-note{ padding:1.8rem; }
 .part2-note h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
 .part2-note p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
+=======
+>>>>>>> 6855ae82aeb53e5dd502f3fae270c1f1ccd72db0
 .fc-node-label.on-dark{ fill:#fff; }
 .fc-node-sub{ font-family:var(--font-mono); font-weight:600; fill:var(--accent-deep); }
 .fc-edge-label{ font-family:var(--font-mono); font-size:12px; font-weight:600; fill:#000; }
@@ -486,6 +458,13 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#FF6A1F"/>
     </marker>
+    <marker id="flowArrow" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#1D4E7A"/>
+    </marker>
+    <radialGradient id="emberGradFlat" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/>
+      <stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/>
+    </radialGradient>
   </defs>
 </svg>
 
@@ -578,6 +557,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   <p>Long before a beam holds a roof or a bar reinforces a wall, there is only rock and fire. Shakambhari chose not to buy steel, but to build the entire chain that makes it — our own mines, our own reduction, our own furnace, our own hands at every stage. What follows is that journey, six stages from raw earth to reinforced tomorrow. <span class="hl">#SteelWithin</span> isn't a line on a label; it's the discipline running through all six, so that whatever carries our name carries the strength of everything that came before it.</p>
 </section>
 
+<<<<<<< HEAD
 <!-- ═══ FULL PROCESS FLOWCHART — pinned, scroll-driven ═══ -->
 <section class="flowchart-pin" id="flowchartPin">
   <div class="flowchart-sticky">
@@ -590,11 +570,143 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
         <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
         <span class="fc-legend-hint">— hover over any box for details</span>
       </div>
+=======
+<!-- ═══ FULL PROCESS FLOWCHART — vertical, scroll-revealed ═══ -->
+<section class="section">
+  <div class="flowchart-head reveal">
+    <div class="stage-code">THE FULL CHAIN</div>
+    <h2>One Continuous Process</h2>
+    <p>Every input, every merge, every transformation — mapped in a single unbroken chain. Keep scrolling: the chain builds itself top to bottom, stage by stage, like material through a mill.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
+      <span class="fc-legend-hint">— hover over any box for details</span>
+>>>>>>> 6855ae82aeb53e5dd502f3fae270c1f1ccd72db0
     </div>
-    <div class="flowchart-viewport">
-      <div class="flowchart-track" id="flowchartTrack">
-      <svg class="flowchart-canvas" viewBox="0 0 2000 640" width="2000" height="640" xmlns="http://www.w3.org/2000/svg">
+  </div>
+  <div class="flow2-frame reveal">
+    <svg class="flow2-svg vflow-svg" viewBox="-30 -30 940 1252" xmlns="http://www.w3.org/2000/svg">
+<path d="M160.0,112 L160.0,220" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.0s" path="M160.0,112 L160.0,220"/></circle>
+<path d="M460.0,112 L460.0,220" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.3s" path="M460.0,112 L460.0,220"/></circle>
+<path d="M280,256.0 L340,256.0" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s" path="M280,256.0 L340,256.0"/></circle>
+<path d="M460.0,292 L460.0,400" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.9s" path="M460.0,292 L460.0,400"/></circle>
+<path d="M460.0,472 L460.0,580" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s" path="M460.0,472 L460.0,580"/></circle>
+<path d="M640,616.0 L580,616.0" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.5s" path="M640,616.0 L580,616.0"/></circle>
+<path d="M460.0,652 L460.0,760" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s" path="M460.0,652 L460.0,760"/></circle>
+<path d="M460.0,832 L460.0,940" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.1s" path="M460.0,832 L460.0,940"/></circle>
+<path d="M580,976.0 L640,976.0" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.4s" path="M580,976.0 L640,976.0"/></circle>
+<path d="M760.0,1012 L760.0,1040 L760.0,1040 L760.0,1120" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.8s" repeatCount="indefinite" begin="2.7s" path="M760.0,1012 L760.0,1040 L760.0,1040 L760.0,1120"/></circle>
+<path d="M760.0,1012 L760.0,1052 L460.0,1052 L460.0,1120" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.8s" repeatCount="indefinite" begin="3.0s" path="M760.0,1012 L760.0,1052 L460.0,1052 L460.0,1120"/></circle>
+<path d="M760.0,1012 L760.0,1064 L160.0,1064 L160.0,1120" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.8s" repeatCount="indefinite" begin="3.3s" path="M760.0,1012 L760.0,1064 L160.0,1064 L160.0,1120"/></circle>
+<text class="fc-edge-label" x="310.0" y="206" text-anchor="middle">IRON PELLETS</text>
+<text class="fc-edge-label" x="555.0" y="526.0" text-anchor="middle">~950°C · DRI</text>
+<text class="fc-edge-label" x="578.0" y="706.0" text-anchor="middle">~1600°C · LIQUID STEEL</text>
+<g class="fc-node fc-product reveal-scale" data-node="iron-ore" tabindex="0" role="button" aria-label="ORE" style="transition-delay:0.05s">
+<rect x="40" y="40" width="240" height="72" rx="12" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label on-dark" x="160" y="81.8" text-anchor="middle" font-size="16">IRON ORE</text>
+<rect x="48" y="46" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="79" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="coal" tabindex="0" role="button" aria-label="COAL" style="transition-delay:0.15s">
+<rect x="340" y="40" width="240" height="72" rx="12" fill="url(#charGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label on-dark" x="460" y="81.8" text-anchor="middle" font-size="16">COAL</text>
+<rect x="348" y="46" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="pellet-plant" tabindex="0" role="button" aria-label="PELLET PLANT" style="transition-delay:0.25s">
+<rect x="40" y="220" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="160" y="252.4" text-anchor="middle" font-size="15">PELLET</text>
+<text class="fc-node-label" x="160" y="270.4" text-anchor="middle" font-size="15">PLANT</text>
+<rect x="48" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="79" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="rotary-kiln" tabindex="0" role="button" aria-label="ROTARY KILN" style="transition-delay:0.35s">
+<rect x="340" y="220" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="252.4" text-anchor="middle" font-size="15">ROTARY</text>
+<text class="fc-node-label" x="460" y="270.4" text-anchor="middle" font-size="15">KILN</text>
+<rect x="348" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="379" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="sponge-iron" tabindex="0" role="button" aria-label="SPONGE IRON" style="transition-delay:0.45s">
+<rect x="340" y="400" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="432.4" text-anchor="middle" font-size="15">SPONGE</text>
+<text class="fc-node-label" x="460" y="450.4" text-anchor="middle" font-size="15">IRON</text>
+<rect x="348" y="406" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="induction-furnace" tabindex="0" role="button" aria-label="INDUCTION FURNACE" style="transition-delay:0.55s">
+<rect x="340" y="580" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="612.4" text-anchor="middle" font-size="15">INDUCTION</text>
+<text class="fc-node-label" x="460" y="630.4" text-anchor="middle" font-size="15">FURNACE</text>
+<rect x="348" y="586" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="379" y="597" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="scrap-simn" tabindex="0" role="button" aria-label="SCRAP + PIG IRON + IN-HOUSE SIMN" style="transition-delay:0.6s">
+<rect x="640" y="580" width="240" height="72" rx="12" fill="url(#goldGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label on-dark" x="760" y="612.4" text-anchor="middle" font-size="15">SCRAP + PIG IRON</text>
+<text class="fc-node-label on-dark" x="760" y="630.4" text-anchor="middle" font-size="15">+ IN-HOUSE SiMn ⭐</text>
+<rect x="648" y="586" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="679" y="597" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="continuous-casting" tabindex="0" role="button" aria-label="CONTINUOUS CASTING" style="transition-delay:0.7s">
+<rect x="340" y="760" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="792.4" text-anchor="middle" font-size="15">CONTINUOUS</text>
+<text class="fc-node-label" x="460" y="810.4" text-anchor="middle" font-size="15">CASTING</text>
+<rect x="348" y="766" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="379" y="777" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="billets" tabindex="0" role="button" aria-label="BILLETS" style="transition-delay:0.8s">
+<rect x="340" y="940" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="981.8" text-anchor="middle" font-size="16">BILLETS</text>
+<rect x="348" y="946" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="957" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="rolling-mill" tabindex="0" role="button" aria-label="ROLLING MILL" style="transition-delay:0.85s">
+<rect x="640" y="940" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="760" y="972.4" text-anchor="middle" font-size="15">ROLLING</text>
+<text class="fc-node-label" x="760" y="990.4" text-anchor="middle" font-size="15">MILL</text>
+<rect x="648" y="946" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="679" y="957" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="tmt-bars" tabindex="0" role="button" aria-label="TMT BARS" style="transition-delay:0.95s">
+<rect x="40" y="1120" width="240" height="72" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
+<rect x="40" y="1120" width="240" height="6" rx="3" fill="#FF6A1F"/>
+<text class="fc-node-label on-dark" x="160" y="1161.8" text-anchor="middle" font-size="16">TMT BARS</text>
+<rect x="48" y="1126" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="79" y="1137" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="strips" tabindex="0" role="button" aria-label="STRIPS" style="transition-delay:1.0s">
+<rect x="340" y="1120" width="240" height="72" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
+<rect x="340" y="1120" width="240" height="6" rx="3" fill="#FF6A1F"/>
+<text class="fc-node-label on-dark" x="460" y="1161.8" text-anchor="middle" font-size="16">STRIPS</text>
+<rect x="348" y="1126" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="1137" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="structural-steel" tabindex="0" role="button" aria-label="STRUCTURAL STEEL" style="transition-delay:1.05s">
+<rect x="640" y="1120" width="240" height="72" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
+<rect x="640" y="1120" width="240" height="6" rx="3" fill="#FF6A1F"/>
+<text class="fc-node-label on-dark" x="760" y="1152.4" text-anchor="middle" font-size="15">STRUCTURAL</text>
+<text class="fc-node-label on-dark" x="760" y="1170.4" text-anchor="middle" font-size="15">STEEL</text>
+<rect x="648" y="1126" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="679" y="1137" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+    </svg>
+  </div>
+</section>
 
+<<<<<<< HEAD
         <!-- ═ EDGES (drawn first, under nodes) ═ -->
         <g stroke="#7C8797" stroke-width="3" fill="none" opacity=".85">
           <path d="M260,74 L320,74" marker-end="url(#arrowhead)"/>
@@ -751,14 +863,223 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
         </g>
       </svg>
       </div>
+=======
+<!-- ═══ PART 2: FERRO ALLOYS PROCESS FLOW ═══ -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">PART 2 · SILICOMANGANESE</div>
+    <h2>The Ferro Alloys Process Flow</h2>
+    <p>From furnace charge to dispatch, silicomanganese production follows a fixed sequence — with its own closed loop for cooling and power, and the slag stream worked a second time to recover metal rather than discard it.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch step"></span>Key Process Step</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch material"></span>Material / Output</span>
+      <span class="fc-legend-hint">— hover over any box or icon for details</span>
+>>>>>>> 6855ae82aeb53e5dd502f3fae270c1f1ccd72db0
     </div>
-    <div class="flowchart-foot">
-      <span class="flowchart-hint">WATCHING THE CHAIN MOVE</span>
-      <div class="flowchart-progress-track"><div class="flowchart-progress-fill" id="flowchartProgress"></div></div>
+  </div>
+  <div class="flow2-frame reveal">
+    <svg class="flow2-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
+<g class="fc-node fc-machine" data-node="power-house" tabindex="0" role="button" aria-label="POWER HOUSE">
+<rect x="785.0" y="45.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="798.0" y="66.0" width="64" height="42" fill="#8B93A0"/>
+    <polygon points="798.0,66.0 814.0,52.0 814.0,66.0" fill="#5B6470"/>
+    <polygon points="814.0,66.0 832.0,50.0 832.0,66.0" fill="#8B93A0"/>
+    <polygon points="832.0,66.0 848.0,52.0 848.0,66.0" fill="#5B6470"/>
+    <rect x="836.0" y="30.0" width="10" height="26" fill="#5B6470"/>
+    <rect x="836.0" y="30.0" width="10" height="7" fill="#FF6A1F"/>
+    <rect x="805.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="820.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="835.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="820.0" y="92.0" width="10" height="16" fill="#5B6470"/>
+    </g>
+<text x="830.0" y="122.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">POWER HOUSE</text>
+</g>
+<g class="fc-node fc-machine" data-node="furnace-transformer" tabindex="0" role="button" aria-label="FURNACE TRANSFORMER">
+<rect x="565.0" y="180.0" width="70" height="50" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<polygon points="594.0,189.0 605.0,189.0 598.0,204.0 607.0,204.0 593.0,223.0 598.0,207.0 590.0,207.0" fill="#FF6A1F" stroke="#C1440E" stroke-width="0.8"/>
+<text x="600.0" y="235.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">FURNACE</text>
+<text x="600.0" y="249.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">TRANSFORMER</text>
+</g>
+<text x="190.0" y="258.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">RAW MATERIAL</text>
+<g class="fc-node fc-product" data-node="raw-coal" tabindex="0" role="button" aria-label="COAL">
+<rect x="60.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="81.0" cy="326.0" r="11" fill="#3E434B"/>
+    <circle cx="99.0" cy="326.0" r="11" fill="#3E434B"/>
+    <circle cx="90.0" cy="312.0" r="13" fill="#2B2E33"/>
+    <circle cx="86.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="90.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COAL</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-quartz" tabindex="0" role="button" aria-label="QUARTZ">
+<rect x="135.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="156.0" cy="326.0" r="11" fill="#C7A472"/>
+    <circle cx="174.0" cy="326.0" r="11" fill="#C7A472"/>
+    <circle cx="165.0" cy="312.0" r="13" fill="#D7B98A"/>
+    <circle cx="161.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="165.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">QUARTZ</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-ore" tabindex="0" role="button" aria-label="ORE">
+<rect x="210.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="231.0" cy="326.0" r="11" fill="#C1440E"/>
+    <circle cx="249.0" cy="326.0" r="11" fill="#C1440E"/>
+    <circle cx="240.0" cy="312.0" r="13" fill="#FF6A1F"/>
+    <circle cx="236.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="240.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">ORE</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-coke" tabindex="0" role="button" aria-label="COKE">
+<rect x="285.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="306.0" cy="326.0" r="11" fill="#2B2E33"/>
+    <circle cx="324.0" cy="326.0" r="11" fill="#2B2E33"/>
+    <circle cx="315.0" cy="312.0" r="13" fill="#3E434B"/>
+    <circle cx="311.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="315.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COKE</text>
+</g>
+<g class="fc-node fc-machine" data-node="electric-arc-furnace" tabindex="0" role="button" aria-label="ELECTRIC ARC FURNACE">
+<rect x="535.0" y="280.0" width="150" height="110" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+<rect x="588.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="587.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="606.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="605.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="624.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="623.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<polygon points="568.0,305.0 652.0,305.0 634.0,349.0 586.0,349.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+<ellipse cx="610.0" cy="307.0" rx="36" ry="6.5" fill="url(#emberGradFlat)"/>
+<rect x="590.0" y="349.0" width="40" height="8" fill="#5B6470"/>
+</g>
+<text x="610.0" y="381.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">ELECTRIC ARC</text>
+<text x="610.0" y="395.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">FURNACE</text>
+</g>
+<g class="fc-node fc-machine" data-node="pump-house" tabindex="0" role="button" aria-label="PUMP HOUSE">
+<rect x="835.0" y="285.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="854.0" y="310.0" width="52" height="34" fill="#8B93A0"/>
+    <polygon points="850.0,310.0 880.0,288.0 910.0,310.0" fill="#5B6470"/>
+    <circle cx="880.0" cy="327.0" r="10" fill="#fff" opacity=".9"/>
+    <path d="M880.0,327.0 m-6,0 a6,6 0 1 1 6,6" fill="none" stroke="#1D4E7A" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="880.0" cy="327.0" r="2" fill="#1D4E7A"/>
+    </g>
+<text x="880.0" y="356.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">PUMP HOUSE</text>
+</g>
+<g class="fc-node fc-machine" data-node="cooling-tower" tabindex="0" role="button" aria-label="COOLING TOWER">
+<rect x="995.0" y="275.0" width="90" height="80" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <polygon points="1016.0,341.0 1024.0,289.0 1056.0,289.0 1064.0,341.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+    <circle cx="1040.0" cy="311.0" r="11" fill="#fff" opacity=".92"/>
+    <g stroke="#1D4E7A" stroke-width="2" stroke-linecap="round">
+    <line x1="1040.0" y1="302.0" x2="1040.0" y2="320.0"/>
+    <line x1="1031.0" y1="311.0" x2="1049.0" y2="311.0"/>
+    <line x1="1033.6" y1="304.6" x2="1046.4" y2="317.4"/>
+    <line x1="1033.6" y1="317.4" x2="1046.4" y2="304.6"/>
+    </g>
+    <circle cx="1040.0" cy="311.0" r="2.2" fill="#1D4E7A"/>
+    </g>
+<text x="1040.0" y="357.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COOLING TOWER</text>
+</g>
+<g class="fc-node fc-machine" data-node="tapping" tabindex="0" role="button" aria-label="TAPPING">
+<rect x="535.0" y="490.0" width="150" height="110" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+<rect x="588.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="587.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="606.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="605.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="624.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="623.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<polygon points="568.0,515.0 652.0,515.0 634.0,559.0 586.0,559.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+<ellipse cx="610.0" cy="517.0" rx="36" ry="6.5" fill="url(#emberGradFlat)"/>
+<rect x="590.0" y="559.0" width="40" height="8" fill="#5B6470"/>
+</g>
+<text x="610.0" y="591.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">TAPPING</text>
+</g>
+<g class="fc-node fc-product" data-node="metal-fa" tabindex="0" role="button" aria-label="METAL">
+<rect x="365.0" y="519.0" width="110" height="52" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="420.0" y="549.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">METAL</text>
+</g>
+<g class="fc-node fc-machine" data-node="cleaning-sizing" tabindex="0" role="button" aria-label="CLEANING & SIZING">
+<rect x="160.0" y="516.0" width="150" height="58" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="235.0" y="541.6" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">CLEANING &</text>
+<text x="235.0" y="557.1" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">SIZING</text>
+</g>
+<text x="235.0" y="650.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">WEIGHING & PACKING</text>
+<text x="235.0" y="735.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">LOT PREPARATION</text>
+<g class="fc-node fc-product" data-node="dispatch-simn" tabindex="0" role="button" aria-label="DISPATCH">
+<rect x="405.0" y="707.0" width="130" height="56" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="470.0" y="739.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">DISPATCH</text>
+</g>
+<g class="fc-node fc-product" data-node="dispatch-truck" tabindex="0" role="button" aria-label="SILICO MANGANESE">
+<rect x="425.0" y="790.0" width="90" height="40" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="440.0" y="791.0" width="38" height="20" rx="2" fill="#8B93A0"/>
+    <path d="M478.0,797.0 h14 l8,8 v6 h-22 z" fill="#5B6470"/>
+    <rect x="482.0" y="800.0" width="8" height="6" fill="#CFE3F2"/>
+    <circle cx="450.0" cy="813.0" r="5" fill="#14161C"/>
+    <circle cx="450.0" cy="813.0" r="2" fill="#AEB6C2"/>
+    <circle cx="490.0" cy="813.0" r="5" fill="#14161C"/>
+    <circle cx="490.0" cy="813.0" r="2" fill="#AEB6C2"/>
+    </g>
+<text x="470.0" y="836.0" text-anchor="middle" font-size="11" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SILICO MANGANESE</text>
+</g>
+<g class="fc-node fc-product" data-node="slag-mixed-material" tabindex="0" role="button" aria-label="SLAG MIXED MATERIAL">
+<rect x="755.0" y="516.0" width="150" height="58" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="830.0" y="541.6" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SLAG MIXED</text>
+<text x="830.0" y="557.1" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">MATERIAL</text>
+</g>
+<g class="fc-node fc-machine" data-node="jigging" tabindex="0" role="button" aria-label="JIGGING">
+<rect x="980.0" y="517.0" width="120" height="56" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="1040.0" y="549.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">JIGGING</text>
+</g>
+<text x="950.0" y="660.0" text-anchor="middle" font-size="13" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SLAG</text>
+<g class="fc-node fc-product" data-node="metal-recovered" tabindex="0" role="button" aria-label="RECOVERED METAL">
+<rect x="1095.0" y="634.0" width="110" height="52" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="1150.0" y="664.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">METAL</text>
+</g>
+<rect x="840.0" y="689.5" width="220" height="31" rx="15.5" fill="#163A5C"/>
+<text x="950.0" y="702.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">CAN BE USED FOR ROAD</text>
+<text x="950.0" y="715.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">CONSTRUCTION / LAND FILL</text>
+<rect x="1335.0" y="544.5" width="190" height="31" rx="15.5" fill="#163A5C"/>
+<text x="1430.0" y="557.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">WASTE TRANSFORMER OIL</text>
+<text x="1430.0" y="570.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">STORED IN DRUMS</text>
+<path d="M830.0,115.0 L830.0,150.0 L600.0,150.0 L600.0,181.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0,257.0 L600.0,281.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0,180.0 L600.0,28.0 L1430.0,28.0 L1430.0,540.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M345.0,320.0 L535.0,320.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M995.0,315.0 L925.0,318.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M835.0,320.0 L685.0,325.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M610.0,390.0 L610.0,490.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M535.0,545.0 L475.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M365.0,545.0 L310.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235.0,574.0 L235.0,636.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235.0,660.0 L235.0,722.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M300.0,735.0 L405.0,735.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M685.0,545.0 L755.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M905.0,545.0 L980.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1010.0,573.0 L950.0,610.0 L950.0,648.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1070.0,573.0 L1150.0,610.0 L1150.0,634.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1150.0,686.0 L1150.0,875.0 L420.0,875.0 L420.0,571.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="785.0" y="891.0" text-anchor="middle" font-size="10" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#1D4E7A">RECOVERED METAL</text>
+    </svg>
+  </div>
+  <div class="flow2-notes">
+    <div class="panel reveal">
+      <h4>Slag Isn't Waste</h4>
+      <p>Material tapped from the furnace splits two ways. The metal moves straight into cleaning, sizing, weighing and lot preparation for dispatch. The slag mixed with it goes through jigging instead of the bin — a process that separates by density, recovering additional metal back into the main stream and leaving behind a slag by-product that's put to use in road construction and land filling.</p>
+    </div>
+    <div class="panel reveal">
+      <h4>A Closed Cooling &amp; Power Loop</h4>
+      <p>The furnace transformer draws power from the power house and steps it up to run the furnace itself, while a cooling tower and pump house keep water circulating continuously through the furnace to manage the heat. Waste transformer oil is never discharged — it's drained and stored safely in drums.</p>
     </div>
   </div>
 </section>
 
+<<<<<<< HEAD
 <!-- ═══ PART 2: CIRCULAR ENERGY & FERROALLOY ECOSYSTEM ═══ -->
 <section class="section iso-campus">
   <div class="section-head reveal">
@@ -989,6 +1310,8 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </div>
 </section>
 
+=======
+>>>>>>> 6855ae82aeb53e5dd502f3fae270c1f1ccd72db0
 <div class="divider"></div>
 <main>
 
@@ -1349,46 +1672,6 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   });
 })();
 
-const reduceMotionPref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// ── pinned, scroll-driven flowchart pan ──
-(function setupFlowchartPin(){
-  const pin = document.getElementById('flowchartPin');
-  const track = document.getElementById('flowchartTrack');
-  const viewport = document.querySelector('.flowchart-viewport');
-  const progressFill = document.getElementById('flowchartProgress');
-  if(!pin || !track || !viewport) return;
-
-  if(reduceMotionPref){ pin.classList.add('no-pin'); return; }
-
-  const SPEED = 1.6; // >1 slows the perceived pan speed relative to scroll distance
-  let maxScroll = 0, extra = 0, pinTop = 0;
-
-  function measure(){
-    const trackWidth = track.scrollWidth;
-    const viewportWidth = viewport.clientWidth;
-    maxScroll = Math.max(0, trackWidth - viewportWidth);
-    extra = maxScroll * SPEED;
-    pin.style.height = (window.innerHeight + extra) + 'px';
-    pinTop = pin.getBoundingClientRect().top + window.scrollY;
-  }
-
-  function onScroll(){
-    const start = pinTop;
-    const end = pinTop + extra;
-    let progress = extra > 0 ? (window.scrollY - start) / (end - start) : 0;
-    progress = Math.min(Math.max(progress, 0), 1);
-    track.style.transform = `translateX(-${progress * maxScroll}px)`;
-    if(progressFill) progressFill.style.width = (progress * 100) + '%';
-  }
-
-  measure();
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('resize', ()=>{ measure(); onScroll(); });
-  window.addEventListener('load', ()=>{ measure(); onScroll(); });
-})();
-
 const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
 const revealObs = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
@@ -1530,6 +1813,7 @@ if(!reduceMotion){ initParticles(); tick(); }
       desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
       tags: ['Elegant', 'Elecart']
     },
+<<<<<<< HEAD
     'manganese-ore': {
       category: 'product', title: 'Manganese Ore',
       desc: 'The raw input for our ferroalloy chain — manganese-bearing ore, reduced under intense heat in the submerged arc furnace to produce silicomanganese and ferromanganese.',
@@ -1564,6 +1848,94 @@ if(!reduceMotion){ initParticles(); tick(); }
       desc: 'Powered in part by recovered waste heat, our captive power plant generates the electricity that runs the Steel Melting Shop, Rolling Mills, Ferroalloy Plant and the DRI Plant itself — a closed loop, not a one-way draw on the grid.',
       tags: ['Self-Generated Power']
     }
+=======
+    'power-house': {
+      category: 'machine', title: 'Power House',
+      desc: 'Supplies the electrical power that the furnace transformer steps up and feeds into the electric arc furnace.',
+      tags: ['Furnace Power Supply']
+    },
+    'furnace-transformer': {
+      category: 'machine', title: 'Furnace Transformer',
+      desc: 'Steps up power from the power house to the levels the electric arc furnace needs to strike and sustain its arc. Waste transformer oil is drained and stored safely in drums rather than discharged.',
+      tags: ['Waste Oil Stored in Drums']
+    },
+    'raw-coal': {
+      category: 'product', title: 'Coal',
+      desc: 'One of four raw materials charged into the furnace, acting as a reducing agent in the manganese-ore reduction reaction.',
+      tags: ['Furnace Charge']
+    },
+    'raw-quartz': {
+      category: 'product', title: 'Quartz',
+      desc: 'Charged into the furnace as a flux, helping form the slag that separates from the metal during smelting.',
+      tags: ['Furnace Charge']
+    },
+    'raw-ore': {
+      category: 'product', title: 'Ore',
+      desc: 'Manganese-bearing ore — the primary feedstock reduced under intense heat in the electric arc furnace to produce silicomanganese.',
+      tags: ['Furnace Charge']
+    },
+    'raw-coke': {
+      category: 'product', title: 'Coke',
+      desc: 'Charged into the furnace alongside coal, ore and quartz as an additional reducing agent.',
+      tags: ['Furnace Charge']
+    },
+    'electric-arc-furnace': {
+      category: 'machine', title: 'Electric Arc Furnace',
+      desc: 'Raw materials are melted using an electric arc struck between electrodes, reaching the temperature needed to reduce ore into liquid ferroalloy. It draws its power from the furnace transformer and runs on a continuous cooling-water loop.',
+      tags: ['High-Temperature Melt', 'Continuous Process']
+    },
+    'pump-house': {
+      category: 'machine', title: 'Pump House',
+      desc: 'Circulates cooling water in a continuous loop between the furnace and the cooling tower, keeping the electric arc furnace within safe operating temperature.',
+      tags: ['Continuous Circulation']
+    },
+    'cooling-tower': {
+      category: 'machine', title: 'Cooling Tower',
+      desc: 'Dissipates heat from the water drawn out of the furnace\'s cooling loop before it is recirculated back through the pump house.',
+      tags: ['Furnace Cooling Loop']
+    },
+    'tapping': {
+      category: 'machine', title: 'Tapping',
+      desc: 'At set intervals the furnace is drained, releasing the molten charge as tapped material — a mix of metal and slag that is then separated into their own process streams.',
+      tags: ['Furnace Drain']
+    },
+    'metal-fa': {
+      category: 'product', title: 'Metal',
+      desc: 'The metal fraction recovered from tapping, carried forward for cleaning and sizing on its way to becoming finished silicomanganese. It is topped up by metal recovered from the slag stream during jigging.',
+      tags: ['Silicomanganese Feed']
+    },
+    'cleaning-sizing': {
+      category: 'machine', title: 'Cleaning & Sizing',
+      desc: 'Tapped metal is cleaned of adhering slag and broken down into consistent, market-ready lump sizes before it is weighed and packed.',
+      tags: ['Lump Sizing']
+    },
+    'dispatch-simn': {
+      category: 'product', title: 'Dispatch',
+      desc: 'Packed, lot-prepared silicomanganese staged and ready to leave the plant by road.',
+      tags: ['Dispatch-Ready']
+    },
+    'dispatch-truck': {
+      category: 'product', title: 'Dispatch — Silicomanganese',
+      img: 'images/Ferro_Alloy_Photo.jpeg',
+      desc: 'Finished silicomanganese lots leave the plant by road — a portion kept for captive use in our own steel-making furnace, the surplus sold externally to other producers.',
+      tags: ['Captive Use', 'External Sale']
+    },
+    'slag-mixed-material': {
+      category: 'product', title: 'Slag Mixed Material',
+      desc: 'The slag fraction from tapping still carries entrained metal within it, so rather than being discarded outright it\'s routed to jigging for a second separation.',
+      tags: ['Routed to Jigging']
+    },
+    'jigging': {
+      category: 'machine', title: 'Jigging',
+      desc: 'A density-based separation process that splits the slag-mixed material into recoverable metal, which rejoins the main metal stream, and a lighter slag by-product left behind.',
+      tags: ['Density Separation']
+    },
+    'metal-recovered': {
+      category: 'product', title: 'Recovered Metal',
+      desc: 'Metal separated back out of the slag stream during jigging, looped back to rejoin the main metal line ahead of cleaning and sizing rather than being lost to the slag heap.',
+      tags: ['Rejoins Main Stream']
+    },
+>>>>>>> 6855ae82aeb53e5dd502f3fae270c1f1ccd72db0
   };
 
   const card = document.getElementById('specHoverCard');
