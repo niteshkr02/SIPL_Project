@@ -435,6 +435,13 @@
   outline-offset: 2px;
 }
 
+@media (max-width: 560px) {
+  .cli-filter-btn {
+    /* taller vertical padding brings the tap target closer to ~40px on touch phones */
+    padding: .65rem 1.1rem;
+  }
+}
+
 /* ── client grid ── */
 .cli-grid {
   position: relative;
@@ -576,6 +583,10 @@
   color: var(--ink);
   text-align: center;
   line-height: 1.3;
+  /* at the 2-column ~320-375px layout, single long words (e.g. "Infraprojects")
+     exceed the card's content width — without this they clip against .cli-card's overflow:hidden */
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .cli-card-tag {
@@ -713,6 +724,8 @@
   font-weight: 700;
   color: var(--ink);
   margin-bottom: .7rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .cli-panel-tags {

@@ -166,6 +166,7 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
 @media(max-width:1180px){
+  .site-nav{ gap:.6rem; }
   .nav-links{
     position:fixed; top:var(--nav-h); left:0; right:0;
     flex-direction:column; align-items:flex-start; gap:0;
@@ -184,9 +185,20 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
     margin:0; padding:0 2rem .6rem 2.6rem;
   }
   .dropdown a{ padding:.6rem 0; }
-  .nav-cta{ margin:1rem 2rem 1.5rem; display:inline-block; }
   .nav-toggle{ display:flex; }
   .theme-toggle{ margin-left:auto; }
+}
+/* Below ~640px the brand mark, CTA pill, theme toggle and hamburger no longer
+   fit in the fixed-height top bar together (the CTA's own text can wrap and
+   blow out the 76px nav height). Drop the duplicate CTA here — "Contact" is
+   still one tap away inside the menu list. */
+@media(max-width:640px){
+  .nav-cta{ display:none; }
+}
+@media(max-width:380px){
+  .site-nav{ padding:0 1rem; gap:.4rem; }
+  .nav-brand-text{ font-size:.68rem; }
+  .nav-brand svg, .nav-brand-logo{ width:28px; height:28px; }
 }
 
 /* page content sits below the fixed nav */

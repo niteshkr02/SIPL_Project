@@ -112,6 +112,14 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 }
 .segmented-toggle.is-fresher .segmented-thumb, .segmented-toggle.is-experienced .segmented-thumb{ opacity:1; }
 .segmented-toggle.is-experienced .segmented-thumb{ transform:translateX(100%); }
+/* label's min-width:112px is a hard floor that doesn't shrink — on phones
+   under ~370px wide the two labels (224px+) no longer fit the modal's
+   available width and were spilling past the toggle; let them share the
+   full-width pill equally instead, with the long word wrapping if needed. */
+@media(max-width:480px){
+  .segmented-toggle{ width:100%; }
+  .segmented-toggle label{ min-width:0; flex:1 1 0; padding:.6rem .8rem; overflow-wrap:break-word; }
+}
 
 .field.experienced-only{
   overflow:hidden; max-height:120px; opacity:1; margin-top:0;
@@ -226,7 +234,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     <li><a href="products.html">Products</a></li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>

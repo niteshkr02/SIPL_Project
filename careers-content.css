@@ -761,6 +761,7 @@ html[data-theme="dark"] .ccj-cta-text h3 { color: #fff; }
 .crp-row.visible .crp-line-progress { stroke-dashoffset: 0; }
 .crp-steps { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 1rem; }
 @media (max-width: 760px) { .crp-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .crp-steps { grid-template-columns: 1fr; } }
 .crp-step { text-align: center; opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s cubic-bezier(.16, .84, .44, 1); }
 .crp-step.visible { opacity: 1; transform: translateY(0); }
 .crp-step-num {
