@@ -329,7 +329,22 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .fc-legend-swatch{ width:14px; height:14px; border-radius:4px; }
 .fc-legend-swatch.machine{ background:#1D4E7A; }
 .fc-legend-swatch.product{ background:#8A5A15; }
+.fc-legend-swatch.step{ background:#FF6A1F; }
+.fc-legend-swatch.material{ background:#E4E8EC; border:1px solid #8792A2; }
 .fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
+
+/* ══ FLAT 2D PROCESS DIAGRAM ══ */
+.flow2-frame{
+  max-width:1300px; margin:0 auto; padding:1.5rem;
+  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
+  overflow-x:auto;
+}
+.flow2-svg{ width:100%; min-width:920px; height:auto; display:block; background:#F7F8FA; border-radius:.85rem; }
+.flow2-notes{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.6rem; }
+@media(max-width:800px){ .flow2-notes{ grid-template-columns:1fr; } }
+.flow2-notes .panel{ padding:1.8rem; }
+.flow2-notes .panel h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.flow2-notes .panel p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
 
 /* ══ SPEC MODAL ══ */
 /* ══ HOVER SPEC CARD (replaces click modal) ══ */
@@ -474,9 +489,13 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#FF6A1F"/>
     </marker>
-    <marker id="loopArrow2" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 Z" fill="#5B6470"/>
+    <marker id="flowArrow" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#1D4E7A"/>
     </marker>
+    <radialGradient id="emberGradFlat" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/>
+      <stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/>
+    </radialGradient>
   </defs>
 </svg>
 
@@ -746,6 +765,220 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     <div class="flowchart-foot">
       <span class="flowchart-hint">WATCHING THE CHAIN MOVE</span>
       <div class="flowchart-progress-track"><div class="flowchart-progress-fill" id="flowchartProgress"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART 2: FERRO ALLOYS PROCESS FLOW ═══ -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">PART 2 · SILICOMANGANESE</div>
+    <h2>The Ferro Alloys Process Flow</h2>
+    <p>From furnace charge to dispatch, silicomanganese production follows a fixed sequence — with its own closed loop for cooling and power, and the slag stream worked a second time to recover metal rather than discard it.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch step"></span>Key Process Step</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch material"></span>Material / Output</span>
+      <span class="fc-legend-hint">— hover over any box or icon for details</span>
+    </div>
+  </div>
+  <div class="flow2-frame reveal">
+    <svg class="flow2-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
+<g class="fc-node fc-machine" data-node="power-house" tabindex="0" role="button" aria-label="POWER HOUSE">
+<rect x="785.0" y="45.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="798.0" y="66.0" width="64" height="42" fill="#8B93A0"/>
+    <polygon points="798.0,66.0 814.0,52.0 814.0,66.0" fill="#5B6470"/>
+    <polygon points="814.0,66.0 832.0,50.0 832.0,66.0" fill="#8B93A0"/>
+    <polygon points="832.0,66.0 848.0,52.0 848.0,66.0" fill="#5B6470"/>
+    <rect x="836.0" y="30.0" width="10" height="26" fill="#5B6470"/>
+    <rect x="836.0" y="30.0" width="10" height="7" fill="#FF6A1F"/>
+    <rect x="805.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="820.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="835.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="820.0" y="92.0" width="10" height="16" fill="#5B6470"/>
+    </g>
+<text x="830.0" y="122.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">POWER HOUSE</text>
+</g>
+<g class="fc-node fc-machine" data-node="furnace-transformer" tabindex="0" role="button" aria-label="FURNACE TRANSFORMER">
+<rect x="565.0" y="180.0" width="70" height="50" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<polygon points="594.0,189.0 605.0,189.0 598.0,204.0 607.0,204.0 593.0,223.0 598.0,207.0 590.0,207.0" fill="#FF6A1F" stroke="#C1440E" stroke-width="0.8"/>
+<text x="600.0" y="235.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">FURNACE</text>
+<text x="600.0" y="249.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">TRANSFORMER</text>
+</g>
+<text x="190.0" y="258.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">RAW MATERIAL</text>
+<g class="fc-node fc-product" data-node="raw-coal" tabindex="0" role="button" aria-label="COAL">
+<rect x="60.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="81.0" cy="326.0" r="11" fill="#3E434B"/>
+    <circle cx="99.0" cy="326.0" r="11" fill="#3E434B"/>
+    <circle cx="90.0" cy="312.0" r="13" fill="#2B2E33"/>
+    <circle cx="86.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="90.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COAL</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-quartz" tabindex="0" role="button" aria-label="QUARTZ">
+<rect x="135.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="156.0" cy="326.0" r="11" fill="#C7A472"/>
+    <circle cx="174.0" cy="326.0" r="11" fill="#C7A472"/>
+    <circle cx="165.0" cy="312.0" r="13" fill="#D7B98A"/>
+    <circle cx="161.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="165.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">QUARTZ</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-ore" tabindex="0" role="button" aria-label="ORE">
+<rect x="210.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="231.0" cy="326.0" r="11" fill="#C1440E"/>
+    <circle cx="249.0" cy="326.0" r="11" fill="#C1440E"/>
+    <circle cx="240.0" cy="312.0" r="13" fill="#FF6A1F"/>
+    <circle cx="236.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="240.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">ORE</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-coke" tabindex="0" role="button" aria-label="COKE">
+<rect x="285.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="306.0" cy="326.0" r="11" fill="#2B2E33"/>
+    <circle cx="324.0" cy="326.0" r="11" fill="#2B2E33"/>
+    <circle cx="315.0" cy="312.0" r="13" fill="#3E434B"/>
+    <circle cx="311.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="315.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COKE</text>
+</g>
+<g class="fc-node fc-machine" data-node="electric-arc-furnace" tabindex="0" role="button" aria-label="ELECTRIC ARC FURNACE">
+<rect x="535.0" y="280.0" width="150" height="110" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+<rect x="588.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="587.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="606.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="605.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="624.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="623.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<polygon points="568.0,305.0 652.0,305.0 634.0,349.0 586.0,349.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+<ellipse cx="610.0" cy="307.0" rx="36" ry="6.5" fill="url(#emberGradFlat)"/>
+<rect x="590.0" y="349.0" width="40" height="8" fill="#5B6470"/>
+</g>
+<text x="610.0" y="381.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">ELECTRIC ARC</text>
+<text x="610.0" y="395.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">FURNACE</text>
+</g>
+<g class="fc-node fc-machine" data-node="pump-house" tabindex="0" role="button" aria-label="PUMP HOUSE">
+<rect x="835.0" y="285.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="854.0" y="310.0" width="52" height="34" fill="#8B93A0"/>
+    <polygon points="850.0,310.0 880.0,288.0 910.0,310.0" fill="#5B6470"/>
+    <circle cx="880.0" cy="327.0" r="10" fill="#fff" opacity=".9"/>
+    <path d="M880.0,327.0 m-6,0 a6,6 0 1 1 6,6" fill="none" stroke="#1D4E7A" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="880.0" cy="327.0" r="2" fill="#1D4E7A"/>
+    </g>
+<text x="880.0" y="356.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">PUMP HOUSE</text>
+</g>
+<g class="fc-node fc-machine" data-node="cooling-tower" tabindex="0" role="button" aria-label="COOLING TOWER">
+<rect x="995.0" y="275.0" width="90" height="80" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <polygon points="1016.0,341.0 1024.0,289.0 1056.0,289.0 1064.0,341.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+    <circle cx="1040.0" cy="311.0" r="11" fill="#fff" opacity=".92"/>
+    <g stroke="#1D4E7A" stroke-width="2" stroke-linecap="round">
+    <line x1="1040.0" y1="302.0" x2="1040.0" y2="320.0"/>
+    <line x1="1031.0" y1="311.0" x2="1049.0" y2="311.0"/>
+    <line x1="1033.6" y1="304.6" x2="1046.4" y2="317.4"/>
+    <line x1="1033.6" y1="317.4" x2="1046.4" y2="304.6"/>
+    </g>
+    <circle cx="1040.0" cy="311.0" r="2.2" fill="#1D4E7A"/>
+    </g>
+<text x="1040.0" y="357.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COOLING TOWER</text>
+</g>
+<g class="fc-node fc-machine" data-node="tapping" tabindex="0" role="button" aria-label="TAPPING">
+<rect x="535.0" y="490.0" width="150" height="110" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+<rect x="588.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="587.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="606.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="605.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="624.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="623.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<polygon points="568.0,515.0 652.0,515.0 634.0,559.0 586.0,559.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+<ellipse cx="610.0" cy="517.0" rx="36" ry="6.5" fill="url(#emberGradFlat)"/>
+<rect x="590.0" y="559.0" width="40" height="8" fill="#5B6470"/>
+</g>
+<text x="610.0" y="591.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">TAPPING</text>
+</g>
+<g class="fc-node fc-product" data-node="metal-fa" tabindex="0" role="button" aria-label="METAL">
+<rect x="365.0" y="519.0" width="110" height="52" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="420.0" y="549.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">METAL</text>
+</g>
+<g class="fc-node fc-machine" data-node="cleaning-sizing" tabindex="0" role="button" aria-label="CLEANING & SIZING">
+<rect x="160.0" y="516.0" width="150" height="58" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="235.0" y="541.6" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">CLEANING &</text>
+<text x="235.0" y="557.1" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">SIZING</text>
+</g>
+<text x="235.0" y="650.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">WEIGHING & PACKING</text>
+<text x="235.0" y="735.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">LOT PREPARATION</text>
+<g class="fc-node fc-product" data-node="dispatch-simn" tabindex="0" role="button" aria-label="DISPATCH">
+<rect x="405.0" y="707.0" width="130" height="56" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="470.0" y="739.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">DISPATCH</text>
+</g>
+<g class="fc-node fc-product" data-node="dispatch-truck" tabindex="0" role="button" aria-label="SILICO MANGANESE">
+<rect x="425.0" y="790.0" width="90" height="40" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="440.0" y="791.0" width="38" height="20" rx="2" fill="#8B93A0"/>
+    <path d="M478.0,797.0 h14 l8,8 v6 h-22 z" fill="#5B6470"/>
+    <rect x="482.0" y="800.0" width="8" height="6" fill="#CFE3F2"/>
+    <circle cx="450.0" cy="813.0" r="5" fill="#14161C"/>
+    <circle cx="450.0" cy="813.0" r="2" fill="#AEB6C2"/>
+    <circle cx="490.0" cy="813.0" r="5" fill="#14161C"/>
+    <circle cx="490.0" cy="813.0" r="2" fill="#AEB6C2"/>
+    </g>
+<text x="470.0" y="836.0" text-anchor="middle" font-size="11" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SILICO MANGANESE</text>
+</g>
+<g class="fc-node fc-product" data-node="slag-mixed-material" tabindex="0" role="button" aria-label="SLAG MIXED MATERIAL">
+<rect x="755.0" y="516.0" width="150" height="58" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="830.0" y="541.6" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SLAG MIXED</text>
+<text x="830.0" y="557.1" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">MATERIAL</text>
+</g>
+<g class="fc-node fc-machine" data-node="jigging" tabindex="0" role="button" aria-label="JIGGING">
+<rect x="980.0" y="517.0" width="120" height="56" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="1040.0" y="549.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">JIGGING</text>
+</g>
+<text x="950.0" y="660.0" text-anchor="middle" font-size="13" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SLAG</text>
+<g class="fc-node fc-product" data-node="metal-recovered" tabindex="0" role="button" aria-label="RECOVERED METAL">
+<rect x="1095.0" y="634.0" width="110" height="52" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="1150.0" y="664.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">METAL</text>
+</g>
+<rect x="840.0" y="689.5" width="220" height="31" rx="15.5" fill="#163A5C"/>
+<text x="950.0" y="702.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">CAN BE USED FOR ROAD</text>
+<text x="950.0" y="715.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">CONSTRUCTION / LAND FILL</text>
+<rect x="1335.0" y="544.5" width="190" height="31" rx="15.5" fill="#163A5C"/>
+<text x="1430.0" y="557.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">WASTE TRANSFORMER OIL</text>
+<text x="1430.0" y="570.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">STORED IN DRUMS</text>
+<path d="M830.0,115.0 L830.0,150.0 L600.0,150.0 L600.0,181.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0,257.0 L600.0,281.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0,180.0 L600.0,28.0 L1430.0,28.0 L1430.0,540.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M345.0,320.0 L535.0,320.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M995.0,315.0 L925.0,318.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M835.0,320.0 L685.0,325.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M610.0,390.0 L610.0,490.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M535.0,545.0 L475.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M365.0,545.0 L310.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235.0,574.0 L235.0,636.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235.0,660.0 L235.0,722.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M300.0,735.0 L405.0,735.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M685.0,545.0 L755.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M905.0,545.0 L980.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1010.0,573.0 L950.0,610.0 L950.0,648.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1070.0,573.0 L1150.0,610.0 L1150.0,634.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1150.0,686.0 L1150.0,875.0 L420.0,875.0 L420.0,571.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="785.0" y="891.0" text-anchor="middle" font-size="10" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#1D4E7A">RECOVERED METAL</text>
+    </svg>
+  </div>
+  <div class="flow2-notes">
+    <div class="panel reveal">
+      <h4>Slag Isn't Waste</h4>
+      <p>Material tapped from the furnace splits two ways. The metal moves straight into cleaning, sizing, weighing and lot preparation for dispatch. The slag mixed with it goes through jigging instead of the bin — a process that separates by density, recovering additional metal back into the main stream and leaving behind a slag by-product that's put to use in road construction and land filling.</p>
+    </div>
+    <div class="panel reveal">
+      <h4>A Closed Cooling &amp; Power Loop</h4>
+      <p>The furnace transformer draws power from the power house and steps it up to run the furnace itself, while a cooling tower and pump house keep water circulating continuously through the furnace to manage the heat. Waste transformer oil is never discharged — it's drained and stored safely in drums.</p>
     </div>
   </div>
 </section>
@@ -1290,6 +1523,92 @@ if(!reduceMotion){ initParticles(); tick(); }
       img: 'images/Structural steel.jpeg',
       desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
       tags: ['Elegant', 'Elecart']
+    },
+    'power-house': {
+      category: 'machine', title: 'Power House',
+      desc: 'Supplies the electrical power that the furnace transformer steps up and feeds into the electric arc furnace.',
+      tags: ['Furnace Power Supply']
+    },
+    'furnace-transformer': {
+      category: 'machine', title: 'Furnace Transformer',
+      desc: 'Steps up power from the power house to the levels the electric arc furnace needs to strike and sustain its arc. Waste transformer oil is drained and stored safely in drums rather than discharged.',
+      tags: ['Waste Oil Stored in Drums']
+    },
+    'raw-coal': {
+      category: 'product', title: 'Coal',
+      desc: 'One of four raw materials charged into the furnace, acting as a reducing agent in the manganese-ore reduction reaction.',
+      tags: ['Furnace Charge']
+    },
+    'raw-quartz': {
+      category: 'product', title: 'Quartz',
+      desc: 'Charged into the furnace as a flux, helping form the slag that separates from the metal during smelting.',
+      tags: ['Furnace Charge']
+    },
+    'raw-ore': {
+      category: 'product', title: 'Ore',
+      desc: 'Manganese-bearing ore — the primary feedstock reduced under intense heat in the electric arc furnace to produce silicomanganese.',
+      tags: ['Furnace Charge']
+    },
+    'raw-coke': {
+      category: 'product', title: 'Coke',
+      desc: 'Charged into the furnace alongside coal, ore and quartz as an additional reducing agent.',
+      tags: ['Furnace Charge']
+    },
+    'electric-arc-furnace': {
+      category: 'machine', title: 'Electric Arc Furnace',
+      desc: 'Raw materials are melted using an electric arc struck between electrodes, reaching the temperature needed to reduce ore into liquid ferroalloy. It draws its power from the furnace transformer and runs on a continuous cooling-water loop.',
+      tags: ['High-Temperature Melt', 'Continuous Process']
+    },
+    'pump-house': {
+      category: 'machine', title: 'Pump House',
+      desc: 'Circulates cooling water in a continuous loop between the furnace and the cooling tower, keeping the electric arc furnace within safe operating temperature.',
+      tags: ['Continuous Circulation']
+    },
+    'cooling-tower': {
+      category: 'machine', title: 'Cooling Tower',
+      desc: 'Dissipates heat from the water drawn out of the furnace\'s cooling loop before it is recirculated back through the pump house.',
+      tags: ['Furnace Cooling Loop']
+    },
+    'tapping': {
+      category: 'machine', title: 'Tapping',
+      desc: 'At set intervals the furnace is drained, releasing the molten charge as tapped material — a mix of metal and slag that is then separated into their own process streams.',
+      tags: ['Furnace Drain']
+    },
+    'metal-fa': {
+      category: 'product', title: 'Metal',
+      desc: 'The metal fraction recovered from tapping, carried forward for cleaning and sizing on its way to becoming finished silicomanganese. It is topped up by metal recovered from the slag stream during jigging.',
+      tags: ['Silicomanganese Feed']
+    },
+    'cleaning-sizing': {
+      category: 'machine', title: 'Cleaning & Sizing',
+      desc: 'Tapped metal is cleaned of adhering slag and broken down into consistent, market-ready lump sizes before it is weighed and packed.',
+      tags: ['Lump Sizing']
+    },
+    'dispatch-simn': {
+      category: 'product', title: 'Dispatch',
+      desc: 'Packed, lot-prepared silicomanganese staged and ready to leave the plant by road.',
+      tags: ['Dispatch-Ready']
+    },
+    'dispatch-truck': {
+      category: 'product', title: 'Dispatch — Silicomanganese',
+      img: 'images/Ferro_Alloy_Photo.jpeg',
+      desc: 'Finished silicomanganese lots leave the plant by road — a portion kept for captive use in our own steel-making furnace, the surplus sold externally to other producers.',
+      tags: ['Captive Use', 'External Sale']
+    },
+    'slag-mixed-material': {
+      category: 'product', title: 'Slag Mixed Material',
+      desc: 'The slag fraction from tapping still carries entrained metal within it, so rather than being discarded outright it\'s routed to jigging for a second separation.',
+      tags: ['Routed to Jigging']
+    },
+    'jigging': {
+      category: 'machine', title: 'Jigging',
+      desc: 'A density-based separation process that splits the slag-mixed material into recoverable metal, which rejoins the main metal stream, and a lighter slag by-product left behind.',
+      tags: ['Density Separation']
+    },
+    'metal-recovered': {
+      category: 'product', title: 'Recovered Metal',
+      desc: 'Metal separated back out of the slag stream during jigging, looped back to rejoin the main metal line ahead of cleaning and sizing rather than being lost to the slag heap.',
+      tags: ['Rejoins Main Stream']
     },
   };
 
