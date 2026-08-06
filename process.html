@@ -260,11 +260,19 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 }
 
 /* ══ FLOWCHART — vertical, scroll-revealed ══ */
+.flowchart-pin{ position:relative; z-index:1; padding:5rem 1.75rem; }
 .flowchart-head{ text-align:center; margin-bottom:2rem; }
 .flowchart-head .stage-code{ justify-content:center; }
 .flowchart-head .stage-code::before{ display:none; }
 .flowchart-head h2{ font-size:clamp(2rem,4.2vw,2.9rem); margin-bottom:.6rem; }
 .flowchart-head p{ color:var(--ink-soft); font-size:1.08rem; max-width:56ch; margin:0 auto; }
+.flow2-frame{
+  max-width:1180px; margin:0 auto; padding:1.5rem;
+  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 16px 38px rgba(20,22,28,.09);
+  overflow-x:auto;
+}
+.flow2-svg{ width:100%; min-width:760px; height:auto; display:block; }
 .vflow-svg .reveal-scale{ transform-box:fill-box; transform-origin:center; }
 
 .fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
@@ -670,166 +678,20 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </div>
 </section>
 
-        <!-- ═ EDGES (drawn first, under nodes) ═ -->
-        <g stroke="#7C8797" stroke-width="3" fill="none" opacity=".85">
-          <path d="M260,74 L320,74" marker-end="url(#arrowhead)"/>
-          <path d="M260,254 L320,254" marker-end="url(#arrowhead)"/>
-          <path d="M430,108 L430,220" marker-end="url(#arrowhead)"/>
-          <path d="M540,254 L600,254" marker-end="url(#arrowhead)"/>
-          <path d="M820,254 L880,254" marker-end="url(#arrowhead)"/>
-          <path d="M990,400 L990,288" marker-end="url(#arrowhead)"/>
-          <path d="M1100,254 L1160,254" marker-end="url(#arrowhead)"/>
-          <path d="M1380,254 L1440,254" marker-end="url(#arrowhead)"/>
-          <path d="M1550,288 L1550,400" marker-end="url(#arrowhead)"/>
-          <path d="M1660,434 L1660,354 L1720,354" marker-end="url(#arrowhead)"/>
-          <path d="M1660,434 L1720,434" marker-end="url(#arrowhead)"/>
-          <path d="M1660,434 L1660,514 L1720,514" marker-end="url(#arrowhead)"/>
-        </g>
-
-        <!-- traveling energy pulses along each edge -->
-        <g fill="url(#emberGrad)">
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M260,74 L320,74"/></circle>
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.3s" path="M260,254 L320,254"/></circle>
-          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.6s" path="M430,108 L430,220"/></circle>
-          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.9s" path="M540,254 L600,254"/></circle>
-          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s" path="M820,254 L880,254"/></circle>
-          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.5s" path="M990,400 L990,288"/></circle>
-          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s" path="M1100,254 L1160,254"/></circle>
-          <circle r="5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.1s" path="M1380,254 L1440,254"/></circle>
-          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="2.4s" path="M1550,288 L1550,400"/></circle>
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="2.7s" path="M1660,434 L1660,354 L1720,354"/></circle>
-          <circle r="5"><animateMotion dur="2.2s" repeatCount="indefinite" begin="3.0s" path="M1660,434 L1720,434"/></circle>
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="3.3s" path="M1660,434 L1660,514 L1720,514"/></circle>
-        </g>
-
-        <!-- edge labels -->
-        <g class="fc-edge-label" text-anchor="middle">
-          <text x="430" y="170">IRON PELLETS</text>
-          <text x="770" y="240">~950°C · DRI</text>
-          <text x="1230" y="240">~1600°C · LIQUID STEEL</text>
-        </g>
-
-        <!-- ═ NODES ═ -->
-        <!-- ORE -->
-        <g class="fc-node fc-product" data-node="iron-ore" tabindex="0" role="button" aria-label="ORE">
-          <rect x="40" y="40" width="220" height="68" rx="12" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <text class="fc-node-label on-dark" x="150" y="80" text-anchor="middle" font-size="17">IRON ORE</text>
-          <rect x="48" y="46" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="79" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- COAL -->
-        <g class="fc-node fc-product" data-node="coal" tabindex="0" role="button" aria-label="COAL">
-          <rect x="40" y="220" width="220" height="68" rx="12" fill="url(#charGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <text class="fc-node-label on-dark" x="150" y="260" text-anchor="middle" font-size="17">COAL</text>
-          <rect x="48" y="226" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="79" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- PELLET PLANT -->
-        <g class="fc-node fc-machine" data-node="pellet-plant" tabindex="0" role="button" aria-label="PELLET PLANT">
-          <rect x="320" y="40" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
-          <text class="fc-node-label" x="430" y="72" text-anchor="middle" font-size="16">PELLET</text>
-          <text class="fc-node-label" x="430" y="90" text-anchor="middle" font-size="16">PLANT</text>
-          <rect x="328" y="46" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
-          <text x="359" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
-        </g>
-
-        <!-- ROTARY KILN -->
-        <g class="fc-node fc-machine" data-node="rotary-kiln" tabindex="0" role="button" aria-label="ROTARY KILN">
-          <rect x="320" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
-          <text class="fc-node-label" x="430" y="253" text-anchor="middle" font-size="16">ROTARY</text>
-          <text class="fc-node-label" x="430" y="273" text-anchor="middle" font-size="16">KILN</text>
-          <rect x="328" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
-          <text x="359" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
-        </g>
-
-        <!-- SPONGE IRON -->
-        <g class="fc-node fc-product" data-node="sponge-iron" tabindex="0" role="button" aria-label="SPONGE IRON">
-          <rect x="600" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <text class="fc-node-label" x="710" y="253" text-anchor="middle" font-size="16">SPONGE</text>
-          <text class="fc-node-label" x="710" y="273" text-anchor="middle" font-size="16">IRON</text>
-          <rect x="608" y="226" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="639" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- INDUCTION FURNACE -->
-        <g class="fc-node fc-machine" data-node="induction-furnace" tabindex="0" role="button" aria-label="INDUCTION FURNACE">
-          <rect x="880" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
-          <text class="fc-node-label" x="990" y="248" text-anchor="middle" font-size="15">INDUCTION</text>
-          <text class="fc-node-label" x="990" y="266" text-anchor="middle" font-size="15">FURNACE</text>
-          <rect x="888" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
-          <text x="919" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
-        </g>
-
-        <!-- SCRAP + PIG IRON + IN-HOUSE SIMN -->
-        <g class="fc-node fc-product" data-node="scrap-simn" tabindex="0" role="button" aria-label="SCRAP + PIG IRON + IN-HOUSE SIMN">
-          <rect x="880" y="400" width="220" height="68" rx="12" fill="url(#goldGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <text class="fc-node-label on-dark" x="990" y="433" text-anchor="middle" font-size="14">SCRAP + PIG IRON</text>
-          <text class="fc-node-label on-dark" x="990" y="452" text-anchor="middle" font-size="14">+ IN-HOUSE SiMn ⭐</text>
-          <rect x="888" y="406" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="919" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- CONTINUOUS CASTING -->
-        <g class="fc-node fc-machine" data-node="continuous-casting" tabindex="0" role="button" aria-label="CONTINUOUS CASTING">
-          <rect x="1160" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
-          <text class="fc-node-label" x="1270" y="253" text-anchor="middle" font-size="15">CONTINUOUS</text>
-          <text class="fc-node-label" x="1270" y="272" text-anchor="middle" font-size="15">CASTING</text>
-          <rect x="1168" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
-          <text x="1199" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
-        </g>
-
-        <!-- BILLETS -->
-        <g class="fc-node fc-product" data-node="billets" tabindex="0" role="button" aria-label="BILLETS">
-          <rect x="1440" y="220" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <text class="fc-node-label" x="1550" y="262" text-anchor="middle" font-size="17">BILLETS</text>
-          <rect x="1448" y="226" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="1479" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- ROLLING MILL -->
-        <g class="fc-node fc-machine" data-node="rolling-mill" tabindex="0" role="button" aria-label="ROLLING MILL">
-          <rect x="1440" y="400" width="220" height="68" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
-          <text class="fc-node-label" x="1550" y="433" text-anchor="middle" font-size="16">ROLLING</text>
-          <text class="fc-node-label" x="1550" y="452" text-anchor="middle" font-size="16">MILL</text>
-          <rect x="1448" y="406" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
-          <text x="1479" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
-        </g>
-
-        <!-- TMT BARS -->
-        <g class="fc-node fc-product" data-node="tmt-bars" tabindex="0" role="button" aria-label="TMT BARS">
-          <rect x="1720" y="320" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <rect x="1720" y="320" width="220" height="6" rx="3" fill="#FF6A1F"/>
-          <text class="fc-node-label on-dark" x="1830" y="358" text-anchor="middle" font-size="16">TMT BARS</text>
-          <rect x="1728" y="326" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="1759" y="337" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- STRIPS -->
-        <g class="fc-node fc-product" data-node="strips" tabindex="0" role="button" aria-label="STRIPS">
-          <rect x="1720" y="400" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <rect x="1720" y="400" width="220" height="6" rx="3" fill="#FF6A1F"/>
-          <text class="fc-node-label on-dark" x="1830" y="438" text-anchor="middle" font-size="16">STRIPS</text>
-          <rect x="1728" y="406" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="1759" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-
-        <!-- STRUCTURAL STEEL -->
-        <g class="fc-node fc-product" data-node="structural-steel" tabindex="0" role="button" aria-label="STRUCTURAL STEEL">
-          <rect x="1720" y="480" width="220" height="60" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
-          <rect x="1720" y="480" width="220" height="6" rx="3" fill="#FF6A1F"/>
-          <text class="fc-node-label on-dark" x="1830" y="512" text-anchor="middle" font-size="14">STRUCTURAL</text>
-          <text class="fc-node-label on-dark" x="1830" y="529" text-anchor="middle" font-size="14">STEEL</text>
-          <rect x="1728" y="486" width="62" height="15" rx="7.5" fill="#8A5A15"/>
-          <text x="1759" y="497" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
-        </g>
-      </svg>
-      </div>
+<!-- ═══ PART 2: CIRCULAR ENERGY & FERROALLOY ECOSYSTEM ═══ -->
+<section class="section iso-campus">
+  <div class="section-head reveal">
+    <div class="kicker center">PART 2 · THE FULL CHAIN</div>
+    <h2>Circular Energy &amp; Ferroalloy Ecosystem</h2>
+    <p>Nothing here is wasted, and nothing here is idle capacity. The DRI process's own waste heat generates the power that runs the plant, while the same furnace that feeds our own steel also supplies alloys to producers well beyond it.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
+      <span class="fc-legend-hint">— hover over any box for details</span>
     </div>
   </div>
-  <div class="flow2-frame reveal">
-    <svg class="flow2-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
+  <div class="iso-campus-frame reveal">
+    <svg class="iso-campus-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
 <g class="fc-node fc-machine" data-node="power-house" tabindex="0" role="button" aria-label="POWER HOUSE">
 <rect x="785.0" y="45.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
 <g>
@@ -1018,30 +880,17 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 <text x="785.0" y="891.0" text-anchor="middle" font-size="10" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#1D4E7A">RECOVERED METAL</text>
     </svg>
   </div>
-  <div class="flow2-notes">
-    <div class="panel reveal">
+  <div class="part2-notes">
+    <div class="part2-note panel reveal">
       <h4>Slag Isn't Waste</h4>
       <p>Material tapped from the furnace splits two ways. The metal moves straight into cleaning, sizing, weighing and lot preparation for dispatch. The slag mixed with it goes through jigging instead of the bin — a process that separates by density, recovering additional metal back into the main stream and leaving behind a slag by-product that's put to use in road construction and land filling.</p>
     </div>
-    <div class="panel reveal">
+    <div class="part2-note panel reveal">
       <h4>A Closed Cooling &amp; Power Loop</h4>
       <p>The furnace transformer draws power from the power house and steps it up to run the furnace itself, while a cooling tower and pump house keep water circulating continuously through the furnace to manage the heat. Waste transformer oil is never discharged — it's drained and stored safely in drums.</p>
     </div>
   </div>
-</section>
 
-<!-- ═══ PART 2: CIRCULAR ENERGY & FERROALLOY ECOSYSTEM ═══ -->
-<section class="section iso-campus">
-  <div class="section-head reveal">
-    <div class="kicker center">PART 2 · THE FULL CHAIN</div>
-    <h2>Circular Energy &amp; Ferroalloy Ecosystem</h2>
-    <p>Nothing here is wasted, and nothing here is idle capacity. The DRI process's own waste heat generates the power that runs the plant, while the same furnace that feeds our own steel also supplies alloys to producers well beyond it.</p>
-    <div class="fc-legend">
-      <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
-      <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
-      <span class="fc-legend-hint">— hover over any box for details</span>
-    </div>
-  </div>
   <div class="iso-campus-frame reveal">
     <svg class="iso-campus-svg" viewBox="-330.0 -240.0 1246.0 664.0" xmlns="http://www.w3.org/2000/svg">
         <polygon points="88.0,-124.0 696.0,180.0 348.0,354.0 -260.0,50.0" fill="#E3E7EB" stroke="#C7CDD5" stroke-width="1.5"/>
