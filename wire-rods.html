@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESPL Structural Tubes &amp; Hollow Sections — Round, SHS, RHS | Shakambhari Group</title>
-<meta name="description" content="ERW Round structural tube, Square Hollow Sections (SHS) and Rectangular Hollow Sections (RHS) — sizes, thickness and weight specifications from Shakambhari Group.">
+<title>Wire Rods &amp; Industrial Wire Products — Torkari, HB &amp; Binding Wire | Shakambhari Group</title>
+<meta name="description" content="Primary wire rod stock, Torkari commercial wire rod, Hard Bright (HB) wire and thermal annealed binding wire — the full Shakambhari wire product range.">
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ══ PAGE HEADER (dark, short) ══ */
@@ -17,8 +17,8 @@
 }
 .page-header .kicker{ justify-content:center; color:var(--accent-hot); }
 .page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.4rem); max-width:24ch; margin:0 auto; }
-.page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
+.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.4rem); max-width:26ch; margin:0 auto; }
+.page-header p{ color:var(--ink-dim); max-width:64ch; margin:1.2rem auto 0; font-size:1.08rem; }
 .page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 
 /* ══ TYPE NAV ══ */
@@ -35,19 +35,31 @@
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
 
 /* ══ DATA TABLE ══ */
-.spec-table-wrap{ overflow-x:auto; border-radius:1rem; border:1px solid var(--border); }
-.spec-table{ width:100%; border-collapse:collapse; min-width:520px; }
-.spec-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.78rem; letter-spacing:.04em; padding:.9rem 1.1rem; text-align:left; white-space:nowrap; }
-.spec-table td{ padding:.85rem 1.1rem; border-top:1px solid var(--border); font-size:.94rem; color:var(--ink); font-family:var(--font-mono); white-space:nowrap; }
+.spec-table-wrap{ overflow-x:auto; border-radius:1rem; border:1px solid var(--border); max-width:560px; }
+.spec-table{ width:100%; border-collapse:collapse; }
+.spec-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.78rem; letter-spacing:.04em; padding:.9rem 1.1rem; text-align:left; }
+.spec-table td{ padding:.85rem 1.1rem; border-top:1px solid var(--border); font-size:.94rem; color:var(--ink); font-family:var(--font-mono); }
 .spec-table tr:nth-child(even) td{ background:var(--surface-2); }
-.type-block{ margin-bottom:3rem; }
+.type-block{ margin-bottom:3.5rem; }
 .type-block:last-child{ margin-bottom:0; }
 .type-block-head{ display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.2rem; flex-wrap:wrap; }
 .type-block-head h3{ font-size:1.3rem; }
 .type-block-head .type-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.05em; padding:.3rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--accent-ink); }
 .type-block p.type-desc{ color:var(--ink-soft); font-size:.94rem; line-height:1.65; margin-bottom:1.2rem; max-width:74ch; }
-.cross-link-note{ max-width:640px; margin:0 auto; text-align:center; padding:1.3rem 1.6rem; border-radius:.9rem; font-size:.9rem; color:var(--ink-soft); }
-.cross-link-note a{ color:var(--accent-ink); font-weight:700; }
+.type-block-split{ display:grid; grid-template-columns:1.1fr .9fr; gap:2.4rem; align-items:start; }
+@media(max-width:800px){ .type-block-split{ grid-template-columns:1fr; } }
+
+/* ══ FEATURE GRID (Torkari) ══ */
+.qa-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+@media(max-width:760px){ .qa-grid{ grid-template-columns:1fr; } }
+.qa-card{ padding:1.6rem; }
+.qa-card .icon-wrap{ width:44px; height:44px; border-radius:.8rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:.9rem; }
+.qa-card .icon-wrap svg{ width:24px; height:24px; }
+.qa-card h4{ font-size:1rem; margin-bottom:.5rem; }
+.qa-card p{ color:var(--ink-soft); font-size:.88rem; line-height:1.6; }
+
+.spec-tags{ display:flex; flex-wrap:wrap; gap:.6rem; }
+.spec-tag{ font-family:var(--font-mono); font-size:.78rem; font-weight:700; padding:.5rem 1rem; border-radius:2rem; background:var(--surface-2); border:1px solid var(--border); color:var(--accent-ink); }
 
 /* ══ CONTACT SPLIT / FORM (reused pattern) ══ */
 .contact-split{ display:grid; grid-template-columns:.85fr 1.15fr; gap:3rem; align-items:start; }
@@ -72,24 +84,17 @@
 .field select{ cursor:pointer; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus){ border-color:var(--accent-hot); }
-.tube-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
-.tube-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
-.tube-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
-.tube-form-status.show{ display:block; }
-.tube-form-status.error{ color:var(--accent-deep); }
-.tube-form-status.success{ color:#1E8449; }
-html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
+.wr-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
+.wr-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
+.wr-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
+.wr-form-status.show{ display:block; }
+.wr-form-status.error{ color:var(--accent-deep); }
+.wr-form-status.success{ color:#1E8449; }
+html[data-theme="dark"] .wr-form-status.success{ color:#8CE0A0; }
 </style>
 </head>
 <body>
 <div class="sheen"></div>
-
-<svg class="defs" aria-hidden="true">
-  <defs>
-    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
-    <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2F4F6"/><stop offset="50%" stop-color="#C7CDD5"/><stop offset="100%" stop-color="#8792A2"/></linearGradient>
-  </defs>
-</svg>
 
 <!-- NAV -->
 <nav class="site-nav">
@@ -138,17 +143,18 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 
 <!-- PAGE HEADER -->
 <header class="page-header">
-  <div class="kicker reveal">ESPL STRUCTURAL TUBES &amp; HOLLOW SECTIONS</div>
-  <h1 class="reveal">Structural Tube, Built to Section</h1>
-  <p class="reveal">Round, Square and Rectangular Hollow Sections for scaffolding and structural fabrication — every size backed by a published weight and thickness spec.</p>
+  <div class="kicker reveal">WIRE RODS &amp; INDUSTRIAL WIRE PRODUCTS</div>
+  <h1 class="reveal">One Wire Rod, Four Product Lines</h1>
+  <p class="reveal">From the primary hot-rolled coil that starts every wire product, down to the commercial, hard bright and annealed binding wire drawn from it — every diameter backed by a real specification.</p>
   <div class="page-header-cta reveal">
-    <a href="#round-tube" class="btn btn-primary">View Specifications</a>
+    <a href="#primary" class="btn btn-primary">View Specifications</a>
     <a href="#contact" class="btn btn-ghost">Contact Sales</a>
   </div>
   <div class="type-nav reveal">
-    <a href="#round-tube">Round Tube</a>
-    <a href="#shs-tube">SHS</a>
-    <a href="#rhs-tube">RHS</a>
+    <a href="#primary">Primary Wire Rod</a>
+    <a href="#torkari">Torkari Rods</a>
+    <a href="#hb-wire">HB Wire</a>
+    <a href="#binding-wire">Binding Wire</a>
   </div>
 </header>
 
@@ -157,11 +163,11 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
   <div class="split">
     <div>
       <div class="kicker reveal">ABOUT THIS RANGE</div>
-      <h2 class="reveal">One Tube Mill, Four Product Types</h2>
-      <p class="reveal">Our tube division draws hot-rolled strip through electric resistance welding (ERW) to produce Round, Square Hollow Section (SHS) and Rectangular Hollow Section (RHS) tube — the structural backbone of scaffolding, fabrication frames and general engineering work.</p>
-      <p class="reveal">Round and SHS tube from this same line is also supplied as high-load scaffolding pipe for site staging — see our dedicated <a href="scaffolding.html">Scaffolding &amp; Staging Systems</a> range for those specifications.</p>
+      <h2 class="reveal">Every Wire Product Traces Back to One Coil</h2>
+      <p class="reveal">Hot-rolled, coiled round bar is where every wire product in our range begins — cooled and coiled straight from continuously cast billets. From there it's drawn, tempered or annealed into whichever product a downstream application actually needs.</p>
+      <p class="reveal">That includes commercial-grade Torkari rod for light reinforcement, hard bright wire pulled through progressively smaller dies for mesh and fencing, and softened, annealed binding wire built specifically to tie rebar joints tight.</p>
     </div>
-    <img src="images/pipe_section.jpeg" alt="Structural Tube & Pipe" class="split-photo reveal">
+    <img src="images/Wire_Rods_Photo.jpeg" alt="Wire Rods & Industrial Wire Products" class="split-photo reveal">
   </div>
 </section>
 
@@ -171,61 +177,104 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <section class="section" id="specifications">
   <div class="section-head reveal">
     <div class="kicker center">SPECIFICATIONS</div>
-    <h2>Sizes, Thickness &amp; Weight</h2>
-    <p>Published specifications for our current scaffolding and structural tube range.</p>
+    <h2>Four Wire Products, Every Diameter</h2>
+    <p>Published specifications for our current wire rod and industrial wire range.</p>
   </div>
 
-  <div class="type-block" id="round-tube">
+  <div class="type-block" id="primary">
     <div class="type-block-head reveal">
-      <h3>Round Tube (Scaffolding Pipe)</h3>
-      <span class="type-tag">ERW ROUND</span>
+      <h3>Primary Industrial Wire Rod Stock</h3>
+      <span class="type-tag">SUBCATEGORY 6.1</span>
     </div>
-    <p class="type-desc reveal">Circular section tube in the two diameters most widely used in scaffolding — 1.5" and 2" outer diameter — each available across a range of wall thicknesses to match load requirements.</p>
+    <p class="type-desc reveal">Hot-rolled coiled round bars, cooled and coiled from continuously cast billets — the base material behind more than 1,000 distinct finished consumer products, from nails to mesh to fasteners.</p>
     <div class="spec-table-wrap reveal">
       <table class="spec-table">
-        <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
+        <thead><tr><th>Range</th><th>Standard</th></tr></thead>
         <tbody>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>17 KG</td><td>2.5</td></tr>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>19 KG</td><td>2.9</td></tr>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>21–22 KG</td><td>3.2</td></tr>
-          <tr><td>Round</td><td>2"</td><td>60 OD</td><td>27 KG</td><td>3.2</td></tr>
+          <tr><td>5.5–12 MM</td><td>IS 2062:2011</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="type-block" id="shs-tube">
+  <div class="type-block" id="torkari">
     <div class="type-block-head reveal">
-      <h3>SHS — Square Hollow Section</h3>
-      <span class="type-tag">ERW SQUARE</span>
+      <h3>Commercial Wire Rods (Torkari Rods)</h3>
+      <span class="type-tag">SUBCATEGORY 6.2</span>
     </div>
-    <p class="type-desc reveal">Square-section tube for structural framing and fabrication where flat faces simplify welding and bolted connections.</p>
+    <p class="type-desc reveal">The same high-strength, high-bond deformed rebar engineering as our full-size TMT bars, drawn down to the smaller diameters ties and stirrups actually need — highly weldable and easily bent into hooks on-site without cracking.</p>
+    <div class="type-block-split">
+      <div class="qa-grid">
+        <div class="qa-card panel reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 3v18M6 8l6-5 6 5M6 16l6 5 6-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Fe 500 / Fe 550 Grade</h4>
+          <p>Conforms to high-strength Fe 500 or Fe 550 (Tor-50/55) specifications, the same grade standard used across our full TMT range.</p>
+        </div>
+        <div class="qa-card panel reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M4 12h16M4 7h16M4 17h16" stroke-linecap="round"/></svg></div>
+          <h4>Tri-Ribbed Surface</h4>
+          <p>Surface deformations on three sides for superior bonding strength with concrete, often exceeding 100% bond strength.</p>
+        </div>
+        <div class="qa-card panel reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16" stroke-linecap="round"/></svg></div>
+          <h4>TMT-Processed</h4>
+          <p>Made from low-carbon mild steel via cold rolling or Thermo-Mechanically Treated processing.</p>
+        </div>
+        <div class="qa-card panel reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M6 12c0-3 2-5 5-5M6 12c0 3 2 5 5 5M17 5v14" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Weldable &amp; Flexible</h4>
+          <p>Highly weldable and easily bent into hooks or stirrups on-site without cracking.</p>
+        </div>
+      </div>
+      <div class="spec-table-wrap reveal">
+        <table class="spec-table">
+          <thead><tr><th>Torkari — Size</th></tr></thead>
+          <tbody>
+            <tr><td>5.5 MM</td></tr>
+            <tr><td>6 MM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="type-block" id="hb-wire">
+    <div class="type-block-head reveal">
+      <h3>Hard Bright (HB) Rigid Wires</h3>
+      <span class="type-tag">SUBCATEGORY 6.3</span>
+    </div>
+    <p class="type-desc reveal">Cold-drawn from wire rod through a series of dies to a hard, bright, smooth-finished surface — unlike our annealed Binding Wire, HB Wire is left in its work-hardened state for applications needing stiffness and tensile strength, such as mesh and fencing.</p>
     <div class="spec-table-wrap reveal">
       <table class="spec-table">
-        <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
+        <thead><tr><th>Size (SWG)</th></tr></thead>
         <tbody>
-          <tr><td>SHS</td><td>2"</td><td>50 × 50</td><td>22–23 KG</td><td>2.4</td></tr>
+          <tr><td>4 SWG</td></tr>
+          <tr><td>6 SWG</td></tr>
+          <tr><td>7 SWG</td></tr>
+          <tr><td>8 SWG</td></tr>
+          <tr><td>9 SWG</td></tr>
+          <tr><td>10 SWG</td></tr>
+          <tr><td>11 SWG</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="type-block" id="rhs-tube">
+  <div class="type-block" id="binding-wire">
     <div class="type-block-head reveal">
-      <h3>RHS — Rectangular Hollow Section</h3>
-      <span class="type-tag">ERW RECTANGULAR</span>
+      <h3>Thermal Annealed Binding Wires</h3>
+      <span class="type-tag">SUBCATEGORY 6.4</span>
     </div>
-    <p class="type-desc reveal">Rectangular-section tube, manufactured to specification for structural and fabrication applications requiring a non-square profile. Contact our sales team with your required size and thickness for a quote.</p>
+    <p class="type-desc reveal">Annealed mild steel wire, cold-drawn from round wire rods, softness and flexibility tuned specifically for tying rebar joints tight inside a structure — the opposite temper from HB Wire, by design.</p>
+    <div class="spec-table-wrap reveal">
+      <table class="spec-table">
+        <thead><tr><th>Range</th></tr></thead>
+        <tbody>
+          <tr><td>12–23 SWG</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-
-</section>
-
-<div class="divider"></div>
-
-<!-- CROSS-LINK -->
-<section class="section" style="padding-top:0;padding-bottom:2.5rem;">
-  <p class="cross-link-note panel reveal">Looking for Hard Bright (HB) Wire? It now lives under <a href="wire-rods.html#hb-wire">Wire Rods &amp; Industrial Wire Products →</a></p>
 </section>
 
 <div class="divider"></div>
@@ -235,7 +284,7 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
   <div class="section-head reveal">
     <div class="kicker center">CONTACT US</div>
     <h2>Request a Quote</h2>
-    <p>Tell us the type, size and quantity you need and our sales team will follow up with pricing and lead time.</p>
+    <p>Tell us the product, size and quantity you need and our sales team will follow up with pricing and lead time.</p>
   </div>
   <div class="contact-split">
     <div class="panel reveal" style="padding:2rem;">
@@ -262,37 +311,39 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
       </div>
     </div>
     <div class="panel reveal" style="padding:2rem;">
-      <form id="tubeContactForm" novalidate>
+      <form id="wrContactForm" novalidate>
         <div class="field-grid">
           <div class="field">
-            <label for="tcName">Name</label>
-            <input type="text" id="tcName" name="name" placeholder="Your name" required>
+            <label for="wrName">Name</label>
+            <input type="text" id="wrName" name="name" placeholder="Your name" required>
           </div>
           <div class="field">
-            <label for="tcCompany">Company</label>
-            <input type="text" id="tcCompany" name="company" placeholder="Company name" required>
+            <label for="wrCompany">Company</label>
+            <input type="text" id="wrCompany" name="company" placeholder="Company name" required>
           </div>
         </div>
         <div class="field">
-          <label for="tcEmail">Email</label>
-          <input type="email" id="tcEmail" name="email" placeholder="you@company.com" required>
+          <label for="wrEmail">Email</label>
+          <input type="email" id="wrEmail" name="email" placeholder="you@company.com" required>
         </div>
         <div class="field">
-          <label for="tcProduct">Product Required</label>
-          <select id="tcProduct" name="product" required>
+          <label for="wrProduct">Product Required</label>
+          <select id="wrProduct" name="product" required>
             <option value="" disabled selected>Select a product</option>
-            <option value="Round Tube (Scaffolding Pipe)">Round Tube (Scaffolding Pipe)</option>
-            <option value="SHS - Square Hollow Section">SHS — Square Hollow Section</option>
-            <option value="RHS - Rectangular Hollow Section">RHS — Rectangular Hollow Section</option>
+            <option value="Primary Wire Rod">Primary Wire Rod (5.5-12mm)</option>
+            <option value="Torkari 5.5mm">Torkari Rod — 5.5mm</option>
+            <option value="Torkari 6mm">Torkari Rod — 6mm</option>
+            <option value="HB Wire">HB Wire (Hard Bright)</option>
+            <option value="Binding Wire">Binding Wire</option>
             <option value="Other / Not Sure">Other / Not Sure</option>
           </select>
         </div>
         <div class="field">
-          <label for="tcMessage">Message</label>
-          <textarea id="tcMessage" name="message" placeholder="Size, thickness &amp; quantity required" rows="4" required></textarea>
+          <label for="wrMessage">Message</label>
+          <textarea id="wrMessage" name="message" placeholder="Quantity &amp; delivery timeline" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary tube-form-submit">Send Inquiry →</button>
-        <p class="tube-form-status" id="tubeFormStatus"></p>
+        <button type="submit" class="btn btn-primary wr-form-submit">Send Inquiry →</button>
+        <p class="wr-form-status" id="wrFormStatus"></p>
       </form>
     </div>
   </div>
@@ -354,29 +405,29 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <script src="site.js"></script>
 <script>
   (function () {
-    const form = document.getElementById('tubeContactForm');
-    const status = document.getElementById('tubeFormStatus');
-    const TUBE_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+    const form = document.getElementById('wrContactForm');
+    const status = document.getElementById('wrFormStatus');
+    const WR_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.classList.add('show');
-      status.className = 'tube-form-status show';
+      status.className = 'wr-form-status show';
 
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
-      if (TUBE_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+      if (WR_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
         status.textContent = "This form isn't connected yet — please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
         status.classList.add('error');
         return;
       }
 
-      const submitBtn = form.querySelector('.tube-form-submit');
+      const submitBtn = form.querySelector('.wr-form-submit');
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
 
-      fetch(TUBE_WEBHOOK_URL, {
+      fetch(WR_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))

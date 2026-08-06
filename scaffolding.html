@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESPL Structural Tubes &amp; Hollow Sections — Round, SHS, RHS | Shakambhari Group</title>
-<meta name="description" content="ERW Round structural tube, Square Hollow Sections (SHS) and Rectangular Hollow Sections (RHS) — sizes, thickness and weight specifications from Shakambhari Group.">
+<title>Scaffolding &amp; Staging Systems — Round &amp; SHS Pipe | Shakambhari Group</title>
+<meta name="description" content="High-load round and SHS scaffolding pipe from Shakambhari Group — published weight and thickness specifications for safe site staging.">
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ══ PAGE HEADER (dark, short) ══ */
@@ -46,6 +46,16 @@
 .type-block-head h3{ font-size:1.3rem; }
 .type-block-head .type-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.05em; padding:.3rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--accent-ink); }
 .type-block p.type-desc{ color:var(--ink-soft); font-size:.94rem; line-height:1.65; margin-bottom:1.2rem; max-width:74ch; }
+
+/* ══ FEATURE GRID ══ */
+.qa-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+@media(max-width:760px){ .qa-grid{ grid-template-columns:1fr; } }
+.qa-card{ padding:2rem; }
+.qa-card .icon-wrap{ width:52px; height:52px; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.1rem; }
+.qa-card .icon-wrap svg{ width:28px; height:28px; }
+.qa-card h4{ font-size:1.08rem; margin-bottom:.6rem; }
+.qa-card p{ color:var(--ink-soft); font-size:.92rem; line-height:1.65; }
+
 .cross-link-note{ max-width:640px; margin:0 auto; text-align:center; padding:1.3rem 1.6rem; border-radius:.9rem; font-size:.9rem; color:var(--ink-soft); }
 .cross-link-note a{ color:var(--accent-ink); font-weight:700; }
 
@@ -72,24 +82,17 @@
 .field select{ cursor:pointer; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus){ border-color:var(--accent-hot); }
-.tube-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
-.tube-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
-.tube-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
-.tube-form-status.show{ display:block; }
-.tube-form-status.error{ color:var(--accent-deep); }
-.tube-form-status.success{ color:#1E8449; }
-html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
+.sc-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
+.sc-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
+.sc-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
+.sc-form-status.show{ display:block; }
+.sc-form-status.error{ color:var(--accent-deep); }
+.sc-form-status.success{ color:#1E8449; }
+html[data-theme="dark"] .sc-form-status.success{ color:#8CE0A0; }
 </style>
 </head>
 <body>
 <div class="sheen"></div>
-
-<svg class="defs" aria-hidden="true">
-  <defs>
-    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
-    <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2F4F6"/><stop offset="50%" stop-color="#C7CDD5"/><stop offset="100%" stop-color="#8792A2"/></linearGradient>
-  </defs>
-</svg>
 
 <!-- NAV -->
 <nav class="site-nav">
@@ -138,17 +141,16 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 
 <!-- PAGE HEADER -->
 <header class="page-header">
-  <div class="kicker reveal">ESPL STRUCTURAL TUBES &amp; HOLLOW SECTIONS</div>
-  <h1 class="reveal">Structural Tube, Built to Section</h1>
-  <p class="reveal">Round, Square and Rectangular Hollow Sections for scaffolding and structural fabrication — every size backed by a published weight and thickness spec.</p>
+  <div class="kicker reveal">SCAFFOLDING &amp; STAGING SYSTEMS</div>
+  <h1 class="reveal">High-Load Scaffolding Pipe for Safe Site Staging</h1>
+  <p class="reveal">Round and Square Hollow Section (SHS) scaffolding pipe from our ERW tube division — every diameter and thickness backed by a published weight spec, so your staging calculations start with real numbers.</p>
   <div class="page-header-cta reveal">
-    <a href="#round-tube" class="btn btn-primary">View Specifications</a>
+    <a href="#round" class="btn btn-primary">View Specifications</a>
     <a href="#contact" class="btn btn-ghost">Contact Sales</a>
   </div>
   <div class="type-nav reveal">
-    <a href="#round-tube">Round Tube</a>
-    <a href="#shs-tube">SHS</a>
-    <a href="#rhs-tube">RHS</a>
+    <a href="#round">Round Scaffolding Pipe</a>
+    <a href="#shs">SHS Scaffolding Pipe</a>
   </div>
 </header>
 
@@ -156,12 +158,12 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <section class="section">
   <div class="split">
     <div>
-      <div class="kicker reveal">ABOUT THIS RANGE</div>
-      <h2 class="reveal">One Tube Mill, Four Product Types</h2>
-      <p class="reveal">Our tube division draws hot-rolled strip through electric resistance welding (ERW) to produce Round, Square Hollow Section (SHS) and Rectangular Hollow Section (RHS) tube — the structural backbone of scaffolding, fabrication frames and general engineering work.</p>
-      <p class="reveal">Round and SHS tube from this same line is also supplied as high-load scaffolding pipe for site staging — see our dedicated <a href="scaffolding.html">Scaffolding &amp; Staging Systems</a> range for those specifications.</p>
+      <div class="kicker reveal">SUBCATEGORY 5.1 · HIGH-LOAD SCAFFOLDING PIPE</div>
+      <h2 class="reveal">Staging Steel, Sized for the Load</h2>
+      <p class="reveal">Scaffolding is only as safe as the tube holding it up. Our Round and SHS scaffolding pipe is drawn from the same ERW tube line as our structural tube range, but selected and specified for the diameters, wall thicknesses and weights the staging and formwork trade actually orders.</p>
+      <p class="reveal">Every size below carries a published thickness and weight, so site engineers can plan load capacity with confirmed numbers rather than estimates.</p>
     </div>
-    <img src="images/pipe_section.jpeg" alt="Structural Tube & Pipe" class="split-photo reveal">
+    <img src="images/pipe_section.jpeg" alt="Round & SHS Scaffolding Pipe" class="split-photo reveal">
   </div>
 </section>
 
@@ -172,12 +174,12 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
   <div class="section-head reveal">
     <div class="kicker center">SPECIFICATIONS</div>
     <h2>Sizes, Thickness &amp; Weight</h2>
-    <p>Published specifications for our current scaffolding and structural tube range.</p>
+    <p>Published specifications for our current scaffolding pipe range.</p>
   </div>
 
-  <div class="type-block" id="round-tube">
+  <div class="type-block" id="round">
     <div class="type-block-head reveal">
-      <h3>Round Tube (Scaffolding Pipe)</h3>
+      <h3>Round Scaffolding Pipe</h3>
       <span class="type-tag">ERW ROUND</span>
     </div>
     <p class="type-desc reveal">Circular section tube in the two diameters most widely used in scaffolding — 1.5" and 2" outer diameter — each available across a range of wall thicknesses to match load requirements.</p>
@@ -194,12 +196,12 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
     </div>
   </div>
 
-  <div class="type-block" id="shs-tube">
+  <div class="type-block" id="shs">
     <div class="type-block-head reveal">
-      <h3>SHS — Square Hollow Section</h3>
+      <h3>SHS Scaffolding Pipe</h3>
       <span class="type-tag">ERW SQUARE</span>
     </div>
-    <p class="type-desc reveal">Square-section tube for structural framing and fabrication where flat faces simplify welding and bolted connections.</p>
+    <p class="type-desc reveal">Square-section scaffolding tube for staging frames where flat faces simplify coupler fit and bolted bracing.</p>
     <div class="spec-table-wrap reveal">
       <table class="spec-table">
         <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
@@ -209,23 +211,45 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
       </table>
     </div>
   </div>
+</section>
 
-  <div class="type-block" id="rhs-tube">
-    <div class="type-block-head reveal">
-      <h3>RHS — Rectangular Hollow Section</h3>
-      <span class="type-tag">ERW RECTANGULAR</span>
-    </div>
-    <p class="type-desc reveal">Rectangular-section tube, manufactured to specification for structural and fabrication applications requiring a non-square profile. Contact our sales team with your required size and thickness for a quote.</p>
+<div class="divider"></div>
+
+<!-- WHY IT WORKS -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">BUILT FOR THE SITE</div>
+    <h2>What Matters on a Staging Job</h2>
   </div>
-
-
+  <div class="qa-grid">
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M4 20V8l8-4 8 4v12M4 12h16" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>Verified Load Capacity</h4>
+      <p>Published thickness and weight per size, so staging designers can calculate safe working loads with confidence.</p>
+    </div>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg></div>
+      <h4>Consistent Wall Thickness</h4>
+      <p>ERW-welded to a controlled thickness tolerance across every length, batch after batch.</p>
+    </div>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M4 12h16M4 7h16M4 17h16" stroke-linecap="round"/></svg></div>
+      <h4>Standard Coupler-Ready Sizes</h4>
+      <p>1.5" and 2" round OD match standard scaffolding couplers and fittings used across Indian sites.</p>
+    </div>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16" stroke-linecap="round"/></svg></div>
+      <h4>Same Tube, Structural Grade</h4>
+      <p>Drawn from the same mill line and testing discipline as our structural tube range — no separate lower-grade stock.</p>
+    </div>
+  </div>
 </section>
 
 <div class="divider"></div>
 
 <!-- CROSS-LINK -->
 <section class="section" style="padding-top:0;padding-bottom:2.5rem;">
-  <p class="cross-link-note panel reveal">Looking for Hard Bright (HB) Wire? It now lives under <a href="wire-rods.html#hb-wire">Wire Rods &amp; Industrial Wire Products →</a></p>
+  <p class="cross-link-note panel reveal">Need RHS or general structural framing tube instead of scaffolding pipe? See <a href="tube.html">ESPL Structural Tubes &amp; Hollow Sections →</a></p>
 </section>
 
 <div class="divider"></div>
@@ -235,7 +259,7 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
   <div class="section-head reveal">
     <div class="kicker center">CONTACT US</div>
     <h2>Request a Quote</h2>
-    <p>Tell us the type, size and quantity you need and our sales team will follow up with pricing and lead time.</p>
+    <p>Tell us the size, thickness and quantity you need and our sales team will follow up with pricing and lead time.</p>
   </div>
   <div class="contact-split">
     <div class="panel reveal" style="padding:2rem;">
@@ -262,37 +286,37 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
       </div>
     </div>
     <div class="panel reveal" style="padding:2rem;">
-      <form id="tubeContactForm" novalidate>
+      <form id="scContactForm" novalidate>
         <div class="field-grid">
           <div class="field">
-            <label for="tcName">Name</label>
-            <input type="text" id="tcName" name="name" placeholder="Your name" required>
+            <label for="scName">Name</label>
+            <input type="text" id="scName" name="name" placeholder="Your name" required>
           </div>
           <div class="field">
-            <label for="tcCompany">Company</label>
-            <input type="text" id="tcCompany" name="company" placeholder="Company name" required>
+            <label for="scCompany">Company</label>
+            <input type="text" id="scCompany" name="company" placeholder="Company name" required>
           </div>
         </div>
         <div class="field">
-          <label for="tcEmail">Email</label>
-          <input type="email" id="tcEmail" name="email" placeholder="you@company.com" required>
+          <label for="scEmail">Email</label>
+          <input type="email" id="scEmail" name="email" placeholder="you@company.com" required>
         </div>
         <div class="field">
-          <label for="tcProduct">Product Required</label>
-          <select id="tcProduct" name="product" required>
-            <option value="" disabled selected>Select a product</option>
-            <option value="Round Tube (Scaffolding Pipe)">Round Tube (Scaffolding Pipe)</option>
-            <option value="SHS - Square Hollow Section">SHS — Square Hollow Section</option>
-            <option value="RHS - Rectangular Hollow Section">RHS — Rectangular Hollow Section</option>
+          <label for="scProduct">Pipe Type Required</label>
+          <select id="scProduct" name="product" required>
+            <option value="" disabled selected>Select a pipe type</option>
+            <option value="Round Scaffolding Pipe 1.5in">Round Scaffolding Pipe — 1.5"</option>
+            <option value="Round Scaffolding Pipe 2in">Round Scaffolding Pipe — 2"</option>
+            <option value="SHS Scaffolding Pipe">SHS Scaffolding Pipe — 2"</option>
             <option value="Other / Not Sure">Other / Not Sure</option>
           </select>
         </div>
         <div class="field">
-          <label for="tcMessage">Message</label>
-          <textarea id="tcMessage" name="message" placeholder="Size, thickness &amp; quantity required" rows="4" required></textarea>
+          <label for="scMessage">Message</label>
+          <textarea id="scMessage" name="message" placeholder="Thickness &amp; quantity required" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary tube-form-submit">Send Inquiry →</button>
-        <p class="tube-form-status" id="tubeFormStatus"></p>
+        <button type="submit" class="btn btn-primary sc-form-submit">Send Inquiry →</button>
+        <p class="sc-form-status" id="scFormStatus"></p>
       </form>
     </div>
   </div>
@@ -354,29 +378,29 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <script src="site.js"></script>
 <script>
   (function () {
-    const form = document.getElementById('tubeContactForm');
-    const status = document.getElementById('tubeFormStatus');
-    const TUBE_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+    const form = document.getElementById('scContactForm');
+    const status = document.getElementById('scFormStatus');
+    const SC_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.classList.add('show');
-      status.className = 'tube-form-status show';
+      status.className = 'sc-form-status show';
 
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
-      if (TUBE_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+      if (SC_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
         status.textContent = "This form isn't connected yet — please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
         status.classList.add('error');
         return;
       }
 
-      const submitBtn = form.querySelector('.tube-form-submit');
+      const submitBtn = form.querySelector('.sc-form-submit');
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
 
-      fetch(TUBE_WEBHOOK_URL, {
+      fetch(SC_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))

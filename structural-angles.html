@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESPL Structural Tubes &amp; Hollow Sections — Round, SHS, RHS | Shakambhari Group</title>
-<meta name="description" content="ERW Round structural tube, Square Hollow Sections (SHS) and Rectangular Hollow Sections (RHS) — sizes, thickness and weight specifications from Shakambhari Group.">
+<title>Heavy Structural Steel &amp; Angles — ISA Equal Angles | Shakambhari Group</title>
+<meta name="description" content="ISA equal structural angles, channels, joists, H-beams and I-beams from Shakambhari Group — tested against precise chemical, mechanical and visual benchmarks. Elegant and Elecart brands.">
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ══ PAGE HEADER (dark, short) ══ */
@@ -21,11 +21,6 @@
 .page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
 .page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 
-/* ══ TYPE NAV ══ */
-.type-nav{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin-top:2.4rem; }
-.type-nav a{ font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.03em; padding:.55rem 1.1rem; border-radius:2rem; background:var(--surface-2); border:1px solid var(--border); color:var(--ink-soft); }
-.type-nav a:hover{ color:var(--accent-ink); border-color:var(--accent); }
-
 /* ══ SPLIT (about) ══ */
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
 @media(max-width:860px){ .split{ grid-template-columns:1fr; } }
@@ -34,18 +29,18 @@
 .split p:last-child{ margin-bottom:0; }
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
 
-/* ══ DATA TABLE ══ */
-.spec-table-wrap{ overflow-x:auto; border-radius:1rem; border:1px solid var(--border); }
-.spec-table{ width:100%; border-collapse:collapse; min-width:520px; }
-.spec-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.78rem; letter-spacing:.04em; padding:.9rem 1.1rem; text-align:left; white-space:nowrap; }
-.spec-table td{ padding:.85rem 1.1rem; border-top:1px solid var(--border); font-size:.94rem; color:var(--ink); font-family:var(--font-mono); white-space:nowrap; }
-.spec-table tr:nth-child(even) td{ background:var(--surface-2); }
-.type-block{ margin-bottom:3rem; }
-.type-block:last-child{ margin-bottom:0; }
-.type-block-head{ display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.2rem; flex-wrap:wrap; }
-.type-block-head h3{ font-size:1.3rem; }
-.type-block-head .type-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.05em; padding:.3rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--accent-ink); }
-.type-block p.type-desc{ color:var(--ink-soft); font-size:.94rem; line-height:1.65; margin-bottom:1.2rem; max-width:74ch; }
+/* ══ SECTION TYPE GRID ══ */
+.qa-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+@media(max-width:760px){ .qa-grid{ grid-template-columns:1fr; } }
+.qa-card{ padding:2rem; }
+.qa-card .icon-wrap{ width:52px; height:52px; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.1rem; }
+.qa-card .icon-wrap svg{ width:28px; height:28px; }
+.qa-card h4{ font-size:1.08rem; margin-bottom:.6rem; }
+.qa-card p{ color:var(--ink-soft); font-size:.92rem; line-height:1.65; }
+
+.brand-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1.6rem; }
+.brand-pill{ font-family:var(--font-mono); font-weight:700; font-size:.85rem; padding:.6rem 1.3rem; border-radius:2rem; background:var(--surface-2); border:1.5px solid var(--border); color:var(--accent-ink); }
+
 .cross-link-note{ max-width:640px; margin:0 auto; text-align:center; padding:1.3rem 1.6rem; border-radius:.9rem; font-size:.9rem; color:var(--ink-soft); }
 .cross-link-note a{ color:var(--accent-ink); font-weight:700; }
 
@@ -72,24 +67,17 @@
 .field select{ cursor:pointer; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus){ border-color:var(--accent-hot); }
-.tube-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
-.tube-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
-.tube-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
-.tube-form-status.show{ display:block; }
-.tube-form-status.error{ color:var(--accent-deep); }
-.tube-form-status.success{ color:#1E8449; }
-html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
+.sa-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
+.sa-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
+.sa-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
+.sa-form-status.show{ display:block; }
+.sa-form-status.error{ color:var(--accent-deep); }
+.sa-form-status.success{ color:#1E8449; }
+html[data-theme="dark"] .sa-form-status.success{ color:#8CE0A0; }
 </style>
 </head>
 <body>
 <div class="sheen"></div>
-
-<svg class="defs" aria-hidden="true">
-  <defs>
-    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
-    <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2F4F6"/><stop offset="50%" stop-color="#C7CDD5"/><stop offset="100%" stop-color="#8792A2"/></linearGradient>
-  </defs>
-</svg>
 
 <!-- NAV -->
 <nav class="site-nav">
@@ -138,17 +126,12 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 
 <!-- PAGE HEADER -->
 <header class="page-header">
-  <div class="kicker reveal">ESPL STRUCTURAL TUBES &amp; HOLLOW SECTIONS</div>
-  <h1 class="reveal">Structural Tube, Built to Section</h1>
-  <p class="reveal">Round, Square and Rectangular Hollow Sections for scaffolding and structural fabrication — every size backed by a published weight and thickness spec.</p>
+  <div class="kicker reveal">HEAVY STRUCTURAL STEEL &amp; ANGLES</div>
+  <h1 class="reveal">Structural Steel, Rolled to Standard</h1>
+  <p class="reveal">ISA equal structural angles, channels, joists, H-beams and I-beams — tested against precise chemical, mechanical and visual benchmarks and sold under our Elegant and Elecart brands.</p>
   <div class="page-header-cta reveal">
-    <a href="#round-tube" class="btn btn-primary">View Specifications</a>
+    <a href="#sections" class="btn btn-primary">View Section Types</a>
     <a href="#contact" class="btn btn-ghost">Contact Sales</a>
-  </div>
-  <div class="type-nav reveal">
-    <a href="#round-tube">Round Tube</a>
-    <a href="#shs-tube">SHS</a>
-    <a href="#rhs-tube">RHS</a>
   </div>
 </header>
 
@@ -156,76 +139,67 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <section class="section">
   <div class="split">
     <div>
-      <div class="kicker reveal">ABOUT THIS RANGE</div>
-      <h2 class="reveal">One Tube Mill, Four Product Types</h2>
-      <p class="reveal">Our tube division draws hot-rolled strip through electric resistance welding (ERW) to produce Round, Square Hollow Section (SHS) and Rectangular Hollow Section (RHS) tube — the structural backbone of scaffolding, fabrication frames and general engineering work.</p>
-      <p class="reveal">Round and SHS tube from this same line is also supplied as high-load scaffolding pipe for site staging — see our dedicated <a href="scaffolding.html">Scaffolding &amp; Staging Systems</a> range for those specifications.</p>
+      <div class="kicker reveal">SUBCATEGORY 2.1 · ISA EQUAL STRUCTURAL ANGLES</div>
+      <h2 class="reveal">The Steel Behind Every Frame</h2>
+      <p class="reveal">Our structural steel range forms the skeleton of buildings, towers and fabricated frames — hot-rolled sections held to precise chemical composition, mechanical strength and visual finish benchmarks before they leave the mill.</p>
+      <p class="reveal">ISA (Indian Standard Angle) equal angles are the core of this range: two legs of identical length rolled to a consistent thickness, used everywhere from tower legs and bracing to fabricated support frames.</p>
     </div>
-    <img src="images/pipe_section.jpeg" alt="Structural Tube & Pipe" class="split-photo reveal">
+    <img src="images/Structural steel.jpeg" alt="Heavy Structural Steel & Angles" class="split-photo reveal">
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- SPECIFICATIONS -->
-<section class="section" id="specifications">
+<!-- SECTION TYPES -->
+<section class="section" id="sections">
   <div class="section-head reveal">
-    <div class="kicker center">SPECIFICATIONS</div>
-    <h2>Sizes, Thickness &amp; Weight</h2>
-    <p>Published specifications for our current scaffolding and structural tube range.</p>
+    <div class="kicker center">SECTION TYPES</div>
+    <h2>One Structural Range, Every Profile</h2>
+    <p>Beyond ISA equal angles, our structural range covers the full family of hot-rolled sections used in fabrication and construction.</p>
   </div>
-
-  <div class="type-block" id="round-tube">
-    <div class="type-block-head reveal">
-      <h3>Round Tube (Scaffolding Pipe)</h3>
-      <span class="type-tag">ERW ROUND</span>
+  <div class="qa-grid">
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M5 4v16h5M5 4h10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>ISA Equal Angles</h4>
+      <p>L-shaped sections with two legs of equal length and uniform thickness — the workhorse profile for bracing, frames and towers.</p>
     </div>
-    <p class="type-desc reveal">Circular section tube in the two diameters most widely used in scaffolding — 1.5" and 2" outer diameter — each available across a range of wall thicknesses to match load requirements.</p>
-    <div class="spec-table-wrap reveal">
-      <table class="spec-table">
-        <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
-        <tbody>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>17 KG</td><td>2.5</td></tr>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>19 KG</td><td>2.9</td></tr>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>21–22 KG</td><td>3.2</td></tr>
-          <tr><td>Round</td><td>2"</td><td>60 OD</td><td>27 KG</td><td>3.2</td></tr>
-        </tbody>
-      </table>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M6 4v16M6 4h10M6 20h10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>Channels</h4>
+      <p>C-shaped sections offering strong resistance along one axis, widely used in framing and purlins.</p>
     </div>
-  </div>
-
-  <div class="type-block" id="shs-tube">
-    <div class="type-block-head reveal">
-      <h3>SHS — Square Hollow Section</h3>
-      <span class="type-tag">ERW SQUARE</span>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M5 6h14M5 18h14M12 6v12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>Joists</h4>
+      <p>I-shaped rolled sections sized for floor and roof support spans in load-bearing construction.</p>
     </div>
-    <p class="type-desc reveal">Square-section tube for structural framing and fabrication where flat faces simplify welding and bolted connections.</p>
-    <div class="spec-table-wrap reveal">
-      <table class="spec-table">
-        <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
-        <tbody>
-          <tr><td>SHS</td><td>2"</td><td>50 × 50</td><td>22–23 KG</td><td>2.4</td></tr>
-        </tbody>
-      </table>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M4 5h16M4 19h16M12 5v14" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 5v3M20 5v3M4 16v3M20 16v3" stroke-linecap="round"/></svg></div>
+      <h4>H-Beams</h4>
+      <p>Wide-flange sections built for heavy axial load-bearing in columns and primary structural members.</p>
+    </div>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M6 5h12M6 19h12M12 5v14" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>I-Beams</h4>
+      <p>Narrower-flange sections optimised for bending strength across long beam spans.</p>
+    </div>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16" stroke-linecap="round"/></svg></div>
+      <h4>Chemical &amp; Mechanical Testing</h4>
+      <p>Every section batch-tested for chemical composition, mechanical strength and visual finish before dispatch.</p>
     </div>
   </div>
-
-  <div class="type-block" id="rhs-tube">
-    <div class="type-block-head reveal">
-      <h3>RHS — Rectangular Hollow Section</h3>
-      <span class="type-tag">ERW RECTANGULAR</span>
-    </div>
-    <p class="type-desc reveal">Rectangular-section tube, manufactured to specification for structural and fabrication applications requiring a non-square profile. Contact our sales team with your required size and thickness for a quote.</p>
+  <div class="brand-row reveal">
+    <span class="brand-pill">Elegant</span>
+    <span class="brand-pill">Elecart</span>
   </div>
-
-
 </section>
 
 <div class="divider"></div>
 
 <!-- CROSS-LINK -->
 <section class="section" style="padding-top:0;padding-bottom:2.5rem;">
-  <p class="cross-link-note panel reveal">Looking for Hard Bright (HB) Wire? It now lives under <a href="wire-rods.html#hb-wire">Wire Rods &amp; Industrial Wire Products →</a></p>
+  <p class="cross-link-note panel reveal">Need structural tube or hollow sections instead? See our <a href="tube.html">ESPL Structural Tubes &amp; Hollow Sections →</a></p>
 </section>
 
 <div class="divider"></div>
@@ -235,7 +209,7 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
   <div class="section-head reveal">
     <div class="kicker center">CONTACT US</div>
     <h2>Request a Quote</h2>
-    <p>Tell us the type, size and quantity you need and our sales team will follow up with pricing and lead time.</p>
+    <p>Tell us the section type, size and quantity you need and our sales team will follow up with pricing and lead time.</p>
   </div>
   <div class="contact-split">
     <div class="panel reveal" style="padding:2rem;">
@@ -262,37 +236,39 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
       </div>
     </div>
     <div class="panel reveal" style="padding:2rem;">
-      <form id="tubeContactForm" novalidate>
+      <form id="saContactForm" novalidate>
         <div class="field-grid">
           <div class="field">
-            <label for="tcName">Name</label>
-            <input type="text" id="tcName" name="name" placeholder="Your name" required>
+            <label for="saName">Name</label>
+            <input type="text" id="saName" name="name" placeholder="Your name" required>
           </div>
           <div class="field">
-            <label for="tcCompany">Company</label>
-            <input type="text" id="tcCompany" name="company" placeholder="Company name" required>
+            <label for="saCompany">Company</label>
+            <input type="text" id="saCompany" name="company" placeholder="Company name" required>
           </div>
         </div>
         <div class="field">
-          <label for="tcEmail">Email</label>
-          <input type="email" id="tcEmail" name="email" placeholder="you@company.com" required>
+          <label for="saEmail">Email</label>
+          <input type="email" id="saEmail" name="email" placeholder="you@company.com" required>
         </div>
         <div class="field">
-          <label for="tcProduct">Product Required</label>
-          <select id="tcProduct" name="product" required>
-            <option value="" disabled selected>Select a product</option>
-            <option value="Round Tube (Scaffolding Pipe)">Round Tube (Scaffolding Pipe)</option>
-            <option value="SHS - Square Hollow Section">SHS — Square Hollow Section</option>
-            <option value="RHS - Rectangular Hollow Section">RHS — Rectangular Hollow Section</option>
+          <label for="saProduct">Section Required</label>
+          <select id="saProduct" name="product" required>
+            <option value="" disabled selected>Select a section type</option>
+            <option value="ISA Equal Angle">ISA Equal Angle</option>
+            <option value="Channel">Channel</option>
+            <option value="Joist">Joist</option>
+            <option value="H-Beam">H-Beam</option>
+            <option value="I-Beam">I-Beam</option>
             <option value="Other / Not Sure">Other / Not Sure</option>
           </select>
         </div>
         <div class="field">
-          <label for="tcMessage">Message</label>
-          <textarea id="tcMessage" name="message" placeholder="Size, thickness &amp; quantity required" rows="4" required></textarea>
+          <label for="saMessage">Message</label>
+          <textarea id="saMessage" name="message" placeholder="Size, thickness &amp; quantity required" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary tube-form-submit">Send Inquiry →</button>
-        <p class="tube-form-status" id="tubeFormStatus"></p>
+        <button type="submit" class="btn btn-primary sa-form-submit">Send Inquiry →</button>
+        <p class="sa-form-status" id="saFormStatus"></p>
       </form>
     </div>
   </div>
@@ -354,29 +330,29 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <script src="site.js"></script>
 <script>
   (function () {
-    const form = document.getElementById('tubeContactForm');
-    const status = document.getElementById('tubeFormStatus');
-    const TUBE_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+    const form = document.getElementById('saContactForm');
+    const status = document.getElementById('saFormStatus');
+    const SA_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.classList.add('show');
-      status.className = 'tube-form-status show';
+      status.className = 'sa-form-status show';
 
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
-      if (TUBE_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+      if (SA_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
         status.textContent = "This form isn't connected yet — please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
         status.classList.add('error');
         return;
       }
 
-      const submitBtn = form.querySelector('.tube-form-submit');
+      const submitBtn = form.querySelector('.sa-form-submit');
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
 
-      fetch(TUBE_WEBHOOK_URL, {
+      fetch(SA_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))

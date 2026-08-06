@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESPL Structural Tubes &amp; Hollow Sections — Round, SHS, RHS | Shakambhari Group</title>
-<meta name="description" content="ERW Round structural tube, Square Hollow Sections (SHS) and Rectangular Hollow Sections (RHS) — sizes, thickness and weight specifications from Shakambhari Group.">
+<title>Precision Steel Strips — HR &amp; CR Slit Flat Coils | Shakambhari Group</title>
+<meta name="description" content="Hot-rolled and cold-rolled slit flat steel strip coils from Shakambhari Group — uniform strength, dimensional precision and good formability for automotive, tube and fabrication feed.">
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ══ PAGE HEADER (dark, short) ══ */
@@ -21,11 +21,6 @@
 .page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
 .page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 
-/* ══ TYPE NAV ══ */
-.type-nav{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin-top:2.4rem; }
-.type-nav a{ font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.03em; padding:.55rem 1.1rem; border-radius:2rem; background:var(--surface-2); border:1px solid var(--border); color:var(--ink-soft); }
-.type-nav a:hover{ color:var(--accent-ink); border-color:var(--accent); }
-
 /* ══ SPLIT (about) ══ */
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
 @media(max-width:860px){ .split{ grid-template-columns:1fr; } }
@@ -34,18 +29,18 @@
 .split p:last-child{ margin-bottom:0; }
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
 
-/* ══ DATA TABLE ══ */
-.spec-table-wrap{ overflow-x:auto; border-radius:1rem; border:1px solid var(--border); }
-.spec-table{ width:100%; border-collapse:collapse; min-width:520px; }
-.spec-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.78rem; letter-spacing:.04em; padding:.9rem 1.1rem; text-align:left; white-space:nowrap; }
-.spec-table td{ padding:.85rem 1.1rem; border-top:1px solid var(--border); font-size:.94rem; color:var(--ink); font-family:var(--font-mono); white-space:nowrap; }
-.spec-table tr:nth-child(even) td{ background:var(--surface-2); }
-.type-block{ margin-bottom:3rem; }
-.type-block:last-child{ margin-bottom:0; }
-.type-block-head{ display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.2rem; flex-wrap:wrap; }
-.type-block-head h3{ font-size:1.3rem; }
-.type-block-head .type-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.05em; padding:.3rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--accent-ink); }
-.type-block p.type-desc{ color:var(--ink-soft); font-size:.94rem; line-height:1.65; margin-bottom:1.2rem; max-width:74ch; }
+/* ══ FEATURE GRID ══ */
+.qa-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+@media(max-width:760px){ .qa-grid{ grid-template-columns:1fr; } }
+.qa-card{ padding:2rem; }
+.qa-card .icon-wrap{ width:52px; height:52px; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.1rem; }
+.qa-card .icon-wrap svg{ width:28px; height:28px; }
+.qa-card h4{ font-size:1.08rem; margin-bottom:.6rem; }
+.qa-card p{ color:var(--ink-soft); font-size:.92rem; line-height:1.65; }
+
+.spec-tags{ display:flex; flex-wrap:wrap; gap:.6rem; }
+.spec-tag{ font-family:var(--font-mono); font-size:.78rem; font-weight:700; padding:.5rem 1rem; border-radius:2rem; background:var(--surface-2); border:1px solid var(--border); color:var(--accent-ink); }
+
 .cross-link-note{ max-width:640px; margin:0 auto; text-align:center; padding:1.3rem 1.6rem; border-radius:.9rem; font-size:.9rem; color:var(--ink-soft); }
 .cross-link-note a{ color:var(--accent-ink); font-weight:700; }
 
@@ -72,24 +67,17 @@
 .field select{ cursor:pointer; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus){ border-color:var(--accent-hot); }
-.tube-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
-.tube-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
-.tube-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
-.tube-form-status.show{ display:block; }
-.tube-form-status.error{ color:var(--accent-deep); }
-.tube-form-status.success{ color:#1E8449; }
-html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
+.ss-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
+.ss-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
+.ss-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
+.ss-form-status.show{ display:block; }
+.ss-form-status.error{ color:var(--accent-deep); }
+.ss-form-status.success{ color:#1E8449; }
+html[data-theme="dark"] .ss-form-status.success{ color:#8CE0A0; }
 </style>
 </head>
 <body>
 <div class="sheen"></div>
-
-<svg class="defs" aria-hidden="true">
-  <defs>
-    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
-    <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2F4F6"/><stop offset="50%" stop-color="#C7CDD5"/><stop offset="100%" stop-color="#8792A2"/></linearGradient>
-  </defs>
-</svg>
 
 <!-- NAV -->
 <nav class="site-nav">
@@ -138,94 +126,72 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 
 <!-- PAGE HEADER -->
 <header class="page-header">
-  <div class="kicker reveal">ESPL STRUCTURAL TUBES &amp; HOLLOW SECTIONS</div>
-  <h1 class="reveal">Structural Tube, Built to Section</h1>
-  <p class="reveal">Round, Square and Rectangular Hollow Sections for scaffolding and structural fabrication — every size backed by a published weight and thickness spec.</p>
+  <div class="kicker reveal">PRECISION STEEL STRIPS</div>
+  <h1 class="reveal">Flat-Rolled Strip, Coiled to Precision</h1>
+  <p class="reveal">Hot-rolled and cold-rolled slit flat steel strip coils — uniform strength, dimensional precision and good formability, supporting automotive, pipe and tube manufacturing, infrastructure and general engineering.</p>
   <div class="page-header-cta reveal">
-    <a href="#round-tube" class="btn btn-primary">View Specifications</a>
+    <a href="#about" class="btn btn-primary">Learn More</a>
     <a href="#contact" class="btn btn-ghost">Contact Sales</a>
-  </div>
-  <div class="type-nav reveal">
-    <a href="#round-tube">Round Tube</a>
-    <a href="#shs-tube">SHS</a>
-    <a href="#rhs-tube">RHS</a>
   </div>
 </header>
 
 <!-- ABOUT -->
-<section class="section">
+<section class="section" id="about">
   <div class="split">
     <div>
-      <div class="kicker reveal">ABOUT THIS RANGE</div>
-      <h2 class="reveal">One Tube Mill, Four Product Types</h2>
-      <p class="reveal">Our tube division draws hot-rolled strip through electric resistance welding (ERW) to produce Round, Square Hollow Section (SHS) and Rectangular Hollow Section (RHS) tube — the structural backbone of scaffolding, fabrication frames and general engineering work.</p>
-      <p class="reveal">Round and SHS tube from this same line is also supplied as high-load scaffolding pipe for site staging — see our dedicated <a href="scaffolding.html">Scaffolding &amp; Staging Systems</a> range for those specifications.</p>
+      <div class="kicker reveal">SUBCATEGORY 4.1 · HR &amp; CR SLIT STRIP</div>
+      <h2 class="reveal">One Coil, Many Downstream Products</h2>
+      <p class="reveal">Flat-rolled strip produced by heating steel slabs and rolling them into continuous coils, then slit to the exact width a downstream process needs — from hot-rolled (HR) strip straight off the mill to cold-rolled (CR) strip drawn down further for tighter tolerances and a smoother finish.</p>
+      <p class="reveal">This is feedstock steel: the base material our own tube division draws into ERW round, SHS and RHS sections, and a staple input for galvanizing lines, cold-rolling mills and general fabrication shops.</p>
     </div>
-    <img src="images/pipe_section.jpeg" alt="Structural Tube & Pipe" class="split-photo reveal">
+    <img src="images/hot strip coils.jpeg" alt="Hot &amp; Cold Rolled Steel Strip Coils" class="split-photo reveal">
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- SPECIFICATIONS -->
-<section class="section" id="specifications">
+<!-- FEATURES -->
+<section class="section">
   <div class="section-head reveal">
-    <div class="kicker center">SPECIFICATIONS</div>
-    <h2>Sizes, Thickness &amp; Weight</h2>
-    <p>Published specifications for our current scaffolding and structural tube range.</p>
+    <div class="kicker center">WHY IT WORKS DOWNSTREAM</div>
+    <h2>Built for What Comes Next</h2>
+    <p>Every coil is rolled with the next process in mind — whichever one that is.</p>
   </div>
-
-  <div class="type-block" id="round-tube">
-    <div class="type-block-head reveal">
-      <h3>Round Tube (Scaffolding Pipe)</h3>
-      <span class="type-tag">ERW ROUND</span>
+  <div class="qa-grid">
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M3 12h18" stroke-linecap="round"/></svg></div>
+      <h4>Uniform Strength</h4>
+      <p>Consistent mechanical properties across the coil, so every downstream part performs the same way.</p>
     </div>
-    <p class="type-desc reveal">Circular section tube in the two diameters most widely used in scaffolding — 1.5" and 2" outer diameter — each available across a range of wall thicknesses to match load requirements.</p>
-    <div class="spec-table-wrap reveal">
-      <table class="spec-table">
-        <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
-        <tbody>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>17 KG</td><td>2.5</td></tr>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>19 KG</td><td>2.9</td></tr>
-          <tr><td>Round</td><td>1.5"</td><td>48 OD</td><td>21–22 KG</td><td>3.2</td></tr>
-          <tr><td>Round</td><td>2"</td><td>60 OD</td><td>27 KG</td><td>3.2</td></tr>
-        </tbody>
-      </table>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M4 12h16M12 4v16" stroke-linecap="round"/></svg></div>
+      <h4>Dimensional Precision</h4>
+      <p>Slit to the exact width and gauge a downstream line calls for, minimising trim waste and rework.</p>
     </div>
-  </div>
-
-  <div class="type-block" id="shs-tube">
-    <div class="type-block-head reveal">
-      <h3>SHS — Square Hollow Section</h3>
-      <span class="type-tag">ERW SQUARE</span>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M6 12c0-3 2-5 5-5M6 12c0 3 2 5 5 5M17 5v14" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>Good Formability</h4>
+      <p>Ductile enough to draw, roll-form or weld into tube, panels and structural sections without cracking.</p>
     </div>
-    <p class="type-desc reveal">Square-section tube for structural framing and fabrication where flat faces simplify welding and bolted connections.</p>
-    <div class="spec-table-wrap reveal">
-      <table class="spec-table">
-        <thead><tr><th>Type</th><th>Inch</th><th>Size</th><th>Weight</th><th>Thickness (mm)</th></tr></thead>
-        <tbody>
-          <tr><td>SHS</td><td>2"</td><td>50 × 50</td><td>22–23 KG</td><td>2.4</td></tr>
-        </tbody>
-      </table>
+    <div class="qa-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16" stroke-linecap="round"/></svg></div>
+      <h4>Coil Feed, Not Cut Sheet</h4>
+      <p>Supplied as continuous coil for direct line-feed into cold rolling, galvanizing or tube-welding processes.</p>
     </div>
   </div>
-
-  <div class="type-block" id="rhs-tube">
-    <div class="type-block-head reveal">
-      <h3>RHS — Rectangular Hollow Section</h3>
-      <span class="type-tag">ERW RECTANGULAR</span>
-    </div>
-    <p class="type-desc reveal">Rectangular-section tube, manufactured to specification for structural and fabrication applications requiring a non-square profile. Contact our sales team with your required size and thickness for a quote.</p>
+  <div class="spec-tags reveal" style="justify-content:center; margin-top:2rem;">
+    <span class="spec-tag">Cold Rolling Feed</span>
+    <span class="spec-tag">Galvanizing</span>
+    <span class="spec-tag">Tube &amp; Pipe Manufacturing</span>
+    <span class="spec-tag">Fabrication</span>
   </div>
-
-
 </section>
 
 <div class="divider"></div>
 
 <!-- CROSS-LINK -->
 <section class="section" style="padding-top:0;padding-bottom:2.5rem;">
-  <p class="cross-link-note panel reveal">Looking for Hard Bright (HB) Wire? It now lives under <a href="wire-rods.html#hb-wire">Wire Rods &amp; Industrial Wire Products →</a></p>
+  <p class="cross-link-note panel reveal">Looking for finished structural tube rolled from this strip? See <a href="tube.html">ESPL Structural Tubes &amp; Hollow Sections →</a></p>
 </section>
 
 <div class="divider"></div>
@@ -235,7 +201,7 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
   <div class="section-head reveal">
     <div class="kicker center">CONTACT US</div>
     <h2>Request a Quote</h2>
-    <p>Tell us the type, size and quantity you need and our sales team will follow up with pricing and lead time.</p>
+    <p>Tell us the gauge, width and grade you need and our sales team will follow up with pricing and lead time.</p>
   </div>
   <div class="contact-split">
     <div class="panel reveal" style="padding:2rem;">
@@ -262,37 +228,36 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
       </div>
     </div>
     <div class="panel reveal" style="padding:2rem;">
-      <form id="tubeContactForm" novalidate>
+      <form id="ssContactForm" novalidate>
         <div class="field-grid">
           <div class="field">
-            <label for="tcName">Name</label>
-            <input type="text" id="tcName" name="name" placeholder="Your name" required>
+            <label for="ssName">Name</label>
+            <input type="text" id="ssName" name="name" placeholder="Your name" required>
           </div>
           <div class="field">
-            <label for="tcCompany">Company</label>
-            <input type="text" id="tcCompany" name="company" placeholder="Company name" required>
+            <label for="ssCompany">Company</label>
+            <input type="text" id="ssCompany" name="company" placeholder="Company name" required>
           </div>
         </div>
         <div class="field">
-          <label for="tcEmail">Email</label>
-          <input type="email" id="tcEmail" name="email" placeholder="you@company.com" required>
+          <label for="ssEmail">Email</label>
+          <input type="email" id="ssEmail" name="email" placeholder="you@company.com" required>
         </div>
         <div class="field">
-          <label for="tcProduct">Product Required</label>
-          <select id="tcProduct" name="product" required>
-            <option value="" disabled selected>Select a product</option>
-            <option value="Round Tube (Scaffolding Pipe)">Round Tube (Scaffolding Pipe)</option>
-            <option value="SHS - Square Hollow Section">SHS — Square Hollow Section</option>
-            <option value="RHS - Rectangular Hollow Section">RHS — Rectangular Hollow Section</option>
+          <label for="ssProduct">Strip Type Required</label>
+          <select id="ssProduct" name="product" required>
+            <option value="" disabled selected>Select a strip type</option>
+            <option value="Hot Rolled (HR) Strip">Hot Rolled (HR) Strip</option>
+            <option value="Cold Rolled (CR) Strip">Cold Rolled (CR) Strip</option>
             <option value="Other / Not Sure">Other / Not Sure</option>
           </select>
         </div>
         <div class="field">
-          <label for="tcMessage">Message</label>
-          <textarea id="tcMessage" name="message" placeholder="Size, thickness &amp; quantity required" rows="4" required></textarea>
+          <label for="ssMessage">Message</label>
+          <textarea id="ssMessage" name="message" placeholder="Gauge, width &amp; quantity required" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary tube-form-submit">Send Inquiry →</button>
-        <p class="tube-form-status" id="tubeFormStatus"></p>
+        <button type="submit" class="btn btn-primary ss-form-submit">Send Inquiry →</button>
+        <p class="ss-form-status" id="ssFormStatus"></p>
       </form>
     </div>
   </div>
@@ -354,29 +319,29 @@ html[data-theme="dark"] .tube-form-status.success{ color:#8CE0A0; }
 <script src="site.js"></script>
 <script>
   (function () {
-    const form = document.getElementById('tubeContactForm');
-    const status = document.getElementById('tubeFormStatus');
-    const TUBE_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+    const form = document.getElementById('ssContactForm');
+    const status = document.getElementById('ssFormStatus');
+    const SS_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.classList.add('show');
-      status.className = 'tube-form-status show';
+      status.className = 'ss-form-status show';
 
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
-      if (TUBE_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+      if (SS_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
         status.textContent = "This form isn't connected yet — please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
         status.classList.add('error');
         return;
       }
 
-      const submitBtn = form.querySelector('.tube-form-submit');
+      const submitBtn = form.querySelector('.ss-form-submit');
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
 
-      fetch(TUBE_WEBHOOK_URL, {
+      fetch(SS_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))
