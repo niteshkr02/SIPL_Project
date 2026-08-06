@@ -225,6 +225,12 @@
   .cbc-nav { width: 38px; height: 38px; }
   .cbc-nav svg { width: 17px; height: 17px; }
 }
+/* below ~420px the 280px slide plus both 38px nav buttons no longer fits
+   .cbc-track-wrap's share of the viewport, so it was getting clipped by
+   the wrap's overflow-x:hidden — shrink the slide to what's actually left */
+@media (max-width: 420px) {
+  .cbc-slide { width: min(230px, 52vw); margin-left: calc(min(230px, 52vw) / -2); }
+}
 
 /* ══ DARK MODE — same recipe as quality-section.css's html[data-theme="dark"]
    overrides, so this carousel reads as one continuous system when the

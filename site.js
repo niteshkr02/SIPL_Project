@@ -4,6 +4,7 @@
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   const themeToggle = document.querySelector('.theme-toggle');
+  const canHover = window.matchMedia('(hover: hover)').matches;
 
   if(themeToggle){
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -36,15 +37,50 @@
 
   // Dropdown nav items (About / Others): open on enter, close on a short delay after
   // leaving, so a slightly diagonal mouse path into the panel doesn't lose the menu.
+  // Touch devices have no hover, so the label instead toggles the dropdown on tap,
+  // and tapping anywhere outside closes whichever one is open.
   document.querySelectorAll('.has-dropdown').forEach(item=>{
     let closeTimer;
-    const open = ()=>{ clearTimeout(closeTimer); item.classList.add('open'); };
-    const scheduleClose = ()=>{ closeTimer = setTimeout(()=>item.classList.remove('open'), 350); };
+    const label = item.querySelector('.dropdown-label');
+    const setExpanded = v=>{ if(label) label.setAttribute('aria-expanded', String(v)); };
+    const open = ()=>{ clearTimeout(closeTimer); item.classList.add('open'); setExpanded(true); };
+    const close = ()=>{ item.classList.remove('open'); setExpanded(false); };
+    const scheduleClose = ()=>{ closeTimer = setTimeout(close, 350); };
     item.addEventListener('mouseenter', open);
     item.addEventListener('mouseleave', scheduleClose);
     item.addEventListener('focusin', open);
     item.addEventListener('focusout', scheduleClose);
+
+    if(label){
+      label.setAttribute('role','button');
+      label.setAttribute('aria-haspopup','true');
+      label.setAttribute('aria-expanded','false');
+      if(!canHover){
+        label.addEventListener('click', e=>{
+          e.preventDefault();
+          e.stopPropagation();
+          clearTimeout(closeTimer);
+          const willOpen = !item.classList.contains('open');
+          document.querySelectorAll('.has-dropdown.open').forEach(other=>{
+            if(other !== item) other.classList.remove('open');
+          });
+          item.classList.toggle('open', willOpen);
+          setExpanded(willOpen);
+        });
+      }
+    }
   });
+  if(!canHover){
+    document.addEventListener('click', e=>{
+      document.querySelectorAll('.has-dropdown.open').forEach(item=>{
+        if(!item.contains(e.target)){
+          item.classList.remove('open');
+          const lbl = item.querySelector('.dropdown-label');
+          if(lbl) lbl.setAttribute('aria-expanded','false');
+        }
+      });
+    });
+  }
 
   const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
   const revealObs = new IntersectionObserver((entries)=>{
@@ -57,7 +93,6 @@
   // style update is coalesced into a single requestAnimationFrame per frame,
   // so a fast mouse sweep never forces more than one layout read + one style
   // write per painted frame.
-  const canHover = window.matchMedia('(hover: hover)').matches;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(canHover && !reduceMotion){
     document.querySelectorAll('.panel').forEach(panel=>{

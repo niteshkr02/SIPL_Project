@@ -77,8 +77,204 @@
   }
 
   staggerReveal(document.querySelector('.cld-roadmap'), '.cld-milestone');
-  staggerReveal(document.querySelector('.ccj-timeline'), '.ccj-step', { itemDelay: 140 });
   staggerReveal(document.querySelector('.crp-row'), '.crp-step', { itemDelay: 110 });
+
+  // ════════════════════ L&D ROADMAP — INTERACTIVE MILESTONE TOOLTIPS ════════════════════
+  (function initLearningTooltips() {
+    const roadmap = document.querySelector('.cld-roadmap');
+    if (!roadmap) return;
+    const milestones = Array.from(roadmap.querySelectorAll('.cld-milestone'));
+    const tooltip = roadmap.querySelector('.cld-tooltip');
+    const titleEl = tooltip && tooltip.querySelector('.cld-tooltip-title');
+    const listEl = tooltip && tooltip.querySelector('.cld-tooltip-list');
+    if (!milestones.length || !tooltip || !titleEl || !listEl) return;
+
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    let active = null;
+
+    function position(milestone) {
+      const roadmapRect = roadmap.getBoundingClientRect();
+      const nodeRect = milestone.querySelector('.cld-node').getBoundingClientRect();
+      const ttRect = tooltip.getBoundingClientRect();
+      const margin = 12;
+      const gap = 16;
+
+      let absLeft = nodeRect.left + nodeRect.width / 2 - ttRect.width / 2;
+      absLeft = Math.max(margin, Math.min(absLeft, window.innerWidth - margin - ttRect.width));
+
+      const spaceAbove = nodeRect.top - gap - margin;
+      const below = spaceAbove < ttRect.height;
+      const top = below
+        ? (nodeRect.bottom - roadmapRect.top) + gap
+        : (nodeRect.top - roadmapRect.top) - ttRect.height - gap;
+
+      tooltip.style.left = (absLeft - roadmapRect.left) + 'px';
+      tooltip.style.top = top + 'px';
+      tooltip.classList.toggle('cld-tooltip--below', below);
+
+      const arrowX = (nodeRect.left + nodeRect.width / 2) - absLeft;
+      tooltip.style.setProperty('--cld-arrow-x', Math.max(18, Math.min(arrowX, ttRect.width - 18)) + 'px');
+    }
+
+    function show(milestone) {
+      if (active === milestone) return;
+      if (active) hide();
+      titleEl.textContent = milestone.querySelector('.cld-label').textContent.trim();
+      listEl.innerHTML = '';
+      milestone.querySelectorAll('.cld-info li').forEach((li) => {
+        const item = document.createElement('li');
+        item.textContent = li.textContent;
+        listEl.appendChild(item);
+      });
+      active = milestone;
+      milestone.setAttribute('aria-expanded', 'true');
+      milestone.classList.add('cld-active');
+      tooltip.setAttribute('aria-hidden', 'false');
+      tooltip.classList.add('is-visible');
+      position(milestone);
+    }
+
+    function hide() {
+      if (!active) return;
+      active.setAttribute('aria-expanded', 'false');
+      active.classList.remove('cld-active');
+      active = null;
+      tooltip.setAttribute('aria-hidden', 'true');
+      tooltip.classList.remove('is-visible');
+    }
+
+    milestones.forEach((milestone) => {
+      let wasActiveBeforeTap = false;
+      milestone.addEventListener('mouseenter', () => { if (!isTouch) show(milestone); });
+      milestone.addEventListener('mouseleave', () => { if (!isTouch) hide(); });
+      milestone.addEventListener('focus', () => show(milestone));
+      milestone.addEventListener('blur', () => hide());
+      // Tapping fires touchstart -> focus -> click in that order. Capturing
+      // "was this milestone already open" at touchstart (before focus's
+      // show() runs) keeps the click handler's open/close toggle honest.
+      milestone.addEventListener('touchstart', () => { wasActiveBeforeTap = (active === milestone); }, { passive: true });
+      milestone.addEventListener('click', (e) => {
+        if (!isTouch) return;
+        e.stopPropagation();
+        if (wasActiveBeforeTap) hide();
+        else show(milestone);
+      });
+      milestone.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { hide(); milestone.blur(); }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (active && !active.contains(e.target) && !tooltip.contains(e.target)) hide();
+    });
+    window.addEventListener('resize', () => { if (active) position(active); });
+  })();
+
+  // ════════════════════ CAREER GROWTH JOURNEY — CLICK-TO-SELECT PANEL + SCROLL PROGRESS ════════════════════
+  (function initCareerJourney() {
+    const timeline = document.getElementById('ccjTimeline');
+    const panel = document.getElementById('ccjPanel');
+    if (!timeline || !panel) return;
+    const steps = Array.from(timeline.querySelectorAll('.ccj-step'));
+    const panelIcon = document.getElementById('ccjPanelIcon');
+    const panelTier = document.getElementById('ccjPanelTier');
+    const panelBadge = document.getElementById('ccjPanelBadge');
+    const panelTitle = document.getElementById('ccjPanelTitle');
+    const panelList = document.getElementById('ccjPanelList');
+    if (!steps.length || !panelIcon || !panelTier || !panelBadge || !panelTitle || !panelList) return;
+
+    // ── click (or arrow-key) selects a tier: updates node states + swaps the content panel ──
+    function select(index) {
+      const step = steps[index];
+      if (!step) return;
+
+      steps.forEach((s, i) => {
+        const isSelected = i === index;
+        s.classList.toggle('is-selected', isSelected);
+        s.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+        s.tabIndex = isSelected ? 0 : -1;
+      });
+
+      panelIcon.innerHTML = step.querySelector('.ccj-step-icon').innerHTML;
+      panelTier.textContent = step.querySelector('.ccj-step-tier').textContent.trim();
+      panelBadge.textContent = step.dataset.badge || '';
+      panelTitle.textContent = step.querySelector('.ccj-step-title').textContent.trim();
+      panel.setAttribute('aria-labelledby', step.id);
+      panelList.innerHTML = '';
+      step.querySelectorAll('.ccj-info li').forEach((li) => {
+        const item = document.createElement('li');
+        item.textContent = li.textContent;
+        panelList.appendChild(item);
+      });
+
+      if (!reduceMotion) {
+        panel.classList.remove('ccj-anim');
+        void panel.offsetWidth;
+        panel.classList.add('ccj-anim');
+      }
+    }
+
+    steps.forEach((step, i) => {
+      step.addEventListener('click', () => select(i));
+      step.addEventListener('keydown', (e) => {
+        let target = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') target = steps[(i + 1) % steps.length];
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') target = steps[(i - 1 + steps.length) % steps.length];
+        else if (e.key === 'Home') target = steps[0];
+        else if (e.key === 'End') target = steps[steps.length - 1];
+        if (!target) return;
+        e.preventDefault();
+        target.focus();
+        select(steps.indexOf(target));
+      });
+      // "Timeline subtly brightens" while hovering any milestone.
+      step.addEventListener('mouseenter', () => timeline.classList.add('ccj-bright'));
+      step.addEventListener('mouseleave', () => timeline.classList.remove('ccj-bright'));
+    });
+
+    select(0);
+
+    // ── scroll-linked progress: fills the track and marks passed tiers "completed" ──
+    // A single IntersectionObserver with 101 thresholds fires on every ~1% change
+    // in visibility, giving continuous updates without a manual scroll listener.
+    function applyProgress(progress) {
+      timeline.style.setProperty('--ccj-progress', progress);
+      const reachedIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length));
+      steps.forEach((step, i) => step.classList.toggle('is-completed', i < reachedIndex));
+    }
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      const thresholds = Array.from({ length: 101 }, (_, i) => i / 100);
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const rect = entry.boundingClientRect;
+          const vh = window.innerHeight;
+          const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
+          applyProgress(progress);
+        });
+      }, { threshold: thresholds });
+      obs.observe(timeline);
+    } else {
+      applyProgress(1);
+    }
+
+    // ── sequential reveal: milestones + icons pop in once the timeline enters view ──
+    if ('IntersectionObserver' in window) {
+      const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          revealObs.unobserve(timeline);
+          steps.forEach((step, i) => {
+            if (reduceMotion) { step.classList.add('visible'); return; }
+            setTimeout(() => step.classList.add('visible'), i * 90);
+          });
+        });
+      }, { threshold: .2 });
+      revealObs.observe(timeline);
+    } else {
+      steps.forEach((step) => step.classList.add('visible'));
+    }
+  })();
 
   // ════════════════════ EMPLOYEE SUCCESS STORIES — SLIDER ════════════════════
   (function initTestimonialSlider() {
@@ -254,28 +450,6 @@
     });
   })();
 
-  // ════════════════════ OFFICE LOCATIONS — MAP ════════════════════
-  (function initOfficeMap() {
-    const wrap = document.querySelector('.col-wrap');
-    if (!wrap) return;
-    const markers = Array.from(wrap.querySelectorAll('.col-marker'));
-    const items = Array.from(wrap.querySelectorAll('.col-item'));
-
-    function activate(key) {
-      markers.forEach((m) => m.classList.toggle('active', m.dataset.key === key));
-      items.forEach((it) => it.classList.toggle('active', it.dataset.key === key));
-    }
-
-    markers.forEach((m) => {
-      m.addEventListener('mouseenter', () => activate(m.dataset.key));
-      m.addEventListener('click', () => activate(m.dataset.key));
-    });
-    items.forEach((it) => {
-      it.addEventListener('mouseenter', () => activate(it.dataset.key));
-      it.addEventListener('click', () => activate(it.dataset.key));
-    });
-  })();
-
   // ════════════════════ FINAL CTA — PARTICLES ════════════════════
   (function initFinalCta() {
     const layer = document.querySelector('.cfc-particles');
@@ -330,7 +504,7 @@
     // service or human agent; it's a fast, honest FAQ + navigation helper.
     const RESPONSES = {
       openings: { label: 'See open roles', reply: 'Here you go — I\'ve scrolled you to our Open Positions board, where you can filter by department, location and experience.', action: () => document.getElementById('openPositions') },
-      apply: { label: 'How do I apply?', reply: 'Scroll down to the Application Form, fill in your details across the 8 sections, attach your resume, and submit. You\'ll get a confirmation on screen once it goes through.', action: () => document.getElementById('careerApplyForm') },
+      apply: { label: 'How do I apply?', reply: 'Click any "Apply" button on the page to open the application form, fill in your details across the 8 sections, attach your resume, and submit. You\'ll get a confirmation on screen once it goes through.', action: () => { if (typeof window.openCareerApplyModal === 'function') window.openCareerApplyModal(); return null; } },
       internship: { label: 'Internship info', reply: 'Check out the Internship & Campus Hiring section for programme types, and use the CTA there to register your interest.', action: () => document.getElementById('internshipHiring') },
       hr: { label: 'Contact HR', reply: 'You can reach our HR team directly at info@shakambharigroup.in or 033 6625 5252 — I\'ve also added a link below.', action: null },
     };

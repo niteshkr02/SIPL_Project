@@ -670,6 +670,35 @@
       }
     }
 
+    /* process-teaser grid: reuses .pillars-grid's base but wants 3 columns
+       at desktop instead of 5 — compound selector so it still wins over
+       .pillars-grid's own breakpoints at equal media conditions */
+    .pillars-grid.process-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+    }
+
+    @media(max-width:1180px) and (min-width:768px) {
+      .pillars-grid.process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+      }
+    }
+
+    @media(max-width:767px) and (min-width:480px) {
+      .pillars-grid.process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media(max-width:479px) {
+      .pillars-grid.process-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
     /* ══ PILLAR CARD DESIGN ══ */
     .pillar-card {
       padding: 0;
@@ -1147,7 +1176,7 @@
       <li><a href="products.html">Products</a></li>
       <li><a href="process.html">Our Process</a></li>
       <li class="has-dropdown">
-        <span class="dropdown-label">Others</span>
+        <span class="dropdown-label" tabindex="0">Others</span>
         <div class="dropdown">
           <a href="awards.html">Awards &amp; Certifications</a>
           <a href="csr.html">Corporate Social Responsibility</a>
@@ -1585,211 +1614,140 @@
 
     <!-- QUALITY WITHOUT COMPROMISE (isolated component — see
          quality-section.css / quality-section.js) -->
-    <section class="qw" id="qualitySection" aria-labelledby="qwHeading">
-      <div class="qw-mesh" aria-hidden="true"></div>
-      <div class="qw-grid" aria-hidden="true"></div>
-      <div class="qw-glow" aria-hidden="true"></div>
-      <div class="qw-orb o1" aria-hidden="true"></div>
-      <div class="qw-orb o2" aria-hidden="true"></div>
-      <div class="qw-orb o3" aria-hidden="true"></div>
-      <div class="qw-noise" aria-hidden="true"></div>
-
-      <div class="qw-inner">
-        <div class="section-head qw-head reveal">
-          <div class="kicker center">QUALITY</div>
-          <h2 id="qwHeading">Quality Without Compromise</h2>
-          <p>Delivering excellence through certified processes, cutting-edge manufacturing, rigorous quality
-            control, and a commitment to global standards.</p>
-        </div>
-
-        <div class="qw-layout">
-          <div class="qw-visual reveal-left" aria-hidden="true">
-            <div class="qw-visual-glow"></div>
-            <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle class="qw-visual-ring" cx="210" cy="210" r="190" stroke="url(#steelGrad)" stroke-width="1"
-                stroke-dasharray="3 9" opacity=".35" />
-              <circle class="qw-visual-ring rev" cx="210" cy="210" r="155" stroke="url(#goldGrad)" stroke-width="1"
-                stroke-dasharray="2 7" opacity=".3" />
-              <rect class="qw-visual-plate" x="95" y="95" width="230" height="230" rx="24" stroke-width="1" />
-              <clipPath id="qwScanClip">
-                <rect x="95" y="95" width="230" height="230" rx="24" />
-              </clipPath>
-              <g clip-path="url(#qwScanClip)">
-                <rect class="qw-visual-scan" x="95" y="208" width="230" height="2" fill="url(#emberGrad)" />
-              </g>
-              <g transform="translate(210,210)">
-                <g fill="url(#steelGrad)">
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(45)" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(90)" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(135)" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(180)" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(225)" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(270)" />
-                  <rect x="-8" y="-72" width="16" height="22" rx="3" transform="rotate(315)" />
-                </g>
-                <circle r="58" fill="url(#steelGrad)" />
-                <circle r="58" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2" />
-                <circle r="22" fill="url(#emberGrad)" />
-                <circle r="9" fill="#0A0B0E" opacity=".55" />
-              </g>
-              <g transform="translate(300,300)">
-                <path d="M0 -26 L22 -16 V6 C22 22 0 32 0 32 C0 32 -22 22 -22 6 V-16 Z" fill="url(#goldGrad)"
-                  opacity=".95" />
-                <path d="M-9 2 L-2 9 L11 -7" stroke="#0A0B0E" stroke-width="3" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </g>
-            </svg>
+    <section class="qs" id="qualitySection" aria-labelledby="qsHeading">
+      <div class="qs-frame">
+        <div class="qs-cover reveal-left" aria-hidden="true">
+          <div class="qs-cover-grid"></div>
+          <div class="qs-scan-sweep"></div>
+          <div class="qs-ghost-num">100</div>
+          <span class="qs-tick tl"></span>
+          <span class="qs-tick tr"></span>
+          <span class="qs-tick bl"></span>
+          <span class="qs-tick br"></span>
+          <div class="qs-cover-top">
+            <div class="qs-cover-label">Certified Quality System</div>
+            <div class="qs-verified-badge"><span class="qs-verified-dot"></span>Verified</div>
           </div>
 
-          <div class="qw-content">
-            <div class="qw-cards">
-              <div class="qw-card" data-icon="gear" tabindex="0">
-                <div class="qw-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3" />
-                    <path
-                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                </div>
+          <div class="qs-seal-wrap">
+            <span class="qs-seal-glow" aria-hidden="true"></span>
+            <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle class="qs-ring-a" cx="150" cy="150" r="138" stroke="#FF9128" stroke-width="1"
+                stroke-dasharray="2 8" opacity=".4" />
+              <circle class="qs-ring-b" cx="150" cy="150" r="112" stroke="#FFC24B" stroke-width="1"
+                stroke-dasharray="1 6" opacity=".35" />
+              <circle class="qs-orbit" cx="288" cy="150" r="3.5" fill="#FFC24B" />
+              <polygon points="150,46 226,90 226,178 150,222 74,178 74,90" fill="rgba(255,255,255,.03)"
+                stroke="rgba(255,255,255,.18)" stroke-width="1" />
+              <polygon points="150,72 204,103 204,165 150,196 96,165 96,103" fill="none" stroke="#FF6A1F"
+                stroke-width="1" opacity=".5" />
+              <path d="M118 150l22 22 42-46" stroke="#FFC24B" stroke-width="7" stroke-linecap="round"
+                stroke-linejoin="round" fill="none" />
+            </svg>
+          </div>
+          <div class="qs-cover-tag">ISO-aligned processes · every unit, every shift</div>
+
+          <div class="qs-stat-rail">
+            <div class="qs-stat">
+              <span class="qs-stat-icon">🎯</span>
+              <div class="qs-stat-num counter" data-target="98" data-suffix="%">0%</div>
+              <div class="qs-stat-label">Product Accuracy</div>
+            </div>
+            <div class="qs-stat">
+              <span class="qs-stat-icon">🔍</span>
+              <div class="qs-stat-num counter" data-target="99" data-suffix="%">0%</div>
+              <div class="qs-stat-label">Inspection Success</div>
+            </div>
+            <div class="qs-stat">
+              <span class="qs-stat-icon">✅</span>
+              <div class="qs-stat-num counter" data-target="100" data-suffix="%">0%</div>
+              <div class="qs-stat-label">Quality Commitment</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qs-content reveal-right">
+          <div class="kicker">QUALITY</div>
+          <h2 id="qsHeading">Quality Without Compromise</h2>
+          <p class="qs-intro">Delivering excellence through certified processes, cutting-edge manufacturing,
+            rigorous quality control, and a commitment to global standards.</p>
+
+          <div class="qs-list">
+            <div class="qs-row" tabindex="0">
+              <span class="qs-row-icon" aria-hidden="true">⚙</span>
+              <span class="qs-row-idx">01</span>
+              <div>
                 <h3>Precision Manufacturing</h3>
                 <p>Advanced production techniques and closely toleranced processes ensure every batch meets
                   exacting engineering specifications.</p>
               </div>
+            </div>
 
-              <div class="qw-card" data-icon="shield" tabindex="0">
-                <div class="qw-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  </svg>
-                </div>
+            <div class="qs-row" tabindex="0">
+              <span class="qs-row-icon" aria-hidden="true">🛡</span>
+              <span class="qs-row-idx">02</span>
+              <div>
                 <h3>Certified Standards</h3>
                 <p>Manufacturing operations aligned with ISO-compliant systems, upheld consistently across every
                   unit and every shift.</p>
               </div>
+            </div>
 
-              <div class="qw-card" data-icon="check" tabindex="0">
-                <div class="qw-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="7" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    <path d="M8.5 11l1.8 1.8L14 9" />
-                  </svg>
-                </div>
+            <div class="qs-row" tabindex="0">
+              <span class="qs-row-icon" aria-hidden="true">🔬</span>
+              <span class="qs-row-idx">03</span>
+              <div>
                 <h3>Rigorous Testing</h3>
                 <p>Multi-stage inspections and laboratory-grade checks catch deviations long before material
                   leaves the plant.</p>
               </div>
+            </div>
 
-              <div class="qw-card" data-icon="handshake" tabindex="0">
-                <div class="qw-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M11 17l-1.6 1.6a2 2 0 0 1-2.83 0l-.17-.17a2 2 0 0 1 0-2.83L8 14" />
-                    <path d="M13 17l1.6 1.6a2 2 0 0 0 2.83 0l.17-.17a2 2 0 0 0 0-2.83L16 14" />
-                    <path d="M8 14l3.3-3.3a1 1 0 0 1 1.4 0L16 14" />
-                    <path d="M2 10l4-3 3 1.5" />
-                    <path d="M22 10l-4-3-3 1.5" />
-                  </svg>
-                </div>
+            <div class="qs-row" tabindex="0">
+              <span class="qs-row-icon" aria-hidden="true">🤝</span>
+              <span class="qs-row-idx">04</span>
+              <div>
                 <h3>Customer Satisfaction</h3>
                 <p>A firm commitment to consistent, reliable products that our partners can build on, shipment
                   after shipment.</p>
               </div>
             </div>
+          </div>
 
-            <div class="qw-rings">
-              <div class="qw-ring-item" data-pct="98">
-                <svg class="qw-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="qwRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#FFC24B" />
-                      <stop offset="100%" stop-color="#FF6A1F" />
-                    </linearGradient>
-                  </defs>
-                  <circle class="qw-ring-track" cx="60" cy="60" r="50" />
-                  <circle class="qw-ring-progress" cx="60" cy="60" r="50" />
-                </svg>
-                <div class="qw-ring-num-wrap"><span class="qw-ring-num counter" data-target="98"
-                    data-suffix="%">0%</span></div>
-                <span class="qw-ring-label">Product Accuracy</span>
-              </div>
-
-              <div class="qw-ring-item" data-pct="99">
-                <svg class="qw-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
-                  <circle class="qw-ring-track" cx="60" cy="60" r="50" />
-                  <circle class="qw-ring-progress" cx="60" cy="60" r="50" />
-                </svg>
-                <div class="qw-ring-num-wrap"><span class="qw-ring-num counter" data-target="99"
-                    data-suffix="%">0%</span></div>
-                <span class="qw-ring-label">Inspection Success</span>
-              </div>
-
-              <div class="qw-ring-item" data-pct="100">
-                <svg class="qw-ring-svg" viewBox="0 0 120 120" aria-hidden="true">
-                  <circle class="qw-ring-track" cx="60" cy="60" r="50" />
-                  <circle class="qw-ring-progress" cx="60" cy="60" r="50" />
-                </svg>
-                <div class="qw-ring-num-wrap"><span class="qw-ring-num counter" data-target="100"
-                    data-suffix="%">0%</span></div>
-                <span class="qw-ring-label">Quality Commitment</span>
-              </div>
-            </div>
-
-            <div class="qw-timeline">
-              <div class="qw-timeline-title">Quality Journey</div>
-              <div class="qw-timeline-rail">
-                <span class="qw-timeline-pulse" aria-hidden="true"></span>
-                <ol class="qw-timeline-track">
-                  <li class="qw-step">
-                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2 2 7l10 5 10-5-10-5z" />
-                        <path d="M2 17l10 5 10-5" />
-                        <path d="M2 12l10 5 10-5" />
-                      </svg></span>
-                    <span class="qw-step-label">Raw Material</span>
-                  </li>
-                  <li class="qw-step">
-                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 20h9" />
-                        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                      </svg></span>
-                    <span class="qw-step-label">Manufacturing</span>
-                  </li>
-                  <li class="qw-step">
-                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="7" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                      </svg></span>
-                    <span class="qw-step-label">Testing</span>
-                  </li>
-                  <li class="qw-step">
-                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 11l3 3L22 4" />
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-                      </svg></span>
-                    <span class="qw-step-label">Inspection</span>
-                  </li>
-                  <li class="qw-step">
-                    <span class="qw-step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="1" y="3" width="15" height="13" rx="2" />
-                        <path d="M16 8h4l3 3v5h-7V8z" />
-                        <circle cx="5.5" cy="18.5" r="2.5" />
-                        <circle cx="18.5" cy="18.5" r="2.5" />
-                      </svg></span>
-                    <span class="qw-step-label">Delivery</span>
-                  </li>
-                </ol>
-              </div>
-            </div>
+          <div class="qs-journey">
+            <div class="qs-journey-label">Quality Journey</div>
+            <ol class="qs-journey-track">
+              <li class="qs-jstep">
+                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc1">1</span>
+                <span class="qs-jlabel">Raw Material</span>
+                <span class="qs-jdesc" id="qsDesc1" role="tooltip">Sourced and verified against strict material
+                  specifications before entering production.</span>
+              </li>
+              <li class="qs-jstep">
+                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc2">2</span>
+                <span class="qs-jlabel">Manufacturing</span>
+                <span class="qs-jdesc" id="qsDesc2" role="tooltip">Precision-engineered under continuous process
+                  controls and real-time monitoring.</span>
+              </li>
+              <li class="qs-jstep">
+                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc3">3</span>
+                <span class="qs-jlabel">Testing</span>
+                <span class="qs-jdesc" id="qsDesc3" role="tooltip">Multi-stage lab testing validates strength,
+                  composition, and dimensional tolerance.</span>
+              </li>
+              <li class="qs-jstep">
+                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc4">4</span>
+                <span class="qs-jlabel">Inspection</span>
+                <span class="qs-jdesc" id="qsDesc4" role="tooltip">Every batch is checked against ISO-aligned
+                  quality checkpoints before release.</span>
+              </li>
+              <li class="qs-jstep">
+                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc5">5</span>
+                <span class="qs-jlabel">Delivery</span>
+                <span class="qs-jdesc" id="qsDesc5" role="tooltip">Dispatched with full traceability and quality
+                  documentation intact.</span>
+              </li>
+            </ol>
           </div>
         </div>
       </div>
@@ -2104,7 +2062,7 @@
           our own reduction, our own furnace, our own hands — nearly nothing bought as a finished input we could make
           ourselves.</p>
       </div>
-      <div class="pillars-grid" style="grid-template-columns:repeat(3,1fr); gap:1.6rem;">
+      <div class="pillars-grid process-grid">
 
         <a href="process.html#s1" class="pillar-card panel reveal">
           <div class="pillar-img-wrap icon-wrap">

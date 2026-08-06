@@ -82,6 +82,9 @@
 
 .reach-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:3rem; align-items:start; margin-top:2.5rem; }
 @media(max-width:960px){ .reach-grid{ grid-template-columns:1fr; } .reach-card{ padding:2.5rem 1.5rem; } }
+/* below ~600px the h2's wrapped line runs under the absolutely-positioned badge circle */
+@media(max-width:600px){ .reach-badge-icon{ display:none; } }
+@media(max-width:480px){ .reach-card{ padding:2rem 1.15rem; } .reach-panel{ padding:1.75rem 1.25rem; } }
 
 .reach-left{ display:flex; flex-direction:column; gap:1.75rem; }
 .reach-options{ display:flex; flex-direction:column; gap:.9rem; }
@@ -175,7 +178,7 @@
     <li><a href="products.html">Products</a></li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>

@@ -607,7 +607,10 @@
   bottom: calc(100% + 14px);
   left: 50%;
   transform: translateX(-50%) translateY(8px);
-  width: 270px;
+  /* clamp instead of a flat 270px so pins near the map's edge on narrow
+     phones can't push the popover past the (silently clipped) viewport */
+  width: clamp(210px, 68vw, 270px);
+  max-width: calc(100vw - 2rem);
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -800,6 +803,12 @@
   .mp-metrics-row {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
+  }
+
+  /* pill button's vertical padding + font left it a couple px shy of a
+     40px tap target on phones */
+  .map-tab-btn {
+    padding: 0.85rem 1.3rem;
   }
 }
 

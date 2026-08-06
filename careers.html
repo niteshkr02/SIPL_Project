@@ -112,6 +112,14 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 }
 .segmented-toggle.is-fresher .segmented-thumb, .segmented-toggle.is-experienced .segmented-thumb{ opacity:1; }
 .segmented-toggle.is-experienced .segmented-thumb{ transform:translateX(100%); }
+/* label's min-width:112px is a hard floor that doesn't shrink — on phones
+   under ~370px wide the two labels (224px+) no longer fit the modal's
+   available width and were spilling past the toggle; let them share the
+   full-width pill equally instead, with the long word wrapping if needed. */
+@media(max-width:480px){
+  .segmented-toggle{ width:100%; }
+  .segmented-toggle label{ min-width:0; flex:1 1 0; padding:.6rem .8rem; overflow-wrap:break-word; }
+}
 
 .field.experienced-only{
   overflow:hidden; max-height:120px; opacity:1; margin-top:0;
@@ -162,6 +170,33 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 .form-success .icon-wrap{ width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.3rem; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
 .form-success h3{ font-size:1.5rem; margin-bottom:.7rem; }
 .form-success p{ color:var(--ink-soft); max-width:46ch; margin:0 auto 1.6rem; }
+
+/* ══ APPLICATION FORM MODAL ══ */
+.apply-modal-overlay{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center;
+  padding:1.5rem; background:rgba(10,12,18,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease;
+}
+.apply-modal-overlay.active{ opacity:1; visibility:visible; }
+.apply-modal{
+  position:relative; width:100%; max-width:900px; max-height:90vh;
+  display:flex; flex-direction:column; border-radius:1.25rem; overflow:hidden;
+  background:var(--surface); box-shadow:0 40px 90px rgba(15,23,42,.4);
+  transform:translateY(24px) scale(.97); opacity:0;
+  transition:transform .4s cubic-bezier(.16,.84,.44,1), opacity .4s ease;
+}
+.apply-modal-overlay.active .apply-modal{ transform:translateY(0) scale(1); opacity:1; }
+.apply-modal-close{
+  position:absolute; top:.9rem; right:.9rem; z-index:5; width:36px; height:36px; border-radius:50%;
+  border:1.5px solid var(--border); background:var(--surface); color:var(--ink-soft);
+  font-size:1.3rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 16px rgba(20,22,28,.15); transition:color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.apply-modal-close:hover{ color:var(--accent-ink); border-color:var(--accent); transform:rotate(90deg); }
+.apply-modal-scroll{ overflow-y:auto; padding:clamp(1.2rem,4vw,2rem); }
+.apply-modal .apply-shell{ margin:0; }
+.apply-modal .apply-progress{ position:sticky; top:0; }
+@media (prefers-reduced-motion: reduce){ .apply-modal-overlay, .apply-modal, .apply-modal-close{ transition:none !important; } }
 </style>
 </head>
 <body>
@@ -199,7 +234,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     <li><a href="products.html">Products</a></li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
@@ -421,32 +456,229 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <path class="cld-line-path" d="M2,2 H98"/>
       <path class="cld-line-progress" d="M2,2 H98"/>
     </svg>
-    <div class="cld-milestone"><div class="cld-node">01</div><div class="cld-label">Employee Onboarding</div><div class="cld-sub">Week 1</div></div>
-    <div class="cld-milestone"><div class="cld-node">02</div><div class="cld-label">Training</div><div class="cld-sub">Month 1–4</div></div>
-    <div class="cld-milestone"><div class="cld-node">03</div><div class="cld-label">Mentorship</div><div class="cld-sub">Ongoing</div></div>
-    <div class="cld-milestone"><div class="cld-node">04</div><div class="cld-label">Skill Development</div><div class="cld-sub">Year 1+</div></div>
-    <div class="cld-milestone"><div class="cld-node">05</div><div class="cld-label">Leadership</div><div class="cld-sub">Year 2+</div></div>
-    <div class="cld-milestone"><div class="cld-node">06</div><div class="cld-label">Career Growth</div><div class="cld-sub">Ongoing</div></div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Employee Onboarding — view details">
+      <div class="cld-node">01</div><div class="cld-label">Employee Onboarding</div><div class="cld-sub">Week 1</div>
+      <ul class="cld-info" hidden>
+        <li>Welcome orientation &amp; company introduction</li>
+        <li>HR documentation and policy briefing</li>
+        <li>IT account and system setup</li>
+        <li>Team introductions &amp; workplace tour</li>
+        <li>Initial role expectations and first-week goals</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Professional Training — view details">
+      <div class="cld-node">02</div><div class="cld-label">Training</div><div class="cld-sub">Month 1–4</div>
+      <ul class="cld-info" hidden>
+        <li>Technical and functional skill development</li>
+        <li>Product &amp; process training</li>
+        <li>Safety and compliance programs</li>
+        <li>Hands-on practical assignments</li>
+        <li>Continuous performance assessments</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Mentorship Program — view details">
+      <div class="cld-node">03</div><div class="cld-label">Mentorship</div><div class="cld-sub">Ongoing</div>
+      <ul class="cld-info" hidden>
+        <li>Dedicated mentor guidance</li>
+        <li>Regular feedback sessions</li>
+        <li>Career coaching and support</li>
+        <li>Knowledge sharing workshops</li>
+        <li>Personal growth planning</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Skill Development — view details">
+      <div class="cld-node">04</div><div class="cld-label">Skill Development</div><div class="cld-sub">Year 1+</div>
+      <ul class="cld-info" hidden>
+        <li>Advanced technical certifications</li>
+        <li>Cross-functional learning opportunities</li>
+        <li>Leadership skill enhancement</li>
+        <li>Innovation and problem-solving projects</li>
+        <li>Continuous learning culture</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Leadership Development — view details">
+      <div class="cld-node">05</div><div class="cld-label">Leadership</div><div class="cld-sub">Year 2+</div>
+      <ul class="cld-info" hidden>
+        <li>Team management responsibilities</li>
+        <li>Strategic decision-making exposure</li>
+        <li>Project ownership opportunities</li>
+        <li>Communication &amp; people management</li>
+        <li>Future leadership preparation</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Career Growth — view details">
+      <div class="cld-node">06</div><div class="cld-label">Career Growth</div><div class="cld-sub">Ongoing</div>
+      <ul class="cld-info" hidden>
+        <li>Internal promotion opportunities</li>
+        <li>Performance-based recognition</li>
+        <li>Long-term career progression</li>
+        <li>Learning beyond current role</li>
+        <li>Professional success roadmap</li>
+      </ul>
+    </div>
+    <div class="cld-tooltip" id="cldTooltip" role="tooltip" aria-hidden="true">
+      <span class="cld-tooltip-arrow" aria-hidden="true"></span>
+      <h4 class="cld-tooltip-title"></h4>
+      <ul class="cld-tooltip-list"></ul>
+    </div>
   </div>
 </section>
 
 <!-- ══════════════════ CAREER GROWTH JOURNEY ══════════════════ -->
-<section class="section" id="careerJourney">
-  <div class="section-head reveal">
-    <div class="kicker center">CAREER GROWTH JOURNEY</div>
-    <h2>How Far You Can Go</h2>
-    <p>A typical progression path within Shakambhari Group — your pace may vary.</p>
+<section class="section ccj-section" id="careerJourney">
+  <div class="ccj-bg" aria-hidden="true">
+    <span class="ccj-glow"></span>
+    <span class="ccj-shape ccj-shape-1"></span>
+    <span class="ccj-shape ccj-shape-2"></span>
+    <span class="ccj-particle ccj-particle-1"></span>
+    <span class="ccj-particle ccj-particle-2"></span>
+    <span class="ccj-particle ccj-particle-3"></span>
+    <span class="ccj-particle ccj-particle-4"></span>
+    <span class="ccj-particle ccj-particle-5"></span>
   </div>
-  <div class="ccj-timeline">
-    <div class="ccj-spine" aria-hidden="true"></div>
-    <div class="ccj-step"><div class="ccj-dot">01</div><div class="ccj-content"><h3>Graduate Engineer</h3><p>Structured onboarding into plant operations, quality or engineering functions.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">02</div><div class="ccj-content"><h3>Junior Executive</h3><p>Hands-on ownership of a defined process area under senior guidance.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">03</div><div class="ccj-content"><h3>Executive</h3><p>Independent delivery on core responsibilities within your function.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">04</div><div class="ccj-content"><h3>Senior Executive</h3><p>Cross-functional coordination and early mentorship of new joiners.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">05</div><div class="ccj-content"><h3>Assistant Manager</h3><p>Team-level accountability for output, quality and safety targets.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">06</div><div class="ccj-content"><h3>Manager</h3><p>Ownership of a department's performance, planning and people.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">07</div><div class="ccj-content"><h3>Senior Manager</h3><p>Strategic input across departments, budget and resourcing authority.</p></div></div>
-    <div class="ccj-step"><div class="ccj-dot">08</div><div class="ccj-content"><h3>Leadership</h3><p>Shaping the direction of a plant, function or the group itself.</p></div></div>
+
+  <div class="section-head ccj-head reveal">
+    <div class="kicker center">CAREER GROWTH JOURNEY</div>
+    <h2>Grow Your Career.<br><span class="ccj-highlight">Shape the Future.</span><br>Build With Us.</h2>
+    <p>Every successful career begins with curiosity and grows through learning, leadership, and opportunity. Explore our structured 8-tier journey designed to help every employee progress from a fresh graduate to executive leadership.</p>
+  </div>
+
+  <div class="ccj-timeline reveal" id="ccjTimeline">
+    <div class="ccj-track" aria-hidden="true"><span class="ccj-track-fill" id="ccjFill"></span></div>
+    <div class="ccj-steps" role="tablist" aria-label="Career growth tiers">
+
+      <button type="button" class="ccj-step" id="ccjTab-0" data-index="0" data-badge="Learn. Explore. Grow." role="tab" aria-selected="true" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c2.6 1.9 4.2 5 4.2 8.4 0 2-.6 3.9-1.6 5.4l-2.6 3.2-2.6-3.2c-1-1.5-1.6-3.4-1.6-5.4 0-3.4 1.6-6.5 4.2-8.4Z"/><circle cx="12" cy="10" r="1.7"/><path d="M9.3 16.8 6.5 19.5M14.7 16.8l2.8 2.7M9.5 21.5h5"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">01</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 01</span><span class="ccj-step-title">Graduate &amp; Intern Career Launchpad</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Campus hiring and graduate onboarding</li>
+          <li>Department rotation program</li>
+          <li>Learn business operations</li>
+          <li>Discover strengths and interests</li>
+          <li>Build a strong career foundation</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-1" data-index="1" data-badge="Adapt. Contribute. Build." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">02</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 02</span><span class="ccj-step-title">Associate Specialist</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Join a dedicated department</li>
+          <li>Develop technical expertise</li>
+          <li>Learn operational processes</li>
+          <li>Work with experienced mentors</li>
+          <li>Strengthen collaboration skills</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-2" data-index="2" data-badge="Build. Collaborate. Deliver Impact." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M8.5 8V6.3A2.3 2.3 0 0 1 10.8 4h2.4a2.3 2.3 0 0 1 2.3 2.3V8"/><path d="M3 13h18"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">03</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 03</span><span class="ccj-step-title">Specialist / Professional</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Independently manage projects</li>
+          <li>Cross-functional collaboration</li>
+          <li>Improve business performance</li>
+          <li>Build professional expertise</li>
+          <li>Deliver measurable impact</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-3" data-index="3" data-badge="Solve. Innovate. Lead." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m8.5 13.2-1.7 7.3 5.2-3 5.2 3-1.7-7.3"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">04</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 04</span><span class="ccj-step-title">Senior Specialist / Technical Lead</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Solve complex technical challenges</li>
+          <li>Lead innovation initiatives</li>
+          <li>Mentor junior professionals</li>
+          <li>Improve operational excellence</li>
+          <li>Strengthen domain expertise</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-4" data-index="4" data-badge="Guide. Deliver. Inspire." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.3" cy="8" r="3"/><circle cx="16" cy="9" r="2.6"/><path d="M2.8 20c0-3.1 2.5-5.4 5.5-5.4s5.5 2.3 5.5 5.4"/><path d="M14.8 15.2c2.5.3 4.4 2.3 4.4 4.8"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">05</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 05</span><span class="ccj-step-title">Team Lead / Associate Manager</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Manage project teams</li>
+          <li>Guide emerging professionals</li>
+          <li>Deliver strategic objectives</li>
+          <li>Improve productivity</li>
+          <li>Build leadership capabilities</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-5" data-index="5" data-badge="Plan. Execute. Optimize." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="3.2" height="8" rx="1"/><rect x="10.4" y="7" width="3.2" height="13" rx="1"/><rect x="16.8" y="3.5" width="3.2" height="16.5" rx="1"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">06</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 06</span><span class="ccj-step-title">Manager / Principal Specialist</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Resource planning</li>
+          <li>Strategic execution</li>
+          <li>Cross-functional leadership</li>
+          <li>Business optimization</li>
+          <li>Department coordination</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-6" data-index="6" data-badge="Lead. Empower. Grow." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">07</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 07</span><span class="ccj-step-title">Senior Manager / Department Head</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Lead complete business functions</li>
+          <li>Budget management</li>
+          <li>Build future leaders</li>
+          <li>Drive organizational growth</li>
+          <li>Shape departmental strategy</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-7" data-index="7" data-badge="Envision. Inspire. Transform." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18l-1.6-8.4-4.2 3.4-2.7-5.4-2.7 5.4-4.2-3.4L3 18Z"/><path d="M5 21h14"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">08</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 08</span><span class="ccj-step-title">Executive Leadership</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Define company vision</li>
+          <li>Shape long-term strategy</li>
+          <li>Lead global growth</li>
+          <li>Inspire innovation</li>
+          <li>Drive sustainable success</li>
+        </ul>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="ccj-panel reveal-scale" id="ccjPanel" role="tabpanel" aria-labelledby="ccjTab-0">
+    <div class="ccj-panel-icon">
+      <span class="ccj-panel-icon-glow" aria-hidden="true"></span>
+      <span class="ccj-panel-icon-shape" id="ccjPanelIcon" aria-hidden="true"></span>
+    </div>
+    <div class="ccj-panel-body" id="ccjPanelBody">
+      <div class="ccj-panel-top">
+        <span class="ccj-panel-tier" id="ccjPanelTier">Tier 01</span>
+        <span class="ccj-panel-badge" id="ccjPanelBadge">Learn. Explore. Grow.</span>
+      </div>
+      <h3 class="ccj-panel-title" id="ccjPanelTitle">Graduate &amp; Intern Career Launchpad</h3>
+      <span class="ccj-panel-divider" aria-hidden="true"></span>
+      <ul class="ccj-panel-list" id="ccjPanelList"></ul>
+    </div>
+  </div>
+
+  <div class="ccj-cta reveal-scale">
+    <div class="ccj-cta-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 5H5.5A2.5 2.5 0 0 0 8 9.8"/><path d="M16 5h2.5A2.5 2.5 0 0 1 16 9.8"/><path d="M12 13v3"/><path d="M9 20h6"/><path d="M10 16.5h4v1.7a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1.7Z"/></svg>
+    </div>
+    <div class="ccj-cta-text">
+      <h3>Your Journey Doesn't End Here</h3>
+      <p>Every achievement unlocks new opportunities for innovation, leadership, and impact. We invest in continuous learning so your career keeps growing alongside our organization.</p>
+    </div>
+    <a href="#openPositions" class="ccj-cta-btn"><span>Explore Opportunities</span><span class="ccj-cta-arrow" aria-hidden="true">→</span></a>
   </div>
 </section>
 
@@ -682,54 +914,13 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <path class="crp-line-progress" d="M2,2 H98"/>
     </svg>
     <div class="crp-steps">
-      <div class="crp-step"><div class="crp-step-num">1</div><h3>Apply</h3><p>Submit the form below with your resume.</p></div>
+      <div class="crp-step"><div class="crp-step-num">1</div><h3>Apply</h3><p>Click "Apply" and submit the form with your resume.</p></div>
       <div class="crp-step"><div class="crp-step-num">2</div><h3>Screening</h3><p>Our HR team reviews your profile against open roles.</p></div>
       <div class="crp-step"><div class="crp-step-num">3</div><h3>Technical Interview</h3><p>A conversation on your skills and experience.</p></div>
       <div class="crp-step"><div class="crp-step-num">4</div><h3>HR Interview</h3><p>Fit, expectations and offer discussion.</p></div>
       <div class="crp-step"><div class="crp-step-num">5</div><h3>Team Interview</h3><p>Meet the team and manager you'll be working with directly.</p></div>
       <div class="crp-step"><div class="crp-step-num">6</div><h3>Offer</h3><p>A formal offer is extended if it's a match.</p></div>
       <div class="crp-step"><div class="crp-step-num">7</div><h3>Onboarding</h3><p>Structured induction into your team and role.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ OFFICE LOCATIONS ══════════════════ -->
-<section class="section" id="officeLocations">
-  <div class="section-head reveal">
-    <div class="kicker center">OFFICE LOCATIONS</div>
-    <h2>Where You'll Find Us</h2>
-    <p>Our corporate office and manufacturing units across West Bengal.</p>
-  </div>
-  <div class="col-wrap reveal">
-    <svg class="col-map-svg" viewBox="0 0 100 120" aria-hidden="true">
-      <path class="col-map-outline" d="M48,4 C58,8 64,14 68,18 C74,24 76,28 78,32 C83,37 86,41 88,45 C91,49 93,52 94,55 C89,58 85,60 82,62 C85,66 87,70 88,75 C86,81 83,86 80,92 C75,98 71,103 68,108 C64,112 61,115 58,118 C54,114 51,110 48,106 C44,101 41,95 38,90 C35,85 32,80 30,75 C27,69 24,64 22,58 C19,52 17,47 16,42 C19,37 21,32 24,28 C28,23 31,18 34,14 C38,10 43,6 48,4 Z"/>
-      <g class="col-marker" data-key="kolkata"><circle class="col-marker-pulse" cx="70" cy="62" r="2.4"/><circle class="col-marker-dot" cx="70" cy="62" r="2.8"/></g>
-      <g class="col-marker" data-key="madandih"><circle class="col-marker-pulse" cx="58" cy="70" r="2"/><circle class="col-marker-dot" cx="58" cy="70" r="2.4"/></g>
-      <g class="col-marker" data-key="mohuda"><circle class="col-marker-pulse" cx="55" cy="75" r="2"/><circle class="col-marker-dot" cx="55" cy="75" r="2.4"/></g>
-      <g class="col-marker" data-key="mogra"><circle class="col-marker-pulse" cx="66" cy="66" r="2"/><circle class="col-marker-dot" cx="66" cy="66" r="2.4"/></g>
-      <g class="col-marker" data-key="durgapur"><circle class="col-marker-pulse" cx="60" cy="62" r="2"/><circle class="col-marker-dot" cx="60" cy="62" r="2.4"/></g>
-    </svg>
-    <div class="col-list">
-      <div class="col-item active" data-key="kolkata">
-        <div class="col-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></div>
-        <div><div class="col-item-name">Corporate Head Office, Kolkata</div><div class="col-item-addr">Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata 700017, West Bengal</div><a href="tel:+913366255252" class="col-item-view">033 6625 5252 →</a></div>
-      </div>
-      <div class="col-item" data-key="madandih">
-        <div class="col-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></div>
-        <div><div class="col-item-name">Unit Madandih (SIPL)</div><div class="col-item-addr">Madandih, Purulia District, West Bengal</div></div>
-      </div>
-      <div class="col-item" data-key="mohuda">
-        <div class="col-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></div>
-        <div><div class="col-item-name">Unit Mohuda (Bravo Sponge Iron)</div><div class="col-item-addr">Mohuda, Purulia District, West Bengal</div></div>
-      </div>
-      <div class="col-item" data-key="mogra">
-        <div class="col-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></div>
-        <div><div class="col-item-name">Unit Mogra (India Foils)</div><div class="col-item-addr">Mogra, Hooghly District, West Bengal</div></div>
-      </div>
-      <div class="col-item" data-key="durgapur">
-        <div class="col-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M4 21V10l8-5 8 5v11M6 21v-8M10 21v-8M14 21v-8M18 21v-8"/></svg></div>
-        <div><div class="col-item-name">SPS Steels Unit I</div><div class="col-item-addr">Durgapur, West Bengal</div></div>
-      </div>
     </div>
   </div>
 </section>
@@ -743,7 +934,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   <div class="cfq-list reveal">
     <div class="cfq-item">
       <button type="button" class="cfq-q" aria-expanded="false">How do I apply for a role at Shakambhari Group?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Scroll down to the Application Form on this page, complete all required sections, attach your resume and submit. You'll see a confirmation on screen once it's received.</p></div></div>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Click any "Apply" button on this page to open the application form, complete all required sections, attach your resume and submit. You'll see a confirmation on screen once it's received.</p></div></div>
     </div>
     <div class="cfq-item">
       <button type="button" class="cfq-q" aria-expanded="false">Can I apply if I don't see a matching open role?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
@@ -772,14 +963,17 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   </div>
 </section>
 
-<!-- APPLICATION FORM -->
-<section class="section">
-  <div class="apply-shell">
-    <div class="apply-progress">
-      <div class="apply-progress-track"><div class="apply-progress-fill" id="applyProgressFill"></div></div>
-      <span class="apply-progress-label" id="applyProgressLabel">0% Complete</span>
-    </div>
-    <form class="panel apply-panel" id="careerApplyForm" novalidate>
+<!-- APPLICATION FORM MODAL -->
+<div class="apply-modal-overlay" id="applyModalOverlay" aria-hidden="true">
+  <div class="apply-modal" role="dialog" aria-modal="true" aria-label="Career application form">
+    <button type="button" class="apply-modal-close" id="applyModalClose" aria-label="Close application form">&times;</button>
+    <div class="apply-modal-scroll">
+      <div class="apply-shell">
+        <div class="apply-progress">
+          <div class="apply-progress-track"><div class="apply-progress-fill" id="applyProgressFill"></div></div>
+          <span class="apply-progress-label" id="applyProgressLabel">0% Complete</span>
+        </div>
+        <form class="panel apply-panel" id="careerApplyForm" novalidate>
 
       <!-- 1. PERSONAL DETAILS -->
       <div class="form-block" style="animation-delay:.03s">
@@ -1151,8 +1345,10 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <p>Thank you for applying to Shakambhari Group. Our HR team will review your profile and reach out if there's a match with an open role.</p>
       <button type="button" class="btn btn-ghost" id="applyAgainBtn">Submit Another Application</button>
     </div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- ══════════════════ NEWSLETTER ══════════════════ -->
 <section class="section tight">
@@ -1287,6 +1483,48 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   const errorMsg = document.getElementById('applyError');
   const submitBtn = document.getElementById('applySubmitBtn');
   const shiftField = document.getElementById('shiftField');
+
+  // Apply form now lives in a modal, opened from every "Apply" link/button
+  // across the page instead of an in-page anchor jump.
+  const applyOverlay = document.getElementById('applyModalOverlay');
+  const applyModalClose = document.getElementById('applyModalClose');
+  let lastFocusedBeforeApply = null;
+
+  function openApplyModal(){
+    if(!applyOverlay) return;
+    lastFocusedBeforeApply = document.activeElement;
+    applyOverlay.classList.add('active');
+    applyOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    applyModalClose.focus();
+  }
+
+  function closeApplyModal(){
+    if(!applyOverlay) return;
+    applyOverlay.classList.remove('active');
+    applyOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if(lastFocusedBeforeApply) lastFocusedBeforeApply.focus();
+  }
+
+  window.openCareerApplyModal = openApplyModal;
+
+  document.querySelectorAll('a[href="#careerApplyForm"]').forEach(link=>{
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      openApplyModal();
+    });
+  });
+
+  if(applyModalClose) applyModalClose.addEventListener('click', closeApplyModal);
+  if(applyOverlay){
+    applyOverlay.addEventListener('click', function(e){
+      if(e.target === applyOverlay) closeApplyModal();
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && applyOverlay && applyOverlay.classList.contains('active')) closeApplyModal();
+  });
 
   // TODO: replace with the Production URL of your n8n Webhook node
   // (Method: POST, accepts multipart/form-data so the resume upload comes through as a binary field).

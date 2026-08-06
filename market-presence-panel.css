@@ -544,6 +544,11 @@
   .mpp-actions {
     grid-template-columns: 1fr;
   }
+
+  /* directory rows were a few px under the ~40px tap-target guideline */
+  .quick-location-item {
+    padding: 0.8rem 0.85rem 0.8rem 1rem;
+  }
 }
 
 @media (max-width: 400px) {

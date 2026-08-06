@@ -24,7 +24,7 @@
 .csr-pledge-card{ padding:2.1rem 2rem; display:flex; flex-direction:column; justify-content:center; }
 .csr-pledge-card .kicker{ margin-bottom:.9rem; }
 .csr-pledge-card p{ color:var(--ink-soft); font-size:.95rem; line-height:1.7; margin-bottom:1.6rem; }
-.csr-pledge-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; border-top:1px solid var(--border); padding-top:1.3rem; }
+.csr-pledge-stats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem; border-top:1px solid var(--border); padding-top:1.3rem; }
 .csr-pledge-stats .stat-num{ font-family:var(--font-display); font-weight:800; font-size:1.5rem; color:var(--accent-ink); line-height:1; }
 .csr-pledge-stats .stat-label{ font-family:var(--font-mono); font-size:.6rem; font-weight:700; letter-spacing:.06em; color:var(--ink-dim); margin-top:.4rem; text-transform:uppercase; line-height:1.3; }
 
@@ -121,7 +121,9 @@
 .flagship-plaque-label::before{ content:''; width:16px; height:2px; background:#FFC24B; }
 .flagship-plaque-cap{ font-size:.78rem; color:#C7D2F2; line-height:1.5; padding-top:.7rem; border-top:1px solid rgba(255,255,255,.16); }
 
-.flagship-mini-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.8rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.18); }
+.flagship-mini-stats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1.8rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.18); }
+/* below ~420px "Purulia" / "Elegant Care" no longer fit 3-up against flagship-detail's own padding; 2 columns keeps every value on one line */
+@media(max-width:420px){ .flagship-mini-stats{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .flagship-mini-num{ font-family:var(--font-display); font-weight:800; color:#FFC24B; font-size:1.2rem; }
 .flagship-mini-label{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.08em; color:#B9C5EE; text-transform:uppercase; margin-top:.3rem; line-height:1.3; }
 
@@ -176,7 +178,7 @@
     <li><a href="products.html">Products</a></li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html" class="active">Corporate Social Responsibility</a>
