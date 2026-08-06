@@ -36,7 +36,7 @@ html[data-theme="dark"]{
   --accent-hot:#FFC24B;
   --accent-deep:#E23B1F;
 }
-html{ scroll-behavior:smooth; scroll-padding-top:var(--nav-h); }
+html{ scroll-behavior:smooth; scroll-padding-top:var(--nav-h); overflow-x:hidden; max-width:100%; }
 body{
   color:var(--ink);
   font-family:var(--font-body);
