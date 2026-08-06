@@ -399,6 +399,20 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 /* ══ FOOTER ══ */
 footer{ position:relative; z-index:1; border-top:1px solid var(--border); padding:2.2rem 1.5rem; text-align:center; color:var(--ink); font-size:.9rem; font-weight:500; }
 footer .accent-text{ color:var(--accent-ink); font-weight:700; }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; padding:0 1.75rem 6rem; max-width:1180px; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+  --ink:#EEEAE1; --border:#262A34; --surface:#14161C;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -1157,6 +1171,18 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </section>
 
 </main>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>A Process This Precise Has to Be Tested</h2>
+    <p>Every stage you just walked through is checked, not assumed. See the quality standards and testing that stand behind every batch that leaves our mills.</p>
+    <div class="cta-btn-row">
+      <a href="quality.html" class="btn btn-primary">See Our Quality Standards →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="site-footer">

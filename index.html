@@ -973,6 +973,19 @@
       font-size: 1.05rem;
     }
 
+    .cta-inner {
+      --ink: #EEEAE1;
+      --border: #262A34;
+      --surface: #14161C;
+    }
+
+    .cta-btn-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     /* ══ NEWSLETTER BAND ══ */
     .newsletter-band {
       position: relative;
@@ -3090,9 +3103,12 @@
     <div class="cta-band reveal-scale">
       <div class="cta-inner">
         <h2>Every Legacy Has a Beginning</h2>
-        <p>From a single factory in 2000 to a name trusted across 29+ countries, this is the story of how Shakambhari
-          built itself, decision by decision.</p>
-        <a href="journey.html" class="btn btn-primary">Discover Our Story →</a>
+        <p>From a single factory in 2000 to a name trusted across 29+ countries — see where we started, how far we've
+          come, and what it took to get here.</p>
+        <div class="cta-btn-row">
+          <a href="journey.html" class="btn btn-primary">Discover Our Story →</a>
+          <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+        </div>
       </div>
     </div>
 
