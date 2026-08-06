@@ -18,6 +18,9 @@
   --accent-ink:#C1440E;
   --accent-hot:#FFC24B;
   --accent-deep:#E23B1F;
+  --brand-blue:#0A59A8;
+  --brand-blue-ink:#073F73;
+  --brand-blue-light:#3E8FCC;
   --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -35,6 +38,9 @@ html[data-theme="dark"]{
   --accent-ink:#FFA25C;
   --accent-hot:#FFC24B;
   --accent-deep:#E23B1F;
+  --brand-blue:#3E9FD8;
+  --brand-blue-ink:#7EC3EA;
+  --brand-blue-light:#5FB2E0;
 }
 html{ scroll-behavior:smooth; scroll-padding-top:var(--nav-h); overflow-x:hidden; max-width:100%; }
 body{
@@ -82,12 +88,15 @@ a{ color:inherit; }
   -webkit-backdrop-filter:blur(18px) saturate(140%);
   border-bottom:1px solid rgba(255,255,255,.5);
   box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 8px 30px rgba(20,22,28,.06);
-  transition:background .3s ease, box-shadow .3s ease;
+  transition:background .3s ease, box-shadow .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
 }
 .site-nav.scrolled{
   background:rgba(230,233,238,.78);
   box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 12px 34px rgba(20,22,28,.1);
 }
+.site-nav.nav-hidden{ transform:translateY(-100%); }
+.site-nav:focus-within{ transform:translateY(0) !important; }
+@media(prefers-reduced-motion: reduce){ .site-nav{ transition:background .3s ease, box-shadow .3s ease; } }
 .nav-brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; }
 .nav-brand svg{ width:32px; height:32px; flex-shrink:0; }
 .nav-brand-logo{ width:32px; height:32px; flex-shrink:0; object-fit:contain; }
@@ -230,6 +239,9 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 }
 .chip:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
 .chip.hot{ border-color:var(--accent); color:var(--accent-ink); background:#FFF4EC; }
+.chip.cool{ border-color:var(--brand-blue); color:var(--brand-blue-ink); background:rgba(10,89,168,.08); }
+html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
+.accent-blue-text{ color:var(--brand-blue-ink); }
 
 .panel{
   position:relative; overflow:hidden;

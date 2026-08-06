@@ -29,14 +29,21 @@
 .qc-checkpoints{ display:flex; flex-direction:column; gap:1.6rem; }
 .qc-checkpoint{
   position:relative; border-radius:1.6rem; overflow:hidden;
-  background:#0A0B0E; border:1px solid #262A34;
+  background:#0D0F14; border:1px solid #262A34;
   padding:2.8rem 1.75rem 2.6rem;
   scroll-margin-top:calc(var(--nav-h) + 1rem);
 }
-.qc-checkpoint[data-cat="lab"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(201,150,42,.16), transparent 60%), #0A0B0E; }
-.qc-checkpoint[data-cat="monitor"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(62,159,216,.16), transparent 60%), #0A0B0E; }
-.qc-checkpoint[data-cat="control"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(124,135,151,.16), transparent 60%), #0A0B0E; }
-.qc-checkpoint[data-cat="dispatch"]{ background:radial-gradient(ellipse 65% 55% at 10% 0%, rgba(255,106,31,.18), transparent 60%), #0A0B0E; }
+.qc-checkpoint::after{
+  content:''; position:absolute; top:0; left:0; right:0; height:4px; z-index:2;
+}
+.qc-checkpoint[data-cat="lab"]{ background:radial-gradient(ellipse 70% 60% at 8% 0%, rgba(201,150,42,.32), transparent 62%), radial-gradient(ellipse 55% 50% at 100% 100%, rgba(201,150,42,.14), transparent 60%), #0D0F14; }
+.qc-checkpoint[data-cat="monitor"]{ background:radial-gradient(ellipse 70% 60% at 8% 0%, rgba(62,159,216,.32), transparent 62%), radial-gradient(ellipse 55% 50% at 100% 100%, rgba(62,159,216,.14), transparent 60%), #0D0F14; }
+.qc-checkpoint[data-cat="control"]{ background:radial-gradient(ellipse 70% 60% at 8% 0%, rgba(139,151,168,.30), transparent 62%), radial-gradient(ellipse 55% 50% at 100% 100%, rgba(139,151,168,.13), transparent 60%), #0D0F14; }
+.qc-checkpoint[data-cat="dispatch"]{ background:radial-gradient(ellipse 70% 60% at 8% 0%, rgba(255,106,31,.34), transparent 62%), radial-gradient(ellipse 55% 50% at 100% 100%, rgba(255,106,31,.15), transparent 60%), #0D0F14; }
+.qc-checkpoint[data-cat="lab"]::after{ background:linear-gradient(90deg, transparent, #C9962A, transparent); }
+.qc-checkpoint[data-cat="monitor"]::after{ background:linear-gradient(90deg, transparent, #3E9FD8, transparent); }
+.qc-checkpoint[data-cat="control"]::after{ background:linear-gradient(90deg, transparent, #8B97A8, transparent); }
+.qc-checkpoint[data-cat="dispatch"]::after{ background:linear-gradient(90deg, transparent, #FF6A1F, transparent); }
 .qc-checkpoint::before{
   content:''; position:absolute; inset:0; pointer-events:none; opacity:.05;
   background-image:
@@ -44,16 +51,20 @@
     repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px);
 }
 .qc-checkpoint-top{ position:relative; z-index:1; display:flex; align-items:flex-start; gap:1.4rem; margin-bottom:2rem; max-width:78ch; }
-.qc-checkpoint-num{ font-family:var(--font-mono); font-size:2.6rem; font-weight:800; color:#fff; opacity:.16; line-height:1; flex-shrink:0; }
+.qc-checkpoint-num{ font-family:var(--font-mono); font-size:2.6rem; font-weight:800; color:#fff; opacity:.14; line-height:1; flex-shrink:0; }
+.qc-checkpoint[data-cat="lab"] .qc-checkpoint-num{ color:#C9962A; opacity:.35; }
+.qc-checkpoint[data-cat="monitor"] .qc-checkpoint-num{ color:#3E9FD8; opacity:.35; }
+.qc-checkpoint[data-cat="control"] .qc-checkpoint-num{ color:#8B97A8; opacity:.35; }
+.qc-checkpoint[data-cat="dispatch"] .qc-checkpoint-num{ color:#FF6A1F; opacity:.35; }
 .qc-checkpoint-heading{ flex:1; }
 .qc-checkpoint-badge{
   display:inline-block; font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.09em;
   padding:.3rem .65rem; border-radius:.4rem; color:#fff; margin-bottom:.7rem;
 }
-.qc-checkpoint[data-cat="lab"] .qc-checkpoint-badge{ background:#9C6E22; }
-.qc-checkpoint[data-cat="monitor"] .qc-checkpoint-badge{ background:#1D4E7A; }
-.qc-checkpoint[data-cat="control"] .qc-checkpoint-badge{ background:#4A5058; }
-.qc-checkpoint[data-cat="dispatch"] .qc-checkpoint-badge{ background:#C1440E; }
+.qc-checkpoint[data-cat="lab"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#C9962A,#9C6E22); box-shadow:0 4px 14px rgba(201,150,42,.35); }
+.qc-checkpoint[data-cat="monitor"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#3E9FD8,#0A59A8); box-shadow:0 4px 14px rgba(62,159,216,.35); }
+.qc-checkpoint[data-cat="control"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#8B97A8,#4A5058); box-shadow:0 4px 14px rgba(139,151,168,.3); }
+.qc-checkpoint[data-cat="dispatch"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#FF6A1F,#C1440E); box-shadow:0 4px 14px rgba(255,106,31,.35); }
 .qc-checkpoint h3{ color:#EEEAE1; font-size:clamp(1.4rem,2.4vw,1.9rem); margin-bottom:.7rem; text-transform:none; font-family:var(--font-display); }
 .qc-checkpoint-intro{ color:#9C9A90; font-size:.98rem; line-height:1.65; }
 
@@ -63,10 +74,19 @@
 .qc-checkpoint-hero{ border-radius:1.2rem; overflow:hidden; min-height:260px; border:1.5px solid #262A34; }
 .qc-checkpoint-hero img{ width:100%; height:100%; object-fit:cover; display:block; min-height:260px; }
 .qc-checkpoint-hero.icon-hero{
-  display:flex; align-items:center; justify-content:center; min-height:260px;
+  position:relative; display:flex; align-items:center; justify-content:center; min-height:260px;
   background:linear-gradient(155deg, #1B1E26, #14161C);
 }
-.qc-checkpoint-hero.icon-hero svg{ width:104px; height:104px; opacity:.9; }
+.icon-hero-ring{
+  position:relative; width:148px; height:148px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.06), transparent 60%);
+}
+.qc-checkpoint-hero.icon-hero svg{ width:76px; height:76px; opacity:.95; position:relative; z-index:1; }
+.qc-checkpoint[data-cat="lab"] .icon-hero-ring{ border:1.5px solid rgba(201,150,42,.4); box-shadow:0 0 50px rgba(201,150,42,.25), inset 0 0 30px rgba(201,150,42,.1); }
+.qc-checkpoint[data-cat="monitor"] .icon-hero-ring{ border:1.5px solid rgba(62,159,216,.4); box-shadow:0 0 50px rgba(62,159,216,.25), inset 0 0 30px rgba(62,159,216,.1); }
+.qc-checkpoint[data-cat="control"] .icon-hero-ring{ border:1.5px solid rgba(139,151,168,.4); box-shadow:0 0 50px rgba(139,151,168,.22), inset 0 0 30px rgba(139,151,168,.1); }
+.qc-checkpoint[data-cat="dispatch"] .icon-hero-ring{ border:1.5px solid rgba(255,106,31,.4); box-shadow:0 0 50px rgba(255,106,31,.25), inset 0 0 30px rgba(255,106,31,.1); }
 
 .qc-mini-flow{ display:flex; flex-wrap:wrap; align-items:stretch; gap:.6rem; align-content:flex-start; }
 .qc-substep{
@@ -83,8 +103,15 @@
 .qc-checkpoint[data-cat="dispatch"] .qc-substep.open, .qc-checkpoint[data-cat="dispatch"] .qc-substep:hover{ border-color:#FF6A1F; box-shadow:0 8px 26px rgba(255,106,31,.22); }
 
 .qc-substep-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:.6rem; }
-.qc-substep-icon{ width:34px; height:34px; flex-shrink:0; }
-.qc-substep-icon svg{ width:100%; height:100%; }
+.qc-substep-icon{
+  width:40px; height:40px; flex-shrink:0; border-radius:.7rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.qc-substep-icon svg{ width:21px; height:21px; }
+.qc-checkpoint[data-cat="lab"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(201,150,42,.28), rgba(201,150,42,.1)); color:#E0B65A; }
+.qc-checkpoint[data-cat="monitor"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(62,159,216,.28), rgba(62,159,216,.1)); color:#6DBBEA; }
+.qc-checkpoint[data-cat="control"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(139,151,168,.26), rgba(139,151,168,.1)); color:#AEB6C2; }
+.qc-checkpoint[data-cat="dispatch"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(255,106,31,.28), rgba(255,106,31,.1)); color:#FF9A5C; }
 .qc-substep-plus{
   width:22px; height:22px; border-radius:50%; border:1.5px solid #3A3E46; flex-shrink:0;
   display:flex; align-items:center; justify-content:center; color:#9C9A90;
@@ -222,7 +249,7 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#C9962A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h10M18 5v9.5L10 33a3 3 0 0 0 2.7 4.3h18.6A3 3 0 0 0 34 33l-8-18.5V5"/><path d="M13.5 27h17"/></svg></div>
+    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#C9962A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h10M18 5v9.5L10 33a3 3 0 0 0 2.7 4.3h18.6A3 3 0 0 0 34 33l-8-18.5V5"/><path d="M13.5 27h17"/></svg></div></div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -393,7 +420,7 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#7C8797" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="24" r="11"/><path d="M22 24V8M17 8h10"/><circle cx="22" cy="24" r="3.5" fill="#7C8797" stroke="none"/></svg></div>
+    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#8B97A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="24" r="11"/><path d="M22 24V8M17 8h10"/><circle cx="22" cy="24" r="3.5" fill="#8B97A8" stroke="none"/></svg></div></div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -513,7 +540,7 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#3E9FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h8v5.5l3 3V33a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V14.5l3-3Z"/><path d="M18 24h8"/><circle cx="22" cy="30" r="2.4" fill="#3E9FD8" stroke="none"/></svg></div>
+    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#3E9FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h8v5.5l3 3V33a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V14.5l3-3Z"/><path d="M18 24h8"/><circle cx="22" cy="30" r="2.4" fill="#3E9FD8" stroke="none"/></svg></div></div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -624,7 +651,7 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><svg viewBox="0 0 44 44" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21.5 21.5 6H33a4 4 0 0 1 4 4v11.5L21.5 36 6 21.5Z"/><circle cx="26" cy="14" r="2.2" fill="#FF6A1F" stroke="none"/><path d="M17 25l3 3 6-7"/></svg></div>
+    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21.5 21.5 6H33a4 4 0 0 1 4 4v11.5L21.5 36 6 21.5Z"/><circle cx="26" cy="14" r="2.2" fill="#FF6A1F" stroke="none"/><path d="M17 25l3 3 6-7"/></svg></div></div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
