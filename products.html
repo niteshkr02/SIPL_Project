@@ -35,6 +35,17 @@
 .spec-card-link:hover{ color:var(--accent); text-decoration:underline; }
 
 .section-divider-label{ text-align:center; margin:0 auto 3rem; }
+
+/* ══ PRODUCT CATEGORY CARDS ══ */
+.category-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; }
+@media(max-width:960px){ .category-grid{ grid-template-columns:1fr; max-width:520px; margin:0 auto; } }
+.category-card{ padding:0; overflow:hidden; display:flex; flex-direction:column; }
+.category-card-photo{ width:100%; height:220px; object-fit:cover; display:block; }
+.category-card-body{ padding:1.9rem 1.9rem 2.1rem; flex:1; display:flex; flex-direction:column; }
+.category-card-eyebrow{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.category-card-body h3{ font-size:1.35rem; font-weight:800; text-transform:none; font-family:var(--font-display); margin-bottom:.9rem; }
+.category-card-body p{ color:var(--ink-soft); font-size:.92rem; line-height:1.68; margin-bottom:1.6rem; flex:1; }
+.category-card-body .btn{ align-self:flex-start; }
 </style>
 </head>
 <body>
@@ -103,6 +114,50 @@
   <h1 class="reveal">Everything That Leaves Our Mills</h1>
   <p class="reveal">From the pellets that start the chain to the bars that finish it, and the foil that's newest to it. Every product tested against IS, BIS and ISO standards before it ever reaches a customer.</p>
 </header>
+
+<!-- PRODUCT CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-head reveal">
+    <div class="kicker center">EXPLORE OUR RANGE</div>
+    <h2>Three Ways Into Our Product Range</h2>
+    <p>Steel, ferro alloys and aluminium — each built on its own dedicated line, each with a range deep enough to deserve its own tour.</p>
+  </div>
+  <div class="category-grid">
+    <div class="category-card panel reveal">
+      <img src="images/pipe_section.jpeg" alt="Steel Long Products" class="category-card-photo" loading="lazy">
+      <div class="category-card-body">
+        <div class="category-card-eyebrow">Steel Long Products</div>
+        <h3>Tube, Structural &amp; Long Steel</h3>
+        <p>From primary hot-rolled billets to precision-drawn cold wire and structural hollow sections. Discover mill-direct steel solutions engineered for heavy construction, manufacturing and industrial fabrication.</p>
+        <a href="#finished-steel" class="btn btn-primary">Explore Steel Long Products →</a>
+      </div>
+    </div>
+    <div class="category-card panel reveal">
+      <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" class="category-card-photo" loading="lazy">
+      <div class="category-card-body">
+        <div class="category-card-eyebrow">Ferro Alloys</div>
+        <h3>Silicomanganese &amp; High-Carbon Ferro</h3>
+        <p>Smelted in-house at Eloquent Steel in a submerged arc furnace — a portion feeds our own furnace, the surplus is exported to steelmakers worldwide.</p>
+        <a href="ferro-alloys.html" class="btn btn-primary">Explore Ferro Alloys →</a>
+      </div>
+    </div>
+    <div class="category-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/Aluminium_Foil.avif">
+        <source type="image/webp" srcset="optimized-images/images/Aluminium_Foil.webp">
+        <img src="optimized-images/images/Aluminium_Foil.jpg" alt="Aluminium Foil" class="category-card-photo" loading="lazy">
+      </picture>
+      <div class="category-card-body">
+        <div class="category-card-eyebrow">Aluminium</div>
+        <h3>Pharma, Household &amp; Industrial Foil</h3>
+        <p>Rolled at SIPL Mogra — India Foils, Hooghly — from 9 to 60 microns, exported to 29+ countries after seven decades built entirely in iron and steel.</p>
+        <a href="#aluminium-foil" class="btn btn-primary">Explore Aluminium →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
 
 <!-- UPSTREAM -->
 <section class="section">
