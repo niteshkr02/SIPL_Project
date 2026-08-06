@@ -1,0 +1,482 @@
+/* ════════════════════════════════════════════════════════════════════
+   MISSION, VISION & VALUES — Hero
+   Isolated component (see vision-hero.js). A centered, cinematic
+   composition — deliberately different from the split text/image hero
+   used on other pages: a full-width industrial skyline silhouette along
+   the horizon, a slow-orbiting "compass" ring motif behind the headline
+   (a nod to Vision/direction), and a mini section-nav strip under the
+   CTA that doubles as wayfinding for the page's three-part structure.
+
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.mvv-hero {
+  --bg: #0A0B0E;
+  --surface: #14161C;
+  --border: #262A34;
+  --ink: #EEEAE1;
+  --ink-dim: #9C9A90;
+  --accent: #FF6A1F;
+  --accent-hot: #FFC24B;
+  --accent-deep: #E23B1F;
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse 90% 70% at 50% 38%, #12141A 0%, #0A0B0E 62%, #060709 100%);
+}
+
+@media (max-width: 700px) {
+  .mvv-hero { height: auto; min-height: 0; padding-bottom: 3rem; }
+}
+
+/* cursor-following spotlight — a fixed-size glow translated via transform
+   (GPU compositor only) rather than a radial-gradient whose center moves,
+   which would repaint on every pointermove. */
+.mvv-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 760px;
+  height: 760px;
+  margin: -380px 0 0 -380px;
+  z-index: 4;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 194, 75, .08), transparent 70%);
+  opacity: 0;
+  transform: translate3d(var(--mx, 50%), var(--my, 40%), 0);
+  transition: opacity .6s ease;
+  pointer-events: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.mvv-hero:hover::after { opacity: 1; }
+
+.mvv-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+.mvv-hero-mesh {
+  position: absolute;
+  inset: -6%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 48% at 50% 32%, rgba(255, 106, 31, .16), transparent 62%),
+    radial-gradient(ellipse 60% 50% at 18% 88%, rgba(255, 122, 26, .08), transparent 62%),
+    radial-gradient(ellipse 60% 50% at 82% 88%, rgba(255, 122, 26, .08), transparent 62%);
+}
+
+.mvv-hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(ellipse 65% 60% at 50% 40%, #000 30%, transparent 88%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 40%, #000 30%, transparent 88%);
+}
+
+/* full-width skyline along the horizon */
+.mvv-hero-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .9;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.mvv-hero-skyline svg { display: block; width: 100%; height: 100%; }
+
+/* compass / vision rings, centered behind the headline */
+.mvv-hero-compass {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: min(760px, 84vw);
+  height: min(760px, 84vw);
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 1;
+  pointer-events: none;
+  animation: mvvCompassBreathe 10s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.mvv-hero-compass svg { display: block; width: 100%; height: 100%; }
+
+@keyframes mvvCompassBreathe {
+  0%, 100% { transform: translate3d(-50%, -50%, 0) scale(1); }
+  50% { transform: translate3d(-50%, -50%, 0) scale(1.035); }
+}
+
+.mvv-hero-orbit {
+  transform-origin: 320px 320px;
+  animation: mvvOrbitSpin 46s linear infinite;
+  will-change: transform;
+}
+
+@keyframes mvvOrbitSpin { to { transform: rotate(360deg); } }
+
+.mvv-hero-rays {
+  position: absolute;
+  left: 50%;
+  bottom: -22%;
+  width: 120%;
+  height: 90%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    conic-gradient(from 255deg at 50% 100%,
+      transparent 0deg, rgba(255, 194, 75, .07) 8deg, transparent 18deg,
+      transparent 40deg, rgba(255, 122, 26, .06) 50deg, transparent 60deg,
+      transparent 80deg, rgba(255, 194, 75, .06) 90deg, transparent 100deg,
+      transparent 120deg, rgba(255, 122, 26, .05) 130deg, transparent 140deg);
+  animation: mvvRaysSway 18s ease-in-out infinite;
+  mix-blend-mode: screen;
+  isolation: isolate;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes mvvRaysSway {
+  0%, 100% { transform: translateX(-50%) rotate(-1.2deg); }
+  50% { transform: translateX(-50%) rotate(1.2deg); }
+}
+
+.mvv-hero-waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  z-index: 2;
+  opacity: .34;
+  pointer-events: none;
+  isolation: isolate;
+  mask-image: radial-gradient(ellipse 90% 100% at 50% 100%, #000 30%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 100% at 50% 100%, #000 30%, transparent 92%);
+}
+
+.mvv-hero-waves svg { width: 100%; height: 100%; }
+
+.mvv-hero-waves path {
+  fill: none;
+  stroke: url(#mvvWaveGrad);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-dasharray: 4 10;
+  animation: mvvWaveFlow 16s linear infinite;
+}
+
+.mvv-hero-waves path.w2 { animation-duration: 22s; animation-direction: reverse; opacity: .7; }
+.mvv-hero-waves path.w3 { animation-duration: 26s; opacity: .5; }
+
+@keyframes mvvWaveFlow { to { stroke-dashoffset: -280; } }
+
+.mvv-hero-particles { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+
+.mvv-hero-particle {
+  position: absolute;
+  bottom: -6%;
+  left: var(--px, 50%);
+  width: var(--ps, 3px);
+  height: var(--ps, 3px);
+  border-radius: 50%;
+  background: var(--pc, var(--accent-hot));
+  box-shadow: 0 0 6px 1px var(--pc, var(--accent-hot));
+  opacity: 0;
+  animation: mvvParticleDrift var(--pd, 12s) ease-in var(--pdelay, 0s) infinite;
+}
+
+@keyframes mvvParticleDrift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  8% { opacity: .8; }
+  85% { opacity: .3; }
+  100% { transform: translate(var(--pdx, 20px), -108vh); opacity: 0; }
+}
+
+.mvv-hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 11, 14, .35) 0%, transparent 20%, transparent 72%, rgba(10, 11, 14, .55) 100%),
+    radial-gradient(ellipse 100% 85% at 50% 46%, transparent 46%, rgba(10, 11, 14, .55) 100%);
+}
+
+/* ══ CENTERED CONTENT ══ */
+.mvv-hero-center {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 1rem) 1.75rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mvv-hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .85rem;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  opacity: 0;
+}
+
+.mvv-hero-label-tick {
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-hot));
+}
+
+.mvv-hero-label-tick:last-child { background: linear-gradient(90deg, var(--accent-hot), transparent); }
+
+.mvv-hero-heading {
+  margin-top: 1.2rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(3.2rem, 6.6vw, 6rem);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  opacity: 0;
+}
+
+.mvv-hero-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 106, 31, .32));
+}
+
+.mvv-hero-desc {
+  margin-top: 1.4rem;
+  max-width: 460px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+.mvv-hero-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: 2.2rem;
+  padding: .8rem 1.6rem .8rem 1.7rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--accent-hot);
+  background: rgba(255, 106, 31, .06);
+  border: 1.5px solid rgba(255, 122, 26, .5);
+  transition: box-shadow .35s ease, transform .3s cubic-bezier(.16, .84, .44, 1), background .35s ease, border-color .35s ease, color .35s ease;
+  opacity: 0;
+}
+
+.mvv-hero-btn:hover {
+  transform: translateY(-3px);
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border-color: transparent;
+  box-shadow: 0 16px 34px rgba(255, 106, 31, .38);
+}
+
+.mvv-hero-btn-label {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.mvv-hero-btn-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.mvv-hero-btn-arrow svg { width: 16px; height: 16px; }
+
+.mvv-hero-btn:hover .mvv-hero-btn-arrow { transform: translateX(4px); }
+
+/* ── mini section nav: jumps straight to Mission / Vision / Values ── */
+.mvv-hero-pillars {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  opacity: 0;
+}
+
+.mvv-hero-pillar {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-dim);
+  position: relative;
+  padding-bottom: .3rem;
+  transition: color .3s ease;
+}
+
+.mvv-hero-pillar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+
+.mvv-hero-pillar:hover { color: var(--accent-hot); }
+.mvv-hero-pillar:hover::after { transform: scaleX(1); }
+
+.mvv-hero-pillar-num {
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: .7;
+}
+
+.mvv-hero-pillar-div {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .mvv-hero-pillars { gap: .9rem; }
+  .mvv-hero-pillar-label { display: none; }
+}
+
+/* ── scroll cue ── */
+.mvv-hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 2.2rem;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid rgba(238, 234, 225, .3);
+  border-radius: 12px;
+  opacity: 0;
+}
+
+.mvv-hero-scroll-cue span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 6px auto 0;
+  border-radius: 50%;
+  background: var(--accent-hot);
+  animation: mvvScrollCue 2.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes mvvScrollCue {
+  0% { transform: translateY(0); opacity: 0; }
+  25% { opacity: 1; }
+  70% { opacity: 0; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+
+@media (max-width: 700px) {
+  .mvv-hero-scroll-cue { display: none; }
+}
+
+.mvv-illu-light {
+  animation: mvvSparkPulse 3.2s ease-in-out infinite;
+  will-change: opacity;
+}
+.mvv-illu-light:nth-child(3n) { animation-duration: 2.4s; }
+.mvv-illu-light:nth-child(4n) { animation-duration: 4.1s; animation-delay: -1s; }
+
+@keyframes mvvSparkPulse {
+  0%, 100% { opacity: .3; }
+  50% { opacity: 1; }
+}
+
+/* transform-only: an opacity keyframe here would override each shape's own
+   opacity attribute (CSS opacity beats SVG presentation attributes), which
+   blew a faint .09 ambient glow up to a near-opaque .75-1 ball */
+.mvv-illu-glow {
+  animation: mvvBreatheScale 8s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes mvvBreatheScale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* soft pulsing warm glow laid over the mission/vision/CTA photo frames —
+   a lighting effect, not illustrated content. isolation:isolate gives the
+   mix-blend-mode its own compositing layer so its repaint never cascades
+   into the photo layer beneath (a common cause of flicker when a blended
+   layer sits above something else that's also being transformed). */
+.mvv-photo-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  isolation: isolate;
+  background: radial-gradient(ellipse 55% 45% at 50% 100%, rgba(255, 122, 26, .35), transparent 68%);
+  animation: mvvBreathe 9s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@keyframes mvvBreathe {
+  0%, 100% { transform: scale(1); opacity: .75; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mvv-photo-glow, .mvv-illu-light, .mvv-illu-glow, .mvv-hero-rays, .mvv-hero-waves path,
+  .mvv-hero-particle, .mvv-hero-compass, .mvv-hero-orbit, .mvv-hero-scroll-cue span {
+    animation: none !important;
+  }
+}
