@@ -353,6 +353,10 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
 .usecase-size{ font-family:var(--font-mono); font-weight:800; font-size:.92rem; color:var(--accent-ink); line-height:1.4; }
 .usecase-item p{ color:var(--ink-soft); font-size:.92rem; line-height:1.65; margin:0; }
 
+/* ══ CROSS-LINK NOTE (category/sub-product pages) ══ */
+.cross-link-note{ max-width:640px; margin:0 auto; text-align:center; padding:1.3rem 1.6rem; border-radius:.9rem; font-size:.9rem; color:var(--ink-soft); }
+.cross-link-note a{ color:var(--accent-ink); font-weight:700; }
+
 /* ══ SUB-PRODUCT GRID (category pages) ══ */
 .subprod-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
 @media(max-width:960px){ .subprod-grid{ grid-template-columns:repeat(2,1fr); } }
