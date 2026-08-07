@@ -274,7 +274,7 @@
 @media (min-width: 960px) {
   .hero-inner {
     display: grid;
-    grid-template-columns: 1.15fr .85fr;
+    grid-template-columns: .85fr 1.15fr;
     align-items: center;
     gap: 2.5rem;
     text-align: left;
@@ -292,22 +292,6 @@
   .hero-kicker,
   .hero-cta-row {
     justify-content: flex-start;
-  }
-}
-
-/* right column: reserves the space the photo/ring occupy and anchors the
-   floating metric card — deliberately empty of its own image markup, the
-   photo is the shared full-hero background layer above */
-.hero-visual {
-  position: relative;
-  display: none;
-  width: 100%;
-  min-height: 480px;
-}
-
-@media (min-width: 960px) {
-  .hero-visual {
-    display: block;
   }
 }
 
@@ -496,7 +480,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 46px;
   padding: 0 .9rem;
   border-radius: .6rem;
   background: #fff;
@@ -506,13 +490,24 @@
 
 .hero-trustbar-logos img {
   display: block;
-  height: 18px;
+  height: 26px;
   width: auto;
-  max-width: 64px;
+  max-width: 72px;
   object-fit: contain;
   filter: grayscale(45%);
   opacity: .88;
   transition: filter .3s ease, opacity .3s ease;
+}
+
+/* seal-style marks (tall/circular source art) read as an illegible sliver
+   at the strip's landscape height when contained whole — crop in on the
+   emblem instead of squeezing the full portrait frame */
+.hero-trustbar-logos a.tb-seal img {
+  height: 36px;
+  width: 36px;
+  object-fit: cover;
+  object-position: 50% 0%;
+  border-radius: 50%;
 }
 
 .hero-trustbar-logos a:hover,
@@ -530,7 +525,7 @@
 /* ══ FLOATING METRIC CARD ══ */
 .hero-metric-card {
   position: absolute;
-  top: 8%;
+  top: 50%;
   right: 0;
   z-index: 6;
   display: flex;
@@ -539,17 +534,18 @@
   width: 190px;
   padding: 1.2rem 1.3rem;
   border-radius: 1.1rem;
-  background: rgba(20, 22, 28, .55);
+  background: rgba(10, 10, 14, .72);
   border: 1px solid rgba(255, 255, 255, .1);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, .4);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .4), 0 0 40px rgba(255, 106, 31, .1);
+  transform: translateY(-50%);
   transition: transform .4s cubic-bezier(.16, .84, .44, 1), box-shadow .4s ease;
 }
 
 .hero-metric-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, .5);
+  transform: translateY(calc(-50% - 4px));
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .5), 0 0 46px rgba(255, 106, 31, .16);
 }
 
 .hero-metric {
@@ -611,12 +607,13 @@
   margin: 0 1.25rem;
   padding: 1.4rem 1rem;
   border: 1px solid rgba(255, 255, 255, .08);
+  border-top: 1px solid rgba(255, 170, 65, .4);
   border-bottom: none;
   border-radius: 1.6rem 1.6rem 0 0;
   background: rgba(15, 17, 22, .6);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: 0 -1px 0 rgba(255, 255, 255, .04) inset, 0 -22px 50px -20px rgba(255, 106, 31, .18);
+  box-shadow: 0 -1px 14px rgba(255, 170, 65, .35), 0 -22px 50px -20px rgba(255, 106, 31, .18);
 }
 
 .hero-achieve-row {

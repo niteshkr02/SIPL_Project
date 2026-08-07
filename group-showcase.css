@@ -256,6 +256,9 @@
 
 .grp-slot.is-active .grp-card {
   border-color: rgba(255, 194, 75, .5);
+  /* accent glow ring on the active card, same recipe as the Beyond Steel
+     slider's .bs3d-card.is-center so the two carousels read as one system */
+  box-shadow: 0 44px 92px -20px rgba(15, 23, 42, .22), 0 0 44px rgba(255, 106, 31, .16);
 }
 
 /* ── image: the hero of the card, ~65% of its height ── */
@@ -268,13 +271,15 @@
 }
 
 .grp-image-wrap::before {
-  /* orange ambient light around the image */
+  /* orange ambient light around the image — follows the cursor via --mx/--my
+     (set by group-showcase.js on .grp-card, inherits down), same spotlight
+     technique as the Beyond Steel slider's .bs3d-shine */
   content: '';
   position: absolute;
   inset: -20% -20% 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 145, 40, .25), transparent 70%);
+  background: radial-gradient(circle 260px at var(--mx, 50%) var(--my, 0%), rgba(255, 145, 40, .32), transparent 70%);
   opacity: 0;
   transition: opacity .5s ease;
 }
@@ -747,4 +752,8 @@ html[data-theme="dark"] .grp-arrow {
 
 html[data-theme="dark"] .grp-stepper::before {
   background: rgba(255, 255, 255, .12);
+}
+
+html[data-theme="dark"] .grp-slot.is-active .grp-card {
+  box-shadow: 0 44px 92px -20px rgba(0, 0, 0, .5), 0 0 44px rgba(255, 106, 31, .2);
 }
