@@ -44,6 +44,14 @@
       links.classList.toggle('open');
     });
     links.querySelectorAll('a').forEach(a=>{
+      // Flyout/dropdown triggers (e.g. "Steel", "Wire Rods & Wires") are <a> tags
+      // that also toggle a nested submenu open on tap — closing the whole mobile
+      // menu on that same tap would hide the submenu before it's ever seen, so
+      // only real "leaf" navigation links get the close-on-click behavior.
+      const next = a.nextElementSibling;
+      const isFlyoutTrigger = a.parentElement.classList.contains('has-dropdown') &&
+        next && (next.classList.contains('dropdown') || next.classList.contains('dropdown-flyout'));
+      if(isFlyoutTrigger) return;
       a.addEventListener('click', ()=>{ toggle.classList.remove('open'); links.classList.remove('open'); });
     });
   }
@@ -52,20 +60,42 @@
   // leaving, so a slightly diagonal mouse path into the panel doesn't lose the menu.
   // Touch devices have no hover, so the label instead toggles the dropdown on tap,
   // and tapping anywhere outside closes whichever one is open.
+  // .has-dropdown items can nest (a top-level "Products" panel containing its
+  // own "Steel" flyout trigger, which can itself contain further flyouts), so
+  // every lookup here is scoped to direct children (":scope >") and every
+  // "close others" pass is careful to leave ancestors/descendants of the item
+  // being opened alone — only true sibling branches get closed.
   document.querySelectorAll('.has-dropdown').forEach(item=>{
     let closeTimer;
-    const label = item.querySelector('.dropdown-label');
+    const label = item.querySelector(':scope > a, :scope > .dropdown-label');
+    const flyout = item.querySelector(':scope > .dropdown-flyout');
     const setExpanded = v=>{ if(label) label.setAttribute('aria-expanded', String(v)); };
-    const open = ()=>{ clearTimeout(closeTimer); item.classList.add('open'); setExpanded(true); };
+    const open = ()=>{
+      clearTimeout(closeTimer); item.classList.add('open'); setExpanded(true);
+      // Nested flyouts cascade rightward; near the right edge of the viewport
+      // (mainly the 1181-1280px band where the desktop nav first kicks in),
+      // flip the panel to open leftward instead so it never runs off-screen.
+      if(flyout && canHover){
+        flyout.classList.remove('flyout-left');
+        if(flyout.getBoundingClientRect().right > window.innerWidth) flyout.classList.add('flyout-left');
+      }
+    };
     const close = ()=>{ item.classList.remove('open'); setExpanded(false); };
     const scheduleClose = ()=>{ closeTimer = setTimeout(close, 350); };
-    item.addEventListener('mouseenter', open);
-    item.addEventListener('mouseleave', scheduleClose);
-    item.addEventListener('focusin', open);
-    item.addEventListener('focusout', scheduleClose);
+    // Hover/focus auto-open is a desktop-only convenience. On touch devices a
+    // tap fires "focusin" just before "click", so if this ran unconditionally
+    // the click handler's open/close toggle below would see the item as
+    // already-open (from focusin) and immediately flip it back closed in the
+    // same gesture — the tap would appear to do nothing.
+    if(canHover){
+      item.addEventListener('mouseenter', open);
+      item.addEventListener('mouseleave', scheduleClose);
+      item.addEventListener('focusin', open);
+      item.addEventListener('focusout', scheduleClose);
+    }
 
     if(label){
-      label.setAttribute('role','button');
+      if(label.tagName !== 'A') label.setAttribute('role','button');
       label.setAttribute('aria-haspopup','true');
       label.setAttribute('aria-expanded','false');
       if(!canHover){
@@ -75,7 +105,7 @@
           clearTimeout(closeTimer);
           const willOpen = !item.classList.contains('open');
           document.querySelectorAll('.has-dropdown.open').forEach(other=>{
-            if(other !== item) other.classList.remove('open');
+            if(other !== item && !other.contains(item) && !item.contains(other)) other.classList.remove('open');
           });
           item.classList.toggle('open', willOpen);
           setExpanded(willOpen);
@@ -88,7 +118,7 @@
       document.querySelectorAll('.has-dropdown.open').forEach(item=>{
         if(!item.contains(e.target)){
           item.classList.remove('open');
-          const lbl = item.querySelector('.dropdown-label');
+          const lbl = item.querySelector(':scope > a, :scope > .dropdown-label');
           if(lbl) lbl.setAttribute('aria-expanded','false');
         }
       });
