@@ -260,19 +260,11 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 }
 
 /* ══ FLOWCHART — vertical, scroll-revealed ══ */
-.flowchart-pin{ position:relative; z-index:1; padding:5rem 1.75rem; }
 .flowchart-head{ text-align:center; margin-bottom:2rem; }
 .flowchart-head .stage-code{ justify-content:center; }
 .flowchart-head .stage-code::before{ display:none; }
 .flowchart-head h2{ font-size:clamp(2rem,4.2vw,2.9rem); margin-bottom:.6rem; }
 .flowchart-head p{ color:var(--ink-soft); font-size:1.08rem; max-width:56ch; margin:0 auto; }
-.flow2-frame{
-  max-width:1180px; margin:0 auto; padding:1.5rem;
-  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
-  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 16px 38px rgba(20,22,28,.09);
-  overflow-x:auto;
-}
-.flow2-svg{ width:100%; min-width:760px; height:auto; display:block; }
 .vflow-svg .reveal-scale{ transform-box:fill-box; transform-origin:center; }
 
 .fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
@@ -286,7 +278,22 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .fc-legend-swatch{ width:14px; height:14px; border-radius:4px; }
 .fc-legend-swatch.machine{ background:#1D4E7A; }
 .fc-legend-swatch.product{ background:#8A5A15; }
+.fc-legend-swatch.step{ background:#FF6A1F; }
+.fc-legend-swatch.material{ background:#E4E8EC; border:1px solid #8792A2; }
 .fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
+
+/* ══ FLAT 2D PROCESS DIAGRAM ══ */
+.flow2-frame{
+  max-width:1300px; margin:0 auto; padding:1.5rem;
+  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
+  overflow-x:auto;
+}
+.flow2-svg{ width:100%; min-width:920px; height:auto; display:block; background:#F7F8FA; border-radius:.85rem; }
+.flow2-notes{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.6rem; }
+@media(max-width:800px){ .flow2-notes{ grid-template-columns:1fr; } }
+.flow2-notes .panel{ padding:1.8rem; }
+.flow2-notes .panel h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.flow2-notes .panel p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
 
 /* ══ SPEC MODAL ══ */
 /* ══ HOVER SPEC CARD (replaces click modal) ══ */
@@ -313,18 +320,6 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 .spec-hovercard-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
 .spec-hovercard-tags .chip{ font-size:.68rem; padding:.28rem .55rem; }
 
-/* ══ ISOMETRIC CAMPUS LAYOUT ══ */
-.iso-campus-frame{
-  max-width:1180px; margin:0 auto; padding:1.5rem;
-  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
-  overflow-x:auto;
-}
-.iso-campus-svg{ width:100%; min-width:760px; height:auto; display:block; }
-.part2-notes{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.6rem; }
-@media(max-width:800px){ .part2-notes{ grid-template-columns:1fr; } }
-.part2-note{ padding:1.8rem; }
-.part2-note h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
-.part2-note p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
 .fc-node-label.on-dark{ fill:#fff; }
 .fc-node-sub{ font-family:var(--font-mono); font-weight:600; fill:var(--accent-deep); }
 .fc-edge-label{ font-family:var(--font-mono); font-size:12px; font-weight:600; fill:#000; }
@@ -404,6 +399,20 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 /* ══ FOOTER ══ */
 footer{ position:relative; z-index:1; border-top:1px solid var(--border); padding:2.2rem 1.5rem; text-align:center; color:var(--ink); font-size:.9rem; font-weight:500; }
 footer .accent-text{ color:var(--accent-ink); font-weight:700; }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; padding:0 1.75rem 6rem; max-width:1180px; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+  --ink:#EEEAE1; --border:#262A34; --surface:#14161C;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -478,8 +487,9 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     <li><a href="products.html">Products</a></li>
     <li><a href="process.html" class="active">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">Others</span>
+      <span class="dropdown-label">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -542,18 +552,16 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   <p>Long before a beam holds a roof or a bar reinforces a wall, there is only rock and fire. Shakambhari chose not to buy steel, but to build the entire chain that makes it — our own mines, our own reduction, our own furnace, our own hands at every stage. What follows is that journey, six stages from raw earth to reinforced tomorrow. <span class="hl">#SteelWithin</span> isn't a line on a label; it's the discipline running through all six, so that whatever carries our name carries the strength of everything that came before it.</p>
 </section>
 
-<!-- ═══ FULL PROCESS FLOWCHART — pinned, scroll-driven ═══ -->
-<section class="flowchart-pin" id="flowchartPin">
-  <div class="flowchart-sticky">
-    <div class="flowchart-head reveal">
-      <div class="stage-code">THE FULL CHAIN</div>
-      <h2>One Continuous Process</h2>
-      <p>Every input, every merge, every transformation — mapped in a single unbroken chain. Keep scrolling: the chain moves with you, left to right, like material through a mill.</p>
-      <div class="fc-legend">
-        <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
-        <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
-        <span class="fc-legend-hint">— hover over any box for details</span>
-      </div>
+<!-- ═══ FULL PROCESS FLOWCHART — vertical, scroll-revealed ═══ -->
+<section class="section">
+  <div class="flowchart-head reveal">
+    <div class="stage-code">THE FULL CHAIN</div>
+    <h2>One Continuous Process</h2>
+    <p>Every input, every merge, every transformation — mapped in a single unbroken chain. Keep scrolling: the chain builds itself top to bottom, stage by stage, like material through a mill.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
+      <span class="fc-legend-hint">— hover over any box for details</span>
     </div>
   </div>
   <div class="flow2-frame reveal">
@@ -678,20 +686,20 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </div>
 </section>
 
-<!-- ═══ PART 2: CIRCULAR ENERGY & FERROALLOY ECOSYSTEM ═══ -->
-<section class="section iso-campus">
+<!-- ═══ PART 2: FERRO ALLOYS PROCESS FLOW ═══ -->
+<section class="section">
   <div class="section-head reveal">
-    <div class="kicker center">PART 2 · THE FULL CHAIN</div>
-    <h2>Circular Energy &amp; Ferroalloy Ecosystem</h2>
-    <p>Nothing here is wasted, and nothing here is idle capacity. The DRI process's own waste heat generates the power that runs the plant, while the same furnace that feeds our own steel also supplies alloys to producers well beyond it.</p>
+    <div class="kicker center">PART 2 · SILICOMANGANESE</div>
+    <h2>The Ferro Alloys Process Flow</h2>
+    <p>From furnace charge to dispatch, silicomanganese production follows a fixed sequence — with its own closed loop for cooling and power, and the slag stream worked a second time to recover metal rather than discard it.</p>
     <div class="fc-legend">
-      <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
-      <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
-      <span class="fc-legend-hint">— hover over any box for details</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch step"></span>Key Process Step</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch material"></span>Material / Output</span>
+      <span class="fc-legend-hint">— hover over any box or icon for details</span>
     </div>
   </div>
-  <div class="iso-campus-frame reveal">
-    <svg class="iso-campus-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
+  <div class="flow2-frame reveal">
+    <svg class="flow2-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
 <g class="fc-node fc-machine" data-node="power-house" tabindex="0" role="button" aria-label="POWER HOUSE">
 <rect x="785.0" y="45.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
 <g>
@@ -880,232 +888,15 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 <text x="785.0" y="891.0" text-anchor="middle" font-size="10" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#1D4E7A">RECOVERED METAL</text>
     </svg>
   </div>
-  <div class="part2-notes">
-    <div class="part2-note panel reveal">
+  <div class="flow2-notes">
+    <div class="panel reveal">
       <h4>Slag Isn't Waste</h4>
       <p>Material tapped from the furnace splits two ways. The metal moves straight into cleaning, sizing, weighing and lot preparation for dispatch. The slag mixed with it goes through jigging instead of the bin — a process that separates by density, recovering additional metal back into the main stream and leaving behind a slag by-product that's put to use in road construction and land filling.</p>
     </div>
-    <div class="part2-note panel reveal">
+    <div class="panel reveal">
       <h4>A Closed Cooling &amp; Power Loop</h4>
       <p>The furnace transformer draws power from the power house and steps it up to run the furnace itself, while a cooling tower and pump house keep water circulating continuously through the furnace to manage the heat. Waste transformer oil is never discharged — it's drained and stored safely in drums.</p>
     </div>
-  </div>
-
-  <div class="iso-campus-frame reveal">
-    <svg class="iso-campus-svg" viewBox="-330.0 -240.0 1246.0 664.0" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="88.0,-124.0 696.0,180.0 348.0,354.0 -260.0,50.0" fill="#E3E7EB" stroke="#C7CDD5" stroke-width="1.5"/>
-        <line x1="88.0" y1="-124.0" x2="-260.0" y2="50.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="168.0" y1="-84.0" x2="-180.0" y2="90.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="248.0" y1="-44.0" x2="-100.0" y2="130.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="328.0" y1="-4.0" x2="-20.0" y2="170.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="408.0" y1="36.0" x2="60.0" y2="210.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="488.0" y1="76.0" x2="140.0" y2="250.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="568.0" y1="116.0" x2="220.0" y2="290.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="648.0" y1="156.0" x2="300.0" y2="330.0" stroke="#CBD1D8" stroke-width="1"/>
-        <g class="fc-node fc-product" data-node="manganese-ore" tabindex="0" role="button" aria-label="MANGANESE ORE">
-        <polygon points="-76.0,122.0 -160.0,80.0 -160.0,48.0 -76.0,90.0" fill="#352D39"/>
-        <polygon points="-76.0,122.0 4.0,82.0 4.0,50.0 -76.0,90.0" fill="#4F4355"/>
-        <polygon points="-80.0,8.0 4.0,50.0 -76.0,90.0 -160.0,48.0" fill="#6B5B73"/>
-        </g>
-        <g class="fc-node fc-machine" data-node="submerged-arc-furnace" tabindex="0" role="button" aria-label="SUBMERGED ARC FURNACE">
-        <polygon points="48.0,184.0 -40.0,140.0 -40.0,56.0 48.0,100.0" fill="#1D1F23"/>
-        <polygon points="48.0,184.0 128.0,144.0 128.0,60.0 48.0,100.0" fill="#2A2D33"/>
-        <polygon points="40.0,16.0 128.0,60.0 48.0,100.0 -40.0,56.0" fill="#3A3E46"/>
-        </g>
-        <polygon points="-78.4,54.0 43.6,63.0 44.4,53.0 -77.6,44.0" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="-37.3" y1="52.0" x2="-37.3" y2="68.0" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="3.3" y1="55.0" x2="3.3" y2="71.0" stroke="#9AA4B2" stroke-width="3"/>
-        <g class="fc-node fc-product" data-node="silicomanganese" tabindex="0" role="button" aria-label="SILICOMANGANESE">
-        <polygon points="162.0,239.0 86.0,201.0 86.0,165.0 162.0,203.0" fill="#645113"/>
-        <polygon points="162.0,239.0 226.0,207.0 226.0,171.0 162.0,203.0" fill="#94771C"/>
-        <polygon points="150.0,133.0 226.0,171.0 162.0,203.0 86.0,165.0" fill="#C9A227"/>
-        </g>
-        <polygon points="40.5,61.6 152.5,171.6 159.5,164.4 47.5,54.4" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="72.0" y1="85.5" x2="72.0" y2="101.5" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="100.0" y1="113.0" x2="100.0" y2="129.0" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="128.0" y1="140.5" x2="128.0" y2="156.5" stroke="#9AA4B2" stroke-width="3"/>
-        <g class="fc-node fc-product" data-node="ferromanganese" tabindex="0" role="button" aria-label="FERROMANGANESE">
-        <polygon points="302.0,281.0 226.0,243.0 226.0,207.0 302.0,245.0" fill="#45360F"/>
-        <polygon points="302.0,281.0 366.0,249.0 366.0,213.0 302.0,245.0" fill="#665016"/>
-        <polygon points="290.0,175.0 366.0,213.0 302.0,245.0 226.0,207.0" fill="#8A6D1F"/>
-        </g>
-        <polygon points="154.6,172.8 294.6,214.8 297.4,205.2 157.4,163.2" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="191.0" y1="178.5" x2="191.0" y2="194.5" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="226.0" y1="189.0" x2="226.0" y2="205.0" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="261.0" y1="199.5" x2="261.0" y2="215.5" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="40.0,20.8 118.4,60.0 48.0,95.2 -30.4,56.0" fill="url(#emberGrad)" opacity="0.9"/>
-        <text x="-78.0" y="33.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">MANGANESE ORE</text>
-        <text x="44.0" y="5.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">SUBMERGED ARC</text>
-        <text x="44.0" y="18.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">FURNACE</text>
-        <text x="156.0" y="152.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">SILICOMANGANESE</text>
-        <text x="296.0" y="194.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">FERROMANGANESE</text>
-        <rect x="103.0" y="253.0" width="118" height="16" rx="8" fill="#2A2D33"/>
-        <text x="162.0" y="264.0" text-anchor="middle" font-size="7.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#fff" letter-spacing=".02em">CAPTIVE + EXTERNAL SALE</text>
-        <rect x="250.0" y="295.0" width="104" height="16" rx="8" fill="#2A2D33"/>
-        <text x="302.0" y="306.0" text-anchor="middle" font-size="7.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#fff" letter-spacing=".02em">100% EXTERNAL SALE</text>
-        <g class="fc-node fc-machine" data-node="rotary-kiln" tabindex="0" role="button" aria-label="DRI PLANT (ROTARY KILN)">
-        <polygon points="224.0,-20.0 132.0,-66.0 132.0,-114.0 224.0,-68.0" fill="#5C452F"/>
-        <polygon points="224.0,-20.0 276.0,-46.0 276.0,-94.0 224.0,-68.0" fill="#886645"/>
-        <polygon points="184.0,-140.0 276.0,-94.0 224.0,-68.0 132.0,-114.0" fill="#B98A5E"/>
-        </g>
-        <g class="fc-node fc-machine" data-node="waste-heat-recovery" tabindex="0" role="button" aria-label="WASTE HEAT RECOVERY">
-        <polygon points="328.0,44.0 248.0,4.0 248.0,-56.0 328.0,-16.0" fill="#2D1D14"/>
-        <polygon points="328.0,44.0 392.0,12.0 392.0,-48.0 328.0,-16.0" fill="#432A1E"/>
-        <polygon points="312.0,-88.0 392.0,-48.0 328.0,-16.0 248.0,-56.0" fill="#5B3A29"/>
-        </g>
-        <polygon points="202.0,-99.4 318.0,-47.4 322.0,-56.6 206.0,-108.6" fill="#C79A6B" stroke="#4A5058" stroke-width="1"/>
-        <line x1="242.7" y1="-86.7" x2="242.7" y2="-70.7" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="281.3" y1="-69.3" x2="281.3" y2="-53.3" stroke="#9AA4B2" stroke-width="3"/>
-        <g class="fc-node fc-machine" data-node="captive-power-plant" tabindex="0" role="button" aria-label="CAPTIVE POWER PLANT">
-        <polygon points="432.0,112.0 348.0,70.0 348.0,-18.0 432.0,24.0" fill="#1D1F23"/>
-        <polygon points="432.0,112.0 512.0,72.0 512.0,-16.0 432.0,24.0" fill="#2A2D33"/>
-        <polygon points="428.0,-58.0 512.0,-16.0 432.0,24.0 348.0,-18.0" fill="#3A3E46"/>
-        </g>
-        <polygon points="318.5,-47.2 428.5,-12.2 431.5,-21.8 321.5,-56.8" fill="#C79A6B" stroke="#4A5058" stroke-width="1"/>
-        <line x1="356.7" y1="-40.3" x2="356.7" y2="-24.3" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="393.3" y1="-28.7" x2="393.3" y2="-12.7" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="312.0,-83.2 382.4,-48.0 328.0,-20.8 257.6,-56.0" fill="url(#emberGrad)" opacity="0.75"/>
-        <polygon points="452.0,-8.0 438.0,-15.0 438.0,-67.0 452.0,-60.0" fill="#2D3238"/>
-        <polygon points="452.0,-8.0 466.0,-15.0 466.0,-67.0 452.0,-60.0" fill="#434A52"/>
-        <polygon points="452.0,-74.0 466.0,-67.0 452.0,-60.0 438.0,-67.0" fill="#5B6470"/>
-        <ellipse cx="452.0" cy="-67.0" rx="14" ry="7" fill="url(#emberGrad)" opacity="0.6"/>
-        <text x="204.0" y="-133.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">DRI PLANT</text>
-        <text x="204.0" y="-120.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">(ROTARY KILN)</text>
-        <text x="320.0" y="-81.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">WASTE HEAT</text>
-        <text x="320.0" y="-68.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">RECOVERY</text>
-        <text x="430.0" y="-46.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">CAPTIVE POWER</text>
-        <text x="430.0" y="-33.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">PLANT</text>
-        <line x1="430.0" y1="-17.0" x2="580.0" y2="-87.0" stroke="#FFC24B" stroke-width="2" stroke-dasharray="4 4" opacity="0.85"/>
-        <text x="580.0" y="-87.0" text-anchor="middle" font-size="8.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#8A5A15">STEEL MELTING</text>
-        <text x="580.0" y="-76.0" text-anchor="middle" font-size="8.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#8A5A15">SHOP</text>
-        <line x1="430.0" y1="-17.0" x2="660.0" y2="-27.0" stroke="#FFC24B" stroke-width="2" stroke-dasharray="4 4" opacity="0.85"/>
-        <text x="660.0" y="-27.0" text-anchor="middle" font-size="8.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#8A5A15">ROLLING MILLS</text>
-        <line x1="430.0" y1="-17.0" x2="660.0" y2="43.0" stroke="#FFC24B" stroke-width="2" stroke-dasharray="4 4" opacity="0.85"/>
-        <text x="660.0" y="43.0" text-anchor="middle" font-size="8.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#8A5A15">FERROALLOY</text>
-        <text x="660.0" y="54.0" text-anchor="middle" font-size="8.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#8A5A15">PLANT</text>
-        <line x1="430.0" y1="-17.0" x2="580.0" y2="93.0" stroke="#FFC24B" stroke-width="2" stroke-dasharray="4 4" opacity="0.85"/>
-        <text x="580.0" y="93.0" text-anchor="middle" font-size="8.5" font-weight="700" font-family='IBM Plex Mono, monospace' fill="#8A5A15">DRI PLANT (LOOP)</text>
-        <circle cx="430.0" cy="-17.0" r="4" fill="#FFC24B"/>
-    </svg>
-  </div>
-  <div class="part2-notes">
-    <div class="part2-note panel reveal">
-      <h4>Waste Heat → Power</h4>
-      <p>The DRI process that converts pellets into sponge iron generates intense waste heat. Instead of letting it escape, the plant captures it and routes it to an internal power plant that generates electricity — self-produced power that runs the Steel Melting Shop, Rolling Mills, Ferroalloy Plant and the DRI Plant itself.</p>
-    </div>
-    <div class="part2-note panel reveal">
-      <h4>Silicomanganese &amp; Ferromanganese</h4>
-      <p>Silicomanganese is formulated in-house — a portion kept for captive consumption in the steel-making furnace, the surplus sold externally. Ferromanganese is also made in-house, but since it isn't required for our long-product focus, 100% of it is exported or sold to large flat-steel producers, foundries and automotive-grade steel manufacturers.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ═══ ISOMETRIC CAMPUS LAYOUT ═══ -->
-<section class="section iso-campus">
-  <div class="section-head reveal">
-    <div class="kicker center">THE INTEGRATED CAMPUS</div>
-    <h2>One Site, Four Businesses</h2>
-    <p>Ore comes in on one end, finished steel leaves on the other — with captive power, an aluminium foil unit and an organic farm running alongside the same chain.</p>
-  </div>
-  <div class="iso-campus-frame reveal">
-    <svg class="iso-campus-svg" viewBox="-327.0 -175.0 1538.0 824.0" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="80.0,-120.0 1156.0,418.0 804.0,594.0 -272.0,56.0" fill="#E3E7EB" stroke="#C7CDD5" stroke-width="1.5"/>
-        <line x1="80.0" y1="-120.0" x2="-272.0" y2="56.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="160.0" y1="-80.0" x2="-192.0" y2="96.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="240.0" y1="-40.0" x2="-112.0" y2="136.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="320.0" y1="0.0" x2="-32.0" y2="176.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="400.0" y1="40.0" x2="48.0" y2="216.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="480.0" y1="80.0" x2="128.0" y2="256.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="560.0" y1="120.0" x2="208.0" y2="296.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="640.0" y1="160.0" x2="288.0" y2="336.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="720.0" y1="200.0" x2="368.0" y2="376.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="800.0" y1="240.0" x2="448.0" y2="416.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="880.0" y1="280.0" x2="528.0" y2="456.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="960.0" y1="320.0" x2="608.0" y2="496.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="1040.0" y1="360.0" x2="688.0" y2="536.0" stroke="#CBD1D8" stroke-width="1"/>
-        <line x1="1120.0" y1="400.0" x2="768.0" y2="576.0" stroke="#CBD1D8" stroke-width="1"/>
-        <polygon points="-76.0,122.0 -160.0,80.0 -160.0,48.0 -76.0,90.0" fill="#68452A"/>
-        <polygon points="-76.0,122.0 4.0,82.0 4.0,50.0 -76.0,90.0" fill="#99663E"/>
-        <polygon points="-80.0,8.0 4.0,50.0 -76.0,90.0 -160.0,48.0" fill="#D08A54"/>
-        <polygon points="26.0,167.0 -34.0,137.0 -34.0,85.0 26.0,115.0" fill="#1D1F23"/>
-        <polygon points="26.0,167.0 86.0,137.0 86.0,85.0 26.0,115.0" fill="#2A2D33"/>
-        <polygon points="26.0,55.0 86.0,85.0 26.0,115.0 -34.0,85.0" fill="#3A3E46"/>
-        <polygon points="-79.6,53.7 24.4,89.7 27.6,80.3 -76.4,44.3" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="-43.3" y1="61.0" x2="-43.3" y2="77.0" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="-8.7" y1="73.0" x2="-8.7" y2="89.0" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="158.0,217.0 78.0,177.0 78.0,97.0 158.0,137.0" fill="#4D5259"/>
-        <polygon points="158.0,217.0 230.0,181.0 230.0,101.0 158.0,137.0" fill="#717983"/>
-        <polygon points="150.0,61.0 230.0,101.0 158.0,137.0 78.0,97.0" fill="#9AA4B2"/>
-        <polygon points="25.5,90.0 153.5,104.0 154.5,94.0 26.5,80.0" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="68.7" y1="89.7" x2="68.7" y2="105.7" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="111.3" y1="94.3" x2="111.3" y2="110.3" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="290.0,291.0 186.0,239.0 186.0,191.0 290.0,243.0" fill="#5C452F"/>
-        <polygon points="290.0,291.0 342.0,265.0 342.0,217.0 290.0,243.0" fill="#886645"/>
-        <polygon points="238.0,165.0 342.0,217.0 290.0,243.0 186.0,191.0" fill="#B98A5E"/>
-        <polygon points="150.5,102.6 260.5,207.6 267.5,200.4 157.5,95.4" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="181.5" y1="125.2" x2="181.5" y2="141.2" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="209.0" y1="151.5" x2="209.0" y2="167.5" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="236.5" y1="177.8" x2="236.5" y2="193.8" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="406.0,349.0 326.0,309.0 326.0,217.0 406.0,257.0" fill="#1D1F23"/>
-        <polygon points="406.0,349.0 486.0,309.0 486.0,217.0 406.0,257.0" fill="#2A2D33"/>
-        <polygon points="406.0,177.0 486.0,217.0 406.0,257.0 326.0,217.0" fill="#3A3E46"/>
-        <polygon points="263.5,209.0 405.5,222.0 406.5,212.0 264.5,199.0" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="299.5" y1="207.3" x2="299.5" y2="223.3" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="335.0" y1="210.5" x2="335.0" y2="226.5" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="370.5" y1="213.8" x2="370.5" y2="229.8" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="510.0,405.0 438.0,369.0 438.0,317.0 510.0,353.0" fill="#4D5259"/>
-        <polygon points="510.0,405.0 566.0,377.0 566.0,325.0 510.0,353.0" fill="#717983"/>
-        <polygon points="494.0,289.0 566.0,325.0 510.0,353.0 438.0,317.0" fill="#9AA4B2"/>
-        <polygon points="402.3,220.4 498.3,324.4 505.7,317.6 409.7,213.6" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="430.0" y1="243.0" x2="430.0" y2="259.0" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="454.0" y1="269.0" x2="454.0" y2="285.0" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="478.0" y1="295.0" x2="478.0" y2="311.0" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="666.0,463.0 566.0,413.0 566.0,365.0 666.0,415.0" fill="#635A44"/>
-        <polygon points="666.0,463.0 730.0,431.0 730.0,383.0 666.0,415.0" fill="#938565"/>
-        <polygon points="630.0,333.0 730.0,383.0 666.0,415.0 566.0,365.0" fill="#C7B489"/>
-        <polygon points="500.3,325.7 646.3,378.7 649.7,369.3 503.7,316.3" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="538.5" y1="334.2" x2="538.5" y2="350.2" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="575.0" y1="347.5" x2="575.0" y2="363.5" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="611.5" y1="360.8" x2="611.5" y2="376.8" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="750.0,525.0 682.0,491.0 682.0,463.0 750.0,497.0" fill="#635A44"/>
-        <polygon points="750.0,525.0 806.0,497.0 806.0,469.0 750.0,497.0" fill="#938565"/>
-        <polygon points="738.0,435.0 806.0,469.0 750.0,497.0 682.0,463.0" fill="#C7B489"/>
-        <polygon points="644.5,377.6 740.5,469.6 747.5,462.4 651.5,370.4" fill="#8792A2" stroke="#4A5058" stroke-width="1"/>
-        <line x1="680.0" y1="404.7" x2="680.0" y2="420.7" stroke="#9AA4B2" stroke-width="3"/>
-        <line x1="712.0" y1="435.3" x2="712.0" y2="451.3" stroke="#9AA4B2" stroke-width="3"/>
-        <polygon points="406.0,181.8 476.4,217.0 406.0,252.2 335.6,217.0" fill="url(#emberGrad)" opacity="0.9"/>
-        <text x="-78.0" y="33.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">ORE YARD</text>
-        <text x="26.0" y="69.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">CRUSHER</text>
-        <text x="154.0" y="70.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">PELLET</text>
-        <text x="154.0" y="83.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">PLANT</text>
-        <text x="264.0" y="188.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">ROTARY KILN</text>
-        <text x="406.0" y="174.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">INDUCTION</text>
-        <text x="406.0" y="187.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">FURNACE</text>
-        <text x="502.0" y="292.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">CONTINUOUS</text>
-        <text x="502.0" y="305.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">CASTING</text>
-        <text x="648.0" y="358.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">ROLLING MILL</text>
-        <text x="744.0" y="450.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">DISPATCH YARD</text>
-        <polygon points="376.0,148.0 300.0,110.0 300.0,30.0 376.0,68.0" fill="#1D1F23"/>
-        <polygon points="376.0,148.0 440.0,116.0 440.0,36.0 376.0,68.0" fill="#2A2D33"/>
-        <polygon points="364.0,-2.0 440.0,36.0 376.0,68.0 300.0,30.0" fill="#3A3E46"/>
-        <polygon points="388.0,46.0 374.0,39.0 374.0,-13.0 388.0,-6.0" fill="#2D3238"/>
-        <polygon points="388.0,46.0 402.0,39.0 402.0,-13.0 388.0,-6.0" fill="#434A52"/>
-        <polygon points="388.0,-20.0 402.0,-13.0 388.0,-6.0 374.0,-13.0" fill="#5B6470"/>
-        <ellipse cx="388.0" cy="-13.0" rx="14" ry="7" fill="url(#emberGrad)" opacity="0.55"/>
-        <text x="370.0" y="-32.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">CAPTIVE POWER</text>
-        <text x="370.0" y="-19.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">PLANT</text>
-        <polygon points="536.0,232.0 456.0,192.0 456.0,128.0 536.0,168.0" fill="#63666A"/>
-        <polygon points="536.0,232.0 604.0,198.0 604.0,134.0 536.0,168.0" fill="#93979D"/>
-        <polygon points="524.0,94.0 604.0,134.0 536.0,168.0 456.0,128.0" fill="#C7CDD5"/>
-        <text x="530.0" y="102.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">ALUMINIUM</text>
-        <text x="530.0" y="115.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">FOIL UNIT</text>
-        <polygon points="180.0,54.0 96.0,12.0 96.0,-2.0 180.0,40.0" fill="#3F502D"/>
-        <polygon points="180.0,54.0 248.0,20.0 248.0,6.0 180.0,40.0" fill="#5D7642"/>
-        <polygon points="164.0,-36.0 248.0,6.0 180.0,40.0 96.0,-2.0" fill="#7FA05A"/>
-        <text x="172.0" y="-12.0" text-anchor="middle" font-size="10.5" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#14161C" letter-spacing=".01em">AGROTECH FARM</text>
-    </svg>
   </div>
 </section>
 
@@ -1382,6 +1173,18 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 
 </main>
 
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>A Process This Precise Has to Be Tested</h2>
+    <p>Every stage you just walked through is checked, not assumed. See the quality standards and testing that stand behind every batch that leaves our mills.</p>
+    <div class="cta-btn-row">
+      <a href="quality.html" class="btn btn-primary">See Our Quality Standards →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-grid">
@@ -1413,6 +1216,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>
@@ -1610,40 +1414,92 @@ if(!reduceMotion){ initParticles(); tick(); }
       desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
       tags: ['Elegant', 'Elecart']
     },
-    'manganese-ore': {
-      category: 'product', title: 'Manganese Ore',
-      desc: 'The raw input for our ferroalloy chain — manganese-bearing ore, reduced under intense heat in the submerged arc furnace to produce silicomanganese and ferromanganese.',
-      tags: ['Ferroalloy Feedstock']
+    'power-house': {
+      category: 'machine', title: 'Power House',
+      desc: 'Supplies the electrical power that the furnace transformer steps up and feeds into the electric arc furnace.',
+      tags: ['Furnace Power Supply']
     },
-    'submerged-arc-furnace': {
-      category: 'machine', title: 'Submerged Arc Furnace — Eloquent Steel',
-      desc: 'At Eloquent Steel, Nacrojoria, manganese ore is reduced under a submerged arc furnace to produce silicomanganese and ferromanganese — built on two acquired plants, Hira Concast Ltd and Impex Steel Ltd.',
-      tags: ['Eloquent Steel', 'Nacrojoria']
+    'furnace-transformer': {
+      category: 'machine', title: 'Furnace Transformer',
+      desc: 'Steps up power from the power house to the levels the electric arc furnace needs to strike and sustain its arc. Waste transformer oil is drained and stored safely in drums rather than discharged.',
+      tags: ['Waste Oil Stored in Drums']
     },
-    'silicomanganese': {
-      category: 'product', title: 'Silicomanganese',
+    'raw-coal': {
+      category: 'product', title: 'Coal',
+      desc: 'One of four raw materials charged into the furnace, acting as a reducing agent in the manganese-ore reduction reaction.',
+      tags: ['Furnace Charge']
+    },
+    'raw-quartz': {
+      category: 'product', title: 'Quartz',
+      desc: 'Charged into the furnace as a flux, helping form the slag that separates from the metal during smelting.',
+      tags: ['Furnace Charge']
+    },
+    'raw-ore': {
+      category: 'product', title: 'Ore',
+      desc: 'Manganese-bearing ore — the primary feedstock reduced under intense heat in the electric arc furnace to produce silicomanganese.',
+      tags: ['Furnace Charge']
+    },
+    'raw-coke': {
+      category: 'product', title: 'Coke',
+      desc: 'Charged into the furnace alongside coal, ore and quartz as an additional reducing agent.',
+      tags: ['Furnace Charge']
+    },
+    'electric-arc-furnace': {
+      category: 'machine', title: 'Electric Arc Furnace',
+      desc: 'Raw materials are melted using an electric arc struck between electrodes, reaching the temperature needed to reduce ore into liquid ferroalloy. It draws its power from the furnace transformer and runs on a continuous cooling-water loop.',
+      tags: ['High-Temperature Melt', 'Continuous Process']
+    },
+    'pump-house': {
+      category: 'machine', title: 'Pump House',
+      desc: 'Circulates cooling water in a continuous loop between the furnace and the cooling tower, keeping the electric arc furnace within safe operating temperature.',
+      tags: ['Continuous Circulation']
+    },
+    'cooling-tower': {
+      category: 'machine', title: 'Cooling Tower',
+      desc: 'Dissipates heat from the water drawn out of the furnace\'s cooling loop before it is recirculated back through the pump house.',
+      tags: ['Furnace Cooling Loop']
+    },
+    'tapping': {
+      category: 'machine', title: 'Tapping',
+      desc: 'At set intervals the furnace is drained, releasing the molten charge as tapped material — a mix of metal and slag that is then separated into their own process streams.',
+      tags: ['Furnace Drain']
+    },
+    'metal-fa': {
+      category: 'product', title: 'Metal',
+      desc: 'The metal fraction recovered from tapping, carried forward for cleaning and sizing on its way to becoming finished silicomanganese. It is topped up by metal recovered from the slag stream during jigging.',
+      tags: ['Silicomanganese Feed']
+    },
+    'cleaning-sizing': {
+      category: 'machine', title: 'Cleaning & Sizing',
+      desc: 'Tapped metal is cleaned of adhering slag and broken down into consistent, market-ready lump sizes before it is weighed and packed.',
+      tags: ['Lump Sizing']
+    },
+    'dispatch-simn': {
+      category: 'product', title: 'Dispatch',
+      desc: 'Packed, lot-prepared silicomanganese staged and ready to leave the plant by road.',
+      tags: ['Dispatch-Ready']
+    },
+    'dispatch-truck': {
+      category: 'product', title: 'Dispatch — Silicomanganese',
       img: 'images/Ferro_Alloy_Photo.jpeg',
-      desc: 'Formulated entirely in-house. A portion is kept for captive consumption in our own steel-making furnace, and the surplus is sold externally to other producers.',
+      desc: 'Finished silicomanganese lots leave the plant by road — a portion kept for captive use in our own steel-making furnace, the surplus sold externally to other producers.',
       tags: ['Captive Use', 'External Sale']
     },
-    'ferromanganese': {
-      category: 'product', title: 'Ferromanganese',
-      img: 'images/Ferro_Alloy_Photo.jpeg',
-      desc: 'Also manufactured in-house, but since it isn\'t required for our own long-product focus, 100% of it is exported or sold externally — to large flat-steel producers for hot-rolled coils, foundries, and automotive-grade steel manufacturers.',
-      tags: ['100% External Sale']
+    'slag-mixed-material': {
+      category: 'product', title: 'Slag Mixed Material',
+      desc: 'The slag fraction from tapping still carries entrained metal within it, so rather than being discarded outright it\'s routed to jigging for a second separation.',
+      tags: ['Routed to Jigging']
     },
-    'waste-heat-recovery': {
-      category: 'machine', title: 'Waste Heat Recovery',
-      img: 'images/Captive_Power.png',
-      desc: 'The DRI process that converts pellets into sponge iron generates intense waste heat. Rather than letting it escape, the plant captures it and routes it into the captive power system as a free energy source.',
-      tags: ['Circular Energy']
+    'jigging': {
+      category: 'machine', title: 'Jigging',
+      desc: 'A density-based separation process that splits the slag-mixed material into recoverable metal, which rejoins the main metal stream, and a lighter slag by-product left behind.',
+      tags: ['Density Separation']
     },
-    'captive-power-plant': {
-      category: 'machine', title: 'Captive Power Plant',
-      img: 'images/Captive_Power.png',
-      desc: 'Powered in part by recovered waste heat, our captive power plant generates the electricity that runs the Steel Melting Shop, Rolling Mills, Ferroalloy Plant and the DRI Plant itself — a closed loop, not a one-way draw on the grid.',
-      tags: ['Self-Generated Power']
-    }
+    'metal-recovered': {
+      category: 'product', title: 'Recovered Metal',
+      desc: 'Metal separated back out of the slag stream during jigging, looped back to rejoin the main metal line ahead of cleaning and sizing rather than being lost to the slag heap.',
+      tags: ['Rejoins Main Stream']
+    },
   };
 
   const card = document.getElementById('specHoverCard');

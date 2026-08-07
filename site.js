@@ -17,6 +17,7 @@
     });
   }
 
+<<<<<<< HEAD
   // Subtle magnetic pull on the "Get In Touch" pill — nudges toward the
   // cursor on hover, snaps back with a CSS transition on leave.
   const navCta = document.querySelector('.nav-cta');
@@ -34,10 +35,25 @@
     });
   }
 
+=======
+  // Hide the nav on scroll-down, bring it back on scroll-up (or near the top).
+  // Never hide while the mobile menu or a dropdown is open, and never while
+  // the nav itself holds keyboard focus (handled in CSS via :focus-within).
+  let lastScrollY = window.scrollY;
+>>>>>>> 7af9a1a6f8e1331dba8a1a8317a211fee05761d9
   function onScroll(){
     if(!nav) return;
-    if(window.scrollY > 20) nav.classList.add('scrolled');
+    const y = window.scrollY;
+    if(y > 20) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
+
+    const menuOpen = (toggle && toggle.classList.contains('open')) ||
+      document.querySelector('.has-dropdown.open');
+    if(!menuOpen){
+      if(y > lastScrollY + 4 && y > 120) nav.classList.add('nav-hidden');
+      else if(y < lastScrollY - 4 || y < 120) nav.classList.remove('nav-hidden');
+    }
+    lastScrollY = y <= 0 ? 0 : y;
   }
   window.addEventListener('scroll', onScroll, { passive:true });
   onScroll();

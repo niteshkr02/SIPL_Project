@@ -197,6 +197,20 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 .apply-modal .apply-shell{ margin:0; }
 .apply-modal .apply-progress{ position:sticky; top:0; }
 @media (prefers-reduced-motion: reduce){ .apply-modal-overlay, .apply-modal, .apply-modal-close{ transition:none !important; } }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; padding:0 1.75rem 6rem; max-width:1180px; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+  --ink:#EEEAE1; --border:#262A34; --surface:#14161C;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -236,6 +250,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     <li class="has-dropdown">
       <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -1385,6 +1400,18 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   </div>
 </section>
 
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>Ready to Build With Us?</h2>
+    <p>Whether you're looking to join the team or place an order, we're one message away.</p>
+    <div class="cta-btn-row">
+      <a href="contact.html" class="btn btn-primary">Get In Touch →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-grid">
@@ -1416,6 +1443,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>
