@@ -1429,6 +1429,14 @@
       <!-- ══ BEYOND STEEL: PREMIUM 3D CARD SLIDER (isolated component —
            see beyond-steel-slider.css / beyond-steel-slider.js) ══ -->
       <div class="bs3d reveal" id="bs3d">
+        <div class="bs3d-bg" aria-hidden="true">
+          <div class="bs3d-mesh"></div>
+          <div class="bs3d-texture"></div>
+          <div class="bs3d-glow"></div>
+          <div class="bs3d-shape s1"></div>
+          <div class="bs3d-shape s2"></div>
+          <div class="bs3d-shape s3"></div>
+        </div>
         <div class="bs3d-floor-shadow" aria-hidden="true"></div>
         <div class="bs3d-viewport">
           <div class="bs3d-stage" id="bs3dStage" tabindex="0" role="region" aria-roledescription="carousel"
@@ -1552,6 +1560,7 @@
             </svg>
           </button>
         </div>
+        <div class="bs3d-sr-only bs3d-sr-status" aria-live="polite" aria-atomic="true"></div>
       </div>
     </section>
 
