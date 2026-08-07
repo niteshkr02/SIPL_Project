@@ -28,12 +28,10 @@
       --accent-deep: #E23B1F;
       position: relative;
       min-height: 105vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      grid-template-rows: 1fr auto;
       text-align: center;
-      padding: calc(var(--nav-h) + 2rem) 1.5rem 2rem;
+      padding-top: var(--nav-h);
       overflow: hidden;
       background:
         radial-gradient(ellipse at 50% 115%, rgba(255, 106, 31, .35), transparent 55%),
@@ -71,40 +69,12 @@
       opacity: 1;
     }
 
-    #embers {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-    }
-
-    .hero-glow {
-      position: absolute;
-      inset: -15%;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 50% 108%, rgba(255, 106, 31, .6), transparent 42%),
-        radial-gradient(circle at 26% 96%, rgba(255, 194, 75, .4), transparent 38%),
-        radial-gradient(circle at 74% 100%, rgba(226, 59, 31, .45), transparent 40%);
-      filter: blur(6px);
-      animation: furnaceBreathe 7s ease-in-out infinite;
-      transform-origin: 50% 100%;
-    }
-
-    @keyframes furnaceBreathe {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: .8;
-      }
-
-      50% {
-        transform: scale(1.22);
-        opacity: 1;
-      }
+    .hero-row1 {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      padding: 2.5rem 1.5rem;
     }
 
     .hero-content {
@@ -113,11 +83,11 @@
       max-width: 920px;
     }
 
-    /* Entrance (badge / headline lines / lede / CTAs / stats / background)
-       is now orchestrated by hero-cinematic.js via GSAP, replacing the old
-       CSS-keyframe stagger — the two can't coexist on the same elements
-       since a running CSS animation always wins over inline styles for the
-       properties it's animating. */
+    /* Entrance (badge / headline lines / lede / CTAs / trust bar / visual /
+       achievement bar) is orchestrated by hero-cinematic.js in plain vanilla
+       JS: a single `.hero-loaded` class flips on load, and every element's
+       own CSS transition (with a per-element delay) does the rest — no
+       animation library, no JS-driven per-frame tweening for the reveal. */
 
     .hero-kicker {
       font-family: var(--font-mono);
@@ -126,6 +96,7 @@
       letter-spacing: .35em;
       color: var(--accent-hot);
       margin-bottom: 1.4rem;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, .6);
       transition: letter-spacing .35s ease, color .35s ease;
     }
 
@@ -140,6 +111,7 @@
       line-height: 1.05;
       letter-spacing: -.01em;
       color: var(--ink);
+      text-shadow: 0 4px 28px rgba(0, 0, 0, .55);
     }
 
     .hero h1 .grad {
@@ -168,21 +140,7 @@
       max-width: 600px;
       font-size: 1.1rem;
       color: var(--ink-dim);
-    }
-
-    /* .pill removed — replaced by .hero-stats (see hero-cinematic.css) */
-    @keyframes dotPulse {
-
-      0%,
-      100% {
-        box-shadow: 0 0 14px 4px var(--accent);
-        opacity: 1;
-      }
-
-      50% {
-        box-shadow: 0 0 20px 8px var(--accent);
-        opacity: .7;
-      }
+      text-shadow: 0 2px 16px rgba(0, 0, 0, .65);
     }
 
     .hero-cta-row {
@@ -218,14 +176,14 @@
 
     .scroll-cue {
       position: absolute;
-      bottom: 1.8rem;
+      bottom: .5rem;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: .5rem;
-      color: var(--border);
+      gap: .7rem;
+      color: rgba(238, 234, 225, .55);
       text-decoration: none;
       cursor: pointer;
       animation: bob 2.2s ease-in-out infinite;
@@ -1195,90 +1153,44 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- HERO: CINEMATIC INDUSTRIAL BACKDROP (isolated component —
-       see hero-cinematic.css / hero-cinematic.js). Content stays exactly
-       centered; the storytelling lives entirely in the background layers. -->
+  <!-- HERO: PREMIUM INDUSTRIAL LANDING SPLIT (isolated component — see
+       hero-cinematic.css / hero-cinematic.js). Left column carries the
+       message, right column reserves space for the furnace photo (the
+       shared full-hero background layer, weighted right) and the floating
+       metric card; the achievement bar closes the section along the
+       bottom edge. -->
   <header class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <div class="hero-glow-wrap">
-        <div class="hero-glow"></div>
-      </div>
-      <canvas id="embers"></canvas>
-
-      <!-- industrial skyline: factory blocks, blast furnace, smokestacks,
-           a crane, a transmission tower, container stacks, a rail line -->
-      <div class="hero-skyline">
-        <svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <line class="sky-line" x1="0" y1="214" x2="1200" y2="214" stroke-width="1" />
-          <rect class="sky-shape" x="40" y="150" width="70" height="64" />
-          <rect class="sky-shape" x="120" y="120" width="46" height="94" />
-          <rect class="sky-shape" x="900" y="140" width="90" height="74" />
-          <rect class="sky-shape" x="1010" y="110" width="50" height="104" />
-          <rect class="sky-shape" x="180" y="188" width="34" height="26" />
-          <rect class="sky-shape" x="216" y="196" width="34" height="18" />
-          <rect class="sky-shape" x="1080" y="190" width="30" height="24" />
-          <rect class="sky-shape" x="520" y="90" width="26" height="124" />
-          <polygon class="sky-shape" points="520,90 546,90 538,68 528,68" />
-          <rect class="sky-shape" x="600" y="70" width="10" height="144" />
-          <rect class="sky-shape" x="624" y="86" width="10" height="128" />
-          <ellipse class="hero-smoke sky-shape" cx="605" cy="58" rx="10" ry="7" opacity=".4" />
-          <ellipse class="hero-smoke d2 sky-shape" cx="629" cy="74" rx="9" ry="6" opacity=".35" />
-          <line class="sky-line" x1="760" y1="214" x2="760" y2="100" stroke-width="2" />
-          <line class="sky-line" x1="760" y1="100" x2="840" y2="100" stroke-width="2" />
-          <line class="sky-line" x1="826" y1="100" x2="826" y2="118" stroke-width="1.5" />
-          <path class="sky-line" d="M340,214 L358,120 L376,214 M346,170 L370,170 M350,145 L366,145"
-            stroke-width="1.3" />
-          <line class="sky-line" x1="300" y1="126" x2="416" y2="126" stroke-width="1" stroke-dasharray="2 6" />
-        </svg>
+      <!-- real night-shot of a live furnace floor; scrims below blend its
+           edges into --bg and weight it toward the right column -->
+      <div class="hero-photo">
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/home_hero_img.avif">
+          <source type="image/webp" srcset="optimized-images/images/home_hero_img.webp">
+          <img src="optimized-images/images/home_hero_img.jpg" alt="" fetchpriority="high" decoding="async">
+        </picture>
+        <div class="hero-photo-scrim"></div>
       </div>
 
-      <!-- global trade network: slowly flowing export routes -->
-      <div class="hero-routes">
-        <svg viewBox="0 0 1000 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- slow rotating glow ring, anchored behind the visual column -->
+      <div class="hero-ring" aria-hidden="true">
+        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="heroRouteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id="heroRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#FF6A1F" stop-opacity="0" />
-              <stop offset="50%" stop-color="#FFC24B" stop-opacity=".9" />
+              <stop offset="45%" stop-color="#FFC24B" stop-opacity=".85" />
               <stop offset="100%" stop-color="#FF6A1F" stop-opacity="0" />
             </linearGradient>
           </defs>
-          <path d="M60,340 Q300,180 560,260 T980,140" />
-          <path class="r2" d="M120,120 Q420,260 700,180 T940,320" />
-          <path class="r3" d="M40,420 Q360,380 620,440 T960,380" />
-          <circle cx="60" cy="340" r="3.5" />
-          <circle cx="560" cy="260" r="3.5" />
-          <circle cx="980" cy="140" r="3.5" />
-          <circle cx="700" cy="180" r="3.5" />
-          <circle cx="940" cy="320" r="3.5" />
+          <circle class="hero-ring-arc" cx="300" cy="300" r="270" stroke-dasharray="480 1200" />
         </svg>
-      </div>
-
-      <!-- faint rotating industrial wireframes -->
-      <div class="hero-wireframe">
-        <div class="hero-wireframe-spin">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="100,10 173,50 173,150 100,190 27,150 27,50" />
-            <circle cx="100" cy="100" r="60" />
-            <line x1="100" y1="10" x2="100" y2="190" />
-            <line x1="27" y1="50" x2="173" y2="150" />
-            <line x1="173" y1="50" x2="27" y2="150" />
-          </svg>
-        </div>
-      </div>
-      <div class="hero-wireframe two">
-        <div class="hero-wireframe-spin">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <rect x="30" y="30" width="140" height="140" />
-            <circle cx="100" cy="100" r="80" />
-          </svg>
-        </div>
       </div>
 
       <div class="hero-rays"></div>
       <div class="hero-fog"></div>
       <div class="hero-scanlines"></div>
 
-      <!-- floating ambient glow orbs, independent of the furnace-breathe glow -->
+      <!-- ambient glow orbs, small embers dotted across the upper/mid hero -->
       <div class="hero-orbs" aria-hidden="true">
         <span class="hero-orb o1"></span>
         <span class="hero-orb o2"></span>
@@ -1286,67 +1198,186 @@
         <span class="hero-orb o4"></span>
       </div>
 
-      <!-- tiny industrial HUD markers -->
-      <div class="hero-markers">
-        <span class="hero-marker m1"><svg viewBox="0 0 18 18">
-            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
-          </svg></span>
-        <span class="hero-marker m2"><svg viewBox="0 0 18 18">
-            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
-          </svg></span>
-        <span class="hero-marker m3"><svg viewBox="0 0 18 18">
-            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
-          </svg></span>
-        <span class="hero-marker m4"><svg viewBox="0 0 18 18">
-            <path d="M1,6 L1,1 L6,1 M12,1 L17,1 L17,6 M17,12 L17,17 L12,17 M6,17 L1,17 L1,12" />
-          </svg></span>
-      </div>
+      <!-- slow-drifting glowing particles, generated by hero-cinematic.js -->
+      <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
     </div>
 
-    <div class="hero-content">
-      <div class="hero-kicker"><span class="hero-kicker-dot" aria-hidden="true"></span>STEEL · FERRO ALLOYS ·
-        ALUMINIUM · POWER · AGROTECH</div>
-      <h1>
-        <span class="hero-line"><span class="hero-line-inner">Proud to Partner in</span></span>
-        <span class="hero-line"><span class="hero-line-inner"><span class="grad">Our Nation's Progress</span></span></span>
-      </h1>
-      <p class="lede">One of Eastern India's fastest-growing industrial conglomerates: steel, ferro alloys, captive
-        power, aluminium and agrotech, built from a small Durgapur factory into a ₹10,000+ Cr name trusted by L&amp;T,
-        Adani, Coal India and DRDO, reaching 29+ countries.</p>
-      <div class="hero-cta-row">
-        <a href="process.html" class="btn btn-primary hero-btn-primary">See Our Process <span class="hero-btn-arrow"
-            aria-hidden="true">↓</span></a>
-        <a href="journey.html" class="btn btn-ghost hero-btn-secondary">About the Group</a>
+    <div class="hero-row1">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-kicker">
+            <span class="hero-cat"><svg class="hero-cat-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="15" width="18" height="3" rx="1" />
+                <rect x="3" y="10" width="18" height="3" rx="1" />
+                <rect x="3" y="5" width="18" height="3" rx="1" />
+              </svg>Steel</span>
+            <span class="hero-cat-dot" aria-hidden="true"></span>
+            <span class="hero-cat"><svg class="hero-cat-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 3h6M10 3v5l-5.4 9.2A1.8 1.8 0 0 0 6.15 20h11.7a1.8 1.8 0 0 0 1.55-2.8L14 8V3" />
+              </svg>Ferro Alloys</span>
+            <span class="hero-cat-dot" aria-hidden="true"></span>
+            <span class="hero-cat"><svg class="hero-cat-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l8 4.2-8 4.2-8-4.2L12 3z" />
+                <path d="M4 12.2l8 4.2 8-4.2" />
+                <path d="M4 16.4l8 4.2 8-4.2" />
+              </svg>Aluminium</span>
+            <span class="hero-cat-dot" aria-hidden="true"></span>
+            <span class="hero-cat"><svg class="hero-cat-icon filled" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+              </svg>Power</span>
+            <span class="hero-cat-dot" aria-hidden="true"></span>
+            <span class="hero-cat"><svg class="hero-cat-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 21c0-8.5 6-15 15-15 0 8.5-6 15-15 15z" />
+                <path d="M5 21c2.2-6.4 6.6-10.4 12.6-12.4" />
+              </svg>Agrotech</span>
+          </div>
+          <h1>
+            <span class="hero-line"><span class="hero-line-inner">Proud to Partner in</span></span>
+            <span class="hero-line"><span class="hero-line-inner"><span class="grad">Our Nation's Progress</span></span></span>
+          </h1>
+          <p class="lede">One of Eastern India's fastest-growing industrial conglomerates, building a stronger
+            tomorrow in steel, ferro alloys, aluminium, captive power and agrotech.</p>
+          <div class="hero-cta-row">
+            <a href="process.html" class="btn btn-primary hero-btn-primary">See Our Process <span
+                class="hero-btn-arrow" aria-hidden="true">→</span></a>
+            <a href="journey.html" class="btn btn-ghost hero-btn-secondary">About the Group <span
+                class="hero-btn-arrow" aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-trustbar">
+            <span class="hero-trustbar-label">Trusted by Industry Leaders</span>
+            <div class="hero-trustbar-logos">
+              <a href="clientele.html" aria-label="Larsen &amp; Toubro">
+                <picture>
+                  <source type="image/avif" srcset="optimized-images/images/logo/L&amp;T.avif">
+                  <source type="image/webp" srcset="optimized-images/images/logo/L&amp;T.webp">
+                  <img src="optimized-images/images/logo/L&amp;T.png" alt="L&amp;T" loading="lazy" decoding="async">
+                </picture>
+              </a>
+              <a href="clientele.html" aria-label="Adani Group">
+                <picture>
+                  <source type="image/avif" srcset="optimized-images/images/logo/adani.avif">
+                  <source type="image/webp" srcset="optimized-images/images/logo/adani.webp">
+                  <img src="optimized-images/images/logo/adani.png" alt="Adani" loading="lazy" decoding="async">
+                </picture>
+              </a>
+              <a href="clientele.html" aria-label="Coal India">
+                <picture>
+                  <source type="image/avif" srcset="optimized-images/images/logo/CoalIndia.avif">
+                  <source type="image/webp" srcset="optimized-images/images/logo/CoalIndia.webp">
+                  <img src="optimized-images/images/logo/CoalIndia.png" alt="Coal India" loading="lazy"
+                    decoding="async">
+                </picture>
+              </a>
+              <a href="clientele.html" aria-label="DRDO">
+                <picture>
+                  <source type="image/avif" srcset="optimized-images/images/logo/DRDO.avif">
+                  <source type="image/webp" srcset="optimized-images/images/logo/DRDO.webp">
+                  <img src="optimized-images/images/logo/DRDO.png" alt="DRDO" loading="lazy" decoding="async">
+                </picture>
+              </a>
+              <a href="clientele.html" aria-label="NHAI">
+                <picture>
+                  <source type="image/avif" srcset="optimized-images/images/logo/NHAI.avif">
+                  <source type="image/webp" srcset="optimized-images/images/logo/NHAI.webp">
+                  <img src="optimized-images/images/logo/NHAI.png" alt="NHAI" loading="lazy" decoding="async">
+                </picture>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-metric-card">
+            <div class="hero-metric">
+              <div class="hero-metric-icon"><svg class="filled" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l2.4 6.6L21 9l-5 4.6L17.4 21 12 17.3 6.6 21 8 13.6 3 9l6.6-.4L12 2z" />
+                </svg></div>
+              <div>
+                <div class="hero-metric-value hero-counter" data-target="50" data-suffix="+">0+</div>
+                <div class="hero-metric-label">Years of Excellence</div>
+              </div>
+            </div>
+            <div class="hero-metric-divider"></div>
+            <div class="hero-metric">
+              <div class="hero-metric-icon"><svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" />
+                </svg></div>
+              <div>
+                <div class="hero-metric-value hero-counter" data-target="29" data-suffix="+">0+</div>
+                <div class="hero-metric-label">Export Countries</div>
+              </div>
+            </div>
+            <div class="hero-metric-divider"></div>
+            <div class="hero-metric">
+              <div class="hero-metric-icon"><svg viewBox="0 0 24 24">
+                  <circle cx="8" cy="8" r="3" />
+                  <circle cx="16" cy="8" r="3" />
+                  <path d="M2 21c0-4 3-6 6-6s6 2 6 6M10 21c0-3.5 2.5-6 6-6s6 2.5 6 6" />
+                </svg></div>
+              <div>
+                <div class="hero-metric-value hero-counter" data-target="100" data-suffix="+">0+</div>
+                <div class="hero-metric-label">Enterprise Clients</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-stats" role="group" aria-label="Company milestones">
-        <div class="hero-stat">
-          <div class="hero-stat-num hero-counter" data-target="50" data-suffix="+">0+</div>
-          <div class="hero-stat-label">Years of Excellence</div>
+
+      <a class="scroll-cue" href="#stats-section" aria-label="Scroll to explore">
+        <div class="scroll-cue-icon" aria-hidden="true">
+          <span class="scroll-cue-line"></span>
         </div>
-        <div class="hero-stat-divider" aria-hidden="true"></div>
-        <div class="hero-stat">
-          <div class="hero-stat-num hero-counter" data-target="29" data-suffix="+">0+</div>
-          <div class="hero-stat-label">Export Countries</div>
+        <span>Scroll to Explore</span>
+        <span class="scroll-cue-arrow" aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="hero-achieve" id="heroAchieve">
+      <div class="hero-achieve-row" role="group" aria-label="Company milestones">
+        <div class="hero-achieve-item">
+          <div class="hero-achieve-icon"><svg class="filled" viewBox="0 0 24 24">
+              <path d="M12 2l2.4 6.6L21 9l-5 4.6L17.4 21 12 17.3 6.6 21 8 13.6 3 9l6.6-.4L12 2z" />
+            </svg></div>
+          <div>
+            <div class="hero-achieve-num hero-counter" data-target="50" data-suffix="+">0+</div>
+            <div class="hero-achieve-label">Years of Excellence</div>
+          </div>
         </div>
-        <div class="hero-stat-divider" aria-hidden="true"></div>
-        <div class="hero-stat">
-          <div class="hero-stat-num hero-counter" data-target="20" data-suffix="+">0+</div>
-          <div class="hero-stat-label">States Served</div>
+        <div class="hero-achieve-item">
+          <div class="hero-achieve-icon"><svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" />
+            </svg></div>
+          <div>
+            <div class="hero-achieve-num hero-counter" data-target="29" data-suffix="+">0+</div>
+            <div class="hero-achieve-label">Export Countries</div>
+          </div>
         </div>
-        <div class="hero-stat-divider" aria-hidden="true"></div>
-        <div class="hero-stat">
-          <div class="hero-stat-num hero-counter" data-target="100" data-suffix="+">0+</div>
-          <div class="hero-stat-label">Enterprise Clients</div>
+        <div class="hero-achieve-item">
+          <div class="hero-achieve-icon"><svg viewBox="0 0 24 24">
+              <path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z" />
+              <circle cx="12" cy="9" r="2.5" />
+            </svg></div>
+          <div>
+            <div class="hero-achieve-num hero-counter" data-target="20" data-suffix="+">0+</div>
+            <div class="hero-achieve-label">States Served</div>
+          </div>
+        </div>
+        <div class="hero-achieve-item">
+          <div class="hero-achieve-icon"><svg viewBox="0 0 24 24">
+              <circle cx="8" cy="8" r="3" />
+              <circle cx="16" cy="8" r="3" />
+              <path d="M2 21c0-4 3-6 6-6s6 2 6 6M10 21c0-3.5 2.5-6 6-6s6 2.5 6 6" />
+            </svg></div>
+          <div>
+            <div class="hero-achieve-num hero-counter" data-target="100" data-suffix="+">0+</div>
+            <div class="hero-achieve-label">Enterprise Clients</div>
+          </div>
         </div>
       </div>
     </div>
-
-    <a class="scroll-cue" href="#stats-section" aria-label="Scroll to explore">
-      <div class="scroll-cue-icon" aria-hidden="true">
-        <span class="scroll-cue-line"></span>
-      </div>
-      <span>SCROLL</span>
-    </a>
   </header>
 
   <div class="page-shell">
@@ -3224,57 +3255,6 @@
           el.textContent = prefix + target.toFixed(decimals) + suffix;
         });
       }
-    })();
-  </script>
-  <script>
-    const canvas = document.getElementById('embers');
-    const ctx = canvas.getContext('2d');
-    const heroEl = document.querySelector('.hero');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let particles = [];
-    function resizeCanvas() { canvas.width = heroEl.offsetWidth; canvas.height = heroEl.offsetHeight; }
-    function spawn() {
-      return {
-        x: Math.random() * canvas.width, y: canvas.height + Math.random() * 40,
-        r: 1 + Math.random() * 2.4, vy: .3 + Math.random() * .8, vx: (Math.random() - .5) * .4,
-        life: 0, maxLife: 240 + Math.random() * 260, hue: Math.random() > .5 ? '255,106,31' : '255,194,75'
-      };
-    }
-    function initParticles() { particles = Array.from({ length: 55 }, spawn); }
-    function tick() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.y -= p.vy; p.x += p.vx + Math.sin(p.life * .02) * .3; p.life++;
-        const fade = 1 - p.life / p.maxLife;
-        if (fade <= 0 || p.y < -20) { Object.assign(p, spawn()); return; }
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.hue},${Math.max(fade, 0) * .85})`;
-        ctx.shadowColor = `rgba(${p.hue},.8)`; ctx.shadowBlur = 6; ctx.fill();
-      });
-      requestAnimationFrame(tick);
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    if (!reduceMotion) { initParticles(); tick(); }
-  </script>
-  <script>
-    (function () {
-      const hero = heroEl;
-      if (!hero) return;
-      let raf = null, pending = null;
-      hero.addEventListener('pointermove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        pending = {
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100
-        };
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          hero.style.setProperty('--mx', pending.x + '%');
-          hero.style.setProperty('--my', pending.y + '%');
-          raf = null;
-        });
-      });
     })();
   </script>
   <script>

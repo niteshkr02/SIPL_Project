@@ -17,6 +17,23 @@
     });
   }
 
+  // Subtle magnetic pull on the "Get In Touch" pill — nudges toward the
+  // cursor on hover, snaps back with a CSS transition on leave.
+  const navCta = document.querySelector('.nav-cta');
+  if(navCta && canHover && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    navCta.addEventListener('mousemove', (e)=>{
+      const rect = navCta.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width/2) * .25;
+      const y = (e.clientY - rect.top - rect.height/2) * .3;
+      navCta.style.transition = '';
+      navCta.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    navCta.addEventListener('mouseleave', ()=>{
+      navCta.style.transition = 'transform .3s cubic-bezier(.16,.84,.44,1)';
+      navCta.style.transform = '';
+    });
+  }
+
   function onScroll(){
     if(!nav) return;
     if(window.scrollY > 20) nav.classList.add('scrolled');
