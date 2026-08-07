@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Group Companies | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="company-profiles.css">
 <style>
 .page-header{
   --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
@@ -69,20 +70,7 @@
 .cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
 .cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 
-/* ══ COMPANY / PLANT CARDS ══ */
-.companies-grid-full{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
-.companies-grid-full.cols-2{ grid-template-columns:repeat(2,1fr); }
-@media(max-width:860px){ .companies-grid-full{ grid-template-columns:1fr 1fr; } }
-@media(max-width:600px){ .companies-grid-full{ grid-template-columns:1fr; } .companies-grid-full.cols-2{ grid-template-columns:1fr; } }
-
-.company-card{
-  padding:0; overflow:hidden; display:flex; flex-direction:column; border-radius:1.25rem;
-  transition:transform .35s cubic-bezier(.16,.84,.44,1), box-shadow .35s ease, border-color .35s ease;
-}
-.company-card:hover{
-  transform:translateY(-6px); border-color:var(--accent);
-  box-shadow:0 20px 45px rgba(20,22,28,.12), 0 0 35px rgba(255,106,31,.1);
-}
+/* ══ REMAINING PLANT CARD (Agrotech "Green Habit" panel) ══ */
 .company-img-wrap{ width:100%; height:190px; position:relative; overflow:hidden; flex-shrink:0; background:#14161C; }
 .company-img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s cubic-bezier(.16,.84,.44,1); }
 .company-card:hover .company-img-wrap img{ transform:scale(1.08); }
@@ -216,81 +204,121 @@
   <div class="section-head reveal">
     <div class="kicker center">THE GROUP COMPANIES</div>
     <h2>One Group, Many Plants</h2>
-    <p>Every plant sits inside a single state, mapped and numbered. None of them cut corners to get there.</p>
+    <p>Seven plants, each running its own furnaces and its own discipline. Tap any card for the full profile — location, operations, capacity and what it makes.</p>
   </div>
-  <div class="companies-grid-full">
-    <div class="panel company-card reveal">
-      <div class="company-img-wrap"><picture>
+  <div class="cp-grid">
+    <button type="button" class="panel cp-card reveal" data-company="madandih">
+      <div class="cp-card-photo-wrap">
+        <picture>
   <source type="image/avif" srcset="optimized-images/images/Madandih_Unit.avif">
   <source type="image/webp" srcset="optimized-images/images/Madandih_Unit.webp">
-  <img src="optimized-images/images/Madandih_Unit.jpg" alt="SIPL Madandih" loading="lazy" width="1600" height="940" decoding="async">
-</picture></div>
-      <div class="company-card-body">
-        <span class="tag">01 · FLAGSHIP · MADANDIH, PURULIA</span>
-        <h4>SIPL Madandih</h4>
-        <p>Incorporated in 2001 as Ma Chhinnamastika Steel &amp; Power Pvt Ltd, renamed Shakambhari Ispat &amp; Power Ltd in 2010. An integrated plant with an Iron Beneficiation Plant, Coal Beneficiation Plant, Rotary Kilns for DRI, an Induction Furnace with Continuous Casting, and Horizontal and Vertical Rolling Mills, backed by its own Captive Power Plant.</p>
+  <img src="optimized-images/images/Madandih_Unit.jpg" alt="SIPL Madandih" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">01</span>
       </div>
-    </div>
-    <div class="panel company-card reveal">
-      <div class="company-img-wrap"><picture>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">FLAGSHIP · MADANDIH, PURULIA</span>
+        <h4>SIPL Madandih</h4>
+        <p>Metal-to-end-product integrated complex producing Thermocon TMT bars, wire rods and ferro alloys — plus its own captive power from waste heat.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+    <button type="button" class="panel cp-card reveal" data-company="rukni">
+      <div class="cp-card-photo-wrap">
+        <picture>
   <source type="image/avif" srcset="optimized-images/images/Rukni_Unit.avif">
   <source type="image/webp" srcset="optimized-images/images/Rukni_Unit.webp">
-  <img src="optimized-images/images/Rukni_Unit.jpg" alt="SIPL Rukni" loading="lazy" width="1600" height="982" decoding="async">
-</picture></div>
-      <div class="company-card-body">
-        <span class="tag">02 · PELLET &amp; SPONGE IRON · MOHUDA, PURULIA</span>
-        <h4>SIPL Rukni</h4>
-        <p>Incorporated as Bravo Sponge Iron Pvt. Ltd. (BSIPL) in 1997, commercial since 2003, and associated with the group since 2004. Its Iron Pellets are produced at a scale that makes it a raw material source for other group plants, alongside its own Sponge Iron, Steel Melting and Captive Power facilities. A Hot Strip Mill and hollow and tubular pipe manufacturing are both underway.</p>
+  <img src="optimized-images/images/Rukni_Unit.jpg" alt="SIPL Rukni" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">02</span>
       </div>
-    </div>
-    <div class="panel company-card reveal">
-      <div class="company-img-wrap"><picture>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">PELLET &amp; SPONGE IRON · RUKNI, PURULIA</span>
+        <h4>SIPL Rukni</h4>
+        <p>Originally Bravo Sponge Iron, acquired 2015 — sponge iron, billet casting, TMT rolling and dual captive power from waste heat and dolo-char.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+    <button type="button" class="panel cp-card reveal" data-company="mogra">
+      <div class="cp-card-photo-wrap">
+        <picture>
   <source type="image/avif" srcset="optimized-images/images/Mogra_Unit.avif">
   <source type="image/webp" srcset="optimized-images/images/Mogra_Unit.webp">
-  <img src="optimized-images/images/Mogra_Unit.jpg" alt="SIPL Mogra — India Foils" loading="lazy" width="1600" height="1040" decoding="async">
-</picture></div>
-      <div class="company-card-body">
-        <span class="tag">03 · ALUMINIUM</span>
+  <img src="optimized-images/images/Mogra_Unit.jpg" alt="SIPL Mogra — India Foils" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">03</span>
+      </div>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">ALUMINIUM · MOGRA, HOOGHLY</span>
         <h4>SIPL Mogra — India Foils</h4>
-        <p>Our unit in Hooghly district, and the one place in the group that doesn't work in iron. Rolls 9–60 micron aluminium foil, bare and printed pharmaceutical foil, household foil, semi-rigid container foil and lidding foils, certified ISO 9001:2015, ISO 14001:2015 and BIS, reaching customers in 29+ countries.</p>
+        <p>9–60 micron precision-rolled aluminium foil for pharma, food and FMCG packaging, exported to 29+ countries as a 4-Star Export House.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-    </div>
-    <div class="panel company-card reveal">
-      <div class="company-img-wrap"><picture>
-  <source type="image/avif" srcset="optimized-images/images/Durgapur.avif">
-  <source type="image/webp" srcset="optimized-images/images/Durgapur.webp">
-  <img src="optimized-images/images/Durgapur.jpg" alt="SPS Steels · Unit I" loading="lazy" width="1600" height="949" decoding="async">
-</picture></div>
-      <div class="company-card-body">
-        <span class="tag">04 · INTEGRATED · DURGAPUR</span>
-        <h4>SPS Steels · Unit I</h4>
-        <p>Incorporated 26 December 1981, acquired by Shakambhari Group in 2019. An integrated plant in Durgapur rolling TMT bars, angles and channels, with its own Sponge Iron and MS Billet capacity feeding a DRI plant, Steel Melting Shop and automatic Rolling Mills.</p>
+    </button>
+    <button type="button" class="panel cp-card reveal" data-company="sps1">
+      <div class="cp-card-photo-wrap">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/SPS_Unit1.avif">
+  <source type="image/webp" srcset="optimized-images/images/SPS_Unit1.webp">
+  <img src="optimized-images/images/SPS_Unit1.jpg" alt="SPS Steels · Unit 1" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">04</span>
       </div>
-    </div>
-    <div class="panel company-card reveal">
-      <div class="company-img-wrap"><picture>
-  <source type="image/avif" srcset="optimized-images/images/Durgapur.avif">
-  <source type="image/webp" srcset="optimized-images/images/Durgapur.webp">
-  <img src="optimized-images/images/Durgapur.jpg" alt="SPS Steels · Unit II" loading="lazy" width="1600" height="949" decoding="async">
-</picture></div>
-      <div class="company-card-body">
-        <span class="tag">05 · MEGA INTEGRATED · PORADIHA, PURULIA</span>
-        <h4>SPS Steels · Unit II</h4>
-        <p>The group's most recently acquired facility, in Poradiha village, Purulia, now being revived as a Mega Integrated Steel Plant: Sponge Iron through DRI Kilns, Ferro Alloys through a Submerged Arc Furnace, MS and CRS Billets through its Steel Melting Plant, QST Bars, and its own Captive Power Plant.</p>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">STEEL MELTING &amp; TMT · DURGAPUR</span>
+        <h4>SPS Steels · Unit 1</h4>
+        <p>Secondary steel melting, billet casting and high-speed TMT re-rolling in the heart of Durgapur's industrial belt.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-    </div>
-    <div class="panel company-card reveal">
-      <div class="company-img-wrap"><picture>
+    </button>
+    <button type="button" class="panel cp-card reveal" data-company="sps2">
+      <div class="cp-card-photo-wrap">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/SPS_Unit2.avif">
+  <source type="image/webp" srcset="optimized-images/images/SPS_Unit2.webp">
+  <img src="optimized-images/images/SPS_Unit2.jpg" alt="SPS Steels · Unit 2" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">05</span>
+      </div>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">STRUCTURAL STEEL · DURGAPUR</span>
+        <h4>SPS Steels · Unit 2</h4>
+        <p>The structural steel arm of SPS — angles, channels, beams and flats rolled to national and international specification.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+    <button type="button" class="panel cp-card reveal" data-company="sps3">
+      <div class="cp-card-photo-wrap">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/SPS_Unit3.avif">
+  <source type="image/webp" srcset="optimized-images/images/SPS_Unit3.webp">
+  <img src="optimized-images/images/SPS_Unit3.jpg" alt="SPS Steels · Unit 3" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">06</span>
+      </div>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">SPONGE IRON &amp; POWER · DURGAPUR</span>
+        <h4>SPS Steels · Unit 3</h4>
+        <p>The backward-integration unit — direct reduced iron and waste-heat captive power feeding the group's melting shops.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+    <button type="button" class="panel cp-card reveal" data-company="eloquent">
+      <div class="cp-card-photo-wrap">
+        <picture>
   <source type="image/avif" srcset="optimized-images/images/Eloquent_steel.avif">
   <source type="image/webp" srcset="optimized-images/images/Eloquent_steel.webp">
-  <img src="optimized-images/images/Eloquent_steel.jpg" alt="Eloquent Steel Private Limited" loading="lazy" width="1600" height="914" decoding="async">
-</picture></div>
-      <div class="company-card-body">
-        <span class="tag">06 · FERRO ALLOYS · NACROJORIA</span>
-        <h4>Eloquent Steel Private Limited</h4>
-        <p>Producing high quality Ferro Alloys at Nacrojoria, West Bardhaman, for captive consumption and export markets, through a Submerged Arc Furnace and Induction Furnace. Built on two acquired plants, Hira Concast Ltd and Impex Steel Ltd, with Structural Steel next on the roadmap.</p>
+  <img src="optimized-images/images/Eloquent_steel.jpg" alt="Eloquent Steel Private Limited" loading="lazy" decoding="async">
+</picture>
+        <span class="cp-card-num">07</span>
       </div>
-    </div>
+      <div class="cp-card-body">
+        <span class="cp-card-tag">FERRO ALLOYS &amp; BILLETS · SALANPUR</span>
+        <h4>Eloquent Steel Private Limited</h4>
+        <p>Ferro alloys, steel billets, wire rods and TMT bars from a single integrated complex in Salanpur, West Bardhaman.</p>
+        <span class="cp-card-cta">View Full Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
   </div>
 
   <div class="panel company-card reveal" style="margin-top:1.6rem;" id="green-habit">
@@ -349,6 +377,604 @@
   </div>
 </div>
 
+  <div class="cp-overlay" id="cpOverlay" aria-hidden="true">
+    <div class="cp-sheet" role="dialog" aria-modal="true" aria-label="Company profile">
+      <div class="cp-sheet-drag"><span></span></div>
+      <button type="button" class="cp-sheet-close" aria-label="Close profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></button>
+      <div class="cp-profile" data-profile="madandih">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/Madandih_Unit.avif">
+  <source type="image/webp" srcset="optimized-images/images/Madandih_Unit.webp">
+  <img src="optimized-images/images/Madandih_Unit.jpg" alt="SIPL Madandih" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">FLAGSHIP · MADANDIH, PURULIA</div>
+            <h3>SIPL Madandih</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        <button type="button" class="cp-tab" data-tab="products">Products</button>
+        <button type="button" class="cp-tab" data-tab="quality">Quality</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About SIPL Madandih</h5>
+          <p>The Madandih plant, located in Purulia, West Bengal, is the primary integrated steel manufacturing complex of Shakambhari Ispat &amp; Power Limited (SIPL) — the flagship company of the Shakambhari Group.</p>
+          <p>Operating on a "Metal to End-Product" integrated model, this unit processes raw iron ore and coal into finished TMT rebars, wire rods, and ferro alloys, while generating its own power from waste heat recovery.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>Shakambhari Ispat &amp; Power Limited – Madandih Unit</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>Village Bortoria, Madandih, Raghunathpur Road, P.O. Parbelia / Madandih, District Purulia, West Bengal – 723121</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Primary Steelmaking</h6><p>Direct reduction of iron ore in rotary kilns to manufacture Sponge Iron (DRI).</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>Secondary Steelmaking &amp; Casting</h6><p>Converts DRI and liquid iron in induction furnaces with Ladle Refining Furnaces (LRF) to cast prime MS and CRS Billets.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">3</div>
+            <div><h6>High-Speed Rolling</h6><p>Operates continuous rolling mills to produce Thermocon HSD-QST TMT Bars and High-Carbon/Low-Carbon Wire Rods.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">4</div>
+            <div><h6>Ferro Alloy Generation</h6><p>Smelts manganese and silicon ores for internal alloy consumption and external sales.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">5</div>
+            <div><h6>Captive Power Generation</h6><p>Combines Waste Heat Recovery Boilers (WHRB) and Atmospheric Fluidized Bed Combustion (AFBC) boilers.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">1.5–2.4 MTPA</div><div class="label">Overall Integrated Capacity</div></div>
+          <div class="cp-stat"><div class="num">100 &amp; 350 TPD</div><div class="label">Sponge Iron Rotary Kilns</div></div>
+          <div class="cp-stat"><div class="num">3/4-Strand CCM</div><div class="label">Steel Melting Shop</div></div>
+          <div class="cp-stat"><div class="num">100+ MW</div><div class="label">Captive Power (WHRB + AFBC)</div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="products">
+          <h5>Product Portfolio</h5>
+          <div class="cp-chip-list">
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Thermocon TMT Bars</strong><span>HSD &amp; QST TMT Rebars (IS 1786 licensed).</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Wire Rods &amp; Binding Wires</strong><span>High-drawability wire rods (IS 2062 certified).</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>MS &amp; CRS Billets</strong><span>Prime square cast billets (IS 2830 / IS 2831 certified).</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Sponge Iron &amp; Ferro Alloys</strong><span>FeMn and SiMn.</span></div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="quality">
+          <h5>Quality &amp; Compliance</h5>
+          <div class="cp-badge-row">
+            <span class="cp-badge">ISO 9001:2015</span>
+            <span class="cp-badge">ISO 14001:2015</span>
+            <span class="cp-badge">OHSAS 45001:2018</span>
+            <span class="cp-badge">CII GreenPro Certified</span>
+          </div>
+          <p>Awarded the Ministry of Steel Silver Trophy by the Government of India as a composite steel producer.</p>
+        </div>
+        </div>
+      </div>
+      <div class="cp-profile" data-profile="rukni">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/Rukni_Unit.avif">
+  <source type="image/webp" srcset="optimized-images/images/Rukni_Unit.webp">
+  <img src="optimized-images/images/Rukni_Unit.jpg" alt="SIPL Rukni" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">PELLET &amp; SPONGE IRON · RUKNI, PURULIA</div>
+            <h3>SIPL Rukni</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        <button type="button" class="cp-tab" data-tab="products">Products</button>
+        <button type="button" class="cp-tab" data-tab="quality">Quality</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About SIPL Rukni</h5>
+          <p>The Rukni manufacturing facility was originally incorporated in 1997 and operated under Bravo Sponge Iron Private Limited (BSIPL). In July 2015, the facility was acquired by the Shakambhari Group under the leadership of Mr. Deepak Agarwal.</p>
+          <p>Following a strategic expansion and subsequent corporate amalgamation, the unit now functions directly as SIPL Rukni, an integrated production site within Shakambhari Ispat &amp; Power Limited.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>Shakambhari Ispat &amp; Power Limited – Rukni Unit (Formerly Bravo Sponge Iron Private Limited)</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>JL No. 87, Village Alkusa, Dubra, Rukni, P.O. Anara / Rukni, District Purulia, West Bengal – 723145</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Sponge Iron Manufacturing</h6><p>Produces direct-reduced iron using coal-based rotary kiln technology.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>Billet Casting</h6><p>Converts sponge iron into high-grade steel billets in induction furnaces with Continuous Casting Machines (CCM).</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">3</div>
+            <div><h6>TMT Bar &amp; Rod Rolling</h6><p>Operates high-speed rolling lines for structural and construction steel.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">4</div>
+            <div><h6>Eco-Power Generation</h6><p>Operates captive independent power systems using kiln waste heat recovery and dolo-char fuel.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">1×100 + 1×95 TPD</div><div class="label">Sponge Iron Kilns (expanding to 2×100 TPD)</div></div>
+          <div class="cp-stat"><div class="num">4×15 TPH</div><div class="label">Induction Furnaces + matching CCM</div></div>
+          <div class="cp-stat"><div class="num">600 TPD (~200,000 TPA)</div><div class="label">Rolling Mill Capacity</div></div>
+          <div class="cp-stat"><div class="num">20 MW</div><div class="label">Captive Power (10 MW WHRB + 10 MW AFBC)</div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="products">
+          <h5>Product Portfolio</h5>
+          <div class="cp-chip-list">
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Direct Reduced Iron</strong><span>High metallic Fe charge for steel furnaces.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>MS Billets</strong><span>Square cast billets engineered for re-rolling.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>TMT Rebars &amp; Steel Rods</strong><span>Construction-grade TMT steel.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Captive Power</strong><span>Green thermal and WHRB electricity powering the internal grid.</span></div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="quality">
+          <h5>Quality &amp; Compliance</h5>
+          <div class="cp-badge-row">
+            <span class="cp-badge">ISO 9001:2015</span>
+            <span class="cp-badge">ISO 14001:2015</span>
+          </div>
+          <p>Fully compliant with WBPCB air quality and emission guidelines.</p>
+        </div>
+        </div>
+      </div>
+      <div class="cp-profile" data-profile="mogra">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/Mogra_Unit.avif">
+  <source type="image/webp" srcset="optimized-images/images/Mogra_Unit.webp">
+  <img src="optimized-images/images/Mogra_Unit.jpg" alt="SIPL Mogra — India Foils" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">ALUMINIUM · MOGRA, HOOGHLY</div>
+            <h3>SIPL Mogra — India Foils</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        <button type="button" class="cp-tab" data-tab="products">Products</button>
+        <button type="button" class="cp-tab" data-tab="quality">Quality</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About SIPL Mogra — India Foils</h5>
+          <p>Located in Hoera, Mogra (Hooghly District), the Mogra facility was acquired and modernized by the Shakambhari Group to establish India Foils Limited.</p>
+          <p>Under the group's "Metal to Foil" initiative, India Foils manufactures precision-rolled ultra-thin aluminium foils ranging from 9 to 60 microns, serving global pharmaceutical, FMCG, food container, and flexible packaging markets across 29+ countries.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>India Foils Limited – Mogra Unit (Shakambhari Group Aluminium Division)</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>Village &amp; P.O. Hoera, P.S. Mogra, District Hooghly, West Bengal – 712147</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Precision Cold Rolling</h6><p>Rolls primary aluminium coils into ultra-thin foils, down to 9 microns gauge, with sub-micron tolerance.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>Controlled Annealing</h6><p>Heat-treats foil reels in controlled-atmosphere furnaces to precise temper states (Soft, Half-Hard, Hard).</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">3</div>
+            <div><h6>Coating &amp; Multi-Colour Printing</h6><p>Applies VMCH heat-seal lacquers, protective primers, and multi-colour rotogravure printing for pharma blister/strip packaging.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">4</div>
+            <div><h6>Lamination &amp; Slitting</h6><p>Produces multi-layer foil laminates and precise narrow-width slitting for lidding, seals and container applications.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">9–60 microns</div><div class="label">Foil Gauge Range</div></div>
+          <div class="cp-stat"><div class="num">AA8011 / AA8021 / AA8079 / AA3003</div><div class="label">Alloy Range</div></div>
+          <div class="cp-stat"><div class="num">Achenbach + Wesman + Rotomec</div><div class="label">Key Equipment (rolling, annealing, coating)</div></div>
+          <div class="cp-stat"><div class="num">4-Star Export House</div><div class="label">Government of India Accreditation</div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="products">
+          <h5>Product Portfolio</h5>
+          <div class="cp-chip-list">
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Pharmaceutical Blister &amp; Strip Packaging Foil</strong><span>Bare and multi-colour printed barrier foil for tablets, capsules and diagnostics.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Semi-Rigid Container Foil (AA3003)</strong><span>Food-safe, oven-compatible foil for ready-to-eat meal trays and airline food containers.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Lidding Foils &amp; Induction Wads</strong><span>Hermetic heat-seal foils for dairy, beverages, cosmetics and jar closures.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Tagger Foil &amp; Household Foil</strong><span>Flexible packaging foils, bottle closures and food-wrap rolls.</span></div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="quality">
+          <h5>Quality &amp; Compliance</h5>
+          <div class="cp-badge-row">
+            <span class="cp-badge">ISO 9001:2015</span>
+            <span class="cp-badge">ISO 14001:2015</span>
+            <span class="cp-badge">BIS Certified</span>
+          </div>
+          <p>6-stage quality testing: Spark OES Alloy Verification, FT-IR Spectrometers, Tensile UTMs, Burst Strength Testers and Heat Seal Testers.</p>
+        </div>
+        </div>
+      </div>
+      <div class="cp-profile" data-profile="sps1">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/SPS_Unit1.avif">
+  <source type="image/webp" srcset="optimized-images/images/SPS_Unit1.webp">
+  <img src="optimized-images/images/SPS_Unit1.jpg" alt="SPS Steels · Unit 1" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">STEEL MELTING &amp; TMT · DURGAPUR</div>
+            <h3>SPS Steels · Unit 1</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About SPS Steels · Unit 1</h5>
+          <p>SPS Steels Rolling Mills Limited (Unit 1) is a primary manufacturing hub within the Shakambhari Group's steel vertical.</p>
+          <p>Located in the industrial heartland of Durgapur, West Bengal, Unit 1 specializes in secondary steel melting, billet casting, and high-speed re-rolling of High-Yield Strength Deformed (HSD) Thermo-Mechanically Treated (TMT) rebars.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>SPS Steels Rolling Mills Limited – Unit 1</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>Durgapur Industrial Complex, Angadpur / Plasto Steel Park, Durgapur, District Paschim Bardhaman, West Bengal – 713215</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Steel Melting &amp; Continuous Casting</h6><p>Converts sponge iron and steel scrap into high-grade Mild Steel (MS) and Corrosion Resistant Steel (CRS) billets via induction furnaces and multi-strand Continuous Casting Machines (CCM).</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>TMT Re-Rolling</h6><p>Processes hot billets through fully automated rolling mills to produce high-strength TMT rebars under controlled thermo-mechanical treatment.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">~300,000 TPA</div><div class="label">TMT Rolling Mill Capacity</div></div>
+          <div class="cp-stat"><div class="num">~250,000 TPA</div><div class="label">Billet Casting Capacity</div></div>
+          <div class="cp-stat"><div class="num">LRF + 2-Strand CCM</div><div class="label">Furnace Equipment</div></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="cp-profile" data-profile="sps2">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/SPS_Unit2.avif">
+  <source type="image/webp" srcset="optimized-images/images/SPS_Unit2.webp">
+  <img src="optimized-images/images/SPS_Unit2.jpg" alt="SPS Steels · Unit 2" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">STRUCTURAL STEEL · DURGAPUR</div>
+            <h3>SPS Steels · Unit 2</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        <button type="button" class="cp-tab" data-tab="products">Products</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About SPS Steels · Unit 2</h5>
+          <p>SPS Steels Rolling Mills Limited (Unit 2) serves as the primary structural steel manufacturing arm of the SPS division.</p>
+          <p>Situated alongside the Durgapur industrial belt, Unit 2 utilizes rolling technologies to produce structural sections and profile shapes that conform to rigorous national and international construction specifications.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>SPS Steels Rolling Mills Limited – Unit 2</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>Durgapur Industrial Area, Phase II, Durgapur, District Paschim Bardhaman, West Bengal – 713211</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Structural Steel Rolling</h6><p>Formulates and rolls heavy and medium structural profiles from prime MS billets and blooms.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>Custom Profile Finishing</h6><p>Offers custom shearing, straightening, and bundle packaging for industrial structural members.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">~150,000 TPA</div><div class="label">Structural Rolling Mill Capacity</div></div>
+          <div class="cp-stat"><div class="num">Multi-Stand Mills</div><div class="label">Roughing, Intermediate &amp; Finishing</div></div>
+          <div class="cp-stat"><div class="num">Automated</div><div class="label">Cooling Beds &amp; Precision Straighteners</div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="products">
+          <h5>Product Portfolio</h5>
+          <div class="cp-chip-list">
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>MS Equal Angles</strong><span>Structural angles engineered for power transmission towers, bridge girders and fabrication.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>MS Channels (ISMC)</strong><span>Standard channels used in structural frameworks and heavy equipment chassis.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>MS Beams / Joists (ISMB)</strong><span>Structural beams designed for load-bearing structures.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Flat Bars &amp; Rounds</strong><span>Commercial-grade flats and rounds for general engineering applications.</span></div></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="cp-profile" data-profile="sps3">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/SPS_Unit3.avif">
+  <source type="image/webp" srcset="optimized-images/images/SPS_Unit3.webp">
+  <img src="optimized-images/images/SPS_Unit3.jpg" alt="SPS Steels · Unit 3" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">SPONGE IRON &amp; POWER · DURGAPUR</div>
+            <h3>SPS Steels · Unit 3</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        <button type="button" class="cp-tab" data-tab="products">Products</button>
+        <button type="button" class="cp-tab" data-tab="quality">Quality</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About SPS Steels · Unit 3</h5>
+          <p>SPS Steels Rolling Mills Limited (Unit 3) functions as the backward-integration unit for the SPS manufacturing cluster.</p>
+          <p>By processing iron ore pellets and lump ore into Direct Reduced Iron (Sponge Iron), Unit 3 ensures feed consistency and chemical purity for the steel melting shops across the group's facilities.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>SPS Steels Rolling Mills Limited – Unit 3</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>Durgapur Industrial Estate, Durgapur, District Paschim Bardhaman, West Bengal – 713215</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 7th &amp; 8th Floor, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Direct Reduction of Iron (DRI)</h6><p>Converts raw iron ore and non-coking coal into metallic sponge iron using rotary kilns.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>Waste Heat Recovery Power Generation</h6><p>Utilizes hot flue gases from the DRI kilns in Waste Heat Recovery Boilers (WHRB) to generate clean captive electricity.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">~150,000 TPA</div><div class="label">Sponge Iron (DRI) Capacity</div></div>
+          <div class="cp-stat"><div class="num">15 MW</div><div class="label">WHRB Captive Power Facility</div></div>
+          <div class="cp-stat"><div class="num">ESP + ZLD</div><div class="label">Raw Material Handling &amp; Filtration</div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="products">
+          <h5>Product Portfolio</h5>
+          <div class="cp-chip-list">
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Sponge Iron (DRI, Fe metallic 80%+)</strong><span>High-Fe sponge iron used as a clean metallic charge for induction and arc furnaces.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Coal Char (Dolo-char)</strong><span>By-product used as fuel in Atmospheric Fluidized Bed Combustion (AFBC) boilers.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Captive Electricity</strong><span>Clean power routed internally to power downstream furnace operations.</span></div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="quality">
+          <h5>Quality &amp; Compliance</h5>
+          <div class="cp-badge-row">
+            <span class="cp-badge">ESP Equipped</span>
+            <span class="cp-badge">Dry Fog Dust Suppression</span>
+            <span class="cp-badge">Zero-Liquid Discharge</span>
+          </div>
+          <p>Equipped with Electrostatic Precipitators (ESP), dry fog dust suppression systems, and zero-liquid discharge (ZLD) water recycling loops.</p>
+        </div>
+        </div>
+      </div>
+      <div class="cp-profile" data-profile="eloquent">
+        <div class="cp-sheet-hero">
+          <picture>
+  <source type="image/avif" srcset="optimized-images/images/Eloquent_steel.avif">
+  <source type="image/webp" srcset="optimized-images/images/Eloquent_steel.webp">
+  <img src="optimized-images/images/Eloquent_steel.jpg" alt="Eloquent Steel Private Limited" loading="lazy" decoding="async">
+</picture>
+          <div class="cp-sheet-hero-content">
+            <div class="cp-sheet-tag">FERRO ALLOYS &amp; BILLETS · SALANPUR</div>
+            <h3>Eloquent Steel Private Limited</h3>
+          </div>
+        </div>
+        <div class="cp-tabs">
+          <span class="cp-tab-indicator"></span>
+        <button type="button" class="cp-tab active" data-tab="overview">Overview</button>
+        <button type="button" class="cp-tab" data-tab="location">Location</button>
+        <button type="button" class="cp-tab" data-tab="operations">Operations</button>
+        <button type="button" class="cp-tab" data-tab="capacity">Capacity</button>
+        <button type="button" class="cp-tab" data-tab="products">Products</button>
+        <button type="button" class="cp-tab" data-tab="quality">Quality</button>
+        </div>
+        <div class="cp-panels">
+        <div class="cp-panel active" data-panel="overview">
+          <h5>About Eloquent Steel Private Limited</h5>
+          <p>Eloquent Steel Private Limited (ESPL) is a key subsidiary of the Shakambhari Group.</p>
+          <p>Located in Nakrajoria, Salanpur (Paschim Bardhaman), ESPL produces bulk ferro-alloys and semi-finished steel billets, alongside wire rods, rolled products, sinter, and briquettes.</p>
+        </div>
+        <div class="cp-panel" data-panel="location">
+          <h5>Plant Location &amp; Address</h5>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke-linecap="round"/></svg></div>
+            <div><h6>Entity Name</h6><p>Eloquent Steel Private Limited</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Plant Address</h6><p>Mouza / Village Nakrajoria, P.O. Salanpur, District Paschim Bardhaman, West Bengal – 713357</p></div>
+          </div>
+          <div class="cp-addr-row">
+            <div class="cp-addr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+            <div><h6>Corporate Office</h6><p>Diamond Prestige, 8th Floor, Room No. 801, 41A A.J.C. Bose Road, Kolkata, West Bengal – 700017</p></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="operations">
+          <h5>What We Do</h5>
+          <div class="cp-op-list">
+          <div class="cp-op-item">
+            <div class="cp-op-icon">1</div>
+            <div><h6>Ferro Alloy Smelting</h6><p>Operates Submerged Arc Furnaces (SAF) to smelt Manganese, Silicon, and Chrome ores into ferro alloys for specialized steelmaking.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">2</div>
+            <div><h6>Steel Melting &amp; Continuous Casting</h6><p>Operates Induction Furnaces equipped with Ladle Refining Furnaces (LRF) and CCMs to produce MS Billets.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">3</div>
+            <div><h6>Rolling Mill Operations</h6><p>Converts prime steel billets into rolled long products including Wire Rods and TMT Bars.</p></div>
+          </div>
+          <div class="cp-op-item">
+            <div class="cp-op-icon">4</div>
+            <div><h6>Sinter &amp; Briquetting</h6><p>Agglomerates ore fines into feed for furnaces to improve process efficiency and waste recovery.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="capacity">
+          <h5>Installed Capacity &amp; Infrastructure</h5>
+          <div class="cp-stat-grid">
+          <div class="cp-stat"><div class="num">336,000 TPA</div><div class="label">Steel Billets Capacity</div></div>
+          <div class="cp-stat"><div class="num">210,000 TPA</div><div class="label">Rolled Products (Wire Rod / TMT)</div></div>
+          <div class="cp-stat"><div class="num">Up to 76,400 TPA</div><div class="label">Ferro Alloys / Pig Iron (4 SAFs)</div></div>
+          <div class="cp-stat"><div class="num">108,000 + 150,000 TPA</div><div class="label">Sinter Plant + Briquette Plant</div></div>
+          <div class="cp-stat"><div class="num">64 MW</div><div class="label">Power Sanction via DVC Grid</div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="products">
+          <h5>Product Portfolio</h5>
+          <div class="cp-chip-list">
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Ferro Alloys</strong><span>High Carbon Ferro Manganese (FeMn), Silico Manganese (SiMn), Ferro Silicon (FeSi), High Carbon Ferro Chrome (FeCr).</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Pig Iron</strong><span>High-grade cold pig iron charge.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Mild Steel Billets</strong><span>Continuous-cast billets for structural and re-rolling applications.</span></div></div>
+          <div class="cp-chip-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Rolled Products</strong><span>High-tensile Wire Rods, Binding Wire, and TMT Rebars.</span></div></div>
+          </div>
+        </div>
+        <div class="cp-panel" data-panel="quality">
+          <h5>Quality &amp; Compliance</h5>
+          <div class="cp-badge-row">
+            <span class="cp-badge">ISO 9001:2015</span>
+            <span class="cp-badge">MoEFCC Cleared</span>
+            <span class="cp-badge">WBPCB Approved</span>
+          </div>
+          <p>Environmental clearances approved by the Ministry of Environment, Forest and Climate Change (MoEFCC) and WBPCB; strict batch-gated laboratory testing for carbon, sulfur and alloy composition.</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-grid">
@@ -403,5 +1029,6 @@
 </footer>
 
 <script src="site.js"></script>
+<script src="company-profiles.js"></script>
 </body>
 </html>
