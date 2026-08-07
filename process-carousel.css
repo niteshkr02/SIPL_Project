@@ -85,7 +85,7 @@
   padding: 2.5rem 0 3rem;
 }
 
-.pcc-track-wrap { position: relative; flex: 1 1 auto; min-width: 0; overflow-x: hidden; overflow-y: visible; }
+.pcc-track-wrap { position: relative; width: 100%; min-width: 0; overflow-x: hidden; overflow-y: visible; }
 .pcc-track-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 1rem; }
 
 .pcc-track {
@@ -175,8 +175,11 @@
 }
 .pcc-nav:active { transform: scale(.96); }
 
+/* ── bottom controls: prev arrow · dots · next arrow ── */
+.pcc-controls { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-top: .5rem; }
+
 /* ── pagination ── */
-.pcc-dots { display: flex; align-items: center; justify-content: center; gap: .55rem; margin-top: .5rem; }
+.pcc-dots { display: flex; align-items: center; justify-content: center; gap: .55rem; }
 .pcc-dot {
   width: 8px; height: 8px;
   border-radius: 999px;
