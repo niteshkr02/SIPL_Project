@@ -89,15 +89,9 @@ a{ color:inherit; }
   background:rgba(6,10,20,.55);
   backdrop-filter:blur(18px) saturate(140%);
   -webkit-backdrop-filter:blur(18px) saturate(140%);
-<<<<<<< HEAD
   border-bottom:1px solid rgba(255,106,31,.16);
   box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 8px 30px rgba(0,0,0,.35);
-  transition:background .3s ease, box-shadow .3s ease, border-color .3s ease;
-=======
-  border-bottom:1px solid rgba(255,255,255,.5);
-  box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 8px 30px rgba(20,22,28,.06);
-  transition:background .3s ease, box-shadow .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
->>>>>>> 7af9a1a6f8e1331dba8a1a8317a211fee05761d9
+  transition:background .3s ease, box-shadow .3s ease, border-color .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
 }
 .site-nav.scrolled{
   background:rgba(6,10,20,.82);
