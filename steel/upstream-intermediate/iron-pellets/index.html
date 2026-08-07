@@ -36,6 +36,50 @@
 .spec-extra-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.74rem; letter-spacing:.04em; padding:.8rem 1rem; text-align:left; white-space:nowrap; }
 .spec-extra-table td{ padding:.75rem 1rem; border-top:1px solid var(--border); font-size:.9rem; color:var(--ink); font-family:var(--font-mono); }
 .spec-extra-table tr:nth-child(even) td{ background:var(--surface-2); }
+
+/* ══ PELLETISATION PROCESS FLOW ══ */
+.pell-flow{ position:relative; max-width:760px; margin:0 auto; padding-left:76px; }
+.pell-spine{
+  position:absolute; left:29px; top:6px; bottom:6px; width:3px;
+  background:linear-gradient(180deg, var(--accent) 0%, var(--brand-blue) 50%, var(--accent-deep) 100%);
+  border-radius:3px; opacity:.4;
+}
+.pell-phase{ margin-bottom:1rem; }
+.pell-phase-label{
+  position:relative; font-family:var(--font-mono); font-size:.72rem; font-weight:800; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--accent-ink); margin:2.2rem 0 1.3rem;
+}
+.pell-phase:first-child .pell-phase-label{ margin-top:0; }
+.pell-stage{ position:relative; margin-bottom:1.5rem; }
+.pell-stage:last-child{ margin-bottom:0; }
+.pell-node{
+  position:absolute; left:-76px; top:0; z-index:2;
+  width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:var(--surface); border:2.5px solid var(--pell-color, var(--accent));
+  box-shadow:0 0 0 6px var(--bg-node, var(--surface)), 0 6px 16px rgba(20,22,28,.12);
+}
+.pell-node svg{ width:20px; height:20px; color:var(--pell-color, var(--accent)); }
+.pell-card{ padding:1.3rem 1.5rem; }
+.pell-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.4rem; }
+.pell-card p{ font-size:.88rem; color:var(--ink-soft); line-height:1.6; }
+.pell-inputs{ display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.7rem; }
+.pell-input-tag{
+  font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.03em;
+  padding:.3rem .6rem; border-radius:.4rem; background:var(--surface-2); border:1px solid var(--border); color:var(--ink-soft);
+}
+.pell-input-tag::before{ content:'+ '; color:var(--accent-ink); }
+.pell-note{
+  position:relative; margin-top:1.6rem; padding:1rem 1.2rem; border-radius:.8rem;
+  background:var(--surface-2); border:1px dashed var(--border);
+  font-size:.84rem; color:var(--ink-soft); line-height:1.6;
+}
+.pell-note strong{ color:var(--ink); }
+@media(max-width:600px){
+  .pell-flow{ padding-left:64px; }
+  .pell-spine{ left:23px; }
+  .pell-node{ left:-64px; width:40px; height:40px; }
+  .pell-node svg{ width:17px; height:17px; }
+}
 </style>
 </head>
 <body>
@@ -162,6 +206,101 @@
     </div>
     <img src="/images/Iron_Pellets.jpeg" alt="Iron Pellets" class="split-photo reveal">
   </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PELLETISATION PROCESS -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">HOW IT'S MADE</div>
+    <h2>The Pelletisation Process</h2>
+    <p>Eight stages between a pile of ore fines and a hardened, kiln-ready sphere — one continuous line, from grinding to screening.</p>
+  </div>
+
+  <div class="pell-flow">
+    <div class="pell-spine" aria-hidden="true"></div>
+
+    <div class="pell-phase" style="--pell-color:var(--brand-blue);">
+      <div class="pell-phase-label">Phase 1 — Raw Material Preparation</div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="9" width="14" height="7" rx="3.5"/><path d="M17 12h4M6 9V7a3 3 0 0 1 6 0v2" stroke-linecap="round"/></svg></div>
+        <div class="pell-card panel">
+          <div class="pell-inputs"><span class="pell-input-tag">Iron Ore Fines</span><span class="pell-input-tag">Limestone</span><span class="pell-input-tag">Anthracite</span><span class="pell-input-tag">Dolomite</span></div>
+          <h4>Dryer</h4>
+          <p>Raw iron ore fines and flux material arrive with excess moisture. The dryer removes it before grinding, so the mill isn't fighting wet, clumping ore.</p>
+        </div>
+      </div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2 2M15.7 15.7l2 2M17.7 6.3l-2 2M8.3 15.7l-2 2"/></svg></div>
+        <div class="pell-card panel">
+          <h4>Grinder</h4>
+          <p>Dried ore and flux are ground down to the fine, consistent particle size that balling actually needs — too coarse and the green balls won't hold together.</p>
+        </div>
+      </div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="9" rx="2"/><path d="M7 8v9M12 8v9M17 8v9" stroke-linecap="round"/></svg></div>
+        <div class="pell-card panel">
+          <div class="pell-inputs"><span class="pell-input-tag">Binder</span><span class="pell-input-tag">Water / Slurry</span></div>
+          <h4>Mixer</h4>
+          <p>Ground ore is blended with a binder and water (or slurry) until the mix is uniform and cohesive enough to roll into a ball that holds its shape.</p>
+        </div>
+      </div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><circle cx="12" cy="16" r="3"/></svg></div>
+        <div class="pell-card panel">
+          <h4>Balling Equipment</h4>
+          <p>The mixed feed is rolled into uniform "green balls" — soft, unfired spheres, sized precisely so every one fires evenly in the stages ahead.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pell-phase" style="--pell-color:var(--accent);">
+      <div class="pell-phase-label">Phase 2 — Induration (Thermal Hardening)</div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="10" width="20" height="6" rx="1"/><path d="M2 13h20M6 10v6M10 10v6M14 10v6M18 10v6" stroke-linecap="round"/></svg></div>
+        <div class="pell-card panel">
+          <h4>Travelling Grate</h4>
+          <p>Green balls ride a moving grate through sequential drying and preheating zones, fed by hot air recirculated from the kiln and cooler through an air heater — building heat gradually so the balls don't crack.</p>
+        </div>
+      </div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9" ry="4.2" transform="rotate(-20 12 12)"/><path d="M4.5 14.5 8 20M19.5 9.5 16 4" stroke-linecap="round"/></svg></div>
+        <div class="pell-card panel">
+          <h4>Rotary Kiln</h4>
+          <p>Preheated balls pass into the rotating kiln, where sustained high heat fires them into hard, dense, thermally hardened spheres — the defining step that gives pellets their strength.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pell-phase" style="--pell-color:var(--brand-blue);">
+      <div class="pell-phase-label">Phase 3 — Cooling &amp; Finishing</div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 12a8 8 0 0 1 3-6.2" stroke-linecap="round"/></svg></div>
+        <div class="pell-card panel">
+          <h4>Annular Cooler</h4>
+          <p>Fired pellets pass through multiple forced-air cooling zones before handling. The hot air pulled off them isn't wasted — it's routed back to the air heater to help fire the next batch.</p>
+        </div>
+      </div>
+
+      <div class="pell-stage reveal">
+        <div class="pell-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/><path d="M12 3v18" stroke-dasharray="2 2"/></svg></div>
+        <div class="pell-card panel">
+          <h4>Product Screen</h4>
+          <p>Cooled pellets are screened to size — undersize material is recycled back into the process rather than shipped, so every finished pellet meets the same spec.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="pell-note reveal"><strong>A closed-loop by design:</strong> hot air drawn off the rotary kiln and annular cooler is recirculated through the air heater back into the travelling grate, and undersize pellets from the product screen are recycled rather than discarded — the same discipline behind every stage of this line.</p>
 </section>
 
 <div class="divider"></div>
