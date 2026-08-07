@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="trusted-by-section.css">
   <link rel="stylesheet" href="awards-gallery.css">
   <link rel="stylesheet" href="group-showcase.css">
-  <link rel="stylesheet" href="quality-section.css">
+  <link rel="stylesheet" href="process-carousel.css">
+  <link rel="stylesheet" href="quality-carousel.css">
   <style>
     /* ══ HERO (dark, scoped tokens) ══ */
     .hero {
@@ -1539,145 +1540,180 @@
 
     <div class="divider"></div>
 
-    <!-- QUALITY WITHOUT COMPROMISE (isolated component — see
-         quality-section.css / quality-section.js) -->
-    <section class="qs" id="qualitySection" aria-labelledby="qsHeading">
-      <div class="qs-frame">
-        <div class="qs-cover reveal-left" aria-hidden="true">
-          <div class="qs-cover-grid"></div>
-          <div class="qs-scan-sweep"></div>
-          <div class="qs-ghost-num">100</div>
-          <span class="qs-tick tl"></span>
-          <span class="qs-tick tr"></span>
-          <span class="qs-tick bl"></span>
-          <span class="qs-tick br"></span>
-          <div class="qs-cover-top">
-            <div class="qs-cover-label">Certified Quality System</div>
-            <div class="qs-verified-badge"><span class="qs-verified-dot"></span>Verified</div>
-          </div>
-
-          <div class="qs-seal-wrap">
-            <span class="qs-seal-glow" aria-hidden="true"></span>
-            <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle class="qs-ring-a" cx="150" cy="150" r="138" stroke="#FF9128" stroke-width="1"
-                stroke-dasharray="2 8" opacity=".4" />
-              <circle class="qs-ring-b" cx="150" cy="150" r="112" stroke="#FFC24B" stroke-width="1"
-                stroke-dasharray="1 6" opacity=".35" />
-              <circle class="qs-orbit" cx="288" cy="150" r="3.5" fill="#FFC24B" />
-              <polygon points="150,46 226,90 226,178 150,222 74,178 74,90" fill="rgba(255,255,255,.03)"
-                stroke="rgba(255,255,255,.18)" stroke-width="1" />
-              <polygon points="150,72 204,103 204,165 150,196 96,165 96,103" fill="none" stroke="#FF6A1F"
-                stroke-width="1" opacity=".5" />
-              <path d="M118 150l22 22 42-46" stroke="#FFC24B" stroke-width="7" stroke-linecap="round"
-                stroke-linejoin="round" fill="none" />
-            </svg>
-          </div>
-          <div class="qs-cover-tag">ISO-aligned processes · every unit, every shift</div>
-
-          <div class="qs-stat-rail">
-            <div class="qs-stat">
-              <span class="qs-stat-icon">🎯</span>
-              <div class="qs-stat-num counter" data-target="98" data-suffix="%">0%</div>
-              <div class="qs-stat-label">Product Accuracy</div>
-            </div>
-            <div class="qs-stat">
-              <span class="qs-stat-icon">🔍</span>
-              <div class="qs-stat-num counter" data-target="99" data-suffix="%">0%</div>
-              <div class="qs-stat-label">Inspection Success</div>
-            </div>
-            <div class="qs-stat">
-              <span class="qs-stat-icon">✅</span>
-              <div class="qs-stat-num counter" data-target="100" data-suffix="%">0%</div>
-              <div class="qs-stat-label">Quality Commitment</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="qs-content reveal-right">
-          <div class="kicker">QUALITY</div>
-          <h2 id="qsHeading">Quality Without Compromise</h2>
-          <p class="qs-intro">Delivering excellence through certified processes, cutting-edge manufacturing,
-            rigorous quality control, and a commitment to global standards.</p>
-
-          <div class="qs-list">
-            <div class="qs-row" tabindex="0">
-              <span class="qs-row-icon" aria-hidden="true">⚙</span>
-              <span class="qs-row-idx">01</span>
-              <div>
-                <h3>Precision Manufacturing</h3>
-                <p>Advanced production techniques and closely toleranced processes ensure every batch meets
-                  exacting engineering specifications.</p>
-              </div>
-            </div>
-
-            <div class="qs-row" tabindex="0">
-              <span class="qs-row-icon" aria-hidden="true">🛡</span>
-              <span class="qs-row-idx">02</span>
-              <div>
-                <h3>Certified Standards</h3>
-                <p>Manufacturing operations aligned with ISO-compliant systems, upheld consistently across every
-                  unit and every shift.</p>
-              </div>
-            </div>
-
-            <div class="qs-row" tabindex="0">
-              <span class="qs-row-icon" aria-hidden="true">🔬</span>
-              <span class="qs-row-idx">03</span>
-              <div>
-                <h3>Rigorous Testing</h3>
-                <p>Multi-stage inspections and laboratory-grade checks catch deviations long before material
-                  leaves the plant.</p>
-              </div>
-            </div>
-
-            <div class="qs-row" tabindex="0">
-              <span class="qs-row-icon" aria-hidden="true">🤝</span>
-              <span class="qs-row-idx">04</span>
-              <div>
-                <h3>Customer Satisfaction</h3>
-                <p>A firm commitment to consistent, reliable products that our partners can build on, shipment
-                  after shipment.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="qs-journey">
-            <div class="qs-journey-label">Quality Journey</div>
-            <ol class="qs-journey-track">
-              <li class="qs-jstep">
-                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc1">1</span>
-                <span class="qs-jlabel">Raw Material</span>
-                <span class="qs-jdesc" id="qsDesc1" role="tooltip">Sourced and verified against strict material
-                  specifications before entering production.</span>
-              </li>
-              <li class="qs-jstep">
-                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc2">2</span>
-                <span class="qs-jlabel">Manufacturing</span>
-                <span class="qs-jdesc" id="qsDesc2" role="tooltip">Precision-engineered under continuous process
-                  controls and real-time monitoring.</span>
-              </li>
-              <li class="qs-jstep">
-                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc3">3</span>
-                <span class="qs-jlabel">Testing</span>
-                <span class="qs-jdesc" id="qsDesc3" role="tooltip">Multi-stage lab testing validates strength,
-                  composition, and dimensional tolerance.</span>
-              </li>
-              <li class="qs-jstep">
-                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc4">4</span>
-                <span class="qs-jlabel">Inspection</span>
-                <span class="qs-jdesc" id="qsDesc4" role="tooltip">Every batch is checked against ISO-aligned
-                  quality checkpoints before release.</span>
-              </li>
-              <li class="qs-jstep">
-                <span class="qs-jdot" tabindex="0" aria-describedby="qsDesc5">5</span>
-                <span class="qs-jlabel">Delivery</span>
-                <span class="qs-jdesc" id="qsDesc5" role="tooltip">Dispatched with full traceability and quality
-                  documentation intact.</span>
-              </li>
-            </ol>
-          </div>
-        </div>
+    <!-- QUALITY WITHOUT COMPROMISE — card carousel (isolated component,
+         see quality-carousel.css / quality-carousel.js). Same coverflow
+         carousel + background recipe as the "OUR PROCESS" teaser below
+         (process-carousel.css/.js, prefix .pcc) so both read as one
+         carousel system across the page — only the card content differs,
+         pulled from quality.html's eight QC checkpoints. -->
+    <section class="section">
+      <div class="section-head reveal">
+        <div class="kicker center">QUALITY</div>
+        <h2 style="font-size:clamp(2.1rem,5vw,3.3rem); max-width:20ch; margin:0 auto .9rem;">Quality Without
+          Compromise</h2>
+        <p style="font-size:1.15rem; max-width:62ch; margin:0 auto;">Eight checkpoints, zero shortcuts — from the
+          moment raw material arrives to the moment a lot clears dispatch, every batch is verified before it moves
+          on.</p>
       </div>
+      <div class="qcc" id="qccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel"
+        aria-label="Quality checkpoints — eight stages">
+        <div class="qcc-bg" aria-hidden="true">
+          <div class="qcc-mesh"></div>
+          <div class="qcc-texture"></div>
+          <div class="qcc-glow"></div>
+          <div class="qcc-shape s1"></div>
+          <div class="qcc-shape s2"></div>
+          <div class="qcc-shape s3"></div>
+        </div>
+
+        <div class="qcc-viewport">
+          <button type="button" class="qcc-nav qcc-prev" aria-label="Previous checkpoint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+
+          <div class="qcc-track-wrap" role="region" aria-roledescription="carousel"
+            aria-label="Quality checkpoint slides" tabindex="0">
+            <div class="qcc-track" id="qccTrack">
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="Incoming Material Analysis">
+                <a href="quality.html#qc-1" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">01 · LAB TEST</span>
+                    <svg viewBox="0 0 44 44" fill="none" stroke="#C9962A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h10M18 5v9.5L10 33a3 3 0 0 0 2.7 4.3h18.6A3 3 0 0 0 34 33l-8-18.5V5"/><path d="M13.5 27h17"/></svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Incoming Material Analysis</h4>
+                    <p>Every incoming batch of iron ore, coal and dolomite is sampled and tested against a defined
+                      chemical benchmark — nothing moves to production until it clears that bar.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="DRI Live Monitoring &amp; Lab Analysis">
+                <a href="quality.html#qc-2" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap">
+                    <span class="pillar-badge">02 · LIVE MONITORING</span>
+                    <img src="images/Sponge_Iron.jpeg" alt="Sponge Iron output" loading="lazy">
+                  </div>
+                  <div class="pillar-body">
+                    <h4>DRI Live Monitoring &amp; Lab Analysis</h4>
+                    <p>Temperature and feed rate are watched continuously while the kiln runs, and the sponge iron
+                      that comes out still has to pass its own lab check before it counts as finished.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="SMS Lab Analysis">
+                <a href="quality.html#qc-3" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap">
+                    <span class="pillar-badge">03 · LAB TEST</span>
+                    <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" loading="lazy">
+                  </div>
+                  <div class="pillar-body">
+                    <h4>SMS Lab Analysis</h4>
+                    <p>Sponge iron, pig iron and ferro alloys each have to be individually verified — all three are
+                      checked before anything is cleared into the furnace.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="Alloy Dosing &amp; Lollypop Sampling">
+                <a href="quality.html#qc-4" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">04 · PROCESS CONTROL</span>
+                    <svg viewBox="0 0 44 44" fill="none" stroke="#8B97A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="24" r="11"/><path d="M22 24V8M17 8h10"/><circle cx="22" cy="24" r="3.5" fill="#8B97A8" stroke="none"/></svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Alloy Dosing &amp; Lollypop Sampling</h4>
+                    <p>Once slag is removed, the crude steel is refined and dosed with alloys to a precise ratio,
+                      verified with a quick sample pulled straight from the melt.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="Billet Inspection &amp; Documentation">
+                <a href="quality.html#qc-5" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap">
+                    <span class="pillar-badge">05 · LAB TEST</span>
+                    <img src="images/MS_Billets.jpeg" alt="M.S. Billets" loading="lazy">
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Billet Inspection &amp; Documentation</h4>
+                    <p>What comes out of continuous casting gets checked from every angle — look, temperature and
+                      composition — with every result logged before the billet is cleared for rolling.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="Rolling Process Monitoring">
+                <a href="quality.html#qc-6" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">06 · LIVE MONITORING</span>
+                    <svg viewBox="0 0 44 44" fill="none" stroke="#3E9FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h8v5.5l3 3V33a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V14.5l3-3Z"/><path d="M18 24h8"/><circle cx="22" cy="30" r="2.4" fill="#3E9FD8" stroke="none"/></svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Rolling Process Monitoring</h4>
+                    <p>Rolling runs under continuous temperature and pressure supervision — every billet tracked
+                      in, cooling water watched throughout, and every bar tracked back out.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="Finished Material Testing">
+                <a href="quality.html#qc-7" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap">
+                    <span class="pillar-badge">07 · LAB TEST</span>
+                    <img src="images/elegant_qst_bar.jpeg" alt="Elegant QST TMT Bars" loading="lazy">
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Finished Material Testing</h4>
+                    <p>Before anything ships, the finished product is tested across every property that matters —
+                      physical, mechanical and chemical — and the results are documented against that batch.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="qcc-slide" role="group" aria-roledescription="slide" aria-label="Lot Tagging &amp; Dispatch Clearance">
+                <a href="quality.html#qc-8" class="pillar-card qcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">08 · DISPATCH</span>
+                    <svg viewBox="0 0 44 44" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21.5 21.5 6H33a4 4 0 0 1 4 4v11.5L21.5 36 6 21.5Z"/><circle cx="26" cy="14" r="2.2" fill="#FF6A1F" stroke="none"/><path d="M17 25l3 3 6-7"/></svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Lot Tagging &amp; Dispatch Clearance</h4>
+                    <p>Every lot is tagged, logged and cleared before dispatch, so any bar that leaves the plant
+                      can be traced straight back to the batch it came from.</p>
+                    <span class="go">VIEW CHECKPOINT →</span>
+                  </div>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <button type="button" class="qcc-nav qcc-next" aria-label="Next checkpoint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="qcc-dots" id="qccDots" role="tablist" aria-label="Choose a checkpoint"></div>
+        <div class="qcc-sr-only qcc-sr-status" aria-live="polite" aria-atomic="true"></div>
+      </div>
+      <div style="text-align:center; margin-top:2.5rem;"><a href="quality.html" class="btn btn-primary reveal">See
+          Full Quality Process →</a></div>
     </section>
 
     <div class="divider"></div>
@@ -1736,7 +1772,6 @@
                 </div>
                 <p class="grp-desc">An integrated flagship complex — DRI kilns, an induction furnace with
                   continuous casting, and its own captive power plant under one roof.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1768,7 +1803,6 @@
                 </div>
                 <p class="grp-desc">The group's dedicated pellet and sponge iron complex, exceeding 0.9 MTPA — the
                   first transformation in every chain that starts with raw ore.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1799,7 +1833,6 @@
                 </div>
                 <p class="grp-desc">9 to 60 micron pharma and FMCG-grade aluminium foil, ISO-certified and exported
                   to 29+ countries under the India Foils name.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1831,7 +1864,6 @@
                 </div>
                 <p class="grp-desc">Rolls TMT bars, angles and channels in Durgapur, backed by its own sponge iron,
                   MS billet and steel melting capacity.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1863,7 +1895,6 @@
                 </div>
                 <p class="grp-desc">The group's newest acquisition — DRI kilns, a submerged arc furnace, steel
                   melting and captive power, being revived as a mega integrated plant.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1895,7 +1926,6 @@
                 </div>
                 <p class="grp-desc">High-quality ferro alloys for captive consumption and export, produced through
                   submerged arc and induction furnaces.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1927,7 +1957,6 @@
                 </div>
                 <p class="grp-desc">Organic, unadulterated fruits and vegetables under the Green Habit brand —
                   discipline that extends beyond metal.</p>
-                <a href="companies.html" class="grp-explore">Explore Unit →</a>
               </div>
             </div>
           </div>
@@ -1989,136 +2018,174 @@
           our own reduction, our own furnace, our own hands — nearly nothing bought as a finished input we could make
           ourselves.</p>
       </div>
-      <div class="pillars-grid process-grid">
+      <div class="pcc" id="pccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Our process — six stages">
+        <div class="pcc-bg" aria-hidden="true">
+          <div class="pcc-mesh"></div>
+          <div class="pcc-texture"></div>
+          <div class="pcc-glow"></div>
+          <div class="pcc-shape s1"></div>
+          <div class="pcc-shape s2"></div>
+          <div class="pcc-shape s3"></div>
+        </div>
 
-        <a href="process.html#s1" class="pillar-card panel reveal">
-          <div class="pillar-img-wrap icon-wrap">
-            <span class="pillar-badge">CHAPTER I</span>
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="38" cy="70" rx="30" ry="20" fill="url(#oreGrad)" />
-              <ellipse cx="30" cy="55" rx="18" ry="13" fill="url(#oreGrad)" opacity=".85" />
-              <ellipse cx="82" cy="72" rx="28" ry="18" fill="url(#charGrad)" />
-              <ellipse cx="90" cy="58" rx="16" ry="11" fill="url(#charGrad)" opacity=".9" />
-              <circle cx="38" cy="60" r="4" fill="#F0C79A" opacity=".6" />
-              <circle cx="86" cy="62" r="3" fill="#7C8797" opacity=".5" />
-            </svg>
-          </div>
-          <div class="pillar-body">
-            <h4>The Earth Gives</h4>
-            <p>Iron ore fines and coal begin the chain — coal drawn straight from Shakambhari's own mines, not rented
-              piece by piece from the market.</p>
-            <span class="go">VIEW STAGE →</span>
-          </div>
-        </a>
+        <div class="pcc-viewport">
+          <button type="button" class="pcc-nav pcc-prev" aria-label="Previous stage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
 
-        <a href="process.html#s2" class="pillar-card panel reveal">
-          <div class="pillar-img-wrap icon-wrap">
-            <span class="pillar-badge">CHAPTER II</span>
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="24" y="38" width="72" height="46" rx="6" fill="url(#steelGrad)" />
-              <rect x="30" y="44" width="60" height="32" rx="4" fill="url(#silverGrad)" opacity=".5" />
-              <polygon points="40,22 80,22 72,38 48,38" fill="#4A5560" />
-              <circle cx="46" cy="98" r="7" fill="url(#oreGrad)" />
-              <circle cx="63" cy="102" r="7" fill="url(#oreGrad)" />
-              <circle cx="80" cy="98" r="7" fill="url(#oreGrad)" />
-              <circle cx="55" cy="108" r="5" fill="url(#oreGrad)" opacity=".85" />
-              <circle cx="72" cy="108" r="5" fill="url(#oreGrad)" opacity=".85" />
-              <circle cx="60" cy="61" r="9" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-dasharray="4 4" />
-            </svg>
-          </div>
-          <div class="pillar-body">
-            <h4>Shaped for Purpose</h4>
-            <p>At SIPL Rukni, raw fines are agglomerated into uniform spherical pellets, engineered for the
-              permeability clean reduction demands.</p>
-            <span class="go">VIEW STAGE →</span>
-          </div>
-        </a>
+          <div class="pcc-track-wrap" role="region" aria-roledescription="carousel" aria-label="Process stage slides" tabindex="0">
+            <div class="pcc-track" id="pccTrack">
 
-        <a href="process.html#s3" class="pillar-card panel reveal">
-          <div class="pillar-img-wrap icon-wrap">
-            <span class="pillar-badge">~950°C · KILN</span>
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="60" cy="34" rx="34" ry="11" fill="#3E4550" />
-              <rect x="26" y="34" width="68" height="56" fill="url(#steelGrad)" />
-              <ellipse cx="60" cy="90" rx="34" ry="11" fill="#2E343D" />
-              <line x1="42" y1="48" x2="42" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" />
-              <line x1="60" y1="44" x2="60" y2="80" stroke="url(#emberGrad)" stroke-width="3" opacity=".75" />
-              <line x1="78" y1="48" x2="78" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" />
-              <ellipse cx="60" cy="94" rx="13" ry="8" fill="url(#emberGrad)" />
-            </svg>
-          </div>
-          <div class="pillar-body">
-            <h4>The Stripping Away</h4>
-            <p>Inside the rotary kiln, oxygen is stripped from the pellets at ~950°C — no coking, no blast furnace,
-              just metallic iron.</p>
-            <span class="go">VIEW STAGE →</span>
-          </div>
-        </a>
+              <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="The Earth Gives">
+                <a href="process.html#s1" class="pillar-card pcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">CHAPTER I</span>
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <ellipse cx="38" cy="70" rx="30" ry="20" fill="url(#oreGrad)" />
+                      <ellipse cx="30" cy="55" rx="18" ry="13" fill="url(#oreGrad)" opacity=".85" />
+                      <ellipse cx="82" cy="72" rx="28" ry="18" fill="url(#charGrad)" />
+                      <ellipse cx="90" cy="58" rx="16" ry="11" fill="url(#charGrad)" opacity=".9" />
+                      <circle cx="38" cy="60" r="4" fill="#F0C79A" opacity=".6" />
+                      <circle cx="86" cy="62" r="3" fill="#7C8797" opacity=".5" />
+                    </svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>The Earth Gives</h4>
+                    <p>Iron ore fines and coal begin the chain — coal drawn straight from Shakambhari's own mines, not rented
+                      piece by piece from the market.</p>
+                    <span class="go">VIEW STAGE →</span>
+                  </div>
+                </a>
+              </div>
 
-        <a href="process.html#s4" class="pillar-card panel reveal">
-          <div class="pillar-img-wrap icon-wrap">
-            <span class="pillar-badge">~1600°C · EAF</span>
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="22" y="40" width="76" height="60" rx="8" fill="url(#steelGrad)" />
-              <rect x="28" y="46" width="64" height="48" rx="6" fill="#2E343D" />
-              <ellipse cx="60" cy="82" rx="26" ry="9" fill="url(#emberGrad)" />
-              <rect x="42" y="12" width="7" height="32" rx="3" fill="#7C8797" />
-              <rect x="57" y="10" width="7" height="34" rx="3" fill="#7C8797" />
-              <rect x="72" y="12" width="7" height="32" rx="3" fill="#7C8797" />
-              <line x1="45" y1="46" x2="45" y2="58" stroke="#3E9FD8" stroke-width="2" />
-              <line x1="60" y1="44" x2="60" y2="56" stroke="#3E9FD8" stroke-width="2" />
-              <line x1="75" y1="46" x2="75" y2="58" stroke="#3E9FD8" stroke-width="2" />
-            </svg>
-          </div>
-          <div class="pillar-body">
-            <h4>Where It Becomes One</h4>
-            <p>Sponge iron, scrap, pig iron and in-house silicomanganese melt in the induction furnace into one
-              liquid steel.</p>
-            <span class="go">VIEW STAGE →</span>
-          </div>
-        </a>
+              <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Shaped for Purpose">
+                <a href="process.html#s2" class="pillar-card pcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">CHAPTER II</span>
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="24" y="38" width="72" height="46" rx="6" fill="url(#steelGrad)" />
+                      <rect x="30" y="44" width="60" height="32" rx="4" fill="url(#silverGrad)" opacity=".5" />
+                      <polygon points="40,22 80,22 72,38 48,38" fill="#4A5560" />
+                      <circle cx="46" cy="98" r="7" fill="url(#oreGrad)" />
+                      <circle cx="63" cy="102" r="7" fill="url(#oreGrad)" />
+                      <circle cx="80" cy="98" r="7" fill="url(#oreGrad)" />
+                      <circle cx="55" cy="108" r="5" fill="url(#oreGrad)" opacity=".85" />
+                      <circle cx="72" cy="108" r="5" fill="url(#oreGrad)" opacity=".85" />
+                      <circle cx="60" cy="61" r="9" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-dasharray="4 4" />
+                    </svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Shaped for Purpose</h4>
+                    <p>At SIPL Rukni, raw fines are agglomerated into uniform spherical pellets, engineered for the
+                      permeability clean reduction demands.</p>
+                    <span class="go">VIEW STAGE →</span>
+                  </div>
+                </a>
+              </div>
 
-        <a href="process.html#s5" class="pillar-card panel reveal">
-          <div class="pillar-img-wrap icon-wrap">
-            <span class="pillar-badge">CONTINUOUS CASTING</span>
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M30 16 Q60 10 90 16 L84 46 Q60 52 36 46 Z" fill="url(#steelGrad)" />
-              <rect x="55" y="48" width="10" height="20" rx="3" fill="url(#emberGrad)" />
-              <rect x="42" y="68" width="36" height="16" rx="3" fill="#3E4550" />
-              <rect x="46" y="84" width="28" height="30" rx="2" fill="url(#silverGrad)" />
-              <rect x="46" y="84" width="28" height="4" fill="url(#emberGrad)" opacity=".7" />
-            </svg>
-          </div>
-          <div class="pillar-body">
-            <h4>Discipline Takes Form</h4>
-            <p>Liquid steel is drawn continuously through water-cooled molds into billets, disciplined enough to hold
-              whatever shape comes next.</p>
-            <span class="go">VIEW STAGE →</span>
-          </div>
-        </a>
+              <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="The Stripping Away">
+                <a href="process.html#s3" class="pillar-card pcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">~950°C · KILN</span>
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <ellipse cx="60" cy="34" rx="34" ry="11" fill="#3E4550" />
+                      <rect x="26" y="34" width="68" height="56" fill="url(#steelGrad)" />
+                      <ellipse cx="60" cy="90" rx="34" ry="11" fill="#2E343D" />
+                      <line x1="42" y1="48" x2="42" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" />
+                      <line x1="60" y1="44" x2="60" y2="80" stroke="url(#emberGrad)" stroke-width="3" opacity=".75" />
+                      <line x1="78" y1="48" x2="78" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" />
+                      <ellipse cx="60" cy="94" rx="13" ry="8" fill="url(#emberGrad)" />
+                    </svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>The Stripping Away</h4>
+                    <p>Inside the rotary kiln, oxygen is stripped from the pellets at ~950°C — no coking, no blast furnace,
+                      just metallic iron.</p>
+                    <span class="go">VIEW STAGE →</span>
+                  </div>
+                </a>
+              </div>
 
-        <a href="process.html#s6" class="pillar-card panel reveal">
-          <div class="pillar-img-wrap icon-wrap">
-            <span class="pillar-badge">ROLLING MILL</span>
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="18" y="24" width="84" height="72" rx="7" fill="url(#steelGrad)" />
-              <ellipse cx="60" cy="50" rx="30" ry="11" fill="#2E343D" />
-              <ellipse cx="60" cy="72" rx="30" ry="11" fill="#2E343D" />
-              <rect x="30" y="56" width="60" height="10" rx="2" fill="url(#barGrad)" />
-              <circle cx="24" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-              <circle cx="96" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-              <circle cx="24" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-              <circle cx="96" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-            </svg>
-          </div>
-          <div class="pillar-body">
-            <h4>Pressure Reveals Purpose</h4>
-            <p>Billets are reheated and rolled under pressure into TMT bars, wire rods and structural steel, each
-              built to hold something up.</p>
-            <span class="go">VIEW STAGE →</span>
-          </div>
-        </a>
+              <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Where It Becomes One">
+                <a href="process.html#s4" class="pillar-card pcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">~1600°C · EAF</span>
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="22" y="40" width="76" height="60" rx="8" fill="url(#steelGrad)" />
+                      <rect x="28" y="46" width="64" height="48" rx="6" fill="#2E343D" />
+                      <ellipse cx="60" cy="82" rx="26" ry="9" fill="url(#emberGrad)" />
+                      <rect x="42" y="12" width="7" height="32" rx="3" fill="#7C8797" />
+                      <rect x="57" y="10" width="7" height="34" rx="3" fill="#7C8797" />
+                      <rect x="72" y="12" width="7" height="32" rx="3" fill="#7C8797" />
+                      <line x1="45" y1="46" x2="45" y2="58" stroke="#3E9FD8" stroke-width="2" />
+                      <line x1="60" y1="44" x2="60" y2="56" stroke="#3E9FD8" stroke-width="2" />
+                      <line x1="75" y1="46" x2="75" y2="58" stroke="#3E9FD8" stroke-width="2" />
+                    </svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Where It Becomes One</h4>
+                    <p>Sponge iron, scrap, pig iron and in-house silicomanganese melt in the induction furnace into one
+                      liquid steel.</p>
+                    <span class="go">VIEW STAGE →</span>
+                  </div>
+                </a>
+              </div>
 
+              <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Discipline Takes Form">
+                <a href="process.html#s5" class="pillar-card pcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">CONTINUOUS CASTING</span>
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M30 16 Q60 10 90 16 L84 46 Q60 52 36 46 Z" fill="url(#steelGrad)" />
+                      <rect x="55" y="48" width="10" height="20" rx="3" fill="url(#emberGrad)" />
+                      <rect x="42" y="68" width="36" height="16" rx="3" fill="#3E4550" />
+                      <rect x="46" y="84" width="28" height="30" rx="2" fill="url(#silverGrad)" />
+                      <rect x="46" y="84" width="28" height="4" fill="url(#emberGrad)" opacity=".7" />
+                    </svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Discipline Takes Form</h4>
+                    <p>Liquid steel is drawn continuously through water-cooled molds into billets, disciplined enough to hold
+                      whatever shape comes next.</p>
+                    <span class="go">VIEW STAGE →</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Pressure Reveals Purpose">
+                <a href="process.html#s6" class="pillar-card pcc-card">
+                  <div class="pillar-img-wrap icon-wrap">
+                    <span class="pillar-badge">ROLLING MILL</span>
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="18" y="24" width="84" height="72" rx="7" fill="url(#steelGrad)" />
+                      <ellipse cx="60" cy="50" rx="30" ry="11" fill="#2E343D" />
+                      <ellipse cx="60" cy="72" rx="30" ry="11" fill="#2E343D" />
+                      <rect x="30" y="56" width="60" height="10" rx="2" fill="url(#barGrad)" />
+                      <circle cx="24" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
+                      <circle cx="96" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
+                      <circle cx="24" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
+                      <circle cx="96" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
+                    </svg>
+                  </div>
+                  <div class="pillar-body">
+                    <h4>Pressure Reveals Purpose</h4>
+                    <p>Billets are reheated and rolled under pressure into TMT bars, wire rods and structural steel, each
+                      built to hold something up.</p>
+                    <span class="go">VIEW STAGE →</span>
+                  </div>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <button type="button" class="pcc-nav pcc-next" aria-label="Next stage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+
+        <div class="pcc-dots" id="pccDots" role="tablist" aria-label="Choose a stage"></div>
+        <div class="pcc-sr-only pcc-sr-status" aria-live="polite" aria-atomic="true"></div>
       </div>
       <div style="text-align:center; margin-top:2.5rem;"><a href="process.html" class="btn btn-primary reveal">See
           Full Process →</a></div>
@@ -2730,11 +2797,16 @@
     <!-- AWARDS & RECOGNITION: PREMIUM MUSEUM-STYLE GALLERY (isolated component —
          see awards-gallery.css / awards-gallery.js) -->
     <section class="awx" id="awardsGallery" aria-labelledby="awxHeading">
-      <div class="awx-mesh" aria-hidden="true"></div>
-      <div class="awx-blueprint" aria-hidden="true"></div>
-      <div class="awx-dots" aria-hidden="true"></div>
-      <div class="awx-glow" aria-hidden="true"></div>
-      <div class="awx-noise" aria-hidden="true"></div>
+      <div class="awx-bg" aria-hidden="true">
+        <div class="awx-mesh"></div>
+        <div class="awx-blueprint"></div>
+        <div class="awx-dots"></div>
+        <div class="awx-glow"></div>
+        <div class="awx-noise"></div>
+        <div class="awx-shape s1"></div>
+        <div class="awx-shape s2"></div>
+        <div class="awx-shape s3"></div>
+      </div>
 
       <div class="section-head awx-head reveal" id="awards">
         <div class="kicker center">🏆 National Honours &amp; Accreditations</div>
@@ -2760,6 +2832,13 @@
 
       <!-- CAROUSEL -->
       <div class="awx-viewport">
+        <button type="button" class="awx-arrow prev" aria-label="Previous award">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 6l-6 6 6 6" />
+          </svg>
+        </button>
+
+        <div class="awx-track-wrap">
         <div class="awx-track" id="awxTrack" tabindex="0" role="region" aria-roledescription="carousel"
           aria-label="Awards and recognitions. Use the arrow keys to browse.">
 
@@ -2996,21 +3075,16 @@
           </div>
 
         </div>
-      </div>
+        </div>
 
-      <div class="awx-controls">
-        <button type="button" class="awx-arrow prev" aria-label="Previous award">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 6l-6 6 6 6" />
-          </svg>
-        </button>
-        <div class="awx-progress" aria-hidden="true"><div class="awx-progress-fill" id="awxProgressFill"></div></div>
         <button type="button" class="awx-arrow next" aria-label="Next award">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 6l6 6-6 6" />
           </svg>
         </button>
       </div>
+
+      <div class="awx-pager" id="awxPager" role="tablist" aria-label="Choose an award"></div>
     </section>
 
     <!-- CTA BAND -->
@@ -3980,7 +4054,8 @@
   <script src="awards-gallery.js"></script>
   <script src="group-showcase.js"></script>
   <script src="hero-cinematic.js"></script>
-  <script src="quality-section.js"></script>
+  <script src="process-carousel.js"></script>
+  <script src="quality-carousel.js"></script>
 </body>
 
 </html>

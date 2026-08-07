@@ -3,9 +3,9 @@
    Isolated component, 100% vanilla JS (no animation library, no Canvas).
    Owns: the entrance reveal (a single `.hero-loaded` class flip — every
    element's own CSS transition in hero-cinematic.css does the actual
-   animating), the stat counters, magnetic/ripple CTA interaction, the
-   cursor-spotlight, the drifting particle field, and a light scroll
-   parallax on the background layer.
+   animating), magnetic/ripple CTA interaction, the cursor-spotlight, the
+   drifting particle field, and a light scroll parallax on the background
+   layer.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -15,7 +15,6 @@
 
   const bg = hero.querySelector('.hero-bg');
   const ctaRow = hero.querySelector('.hero-cta-row');
-  const counters = hero.querySelectorAll('.hero-counter');
   const particleHost = hero.querySelector('#heroParticles');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -26,36 +25,6 @@
   requestAnimationFrame(() => {
     hero.classList.add('hero-loaded');
   });
-
-  // ── stat counters (kicks off alongside the metric card / achievement
-  // bar reveal rather than waiting on a scroll-triggered observer, since
-  // the hero is above the fold and already visible at load) ──
-  function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
-
-  function animateCounter(el) {
-    const target = parseFloat(el.dataset.target);
-    const suffix = el.dataset.suffix || '';
-    const prefix = el.dataset.prefix || '';
-    const decimals = parseInt(el.dataset.decimal || '0', 10);
-
-    if (reduceMotion) {
-      el.textContent = prefix + target.toFixed(decimals) + suffix;
-      return;
-    }
-
-    const duration = 1600;
-    const start = performance.now();
-    function step(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const value = target * easeOutExpo(progress);
-      el.textContent = prefix + value.toFixed(decimals) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = prefix + target.toFixed(decimals) + suffix;
-    }
-    requestAnimationFrame(step);
-  }
-
-  setTimeout(() => counters.forEach(animateCounter), reduceMotion ? 0 : 450);
 
   // ── magnetic CTA buttons + ripple ──
   if (ctaRow && canHover && !reduceMotion) {
