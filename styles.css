@@ -151,6 +151,36 @@ a{ color:inherit; }
   color:#E7EAF0; text-decoration:none; line-height:1.35; white-space:normal;
 }
 .dropdown a:hover, .dropdown a.active{ background:rgba(255,106,31,.16); color:var(--accent-hot); }
+@media(min-width:1181px){
+  /* nested flyout trigger row (e.g. "Steel" inside the Products panel) */
+  .dropdown .has-dropdown{ position:relative; }
+  .dropdown .has-dropdown > a, .dropdown .has-dropdown > .dropdown-label{
+    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+  }
+  .dropdown .has-dropdown > a::before, .dropdown .has-dropdown > .dropdown-label::before{
+    content:''; width:0; height:0; flex-shrink:0;
+    border-top:3.5px solid transparent; border-bottom:3.5px solid transparent; border-left:4px solid currentColor; border-right:none;
+    opacity:.5; margin-left:.4rem; transform:none;
+  }
+  .dropdown .has-dropdown.open > a::before, .dropdown .has-dropdown.open > .dropdown-label::before{ opacity:.9; }
+
+  /* nested flyout panel — opens to the right of its trigger row.
+     Matches .dropdown's dark-glass look (kept identical in both themes,
+     see GLASS NAVIGATION above) rather than its own light-mode style. */
+  .dropdown-flyout{
+    position:absolute; top:-.6rem; left:100%; margin-left:.4rem;
+    min-width:230px; padding:.6rem;
+    background:rgba(10,14,24,.94);
+    backdrop-filter:blur(20px) saturate(150%); -webkit-backdrop-filter:blur(20px) saturate(150%);
+    border:1px solid rgba(255,255,255,.08); border-radius:.9rem;
+    box-shadow:0 22px 46px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+    opacity:0; visibility:hidden; pointer-events:none; transform:translateX(-6px);
+    transition:opacity .18s ease, transform .18s ease, visibility .18s;
+    z-index:11;
+  }
+  .has-dropdown.open > .dropdown-flyout{ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(0); }
+  .dropdown-flyout.flyout-left{ left:auto; right:100%; margin-left:0; margin-right:.4rem; }
+}
 .nav-cta{
   font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
   text-decoration:none; color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent));
@@ -194,13 +224,40 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
   .nav-links > li{ width:100%; }
   .nav-links > li > a, .nav-links > li > .dropdown-label{ display:flex; width:100%; padding:1.1rem 2rem; justify-content:space-between; }
   .nav-links > li > a::after{ display:none; }
-  .has-dropdown > a::before, .has-dropdown > .dropdown-label::before{ transform:rotate(180deg); }
-  .dropdown{
+  .nav-links > li.has-dropdown > a::before, .nav-links > li.has-dropdown > .dropdown-label::before{ transform:rotate(180deg); }
+  /* Re-state at equal specificity to the desktop rules (styles.css:141): a tap
+     inside a nested flyout puts focus on a descendant link, which triggers
+     :focus-within on every ancestor .has-dropdown — including the outer
+     Products <li> — so the desktop translateX(-50%) centering rule would
+     otherwise win on specificity alone and shove the whole panel off-screen. */
+  .dropdown, .has-dropdown.open .dropdown, .has-dropdown:focus-within .dropdown{
     position:static; opacity:1; visibility:visible; pointer-events:auto; transform:none;
     background:rgba(255,255,255,.03); border:none; box-shadow:none; border-radius:0;
     margin:0; padding:0 2rem .6rem 2.6rem;
   }
   .dropdown a{ padding:.6rem 0; }
+
+  /* nested flyout: collapsed by default, tap-to-expand (progressive disclosure) */
+  .dropdown .has-dropdown > a, .dropdown .has-dropdown > .dropdown-label{
+    display:flex; width:100%; justify-content:space-between; align-items:center; padding:.6rem 0;
+  }
+  .dropdown .has-dropdown > a::before, .dropdown .has-dropdown > .dropdown-label::before{
+    content:''; width:0; height:0; flex-shrink:0;
+    border-top:3.5px solid transparent; border-bottom:3.5px solid transparent; border-left:4px solid currentColor; border-right:none;
+    opacity:.5; margin-left:.6rem; transition:transform .25s ease;
+  }
+  .dropdown .has-dropdown.open > a::before, .dropdown .has-dropdown.open > .dropdown-label::before{ transform:rotate(90deg); opacity:.9; }
+  .dropdown-flyout{
+    position:static; margin:0; padding:0 0 0 1rem; max-height:0; overflow:hidden;
+    opacity:1; visibility:hidden; pointer-events:none;
+    background:none; border:none; box-shadow:none; border-radius:0;
+    transition:max-height .3s ease;
+  }
+  .has-dropdown.open > .dropdown-flyout{
+    visibility:visible; pointer-events:auto; max-height:600px;
+  }
+  .dropdown-flyout a{ padding:.55rem 0; }
+
   .nav-toggle{ display:flex; }
   .theme-toggle{ margin-left:auto; }
 }
@@ -519,9 +576,9 @@ html[data-theme="dark"] body{
     linear-gradient(160deg, #0B0C0F 0%, #14161B 24%, #1A1D22 46%, #121417 68%, #0A0B0D 100%);
 }
 html[data-theme="dark"] .sheen{ opacity:.4; }
-/* .site-nav / .dropdown are dark-glass by default (see GLASS NAVIGATION
-   above) and no longer need a dark-theme override — kept identical in
-   both themes since the nav is persistent chrome, not page content. */
+/* .site-nav / .dropdown / .dropdown-flyout are dark-glass by default (see
+   GLASS NAVIGATION above) and no longer need a dark-theme override — kept
+   identical in both themes since the nav is persistent chrome, not page content. */
 html[data-theme="dark"] .chip.hot{ background:rgba(255,122,51,.15); }
 html[data-theme="dark"] .panel{
   background:linear-gradient(155deg, rgba(255,255,255,.05), rgba(255,255,255,0) 40%), var(--surface);
