@@ -23,8 +23,10 @@
   const dotsWrap = document.getElementById('bs3dDots');
   const prevBtn = root.querySelector('.bs3d-prev');
   const nextBtn = root.querySelector('.bs3d-next');
+  const status = root.querySelector('.bs3d-sr-status');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = window.matchMedia('(hover: hover)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
   const EASE = 'power4.inOut';
   const DURATION = reduceMotion ? 0 : 1.05;
@@ -34,19 +36,21 @@
 
   // Per-viewport look: magnitude values for side cards, mirrored left/right
   // by sign at apply-time. Center card is always the same everywhere.
-  const CENTER = { x: 0, z: 0, rotY: 0, scale: 1, opacity: 1, blur: 0, zIndex: 5 };
+  // Flat coverflow (no rotateY tilt / z depth) — center card enlarged and
+  // ringed in accent glow, side cards simply scaled down and faded.
+  const CENTER = { x: 0, scale: 1, opacity: 1, blur: 0, zIndex: 5 };
   const PRESETS = {
     desktop: {
-      1: { xMag: 290, z: -140, rotMag: 20, scale: .86, opacity: .5, blur: 1.5, zIndex: 3 },
-      2: { xMag: 540, z: -260, rotMag: 30, scale: .7, opacity: 0, blur: 3, zIndex: 1 },
+      1: { xMag: 300, scale: .86, opacity: .55, blur: 0, zIndex: 3 },
+      2: { xMag: 560, scale: .74, opacity: .16, blur: 0, zIndex: 1 },
     },
     tablet: {
-      1: { xMag: 195, z: -110, rotMag: 18, scale: .8, opacity: .4, blur: 1.5, zIndex: 3 },
-      2: { xMag: 340, z: -220, rotMag: 28, scale: .66, opacity: 0, blur: 3, zIndex: 1 },
+      1: { xMag: 210, scale: .82, opacity: .45, blur: 0, zIndex: 3 },
+      2: { xMag: 380, scale: .68, opacity: 0, blur: 0, zIndex: 1 },
     },
     mobile: {
-      1: { xMag: 170, z: -160, rotMag: 22, scale: .82, opacity: 0, blur: 2, zIndex: 1 },
-      2: { xMag: 170, z: -160, rotMag: 22, scale: .82, opacity: 0, blur: 2, zIndex: 0 },
+      1: { xMag: 180, scale: .82, opacity: 0, blur: 0, zIndex: 1 },
+      2: { xMag: 180, scale: .82, opacity: 0, blur: 0, zIndex: 0 },
     },
   };
 
@@ -75,8 +79,6 @@
     const p = PRESETS[mq][abs];
     return {
       x: p.xMag * sign,
-      z: p.z,
-      rotY: -p.rotMag * sign,
       scale: p.scale,
       opacity: p.opacity,
       blur: p.blur,
@@ -95,7 +97,7 @@
   function applyCardTransform(card, t, duration) {
     if (gsapReady) {
       gsap.to(card, {
-        x: t.x, z: t.z, rotationY: t.rotY, scale: t.scale,
+        x: t.x, scale: t.scale,
         opacity: t.opacity, filter: `blur(${t.blur}px)`,
         duration, ease: EASE, overwrite: 'auto',
       });
@@ -103,7 +105,7 @@
       card.style.transition = duration
         ? `transform ${duration}s cubic-bezier(.16,.84,.44,1), opacity ${duration}s ease, filter ${duration}s ease`
         : 'none';
-      card.style.transform = `translateX(${t.x}px) translateZ(${t.z}px) rotateY(${t.rotY}deg) scale(${t.scale})`;
+      card.style.transform = `translateX(${t.x}px) scale(${t.scale})`;
       card.style.opacity = t.opacity;
       card.style.filter = `blur(${t.blur}px)`;
     }
@@ -119,9 +121,17 @@
       card.style.pointerEvents = hidden ? 'none' : '';
       card.setAttribute('aria-hidden', hidden ? 'true' : 'false');
       card.tabIndex = offset === 0 ? 0 : -1;
+      card.classList.toggle('is-center', offset === 0);
     });
     updateDots();
+    updateStatus();
     return items;
+  }
+
+  function updateStatus() {
+    if (!status) return;
+    const title = slots[active].querySelector('h4');
+    status.textContent = 'Showing ' + (active + 1) + ' of ' + n + (title ? ': ' + title.textContent : '');
   }
 
   function updateDots() {
@@ -209,6 +219,33 @@
 
   root.addEventListener('mouseenter', () => { hovered = true; });
   root.addEventListener('mouseleave', () => { hovered = false; });
+  // keyboard users tabbing through cards/arrows/dots get the same autoplay
+  // pause hover users get, so a card doesn't advance out from under them
+  root.addEventListener('focusin', () => { hovered = true; });
+  root.addEventListener('focusout', (e) => {
+    if (!root.contains(e.relatedTarget)) hovered = false;
+  });
+
+  // ── cursor spotlight on the active card (rAF-coalesced so a fast mouse
+  // sweep never forces more than one style write per painted frame) ──
+  if (canHover && !reduceMotion) {
+    cards.forEach((card) => {
+      let rect = null, raf = null;
+      card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+      card.addEventListener('mousemove', (e) => {
+        if (!rect) rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          card.style.setProperty('--mx', (px * 100) + '%');
+          card.style.setProperty('--my', (py * 100) + '%');
+        });
+      });
+      card.addEventListener('mouseleave', () => { rect = null; if (raf) { cancelAnimationFrame(raf); raf = null; } });
+    });
+  }
 
   // ── drag / swipe (pointer events cover both mouse and touch) ──
   let pointerDown = false;
@@ -233,9 +270,11 @@
       dragging = true;
       stage.classList.add('dragging');
       if (!reduceMotion) {
-        const clampedX = Math.max(-40, Math.min(40, dx * .12));
-        const clampedRot = Math.max(-8, Math.min(8, -dx / 22));
-        stage.style.transform = `translateX(${clampedX}px) rotateY(${clampedRot}deg)`;
+        // rubber-band follow: tracks the pointer closely at first, then
+        // resists further travel so side cards never fully reveal what's
+        // parked off-stage (mirrors career-benefits-carousel.js's --drag feel)
+        const clampedX = Math.max(-110, Math.min(110, dx * .4));
+        stage.style.transform = `translateX(${clampedX}px)`;
       }
     }
     if (dragging && !captured && dragMoved > CLICK_SUPPRESS_THRESHOLD) {

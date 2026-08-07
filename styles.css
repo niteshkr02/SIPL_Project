@@ -24,7 +24,7 @@
   --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
-  --nav-h:76px;
+  --nav-h:80px;
 }
 html[data-theme="dark"]{
   --bg:#12151A;
@@ -77,22 +77,26 @@ a{ color:inherit; }
   *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
 }
 
-/* ══ GLASS NAVIGATION ══ */
+/* ══ GLASS NAVIGATION ══
+   Kept intentionally dark/glass regardless of the light/dark content
+   toggle below — it reads as persistent chrome for the premium
+   industrial theme rather than page content. */
 .site-nav{
   position:fixed; top:0; left:0; right:0; z-index:1000;
   height:var(--nav-h);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 2rem;
-  background:rgba(230,233,238,.55);
+  background:rgba(6,10,20,.55);
   backdrop-filter:blur(18px) saturate(140%);
   -webkit-backdrop-filter:blur(18px) saturate(140%);
-  border-bottom:1px solid rgba(255,255,255,.5);
-  box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 8px 30px rgba(20,22,28,.06);
-  transition:background .3s ease, box-shadow .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
+  border-bottom:1px solid rgba(255,106,31,.16);
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 8px 30px rgba(0,0,0,.35);
+  transition:background .3s ease, box-shadow .3s ease, border-color .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
 }
 .site-nav.scrolled{
-  background:rgba(230,233,238,.78);
-  box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 12px 34px rgba(20,22,28,.1);
+  background:rgba(6,10,20,.82);
+  border-bottom-color:rgba(255,106,31,.3);
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 12px 34px rgba(0,0,0,.45), 0 1px 16px rgba(255,106,31,.12);
 }
 .site-nav.nav-hidden{ transform:translateY(-100%); }
 .site-nav:focus-within{ transform:translateY(0) !important; }
@@ -100,13 +104,13 @@ a{ color:inherit; }
 .nav-brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; }
 .nav-brand svg{ width:32px; height:32px; flex-shrink:0; }
 .nav-brand-logo{ width:32px; height:32px; flex-shrink:0; object-fit:contain; }
-.nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:var(--ink); line-height:1.3; }
-.nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-ink); }
-.nav-links{ display:flex; align-items:center; gap:1.7rem; list-style:none; }
+.nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#F2F4F7; line-height:1.3; }
+.nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-hot); }
+.nav-links{ display:flex; align-items:center; gap:1.3rem; list-style:none; }
 .nav-links > li{ position:relative; }
 .nav-links a, .nav-links .dropdown-label{
-  font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-  text-decoration:none; color:var(--ink); position:relative; padding:.4rem 0;
+  font-family:var(--font-mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  text-decoration:none; color:#E7EAF0; position:relative; padding:.4rem 0;
   display:inline-flex; align-items:center; gap:.3rem; cursor:pointer; white-space:nowrap;
 }
 .nav-links > li > a::after{
@@ -114,7 +118,7 @@ a{ color:inherit; }
   transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
 }
 .nav-links > li > a:hover::after, .nav-links > li > a.active::after{ transform:scaleX(1); }
-.nav-links a.active{ color:var(--accent-ink); }
+.nav-links a.active{ color:var(--accent-hot); text-shadow:0 0 12px rgba(255,194,75,.5); }
 .has-dropdown > a::before, .has-dropdown > .dropdown-label::before{
   content:''; width:0; height:0;
   border-left:3.5px solid transparent; border-right:3.5px solid transparent; border-top:4px solid currentColor;
@@ -130,10 +134,10 @@ a{ color:inherit; }
 .dropdown{
   position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(6px);
   min-width:260px; margin-top:0; padding:1.4rem .5rem .5rem;
-  background:rgba(230,233,238,.92);
+  background:rgba(10,14,24,.94);
   backdrop-filter:blur(20px) saturate(150%); -webkit-backdrop-filter:blur(20px) saturate(150%);
-  border:1px solid rgba(255,255,255,.6); border-radius:.9rem;
-  box-shadow:0 22px 46px rgba(20,22,28,.16), inset 0 1px 0 rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.08); border-radius:.9rem;
+  box-shadow:0 22px 46px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
   opacity:0; visibility:hidden; pointer-events:none;
   transition:opacity .22s ease, transform .22s ease, visibility .22s;
   z-index:10;
@@ -144,10 +148,10 @@ a{ color:inherit; }
 .dropdown a{
   display:block; padding:.7rem .9rem; border-radius:.55rem;
   font-family:var(--font-mono); font-size:.7rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase;
-  color:var(--ink); text-decoration:none; line-height:1.35; white-space:normal;
+  color:#E7EAF0; text-decoration:none; line-height:1.35; white-space:normal;
 }
-.dropdown a:hover, .dropdown a.active{ background:rgba(255,106,31,.12); color:var(--accent-ink); }
-.nav-links .dropdown-label.active{ color:var(--accent-ink); }
+.dropdown a:hover, .dropdown a.active{ background:rgba(255,106,31,.16); color:var(--accent-hot); }
+.nav-links .dropdown-label.active{ color:var(--accent-hot); text-shadow:0 0 12px rgba(255,194,75,.5); }
 @media(min-width:1181px){
   /* nested flyout trigger row (e.g. "Steel" inside the Products panel) */
   .dropdown .has-dropdown{ position:relative; }
@@ -161,14 +165,16 @@ a{ color:inherit; }
   }
   .dropdown .has-dropdown.open > a::before, .dropdown .has-dropdown.open > .dropdown-label::before{ opacity:.9; }
 
-  /* nested flyout panel — opens to the right of its trigger row */
+  /* nested flyout panel — opens to the right of its trigger row. Matches the
+     .site-nav / .dropdown dark-glass palette (styles.css:84-152), which is
+     now unconditional rather than light/dark-theme-dependent. */
   .dropdown-flyout{
     position:absolute; top:-.6rem; left:100%; margin-left:.4rem;
     min-width:230px; padding:.6rem;
-    background:rgba(230,233,238,.97);
+    background:rgba(10,14,24,.94);
     backdrop-filter:blur(20px) saturate(150%); -webkit-backdrop-filter:blur(20px) saturate(150%);
-    border:1px solid rgba(255,255,255,.6); border-radius:.9rem;
-    box-shadow:0 22px 46px rgba(20,22,28,.16), inset 0 1px 0 rgba(255,255,255,.5);
+    border:1px solid rgba(255,255,255,.08); border-radius:.9rem;
+    box-shadow:0 22px 46px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
     opacity:0; visibility:hidden; pointer-events:none; transform:translateX(-6px);
     transition:opacity .18s ease, transform .18s ease, visibility .18s;
     z-index:11;
@@ -177,28 +183,31 @@ a{ color:inherit; }
   .dropdown-flyout.flyout-left{ left:auto; right:100%; margin-left:0; margin-right:.4rem; }
 }
 .nav-cta{
-  font-family:var(--font-mono); font-size:.74rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
   text-decoration:none; color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent));
-  padding:.65rem 1.3rem; border-radius:2rem; box-shadow:0 6px 18px rgba(255,106,31,.35);
+  padding:.5rem 1.15rem; border-radius:2rem; box-shadow:0 6px 18px rgba(255,106,31,.35);
+  display:inline-flex; align-items:center; gap:.4rem;
   transition:transform .25s ease, box-shadow .25s ease;
 }
-.nav-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(255,106,31,.45); }
+.nav-cta:hover{ box-shadow:0 10px 26px rgba(255,106,31,.5); }
+.nav-cta::after{ content:'\2192'; display:inline-block; transition:transform .25s ease; }
+.nav-cta:hover::after{ transform:translateX(3px); }
 
 .theme-toggle{
   display:inline-flex; align-items:center; justify-content:center;
-  width:38px; height:38px; border-radius:50%;
-  border:1px solid var(--border); background:var(--surface); color:var(--ink);
+  width:32px; height:32px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#E7EAF0;
   cursor:pointer; flex-shrink:0;
   transition:transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
 }
-.theme-toggle:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
-.theme-toggle-icon{ width:18px; height:18px; }
+.theme-toggle:hover{ border-color:var(--accent); color:var(--accent-hot); transform:translateY(-2px); }
+.theme-toggle-icon{ width:15px; height:15px; }
 .theme-toggle-icon--moon{ display:none; }
 html[data-theme="dark"] .theme-toggle-icon--sun{ display:none; }
 html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 
 .nav-toggle{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:.5rem; }
-.nav-toggle span{ width:24px; height:2px; background:var(--ink); border-radius:2px; transition:all .3s ease; }
+.nav-toggle span{ width:24px; height:2px; background:#E7EAF0; border-radius:2px; transition:all .3s ease; }
 .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2){ opacity:0; }
 .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
@@ -208,8 +217,8 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
   .nav-links{
     position:fixed; top:var(--nav-h); left:0; right:0;
     flex-direction:column; align-items:flex-start; gap:0;
-    background:rgba(230,233,238,.97); backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--border);
+    background:rgba(8,11,20,.97); backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
     max-height:0; overflow-y:auto; transition:max-height .4s ease;
   }
   .nav-links.open{ max-height:calc(100vh - var(--nav-h)); }
@@ -224,7 +233,7 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
      otherwise win on specificity alone and shove the whole panel off-screen. */
   .dropdown, .has-dropdown.open .dropdown, .has-dropdown:focus-within .dropdown{
     position:static; opacity:1; visibility:visible; pointer-events:auto; transform:none;
-    background:rgba(20,22,28,.03); border:none; box-shadow:none; border-radius:0;
+    background:rgba(255,255,255,.03); border:none; box-shadow:none; border-radius:0;
     margin:0; padding:0 2rem .6rem 2.6rem;
   }
   .dropdown a{ padding:.6rem 0; }
@@ -568,26 +577,10 @@ html[data-theme="dark"] body{
     linear-gradient(160deg, #0B0C0F 0%, #14161B 24%, #1A1D22 46%, #121417 68%, #0A0B0D 100%);
 }
 html[data-theme="dark"] .sheen{ opacity:.4; }
-html[data-theme="dark"] .site-nav{
-  background:rgba(18,20,24,.6);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 8px 30px rgba(0,0,0,.35);
-}
-html[data-theme="dark"] .site-nav.scrolled{
-  background:rgba(18,20,24,.85);
-  box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 12px 34px rgba(0,0,0,.45);
-}
-html[data-theme="dark"] .dropdown, html[data-theme="dark"] .dropdown-flyout{
-  background:rgba(27,31,38,.95);
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 22px 46px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
-}
-html[data-theme="dark"] .dropdown a:hover, html[data-theme="dark"] .dropdown a.active{ background:rgba(255,122,51,.15); }
-@media(max-width:1180px){
-  html[data-theme="dark"] .nav-links{ background:rgba(14,16,19,.97); border-bottom:1px solid var(--border); }
-  html[data-theme="dark"] .dropdown{ background:rgba(255,255,255,.03); }
-  html[data-theme="dark"] .dropdown-flyout{ background:none; border:none; box-shadow:none; }
-}
+/* .site-nav / .dropdown / .dropdown-flyout are dark-glass by default (see
+   GLASS NAVIGATION above) and no longer need a dark-theme override — kept
+   identical in both themes since the nav is persistent chrome, not page
+   content. */
 html[data-theme="dark"] .chip.hot{ background:rgba(255,122,51,.15); }
 html[data-theme="dark"] .panel{
   background:linear-gradient(155deg, rgba(255,255,255,.05), rgba(255,255,255,0) 40%), var(--surface);

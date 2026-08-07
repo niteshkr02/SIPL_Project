@@ -25,10 +25,12 @@
   const n = slots.length;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = window.matchMedia('(hover: hover)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
   const EASE = 'power4.out';
   const DURATION = reduceMotion ? 0 : 0.95;
   const GAP = 32;
+  const AUTOPLAY_MS = 4200;
 
   const prevBtn = document.querySelector('.grp-arrow.prev');
   const nextBtn = document.querySelector('.grp-arrow.next');
@@ -36,6 +38,20 @@
   const steps = stepper ? Array.from(stepper.querySelectorAll('.grp-step')) : [];
 
   let activeIndex = 0;
+  let hovered = false;
+  let timer = null;
+
+  // ── autoplay, same pause-on-interaction contract as the Beyond Steel
+  // slider: every successful navigation (auto or user) resets the clock ──
+  function startAutoplay() {
+    if (reduceMotion) return;
+    stopAutoplay();
+    timer = setInterval(() => {
+      if (!hovered && !dragging && document.visibilityState === 'visible') next();
+    }, AUTOPLAY_MS);
+  }
+  function stopAutoplay() { if (timer) { clearInterval(timer); timer = null; } }
+  function restartAutoplay() { if (timer) startAutoplay(); }
 
   function getVisibleCount() {
     const w = window.innerWidth;
@@ -109,9 +125,19 @@
   function goTo(index) {
     activeIndex = ((index % n) + n) % n;
     render();
+    restartAutoplay();
   }
   function next() { goTo(activeIndex + 1); }
   function prev() { goTo(activeIndex - 1); }
+
+  section.addEventListener('mouseenter', () => { hovered = true; });
+  section.addEventListener('mouseleave', () => { hovered = false; });
+  // keyboard users tabbing through cards/arrows/steps get the same autoplay
+  // pause hover users get, so a card doesn't advance out from under them
+  section.addEventListener('focusin', () => { hovered = true; });
+  section.addEventListener('focusout', (e) => {
+    if (!section.contains(e.relatedTarget)) hovered = false;
+  });
 
   if (prevBtn) prevBtn.addEventListener('click', () => prev());
   if (nextBtn) nextBtn.addEventListener('click', () => next());
@@ -289,12 +315,36 @@
         if (entry.isIntersecting) {
           io.unobserve(track);
           playEntrance();
+          startAutoplay();
         }
       });
     }, { threshold: .15 });
     io.observe(track);
   } else {
     playEntrance();
+    startAutoplay();
+  }
+
+  // ── cursor spotlight on hover, rAF-coalesced (mirrors the Beyond Steel
+  // slider's .bs3d-shine technique — sets --mx/--my consumed by
+  // .grp-image-wrap::before in group-showcase.css) ──
+  if (canHover && !reduceMotion) {
+    slots.forEach(({ cardEl }) => {
+      let rect = null, raf = null;
+      cardEl.addEventListener('mouseenter', () => { rect = cardEl.getBoundingClientRect(); });
+      cardEl.addEventListener('mousemove', (e) => {
+        if (!rect) rect = cardEl.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          cardEl.style.setProperty('--mx', (px * 100) + '%');
+          cardEl.style.setProperty('--my', (py * 100) + '%');
+        });
+      });
+      cardEl.addEventListener('mouseleave', () => { rect = null; if (raf) { cancelAnimationFrame(raf); raf = null; } });
+    });
   }
 
   // ── magnetic CTA (shared technique with the Hero) ──

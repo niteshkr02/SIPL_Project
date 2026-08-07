@@ -49,7 +49,7 @@
   const GAP = 32;
 
   const liveRegion = document.getElementById('awxLiveRegion');
-  const progressFill = document.getElementById('awxProgressFill');
+  const pagerWrap = document.getElementById('awxPager');
   const prevBtn = document.querySelector('.awx-arrow.prev');
   const nextBtn = document.querySelector('.awx-arrow.next');
   const timelineEl = document.getElementById('awxTimeline');
@@ -105,11 +105,31 @@
     }
   }
 
-  function updateProgress(n, idx) {
-    if (!progressFill) return;
-    const seg = n > 0 ? 100 / n : 100;
-    progressFill.style.width = seg + '%';
-    progressFill.style.left = (idx * seg) + '%';
+  // pagination dots — same recipe as career-benefits-carousel.js / process-carousel.js.
+  // Rebuilt whenever the filtered (by-year) count changes, not on every render, since
+  // the visible dataset size only actually changes on a timeline filter click.
+  function rebuildPager(n) {
+    if (!pagerWrap) return;
+    pagerWrap.innerHTML = '';
+    for (let i = 0; i < n; i++) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'awx-pager-dot';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-label', 'Go to award ' + (i + 1) + ' of ' + n);
+      btn.addEventListener('click', () => goTo(i));
+      pagerWrap.appendChild(btn);
+    }
+  }
+
+  function updatePager(n, idx) {
+    if (!pagerWrap) return;
+    if (pagerWrap.children.length !== n) rebuildPager(n);
+    Array.from(pagerWrap.children).forEach((dot, i) => {
+      const isActive = i === idx;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-selected', String(isActive));
+    });
   }
 
   function updateTimelineUI() {
@@ -151,7 +171,7 @@
       if (slot.detailsBtn) slot.detailsBtn.tabIndex = hidden ? -1 : 0;
     });
 
-    updateProgress(n, n ? activeIndex : 0);
+    updatePager(n, n ? activeIndex : 0);
 
     if (liveRegion) {
       const active = visible[((activeIndex % n) + n) % n];

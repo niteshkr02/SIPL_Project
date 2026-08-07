@@ -1,19 +1,15 @@
 /* ════════════════════════════════════════════════════════════════════
-   HERO — Cinematic Industrial Backdrop
+   HERO — Premium Industrial Landing Split
    Isolated, additive layer on top of the existing .hero (kept exactly as
-   defined inline in index.html: dark scoped tokens, centered content,
-   .hero-glow furnace breathe, #embers canvas, cursor-spotlight). This
-   file only adds the new background scene (skyline / trade routes /
-   wireframe / rays / fog / scanlines / markers) and restyles the badge,
-   headline lines, CTAs, trust stats and scroll cue — the centered,
-   single-column composition itself is never touched.
+   defined inline in index.html: dark scoped tokens, grid shell, cursor-
+   spotlight). This file adds the real furnace-floor photo (weighted to
+   the right so it blends into the dark canvas rather than reading as a
+   rectangle), the two-column content/visual split, the category badge,
+   trust-logo strip, floating metric card and bottom achievement bar.
 
-   Every new background layer is position:absolute, pointer-events:none,
-   and sits behind .hero-content — the layout can never become a
-   left/right split by construction.
-
-   Motion contract: only transform / opacity / minimal filter are
-   animated. Width, height, margin, left and top are never transitioned.
+   No animation library, no Canvas/WebGL: every motion here is a CSS
+   transition/keyframe, driven by a handful of classes toggled from plain
+   vanilla JS in hero-cinematic.js.
    ════════════════════════════════════════════════════════════════════ */
 
 /* consumed by the existing .hero::before blueprint grid so scroll can fade
@@ -28,181 +24,95 @@
   z-index: 1;
 }
 
-/* .hero-glow keeps its own CSS breathing animation untouched; this wrapper
-   is what the scroll effect dims, so the two opacities simply multiply
-   instead of the JS fighting the CSS animation for the same property */
-.hero-glow-wrap {
+/* ── real furnace-floor photo, weighted toward the right so the left
+   column stays legible and the image dissolves into --bg on every edge
+   instead of reading as a pasted-in rectangle ── */
+.hero-photo {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  overflow: hidden;
 }
 
-/* ── industrial skyline silhouette ── */
-.hero-skyline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 34%;
-  z-index: 1;
-  pointer-events: none;
-  opacity: .5;
-  color: #1B1E26;
-}
-
-.hero-skyline svg {
-  width: 100%;
-  height: 100%;
+.hero-photo picture,
+.hero-photo img {
   display: block;
-}
-
-.hero-skyline .sky-shape {
-  fill: currentColor;
-}
-
-.hero-skyline .sky-line {
-  stroke: rgba(255, 106, 31, .35);
-  stroke-width: 1;
-  fill: none;
-}
-
-.hero-smoke {
-  transform-origin: 50% 100%;
-  animation: heroSmokeDrift 9s ease-in-out infinite;
-}
-
-.hero-smoke.d2 {
-  animation-delay: 1.4s;
-  animation-duration: 11s;
-}
-
-.hero-smoke.d3 {
-  animation-delay: 2.6s;
-  animation-duration: 8s;
-}
-
-@keyframes heroSmokeDrift {
-
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-    opacity: .3;
-  }
-
-  50% {
-    transform: translateY(-14px) scale(1.12);
-    opacity: .55;
-  }
-}
-
-/* ── global trade network: slowly flowing arcs ── */
-.hero-routes {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: .32;
-}
-
-.hero-routes svg {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: 50% 32%;
 }
 
-.hero-routes path {
-  fill: none;
-  stroke: url(#heroRouteGrad);
-  stroke-width: 1.1;
-  stroke-linecap: round;
-  stroke-dasharray: 3 9;
-  animation: heroRouteFlow 14s linear infinite;
+.hero-photo img {
+  filter: saturate(1.08) contrast(1.03);
 }
 
-.hero-routes path.r2 {
-  animation-duration: 18s;
-  animation-direction: reverse;
-}
-
-.hero-routes path.r3 {
-  animation-duration: 22s;
-}
-
-.hero-routes circle {
-  fill: var(--accent-hot);
-  opacity: .8;
-  animation: heroNodePulse 3s ease-in-out infinite;
-}
-
-@keyframes heroRouteFlow {
-  to {
-    stroke-dashoffset: -240;
-  }
-}
-
-@keyframes heroNodePulse {
-
-  0%,
-  100% {
-    opacity: .45;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-/* ── faint rotating industrial wireframe ──
-   Split into an outer positioning element (the parallax target, JS-driven)
-   and an inner rotating element (its own CSS animation) — the two never
-   touch the same element's transform, so nothing fights over it. */
-.hero-wireframe {
+.hero-photo-scrim {
   position: absolute;
-  top: 8%;
-  right: -6%;
-  width: 46vw;
-  max-width: 620px;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(10, 11, 14, .78) 14%, rgba(10, 11, 14, .55) 34%, rgba(10, 11, 14, .48) 58%, rgba(10, 11, 14, .72) 84%, var(--bg) 100%),
+    linear-gradient(90deg, var(--bg), transparent 12%, transparent 88%, var(--bg)),
+    radial-gradient(ellipse 55% 52% at 50% 48%, rgba(10, 11, 14, .42), transparent 72%);
+}
+
+@media (min-width: 960px) {
+  .hero-photo img {
+    object-position: 62% 34%;
+  }
+
+  /* left column stays a clean dark canvas; the photo takes over from
+     roughly the midline rightward, fading in rather than cutting hard */
+  .hero-photo-scrim {
+    background:
+      linear-gradient(100deg, var(--bg) 0%, rgba(10, 11, 14, .95) 18%, rgba(10, 11, 14, .8) 34%, rgba(10, 11, 14, .38) 48%, transparent 62%),
+      linear-gradient(180deg, var(--bg) 0%, transparent 12%, transparent 82%, var(--bg) 100%),
+      linear-gradient(90deg, transparent 88%, var(--bg) 100%),
+      radial-gradient(ellipse 42% 60% at 20% 45%, rgba(10, 11, 14, .3), transparent 75%);
+  }
+}
+
+/* ── slow rotating glow ring behind the industrial visual (desktop only) ── */
+.hero-ring {
+  position: absolute;
+  display: none;
+  top: 6%;
+  right: 2%;
+  width: min(46vw, 640px);
   aspect-ratio: 1;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  opacity: .05;
+  opacity: .8;
+  animation: heroRingSpin 150s linear infinite;
 }
 
-.hero-wireframe.two {
-  top: auto;
-  bottom: 4%;
-  right: auto;
-  left: -10%;
-  width: 34vw;
-  max-width: 460px;
-  opacity: .04;
-}
-
-.hero-wireframe-spin {
-  display: block;
+.hero-ring svg {
   width: 100%;
   height: 100%;
-  animation: heroWireframeSpin 90s linear infinite;
+  overflow: visible;
 }
 
-.hero-wireframe.two .hero-wireframe-spin {
-  animation-duration: 120s;
-  animation-direction: reverse;
-}
-
-.hero-wireframe svg {
-  width: 100%;
-  height: 100%;
-  stroke: var(--accent-hot);
+.hero-ring-arc {
   fill: none;
-  stroke-width: 1;
+  stroke: url(#heroRingGrad);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(255, 170, 65, .55));
 }
 
-@keyframes heroWireframeSpin {
+@keyframes heroRingSpin {
   from {
     transform: rotate(0deg);
   }
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 960px) {
+  .hero-ring {
+    display: block;
   }
 }
 
@@ -227,24 +137,10 @@
       transparent 100deg,
       rgba(255, 194, 75, .04) 108deg,
       transparent 118deg);
-  animation: heroRaysSway 16s ease-in-out infinite;
   mix-blend-mode: screen;
 }
 
-@keyframes heroRaysSway {
-
-  0%,
-  100% {
-    transform: translateX(-50%) rotate(-1.5deg);
-  }
-
-  50% {
-    transform: translateX(-50%) rotate(1.5deg);
-  }
-}
-
-/* ── floating ambient glow orbs — independent of the furnace-breathe glow,
-   small embers that drift slowly across the upper/mid hero ── */
+/* ── ambient glow orbs, small embers dotted across the upper/mid hero ── */
 .hero-orbs {
   position: absolute;
   inset: 0;
@@ -256,6 +152,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(1px);
+  opacity: .55;
 }
 
 .hero-orb.o1 {
@@ -265,7 +162,6 @@
   height: 6px;
   background: #FFC24B;
   box-shadow: 0 0 18px 4px rgba(255, 194, 75, .55);
-  animation: heroOrbFloat 12s ease-in-out infinite;
 }
 
 .hero-orb.o2 {
@@ -275,7 +171,6 @@
   height: 4px;
   background: #FF6A1F;
   box-shadow: 0 0 14px 3px rgba(255, 106, 31, .5);
-  animation: heroOrbFloat 15s ease-in-out infinite 2s;
 }
 
 .hero-orb.o3 {
@@ -285,7 +180,6 @@
   height: 5px;
   background: #FFC24B;
   box-shadow: 0 0 16px 3px rgba(255, 194, 75, .45);
-  animation: heroOrbFloat 18s ease-in-out infinite 4s;
 }
 
 .hero-orb.o4 {
@@ -295,21 +189,6 @@
   height: 3px;
   background: #FF6A1F;
   box-shadow: 0 0 12px 2px rgba(255, 106, 31, .45);
-  animation: heroOrbFloat 14s ease-in-out infinite 6s;
-}
-
-@keyframes heroOrbFloat {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-    opacity: .3;
-  }
-
-  50% {
-    transform: translate(18px, -28px);
-    opacity: .9;
-  }
 }
 
 /* ── soft ground fog ── */
@@ -322,21 +201,7 @@
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(0deg, rgba(238, 234, 225, .05), transparent);
-  background-size: 200% 100%;
-  animation: heroFogDrift 22s ease-in-out infinite;
   filter: blur(2px);
-}
-
-@keyframes heroFogDrift {
-
-  0%,
-  100% {
-    background-position: 0% 0%;
-  }
-
-  50% {
-    background-position: 100% 0%;
-  }
 }
 
 /* ── subtle scanlines, industrial-monitor texture ── */
@@ -349,98 +214,142 @@
   background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
 }
 
-/* ── tiny industrial HUD markers ── */
-.hero-markers {
+/* ── floating glowing particles: plain DOM spans, generated once by JS,
+   animated purely by this one shared CSS keyframe (transform + opacity
+   only, so it stays cheap at any particle count) ── */
+.hero-particles {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.hero-marker {
+.hero-particle {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  bottom: -5%;
+  left: var(--x, 50%);
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--hue, #FFC24B);
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 194, 75, .6));
   opacity: 0;
-  animation: heroMarkerBlink 5s ease-in-out infinite;
+  animation: heroParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
 }
 
-.hero-marker svg {
-  width: 100%;
-  height: 100%;
-  stroke: var(--accent-hot);
-  fill: none;
-  stroke-width: 1.4;
-}
+@keyframes heroParticleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
 
-.hero-marker.m1 {
-  top: 18%;
-  left: 10%;
-  animation-delay: .3s;
-}
+  12% {
+    opacity: .7;
+  }
 
-.hero-marker.m2 {
-  top: 28%;
-  right: 12%;
-  animation-delay: 1.8s;
-}
+  85% {
+    opacity: .35;
+  }
 
-.hero-marker.m3 {
-  bottom: 30%;
-  left: 16%;
-  animation-delay: 3.2s;
-}
-
-.hero-marker.m4 {
-  top: 60%;
-  right: 8%;
-  animation-delay: 2.4s;
-}
-
-@keyframes heroMarkerBlink {
-
-  0%,
   100% {
-    opacity: 0;
-  }
-
-  10%,
-  30% {
-    opacity: .5;
-  }
-
-  40% {
+    transform: translateY(-115vh) translateX(var(--drift, 20px));
     opacity: 0;
   }
 }
 
-/* ══ FOREGROUND CONTENT ══ */
+/* ══ TWO-COLUMN CONTENT / VISUAL SPLIT ══ */
 
-/* small industry badge (was a plain kicker line — now a proper pill badge) */
+.hero-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero-inner {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    align-items: center;
+    gap: 2.5rem;
+    text-align: left;
+  }
+
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero p.lede {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .hero-kicker,
+  .hero-cta-row {
+    justify-content: flex-start;
+  }
+}
+
+/* ══ CATEGORY BADGE ══ */
 .hero-kicker {
   display: inline-flex;
   align-items: center;
-  gap: .55rem;
-  padding: .5rem 1.1rem;
+  flex-wrap: wrap;
+  gap: .6rem;
+  padding: .55rem 1.2rem;
   border: 1px solid rgba(255, 106, 31, .3);
   border-radius: 2rem;
   background: rgba(255, 106, 31, .06);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 24px rgba(255, 106, 31, .08);
 }
 
-.hero-kicker-dot {
-  width: 6px;
-  height: 6px;
+.hero-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--accent-hot);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .6);
+}
+
+.hero-cat-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  stroke: var(--accent-hot);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-cat-icon.filled {
+  fill: var(--accent-hot);
+  stroke: none;
+}
+
+.hero-cat-dot {
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--accent-hot);
-  box-shadow: 0 0 8px 2px var(--accent-hot);
+  box-shadow: 0 0 6px 1px var(--accent-hot);
+  opacity: .7;
   flex-shrink: 0;
-  animation: dotPulse 1.8s ease-in-out infinite;
 }
 
 /* per-line headline reveal: .hero-line is a static clipping mask,
-   .hero-line-inner is the part GSAP actually animates (wipes up into view) */
+   .hero-line-inner is what the entrance transition actually animates */
 .hero-line {
   display: block;
   overflow: hidden;
@@ -467,13 +376,14 @@
   }
 }
 
-/* ── CTA row: magnetic hover + ripple + arrow slide (secondary = glass) ── */
+/* ── CTA row: magnetic hover (vanilla JS) + ripple + arrow slide ── */
 .hero-cta-row .btn {
   position: relative;
 }
 
 .hero-btn-primary {
   overflow: hidden;
+  box-shadow: 0 8px 22px rgba(255, 106, 31, .35), 0 0 32px rgba(255, 106, 31, .18);
 }
 
 .hero-btn-arrow {
@@ -501,6 +411,14 @@
   background: rgba(255, 106, 31, .07) !important;
 }
 
+.hero-btn-secondary .hero-btn-arrow {
+  transform: translateX(0) rotate(-45deg);
+}
+
+.hero-btn-secondary:hover .hero-btn-arrow {
+  transform: translateX(3px) rotate(-45deg);
+}
+
 .hero-ripple {
   position: absolute;
   border-radius: 50%;
@@ -518,60 +436,8 @@
   }
 }
 
-/* ── trust stat strip (replaces the #SteelWithin hashtag pill) ── */
-.hero-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.6rem;
-  margin-top: 2.6rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid rgba(255, 255, 255, .08);
-}
-
-.hero-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .3rem;
-}
-
-.hero-stat-num {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
-  color: var(--accent-hot);
-  line-height: 1;
-  letter-spacing: -.01em;
-}
-
-.hero-stat-label {
-  font-family: var(--font-mono);
-  font-size: .64rem;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-
-.hero-stat-divider {
-  width: 1px;
-  height: 30px;
-  background: rgba(255, 255, 255, .12);
-}
-
-@media (max-width: 640px) {
-  .hero-stats {
-    gap: 1.1rem;
-  }
-
-  .hero-stat-divider {
-    display: none;
-  }
-}
-
-/* ── redesigned scroll indicator: mouse icon + moving line ── */
+/* ══ TRUSTED-BY LOGO STRIP ══ */
+/* ── redesigned scroll indicator: mouse icon + moving line + arrow ── */
 .scroll-cue-icon {
   position: relative;
   width: 22px;
@@ -615,19 +481,90 @@
   }
 }
 
+.scroll-cue-arrow {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .7;
+}
+
+/* ══ ENTRANCE (vanilla JS toggles .hero-loaded on .hero; every element
+   below defines its own resting/transitioned state and delay) ══ */
+.hero-kicker,
+.hero-line-inner,
+.lede,
+.hero-cta-row {
+  opacity: 0;
+  transition: opacity .8s cubic-bezier(.16, .84, .44, 1), transform .8s cubic-bezier(.16, .84, .44, 1), filter .8s ease;
+}
+
+.hero-kicker {
+  transform: translateY(-14px);
+}
+
+.hero-line-inner {
+  transform: translateY(34px);
+  filter: blur(8px);
+}
+
+.lede {
+  transform: translateY(20px);
+}
+
+.hero-cta-row {
+  transform: translateY(16px);
+}
+
+.hero-loaded .hero-kicker {
+  opacity: 1;
+  transform: none;
+  transition-delay: .1s;
+}
+
+.hero-loaded .hero-line-inner {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+.hero-loaded .hero-line:nth-child(1) .hero-line-inner {
+  transition-delay: .25s;
+}
+
+.hero-loaded .hero-line:nth-child(2) .hero-line-inner {
+  transition-delay: .38s;
+}
+
+.hero-loaded .lede {
+  opacity: 1;
+  transform: none;
+  transition-delay: .55s;
+}
+
+.hero-loaded .hero-cta-row {
+  opacity: 1;
+  transform: none;
+  transition-delay: .68s;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
-  .hero-smoke,
-  .hero-routes path,
-  .hero-routes circle,
-  .hero-wireframe-spin,
-  .hero-rays,
-  .hero-fog,
-  .hero-marker,
   .hero h1 .grad,
   .scroll-cue-line,
-  .hero-kicker-dot,
-  .hero-orb {
+  .hero-ring,
+  .hero-particle {
     animation: none !important;
+  }
+
+  .hero-kicker,
+  .hero-line-inner,
+  .lede,
+  .hero-cta-row {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 }

@@ -6,47 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mission, Vision & Values | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
-<style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
-
-/* ══ VALUES ══ */
-.value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
-@media(max-width:860px){ .value-grid{ grid-template-columns:1fr 1fr; } }
-@media(max-width:560px){ .value-grid{ grid-template-columns:1fr; } }
-.value-card{ padding:1.6rem 1.5rem; }
-.value-card .num{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; margin-bottom:.5rem; }
-.value-card p{ font-size:.94rem; color:var(--ink-soft); }
-
-/* ══ CTA BAND ══ */
-.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
-.cta-inner{
-  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
-  background:
-    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
-    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
-    #0A0B0E;
-}
-.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
-.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
-.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
-.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-</style>
+<link rel="stylesheet" href="vision-hero.css">
+<link rel="stylesheet" href="vision-content.css">
 </head>
 <body>
 <div class="sheen"></div>
 
 <svg class="defs" aria-hidden="true">
   <defs>
+    <linearGradient id="mvvWaveGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFC24B" stop-opacity="0"/><stop offset="50%" stop-color="#FF6A1F" stop-opacity=".8"/><stop offset="100%" stop-color="#E23B1F" stop-opacity="0"/></linearGradient>
     <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
+    <linearGradient id="mvvSteelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3A4048"/><stop offset="100%" stop-color="#181B22"/></linearGradient>
   </defs>
 </svg>
 
@@ -148,55 +118,374 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HEADER -->
-<header class="page-header">
-  <div class="kicker reveal">ABOUT · MISSION, VISION &amp; VALUES</div>
-  <h1 class="reveal">Mission, Vision &amp; Values</h1>
-  <p class="reveal">The philosophy behind every decision Shakambhari makes, stated once and applied everywhere, from a mine in West Bengal to a boardroom in Kolkata.</p>
+<!-- ══════════════════ HERO (isolated component — see vision-hero.css / vision-hero.js) ══════════════════ -->
+<header class="mvv-hero" id="mvvHero">
+  <div class="mvv-hero-bg" aria-hidden="true">
+    <div class="mvv-hero-mesh"></div>
+    <div class="mvv-hero-grid"></div>
+
+    <!-- full-width industrial skyline silhouette, low along the horizon -->
+    <div class="mvv-hero-skyline">
+      <svg viewBox="0 0 1600 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g fill="url(#mvvSteelGrad)" opacity=".65">
+          <rect x="20" y="210" width="46" height="90"/>
+          <rect x="120" y="150" width="34" height="150"/>
+          <polygon points="122,150 152,150 158,120 116,120"/>
+          <rect x="210" y="230" width="54" height="70"/>
+          <rect x="300" y="140" width="80" height="160"/>
+          <rect x="410" y="195" width="44" height="105"/>
+          <rect x="490" y="90" width="26" height="210"/>
+          <rect x="480" y="70" width="46" height="24"/>
+          <rect x="560" y="175" width="60" height="125"/>
+          <rect x="655" y="225" width="38" height="75"/>
+          <rect x="720" y="120" width="90" height="180"/>
+          <rect x="835" y="70" width="30" height="230"/>
+          <rect x="822" y="52" width="56" height="22"/>
+          <rect x="915" y="200" width="50" height="100"/>
+          <rect x="995" y="150" width="70" height="150"/>
+          <rect x="1095" y="235" width="40" height="65"/>
+          <rect x="1165" y="110" width="30" height="190"/>
+          <rect x="1240" y="180" width="85" height="120"/>
+          <rect x="1355" y="220" width="45" height="80"/>
+          <rect x="1430" y="145" width="60" height="155"/>
+          <rect x="1520" y="205" width="50" height="95"/>
+        </g>
+        <!-- gantry crane silhouette, signature right-side landmark -->
+        <g stroke="url(#mvvSteelGrad)" stroke-width="4" fill="none" opacity=".7" stroke-linecap="round">
+          <line x1="1440" y1="300" x2="1440" y2="60"/>
+          <line x1="1560" y1="300" x2="1560" y2="60"/>
+          <line x1="1420" y1="70" x2="1580" y2="70"/>
+          <line x1="1440" y1="70" x2="1500" y2="120"/>
+          <line x1="1500" y1="70" x2="1500" y2="120"/>
+          <line x1="1560" y1="70" x2="1500" y2="120"/>
+        </g>
+        <g fill="url(#emberGrad)">
+          <circle class="mvv-illu-light" cx="503" cy="95" r="4"/>
+          <circle class="mvv-illu-light" cx="850" cy="60" r="4.5" style="animation-delay:-1.4s"/>
+          <circle class="mvv-illu-light" cx="1180" cy="118" r="4" style="animation-delay:-2.2s"/>
+          <circle class="mvv-illu-light" cx="340" cy="150" r="3.5" style="animation-delay:-.8s"/>
+          <circle class="mvv-illu-light" cx="1030" cy="160" r="3.5" style="animation-delay:-2.8s"/>
+          <circle class="mvv-illu-light" cx="1460" cy="155" r="4" style="animation-delay:-1.9s"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- compass / vision rings — a slow-orbiting motif behind the headline -->
+    <div class="mvv-hero-compass" aria-hidden="true">
+      <svg viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="320" cy="320" r="300" fill="none" stroke="url(#mvvSteelGrad)" stroke-width="1" opacity=".35"/>
+        <circle cx="320" cy="320" r="220" fill="none" stroke="#FF6A1F" stroke-width="1.2" stroke-dasharray="2 10" opacity=".4"/>
+        <circle cx="320" cy="320" r="140" fill="none" stroke="url(#mvvSteelGrad)" stroke-width="1" opacity=".3"/>
+        <g fill="#FF6A1F" opacity=".55">
+          <rect x="312" y="10" width="16" height="16" transform="rotate(45 320 18)"/>
+          <rect x="312" y="614" width="16" height="16" transform="rotate(45 320 622)"/>
+          <rect x="614" y="312" width="16" height="16" transform="rotate(45 622 320)"/>
+          <rect x="10" y="312" width="16" height="16" transform="rotate(45 18 320)"/>
+        </g>
+        <g class="mvv-hero-orbit">
+          <circle class="mvv-illu-light" cx="540" cy="320" r="5" fill="url(#emberGrad)"/>
+          <circle class="mvv-illu-light" cx="130" cy="230" r="4" fill="url(#emberGrad)" style="animation-delay:-1.6s"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="mvv-hero-rays"></div>
+    <div class="mvv-hero-waves">
+      <svg viewBox="0 0 1200 500" preserveAspectRatio="none">
+        <path class="w1" d="M-20,340 C220,260 420,420 660,320 C880,230 1020,360 1220,280"/>
+        <path class="w2" d="M-20,400 C260,470 460,300 700,380 C920,450 1060,320 1220,390"/>
+        <path class="w3" d="M-20,260 C240,190 480,300 720,220 C940,150 1080,260 1220,190"/>
+      </svg>
+    </div>
+    <div class="mvv-hero-particles" id="mvvHeroParticles"></div>
+    <div class="mvv-hero-vignette"></div>
+  </div>
+
+  <div class="mvv-hero-center">
+    <div class="mvv-hero-label">
+      <span class="mvv-hero-label-tick" aria-hidden="true"></span>
+      OUR PHILOSOPHY
+      <span class="mvv-hero-label-tick" aria-hidden="true"></span>
+    </div>
+    <h1 class="mvv-hero-heading">Mission, Vision<br><span class="accent">&amp; Values</span></h1>
+    <p class="mvv-hero-desc">Our foundation is built on a strong purpose, a clear vision and values that guide every decision we make.</p>
+    <a href="#mvvMission" class="mvv-hero-btn">
+      <span class="mvv-hero-btn-label">Explore Our Philosophy</span>
+      <span class="mvv-hero-btn-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <nav class="mvv-hero-pillars" aria-label="Jump to a section">
+      <a href="#mvvMission" class="mvv-hero-pillar"><span class="mvv-hero-pillar-num">01</span><span class="mvv-hero-pillar-label">Mission</span></a>
+      <span class="mvv-hero-pillar-div" aria-hidden="true"></span>
+      <a href="#mvvVision" class="mvv-hero-pillar"><span class="mvv-hero-pillar-num">02</span><span class="mvv-hero-pillar-label">Vision</span></a>
+      <span class="mvv-hero-pillar-div" aria-hidden="true"></span>
+      <a href="#mvvValues" class="mvv-hero-pillar"><span class="mvv-hero-pillar-num">03</span><span class="mvv-hero-pillar-label">Values</span></a>
+    </nav>
+  </div>
+
+  <div class="mvv-hero-scroll-cue" aria-hidden="true"><span></span></div>
 </header>
 
-<section class="section">
-  <div class="section-head reveal">
-    <div class="kicker center">MISSION</div>
-    <h2>Discipline Over Convenience</h2>
-    <p>Not what the group makes, but why it keeps making it even when the easier path is right there.</p>
-  </div>
-  <div class="quote-panel reveal" style="border:1px solid var(--border); border-radius:1.4rem; padding:3rem 2.5rem; text-align:center; background:linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), var(--surface); box-shadow:0 1px 2px rgba(20,22,28,.05), 0 16px 38px rgba(20,22,28,.09);">
-    <div style="font-family:var(--font-display); font-weight:600; font-size:clamp(1.2rem,2.4vw,1.6rem); line-height:1.45; max-width:62ch; margin:0 auto 1.4rem;">"At Shakambhari Group, our mission is not only to manufacture but also to surge ahead despite adversity. It's not just about supplying products but also about the relentless pursuit of discipline and excellence. We have an experience of more than two decades in manufacturing of steel, and have constantly invested in modernization of existing facilities with the highest level of technology absorption."</div>
-    <div style="font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.08em; color:var(--accent-ink);">MR. DEEPAK KUMAR AGARWAL</div>
-    <div style="font-size:.82rem; color:var(--ink-soft); margin-top:.2rem;">Chairman &amp; Managing Director, Shakambhari Group of Industries</div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section class="section">
-  <div class="section-head reveal">
-    <div class="kicker center">VISION &amp; VALUES</div>
-    <h2>We Never Compromise</h2>
-    <p>That's not a slogan we added later. It's the sentence the group's own vision statement is built around: to be the world's most reliable and innovative manufacturer of steel products.</p>
-  </div>
-  <div class="value-grid">
-    <div class="value-card panel reveal"><div class="num">01</div><p>Consistent innovation and integrity in delivering high-quality steel products.</p></div>
-    <div class="value-card panel reveal"><div class="num">02</div><p>Full transparency and accountability across every transaction.</p></div>
-    <div class="value-card panel reveal"><div class="num">03</div><p>An ethical way of conducting business, without exception.</p></div>
-    <div class="value-card panel reveal"><div class="num">04</div><p>Long-term value creation for shareholders and stakeholders alike.</p></div>
-    <div class="value-card panel reveal"><div class="num">05</div><p>Social responsibility and environmental stewardship, built into strategy, not bolted on.</p></div>
-    <div class="value-card panel reveal"><div class="num">06</div><p>Forward and backward integration: owning the value chain instead of depending on it.</p></div>
-  </div>
-</section>
-
-<!-- CTA BAND -->
-<div class="cta-band reveal-scale">
-  <div class="cta-inner">
-    <h2>This Vision Lives Through Our Leadership</h2>
-    <p>These values aren't just words on a wall — they're lived daily by the people who lead Shakambhari. Meet the leadership that turns this vision into steel.</p>
-    <div class="cta-btn-row">
-      <a href="leadership.html" class="btn btn-primary">Meet Our Leadership →</a>
-      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+<!-- ══════════════════ MISSION (white) ══════════════════ -->
+<section class="mvv-mission" id="mvvMission">
+  <div class="section">
+    <div class="mvv-split">
+      <div class="mvv-mission-text reveal-left">
+        <div class="kicker">OUR MISSION</div>
+        <div class="mvv-eyebrow-head">
+          <h2>Building Strength<br>Through <span class="accent">Purpose</span></h2>
+          <p>We are committed to delivering superior steel solutions with innovation, sustainability and unwavering commitment to our customers.</p>
+        </div>
+        <div class="mvv-underline"></div>
+        <div class="mvv-feature-grid">
+          <div class="mvv-feature panel">
+            <div class="mvv-feature-icon">
+              <svg viewBox="0 0 24 24"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.4" opacity=".7"/><path d="M2.5 20c0-3.6 2.8-5.8 6-5.8s6 2.2 6 5.8"/><path d="M14.5 14.3c2.8.3 5 2.4 5 5.7"/></svg>
+            </div>
+            <h4>Customer First</h4>
+            <p>Delivering value that exceeds expectations.</p>
+          </div>
+          <div class="mvv-feature panel">
+            <div class="mvv-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 21c0-9 6-15 15-15 0 9-6 15-15 15Z"/><path d="M5 21c2.5-2.5 5-6.5 6-9.5"/></svg>
+            </div>
+            <h4>Sustainable Manufacturing</h4>
+            <p>Responsible production for a better tomorrow.</p>
+          </div>
+          <div class="mvv-feature panel">
+            <div class="mvv-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h4>Quality Assurance</h4>
+            <p>Ensuring excellence in every product we deliver.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mvv-split-visual mvv-dot-tr">
+        <div class="mvv-dot-grid" aria-hidden="true"></div>
+        <div class="mvv-image-frame">
+          <img class="mvv-image-frame-scale mvv-mission-photo" src="images/our_mission.png" alt="Our Mission at Shakambhari Group" loading="lazy" decoding="async">
+          <div class="mvv-photo-glow"></div>
+        </div>
+        <div class="mvv-corner-block" aria-hidden="true"></div>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- ══════════════════ VISION (royal blue) ══════════════════ -->
+<section class="mvv-navy mvv-vision" id="mvvVision">
+  <div class="mvv-navy-bg" aria-hidden="true">
+    <div class="mvv-navy-glow"></div>
+    <div class="mvv-navy-grid"></div>
+    <div class="mvv-navy-waves">
+      <svg viewBox="0 0 1200 400" preserveAspectRatio="none">
+        <path class="w1" d="M-20,220 C260,160 480,280 760,200 C960,150 1080,240 1220,180"/>
+        <path class="w2" d="M-20,280 C260,340 480,180 760,260 C960,320 1080,200 1220,260"/>
+      </svg>
+    </div>
+    <div class="mvv-navy-particles" id="mvvVisionParticles"></div>
+  </div>
+  <div class="mvv-vision-inner">
+    <div class="mvv-split">
+      <div class="mvv-split-visual mvv-dot-tl reveal-left">
+        <div class="mvv-dot-grid" aria-hidden="true"></div>
+        <div class="mvv-image-frame">
+          <img class="mvv-image-frame-scale mvv-vision-photo" src="images/our_vision.png" alt="Our Vision at Shakambhari Group" loading="lazy" decoding="async">
+          <div class="mvv-vision-photo-scrim" aria-hidden="true"></div>
+          <div class="mvv-photo-glow"></div>
+        </div>
+      </div>
+      <div class="mvv-vision-text reveal-right">
+        <div class="kicker">OUR VISION</div>
+        <div class="mvv-eyebrow-head">
+          <h2>Shaping a Stronger<br>&amp; Sustainable <span class="accent">Future</span></h2>
+          <p>To be the most trusted and admired steel solutions provider, driving growth through innovation, empowering people and creating value for generations to come.</p>
+        </div>
+        <div class="mvv-stat-row">
+          <div class="mvv-stat-item">
+            <div class="mvv-stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M9 12.5L7 21l5-3 5 3-2-8.5"/></svg></div>
+            <span class="mvv-stat-num" data-count="25" data-suffix="+">0+</span>
+            <div class="mvv-stat-label">Years of Excellence</div>
+          </div>
+          <div class="mvv-stat-divider" aria-hidden="true"></div>
+          <div class="mvv-stat-item">
+            <div class="mvv-stat-icon"><svg viewBox="0 0 24 24"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/></svg></div>
+            <span class="mvv-stat-num" data-count="500" data-suffix="+">0+</span>
+            <div class="mvv-stat-label">Projects Delivered</div>
+          </div>
+          <div class="mvv-stat-divider" aria-hidden="true"></div>
+          <div class="mvv-stat-item">
+            <div class="mvv-stat-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg></div>
+            <span class="mvv-stat-num" data-count="100" data-suffix="%">0%</span>
+            <div class="mvv-stat-label">Customer Commitment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CORE VALUES (white) ══════════════════ -->
+<section class="mvv-values" id="mvvValues">
+  <div class="section">
+    <div class="section-head reveal">
+      <div class="kicker center">OUR CORE VALUES</div>
+      <h2 class="mvv-section-alt">The Principles That <span class="accent">Define Us</span></h2>
+    </div>
+    <div class="mvv-node-strip">
+      <div class="mvv-value-node">
+        <div class="mvv-value-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="mvv-value-label">Integrity</div>
+        <p>We do what is right, always.</p>
+      </div>
+      <div class="mvv-value-node">
+        <div class="mvv-value-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg></div>
+        <div class="mvv-value-label">Innovation</div>
+        <p>We embrace change and create value.</p>
+      </div>
+      <div class="mvv-value-node">
+        <div class="mvv-value-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg></div>
+        <div class="mvv-value-label">People First</div>
+        <p>We respect, empower and grow together.</p>
+      </div>
+      <div class="mvv-value-node">
+        <div class="mvv-value-icon"><svg viewBox="0 0 24 24"><path d="M9 12l-4 4a2.5 2.5 0 0 0 3.5 3.5l1-1"/><path d="M15 12l4-4a2.5 2.5 0 0 0-3.5-3.5l-1 1"/><path d="M8 16l8-8"/></svg></div>
+        <div class="mvv-value-label">Collaboration</div>
+        <p>We believe in teamwork and shared success.</p>
+      </div>
+      <div class="mvv-value-node">
+        <div class="mvv-value-icon"><svg viewBox="0 0 24 24"><path d="M5 21c0-9 6-15 15-15 0 9-6 15-15 15Z"/><path d="M5 21c2.5-2.5 5-6.5 6-9.5"/></svg></div>
+        <div class="mvv-value-label">Sustainability</div>
+        <p>We build responsibly for a better tomorrow.</p>
+      </div>
+      <div class="mvv-value-node">
+        <div class="mvv-value-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9 5.8 20.3l1.6-6.8L2.2 8.9l6.9-.6L12 2Z"/></svg></div>
+        <div class="mvv-value-label">Excellence</div>
+        <p>We strive for the highest standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ OUR PROMISE (royal blue) ══════════════════ -->
+<section class="mvv-navy mvv-promise" id="mvvPromise">
+  <div class="mvv-navy-bg" aria-hidden="true">
+    <div class="mvv-navy-glow"></div>
+    <div class="mvv-navy-waves">
+      <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
+        <path class="w1" d="M-20,160 C260,110 480,210 760,150 C960,110 1080,190 1220,140"/>
+      </svg>
+    </div>
+    <div class="mvv-navy-particles" id="mvvPromiseParticles"></div>
+  </div>
+  <div class="mvv-promise-inner">
+    <div class="section-head reveal">
+      <div class="kicker center">OUR PROMISE</div>
+      <h2 class="mvv-section-alt">We <span class="accent">Never Compromise</span> On</h2>
+    </div>
+    <div class="mvv-promise-strip">
+      <div class="mvv-promise-item">
+        <div class="mvv-promise-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/></svg></div>
+        <h4>Quality</h4>
+        <p>Uncompromising quality in every process.</p>
+      </div>
+      <div class="mvv-promise-item">
+        <div class="mvv-promise-icon"><svg viewBox="0 0 24 24"><path d="M4 15a8 8 0 0 1 16 0"/><rect x="3" y="15" width="18" height="3" rx="1.5"/><path d="M12 5v3"/></svg></div>
+        <h4>Safety</h4>
+        <p>Prioritizing safety for our strengthened capabilities.</p>
+      </div>
+      <div class="mvv-promise-item">
+        <div class="mvv-promise-icon"><svg viewBox="0 0 24 24"><path d="M9 12l-4 4a2.5 2.5 0 0 0 3.5 3.5l1-1"/><path d="M15 12l4-4a2.5 2.5 0 0 0-3.5-3.5l-1 1"/><path d="M8 16l8-8"/></svg></div>
+        <h4>Trust</h4>
+        <p>Building lasting relationships through transparency.</p>
+      </div>
+      <div class="mvv-promise-item">
+        <div class="mvv-promise-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/></svg></div>
+        <h4>Innovation</h4>
+        <p>Continuously improving to create greater value.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ JOURNEY (white) ══════════════════ -->
+<section class="mvv-journey" id="mvvJourney">
+  <div class="section">
+    <div class="section-head reveal">
+      <div class="kicker center">OUR JOURNEY</div>
+      <h2 class="mvv-section-alt">A Legacy of <span class="accent">Growth</span></h2>
+    </div>
+    <div class="mvv-timeline">
+      <div class="mvv-timeline-fill" aria-hidden="true"></div>
+      <div class="mvv-milestone">
+        <div class="mvv-milestone-icon"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h13l-3 4 3 4H5"/></svg></div>
+        <div class="mvv-milestone-year">2001</div>
+        <h4>Foundation</h4>
+        <p>Company was founded with a strong vision.</p>
+      </div>
+      <div class="mvv-milestone">
+        <div class="mvv-milestone-icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+        <div class="mvv-milestone-year">2006</div>
+        <h4>Expansion</h4>
+        <p>Expanded operations and strengthened capabilities.</p>
+      </div>
+      <div class="mvv-milestone">
+        <div class="mvv-milestone-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></div>
+        <div class="mvv-milestone-year">2012</div>
+        <h4>Diversification</h4>
+        <p>Diversified into new products and markets.</p>
+      </div>
+      <div class="mvv-milestone">
+        <div class="mvv-milestone-icon"><svg viewBox="0 0 24 24"><path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 5H5a3 3 0 0 0 3 5"/><path d="M16 5h3a3 3 0 0 1-3 5"/><path d="M12 13v3"/><path d="M9 20h6"/><path d="M10 17h4l1 3H9l1-3Z"/></svg></div>
+        <div class="mvv-milestone-year">2018</div>
+        <h4>Growth</h4>
+        <p>Achieved new milestones and built trust.</p>
+      </div>
+      <div class="mvv-milestone">
+        <div class="mvv-milestone-icon"><svg viewBox="0 0 24 24"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-2 5l-1 2-2-2-2 2-1-2c-1-1-2-3-2-5 0-4 2-8 5-10Z"/><circle cx="12" cy="10" r="1.6"/><path d="M9 17l-2 3M15 17l2 3"/></svg></div>
+        <div class="mvv-milestone-year">2024+</div>
+        <h4>Future Ready</h4>
+        <p>Innovating today for a stronger tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CTA (royal blue) ══════════════════ -->
+<section class="mvv-cta reveal-scale">
+  <div class="mvv-navy mvv-cta-inner">
+    <div class="mvv-navy-bg" aria-hidden="true">
+      <div class="mvv-navy-glow"></div>
+      <div class="mvv-navy-waves">
+        <svg viewBox="0 0 1200 400" preserveAspectRatio="none">
+          <path class="w1" d="M-20,300 C260,220 480,360 760,260 C960,190 1080,240 1220,190"/>
+        </svg>
+      </div>
+      <div class="mvv-navy-particles" id="mvvCtaParticles"></div>
+    </div>
+    <div class="mvv-cta-content">
+      <h2>Ready to Build<br>the Future <span class="accent">Together?</span></h2>
+      <p>Let's collaborate and create lasting impact through quality and trust.</p>
+      <a href="contact.html" class="mvv-cta-btn">
+        <span class="mvv-cta-btn-label">Let's Connect</span>
+        <span class="mvv-cta-btn-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+    <div class="mvv-cta-visual" aria-hidden="true">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/Iron&amp;Steel.avif">
+        <source type="image/webp" srcset="optimized-images/images/Iron&amp;Steel.webp">
+        <img class="mvv-cta-photo" src="optimized-images/images/Iron&amp;Steel.jpg" alt="" decoding="async">
+      </picture>
+      <div class="mvv-photo-glow"></div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer class="site-footer">
@@ -251,6 +540,9 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="site.js"></script>
+<script src="vision-hero.js"></script>
+<script src="vision-content.js"></script>
 </body>
 </html>
