@@ -147,6 +147,11 @@ a{ color:inherit; }
   color:var(--ink); text-decoration:none; line-height:1.35; white-space:normal;
 }
 .dropdown a:hover, .dropdown a.active{ background:rgba(255,106,31,.12); color:var(--accent-ink); }
+.nav-links .dropdown-label.active{ color:var(--accent-ink); }
+@media(min-width:1181px){
+  .dropdown.dropdown-wide{ min-width:520px; display:grid; grid-template-columns:1fr 1fr; gap:.15rem .8rem; padding:1.4rem .9rem .6rem; }
+  .dropdown.dropdown-wide a.dw-full{ grid-column:1 / -1; }
+}
 .nav-cta{
   font-family:var(--font-mono); font-size:.74rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
   text-decoration:none; color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent));
