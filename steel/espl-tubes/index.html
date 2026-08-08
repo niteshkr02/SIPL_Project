@@ -25,6 +25,39 @@
 .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; margin-bottom:1.1rem; }
 .split p:last-child{ margin-bottom:0; }
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
+
+/* ══ PRODUCT ACCORDION ══ */
+.subprod-accordion-list{ display:flex; flex-direction:column; gap:1.4rem; max-width:960px; margin:0 auto; }
+.subprod-accordion{ border:1px solid var(--border); border-radius:1.2rem; background:var(--surface); overflow:hidden; }
+.subprod-accordion summary{ display:flex; align-items:center; gap:1.4rem; padding:1.7rem 2rem; cursor:pointer; list-style:none; }
+.subprod-accordion summary::-webkit-details-marker{ display:none; }
+.subprod-accordion summary .icon-wrap{ width:52px; height:52px; flex-shrink:0; margin-bottom:0; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
+.subprod-accordion summary .icon-wrap svg{ width:28px; height:28px; }
+.subprod-accordion summary .accordion-head-text{ flex:1; min-width:0; }
+.subprod-accordion summary .accordion-head-text h3{ font-size:1.15rem; margin-bottom:.35rem; }
+.subprod-accordion summary .accordion-head-text p{ color:var(--ink-soft); font-size:.9rem; line-height:1.6; margin:0; }
+.subprod-accordion[open] summary{ border-bottom:1px solid var(--border); }
+.accordion-toggle-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-ink); border:1px solid var(--border); border-radius:999px; padding:.6rem 1.2rem; white-space:nowrap; transition:border-color .2s, background .2s; }
+.subprod-accordion:hover .accordion-toggle-btn{ border-color:var(--accent); }
+.accordion-toggle-btn .chev{ width:13px; height:13px; transition:transform .25s ease; }
+.subprod-accordion[open] .accordion-toggle-btn .chev{ transform:rotate(180deg); }
+.accordion-toggle-btn .label-open{ display:none; }
+.subprod-accordion[open] .accordion-toggle-btn .label-closed{ display:none; }
+.subprod-accordion[open] .accordion-toggle-btn .label-open{ display:inline; }
+.accordion-body{ padding:.4rem 2rem 2.4rem; }
+.accordion-body .tagline{ color:var(--accent-hot); font-weight:700; font-size:.98rem; margin:1.6rem 0 0; }
+.accordion-body .split{ margin-top:1.6rem; gap:2rem; }
+.accordion-body .split h4{ margin-bottom:1.1rem; font-size:1.4rem; }
+.accordion-body .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; }
+.accordion-body .section-head{ text-align:center; max-width:640px; margin:2.6rem auto 1.6rem; }
+.accordion-body .section-head h4{ font-size:1.4rem; margin-bottom:.6rem; }
+.accordion-body .section-head p{ color:var(--ink-soft); font-size:.98rem; }
+.accordion-body .usecase-grid, .accordion-body .spec-dl{ margin-top:1.6rem; }
+.accordion-body .faq-list{ margin-top:1.6rem; }
+.accordion-callout{ padding:1.4rem 1.7rem; border-left:3px solid var(--accent); background:var(--surface-2); border-radius:.8rem; margin-top:2.6rem; }
+.accordion-callout h4{ font-size:1.1rem; margin-bottom:.5rem; }
+.accordion-callout p{ color:var(--ink-soft); font-size:.95rem; line-height:1.75; margin:0; }
+.accordion-body .cta-btn-row{ margin-top:2.2rem; }
 </style>
 </head>
 <body>
@@ -42,7 +75,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="/index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="/about.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="/journey.html">Our Journey</a>
         <a href="/vision.html">Mission, Vision &amp; Values</a>
@@ -158,26 +191,265 @@
   <div class="section-head reveal">
     <div class="kicker center">PRODUCTS IN THIS CATEGORY</div>
     <h2>3 Products in This Category</h2>
+    <p>Open "View Full Details" on any product to see use cases, specifications and FAQs right here — no separate page to load.</p>
   </div>
-  <div class="subprod-grid ">
-    <a href="/steel/espl-tubes/erw-round-tubes/" class="subprod-card panel reveal">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
-      <h3>ERW Round Structural Tubes</h3>
-      <p>32 OD to 76 OD — handrails, gates, scaffolding towers and heavy structural pillars.</p>
-      <span class="steel-hub-link">Explore Round Tubes →</span>
-    </a>
-    <a href="/steel/espl-tubes/shs-box-pipes/" class="subprod-card panel reveal">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="1"/></svg></div>
-      <h3>Square Hollow Sections (SHS)</h3>
-      <p>25×25mm to 60×60mm box pipes — grills, gates, racking and warehouse shed columns.</p>
-      <span class="steel-hub-link">Explore SHS Box Pipes →</span>
-    </a>
-    <a href="/steel/espl-tubes/rhs-box-pipes/" class="subprod-card panel reveal">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="7" width="16" height="10" rx="1"/></svg></div>
-      <h3>Rectangular Hollow Sections (RHS)</h3>
-      <p>25×50mm to 80×40mm box pipes — stringers, trailer beds, rack beams and roof purlins.</p>
-      <span class="steel-hub-link">Explore RHS Box Pipes →</span>
-    </a>
+  <div class="subprod-accordion-list">
+
+    <details class="subprod-accordion reveal" id="erw-round-tubes">
+      <summary>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
+        <div class="accordion-head-text">
+          <h3>ERW Round Structural Tubes</h3>
+          <p>32 OD to 76 OD — handrails, gates, scaffolding towers and heavy structural pillars.</p>
+        </div>
+        <span class="accordion-toggle-btn">
+          <span class="label-closed">View Full Details</span>
+          <span class="label-open">Hide Details</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </summary>
+      <div class="accordion-body">
+        <p class="tagline">Circles resist twisting and squeezing equally in every direction — the strongest shape for a load-bearing post.</p>
+
+        <div class="split">
+          <div>
+            <div class="kicker">WHAT IS IT?</div>
+            <h4>A Continuous Weld Seam, Rolled Into a Circle</h4>
+            <p>Round structural tubes are hollow steel pipes made by rolling flat steel strips into a circle and welding the seam continuously using electricity (ERW). Because circles distribute weight equally in all directions, round tubes are incredibly strong against twisting and squeezing forces.</p>
+          </div>
+          <img src="/images/pipe_section.jpeg" alt="ERW Round Structural Tubes" class="split-photo">
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRIMARY PURPOSE &amp; BEST USE CASES</div>
+          <h4>From Furniture Legs to Highway Signboards</h4>
+          <p>Round tubes are used for carrying fluids, building smooth handrails, or constructing load-bearing vertical posts.</p>
+        </div>
+        <div class="usecase-grid">
+          <div class="usecase-item panel">
+            <div class="usecase-size">1" Series (32 OD)</div>
+            <p>Best for light furniture, gates, and internal decorative piping.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">1.25" &amp; 1.5" Series (42 OD &amp; 48 OD)</div>
+            <p>Best for staircase handrails, outdoor safety barriers, agricultural gates, and modular scaffolding towers.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">2" &amp; 2.5" Series (60 OD &amp; 76 OD)</div>
+            <p>Best for heavy structural pillars, highway signboards, and high-capacity staging posts.</p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRODUCT SPECIFICATIONS</div>
+          <h4>Clean, Scannable Parameters</h4>
+        </div>
+        <dl class="spec-dl panel" style="padding:1.6rem 2rem;">
+          <div class="spec-dl-row"><dt>Diameter Sizes</dt><dd>32 OD (1"), 42 OD (1.25"), 48 OD (1.5"), 60 OD (2"), 76 OD (2.5")</dd></div>
+          <div class="spec-dl-row"><dt>Wall Thickness Range</dt><dd>1.2 MM up to 3.2 MM</dd></div>
+          <div class="spec-dl-row"><dt>Pipe Weight Range</dt><dd>7 KG per pipe up to 28 KG per pipe</dd></div>
+        </dl>
+
+        <div class="accordion-callout">
+          <h4>Why Choose Our Round Tubes?</h4>
+          <p>Our ERW round tubes feature smooth, flattened internal weld seams. This means couplers and fittings slide over them effortlessly without snagging or jamming.</p>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+          <h4>Round Tubes — Common Questions</h4>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item panel">
+            <summary>Which round tube size fits standard scaffolding couplers?</summary>
+            <p class="faq-a">Our 1.25" (42 OD) and 1.5" (48 OD) series are the sizes most commonly used for staircase handrails, safety barriers and modular scaffolding towers.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>What is the maximum wall thickness available?</summary>
+            <p class="faq-a">Wall thickness runs from 1.2mm up to 3.2mm depending on diameter — heavier gauges are used in the 2" and 2.5" series for structural pillars.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>Do fittings and couplers fit smoothly over the weld seam?</summary>
+            <p class="faq-a">Yes — our ERW process leaves a smooth, flattened internal weld seam so couplers and fittings slide over the tube without snagging or jamming.</p>
+          </details>
+        </div>
+
+        <div class="cta-btn-row">
+          <a href="/contact.html" class="btn btn-primary">Request Bulk Quote for Round Tubes →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="subprod-accordion reveal" id="shs-box-pipes">
+      <summary>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="1"/></svg></div>
+        <div class="accordion-head-text">
+          <h3>Square Hollow Sections (SHS)</h3>
+          <p>25×25mm to 60×60mm box pipes — grills, gates, racking and warehouse shed columns.</p>
+        </div>
+        <span class="accordion-toggle-btn">
+          <span class="label-closed">View Full Details</span>
+          <span class="label-open">Hide Details</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </summary>
+      <div class="accordion-body">
+        <p class="tagline">Hollow steel building blocks with four flat faces — easier to weld, drill and bolt than round pipe.</p>
+
+        <div class="split">
+          <div>
+            <div class="kicker">WHAT IS IT?</div>
+            <h4>Hollow Steel Building Blocks</h4>
+            <p>Square Hollow Sections — often called "box pipes" — are hollow steel tubes with four equal flat sides and square corners. They look like long, hollow wooden building blocks made of steel.</p>
+          </div>
+          <img src="/images/pipe_section.jpeg" alt="Square Hollow Sections (SHS Box Pipes)" class="split-photo">
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRIMARY PURPOSE &amp; BEST USE CASES</div>
+          <h4>Flat Faces, Easier Fabrication</h4>
+          <p>Because all four sides are flat, SHS box pipes are much easier to weld, drill, and attach to flat walls than round pipes.</p>
+        </div>
+        <div class="usecase-grid">
+          <div class="usecase-item panel">
+            <div class="usecase-size">1" &amp; 1.25" Boxes (25×25 MM &amp; 32×32 MM)</div>
+            <p>Best for window security grills, school desks, metal furniture, and light gates.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">1.5" Boxes (38×38 MM &amp; 40×25 MM)</div>
+            <p>Best for residential entry gates, solar panel racking frames, and store display racks.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">2" &amp; 2.5" Boxes (48×48 MM, 50×50 MM &amp; 60×60 MM)</div>
+            <p>Best for warehouse shed columns, roof trusses, and heavy machine frames.</p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRODUCT SPECIFICATIONS</div>
+          <h4>Clean, Scannable Parameters</h4>
+        </div>
+        <dl class="spec-dl panel" style="padding:1.6rem 2rem;">
+          <div class="spec-dl-row"><dt>Square Profiles</dt><dd>25×25 MM, 32×32 MM, 38×38 MM, 48×48 MM, 50×50 MM, 60×60 MM</dd></div>
+          <div class="spec-dl-row"><dt>Wall Thickness Range</dt><dd>1.2 MM up to 3.2 MM</dd></div>
+          <div class="spec-dl-row"><dt>Weight Range</dt><dd>5 KG up to 28 KG per pipe</dd></div>
+        </dl>
+
+        <div class="accordion-callout">
+          <h4>Why Choose Our SHS Box Pipes?</h4>
+          <p>Our square box pipes are manufactured with uniform radiused corners. This prevents stress concentrations at the edges, giving your structures a clean, modern aesthetic.</p>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+          <h4>SHS Box Pipes — Common Questions</h4>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item panel">
+            <summary>What SHS size is best for a warehouse shed column?</summary>
+            <p class="faq-a">2" and 2.5" boxes (48×48mm, 50×50mm and 60×60mm) are best for warehouse shed columns, roof trusses and heavy machine frames.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>Why choose SHS over round tube for gates and grills?</summary>
+            <p class="faq-a">Flat faces make SHS box pipe much easier to weld, drill and attach to flat walls than round pipe, which is why it's the default choice for grills, gates and racking.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>What is the lightest SHS profile you supply?</summary>
+            <p class="faq-a">Our lightest profile is 25×25mm, used for window security grills, school desks and light metal furniture.</p>
+          </details>
+        </div>
+
+        <div class="cta-btn-row">
+          <a href="/contact.html" class="btn btn-primary">Request Bulk Quote for SHS Box Pipes →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="subprod-accordion reveal" id="rhs-box-pipes">
+      <summary>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="7" width="16" height="10" rx="1"/></svg></div>
+        <div class="accordion-head-text">
+          <h3>Rectangular Hollow Sections (RHS)</h3>
+          <p>25×50mm to 80×40mm box pipes — stringers, trailer beds, rack beams and roof purlins.</p>
+        </div>
+        <span class="accordion-toggle-btn">
+          <span class="label-closed">View Full Details</span>
+          <span class="label-open">Hide Details</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </summary>
+      <div class="accordion-body">
+        <p class="tagline">A brick-shaped profile that resists sagging far better than a square pipe of the same steel weight.</p>
+
+        <div class="split">
+          <div>
+            <div class="kicker">WHAT IS IT?</div>
+            <h4>A Brick-Shaped Hollow Section</h4>
+            <p>Rectangular Hollow Sections are hollow steel box pipes where two sides are wider than the other two (like a brick shape).</p>
+          </div>
+          <img src="/images/pipe_section.jpeg" alt="Rectangular Hollow Sections (RHS Box Pipes)" class="split-photo">
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRIMARY PURPOSE &amp; BEST USE CASES</div>
+          <h4>Built for One-Directional Load</h4>
+          <p>RHS pipes are designed for places where weight pushes down heavily from one direction. The tall vertical sides resist sagging much better than a square pipe of the same steel weight.</p>
+        </div>
+        <div class="usecase-grid">
+          <div class="usecase-item panel">
+            <div class="usecase-size">Small RHS (25×50 MM)</div>
+            <p>Best for door frames, window shutters, and metal railing posts.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">Medium RHS (38×58 MM &amp; 75×25 MM)</div>
+            <p>Best for staircase side stringers, vehicle trailer beds, and warehouse rack beams.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">Large RHS (80×40 MM)</div>
+            <p>Best for long-span roof purlins, mezzanine floor joists, and truck chassis rails.</p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRODUCT SPECIFICATIONS</div>
+          <h4>Clean, Scannable Parameters</h4>
+        </div>
+        <dl class="spec-dl panel" style="padding:1.6rem 2rem;">
+          <div class="spec-dl-row"><dt>Rectangular Profiles</dt><dd>25×50 MM, 38×58 MM, 75×25 MM, 80×40 MM</dd></div>
+          <div class="spec-dl-row"><dt>Wall Thickness Range</dt><dd>1.2 MM up to 2.8 MM</dd></div>
+          <div class="spec-dl-row"><dt>Weight Range</dt><dd>8.5 KG up to 30 KG per pipe</dd></div>
+        </dl>
+
+        <div class="accordion-callout">
+          <h4>Why Choose Our RHS Box Pipes?</h4>
+          <p>By choosing RHS box pipes for long horizontal spans, you get maximum load resistance while using less steel weight — saving thousands on raw material costs.</p>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+          <h4>RHS Box Pipes — Common Questions</h4>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item panel">
+            <summary>When should I choose RHS instead of SHS?</summary>
+            <p class="faq-a">RHS is designed for one-directional load — its tall vertical sides resist sagging much better than a square pipe of the same steel weight, making it the better choice for long horizontal spans like purlins and joists.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>What size RHS suits a truck chassis rail?</summary>
+            <p class="faq-a">Our largest profile, 80×40mm, is best for long-span roof purlins, mezzanine floor joists and truck chassis rails.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>What is the weight range across the RHS series?</summary>
+            <p class="faq-a">From 8.5 KG per pipe for the smallest 25×50mm profile up to 30 KG per pipe for the largest 80×40mm profile.</p>
+          </details>
+        </div>
+
+        <div class="cta-btn-row">
+          <a href="/contact.html" class="btn btn-primary">Request Bulk Quote for RHS Box Pipes →</a>
+        </div>
+      </div>
+    </details>
+
   </div>
 </section>
 
@@ -247,5 +519,22 @@
 </footer>
 
 <script src="/site.js"></script>
+<script>
+(function(){
+  function openTargetAccordion(){
+    var id = decodeURIComponent(location.hash.replace('#',''));
+    if(!id) return;
+    var el = document.getElementById(id);
+    if(!el) return;
+    var details = el.tagName === 'DETAILS' ? el : el.closest('details.subprod-accordion');
+    if(details){
+      details.open = true;
+      setTimeout(function(){ details.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+    }
+  }
+  openTargetAccordion();
+  window.addEventListener('hashchange', openTargetAccordion);
+})();
+</script>
 </body>
 </html>

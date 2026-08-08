@@ -78,7 +78,7 @@ a{ color:inherit; }
 }
 
 /* ══ GLASS NAVIGATION ══
-   Kept intentionally dark/glass regardless of the light/dark content
+   Kept intentionally light/glass regardless of the light/dark content
    toggle below — it reads as persistent chrome for the premium
    industrial theme rather than page content. */
 .site-nav{
@@ -86,17 +86,17 @@ a{ color:inherit; }
   height:var(--nav-h);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 2rem;
-  background:rgba(6,10,20,.55);
+  background:rgba(255,255,255,.78);
   backdrop-filter:blur(18px) saturate(140%);
   -webkit-backdrop-filter:blur(18px) saturate(140%);
-  border-bottom:1px solid rgba(255,106,31,.16);
-  box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 8px 30px rgba(0,0,0,.35);
+  border-bottom:1px solid rgba(255,106,31,.18);
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 8px 30px rgba(15,23,42,.1);
   transition:background .3s ease, box-shadow .3s ease, border-color .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
 }
 .site-nav.scrolled{
-  background:rgba(6,10,20,.82);
-  border-bottom-color:rgba(255,106,31,.3);
-  box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 12px 34px rgba(0,0,0,.45), 0 1px 16px rgba(255,106,31,.12);
+  background:rgba(255,255,255,.94);
+  border-bottom-color:rgba(255,106,31,.32);
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 12px 34px rgba(15,23,42,.14), 0 1px 16px rgba(255,106,31,.1);
 }
 .site-nav.nav-hidden{ transform:translateY(-100%); }
 .site-nav:focus-within{ transform:translateY(0) !important; }
@@ -104,13 +104,13 @@ a{ color:inherit; }
 .nav-brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; }
 .nav-brand svg{ width:32px; height:32px; flex-shrink:0; }
 .nav-brand-logo{ width:32px; height:32px; flex-shrink:0; object-fit:contain; }
-.nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#F2F4F7; line-height:1.3; }
-.nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-hot); }
+.nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#1B1F26; line-height:1.3; }
+.nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-ink); }
 .nav-links{ display:flex; align-items:center; gap:1.3rem; list-style:none; }
 .nav-links > li{ position:relative; }
 .nav-links a, .nav-links .dropdown-label{
   font-family:var(--font-mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-  text-decoration:none; color:#E7EAF0; position:relative; padding:.4rem 0;
+  text-decoration:none; color:#2A2D34; position:relative; padding:.4rem 0;
   display:inline-flex; align-items:center; gap:.3rem; cursor:pointer; white-space:nowrap;
 }
 .nav-links > li > a::after{
@@ -118,7 +118,7 @@ a{ color:inherit; }
   transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
 }
 .nav-links > li > a:hover::after, .nav-links > li > a.active::after{ transform:scaleX(1); }
-.nav-links a.active{ color:var(--accent-hot); text-shadow:0 0 12px rgba(255,194,75,.5); }
+.nav-links a.active{ color:var(--accent-ink); }
 .has-dropdown > a::before, .has-dropdown > .dropdown-label::before{
   content:''; width:0; height:0;
   border-left:3.5px solid transparent; border-right:3.5px solid transparent; border-top:4px solid currentColor;
@@ -134,10 +134,10 @@ a{ color:inherit; }
 .dropdown{
   position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(6px);
   min-width:260px; margin-top:0; padding:1.4rem .5rem .5rem;
-  background:rgba(10,14,24,.94);
+  background:rgba(255,255,255,.98);
   backdrop-filter:blur(20px) saturate(150%); -webkit-backdrop-filter:blur(20px) saturate(150%);
-  border:1px solid rgba(255,255,255,.08); border-radius:.9rem;
-  box-shadow:0 22px 46px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+  border:1px solid rgba(15,23,42,.08); border-radius:.9rem;
+  box-shadow:0 22px 46px rgba(15,23,42,.18), inset 0 1px 0 rgba(255,255,255,.7);
   opacity:0; visibility:hidden; pointer-events:none;
   transition:opacity .22s ease, transform .22s ease, visibility .22s;
   z-index:10;
@@ -148,33 +148,33 @@ a{ color:inherit; }
 .dropdown a{
   display:block; padding:.7rem .9rem; border-radius:.55rem;
   font-family:var(--font-mono); font-size:.7rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase;
-  color:#E7EAF0; text-decoration:none; line-height:1.35; white-space:normal;
+  color:#2A2D34; text-decoration:none; line-height:1.35; white-space:normal;
 }
-.dropdown a:hover, .dropdown a.active{ background:rgba(255,106,31,.16); color:var(--accent-hot); }
-.nav-links .dropdown-label.active{ color:var(--accent-hot); text-shadow:0 0 12px rgba(255,194,75,.5); }
+.dropdown a:hover, .dropdown a.active{ background:rgba(255,106,31,.12); color:var(--accent-ink); }
+.nav-links .dropdown-label.active{ color:var(--accent-ink); }
 @media(min-width:1181px){
   /* nested flyout trigger row (e.g. "Steel" inside the Products panel) */
   .dropdown .has-dropdown{ position:relative; }
   .dropdown .has-dropdown > a, .dropdown .has-dropdown > .dropdown-label{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+    display:flex; align-items:center; justify-content:flex-start; gap:.45rem;
   }
   .dropdown .has-dropdown > a::before, .dropdown .has-dropdown > .dropdown-label::before{
     content:''; width:0; height:0; flex-shrink:0;
     border-top:3.5px solid transparent; border-bottom:3.5px solid transparent; border-left:4px solid currentColor; border-right:none;
-    opacity:.5; margin-left:.4rem; transform:none;
+    opacity:.5; transform:none;
   }
   .dropdown .has-dropdown.open > a::before, .dropdown .has-dropdown.open > .dropdown-label::before{ opacity:.9; }
 
-  /* nested flyout panel — opens to the right of its trigger row. Matches the
-     .site-nav / .dropdown dark-glass palette (styles.css:84-152), which is
-     now unconditional rather than light/dark-theme-dependent. */
+  /* nested flyout panel — opens to the right of its trigger row.
+     Matches .dropdown's light-glass look (kept identical in both themes,
+     see GLASS NAVIGATION above) rather than following its own page theme. */
   .dropdown-flyout{
     position:absolute; top:-.6rem; left:100%; margin-left:.4rem;
     min-width:230px; padding:.6rem;
-    background:rgba(10,14,24,.94);
+    background:rgba(255,255,255,.98);
     backdrop-filter:blur(20px) saturate(150%); -webkit-backdrop-filter:blur(20px) saturate(150%);
-    border:1px solid rgba(255,255,255,.08); border-radius:.9rem;
-    box-shadow:0 22px 46px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+    border:1px solid rgba(15,23,42,.08); border-radius:.9rem;
+    box-shadow:0 22px 46px rgba(15,23,42,.18), inset 0 1px 0 rgba(255,255,255,.7);
     opacity:0; visibility:hidden; pointer-events:none; transform:translateX(-6px);
     transition:opacity .18s ease, transform .18s ease, visibility .18s;
     z-index:11;
@@ -196,18 +196,18 @@ a{ color:inherit; }
 .theme-toggle{
   display:inline-flex; align-items:center; justify-content:center;
   width:32px; height:32px; border-radius:50%;
-  border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#E7EAF0;
+  border:1px solid rgba(15,23,42,.14); background:rgba(15,23,42,.04); color:#2A2D34;
   cursor:pointer; flex-shrink:0;
   transition:transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
 }
-.theme-toggle:hover{ border-color:var(--accent); color:var(--accent-hot); transform:translateY(-2px); }
+.theme-toggle:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
 .theme-toggle-icon{ width:15px; height:15px; }
 .theme-toggle-icon--moon{ display:none; }
 html[data-theme="dark"] .theme-toggle-icon--sun{ display:none; }
 html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 
 .nav-toggle{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:.5rem; }
-.nav-toggle span{ width:24px; height:2px; background:#E7EAF0; border-radius:2px; transition:all .3s ease; }
+.nav-toggle span{ width:24px; height:2px; background:#2A2D34; border-radius:2px; transition:all .3s ease; }
 .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2){ opacity:0; }
 .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
@@ -217,8 +217,8 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
   .nav-links{
     position:fixed; top:var(--nav-h); left:0; right:0;
     flex-direction:column; align-items:flex-start; gap:0;
-    background:rgba(8,11,20,.97); backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.98); backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(15,23,42,.08);
     max-height:0; overflow-y:auto; transition:max-height .4s ease;
   }
   .nav-links.open{ max-height:calc(100vh - var(--nav-h)); }
@@ -233,19 +233,19 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
      otherwise win on specificity alone and shove the whole panel off-screen. */
   .dropdown, .has-dropdown.open .dropdown, .has-dropdown:focus-within .dropdown{
     position:static; opacity:1; visibility:visible; pointer-events:auto; transform:none;
-    background:rgba(255,255,255,.03); border:none; box-shadow:none; border-radius:0;
+    background:rgba(15,23,42,.03); border:none; box-shadow:none; border-radius:0;
     margin:0; padding:0 2rem .6rem 2.6rem;
   }
   .dropdown a{ padding:.6rem 0; }
 
   /* nested flyout: collapsed by default, tap-to-expand (progressive disclosure) */
   .dropdown .has-dropdown > a, .dropdown .has-dropdown > .dropdown-label{
-    display:flex; width:100%; justify-content:space-between; align-items:center; padding:.6rem 0;
+    display:flex; width:100%; justify-content:flex-start; align-items:center; gap:.5rem; padding:.6rem 0;
   }
   .dropdown .has-dropdown > a::before, .dropdown .has-dropdown > .dropdown-label::before{
     content:''; width:0; height:0; flex-shrink:0;
     border-top:3.5px solid transparent; border-bottom:3.5px solid transparent; border-left:4px solid currentColor; border-right:none;
-    opacity:.5; margin-left:.6rem; transition:transform .25s ease;
+    opacity:.5; transition:transform .25s ease;
   }
   .dropdown .has-dropdown.open > a::before, .dropdown .has-dropdown.open > .dropdown-label::before{ transform:rotate(90deg); opacity:.9; }
   .dropdown-flyout{
@@ -577,10 +577,9 @@ html[data-theme="dark"] body{
     linear-gradient(160deg, #0B0C0F 0%, #14161B 24%, #1A1D22 46%, #121417 68%, #0A0B0D 100%);
 }
 html[data-theme="dark"] .sheen{ opacity:.4; }
-/* .site-nav / .dropdown / .dropdown-flyout are dark-glass by default (see
+/* .site-nav / .dropdown / .dropdown-flyout are light-glass by default (see
    GLASS NAVIGATION above) and no longer need a dark-theme override — kept
-   identical in both themes since the nav is persistent chrome, not page
-   content. */
+   identical in both themes since the nav is persistent chrome, not page content. */
 html[data-theme="dark"] .chip.hot{ background:rgba(255,122,51,.15); }
 html[data-theme="dark"] .panel{
   background:linear-gradient(155deg, rgba(255,255,255,.05), rgba(255,255,255,0) 40%), var(--surface);

@@ -1136,7 +1136,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
       <li class="has-dropdown">
-        <span class="dropdown-label" tabindex="0">About</span>
+        <a href="about.html" class="dropdown-label">About</a>
         <div class="dropdown">
           <a href="journey.html">Our Journey</a>
           <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -1620,13 +1620,6 @@
         </div>
 
         <div class="qcc-viewport">
-          <button type="button" class="qcc-nav qcc-prev" aria-label="Previous checkpoint">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M15 6l-6 6 6 6" />
-            </svg>
-          </button>
-
           <div class="qcc-track-wrap" role="region" aria-roledescription="carousel"
             aria-label="Quality checkpoint slides" tabindex="0">
             <div class="qcc-track" id="qccTrack">
@@ -1753,6 +1746,17 @@
 
             </div>
           </div>
+        </div>
+
+        <div class="qcc-controls">
+          <button type="button" class="qcc-nav qcc-prev" aria-label="Previous checkpoint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+
+          <div class="qcc-dots" id="qccDots" role="tablist" aria-label="Choose a checkpoint"></div>
 
           <button type="button" class="qcc-nav qcc-next" aria-label="Next checkpoint">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1761,8 +1765,6 @@
             </svg>
           </button>
         </div>
-
-        <div class="qcc-dots" id="qccDots" role="tablist" aria-label="Choose a checkpoint"></div>
         <div class="qcc-sr-only qcc-sr-status" aria-live="polite" aria-atomic="true"></div>
       </div>
       <div style="text-align:center; margin-top:2.5rem;"><a href="quality.html" class="btn btn-primary reveal">See
@@ -1777,7 +1779,7 @@
       <div class="grp-bg" aria-hidden="true">
         <div class="grp-mesh"></div>
         <div class="grp-blueprint"></div>
-        <div class="grp-dots"></div>
+        <div class="grp-bg-dots"></div>
         <div class="grp-glow"></div>
         <div class="grp-noise"></div>
         <div class="grp-shape s1"></div>
@@ -1794,16 +1796,10 @@
       </div>
 
       <div class="grp-viewport">
-        <div class="grp-track" id="grpTrack" tabindex="0" role="region" aria-roledescription="carousel"
+        <div class="grp-stage" id="grpStage" tabindex="0" role="region" aria-roledescription="carousel"
           aria-label="The Group's seven units. Use the arrow keys to browse.">
 
-          <div class="grp-connector" aria-hidden="true">
-            <span class="grp-pulse p1"></span>
-            <span class="grp-pulse p2"></span>
-            <span class="grp-pulse p3"></span>
-          </div>
-
-          <div class="grp-slot">
+          <div class="grp-slot" data-year="2010">
             <div class="grp-card">
               <div class="grp-image-wrap">
                 <picture>
@@ -1834,7 +1830,7 @@
             </div>
           </div>
 
-          <div class="grp-slot">
+          <div class="grp-slot" data-year="2004">
             <div class="grp-card">
               <div class="grp-image-wrap">
                 <picture>
@@ -1895,7 +1891,7 @@
             </div>
           </div>
 
-          <div class="grp-slot">
+          <div class="grp-slot" data-year="1981">
             <div class="grp-card">
               <div class="grp-image-wrap">
                 <picture>
@@ -1985,7 +1981,7 @@
             </div>
           </div>
 
-          <div class="grp-slot">
+          <div class="grp-slot" data-year="2012">
             <div class="grp-card">
               <div class="grp-image-wrap">
                 <picture>
@@ -2016,7 +2012,7 @@
             </div>
           </div>
 
-          <div class="grp-slot">
+          <div class="grp-slot" data-year="2014">
             <div class="grp-card">
               <div class="grp-image-wrap">
                 <picture>
@@ -2057,38 +2053,43 @@
             <path d="M15 6l-6 6 6 6" />
           </svg>
         </button>
-        <div class="grp-stepper" id="grpStepper" role="tablist" aria-label="Jump to a unit">
-          <button type="button" class="grp-step active" role="tab" aria-selected="true">
-            <span class="grp-step-dot"></span><span class="grp-step-label">Madandih</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">Rukni</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">Mogra</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">SPS Unit 1</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">SPS Unit 2</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">SPS Unit 3</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">Eloquent</span>
-          </button>
-          <button type="button" class="grp-step" role="tab" aria-selected="false">
-            <span class="grp-step-dot"></span><span class="grp-step-label">Agrotech</span>
-          </button>
-        </div>
+        <div class="grp-dots" id="grpDots" role="tablist" aria-label="Select a unit"></div>
         <button type="button" class="grp-arrow next" aria-label="Next unit">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="M9 6l6 6-6 6" />
           </svg>
         </button>
+      </div>
+      <div class="grp-sr-only grp-sr-status" aria-live="polite" aria-atomic="true"></div>
+
+      <div class="grp-timeline" id="grpTimeline">
+        <div class="grp-timeline-track" role="tablist" aria-label="Filter units by founding year">
+          <button type="button" class="grp-tl-item active" data-year="all" role="tab" aria-selected="true">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">All</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-year="1981" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">1981</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-year="2004" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">2004</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-year="2010" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">2010</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-year="2012" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">2012</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-year="2014" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">2014</span>
+          </button>
+        </div>
       </div>
 
       <div class="grp-cta-wrap">
@@ -2118,10 +2119,6 @@
         </div>
 
         <div class="pcc-viewport">
-          <button type="button" class="pcc-nav pcc-prev" aria-label="Previous stage">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
-          </button>
-
           <div class="pcc-track-wrap" role="region" aria-roledescription="carousel" aria-label="Process stage slides" tabindex="0">
             <div class="pcc-track" id="pccTrack">
 
@@ -2267,13 +2264,17 @@
 
             </div>
           </div>
+        </div>
 
+        <div class="pcc-controls">
+          <button type="button" class="pcc-nav pcc-prev" aria-label="Previous stage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <div class="pcc-dots" id="pccDots" role="tablist" aria-label="Choose a stage"></div>
           <button type="button" class="pcc-nav pcc-next" aria-label="Next stage">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
           </button>
         </div>
-
-        <div class="pcc-dots" id="pccDots" role="tablist" aria-label="Choose a stage"></div>
         <div class="pcc-sr-only pcc-sr-status" aria-live="polite" aria-atomic="true"></div>
       </div>
       <div style="text-align:center; margin-top:2.5rem;"><a href="process.html" class="btn btn-primary reveal">See
