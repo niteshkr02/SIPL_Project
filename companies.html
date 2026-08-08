@@ -22,36 +22,34 @@
 .market-tags{ display:flex; flex-wrap:wrap; gap:.55rem; }
 
 /* ══ BRAND SHOWCASE ══ */
-.brand-showcase-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
-@media(max-width:800px){ .brand-showcase-grid{ grid-template-columns:1fr; } }
+.brand-showcase-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+@media(max-width:960px){ .brand-showcase-grid{ grid-template-columns:1fr; } }
 .brand-showcase{
-  position:relative; min-height:420px; border-radius:1.3rem; overflow:hidden;
-  display:flex; flex-direction:column; justify-content:flex-end; padding:2.2rem;
-  border:1px solid var(--border);
-  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 12px 30px rgba(20,22,28,.1);
-  transition:transform .35s ease, box-shadow .35s ease;
+  position:relative; border-radius:1.3rem; overflow:hidden;
+  display:flex; flex-direction:column;
+  border:1px solid var(--border); background:var(--surface); text-decoration:none;
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 12px 30px rgba(20,22,28,.08);
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
 }
-.brand-showcase:hover{ transform:translateY(-8px); box-shadow:0 24px 50px rgba(20,22,28,.22); }
-.brand-showcase-bg{
-  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+.brand-showcase:hover{ transform:translateY(-8px); box-shadow:0 24px 50px rgba(20,22,28,.16); border-color:var(--accent); }
+.brand-showcase-logo-wrap{
+  height:170px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  background:#fff; padding:1.8rem; border-bottom:1px solid var(--border);
 }
-.brand-showcase::after{
-  content:''; position:absolute; inset:0; z-index:1;
-  background:linear-gradient(0deg, rgba(10,11,14,.92) 0%, rgba(10,11,14,.55) 45%, rgba(10,11,14,.1) 75%);
-}
-.brand-showcase-content{ position:relative; z-index:2; }
+.brand-showcase-logo{ max-width:100%; max-height:100%; object-fit:contain; }
+.brand-showcase-content{ position:relative; padding:1.8rem 1.9rem 2rem; display:flex; flex-direction:column; flex:1; }
 .brand-showcase-tag{
   font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--accent-hot, #FFC24B); margin-bottom:.6rem; display:block;
+  color:var(--accent-ink); margin-bottom:.6rem; display:block;
 }
 .brand-showcase h3{
-  font-family:var(--font-display); font-size:clamp(1.8rem,3.2vw,2.4rem); color:#EEEAE1; margin-bottom:.7rem; text-transform:none;
+  font-family:var(--font-display); font-size:1.5rem; color:var(--ink); margin-bottom:.7rem; text-transform:none;
 }
-.brand-showcase p{ color:#C7CDD5; font-size:.95rem; max-width:42ch; margin-bottom:1.1rem; }
+.brand-showcase p{ color:var(--ink-soft); font-size:.94rem; line-height:1.65; margin-bottom:1.2rem; flex:1; }
 .brand-showcase-link{
-  font-family:var(--font-mono); font-size:.75rem; font-weight:700; letter-spacing:.08em;
-  color:#EEEAE1; text-decoration:none; display:inline-flex; align-items:center; gap:.4rem;
-  border-bottom:1px solid rgba(238,234,225,.4); padding-bottom:.2rem; width:fit-content;
+  font-family:var(--font-mono); font-size:.74rem; font-weight:700; letter-spacing:.06em;
+  color:var(--accent-ink); text-decoration:none; display:inline-flex; align-items:center; gap:.4rem;
+  border-bottom:1px solid var(--border); padding-bottom:.2rem; width:fit-content;
   transition:border-color .25s ease, color .25s ease;
 }
 .brand-showcase-link:hover{ color:var(--accent-hot, #FFC24B); border-color:var(--accent-hot, #FFC24B); }
@@ -340,26 +338,41 @@
 <section class="section" id="brands">
   <div class="section-head reveal">
     <div class="kicker center">OUR BRANDS</div>
-    <h2>Two Names, Trusted on Their Own</h2>
+    <h2>Names Customers Ask For By Name</h2>
     <p>Beneath the company names sit the brands customers actually ask for by name.</p>
   </div>
   <div class="brand-showcase-grid">
-    <a href="products.html#finished-steel" class="brand-showcase reveal">
-      <img src="images/QST_TMT_Bars.png" alt="Elegant Steel TMT bars" class="brand-showcase-bg" loading="lazy">
+    <a href="https://www.elegantsteels.com/" target="_blank" rel="noopener" class="brand-showcase reveal">
+      <div class="brand-showcase-logo-wrap">
+        <img src="images/Elegant_Steel_Logo.jpeg" alt="Elegant Steel logo" class="brand-showcase-logo" loading="lazy">
+      </div>
       <div class="brand-showcase-content">
         <span class="brand-showcase-tag">Brand · Since 1993</span>
         <h3>Elegant Steel</h3>
-        <p>The TMT bars, angles and channels rolled at SPS Steels' Durgapur and Purulia units carry the Elegant name, part of the Shakambhari Group since April 2019 — the mark customers look for on every rebar leaving the rolling mills.</p>
-        <span class="brand-showcase-link">VIEW ELEGANT PRODUCTS →</span>
+        <p>India's No.1 QST bar, rolled at SPS Steels' Durgapur and Purulia units — the name that's been part of the Shakambhari Group since April 2019 and the mark customers look for on every rebar leaving our mills.</p>
+        <span class="brand-showcase-link">VISIT ELEGANTSTEELS.COM ↗</span>
       </div>
     </a>
-    <a href="products.html#aluminium-foil" class="brand-showcase reveal">
-      <img src="images/Aluminium_Foil.png" alt="India Foils pharma-grade aluminium foil production line" class="brand-showcase-bg" loading="lazy">
+    <a href="https://www.facebook.com/ThermoconTMT/" target="_blank" rel="noopener" class="brand-showcase reveal">
+      <div class="brand-showcase-logo-wrap">
+        <img src="images/Thermocon_TMT_Logo.jpeg" alt="Thermocon TMT logo" class="brand-showcase-logo" loading="lazy">
+      </div>
+      <div class="brand-showcase-content">
+        <span class="brand-showcase-tag">Brand · TMT Bars</span>
+        <h3>Thermocon TMT</h3>
+        <p>"The No Compromise Steel" — HSD &amp; QST TMT rebar produced at Eloquent Steel's continuous rolling mills, IS 1786 licensed and TEMPCORE-engineered alongside Elegant as our second certified TMT line.</p>
+        <span class="brand-showcase-link">VISIT ON FACEBOOK ↗</span>
+      </div>
+    </a>
+    <a href="https://www.indiafoils.net/" target="_blank" rel="noopener" class="brand-showcase reveal">
+      <div class="brand-showcase-logo-wrap">
+        <img src="images/India_Foils_Logo.jpeg" alt="India Foils logo" class="brand-showcase-logo" loading="lazy">
+      </div>
       <div class="brand-showcase-content">
         <span class="brand-showcase-tag">Brand · Aluminium Foil</span>
         <h3>India Foils</h3>
         <p>The aluminium foil rolled at SIPL Mogra in Hooghly carries the India Foils name, reaching pharmaceutical, food and FMCG customers in 29+ countries under a brand with decades of standing in the industry.</p>
-        <span class="brand-showcase-link">VIEW INDIA FOILS PRODUCTS →</span>
+        <span class="brand-showcase-link">VISIT INDIAFOILS.NET ↗</span>
       </div>
     </a>
   </div>
