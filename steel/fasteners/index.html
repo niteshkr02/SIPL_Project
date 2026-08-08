@@ -25,6 +25,39 @@
 .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; margin-bottom:1.1rem; }
 .split p:last-child{ margin-bottom:0; }
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
+
+/* ══ PRODUCT ACCORDION ══ */
+.subprod-accordion-list{ display:flex; flex-direction:column; gap:1.4rem; max-width:960px; margin:0 auto; }
+.subprod-accordion{ border:1px solid var(--border); border-radius:1.2rem; background:var(--surface); overflow:hidden; }
+.subprod-accordion summary{ display:flex; align-items:center; gap:1.4rem; padding:1.7rem 2rem; cursor:pointer; list-style:none; }
+.subprod-accordion summary::-webkit-details-marker{ display:none; }
+.subprod-accordion summary .icon-wrap{ width:52px; height:52px; flex-shrink:0; margin-bottom:0; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
+.subprod-accordion summary .icon-wrap svg{ width:28px; height:28px; }
+.subprod-accordion summary .accordion-head-text{ flex:1; min-width:0; }
+.subprod-accordion summary .accordion-head-text h3{ font-size:1.15rem; margin-bottom:.35rem; }
+.subprod-accordion summary .accordion-head-text p{ color:var(--ink-soft); font-size:.9rem; line-height:1.6; margin:0; }
+.subprod-accordion[open] summary{ border-bottom:1px solid var(--border); }
+.accordion-toggle-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-ink); border:1px solid var(--border); border-radius:999px; padding:.6rem 1.2rem; white-space:nowrap; transition:border-color .2s, background .2s; }
+.subprod-accordion:hover .accordion-toggle-btn{ border-color:var(--accent); }
+.accordion-toggle-btn .chev{ width:13px; height:13px; transition:transform .25s ease; }
+.subprod-accordion[open] .accordion-toggle-btn .chev{ transform:rotate(180deg); }
+.accordion-toggle-btn .label-open{ display:none; }
+.subprod-accordion[open] .accordion-toggle-btn .label-closed{ display:none; }
+.subprod-accordion[open] .accordion-toggle-btn .label-open{ display:inline; }
+.accordion-body{ padding:.4rem 2rem 2.4rem; }
+.accordion-body .tagline{ color:var(--accent-hot); font-weight:700; font-size:.98rem; margin:1.6rem 0 0; }
+.accordion-body .split{ margin-top:1.6rem; gap:2rem; }
+.accordion-body .split h4{ margin-bottom:1.1rem; font-size:1.4rem; }
+.accordion-body .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; }
+.accordion-body .section-head{ text-align:center; max-width:640px; margin:2.6rem auto 1.6rem; }
+.accordion-body .section-head h4{ font-size:1.4rem; margin-bottom:.6rem; }
+.accordion-body .section-head p{ color:var(--ink-soft); font-size:.98rem; }
+.accordion-body .usecase-grid, .accordion-body .spec-dl{ margin-top:1.6rem; }
+.accordion-body .faq-list{ margin-top:1.6rem; }
+.accordion-callout{ padding:1.4rem 1.7rem; border-left:3px solid var(--accent); background:var(--surface-2); border-radius:.8rem; margin-top:2.6rem; }
+.accordion-callout h4{ font-size:1.1rem; margin-bottom:.5rem; }
+.accordion-callout p{ color:var(--ink-soft); font-size:.95rem; line-height:1.75; margin:0; }
+.accordion-body .cta-btn-row{ margin-top:2.2rem; }
 </style>
 </head>
 <body>
@@ -158,20 +191,177 @@
   <div class="section-head reveal">
     <div class="kicker center">PRODUCTS IN THIS CATEGORY</div>
     <h2>Two Products in This Category</h2>
+    <p>Open "View Full Details" on any product to see use cases, specifications and FAQs right here — no separate page to load.</p>
   </div>
-  <div class="subprod-grid cols-2">
-    <a href="/steel/fasteners/industrial-wire-nails/" class="subprod-card panel reveal">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 3v14M8 13l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h12" stroke-linecap="round"/></svg></div>
-      <h3>High-Penetration Industrial Wire Nails</h3>
-      <p>1.5" to 3.0" lengths, checkered head, diamond point — 25KG/50KG bulk bags or cartons.</p>
-      <span class="steel-hub-link">Explore Wire Nails →</span>
-    </a>
-    <a href="/steel/fasteners/link-easy/" class="subprod-card panel reveal">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></div>
-      <h3>Link Easy</h3>
-      <p>Pre-formed rebar stirrup rings — machine-bent square, rectangular and circular, with 135° seismic hooks, locking column cages square.</p>
-      <span class="steel-hub-link">Explore Link Easy →</span>
-    </a>
+  <div class="subprod-accordion-list">
+
+    <details class="subprod-accordion reveal" id="industrial-wire-nails">
+      <summary>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 3v14M8 13l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h12" stroke-linecap="round"/></svg></div>
+        <div class="accordion-head-text">
+          <h3>High-Penetration Industrial Wire Nails</h3>
+          <p>1.5" to 3.0" lengths, checkered head, diamond point — 25KG/50KG bulk bags or cartons.</p>
+        </div>
+        <span class="accordion-toggle-btn">
+          <span class="label-closed">View Full Details</span>
+          <span class="label-open">Hide Details</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </summary>
+      <div class="accordion-body">
+        <p class="tagline">A checkered head that resists hammer slips, and a diamond point built to drive straight.</p>
+
+        <div class="split">
+          <div>
+            <div class="kicker">WHAT IS IT?</div>
+            <h4>Cold-Headed From Hard Bright Wire</h4>
+            <p>Steel wire nails are cold-headed fasteners drawn from hard bright steel wire, featuring a flat checkered head that prevents hammer slips and a diamond point for fast driving.</p>
+          </div>
+          <img src="/images/nails_final.jpeg" alt="Industrial Wire Nails" class="split-photo">
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRIMARY PURPOSE &amp; BEST USE CASES</div>
+          <h4>One Nail Length Per Job</h4>
+          <p>Used across construction and carpentry to join pieces of wood, formwork shuttering, and wooden packaging crates together.</p>
+        </div>
+        <div class="usecase-grid">
+          <div class="usecase-item panel">
+            <div class="usecase-size">1.5 Inch Nails (~38 MM)</div>
+            <p>Best for thin wood trim, fruit crates, plywood backing, and light furniture.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">2.0 Inch Nails (~50 MM)</div>
+            <p>Best for general carpentry, door frames, and wooden scaffolding joints.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">2.5 Inch Nails (~63 MM)</div>
+            <p>Best for medium-duty timber framing, wooden pallets, and concrete shuttering boxes.</p>
+          </div>
+          <div class="usecase-item panel">
+            <div class="usecase-size">3.0 Inch Nails (~75 MM)</div>
+            <p>Best for thick timber posts, heavy shipping crates, and structural wood framing.</p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRODUCT SPECIFICATIONS</div>
+          <h4>Clean, Scannable Parameters</h4>
+        </div>
+        <dl class="spec-dl panel" style="padding:1.6rem 2rem;">
+          <div class="spec-dl-row"><dt>Available Lengths</dt><dd>1.5", 2.0", 2.5", 3.0"</dd></div>
+          <div class="spec-dl-row"><dt>Head Type</dt><dd>Wide flat head with checkered anti-slip pattern</dd></div>
+          <div class="spec-dl-row"><dt>Point Type</dt><dd>Four-sided sharp diamond point</dd></div>
+          <div class="spec-dl-row"><dt>Packaging</dt><dd>25 KG / 50 KG industrial bulk bags or cartons</dd></div>
+        </dl>
+
+        <div class="accordion-callout">
+          <h4>Why Choose Our Wire Nails?</h4>
+          <p>Low-quality nails bend when hit off-center. Our nails are drawn from high-rigidity HB wire, ensuring they drive straight into dense hardwoods without buckling.</p>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+          <h4>Wire Nails — Common Questions</h4>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item panel">
+            <summary>Which nail length suits structural wood framing?</summary>
+            <p class="faq-a">3.0 inch (~75mm) nails are best for thick timber posts, heavy shipping crates and structural wood framing.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>What packaging options are available for bulk orders?</summary>
+            <p class="faq-a">25 KG and 50 KG industrial bulk bags or cartons — sized to your site or distribution volume.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>Why do these nails resist bending on impact?</summary>
+            <p class="faq-a">They're drawn from high-rigidity Hard Bright wire, which keeps them driving straight into dense hardwoods without buckling, even when struck slightly off-center.</p>
+          </details>
+        </div>
+
+        <div class="cta-btn-row">
+          <a href="/contact.html" class="btn btn-primary">Request Bulk Quote for Wire Nails →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="subprod-accordion reveal" id="link-easy">
+      <summary>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></div>
+        <div class="accordion-head-text">
+          <h3>Link Easy</h3>
+          <p>Pre-formed rebar stirrup rings — machine-bent square, rectangular and circular, with 135° seismic hooks, locking column cages square.</p>
+        </div>
+        <span class="accordion-toggle-btn">
+          <span class="label-closed">View Full Details</span>
+          <span class="label-open">Hide Details</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </summary>
+      <div class="accordion-body">
+        <p class="tagline">The steel hoops that keep every column and beam square before the concrete ever arrives.</p>
+
+        <div class="split">
+          <div>
+            <div class="kicker">WHAT IS IT?</div>
+            <h4>Barrel Hoops for a Rebar Cage</h4>
+            <p>When builders construct a concrete column, they stand several long vertical TMT bars together in a tall rectangle. To stop those vertical bars from spreading apart or bending under weight, they wrap steel rings horizontally around them — just like metal hoops holding the wooden staves of a barrel together.</p>
+          </div>
+          <img src="/images/link easy final.jpeg" alt="Link Easy Pre-Formed Rebar Stirrup Rings" class="split-photo">
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRIMARY PURPOSE &amp; BEST USE CASES</div>
+          <h4>Locking the Cage Before the Pour</h4>
+          <p>Stirrup rings lock long vertical rebars in place so that columns and beams stay square and rigid when liquid concrete is poured over them.</p>
+        </div>
+        <div class="usecase-grid">
+          <div class="usecase-item panel">
+            <div class="usecase-size">On-Site Column &amp; Beam Framing</div>
+            <p>Used by home builders and civil contractors to build skeleton cages for columns, ceiling beams, and foundation footings.</p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">PRODUCT SPECIFICATIONS</div>
+          <h4>Clean, Scannable Parameters</h4>
+        </div>
+        <dl class="spec-dl panel" style="padding:1.6rem 2rem;">
+          <div class="spec-dl-row"><dt>Material</dt><dd>Precision machine-bent steel rebar wire</dd></div>
+          <div class="spec-dl-row"><dt>Shapes Available</dt><dd>Square, Rectangular, and Circular rings</dd></div>
+          <div class="spec-dl-row"><dt>Hook Angles</dt><dd>Standard 135° seismic safety hooks</dd></div>
+        </dl>
+
+        <div class="accordion-callout">
+          <h4>Why Choose Our Link Easy?</h4>
+          <p>Bending steel rings by hand on a dusty construction site leads to uneven shapes and weak corners. Our factory-made rings are bent by computer-guided machinery for exact 90-degree corners, saving hours of manual labor on-site.</p>
+        </div>
+
+        <div class="section-head">
+          <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+          <h4>Link Easy — Common Questions</h4>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item panel">
+            <summary>What shapes and hook angles are available?</summary>
+            <p class="faq-a">Square, rectangular and circular rings, all formed with standard 135° seismic safety hooks for reliable anchorage.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>Why choose pre-formed rings over hand-bending on-site?</summary>
+            <p class="faq-a">Our rings are bent by computer-guided machinery for exact 90-degree corners — hand-bent rings on a dusty site tend to come out uneven with weaker corners, and cost hours of manual labor.</p>
+          </details>
+          <details class="faq-item panel">
+            <summary>Can rings be supplied to a custom column dimension?</summary>
+            <p class="faq-a">Yes — tell our sales team your column or beam cage dimensions and required ring size, and we will confirm availability and lead time.</p>
+          </details>
+        </div>
+
+        <div class="cta-btn-row">
+          <a href="/contact.html" class="btn btn-primary">Request Bulk Quote for Link Easy →</a>
+        </div>
+      </div>
+    </details>
+
   </div>
 </section>
 
@@ -241,5 +431,22 @@
 </footer>
 
 <script src="/site.js"></script>
+<script>
+(function(){
+  function openTargetAccordion(){
+    var id = decodeURIComponent(location.hash.replace('#',''));
+    if(!id) return;
+    var el = document.getElementById(id);
+    if(!el) return;
+    var details = el.tagName === 'DETAILS' ? el : el.closest('details.subprod-accordion');
+    if(details){
+      details.open = true;
+      setTimeout(function(){ details.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+    }
+  }
+  openTargetAccordion();
+  window.addEventListener('hashchange', openTargetAccordion);
+})();
+</script>
 </body>
 </html>
