@@ -135,34 +135,37 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ══════════════════ LEADERSHIP CREST HERO (isolated component — see leadership-hero.css / leadership-hero.js) ══════════════════ -->
+<!-- ══════════════════ LEADERSHIP HERO (isolated component — see leadership-hero.css / leadership-hero.js) ══════════════════ -->
 <header class="lh" id="leadershipHero" aria-labelledby="lhHeading">
   <div class="lh-bg" aria-hidden="true">
-    <div class="lh-mesh"></div>
-    <div class="lh-grid-lines"></div>
-    <div class="lh-rays"></div>
-    <div class="lh-waves">
-      <svg viewBox="0 0 1200 500" preserveAspectRatio="none">
-        <path class="w1" d="M-20,340 C220,260 420,420 660,320 C880,230 1020,360 1220,280"/>
-        <path class="w2" d="M-20,400 C260,470 460,300 700,380 C920,450 1060,320 1220,390"/>
-        <path class="w3" d="M-20,260 C240,190 480,300 720,220 C940,150 1080,260 1220,190"/>
-      </svg>
+    <div class="lh-photo">
+      <picture>
+        <source type="image/webp" srcset="optimized-images/images/leadership_hero_img.webp">
+        <img src="optimized-images/images/leadership_hero_img.jpg" alt="Two climbers helping each other reach the summit at sunset" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="lh-photo-scrim"></div>
     </div>
-    <div class="lh-particles" id="lhParticles"></div>
-    <div class="lh-scanlines"></div>
+    <div class="lh-rays"></div>
+    <div class="lh-embers" id="lhEmbers"></div>
     <div class="lh-vignette"></div>
+    <div class="lh-scanlines"></div>
+    <div class="lh-grain"></div>
   </div>
 
   <div class="lh-row">
     <div class="lh-content">
       <div class="lh-label">Vision <b>&bull;</b> Integrity <b>&bull;</b> Excellence</div>
 
-      <h1 class="lh-heading" id="lhHeading"><span class="lh-heading-inner">LEADER<wbr><span class="accent">SHIP</span></span></h1>
+      <h1 class="lh-heading" id="lhHeading">
+        <span class="lh-ember-glow" aria-hidden="true"></span>
+        <span class="lh-heading-line"><span class="lh-heading-inner">Leadership</span></span>
+        <span class="lh-heading-line"><span class="lh-heading-inner">That</span></span>
+        <span class="lh-heading-line"><span class="lh-heading-inner accent">Inspires</span></span>
+        <span class="lh-heading-line"><span class="lh-heading-inner accent">Progress</span></span>
+      </h1>
       <div class="lh-heading-glow" aria-hidden="true"></div>
 
       <p class="lh-desc">Our leadership drives innovation, builds trust and creates sustainable value for a better tomorrow.</p>
-
-      <div class="lh-underline" aria-hidden="true"></div>
 
       <a href="vision.html" class="lh-cta-btn">
         <span class="lh-cta-btn-shine" aria-hidden="true"></span>
@@ -174,83 +177,10 @@
     </div>
   </div>
 
-  <div class="lh-visual" aria-hidden="true">
-    <svg viewBox="0 0 700 1000" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="lhSceneGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0A0B0E"/>
-          <stop offset="52%" stop-color="#141821"/>
-          <stop offset="78%" stop-color="#2A2118"/>
-          <stop offset="100%" stop-color="#171310"/>
-        </linearGradient>
-        <radialGradient id="lhSunGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#FFC24B" stop-opacity=".9"/>
-          <stop offset="45%" stop-color="#FF6A1F" stop-opacity=".45"/>
-          <stop offset="100%" stop-color="#FF6A1F" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="lhFloorGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#FF6A1F" stop-opacity=".1"/>
-          <stop offset="100%" stop-color="#FF6A1F" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-
-      <rect width="700" height="1000" fill="url(#lhSceneGrad)"/>
-
-      <!-- low sunset glow near the horizon -->
-      <circle class="lh-illu-sun" cx="520" cy="640" r="170" fill="url(#lhSunGrad)"/>
-
-      <!-- distant city skyline, seen through the glass -->
-      <g opacity=".55">
-        <rect x="120" y="560" width="34" height="140" fill="#0B0D12"/>
-        <rect x="164" y="520" width="26" height="180" fill="#0B0D12"/>
-        <rect x="300" y="580" width="30" height="120" fill="#0B0D12"/>
-        <rect x="400" y="540" width="24" height="160" fill="#0B0D12"/>
-        <rect x="440" y="590" width="34" height="110" fill="#0B0D12"/>
-        <rect x="560" y="555" width="22" height="145" fill="#0B0D12"/>
-        <rect x="600" y="600" width="30" height="100" fill="#0B0D12"/>
-      </g>
-      <rect class="lh-illu-window" x="128" y="580" width="4" height="6" fill="url(#emberGrad)"/>
-      <rect class="lh-illu-window" x="170" y="545" width="4" height="6" fill="url(#emberGrad)" style="animation-delay:.5s"/>
-      <rect class="lh-illu-window" x="408" y="565" width="4" height="6" fill="url(#emberGrad)" style="animation-delay:1.1s"/>
-      <rect class="lh-illu-window" x="566" y="580" width="4" height="6" fill="url(#emberGrad)" style="animation-delay:.8s"/>
-
-      <!-- floor line -->
-      <line x1="0" y1="905" x2="700" y2="905" stroke="rgba(238,234,225,.14)" stroke-width="1.5"/>
-
-      <!-- floor-to-ceiling window mullions -->
-      <g stroke="rgba(238,234,225,.1)" stroke-width="2">
-        <line x1="70" y1="0" x2="70" y2="905"/>
-        <line x1="230" y1="0" x2="230" y2="905"/>
-        <line x1="390" y1="0" x2="390" y2="905"/>
-        <line x1="550" y1="0" x2="550" y2="905"/>
-        <line x1="670" y1="0" x2="670" y2="905"/>
-      </g>
-
-      <!-- leadership emblem — a crown, shield and star catching the sunset glow,
-           in place of a literal portrait: crown for leadership, shield for
-           integrity, star for excellence, echoing the hero label above -->
-      <g fill="#0B0C10">
-        <path d="M344,562 L344,522 L374,554 L424,492 L474,554 L504,522 L504,562 Z"/>
-        <rect x="344" y="562" width="160" height="34" rx="6"/>
-      </g>
-      <circle class="lh-illu-window" cx="344" cy="522" r="5" fill="url(#emberGrad)"/>
-      <circle class="lh-illu-window" cx="424" cy="492" r="6" fill="url(#emberGrad)" style="animation-delay:.6s"/>
-      <circle class="lh-illu-window" cx="504" cy="522" r="5" fill="url(#emberGrad)" style="animation-delay:1.2s"/>
-      <circle cx="384" cy="579" r="4" fill="url(#emberGrad)"/>
-      <circle cx="424" cy="579" r="5" fill="url(#emberGrad)"/>
-      <circle cx="464" cy="579" r="4" fill="url(#emberGrad)"/>
-      <path class="lh-illu-rim" d="M344,596 L344,522 L374,554 L424,492 L474,554 L504,522 L504,596" stroke="url(#emberGrad)" stroke-width="2" fill="none" opacity=".7"/>
-
-      <path fill="#0B0C10" d="M324,626 L524,626 C534,626 534,636 534,646 L534,742 C534,820 492,873 424,905 C356,873 314,820 314,742 L314,646 C314,636 314,626 324,626 Z"/>
-      <path class="lh-illu-rim" d="M324,626 L524,626 C534,626 534,636 534,646 L534,742 C534,820 492,873 424,905 C356,873 314,820 314,742 L314,646 C314,636 314,626 324,626 Z" stroke="url(#emberGrad)" stroke-width="2" fill="none" opacity=".7" style="animation-delay:.3s"/>
-
-      <polygon class="lh-illu-sun" points="424,704 438.7,745.8 482.97,746.84 447.78,773.73 460.44,816.16 424,791 387.56,816.16 400.22,773.73 365.03,746.84 409.3,745.8" fill="url(#emberGrad)"/>
-
-      <!-- soft ambient glow pooling beneath the emblem, plus a warm reflection on the glass floor -->
-      <ellipse cx="424" cy="900" rx="220" ry="26" fill="url(#emberGrad)" opacity=".05"/>
-      <rect x="0" y="905" width="700" height="95" fill="url(#lhFloorGrad)"/>
-    </svg>
-  </div>
+  <a class="lh-scroll-cue" href="#leadership-team" aria-label="Scroll to explore">
+    <span class="lh-scroll-cue-icon" aria-hidden="true"><span class="lh-scroll-cue-dot"></span></span>
+    <span class="lh-scroll-cue-label">Scroll to Explore</span>
+  </a>
 
   <div class="lh-wave" aria-hidden="true">
     <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
