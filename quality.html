@@ -10,13 +10,108 @@
 .page-header{
   --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
   --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
+  position:relative; padding:calc(var(--nav-h) + 7rem) 1.75rem 6rem; text-align:center; overflow:hidden;
+  background:var(--bg); isolation:isolate;
 }
+.ph-media{ position:absolute; inset:0; z-index:0; }
+.ph-media video, .ph-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.ph-media::after{
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.32), transparent 55%),
+    linear-gradient(180deg, rgba(10,11,14,.88) 0%, rgba(10,11,14,.6) 42%, rgba(10,11,14,.82) 100%);
+}
+.page-header > *:not(.ph-media){ position:relative; z-index:1; }
 .page-header .kicker{ justify-content:center; color:var(--accent-hot); }
 .page-header .kicker::before{ background:var(--accent); }
 .page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
 .page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
+
+/* ══ QC HERO MEDIA — photo carousel or looping video, replaces static icon rings ══ */
+.qc-hero-photos, .qc-hero-video{
+  position:relative; border-radius:1.2rem; overflow:hidden; min-height:260px; height:100%;
+  border:1.5px solid #262A34; background:#0E0F13;
+}
+.qc-hero-photos img, .qc-hero-video video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+}
+.qc-hero-photos img{ opacity:0; transition:opacity 1.1s ease; }
+.qc-hero-photos img.active{ opacity:1; }
+.qc-hero-video video{ opacity:0; transition:opacity .6s ease; }
+.qc-hero-video video.loaded{ opacity:1; }
+.qc-hero-dots{
+  position:absolute; left:0; right:0; bottom:.9rem; z-index:2;
+  display:flex; justify-content:center; gap:.4rem;
+}
+.qc-hero-dots span{
+  width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.35);
+  transition:background .3s ease, transform .3s ease; transform:scale(1);
+}
+.qc-hero-dots span.active{ background:#fff; transform:scale(1.3); }
+.qc-hero-caption{
+  position:absolute; left:.9rem; bottom:.9rem; right:2.4rem; z-index:2;
+  font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.04em;
+  color:#EEEAE1; text-shadow:0 1px 4px rgba(0,0,0,.6); pointer-events:none;
+}
+.qc-hero-photos::before{
+  content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(0deg, rgba(0,0,0,.55) 0%, transparent 38%);
+}
+.qc-hero-video-badge{
+  position:absolute; top:.8rem; right:.8rem; z-index:2;
+  display:flex; align-items:center; gap:.35rem;
+  background:rgba(0,0,0,.5); backdrop-filter:blur(6px); color:#fff;
+  font-family:var(--font-mono); font-size:.62rem; font-weight:700; letter-spacing:.08em;
+  padding:.3rem .55rem; border-radius:2rem;
+}
+.qc-hero-video-badge .dot{ width:6px; height:6px; border-radius:50%; background:#FF5A3C; animation:qcLiveDot 1.6s ease-in-out infinite; }
+@keyframes qcLiveDot{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+
+/* ══ CINEMATIC BREAK — full-bleed video interstitial between checkpoints and gallery ══ */
+.qc-break{ position:relative; min-height:60vh; overflow:hidden; display:flex; align-items:flex-end; }
+.qc-break video, .qc-break img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.qc-break::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(6,7,10,.92) 0%, rgba(6,7,10,.35) 55%, rgba(6,7,10,.55) 100%);
+}
+.qc-break-content{ position:relative; z-index:1; padding:3.5rem 1.75rem; max-width:760px; margin:0 auto; text-align:center; }
+.qc-break-content .kicker{ justify-content:center; color:var(--accent-hot,#FFC24B); }
+.qc-break-content h2{ color:#EEEAE1; font-size:clamp(1.6rem,4vw,2.4rem); margin:.6rem 0 .8rem; }
+.qc-break-content p{ color:#C7CDD5; font-size:1.02rem; max-width:58ch; margin:0 auto; }
+
+/* ══ BEHIND THE STANDARD — editorial photo gallery ══ */
+.qc-gallery{
+  display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:130px; gap:.7rem;
+}
+.qc-gallery-item{
+  position:relative; border-radius:.9rem; overflow:hidden; grid-column:span 2; grid-row:span 1;
+  border:1px solid var(--border);
+}
+.qc-gallery-item.tall{ grid-row:span 2; }
+.qc-gallery-item.wide{ grid-column:span 3; }
+.qc-gallery-item img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .6s cubic-bezier(.16,.84,.44,1);
+}
+.qc-gallery-item:hover img{ transform:scale(1.06); }
+.qc-gallery-item::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(0,0,0,.75) 0%, transparent 45%);
+}
+.qc-gallery-caption{
+  position:absolute; left:.9rem; right:.9rem; bottom:.7rem; z-index:1;
+  color:#EEEAE1; font-size:.78rem; font-weight:600; line-height:1.3;
+  text-shadow:0 1px 3px rgba(0,0,0,.5);
+}
+@media(max-width:860px){
+  .qc-gallery{ grid-template-columns:repeat(4,1fr); grid-auto-rows:110px; }
+  .qc-gallery-item.wide{ grid-column:span 4; }
+}
+@media(max-width:560px){
+  .qc-gallery{ grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; }
+  .qc-gallery-item.wide{ grid-column:span 2; }
+  .qc-gallery-item.tall{ grid-row:span 1; }
+}
 
 .value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
 @media(max-width:860px){ .value-grid{ grid-template-columns:1fr 1fr; } }
@@ -76,21 +171,6 @@
 @media(max-width:860px){ .qc-checkpoint-body{ grid-template-columns:1fr; } }
 
 .qc-checkpoint-hero{ border-radius:1.2rem; overflow:hidden; min-height:260px; border:1.5px solid #262A34; }
-.qc-checkpoint-hero img{ width:100%; height:100%; object-fit:cover; display:block; min-height:260px; }
-.qc-checkpoint-hero.icon-hero{
-  position:relative; display:flex; align-items:center; justify-content:center; min-height:260px;
-  background:linear-gradient(155deg, #1B1E26, #14161C);
-}
-.icon-hero-ring{
-  position:relative; width:148px; height:148px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.06), transparent 60%);
-}
-.qc-checkpoint-hero.icon-hero svg{ width:76px; height:76px; opacity:.95; position:relative; z-index:1; }
-.qc-checkpoint[data-cat="lab"] .icon-hero-ring{ border:1.5px solid rgba(255,106,31,.4); box-shadow:0 0 50px rgba(255,106,31,.25), inset 0 0 30px rgba(255,106,31,.1); }
-.qc-checkpoint[data-cat="monitor"] .icon-hero-ring{ border:1.5px solid rgba(10,36,114,.5); box-shadow:0 0 50px rgba(10,36,114,.35), inset 0 0 30px rgba(10,36,114,.15); }
-.qc-checkpoint[data-cat="control"] .icon-hero-ring{ border:1.5px solid rgba(10,36,114,.5); box-shadow:0 0 50px rgba(10,36,114,.35), inset 0 0 30px rgba(10,36,114,.15); }
-.qc-checkpoint[data-cat="dispatch"] .icon-hero-ring{ border:1.5px solid rgba(10,36,114,.5); box-shadow:0 0 50px rgba(10,36,114,.35), inset 0 0 30px rgba(10,36,114,.15); }
 
 .qc-mini-flow{ display:flex; flex-wrap:wrap; align-items:stretch; gap:.6rem; align-content:flex-start; }
 .qc-substep{
@@ -281,6 +361,11 @@
 
 <!-- PAGE HEADER -->
 <header class="page-header">
+  <div class="ph-media" data-video-hero>
+    <video muted loop playsinline preload="none" poster="optimized-images/images/quality/video-pouring-molten-metal-poster.jpg" aria-hidden="true">
+      <source data-src="optimized-images/images/quality/video-pouring-molten-metal.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="kicker reveal">ABOUT · QUALITY</div>
   <h1 class="reveal">Quality</h1>
   <p class="reveal">Eight checkpoints, three principles, one standard applied at every plant, on every batch, without exception.</p>
@@ -307,7 +392,13 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h10M18 5v9.5L10 33a3 3 0 0 0 2.7 4.3h18.6A3 3 0 0 0 34 33l-8-18.5V5"/><path d="M13.5 27h17"/></svg></div></div>
+    <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.webp"><img src="optimized-images/images/quality/cp1-chemist-analyzing-sample.jpg" alt="Chemist analyzing a steel sample in the lab" loading="lazy" class="active"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-iron-ore-entering-line.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-iron-ore-entering-line.webp"><img src="optimized-images/images/quality/cp1-iron-ore-entering-line.jpg" alt="Iron ore entering the production line" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-technicians-collecting-sample.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-technicians-collecting-sample.webp"><img src="optimized-images/images/quality/cp1-technicians-collecting-sample.jpg" alt="Technicians collecting an incoming material sample" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-material-pass-fail-evaluation.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-material-pass-fail-evaluation.webp"><img src="optimized-images/images/quality/cp1-material-pass-fail-evaluation.jpg" alt="Material sample under pass/fail evaluation" loading="lazy"></picture>
+      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -367,7 +458,12 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero"><img src="images/Sponge_Iron.jpeg" alt="Sponge Iron output" loading="lazy"></div>
+    <div class="qc-checkpoint-hero qc-hero-video" data-video-hero>
+      <video muted loop playsinline preload="none" poster="optimized-images/images/quality/video-dri-rotary-kiln-poster.jpg" aria-label="Direct reduced iron inside the rotary kiln">
+        <source data-src="optimized-images/images/quality/video-dri-rotary-kiln.mp4" type="video/mp4">
+      </video>
+      <div class="qc-hero-video-badge"><span class="dot"></span>LIVE FEED</div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -427,7 +523,13 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero"><img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" loading="lazy"></div>
+    <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.webp"><img src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="Inspector examining incoming pig iron" loading="lazy" class="active"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-technicians-testing-chemistry.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-technicians-testing-chemistry.webp"><img src="optimized-images/images/quality/cp3-technicians-testing-chemistry.jpg" alt="Technicians testing material chemistry" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-qc-manager-reviewing-results.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-qc-manager-reviewing-results.webp"><img src="optimized-images/images/quality/cp3-qc-manager-reviewing-results.jpg" alt="Quality control manager reviewing lab results" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-engineers-monitoring-thermal.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-engineers-monitoring-thermal.webp"><img src="optimized-images/images/quality/cp3-engineers-monitoring-thermal.jpg" alt="Engineers monitoring thermal readings" loading="lazy"></picture>
+      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -478,7 +580,14 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#7C93E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="24" r="11"/><path d="M22 24V8M17 8h10"/><circle cx="22" cy="24" r="3.5" fill="#7C93E6" stroke="none"/></svg></div></div>
+    <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-steel-melting-furnace.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-steel-melting-furnace.webp"><img src="optimized-images/images/quality/cp4-steel-melting-furnace.jpg" alt="Steel melting in the electric furnace" loading="lazy" class="active"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.webp"><img src="optimized-images/images/quality/cp4-steelworkers-skimming-slag.jpg" alt="Steelworkers skimming slag off the melt" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-crude-steel-refining.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-crude-steel-refining.webp"><img src="optimized-images/images/quality/cp4-crude-steel-refining.jpg" alt="Crude liquid steel being refined" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.webp"><img src="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.jpg" alt="Alloys dosed into molten steel" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-worker-sampling-molten-steel.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-worker-sampling-molten-steel.webp"><img src="optimized-images/images/quality/cp4-worker-sampling-molten-steel.jpg" alt="Worker pulling a lollypop sample from molten steel" loading="lazy"></picture>
+      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -538,7 +647,12 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero"><img src="images/MS_Billets.jpeg" alt="M.S. Billets" loading="lazy"></div>
+    <div class="qc-checkpoint-hero qc-hero-video" data-video-hero>
+      <video muted loop playsinline preload="none" poster="optimized-images/images/quality/video-molten-steel-casting-poster.jpg" aria-label="Molten steel flowing through continuous casting">
+        <source data-src="optimized-images/images/quality/video-molten-steel-casting.mp4" type="video/mp4">
+      </video>
+      <div class="qc-hero-video-badge"><span class="dot"></span>LIVE FEED</div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -598,7 +712,14 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#7C93E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h8v5.5l3 3V33a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V14.5l3-3Z"/><path d="M18 24h8"/><circle cx="22" cy="30" r="2.4" fill="#7C93E6" stroke="none"/></svg></div></div>
+    <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.webp"><img src="optimized-images/images/quality/cp6-technician-operating-rolling-mill.jpg" alt="Technician operating the rolling mill" loading="lazy" class="active"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-rollers-compressing-billet.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-rollers-compressing-billet.webp"><img src="optimized-images/images/quality/cp6-rollers-compressing-billet.jpg" alt="Rollers compressing a steel billet" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-monitoring-water-cooling.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-monitoring-water-cooling.webp"><img src="optimized-images/images/quality/cp6-monitoring-water-cooling.jpg" alt="Monitoring industrial water cooling" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-checking-bar-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-checking-bar-temp.webp"><img src="optimized-images/images/quality/cp6-technician-checking-bar-temp.jpg" alt="Technician checking bar temperature" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.webp"><img src="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.jpg" alt="Technician measuring steel bar thickness" loading="lazy"></picture>
+      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -658,7 +779,13 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero"><img src="images/elegant_qst_bar.jpeg" alt="Elegant QST TMT Bars" loading="lazy"></div>
+    <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.webp"><img src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="Engineer inspecting finished TMT bars" loading="lazy" class="active"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.webp"><img src="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.jpg" alt="Researcher analyzing steel bar strength" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.webp"><img src="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.jpg" alt="Inspector testing steel bar dimensions" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-supervisor-signing-certificate.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-supervisor-signing-certificate.webp"><img src="optimized-images/images/quality/cp7-supervisor-signing-certificate.jpg" alt="Supervisor signing the quality certificate" loading="lazy"></picture>
+      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -709,7 +836,13 @@
     </div>
   </div>
   <div class="qc-checkpoint-body reveal">
-    <div class="qc-checkpoint-hero icon-hero"><div class="icon-hero-ring"><svg viewBox="0 0 44 44" fill="none" stroke="#7C93E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21.5 21.5 6H33a4 4 0 0 1 4 4v11.5L21.5 36 6 21.5Z"/><circle cx="26" cy="14" r="2.2" fill="#7C93E6" stroke="none"/><path d="M17 25l3 3 6-7"/></svg></div></div>
+    <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.webp"><img src="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.jpg" alt="Warehouse worker tagging steel bars" loading="lazy" class="active"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.webp"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.jpg" alt="Logistics coordinator signaling during loading" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-inventory-controller-logging.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-inventory-controller-logging.webp"><img src="optimized-images/images/quality/cp8-inventory-controller-logging.jpg" alt="Inventory controller logging steel lots" loading="lazy"></picture>
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.webp"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.jpg" alt="Logistics coordinator signaling a dispatch truck" loading="lazy"></picture>
+      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
           <div class="qc-substep-row">
@@ -749,6 +882,64 @@
     </div>
   </div>
 </section>
+  </div>
+</section>
+
+<!-- CINEMATIC BREAK -->
+<section class="qc-break" data-video-hero>
+  <video muted loop playsinline preload="none" poster="optimized-images/images/quality/video-induction-furnace-poster.jpg" aria-hidden="true">
+    <source data-src="optimized-images/images/quality/video-induction-furnace.mp4" type="video/mp4">
+  </video>
+  <div class="qc-break-content reveal">
+    <div class="kicker">EVERY HEAT, THE SAME DISCIPLINE</div>
+    <h2>Nothing About This Is Left to Chance</h2>
+    <p>Every batch that reaches this furnace already cleared a lab. Every batch that leaves it still has three more checkpoints ahead. That's the standard, applied the same way whether anyone's watching or not.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">BEHIND THE STANDARD</div>
+    <h2>The People Who Hold the Line</h2>
+    <p>Quality isn't a department here, it's every shift, every checkpoint, every person who has the authority to stop a batch that doesn't clear the bar.</p>
+  </div>
+  <div class="qc-gallery">
+    <div class="qc-gallery-item tall reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-safety-officer-briefing.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-safety-officer-briefing.webp"><img src="optimized-images/images/quality/gallery-safety-officer-briefing.jpg" alt="Safety officer conducting a shift briefing" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Safety briefing, before every shift</div>
+    </div>
+    <div class="qc-gallery-item wide reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-workers-discussing-safety.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-workers-discussing-safety.webp"><img src="optimized-images/images/quality/gallery-workers-discussing-safety.jpg" alt="Workers discussing safety on the floor" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Talked through on the floor, not just posted on a wall</div>
+    </div>
+    <div class="qc-gallery-item reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-workers-safety-equipment.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-workers-safety-equipment.webp"><img src="optimized-images/images/quality/gallery-workers-safety-equipment.jpg" alt="Workers wearing safety equipment" loading="lazy"></picture>
+      <div class="qc-gallery-caption">No exceptions on PPE</div>
+    </div>
+    <div class="qc-gallery-item reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-supervisor-managing-system.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-supervisor-managing-system.webp"><img src="optimized-images/images/quality/gallery-supervisor-managing-system.jpg" alt="Supervisor managing the automated control system" loading="lazy"></picture>
+      <div class="qc-gallery-caption">A person watching the system, not just the system watching itself</div>
+    </div>
+    <div class="qc-gallery-item wide reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-engineers-reviewing-plans.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-engineers-reviewing-plans.webp"><img src="optimized-images/images/quality/gallery-engineers-reviewing-plans.jpg" alt="Engineers reviewing plant drawings" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Every process reviewed before it's trusted</div>
+    </div>
+    <div class="qc-gallery-item tall reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-technician-analyzing-pellets.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-technician-analyzing-pellets.webp"><img src="optimized-images/images/quality/gallery-technician-analyzing-pellets.jpg" alt="Technician analyzing iron pellets" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Raw material, checked before it's trusted</div>
+    </div>
+    <div class="qc-gallery-item reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-operator-monitoring-billets.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-operator-monitoring-billets.webp"><img src="optimized-images/images/quality/gallery-operator-monitoring-billets.jpg" alt="Operator monitoring steel billets" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Eyes on every billet</div>
+    </div>
+    <div class="qc-gallery-item reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-engineers-clearing-materials.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-engineers-clearing-materials.webp"><img src="optimized-images/images/quality/gallery-engineers-clearing-materials.jpg" alt="Engineers clearing materials for production" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Cleared by name, not by default</div>
+    </div>
+    <div class="qc-gallery-item reveal">
+      <picture><source type="image/avif" srcset="optimized-images/images/quality/gallery-technician-monitoring-material.avif"><source type="image/webp" srcset="optimized-images/images/quality/gallery-technician-monitoring-material.webp"><img src="optimized-images/images/quality/gallery-technician-monitoring-material.jpg" alt="Technician monitoring material readings" loading="lazy"></picture>
+      <div class="qc-gallery-caption">Watched continuously, not spot-checked</div>
+    </div>
   </div>
 </section>
 
@@ -845,6 +1036,80 @@
     step.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
     });
+  });
+})();
+
+// ── checkpoint hero photo carousels: auto-cycle, pause on hover/focus ──
+(function setupHeroCarousels(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const frames = Array.from(carousel.querySelectorAll('img'));
+    const dots = Array.from(carousel.querySelectorAll('.qc-hero-dots span'));
+    if(frames.length < 2 || reduceMotion) return;
+    let i = 0;
+    let timer = null;
+    function show(next){
+      frames[i].classList.remove('active');
+      if(dots[i]) dots[i].classList.remove('active');
+      i = next;
+      frames[i].classList.add('active');
+      if(dots[i]) dots[i].classList.add('active');
+    }
+    function start(){
+      stop();
+      timer = setInterval(() => show((i + 1) % frames.length), 3600);
+    }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('focusout', start);
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => { entry.isIntersecting ? start() : stop(); });
+      }, { threshold: .15 });
+      io.observe(carousel);
+    } else {
+      start();
+    }
+  });
+})();
+
+// ── video heroes: defer loading until scrolled into view, play/pause with visibility ──
+(function setupVideoHeroes(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-video-hero]').forEach(wrap => {
+    const video = wrap.querySelector('video');
+    if(!video) return;
+    const source = video.querySelector('source[data-src]');
+    let loaded = false;
+    function load(){
+      if(loaded) return;
+      loaded = true;
+      source.src = source.dataset.src;
+      video.load();
+      video.addEventListener('canplay', () => video.classList.add('loaded'), { once:true });
+    }
+    if(reduceMotion){
+      load();
+      return;
+    }
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            load();
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: .1 });
+      io.observe(wrap);
+    } else {
+      load();
+      video.play().catch(() => {});
+    }
   });
 })();
 </script>
