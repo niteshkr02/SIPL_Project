@@ -87,7 +87,7 @@
     /* Entrance (badge / headline lines / lede / CTAs / trust bar / visual /
        achievement bar) is orchestrated by hero-cinematic.js in plain vanilla
        JS: a single `.hero-loaded` class flips on load, and every element's
-       own CSS transition (with a per-element delay) does the rest — no
+       own CSS transition (with a per-element delay) does the rest, no
        animation library, no JS-driven per-frame tweening for the reveal. */
 
     .hero-kicker {
@@ -630,7 +630,7 @@
     }
 
     /* process-teaser grid: reuses .pillars-grid's base but wants 3 columns
-       at desktop instead of 5 — compound selector so it still wins over
+       at desktop instead of 5, compound selector so it still wins over
        .pillars-grid's own breakpoints at equal media conditions */
     .pillars-grid.process-grid {
       grid-template-columns: repeat(3, 1fr);
@@ -1221,7 +1221,7 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- HERO: PREMIUM INDUSTRIAL LANDING SPLIT (isolated component — see
+  <!-- HERO: PREMIUM INDUSTRIAL LANDING SPLIT (isolated component, see
        hero-cinematic.css / hero-cinematic.js). Left column carries the
        message, right column reserves space for the furnace photo (the
        shared full-hero background layer, weighted right) and the floating
@@ -1330,7 +1330,7 @@
     <section class="section tight" id="stats-section">
       <div class="stat-band">
         <div class="stat reveal-scale" style="transition-delay:.05s">
-          <div class="stat-num counter" data-target="7" data-suffix="">0</div>
+          <div class="stat-num counter" data-target="8" data-suffix="">0</div>
           <div class="stat-label">Manufacturing Units, West Bengal</div>
         </div>
         <div class="stat reveal-scale" style="transition-delay:.15s">
@@ -1356,9 +1356,9 @@
         <div class="origin-left reveal-left" style="transition-delay:.3s">
           <div class="kicker" style="margin-bottom:1rem;">ABOUT US</div>
           <h2>Built in Fire,<br><em>Forged to Last</em></h2>
-          <p>In 2000, one kiln. Today, a ₹10,000+ Cr empire spanning steel, ferro alloys, aluminium, power and
-            agriculture — woven into the backbone of Eastern India. Seven decades of growth, not by luck, but by one
-            unbreakable rule: <strong>we never compromise.</strong></p>
+          <p>What began as one small establishment in 2000 has grown into a ₹10,000+ Cr empire spanning steel, ferro
+            alloys, aluminium, power and AgroTech, woven into the backbone of Eastern India. Decades of growth,
+            driven by one unbreakable rule: <strong>we never compromise.</strong></p>
 
           <div class="origin-milestones">
             <div class="origin-milestone">
@@ -1370,7 +1370,7 @@
               </div>
               <div class="origin-milestone-body">
                 <div class="origin-milestone-year">FOUNDED · 2000</div>
-                <div class="origin-milestone-text">A single sponge iron kiln in Durgapur — the spark that lit seven
+                <div class="origin-milestone-text">A single sponge iron kiln in Durgapur, the spark that lit
                   decades of unbroken growth.</div>
               </div>
             </div>
@@ -1384,7 +1384,7 @@
               <div class="origin-milestone-body">
                 <div class="origin-milestone-year">EXPANSION · 2010</div>
                 <div class="origin-milestone-text">177 acres at Madandih: sponge iron, steel melt, rolling mills,
-                  captive power and ferro alloys — fully integrated, zero compromise.</div>
+                  captive power and ferro alloys, fully integrated, zero compromise.</div>
               </div>
             </div>
             <div class="origin-milestone">
@@ -1398,7 +1398,7 @@
               </div>
               <div class="origin-milestone-body">
                 <div class="origin-milestone-year">GLOBAL REACH · 29+ NATIONS</div>
-                <div class="origin-milestone-text">L&amp;T, Adani, Coal India, DRDO, NHAI — names that trust only the
+                <div class="origin-milestone-text">L&amp;T, Adani, Coal India, DRDO, NHAI: names that trust only the
                   best. Exported across five continents, built in West Bengal.</div>
               </div>
             </div>
@@ -1453,10 +1453,10 @@
       <div class="section-head reveal">
         <div class="kicker center">BEYOND STEEL</div>
         <h2>One Core. Five Strengths.</h2>
-        <p>Steel is where Shakambhari started. What followed — ferro alloys, captive power, aluminium, and organic
-          farming — is the same discipline applied to every corner of industry.</p>
+        <p>Steel is where Shakambhari started. What followed, ferro alloys, captive power, aluminium, and organic
+          farming, is the same discipline applied to every corner of industry.</p>
       </div>
-      <!-- ══ BEYOND STEEL: PREMIUM 3D CARD SLIDER (isolated component —
+      <!-- ══ BEYOND STEEL: PREMIUM 3D CARD SLIDER (isolated component,
            see beyond-steel-slider.css / beyond-steel-slider.js) ══ -->
       <div class="bs3d reveal" id="bs3d">
         <div class="bs3d-bg" aria-hidden="true">
@@ -1470,7 +1470,7 @@
         <div class="bs3d-floor-shadow" aria-hidden="true"></div>
         <div class="bs3d-viewport">
           <div class="bs3d-stage" id="bs3dStage" tabindex="0" role="region" aria-roledescription="carousel"
-            aria-label="Beyond Steel — our five business pillars. Use the arrow keys to browse.">
+            aria-label="Beyond Steel, our five business pillars. Use the arrow keys to browse.">
 
             <div class="bs3d-slot">
               <a href="process.html" class="pillar-card bs3d-card">
@@ -1486,7 +1486,7 @@
                 <div class="pillar-body">
                   <h4>Iron &amp; Steel</h4>
                   <p>From raw ore through DRI kilns to ISI-certified QST TMT bars, billets, wire rods and structural
-                    steel — 1.5 MTPA capacity.</p>
+                    steel, 1.5 MTPA capacity.</p>
                 </div>
               </a>
             </div>
@@ -1505,7 +1505,7 @@
                 <div class="pillar-body">
                   <h4>Ferro Alloys</h4>
                   <p>Silicomanganese, ferromanganese, ferrosilicon and ferrochrome produced via submerged arc furnaces
-                    — feeding steelmakers worldwide.</p>
+                   , feeding steelmakers worldwide.</p>
                 </div>
               </a>
             </div>
@@ -1523,8 +1523,7 @@
                 </div>
                 <div class="pillar-body">
                   <h4>Aluminium Foil</h4>
-                  <p>9 to 60 micron pharma and FMCG-grade foil, rolled at our integrated Hooghly facility. Exported to
-                    29+ countries.</p>
+                  <p>9 to 60 micron pharma and FMCG-grade foil, rolled at our integrated Hooghly facility.</p>
                 </div>
               </a>
             </div>
@@ -1543,7 +1542,7 @@
                 <div class="pillar-body">
                   <h4>Captive Power</h4>
                   <p>Waste heat captured from DRI kilns powers our Steel Melting Shop, Rolling Mills and Ferro Alloy
-                    Plant — turning waste into clean energy.</p>
+                    Plant, turning waste into clean energy.</p>
                 </div>
               </a>
             </div>
@@ -1562,7 +1561,7 @@
                 <div class="pillar-body">
                   <h4>Organic Agriculture</h4>
                   <p>Under the Green Habit brand, exotic organic fruits and vegetables thrive across West Bengal farms
-                    — excellence beyond metal.</p>
+                   , excellence beyond metal.</p>
                 </div>
               </a>
             </div>
@@ -1593,23 +1592,23 @@
 
     <div class="divider"></div>
 
-    <!-- QUALITY WITHOUT COMPROMISE — card carousel (isolated component,
+    <!-- QUALITY WITHOUT COMPROMISE, card carousel (isolated component,
          see quality-carousel.css / quality-carousel.js). Same coverflow
          carousel + background recipe as the "OUR PROCESS" teaser below
          (process-carousel.css/.js, prefix .pcc) so both read as one
-         carousel system across the page — only the card content differs,
+         carousel system across the page, only the card content differs,
          pulled from quality.html's eight QC checkpoints. -->
     <section class="section">
       <div class="section-head reveal">
         <div class="kicker center">QUALITY</div>
         <h2 style="font-size:clamp(2.1rem,5vw,3.3rem); max-width:20ch; margin:0 auto .9rem;">Quality Without
           Compromise</h2>
-        <p style="font-size:1.15rem; max-width:62ch; margin:0 auto;">Eight checkpoints, zero shortcuts — from the
+        <p style="font-size:1.15rem; max-width:62ch; margin:0 auto;">Eight checkpoints, zero shortcuts, from the
           moment raw material arrives to the moment a lot clears dispatch, every batch is verified before it moves
           on.</p>
       </div>
       <div class="qcc" id="qccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel"
-        aria-label="Quality checkpoints — eight stages">
+        aria-label="Quality checkpoints, eight stages">
         <div class="qcc-bg" aria-hidden="true">
           <div class="qcc-mesh"></div>
           <div class="qcc-texture"></div>
@@ -1633,7 +1632,7 @@
                   <div class="pillar-body">
                     <h4>Incoming Material Analysis</h4>
                     <p>Every incoming batch of iron ore, coal and dolomite is sampled and tested against a defined
-                      chemical benchmark — nothing moves to production until it clears that bar.</p>
+                      chemical benchmark, nothing moves to production until it clears that bar.</p>
                     <span class="go">VIEW CHECKPOINT →</span>
                   </div>
                 </a>
@@ -1662,7 +1661,7 @@
                   </div>
                   <div class="pillar-body">
                     <h4>SMS Lab Analysis</h4>
-                    <p>Sponge iron, pig iron and ferro alloys each have to be individually verified — all three are
+                    <p>Sponge iron, pig iron and ferro alloys each have to be individually verified, all three are
                       checked before anything is cleared into the furnace.</p>
                     <span class="go">VIEW CHECKPOINT →</span>
                   </div>
@@ -1692,8 +1691,8 @@
                   </div>
                   <div class="pillar-body">
                     <h4>Billet Inspection &amp; Documentation</h4>
-                    <p>What comes out of continuous casting gets checked from every angle — look, temperature and
-                      composition — with every result logged before the billet is cleared for rolling.</p>
+                    <p>What comes out of continuous casting gets checked from every angle, look, temperature and
+                      composition, with every result logged before the billet is cleared for rolling.</p>
                     <span class="go">VIEW CHECKPOINT →</span>
                   </div>
                 </a>
@@ -1707,7 +1706,7 @@
                   </div>
                   <div class="pillar-body">
                     <h4>Rolling Process Monitoring</h4>
-                    <p>Rolling runs under continuous temperature and pressure supervision — every billet tracked
+                    <p>Rolling runs under continuous temperature and pressure supervision, every billet tracked
                       in, cooling water watched throughout, and every bar tracked back out.</p>
                     <span class="go">VIEW CHECKPOINT →</span>
                   </div>
@@ -1722,8 +1721,8 @@
                   </div>
                   <div class="pillar-body">
                     <h4>Finished Material Testing</h4>
-                    <p>Before anything ships, the finished product is tested across every property that matters —
-                      physical, mechanical and chemical — and the results are documented against that batch.</p>
+                    <p>Before anything ships, the finished product is tested across every property that matters:
+                      physical, mechanical and chemical, and the results are documented against that batch.</p>
                     <span class="go">VIEW CHECKPOINT →</span>
                   </div>
                 </a>
@@ -1773,7 +1772,7 @@
 
     <div class="divider"></div>
 
-    <!-- THE GROUP: PREMIUM INDUSTRIAL SHOWCASE (isolated component —
+    <!-- THE GROUP: PREMIUM INDUSTRIAL SHOWCASE (isolated component,
          see group-showcase.css / group-showcase.js) -->
     <section class="grp" id="groupShowcase" aria-labelledby="grpHeading">
       <div class="grp-bg" aria-hidden="true">
@@ -1790,14 +1789,14 @@
       <div class="section-head grp-head reveal">
         <div class="kicker center">THE GROUP</div>
         <span class="grp-kicker-glow" aria-hidden="true"></span>
-        <h2 id="grpHeading">Seven Units. One Standard.</h2>
+        <h2 id="grpHeading">Eight Units. One Standard.</h2>
         <p>Discover the integrated manufacturing ecosystem powering Shakambhari Group across Steel, Ferro Alloys,
           Aluminium, Power and Agrotech.</p>
       </div>
 
       <div class="grp-viewport">
         <div class="grp-stage" id="grpStage" tabindex="0" role="region" aria-roledescription="carousel"
-          aria-label="The Group's seven units. Use the arrow keys to browse.">
+          aria-label="The Group's eight units. Use the arrow keys to browse.">
 
           <div class="grp-slot" data-year="2010">
             <div class="grp-card">
@@ -1824,7 +1823,7 @@
                   <span class="grp-chip">🏭 Integrated Plant</span>
                   <span class="grp-chip">⚡ Captive Power</span>
                 </div>
-                <p class="grp-desc">An integrated flagship complex — DRI kilns, an induction furnace with
+                <p class="grp-desc">An integrated flagship complex, DRI kilns, an induction furnace with
                   continuous casting, and its own captive power plant under one roof.</p>
               </div>
             </div>
@@ -1855,7 +1854,7 @@
                   <span class="grp-chip">🏭 Pellet Complex</span>
                   <span class="grp-chip">📦 0.9+ MTPA</span>
                 </div>
-                <p class="grp-desc">The group's dedicated pellet and sponge iron complex, exceeding 0.9 MTPA — the
+                <p class="grp-desc">The group's dedicated pellet and sponge iron complex, exceeding 0.9 MTPA, the
                   first transformation in every chain that starts with raw ore.</p>
               </div>
             </div>
@@ -1867,7 +1866,7 @@
                 <picture>
   <source type="image/avif" srcset="optimized-images/images/Mogra_Unit.avif">
   <source type="image/webp" srcset="optimized-images/images/Mogra_Unit.webp">
-  <img src="optimized-images/images/Mogra_Unit.jpg" alt="SIPL Mogra — India Foils" loading="lazy" width="1600" height="1040" decoding="async">
+  <img src="optimized-images/images/Mogra_Unit.jpg" alt="SIPL Mogra, India Foils" loading="lazy" width="1600" height="1040" decoding="async">
 </picture>
                 <button type="button" class="grp-hotspot" style="top:32%; left:30%;">
                   <span class="grp-hotspot-tip">🎞 Foil Mill</span>
@@ -1878,15 +1877,15 @@
               </div>
               <div class="grp-body">
                 <div class="grp-category">Aluminium Foil Plant</div>
-                <div class="grp-name">SIPL Mogra — India Foils</div>
+                <div class="grp-name">SIPL Mogra, India Foils</div>
                 <div class="grp-location">Hooghly, West Bengal</div>
                 <div class="grp-chips">
                   <span class="grp-chip">📍 Hooghly</span>
                   <span class="grp-chip">🏭 Foil Rolling Mill</span>
-                  <span class="grp-chip">📦 29+ Countries</span>
+                  <span class="grp-chip">📦 Pharma &amp; FMCG Grade</span>
                 </div>
-                <p class="grp-desc">9 to 60 micron pharma and FMCG-grade aluminium foil, ISO-certified and exported
-                  to 29+ countries under the India Foils name.</p>
+                <p class="grp-desc">9 to 60 micron pharma and FMCG-grade aluminium foil, ISO-certified and rolled
+                  under the India Foils name.</p>
               </div>
             </div>
           </div>
@@ -1945,7 +1944,7 @@
                   <span class="grp-chip">🏭 ~150,000 TPA</span>
                   <span class="grp-chip">📦 Angles · Channels · Beams</span>
                 </div>
-                <p class="grp-desc">The structural steel arm of SPS — angles, channels, beams and flats rolled to
+                <p class="grp-desc">The structural steel arm of SPS, angles, channels, beams and flats rolled to
                   national and international specification.</p>
               </div>
             </div>
@@ -1975,7 +1974,7 @@
                   <span class="grp-chip">🏭 ~150,000 TPA DRI</span>
                   <span class="grp-chip">⚡ 15 MW WHRB</span>
                 </div>
-                <p class="grp-desc">The backward-integration unit — direct reduced iron and waste-heat captive
+                <p class="grp-desc">The backward-integration unit, direct reduced iron and waste-heat captive
                   power feeding the group's melting shops.</p>
               </div>
             </div>
@@ -2037,7 +2036,7 @@
                   <span class="grp-chip">🌿 Green Habit</span>
                   <span class="grp-chip">📦 Organic Produce</span>
                 </div>
-                <p class="grp-desc">Organic, unadulterated fruits and vegetables under the Green Habit brand —
+                <p class="grp-desc">Organic, unadulterated fruits and vegetables under the Green Habit brand,
                   discipline that extends beyond metal.</p>
               </div>
             </div>
@@ -2064,30 +2063,38 @@
       <div class="grp-sr-only grp-sr-status" aria-live="polite" aria-atomic="true"></div>
 
       <div class="grp-timeline" id="grpTimeline">
-        <div class="grp-timeline-track" role="tablist" aria-label="Filter units by founding year">
-          <button type="button" class="grp-tl-item active" data-year="all" role="tab" aria-selected="true">
+        <div class="grp-timeline-track" role="tablist" aria-label="Jump to a unit">
+          <button type="button" class="grp-tl-item active" data-index="0" role="tab" aria-selected="true">
             <span class="grp-tl-dot" aria-hidden="true"></span>
-            <span class="grp-tl-label">All</span>
+            <span class="grp-tl-label">Madandih</span>
           </button>
-          <button type="button" class="grp-tl-item" data-year="1981" role="tab" aria-selected="false">
+          <button type="button" class="grp-tl-item" data-index="1" role="tab" aria-selected="false">
             <span class="grp-tl-dot" aria-hidden="true"></span>
-            <span class="grp-tl-label">1981</span>
+            <span class="grp-tl-label">Rukni</span>
           </button>
-          <button type="button" class="grp-tl-item" data-year="2004" role="tab" aria-selected="false">
+          <button type="button" class="grp-tl-item" data-index="2" role="tab" aria-selected="false">
             <span class="grp-tl-dot" aria-hidden="true"></span>
-            <span class="grp-tl-label">2004</span>
+            <span class="grp-tl-label">Mogra</span>
           </button>
-          <button type="button" class="grp-tl-item" data-year="2010" role="tab" aria-selected="false">
+          <button type="button" class="grp-tl-item" data-index="3" role="tab" aria-selected="false">
             <span class="grp-tl-dot" aria-hidden="true"></span>
-            <span class="grp-tl-label">2010</span>
+            <span class="grp-tl-label">SPS 1</span>
           </button>
-          <button type="button" class="grp-tl-item" data-year="2012" role="tab" aria-selected="false">
+          <button type="button" class="grp-tl-item" data-index="4" role="tab" aria-selected="false">
             <span class="grp-tl-dot" aria-hidden="true"></span>
-            <span class="grp-tl-label">2012</span>
+            <span class="grp-tl-label">SPS 2</span>
           </button>
-          <button type="button" class="grp-tl-item" data-year="2014" role="tab" aria-selected="false">
+          <button type="button" class="grp-tl-item" data-index="5" role="tab" aria-selected="false">
             <span class="grp-tl-dot" aria-hidden="true"></span>
-            <span class="grp-tl-label">2014</span>
+            <span class="grp-tl-label">SPS 3</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-index="6" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">Eloquent</span>
+          </button>
+          <button type="button" class="grp-tl-item" data-index="7" role="tab" aria-selected="false">
+            <span class="grp-tl-dot" aria-hidden="true"></span>
+            <span class="grp-tl-label">Agrotech</span>
           </button>
         </div>
       </div>
@@ -2104,11 +2111,11 @@
         <div class="kicker center">OUR PROCESS</div>
         <h2 style="font-size:clamp(2.1rem,5vw,3.3rem); max-width:18ch; margin:0 auto .9rem;">From Raw Earth to
           Reinforced Tomorrow</h2>
-        <p style="font-size:1.15rem; max-width:62ch; margin:0 auto;">Six stages, one continuous chain: our own mines,
-          our own reduction, our own furnace, our own hands — nearly nothing bought as a finished input we could make
+        <p style="font-size:1.15rem; max-width:62ch; margin:0 auto;">One continuous chain: our own mines,
+          our own reduction, our own furnace, our own hands, nearly nothing bought as a finished input we could make
           ourselves.</p>
       </div>
-      <div class="pcc" id="pccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Our process — six stages">
+      <div class="pcc" id="pccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Our process">
         <div class="pcc-bg" aria-hidden="true">
           <div class="pcc-mesh"></div>
           <div class="pcc-texture"></div>
@@ -2137,7 +2144,7 @@
                   </div>
                   <div class="pillar-body">
                     <h4>The Earth Gives</h4>
-                    <p>Iron ore fines and coal begin the chain — coal drawn straight from Shakambhari's own mines, not rented
+                    <p>Iron ore fines and coal begin the chain, coal drawn straight from Shakambhari's own mines, not rented
                       piece by piece from the market.</p>
                     <span class="go">VIEW STAGE →</span>
                   </div>
@@ -2162,7 +2169,7 @@
                   </div>
                   <div class="pillar-body">
                     <h4>Shaped for Purpose</h4>
-                    <p>At SIPL Rukni, raw fines are agglomerated into uniform spherical pellets, engineered for the
+                    <p>Raw fines are agglomerated into uniform spherical pellets, engineered for the
                       permeability clean reduction demands.</p>
                     <span class="go">VIEW STAGE →</span>
                   </div>
@@ -2185,7 +2192,7 @@
                   </div>
                   <div class="pillar-body">
                     <h4>The Stripping Away</h4>
-                    <p>Inside the rotary kiln, oxygen is stripped from the pellets at ~950°C — no coking, no blast furnace,
+                    <p>Inside the rotary kiln, oxygen is stripped from the pellets at ~950°C, no coking, no blast furnace,
                       just metallic iron.</p>
                     <span class="go">VIEW STAGE →</span>
                   </div>
@@ -2283,7 +2290,7 @@
 
     <div class="divider"></div>
 
-    <!-- MARKET PRESENCE (isolated component — see market-presence-map.css) -->
+    <!-- MARKET PRESENCE (isolated component, see market-presence-map.css) -->
     <section class="section" id="market-presence">
       <div class="mp-mesh" aria-hidden="true"></div>
       <div class="mp-blueprint" aria-hidden="true"></div>
@@ -2683,7 +2690,7 @@
           </div>
 
           <!-- RIGHT COLUMN: PREMIUM ENTERPRISE INFO CONSOLE
-               (isolated component — see market-presence-panel.css) -->
+               (isolated component, see market-presence-panel.css) -->
           <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details">
             <div class="mpp-ambient" aria-hidden="true"></div>
             <div class="mpp-texture" aria-hidden="true"></div>
@@ -2770,7 +2777,7 @@
       </div>
     </section>
 
-    <!-- TRUSTED BY: PREMIUM CLIENT CREDIBILITY SHOWCASE (isolated component —
+    <!-- TRUSTED BY: PREMIUM CLIENT CREDIBILITY SHOWCASE (isolated component,
          see trusted-by-section.css / trusted-by-section.js) -->
     <section class="tby" id="trustedBy" aria-labelledby="tbyHeading">
       <div class="tby-mesh" aria-hidden="true"></div>
@@ -2788,28 +2795,28 @@
       </div>
 
       <div class="tby-grid" id="tbyGrid">
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="Larsen &amp; Toubro — Strategic Partner">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Larsen &amp; Toubro, Strategic Partner">
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/L&amp;T.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/L&amp;T.webp">
   <img src="optimized-images/images/logo/L&amp;T.png" alt="" loading="lazy" width="400" height="180" decoding="async">
 </picture>
         </div>
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="Adani Group — Strategic Partner">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Adani Group, Strategic Partner">
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/adani.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/adani.webp">
   <img src="optimized-images/images/logo/adani.png" alt="" loading="lazy" width="434" height="177" decoding="async">
 </picture>
         </div>
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="BHEL — Strategic Partner">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="BHEL, Strategic Partner">
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/BHEL.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/BHEL.webp">
   <img src="optimized-images/images/logo/BHEL.png" alt="" loading="lazy" width="357" height="302" decoding="async">
 </picture>
         </div>
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="DRDO — Strategic Partner">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="DRDO, Strategic Partner">
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/DRDO.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/DRDO.webp">
@@ -2844,7 +2851,7 @@
   <img src="optimized-images/images/logo/NPCC.png" alt="" loading="lazy" width="434" height="291" decoding="async">
 </picture>
         </div>
-        <div class="tby-card featured" tabindex="0" role="img" aria-label="Indian Oil Corporation — Strategic Partner">
+        <div class="tby-card featured" tabindex="0" role="img" aria-label="Indian Oil Corporation, Strategic Partner">
           <picture>
   <source type="image/avif" srcset="optimized-images/images/logo/IndianOil.avif">
   <source type="image/webp" srcset="optimized-images/images/logo/IndianOil.webp">
@@ -2884,7 +2891,7 @@
 
     <div class="divider"></div>
 
-    <!-- AWARDS & RECOGNITION: PREMIUM MUSEUM-STYLE GALLERY (isolated component —
+    <!-- AWARDS & RECOGNITION: PREMIUM MUSEUM-STYLE GALLERY (isolated component,
          see awards-gallery.css / awards-gallery.js) -->
     <section class="awx" id="awardsGallery" aria-labelledby="awxHeading">
       <div class="awx-bg" aria-hidden="true">
@@ -3181,7 +3188,7 @@
     <div class="cta-band reveal-scale">
       <div class="cta-inner">
         <h2>Every Legacy Has a Beginning</h2>
-        <p>From a single factory in 2000 to a name trusted across 29+ countries — see where we started, how far we've
+        <p>From a single factory in 2000 to a name trusted across 29+ countries, see where we started, how far we've
           come, and what it took to get here.</p>
         <div class="cta-btn-row">
           <a href="journey.html" class="btn btn-primary">Discover Our Story →</a>
@@ -3196,7 +3203,7 @@
         <div class="newsletter-copy">
           <span class="kicker">Stay Updated</span>
           <h2>Get Our Newsletter</h2>
-          <p>Plant updates, product notes and industry insights — one concise email a month. No spam.</p>
+          <p>Plant updates, product notes and industry insights, one concise email a month. No spam.</p>
         </div>
         <form class="newsletter-form" id="newsletterForm" novalidate>
           <div class="newsletter-field">
@@ -3583,7 +3590,7 @@
       const quickLocationList = document.getElementById('quickLocationList');
       const mapSearchInput = document.getElementById('mapSearchInput');
 
-      // PERF: these are all static/persistent elements (rule 3) — resolving
+      // PERF: these are all static/persistent elements (rule 3), resolving
       // them once avoids re-querying the DOM from inside updateVendorCard(),
       // which used to run its own document.querySelector/querySelectorAll
       // on every single hover event (rule 11: cache DOM selectors).
@@ -3599,7 +3606,7 @@
       // One set of functions drives markers, state-shape tinting, route
       // brightening and the map "focus" zoom consistently no matter which
       // of those four entry points triggered it.
-      // Nothing is locked by default — the panel shows an empty "hover a
+      // Nothing is locked by default, the panel shows an empty "hover a
       // marker" hint until the user actually interacts with the map.
       const lockedSelection = { india: null, world: null };
 
@@ -3611,7 +3618,7 @@
         return dataList === worldCountriesData ? worldPinsLayer : indiaPinsLayer;
       }
 
-      // PERF: the map's <path> elements are static (rule 3 — never rebuilt),
+      // PERF: the map's <path> elements are static (rule 3, never rebuilt),
       // so it's safe to resolve them once instead of re-running
       // querySelector/querySelectorAll on every single hover. Re-querying
       // the DOM inside a handler that can fire dozens of times a second
@@ -3652,20 +3659,20 @@
       }
 
       // preview = temporary highlight from hover/focus (map pin, state shape,
-      // or directory row) — updates the panel + routes + state tint, but
+      // or directory row), updates the panel + routes + state tint, but
       // does not disturb whichever item is actually locked-in via click.
       //
       // Every one of these three guards `dataList !== activeDataset` first:
       // switching tabs can leave a pin in the now-hidden layer still
       // focused (clicking the tab button itself steals focus from it),
       // and that pin's own blur/mouseleave handler fires regardless of
-      // which tab is visible now — without the guard it would reach back
+      // which tab is visible now, without the guard it would reach back
       // into the inactive dataset's lockedSelection and stomp the panel
       // content the tab switch had just set.
       function previewItem(item, dataList) {
         if (dataList !== activeDataset) return;
         // the panel crossfade is the expensive part (GSAP tween touching
-        // opacity/transform on two elements) — debounced below so it only
+        // opacity/transform on two elements), debounced below so it only
         // actually runs once the pointer settles. The marker's own preview
         // state is cheap (a single class toggle + one-element transform)
         // and stays instant so hover feedback on the map itself never lags.
@@ -3688,7 +3695,7 @@
         }
         if (dataList === indiaStatesData) setIndiaHighlight(lockedSelection.india);
 
-        // details are hover-only — once the mouse leaves, fall back to
+        // details are hover-only, once the mouse leaves, fall back to
         // whichever item is actually locked in, or (India only) the default
         // West Bengal card, instead of the empty hint.
         const lockedId = lockedSelection[key];
@@ -3698,7 +3705,7 @@
       }
 
       // lock = a real click/activation (marker, state shape or directory
-      // row) — persists until a different item is locked.
+      // row), persists until a different item is locked.
       function lockItem(item, dataList) {
         if (dataList !== activeDataset) return;
         const key = datasetKey(dataList);
@@ -3724,13 +3731,13 @@
       // bumped on every call so a stale, still-in-flight crossfade from an
       // earlier call (e.g. mouseleave immediately followed by a click or a
       // tab switch) can never overwrite a newer call's content once it
-      // finally resolves — only the most recent call is allowed to render.
+      // finally resolves, only the most recent call is allowed to render.
       let vendorCardToken = 0;
 
       // HOVER-INTENT DEBOUNCE: the panel crossfade used to fire on every
       // single mouseenter/mouseleave, so sweeping the pointer across several
       // markers (or adjacent state shapes / directory rows) queued a new
-      // fade-out/fade-in for each one — visually reading as flicker. Now a
+      // fade-out/fade-in for each one, visually reading as flicker. Now a
       // preview only schedules the crossfade after the pointer has rested
       // on one target for PANEL_HOVER_DELAY ms; a follow-up hover/leave
       // within that window just reschedules it, so a fast sweep collapses
@@ -3776,7 +3783,7 @@
         };
 
         // Instant swap: the state name/vendor details replace immediately,
-        // no fade/slide crossfade — kill any leftover tween from an earlier
+        // no fade/slide crossfade, kill any leftover tween from an earlier
         // in-flight call so it can't still land and re-animate this content.
         const targets = [mppHeaderEl, mppBody].filter(Boolean);
         if (window.gsap && targets.length) gsap.killTweensOf(targets);
@@ -3807,11 +3814,11 @@
           itemEl.dataset.id = item.id;
           itemEl.setAttribute('role', 'button');
           itemEl.setAttribute('tabindex', '0');
-          itemEl.setAttribute('aria-label', `${item.name} (${item.code}) — view depot details`);
+          itemEl.setAttribute('aria-label', `${item.name} (${item.code}), view depot details`);
           itemEl.innerHTML = `<span class="ql-indicator" aria-hidden="true"></span><span class="ql-icon" aria-hidden="true">${item.isHQ ? '⭐' : '📍'}</span><span class="ql-name">${item.name}</span><span class="ql-code">${item.code}</span>`;
 
           // hover/focus previews the marker + state tint without disturbing
-          // whichever item is actually locked in; click/Enter locks it in —
+          // whichever item is actually locked in; click/Enter locks it in,
           // "trigger exactly the same interaction as clicking the marker".
           itemEl.addEventListener('mouseenter', () => previewItem(item, dataList));
           itemEl.addEventListener('mouseleave', () => clearPreview(item, dataList));
@@ -3882,7 +3889,7 @@
           pin.dataset.id = item.id;
           pin.setAttribute('role', 'button');
           pin.setAttribute('tabindex', '0');
-          pin.setAttribute('aria-label', `${item.name} — ${item.hubType || 'Regional Hub'}. Press Enter to view details.`);
+          pin.setAttribute('aria-label', `${item.name}, ${item.hubType || 'Regional Hub'}. Press Enter to view details.`);
 
           // independent animation timing per marker so the map "breathes"
           // organically rather than every beacon pulsing in lockstep
@@ -3947,7 +3954,7 @@
             }
           });
 
-          // cache the element on the data item itself — pins are created
+          // cache the element on the data item itself, pins are created
           // once here and never rebuilt (rule 3), so previewItem/clearPreview
           // can read item.pinEl directly instead of re-querying the DOM by
           // attribute selector on every hover (rule 11)
@@ -4005,7 +4012,7 @@
 
       // Default landing state: show West Bengal (HQ) vendor details in the
       // info card as soon as the domestic map loads, instead of the empty
-      // "hover a marker" hint — card only. The map itself (state tint, pin,
+      // "hover a marker" hint, card only. The map itself (state tint, pin,
       // quick-list row) stays unhighlighted until the user actually hovers
       // or clicks, so nothing looks pre-selected on the map.
       const defaultIndiaItem = indiaStatesData.find(s => s.id === 'wb');
@@ -4101,7 +4108,7 @@
         }
 
         if (NEWSLETTER_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
-          status.textContent = "This form isn't connected yet — please email info@shakambharigroup.in and our team will add you directly.";
+          status.textContent = "This form isn't connected yet, please email info@shakambharigroup.in and our team will add you directly.";
           status.classList.add('error');
           return;
         }
@@ -4118,7 +4125,7 @@
         })
           .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
           .then(function () {
-            status.textContent = "Thanks for subscribing — you'll hear from us soon.";
+            status.textContent = "Thanks for subscribing, you'll hear from us soon.";
             status.classList.add('success');
             form.reset();
           })

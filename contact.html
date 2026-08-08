@@ -689,7 +689,7 @@
           </div>
 
           <!-- RIGHT COLUMN: PREMIUM ENTERPRISE INFO CONSOLE
-               (isolated component — see market-presence-panel.css) -->
+               (isolated component, see market-presence-panel.css) -->
           <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details">
             <div class="mpp-ambient" aria-hidden="true"></div>
             <div class="mpp-texture" aria-hidden="true"></div>
@@ -786,7 +786,7 @@
     <div class="reach-intro">
       <div class="kicker">GET IN TOUCH</div>
       <h2>Three easy ways to reach Shakambhari Group.</h2>
-      <p>Whether you're just exploring, want a quick callback, or have a precise specification ready — pick the option that suits you.</p>
+      <p>Whether you're just exploring, want a quick callback, or have a precise specification ready, pick the option that suits you.</p>
     </div>
 
     <div class="reach-grid">
@@ -825,7 +825,7 @@
             <span class="reach-panel-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M4 6l8 6 8-6" stroke="#fff" stroke-width="1.6" fill="none"/></svg></span>
             <h3>Subscribe to our newsletter</h3>
           </div>
-          <p>One concise email a month — plant updates, product notes and industry insights. No spam.</p>
+          <p>One concise email a month, plant updates, product notes and industry insights. No spam.</p>
           <div class="reach-field">
             <input type="email" name="email" placeholder="you@company.com" required>
           </div>
@@ -839,7 +839,7 @@
             <span class="reach-panel-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h4l1 5-3 2c1 3 3 5 6 6l2-3 5 1v4c0 1-1 2-2 2C10 20 4 14 4 5c0-1 1-2 2-2Z" stroke="#fff" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg></span>
             <h3>Request a callback</h3>
           </div>
-          <p>Leave your name and number — the right regional officer will call you back, usually within one business day.</p>
+          <p>Leave your name and number, the right regional officer will call you back, usually within one business day.</p>
           <div class="reach-field">
             <input type="text" name="name" placeholder="Your name" required>
           </div>
@@ -1269,7 +1269,7 @@
       const quickLocationList = document.getElementById('quickLocationList');
       const mapSearchInput = document.getElementById('mapSearchInput');
 
-      // PERF: these are all static/persistent elements (rule 3) — resolving
+      // PERF: these are all static/persistent elements (rule 3), resolving
       // them once avoids re-querying the DOM from inside updateVendorCard(),
       // which used to run its own document.querySelector/querySelectorAll
       // on every single hover event (rule 11: cache DOM selectors).
@@ -1285,7 +1285,7 @@
       // One set of functions drives markers, state-shape tinting, route
       // brightening and the map "focus" zoom consistently no matter which
       // of those four entry points triggered it.
-      // Nothing is locked by default — the panel shows an empty "hover a
+      // Nothing is locked by default, the panel shows an empty "hover a
       // marker" hint until the user actually interacts with the map.
       const lockedSelection = { india: null, world: null };
 
@@ -1297,7 +1297,7 @@
         return dataList === worldCountriesData ? worldPinsLayer : indiaPinsLayer;
       }
 
-      // PERF: the map's <path> elements are static (rule 3 — never rebuilt),
+      // PERF: the map's <path> elements are static (rule 3, never rebuilt),
       // so it's safe to resolve them once instead of re-running
       // querySelector/querySelectorAll on every single hover. Re-querying
       // the DOM inside a handler that can fire dozens of times a second
@@ -1338,20 +1338,20 @@
       }
 
       // preview = temporary highlight from hover/focus (map pin, state shape,
-      // or directory row) — updates the panel + routes + state tint, but
+      // or directory row), updates the panel + routes + state tint, but
       // does not disturb whichever item is actually locked-in via click.
       //
       // Every one of these three guards `dataList !== activeDataset` first:
       // switching tabs can leave a pin in the now-hidden layer still
       // focused (clicking the tab button itself steals focus from it),
       // and that pin's own blur/mouseleave handler fires regardless of
-      // which tab is visible now — without the guard it would reach back
+      // which tab is visible now, without the guard it would reach back
       // into the inactive dataset's lockedSelection and stomp the panel
       // content the tab switch had just set.
       function previewItem(item, dataList) {
         if (dataList !== activeDataset) return;
         // the panel crossfade is the expensive part (GSAP tween touching
-        // opacity/transform on two elements) — debounced below so it only
+        // opacity/transform on two elements), debounced below so it only
         // actually runs once the pointer settles. The marker's own preview
         // state is cheap (a single class toggle + one-element transform)
         // and stays instant so hover feedback on the map itself never lags.
@@ -1374,7 +1374,7 @@
         }
         if (dataList === indiaStatesData) setIndiaHighlight(lockedSelection.india);
 
-        // details are hover-only — once the mouse leaves, fall back to
+        // details are hover-only, once the mouse leaves, fall back to
         // whichever item is actually locked in, or (India only) the default
         // West Bengal card, instead of the empty hint.
         const lockedId = lockedSelection[key];
@@ -1384,7 +1384,7 @@
       }
 
       // lock = a real click/activation (marker, state shape or directory
-      // row) — persists until a different item is locked.
+      // row), persists until a different item is locked.
       function lockItem(item, dataList) {
         if (dataList !== activeDataset) return;
         const key = datasetKey(dataList);
@@ -1410,13 +1410,13 @@
       // bumped on every call so a stale, still-in-flight crossfade from an
       // earlier call (e.g. mouseleave immediately followed by a click or a
       // tab switch) can never overwrite a newer call's content once it
-      // finally resolves — only the most recent call is allowed to render.
+      // finally resolves, only the most recent call is allowed to render.
       let vendorCardToken = 0;
 
       // HOVER-INTENT DEBOUNCE: the panel crossfade used to fire on every
       // single mouseenter/mouseleave, so sweeping the pointer across several
       // markers (or adjacent state shapes / directory rows) queued a new
-      // fade-out/fade-in for each one — visually reading as flicker. Now a
+      // fade-out/fade-in for each one, visually reading as flicker. Now a
       // preview only schedules the crossfade after the pointer has rested
       // on one target for PANEL_HOVER_DELAY ms; a follow-up hover/leave
       // within that window just reschedules it, so a fast sweep collapses
@@ -1462,7 +1462,7 @@
         };
 
         // Instant swap: the state name/vendor details replace immediately,
-        // no fade/slide crossfade — kill any leftover tween from an earlier
+        // no fade/slide crossfade, kill any leftover tween from an earlier
         // in-flight call so it can't still land and re-animate this content.
         const targets = [mppHeaderEl, mppBody].filter(Boolean);
         if (window.gsap && targets.length) gsap.killTweensOf(targets);
@@ -1493,11 +1493,11 @@
           itemEl.dataset.id = item.id;
           itemEl.setAttribute('role', 'button');
           itemEl.setAttribute('tabindex', '0');
-          itemEl.setAttribute('aria-label', `${item.name} (${item.code}) — view depot details`);
+          itemEl.setAttribute('aria-label', `${item.name} (${item.code}), view depot details`);
           itemEl.innerHTML = `<span class="ql-indicator" aria-hidden="true"></span><span class="ql-icon" aria-hidden="true">${item.isHQ ? '⭐' : '📍'}</span><span class="ql-name">${item.name}</span><span class="ql-code">${item.code}</span>`;
 
           // hover/focus previews the marker + state tint without disturbing
-          // whichever item is actually locked in; click/Enter locks it in —
+          // whichever item is actually locked in; click/Enter locks it in,
           // "trigger exactly the same interaction as clicking the marker".
           itemEl.addEventListener('mouseenter', () => previewItem(item, dataList));
           itemEl.addEventListener('mouseleave', () => clearPreview(item, dataList));
@@ -1568,7 +1568,7 @@
           pin.dataset.id = item.id;
           pin.setAttribute('role', 'button');
           pin.setAttribute('tabindex', '0');
-          pin.setAttribute('aria-label', `${item.name} — ${item.hubType || 'Regional Hub'}. Press Enter to view details.`);
+          pin.setAttribute('aria-label', `${item.name}, ${item.hubType || 'Regional Hub'}. Press Enter to view details.`);
 
           // independent animation timing per marker so the map "breathes"
           // organically rather than every beacon pulsing in lockstep
@@ -1633,7 +1633,7 @@
             }
           });
 
-          // cache the element on the data item itself — pins are created
+          // cache the element on the data item itself, pins are created
           // once here and never rebuilt (rule 3), so previewItem/clearPreview
           // can read item.pinEl directly instead of re-querying the DOM by
           // attribute selector on every hover (rule 11)
@@ -1691,7 +1691,7 @@
 
       // Default landing state: show West Bengal (HQ) vendor details in the
       // info card as soon as the domestic map loads, instead of the empty
-      // "hover a marker" hint — card only. The map itself (state tint, pin,
+      // "hover a marker" hint, card only. The map itself (state tint, pin,
       // quick-list row) stays unhighlighted until the user actually hovers
       // or clicks, so nothing looks pre-selected on the map.
       const defaultIndiaItem = indiaStatesData.find(s => s.id === 'wb');
@@ -1757,7 +1757,7 @@
         }
 
         if (REACH_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
-          status.textContent = "This form isn't connected yet — please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
+          status.textContent = "This form isn't connected yet, please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
           status.classList.add('error');
           return;
         }
@@ -1774,7 +1774,7 @@
         })
           .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
           .then(function () {
-            status.textContent = "Thanks — we've received your request and will be in touch shortly.";
+            status.textContent = "Thanks, we've received your request and will be in touch shortly.";
             status.classList.add('success');
             form.reset();
           })

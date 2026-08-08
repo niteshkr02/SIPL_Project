@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ferro Alloys — Silico Manganese &amp; Ferro Carbon | Shakambhari Group</title>
-<meta name="description" content="Premier manufacturer and global exporter of Silico Manganese and High Carbon Ferro products — 9,000 MT monthly capacity, 90% exported worldwide.">
+<title>Ferro Alloys, Silico Manganese &amp; Ferro Carbon | Shakambhari Group</title>
+<meta name="description" content="Premier manufacturer and global exporter of Silico Manganese and High Carbon Ferro products, 9,000 MT monthly capacity, 90% exported worldwide.">
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ══ PAGE HEADER (dark, short) ══ */
@@ -558,7 +558,7 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
       if (FERRO_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
-        status.textContent = "This form isn't connected yet — please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
+        status.textContent = "This form isn't connected yet, please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
         status.classList.add('error');
         return;
       }
@@ -575,7 +575,7 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
       })
         .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
         .then(function () {
-          status.textContent = "Thanks — we've received your inquiry and will be in touch shortly.";
+          status.textContent = "Thanks, we've received your inquiry and will be in touch shortly.";
           status.classList.add('success');
           form.reset();
         })
