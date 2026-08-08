@@ -17,6 +17,13 @@
    top are never transitioned.
    ════════════════════════════════════════════════════════════════════ */
 
+/* ── tighter section padding than the site default (.section's 5rem) —
+   this component is already visually dense with its own map cards ── */
+#market-presence {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 /* ── ambient section background (same recipe as Group / Trusted By / Awards) ── */
 .mp-mesh {
   position: absolute;
@@ -94,6 +101,7 @@
 .mp-head {
   position: relative;
   z-index: 1;
+  margin-bottom: 1.8rem;
 }
 
 .mp-kicker-glow {
@@ -128,7 +136,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
 }
 
@@ -167,7 +175,7 @@
 .market-full-wrapper {
   position: relative;
   z-index: 1;
-  padding: 2rem 1.5rem;
+  padding: 1.4rem 1.5rem;
   overflow: visible;
 }
 
@@ -190,7 +198,7 @@
   background: linear-gradient(160deg, rgba(255, 255, 255, .85) 0%, rgba(237, 240, 243, .55) 100%);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.1rem;
   position: relative;
   overflow: visible;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 1px 2px rgba(20, 22, 28, .04);
@@ -200,7 +208,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.85rem;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
@@ -258,7 +266,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 700 / 800;
-  max-height: 700px;
+  max-height: 520px;
   margin: 0 auto;
   user-select: none;
   overflow: visible;
@@ -266,7 +274,7 @@
 
 .map-viewport-box.world-box {
   aspect-ratio: 1000 / 500;
-  max-height: 540px;
+  max-height: 420px;
 }
 
 .india-svg,
