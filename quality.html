@@ -27,29 +27,42 @@
 .page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
 .page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
 
-/* ══ QC HERO MEDIA — full-width 16:9 auto-cycling photo carousel ══ */
-.qc-hero-photos{
-  position:relative; border-radius:1.2rem; overflow:hidden;
+/* ══ QC HERO MEDIA — compact click-through photo gallery: small main frame,
+   thumbnail strip, prev/next arrows. No autoplay, click-driven only. ══ */
+.qc-hero-photos{ display:flex; flex-direction:column; gap:.55rem; }
+.qc-hero-main{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:1rem; overflow:hidden;
   border:1.5px solid #262A34; background:#0E0F13;
 }
-.qc-hero-photos img{
+.qc-hero-main img{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
-  opacity:0; transition:opacity 1.1s ease;
+  opacity:0; transition:opacity .45s ease;
 }
-.qc-hero-photos img.active{ opacity:1; }
-.qc-hero-dots{
-  position:absolute; left:0; right:0; bottom:1rem; z-index:2;
-  display:flex; justify-content:center; gap:.45rem;
-}
-.qc-hero-dots span{
-  width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.4);
-  transition:background .3s ease, transform .3s ease; transform:scale(1);
-}
-.qc-hero-dots span.active{ background:#fff; transform:scale(1.3); }
-.qc-hero-photos::before{
+.qc-hero-main img.active{ opacity:1; }
+.qc-hero-main::after{
   content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:linear-gradient(0deg, rgba(0,0,0,.5) 0%, transparent 30%);
+  background:linear-gradient(0deg, rgba(0,0,0,.4) 0%, transparent 32%);
 }
+.qc-hero-arrow{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(10,11,14,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.22); color:#fff; padding:0; cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+.qc-hero-arrow:hover{ background:rgba(255,106,31,.85); border-color:transparent; }
+.qc-hero-arrow.prev{ left:.55rem; }
+.qc-hero-arrow.next{ right:.55rem; }
+.qc-hero-arrow svg{ width:15px; height:15px; }
+.qc-hero-thumbs{ display:flex; gap:.45rem; }
+.qc-hero-thumb{
+  flex:1; aspect-ratio:16/9; border-radius:.55rem; overflow:hidden; cursor:pointer; padding:0;
+  border:2px solid transparent; background:none; opacity:.5;
+  transition:opacity .25s ease, border-color .25s ease;
+}
+.qc-hero-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.qc-hero-thumb:hover{ opacity:.85; }
+.qc-hero-thumb.active{ opacity:1; border-color:var(--accent,#FF6A1F); }
 
 .value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
 @media(max-width:860px){ .value-grid{ grid-template-columns:1fr 1fr; } }
@@ -105,9 +118,8 @@
 .qc-checkpoint h3{ color:var(--qc-ink); font-size:clamp(1.4rem,2.4vw,1.9rem); margin-bottom:.7rem; text-transform:none; font-family:var(--font-display); }
 .qc-checkpoint-intro{ color:var(--qc-ink-dim); font-size:.98rem; line-height:1.65; }
 
-.qc-checkpoint-body{ position:relative; z-index:1; display:flex; flex-direction:column; gap:1.75rem; }
-
-.qc-checkpoint-hero{ border-radius:1.2rem; overflow:hidden; border:1.5px solid #262A34; width:100%; aspect-ratio:16/9; }
+.qc-checkpoint-body{ position:relative; z-index:1; display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:2rem; align-items:start; }
+@media(max-width:860px){ .qc-checkpoint-body{ grid-template-columns:1fr; } }
 
 .qc-mini-flow{ display:flex; flex-wrap:wrap; align-items:stretch; gap:.6rem; align-content:flex-start; }
 .qc-substep{
@@ -328,11 +340,20 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.webp"><img src="optimized-images/images/quality/cp1-chemist-analyzing-sample.jpg" alt="Chemist analyzing a steel sample in the lab" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-iron-ore-entering-line.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-iron-ore-entering-line.webp"><img src="optimized-images/images/quality/cp1-iron-ore-entering-line.jpg" alt="Iron ore entering the production line" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-technicians-collecting-sample.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-technicians-collecting-sample.webp"><img src="optimized-images/images/quality/cp1-technicians-collecting-sample.jpg" alt="Technicians collecting an incoming material sample" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-material-pass-fail-evaluation.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-material-pass-fail-evaluation.webp"><img src="optimized-images/images/quality/cp1-material-pass-fail-evaluation.jpg" alt="Material sample under pass/fail evaluation" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.webp"><img src="optimized-images/images/quality/cp1-chemist-analyzing-sample.jpg" alt="Chemist analyzing a steel sample in the lab" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-iron-ore-entering-line.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-iron-ore-entering-line.webp"><img src="optimized-images/images/quality/cp1-iron-ore-entering-line.jpg" alt="Iron ore entering the production line" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-technicians-collecting-sample.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-technicians-collecting-sample.webp"><img src="optimized-images/images/quality/cp1-technicians-collecting-sample.jpg" alt="Technicians collecting an incoming material sample" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp1-material-pass-fail-evaluation.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp1-material-pass-fail-evaluation.webp"><img src="optimized-images/images/quality/cp1-material-pass-fail-evaluation.jpg" alt="Material sample under pass/fail evaluation" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 4"><img src="optimized-images/images/quality/cp1-chemist-analyzing-sample.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 4"><img src="optimized-images/images/quality/cp1-iron-ore-entering-line.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 4"><img src="optimized-images/images/quality/cp1-technicians-collecting-sample.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 4"><img src="optimized-images/images/quality/cp1-material-pass-fail-evaluation.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -394,11 +415,20 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.webp"><img src="optimized-images/images/quality/cp2-monitoring-feed-rate.jpg" alt="Monitoring iron ore feed rate" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.webp"><img src="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.jpg" alt="Operators monitoring kiln temperature" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.webp"><img src="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.jpg" alt="Iron ore reducing inside the kiln" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.webp"><img src="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.jpg" alt="Sponge iron output on the conveyor" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.webp"><img src="optimized-images/images/quality/cp2-monitoring-feed-rate.jpg" alt="Monitoring iron ore feed rate" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.webp"><img src="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.jpg" alt="Operators monitoring kiln temperature" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.webp"><img src="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.jpg" alt="Iron ore reducing inside the kiln" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.webp"><img src="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.jpg" alt="Sponge iron output on the conveyor" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 4"><img src="optimized-images/images/quality/cp2-monitoring-feed-rate.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 4"><img src="optimized-images/images/quality/cp2-operators-monitoring-kiln-temp.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 4"><img src="optimized-images/images/quality/cp2-iron-ore-reducing-in-kiln.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 4"><img src="optimized-images/images/quality/cp2-sponge-iron-on-conveyor.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -460,11 +490,20 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.webp"><img src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="Inspector examining incoming pig iron" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-technicians-testing-chemistry.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-technicians-testing-chemistry.webp"><img src="optimized-images/images/quality/cp3-technicians-testing-chemistry.jpg" alt="Technicians testing material chemistry" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-qc-manager-reviewing-results.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-qc-manager-reviewing-results.webp"><img src="optimized-images/images/quality/cp3-qc-manager-reviewing-results.jpg" alt="Quality control manager reviewing lab results" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-engineers-monitoring-thermal.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-engineers-monitoring-thermal.webp"><img src="optimized-images/images/quality/cp3-engineers-monitoring-thermal.jpg" alt="Engineers monitoring thermal readings" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.webp"><img src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="Inspector examining incoming pig iron" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-technicians-testing-chemistry.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-technicians-testing-chemistry.webp"><img src="optimized-images/images/quality/cp3-technicians-testing-chemistry.jpg" alt="Technicians testing material chemistry" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-qc-manager-reviewing-results.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-qc-manager-reviewing-results.webp"><img src="optimized-images/images/quality/cp3-qc-manager-reviewing-results.jpg" alt="Quality control manager reviewing lab results" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp3-engineers-monitoring-thermal.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp3-engineers-monitoring-thermal.webp"><img src="optimized-images/images/quality/cp3-engineers-monitoring-thermal.jpg" alt="Engineers monitoring thermal readings" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 4"><img src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 4"><img src="optimized-images/images/quality/cp3-technicians-testing-chemistry.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 4"><img src="optimized-images/images/quality/cp3-qc-manager-reviewing-results.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 4"><img src="optimized-images/images/quality/cp3-engineers-monitoring-thermal.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -517,12 +556,22 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-steel-melting-furnace.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-steel-melting-furnace.webp"><img src="optimized-images/images/quality/cp4-steel-melting-furnace.jpg" alt="Steel melting in the electric furnace" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.webp"><img src="optimized-images/images/quality/cp4-steelworkers-skimming-slag.jpg" alt="Steelworkers skimming slag off the melt" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-crude-steel-refining.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-crude-steel-refining.webp"><img src="optimized-images/images/quality/cp4-crude-steel-refining.jpg" alt="Crude liquid steel being refined" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.webp"><img src="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.jpg" alt="Alloys dosed into molten steel" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-worker-sampling-molten-steel.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-worker-sampling-molten-steel.webp"><img src="optimized-images/images/quality/cp4-worker-sampling-molten-steel.jpg" alt="Worker pulling a lollypop sample from molten steel" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-steel-melting-furnace.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-steel-melting-furnace.webp"><img src="optimized-images/images/quality/cp4-steel-melting-furnace.jpg" alt="Steel melting in the electric furnace" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.webp"><img src="optimized-images/images/quality/cp4-steelworkers-skimming-slag.jpg" alt="Steelworkers skimming slag off the melt" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-crude-steel-refining.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-crude-steel-refining.webp"><img src="optimized-images/images/quality/cp4-crude-steel-refining.jpg" alt="Crude liquid steel being refined" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.webp"><img src="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.jpg" alt="Alloys dosed into molten steel" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp4-worker-sampling-molten-steel.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp4-worker-sampling-molten-steel.webp"><img src="optimized-images/images/quality/cp4-worker-sampling-molten-steel.jpg" alt="Worker pulling a lollypop sample from molten steel" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 5"><img src="optimized-images/images/quality/cp4-steel-melting-furnace.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 5"><img src="optimized-images/images/quality/cp4-steelworkers-skimming-slag.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 5"><img src="optimized-images/images/quality/cp4-crude-steel-refining.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 5"><img src="optimized-images/images/quality/cp4-alloy-dosing-molten-steel.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="4" aria-label="Show photo 5 of 5"><img src="optimized-images/images/quality/cp4-worker-sampling-molten-steel.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -584,12 +633,22 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.webp"><img src="optimized-images/images/quality/cp5-billets-emerging-from-machine.jpg" alt="Billets emerging from the casting machine" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-inspector-examining-billets.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-inspector-examining-billets.webp"><img src="optimized-images/images/quality/cp5-inspector-examining-billets.jpg" alt="Inspector examining steel billets" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-technician-checking-billet-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-technician-checking-billet-temp.webp"><img src="optimized-images/images/quality/cp5-technician-checking-billet-temp.jpg" alt="Technician checking billet temperature" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-scientist-testing-billet-comp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-scientist-testing-billet-comp.webp"><img src="optimized-images/images/quality/cp5-scientist-testing-billet-comp.jpg" alt="Scientist testing billet composition" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-database-showing-traceability.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-database-showing-traceability.webp"><img src="optimized-images/images/quality/cp5-database-showing-traceability.jpg" alt="Database software showing traceability records" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.webp"><img src="optimized-images/images/quality/cp5-billets-emerging-from-machine.jpg" alt="Billets emerging from the casting machine" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-inspector-examining-billets.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-inspector-examining-billets.webp"><img src="optimized-images/images/quality/cp5-inspector-examining-billets.jpg" alt="Inspector examining steel billets" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-technician-checking-billet-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-technician-checking-billet-temp.webp"><img src="optimized-images/images/quality/cp5-technician-checking-billet-temp.jpg" alt="Technician checking billet temperature" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-scientist-testing-billet-comp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-scientist-testing-billet-comp.webp"><img src="optimized-images/images/quality/cp5-scientist-testing-billet-comp.jpg" alt="Scientist testing billet composition" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp5-database-showing-traceability.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp5-database-showing-traceability.webp"><img src="optimized-images/images/quality/cp5-database-showing-traceability.jpg" alt="Database software showing traceability records" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 5"><img src="optimized-images/images/quality/cp5-billets-emerging-from-machine.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 5"><img src="optimized-images/images/quality/cp5-inspector-examining-billets.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 5"><img src="optimized-images/images/quality/cp5-technician-checking-billet-temp.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 5"><img src="optimized-images/images/quality/cp5-scientist-testing-billet-comp.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="4" aria-label="Show photo 5 of 5"><img src="optimized-images/images/quality/cp5-database-showing-traceability.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -651,12 +710,22 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.webp"><img src="optimized-images/images/quality/cp6-technician-operating-rolling-mill.jpg" alt="Technician operating the rolling mill" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-rollers-compressing-billet.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-rollers-compressing-billet.webp"><img src="optimized-images/images/quality/cp6-rollers-compressing-billet.jpg" alt="Rollers compressing a steel billet" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-monitoring-water-cooling.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-monitoring-water-cooling.webp"><img src="optimized-images/images/quality/cp6-monitoring-water-cooling.jpg" alt="Monitoring industrial water cooling" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-checking-bar-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-checking-bar-temp.webp"><img src="optimized-images/images/quality/cp6-technician-checking-bar-temp.jpg" alt="Technician checking bar temperature" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.webp"><img src="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.jpg" alt="Technician measuring steel bar thickness" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.webp"><img src="optimized-images/images/quality/cp6-technician-operating-rolling-mill.jpg" alt="Technician operating the rolling mill" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-rollers-compressing-billet.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-rollers-compressing-billet.webp"><img src="optimized-images/images/quality/cp6-rollers-compressing-billet.jpg" alt="Rollers compressing a steel billet" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-monitoring-water-cooling.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-monitoring-water-cooling.webp"><img src="optimized-images/images/quality/cp6-monitoring-water-cooling.jpg" alt="Monitoring industrial water cooling" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-checking-bar-temp.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-checking-bar-temp.webp"><img src="optimized-images/images/quality/cp6-technician-checking-bar-temp.jpg" alt="Technician checking bar temperature" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.webp"><img src="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.jpg" alt="Technician measuring steel bar thickness" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 5"><img src="optimized-images/images/quality/cp6-technician-operating-rolling-mill.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 5"><img src="optimized-images/images/quality/cp6-rollers-compressing-billet.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 5"><img src="optimized-images/images/quality/cp6-monitoring-water-cooling.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 5"><img src="optimized-images/images/quality/cp6-technician-checking-bar-temp.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="4" aria-label="Show photo 5 of 5"><img src="optimized-images/images/quality/cp6-technician-measuring-bar-thickness.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -718,11 +787,20 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.webp"><img src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="Engineer inspecting finished TMT bars" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.webp"><img src="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.jpg" alt="Researcher analyzing steel bar strength" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.webp"><img src="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.jpg" alt="Inspector testing steel bar dimensions" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-supervisor-signing-certificate.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-supervisor-signing-certificate.webp"><img src="optimized-images/images/quality/cp7-supervisor-signing-certificate.jpg" alt="Supervisor signing the quality certificate" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.webp"><img src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="Engineer inspecting finished TMT bars" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.webp"><img src="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.jpg" alt="Researcher analyzing steel bar strength" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.webp"><img src="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.jpg" alt="Inspector testing steel bar dimensions" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp7-supervisor-signing-certificate.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp7-supervisor-signing-certificate.webp"><img src="optimized-images/images/quality/cp7-supervisor-signing-certificate.jpg" alt="Supervisor signing the quality certificate" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 4"><img src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 4"><img src="optimized-images/images/quality/cp7-researcher-analyzing-bar-strength.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 4"><img src="optimized-images/images/quality/cp7-inspector-testing-bar-dimensions.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 4"><img src="optimized-images/images/quality/cp7-supervisor-signing-certificate.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -775,11 +853,20 @@
   </div>
   <div class="qc-checkpoint-body reveal">
     <div class="qc-checkpoint-hero qc-hero-photos" data-carousel>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.webp"><img src="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.jpg" alt="Warehouse worker tagging steel bars" loading="lazy" class="active"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.webp"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.jpg" alt="Logistics coordinator signaling during loading" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-inventory-controller-logging.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-inventory-controller-logging.webp"><img src="optimized-images/images/quality/cp8-inventory-controller-logging.jpg" alt="Inventory controller logging steel lots" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.webp"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.jpg" alt="Logistics coordinator signaling a dispatch truck" loading="lazy"></picture>
-      <div class="qc-hero-dots"><span class="active"></span><span></span><span></span><span></span></div>
+      <div class="qc-hero-main">
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.webp"><img src="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.jpg" alt="Warehouse worker tagging steel bars" loading="lazy" class="active"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.webp"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.jpg" alt="Logistics coordinator signaling during loading" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-inventory-controller-logging.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-inventory-controller-logging.webp"><img src="optimized-images/images/quality/cp8-inventory-controller-logging.jpg" alt="Inventory controller logging steel lots" loading="lazy"></picture>
+        <picture><source type="image/avif" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.avif"><source type="image/webp" srcset="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.webp"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.jpg" alt="Logistics coordinator signaling a dispatch truck" loading="lazy"></picture>
+        <button type="button" class="qc-hero-arrow prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="qc-hero-arrow next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="qc-hero-thumbs">
+        <button type="button" class="qc-hero-thumb active" data-index="0" aria-label="Show photo 1 of 4"><img src="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="1" aria-label="Show photo 2 of 4"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-1.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="2" aria-label="Show photo 3 of 4"><img src="optimized-images/images/quality/cp8-inventory-controller-logging.jpg" alt="" loading="lazy"></button>
+        <button type="button" class="qc-hero-thumb" data-index="3" aria-label="Show photo 4 of 4"><img src="optimized-images/images/quality/cp8-logistics-coordinator-signaling-2.jpg" alt="" loading="lazy"></button>
+      </div>
     </div>
     <div class="qc-mini-flow">
         <div class="qc-substep" data-open="false" tabindex="0" role="button">
@@ -919,39 +1006,26 @@
   });
 })();
 
-// ── checkpoint hero photo carousels: auto-cycle, pause on hover/focus ──
+// ── checkpoint hero photo galleries: click a thumbnail or an arrow to switch photo ──
 (function setupHeroCarousels(){
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
-    const frames = Array.from(carousel.querySelectorAll('img'));
-    const dots = Array.from(carousel.querySelectorAll('.qc-hero-dots span'));
-    if(frames.length < 2 || reduceMotion) return;
+    const main = carousel.querySelector('.qc-hero-main');
+    const frames = Array.from(main.querySelectorAll('img'));
+    const thumbs = Array.from(carousel.querySelectorAll('.qc-hero-thumb'));
+    const prevBtn = main.querySelector('.qc-hero-arrow.prev');
+    const nextBtn = main.querySelector('.qc-hero-arrow.next');
+    if(frames.length < 2) return;
     let i = 0;
-    let timer = null;
     function show(next){
       frames[i].classList.remove('active');
-      if(dots[i]) dots[i].classList.remove('active');
-      i = next;
+      if(thumbs[i]) thumbs[i].classList.remove('active');
+      i = (next + frames.length) % frames.length;
       frames[i].classList.add('active');
-      if(dots[i]) dots[i].classList.add('active');
+      if(thumbs[i]) thumbs[i].classList.add('active');
     }
-    function start(){
-      stop();
-      timer = setInterval(() => show((i + 1) % frames.length), 3600);
-    }
-    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', start);
-    carousel.addEventListener('focusin', stop);
-    carousel.addEventListener('focusout', start);
-    if('IntersectionObserver' in window){
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(entry => { entry.isIntersecting ? start() : stop(); });
-      }, { threshold: .15 });
-      io.observe(carousel);
-    } else {
-      start();
-    }
+    thumbs.forEach((thumb, idx) => thumb.addEventListener('click', () => show(idx)));
+    if(prevBtn) prevBtn.addEventListener('click', () => show(i - 1));
+    if(nextBtn) nextBtn.addEventListener('click', () => show(i + 1));
   });
 })();
 </script>
