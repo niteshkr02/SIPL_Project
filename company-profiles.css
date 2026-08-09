@@ -11,17 +11,18 @@
    card left in the last row stretches to fill it instead of sitting
    next to a gap. */
 .cp-grid{ display:flex; flex-wrap:wrap; gap:1.4rem; }
-.cp-card{ flex:1 1 calc(33.333% - 1.4rem * 2 / 3); min-width:280px; }
-@media(max-width:960px){ .cp-card{ flex-basis:calc(50% - .7rem); } }
-@media(max-width:640px){ .cp-card{ flex-basis:100%; } }
+.cp-card, .cp-card-static{ flex:1 1 calc(33.333% - 1.4rem * 2 / 3); min-width:280px; }
+@media(max-width:960px){ .cp-card, .cp-card-static{ flex-basis:calc(50% - .7rem); } }
+@media(max-width:640px){ .cp-card, .cp-card-static{ flex-basis:100%; } }
 
-.cp-card{
-  position:relative; padding:0; overflow:hidden; text-align:left; cursor:pointer;
-  display:flex; flex-direction:column; border:none; font:inherit; color:inherit;
+.cp-card, .cp-card-static{
+  position:relative; padding:0; overflow:hidden; text-align:left;
+  display:flex; flex-direction:column;
   border-radius:1.25rem; background:var(--surface);
   border:1px solid var(--border);
   transition:transform .35s cubic-bezier(.16,.84,.44,1), box-shadow .35s ease, border-color .35s ease;
 }
+.cp-card{ cursor:pointer; font:inherit; color:inherit; }
 .cp-card:hover, .cp-card:focus-visible{
   transform:translateY(-6px); border-color:var(--accent);
   box-shadow:0 20px 45px rgba(20,22,28,.14), 0 0 35px rgba(255,106,31,.12);
