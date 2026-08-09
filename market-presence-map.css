@@ -272,7 +272,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 700 / 800;
-  max-height: 520px;
+  max-height: 620px;
   margin: 0 auto;
   user-select: none;
   overflow: visible;
@@ -280,7 +280,7 @@
 
 .map-viewport-box.world-box {
   aspect-ratio: 1000 / 500;
-  max-height: 420px;
+  max-height: 460px;
 }
 
 .india-svg,
@@ -623,7 +623,7 @@
   transform: translateX(-50%) translateY(8px);
   /* clamp instead of a flat 270px so pins near the map's edge on narrow
      phones can't push the popover past the (silently clipped) viewport */
-  width: clamp(210px, 68vw, 270px);
+  width: clamp(230px, 70vw, 300px);
   max-width: calc(100vw - 2rem);
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
@@ -738,6 +738,21 @@
 
 .pop-detail-line strong {
   color: var(--ink);
+}
+
+.pop-detail-icon {
+  flex-shrink: 0;
+}
+
+.pop-detail-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pop-detail-text .pop-link {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .pop-link {

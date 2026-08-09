@@ -3921,10 +3921,10 @@
                 <span class="pop-badge-type">${item.hubType || 'Regional Hub'}</span>
               </div>
               <div class="pop-vendor">${item.partner}</div>
-              <div class="pop-detail-line">👤 <strong>Officer:</strong> ${item.officer}</div>
-              <div class="pop-detail-line">📞 <strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></div>
-              <div class="pop-detail-line">✉️ <strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></div>
-              <div class="pop-detail-line" style="border-top:1px solid var(--border); padding-top:0.35rem; margin-top:0.35rem;">🏬 <strong>Hub:</strong> ${item.address}</div>
+              <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text"><strong>Officer:</strong> ${item.officer}</span></div>
+              <div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></span></div>
+              <div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></span></div>
+              <div class="pop-detail-line" style="border-top:1px solid var(--border); padding-top:0.35rem; margin-top:0.35rem;"><span class="pop-detail-icon">🏬</span><span class="pop-detail-text"><strong>Hub:</strong> ${item.address}</span></div>
               <div class="pop-icons" aria-hidden="true" title="Rail · Manufacturing · Power Grid">🚂 🏭 ⚡</div>
               <div class="pop-cta">Click to view details →</div>
             </div>
