@@ -171,12 +171,18 @@
 /* ── outer card ──
    .market-full-wrapper already carries class="panel" in the markup, so
    the white glass background/border/radius/shadow/hover-lift all come
-   from styles.css .panel — only layout properties belong here. */
+   from styles.css .panel — only layout properties belong here.
+   The 3D cursor-tilt part of .panel:hover is switched off below: with
+   a card this large, the rotateX/rotateY swing was very noticeable
+   near the corners. */
 .market-full-wrapper {
   position: relative;
   z-index: 1;
   padding: 1.4rem 1.5rem;
   overflow: visible;
+}
+.market-full-wrapper.panel:hover {
+  transform: translateY(-8px);
 }
 
 .market-dashboard-grid {
