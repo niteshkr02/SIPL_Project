@@ -3,10 +3,17 @@
    sheet with a sliding pill tab bar. Used on companies.html.
    ══════════════════════════════════════════════════════════ */
 
-/* ── Entry grid ── */
-.cp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
-@media(max-width:960px){ .cp-grid{ grid-template-columns:1fr 1fr; } }
-@media(max-width:640px){ .cp-grid{ grid-template-columns:1fr; } }
+/* ── Entry grid ──
+   Flexbox rather than CSS Grid on purpose: with an odd card count (7
+   today, more later as new units join), a 3-column grid leaves the
+   last row's empty cells as dead space. Flex-wrap distributes free
+   space only within the row a card actually belongs to, so a lone
+   card left in the last row stretches to fill it instead of sitting
+   next to a gap. */
+.cp-grid{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+.cp-card{ flex:1 1 calc(33.333% - 1.4rem * 2 / 3); min-width:280px; }
+@media(max-width:960px){ .cp-card{ flex-basis:calc(50% - .7rem); } }
+@media(max-width:640px){ .cp-card{ flex-basis:100%; } }
 
 .cp-card{
   position:relative; padding:0; overflow:hidden; text-align:left; cursor:pointer;
