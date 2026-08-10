@@ -1459,6 +1459,25 @@ const stageObs = new IntersectionObserver((entries)=>{
 },{ rootMargin:'-45% 0px -45% 0px', threshold:0 });
 stages.forEach(s=> s && stageObs.observe(s));
 
+// ── stage videos: lazy-load + play only while visible ──
+(function(){
+  const videos = document.querySelectorAll('.stage-video');
+  if(!videos.length) return;
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videoObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const v = e.target;
+      if(e.isIntersecting){
+        if(!v.src && v.dataset.src) v.src = v.dataset.src;
+        if(!noMotion) v.play().catch(()=>{});
+      } else {
+        v.pause();
+      }
+    });
+  },{ threshold:.35 });
+  videos.forEach(v=> videoObs.observe(v));
+})();
+
 // ── flowchart node spec modal ──
 (function setupSpecModal(){
   const specData = {
