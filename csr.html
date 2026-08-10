@@ -253,70 +253,119 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO: COMMUNITY TRUST HERO (isolated component, see csr-hero.css / csr-hero.js) -->
+<!-- HERO: BUILDING A BETTER TOMORROW (isolated component — see csr-hero.css / csr-hero.js) -->
 <header class="csrh" id="csrHero" aria-labelledby="csrhHeading">
   <div class="csrh-bg" aria-hidden="true">
-    <div class="csrh-grid"></div>
-    <div class="csrh-blueprint"></div>
-    <div class="csrh-dots"></div>
-    <div class="csrh-glow-wrap"><div class="csrh-glow"></div></div>
-    <div class="csrh-rays"></div>
-    <div class="csrh-glass"></div>
-
-    <div class="csrh-lineart">
-      <svg class="csrh-art school" viewBox="0 0 24 24"><path d="M12 3l10 5-10 5L2 8l10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M20 8v6.5"/></svg>
-      <svg class="csrh-art heart" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-      <svg class="csrh-art water" viewBox="0 0 24 24"><path d="M12 2C12 2 5 10 5 15A7 7 0 0 0 19 15C19 10 12 2 12 2Z"/></svg>
-      <svg class="csrh-art tree" viewBox="0 0 24 24"><path d="M2 21V12l5-3v3l5-3v3l5-3v11H2Z"/><path d="M17 10V6h3v3"/><path d="M2 21h16"/></svg>
-      <svg class="csrh-art book" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg>
+    <div class="csrh-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/csr.webp">
+        <img class="csrh-visual-img" src="Hero/csr.jpg" alt="" loading="eager" decoding="async">
+      </picture>
     </div>
-
-    <div class="csrh-particles" id="csrhParticles" aria-hidden="true"></div>
-    <div class="csrh-scanlines"></div>
-    <div class="csrh-noise"></div>
+    <div class="csrh-scrim"></div>
+    <div class="csrh-grid"></div>
+    <svg class="csrh-network" viewBox="0 0 300 380">
+      <g class="csrh-network-lines">
+        <path d="M40,40 L150,90 L240,50 M150,90 L260,170 L170,240 L70,190 L150,90"/>
+      </g>
+      <g class="csrh-network-nodes">
+        <circle cx="40" cy="40" r="4"/>
+        <circle cx="150" cy="90" r="5"/>
+        <circle cx="240" cy="50" r="4"/>
+        <circle cx="260" cy="170" r="4"/>
+        <circle cx="170" cy="240" r="5"/>
+        <circle cx="70" cy="190" r="4"/>
+      </g>
+      <g class="csrh-network-icons">
+        <g transform="translate(28,16)"><path d="M0,16C0,16 -1,4 8,-2 17,4 15,16 15,16"/><path d="M0,16C3,10 8,4 15,0"/></g>
+        <g transform="translate(228,32)"><path d="M8,18S1,13,1,7A4,4 0 0 1 8,4 4,4 0 0 1 15,7C15,13 8,18 8,18Z"/></g>
+        <g transform="translate(246,148)"><path d="M0,3 8,-1 16,3 8,7Z"/><path d="M4,5V9c0,1.2 1.8,2 4,2s4,-.8 4,-2V5"/></g>
+        <g transform="translate(154,222)"><circle cx="4" cy="2" r="2.4"/><path d="M0,12c0,-3 2,-5 4,-5s4,2 4,5"/></g>
+      </g>
+    </svg>
   </div>
 
-  <div class="csrh-content">
-    <div class="csrh-badge">
-      <span class="csrh-badge-dot" aria-hidden="true"></span>
-      <span>Corporate Social Responsibility</span>
-    </div>
-
-    <h1 class="csrh-heading" id="csrhHeading">
-      <span class="csrh-line"><span class="csrh-line-inner">The Strongest Thing</span></span>
-      <span class="csrh-line"><span class="csrh-line-inner">We Build Isn't <span class="grad">Steel</span></span></span>
-    </h1>
-
-    <p class="csrh-desc">At Shakambhari Group, community work isn't confined to a CSR office, it happens on the ground, through the same plants that make our steel. <span class="hl">Classrooms, clinics, clean water</span> and skill workshops for the villages around us: giving back is simply <span class="hl">part of how we operate</span>.</p>
-
-    <div class="csrh-stats" role="group" aria-label="Community impact metrics">
-      <div class="csrh-stat">
-        <div class="csrh-stat-num counter" data-target="12" data-suffix="+">0+</div>
-        <div class="csrh-stat-label">Villages Served</div>
+  <div class="csrh-inner">
+    <div class="csrh-content">
+      <div class="csrh-badge">
+        <span class="csrh-badge-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.2 2.5-5.5 6-5.5"/><path d="M22 20c0-3.2-2.5-5.5-6-5.5"/><path d="M8 20c0-2.8 1.8-4.5 4-4.5s4 1.7 4 4.5"/></svg>
+        </span>
+        <span class="csrh-badge-line" aria-hidden="true"></span>
+        CSR
       </div>
-      <span class="csrh-stat-divider" aria-hidden="true"></span>
-      <div class="csrh-stat">
-        <div class="csrh-stat-num counter" data-target="50" data-suffix="k+">0k+</div>
-        <div class="csrh-stat-label">Trees Planted</div>
-      </div>
-      <span class="csrh-stat-divider" aria-hidden="true"></span>
-      <div class="csrh-stat">
-        <div class="csrh-stat-num counter" data-target="20" data-suffix="+">0+</div>
-        <div class="csrh-stat-label">NGO Partners</div>
-      </div>
-      <span class="csrh-stat-divider" aria-hidden="true"></span>
-      <div class="csrh-stat">
-        <div class="csrh-stat-num">Purulia</div>
-        <div class="csrh-stat-label">Flagship School</div>
-      </div>
-    </div>
 
-    <div class="csrh-cta-row">
+      <h1 class="csrh-heading" id="csrhHeading">
+        <span class="line"><span class="ink">Building A Better</span></span>
+        <span class="line"><span class="accent">Tomorrow, Together.</span></span>
+      </h1>
+
+      <p class="csrh-desc">Our commitment to Corporate Social Responsibility drives us to create positive impact for communities, the environment, and future generations.</p>
+
       <a href="#csr" class="csrh-cta">
-        <span class="csrh-cta-shine" aria-hidden="true"></span>
-        <span>Explore Our Initiatives</span>
-        <span class="csrh-cta-arrow" aria-hidden="true">→</span>
+        <span class="csrh-cta-label">Our Commitment</span>
+        <span class="csrh-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </a>
+    </div>
+
+    <div class="csrh-features">
+      <div class="csrh-features-row">
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 20c9 0 13-6 13-15-9 0-15 4-15 13 0 1 .1 1.4.2 2Z"/><path d="M6 20c2.5-5 6-8.5 11-11"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Environmental Stewardship</span>
+            <span class="csrh-feature-sub">Protecting our planet for a sustainable future.</span>
+          </span>
+        </div>
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.2 2.5-5.5 6-5.5"/><path d="M22 20c0-3.2-2.5-5.5-6-5.5"/><path d="M8 20c0-2.8 1.8-4.5 4-4.5s4 1.7 4 4.5"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Community Empowerment</span>
+            <span class="csrh-feature-sub">Supporting communities and creating opportunities for all.</span>
+          </span>
+        </div>
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l10 5-10 5L2 8l10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M20 8v6.5"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Education Support</span>
+            <span class="csrh-feature-sub">Investing in education to build a stronger tomorrow.</span>
+          </span>
+        </div>
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Health &amp; Wellbeing</span>
+            <span class="csrh-feature-sub">Promoting health, safety and wellbeing for a better society.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="csrh-features-mobile">
+    <div class="csrh-features-grid-m">
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 20c9 0 13-6 13-15-9 0-15 4-15 13 0 1 .1 1.4.2 2Z"/><path d="M6 20c2.5-5 6-8.5 11-11"/></svg></span>
+        <span class="csrh-feature-title">Environmental Stewardship</span>
+        <span class="csrh-feature-sub">Protecting our planet for a sustainable future.</span>
+      </div>
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.2 2.5-5.5 6-5.5"/><path d="M22 20c0-3.2-2.5-5.5-6-5.5"/><path d="M8 20c0-2.8 1.8-4.5 4-4.5s4 1.7 4 4.5"/></svg></span>
+        <span class="csrh-feature-title">Community Empowerment</span>
+        <span class="csrh-feature-sub">Supporting communities and creating opportunities for all.</span>
+      </div>
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l10 5-10 5L2 8l10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M20 8v6.5"/></svg></span>
+        <span class="csrh-feature-title">Education Support</span>
+        <span class="csrh-feature-sub">Investing in education to build a stronger tomorrow.</span>
+      </div>
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></span>
+        <span class="csrh-feature-title">Health &amp; Wellbeing</span>
+        <span class="csrh-feature-sub">Promoting health, safety and wellbeing for a better society.</span>
+      </div>
     </div>
   </div>
 </header>

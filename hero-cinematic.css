@@ -45,8 +45,6 @@
 
 .hero-photo img {
   filter: saturate(1.08) contrast(1.03);
-  transform: scale(.95);
-  transform-origin: 50% 0%;
 }
 
 .hero-photo-scrim {

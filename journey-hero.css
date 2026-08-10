@@ -1,0 +1,404 @@
+/* ════════════════════════════════════════════════════════════════════
+   OUR JOURNEY — Cinematic Road-to-Horizon Hero
+   Isolated component (see journey-hero.js). Replaces the plain
+   .page-header banner on journey.html only. Full-bleed photographic
+   composition of the road/sunrise artwork (Hero/our-journey.*) with a
+   single left-to-right scrim carrying the headline — one full-inset
+   photo + one scrim, matching the site's established hero convention
+   (see .mvv-hero in vision-hero.css), not a boxed image stitched
+   against a separately-drawn background.
+
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.oj-hero {
+  --navy: #061B49;
+  --navy-mid: #08265C;
+  --navy-deep: #040F2C;
+  --ink: #F5F7FB;
+  --ink-dim: #B9C4DE;
+  --accent: #FF6B00;
+  --accent-2: #FF7518;
+  --accent-hot: #FFC24B;
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 720px;
+  max-height: 1180px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--navy);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .oj-hero { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.oj-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo ══ */
+.oj-hero-visual { position: absolute; inset: 0; overflow: hidden; }
+
+.oj-hero-visual picture,
+.oj-hero-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.oj-hero-visual-img {
+  object-fit: cover;
+  object-position: 60% 30%;
+  /* settles at a small permanent overscale (not a flush 1:1) so the
+     scroll-parallax translate in journey-hero.js always has clipping
+     headroom inside the overflow:hidden wrapper — same technique as
+     .mvv-hero-visual-img's resting scale(1.045) in vision-hero.css */
+  transform: scale(1.06);
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .oj-hero-visual-img { object-position: 55% 34%; }
+}
+
+/* single scrim: dark navy on the left carries the headline, fading
+   naturally into the bright horizon on the right; a faint top/bottom
+   vignette blends into the nav above and the wave below */
+.oj-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, var(--navy) 0%, rgba(6, 27, 73, .95) 30%, rgba(6, 27, 73, .55) 55%, rgba(6, 27, 73, .12) 75%, transparent 92%),
+    linear-gradient(180deg, rgba(4, 15, 44, .38) 0%, transparent 18%, transparent 78%, rgba(4, 15, 44, .55) 100%);
+}
+
+@media (max-width: 900px) {
+  .oj-hero-scrim { display: none; }
+}
+
+/* ── very subtle atmospheric glow pulsing around the horizon/sun ── */
+.oj-hero-glow {
+  position: absolute;
+  right: 6%;
+  top: 18%;
+  width: min(34vw, 420px);
+  height: min(34vw, 420px);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 194, 75, .55), rgba(255, 117, 24, .18) 45%, transparent 72%);
+  filter: blur(6px);
+  opacity: .7;
+  animation: ojGlowPulse 6.2s ease-in-out infinite;
+}
+
+@keyframes ojGlowPulse {
+  0%, 100% { opacity: .7; }
+  50% { opacity: .85; }
+}
+
+@media (max-width: 900px) {
+  .oj-hero-glow { right: 14%; top: 10%; width: 44vw; height: 44vw; }
+}
+
+/* ── barely-noticeable warm light streak drifting toward the horizon
+   along the line of the road, communicating forward motion ── */
+.oj-hero-streak {
+  position: absolute;
+  left: 38%;
+  bottom: 6%;
+  width: 46%;
+  height: 34%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent, rgba(255, 194, 75, .16) 45%, transparent 70%);
+  transform: translate3d(0, 0, 0);
+  animation: ojStreakDrift 9s ease-in-out infinite;
+}
+
+@keyframes ojStreakDrift {
+  0% { transform: translate3d(-4%, 3%, 0); opacity: .3; }
+  50% { transform: translate3d(4%, -3%, 0); opacity: .55; }
+  100% { transform: translate3d(-4%, 3%, 0); opacity: .3; }
+}
+
+@media (max-width: 900px) {
+  .oj-hero-streak { display: none; }
+}
+
+/* ══ content ══ */
+.oj-hero-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) 1.75rem 4rem;
+}
+
+.oj-hero-content { max-width: 600px; }
+
+.oj-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  opacity: 0;
+}
+
+.oj-hero-eyebrow-line {
+  width: 30px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hot));
+}
+
+.oj-hero-heading {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.5rem, 4.4vw + 1vh, 4.1rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+
+.oj-hero-heading .line { display: block; opacity: 0; }
+.oj-hero-heading .ink { color: var(--ink); }
+.oj-hero-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 107, 0, .32));
+}
+
+.oj-hero-desc {
+  margin-top: 1rem;
+  max-width: 46ch;
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+.oj-hero-desc + .oj-hero-desc { margin-top: .6rem; }
+
+/* ── CTA: orange pill, white text, arrow badge ── */
+.oj-hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: 1.9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 26px rgba(255, 107, 0, .28);
+  opacity: 0;
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease;
+}
+
+.oj-hero-cta:hover,
+.oj-hero-cta:focus-visible {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #E85D00, var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 107, 0, .4);
+}
+
+.oj-hero-cta:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
+}
+
+.oj-hero-cta-label {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.oj-hero-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.oj-hero-cta-arrow svg { width: 16px; height: 16px; }
+
+.oj-hero-cta:hover .oj-hero-cta-arrow,
+.oj-hero-cta:focus-visible .oj-hero-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ── bottom feature row: compact indicators, not cards ── */
+.oj-hero-features {
+  display: flex;
+  align-items: stretch;
+  gap: 1.7rem;
+  margin-top: 2.6rem;
+  opacity: 0;
+}
+
+.oj-hero-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.oj-hero-feature-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 117, 24, .4);
+  color: var(--accent-hot);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), color .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+.oj-hero-feature-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.oj-hero-feature-text { display: flex; flex-direction: column; gap: .16rem; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
+
+.oj-hero-feature-value {
+  font-family: var(--font-display);
+  font-size: .98rem;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--accent-hot);
+}
+
+.oj-hero-feature-label {
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.oj-hero-feature:hover .oj-hero-feature-icon {
+  transform: scale(1.08);
+  color: #fff;
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 0 5px rgba(255, 117, 24, .12), 0 0 16px rgba(255, 194, 75, .35);
+}
+
+.oj-hero-feature:hover .oj-hero-feature-text { transform: translateY(-2px); }
+
+.oj-hero-feature-div {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, .14);
+}
+
+@media (max-width: 560px) {
+  .oj-hero-features { flex-wrap: wrap; row-gap: 1.3rem; column-gap: 1.1rem; justify-content: center; }
+  .oj-hero-feature-div { display: none; }
+}
+
+/* ── bottom curved transition: dark navy fill + thin orange accent line ── */
+.oj-hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 3;
+  height: clamp(56px, 8vw, 100px);
+  pointer-events: none;
+}
+
+.oj-hero-wave svg { display: block; width: 100%; height: 100%; }
+
+.oj-hero-wave-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.oj-hero-wave-fill { fill: var(--surface, #fff); }
+
+@media (max-width: 900px) {
+  .oj-hero-wave { display: none; }
+}
+
+/* ══ tablet ══ */
+@media (max-width: 1100px) {
+  .oj-hero-content { max-width: 520px; }
+  .oj-hero-features { gap: 1.3rem; margin-top: 2.2rem; }
+}
+
+/* ══ mobile: vertical stack — eyebrow, headline, copy, CTA, features,
+   then the road visual as a contained, uncropped card, matching the
+   recommended mobile order and the site's established .mvv-hero
+   mobile pattern ══ */
+@media (max-width: 900px) {
+  .oj-hero { display: flex; flex-direction: column; align-items: stretch; }
+
+  .oj-hero-bg { position: relative; inset: auto; order: 2; }
+
+  .oj-hero-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; }
+
+  .oj-hero-content { max-width: none; text-align: center; }
+
+  .oj-hero-eyebrow { justify-content: center; }
+
+  .oj-hero-desc { margin-left: auto; margin-right: auto; }
+
+  .oj-hero-cta { margin-left: auto; margin-right: auto; }
+
+  .oj-hero-features { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; }
+
+  .oj-hero-visual {
+    position: relative;
+    inset: auto;
+    margin: 2.2rem 1.25rem 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--navy-deep);
+    box-shadow: 0 20px 44px rgba(4, 15, 44, .35);
+  }
+
+  .oj-hero-visual picture,
+  .oj-hero-visual-img { position: absolute; inset: 0; }
+
+  .oj-hero-visual-img { object-fit: cover; }
+
+  .oj-hero-glow { right: 8%; top: 8%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oj-hero-glow, .oj-hero-streak {
+    animation: none !important;
+  }
+}
