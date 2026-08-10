@@ -6,18 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quality | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="quality-hero.css">
 <style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
-
 .value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
 @media(max-width:860px){ .value-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:560px){ .value-grid{ grid-template-columns:1fr; } }
@@ -279,11 +269,94 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HEADER -->
-<header class="page-header">
-  <div class="kicker reveal">ABOUT · QUALITY</div>
-  <h1 class="reveal">Quality</h1>
-  <p class="reveal">Eight checkpoints, three principles, one standard applied at every plant, on every batch, without exception.</p>
+<!-- ══════════════════ HERO (isolated component — see quality-hero.css / quality-hero.js) ══════════════════ -->
+<header class="q-hero" id="qHero">
+  <div class="q-hero-bg" aria-hidden="true">
+    <div class="q-hero-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/quality.webp">
+        <img class="q-hero-visual-img" src="Hero/quality.jpg" alt="" loading="eager" decoding="async">
+      </picture>
+    </div>
+    <div class="q-hero-scrim"></div>
+    <div class="q-hero-glow"></div>
+    <div class="q-hero-orbit">
+      <svg viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="450" cy="450" r="420" fill="none" stroke="#7EA8DD" stroke-width="1" opacity=".2"/>
+        <circle cx="450" cy="450" r="330" fill="none" stroke="#FF6A1F" stroke-width="1.1" stroke-dasharray="2 12" opacity=".3"/>
+        <g class="q-hero-orbit-spin">
+          <circle cx="870" cy="450" r="4" fill="#FFC24B"/>
+          <circle cx="120" cy="360" r="3.2" fill="#FF6A1F"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="q-hero-inner">
+    <div class="q-hero-content">
+      <div class="q-hero-eyebrow">
+        <span class="q-hero-eyebrow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <span class="q-hero-eyebrow-line" aria-hidden="true"></span>
+        Our Commitment
+      </div>
+
+      <h1 class="q-hero-heading">
+        <span class="line"><span class="ink">Quality</span></span>
+        <span class="line"><span class="accent">Builds a Better</span></span>
+        <span class="line"><span class="accent">Tomorrow</span></span>
+      </h1>
+
+      <p class="q-hero-desc">We set the highest standards in everything we do, because quality creates trust, drives progress and builds a stronger, more sustainable future.</p>
+
+      <a href="#qc-1" class="q-hero-cta">
+        <span class="q-hero-cta-label">Our Quality Mission</span>
+        <span class="q-hero-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <div class="q-hero-features">
+        <div class="q-hero-feature">
+          <span class="q-hero-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/></svg>
+          </span>
+          <span class="q-hero-feature-text">
+            <span class="q-hero-feature-title">Higher Standards</span>
+            <span class="q-hero-feature-sub">For lasting value</span>
+          </span>
+        </div>
+        <span class="q-hero-feature-div" aria-hidden="true"></span>
+        <div class="q-hero-feature">
+          <span class="q-hero-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span class="q-hero-feature-text">
+            <span class="q-hero-feature-title">Greater Accuracy</span>
+            <span class="q-hero-feature-sub">For a stronger tomorrow</span>
+          </span>
+        </div>
+        <span class="q-hero-feature-div" aria-hidden="true"></span>
+        <div class="q-hero-feature">
+          <span class="q-hero-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 17 9 11l4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          </span>
+          <span class="q-hero-feature-text">
+            <span class="q-hero-feature-title">A Better Future</span>
+            <span class="q-hero-feature-sub">Through trust and quality</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="q-hero-wave-line" d="M0,90 C300,20 620,140 960,55 C1180,-5 1320,35 1440,20" fill="none"/>
+      <path class="q-hero-wave-fill" d="M0,115 C300,48 620,168 960,82 C1180,22 1320,60 1440,46 L1440,160 L0,160 Z"/>
+    </svg>
+  </div>
 </header>
 
 <section class="section">
@@ -832,6 +905,8 @@
 </footer>
 
 <script src="site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="quality-hero.js"></script>
 <script>
 (function setupQcSubsteps(){
   document.querySelectorAll('.qc-substep').forEach(step => {

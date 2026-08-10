@@ -1,10 +1,10 @@
 /* ════════════════════════════════════════════════════════════════════
    MISSION, VISION & VALUES — Hero behavior
-   Isolated component. Drives the entrance sequence (label → heading →
-   description → button → pillar nav → scroll cue), the floating
-   particle field, and a soft cursor spotlight. The compass ring motif's
-   own motion is pure CSS (see vision-hero.css) — deliberately not
-   touched from JS, so nothing fights its transform. Falls back to a
+   Isolated component. Drives the one-time entrance sequence (eyebrow →
+   heading → description → rule → pillars, staggered) and a floating
+   ember field over the photo. The photo's own float and the orbital
+   ring's spin are pure CSS (see vision-hero.css) — deliberately not
+   touched from JS so nothing fights their transform. Falls back to a
    static reveal if GSAP failed to load or the user prefers reduced
    motion.
    ════════════════════════════════════════════════════════════════════ */
@@ -14,25 +14,27 @@
   const hero = document.querySelector('.mvv-hero');
   if (!hero) return;
 
-  const label = hero.querySelector('.mvv-hero-label');
+  const eyebrow = hero.querySelector('.mvv-hero-eyebrow');
   const heading = hero.querySelector('.mvv-hero-heading');
   const desc = hero.querySelector('.mvv-hero-desc');
-  const btn = hero.querySelector('.mvv-hero-btn');
+  const rule = hero.querySelector('.mvv-hero-rule');
   const pillars = hero.querySelector('.mvv-hero-pillars');
-  const scrollCue = hero.querySelector('.mvv-hero-scroll-cue');
+  const pillarItems = hero.querySelectorAll('.mvv-hero-pillar');
   const particlesLayer = hero.querySelector('.mvv-hero-particles');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
-  const EASE = 'power4.out';
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
   function spawnParticles() {
     if (!particlesLayer || reduceMotion) return;
-    const count = window.innerWidth < 640 ? 12 : 24;
+    const count = window.innerWidth < 640 ? 0 : 16;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('span');
       p.className = 'mvv-hero-particle';
-      p.style.setProperty('--px', (Math.random() * 100) + '%');
+      // biased to the left/center scrim zone, where they read as ambient
+      // dust rather than competing with the photo's own detail on the right
+      p.style.setProperty('--px', (Math.random() * 58) + '%');
       p.style.setProperty('--ps', (1.6 + Math.random() * 2.2).toFixed(1) + 'px');
       p.style.setProperty('--pd', (10 + Math.random() * 10).toFixed(1) + 's');
       p.style.setProperty('--pdelay', (-Math.random() * 20).toFixed(1) + 's');
@@ -45,22 +47,26 @@
   function playEntrance() {
     spawnParticles();
 
+    const els = [eyebrow, heading, desc, rule, pillars];
     if (!gsapReady || reduceMotion) {
-      [label, heading, desc, btn, pillars, scrollCue].forEach((el) => { if (el) el.style.opacity = 1; });
+      els.forEach((el) => { if (el) el.style.opacity = 1; });
       return;
     }
 
     const tl = gsap.timeline({ defaults: { ease: EASE } });
-    if (label) tl.fromTo(label, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: .6 }, .1);
-    if (heading) tl.fromTo(heading, { opacity: 0, y: 36, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .9 }, .28);
-    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .7 }, .68);
-    if (btn) tl.fromTo(btn, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .6 }, .9);
-    if (pillars) tl.fromTo(pillars, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .6 }, 1.08);
-    if (scrollCue) tl.fromTo(scrollCue, { opacity: 0 }, { opacity: 1, duration: .6 }, 1.4);
+    if (eyebrow) tl.fromTo(eyebrow, { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: .6 }, .1);
+    if (heading) tl.fromTo(heading, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: .8 }, .2);
+    if (desc) tl.fromTo(desc, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .7 }, .4);
+    if (rule) tl.fromTo(rule, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5 }, .5);
+    if (pillars) tl.set(pillars, { opacity: 1 }, .55);
+    pillarItems.forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .6 }, .55 + i * .1);
+    });
   }
 
   if (gsapReady && !reduceMotion) {
-    gsap.set([label, heading, desc, btn, pillars, scrollCue].filter(Boolean), { opacity: 0 });
+    gsap.set([eyebrow, heading, desc, rule, pillars].filter(Boolean), { opacity: 0 });
+    gsap.set(Array.from(pillarItems), { opacity: 0 });
   }
   requestAnimationFrame(playEntrance);
 

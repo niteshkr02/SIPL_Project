@@ -6,18 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Journey | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="journey-hero.css">
 <style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
-
 /* ══ TIMELINE ══ */
 .jt-timeline{ position:relative; max-width:1080px; margin:0 auto; }
 .jt-spine{
@@ -185,11 +175,82 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HEADER -->
-<header class="page-header">
-  <div class="kicker reveal">ABOUT · OUR JOURNEY</div>
-  <h1 class="reveal">Our Journey</h1>
-  <p class="reveal">From a single factory in Durgapur in 2000 to where Shakambhari stands today, and where it's headed next.</p>
+<!-- ══════════════════ HERO (isolated component — see journey-hero.css / journey-hero.js) ══════════════════ -->
+<header class="oj-hero" id="ojHero">
+  <div class="oj-hero-bg" aria-hidden="true">
+    <div class="oj-hero-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/our-journey.webp">
+        <img class="oj-hero-visual-img" src="Hero/our-journey.jpg" alt="" loading="eager" decoding="async">
+      </picture>
+    </div>
+    <div class="oj-hero-scrim"></div>
+    <div class="oj-hero-glow"></div>
+    <div class="oj-hero-streak"></div>
+  </div>
+
+  <div class="oj-hero-inner">
+    <div class="oj-hero-content">
+      <div class="oj-hero-eyebrow">
+        <span class="oj-hero-eyebrow-line" aria-hidden="true"></span>
+        Our Journey
+      </div>
+
+      <h1 class="oj-hero-heading">
+        <span class="line"><span class="ink">A Journey of</span></span>
+        <span class="line"><span class="accent">Purpose &amp; Progress</span></span>
+      </h1>
+
+      <p class="oj-hero-desc">Every milestone we achieve, every step we take, brings us closer to our vision of a better tomorrow.</p>
+      <p class="oj-hero-desc">Our journey is powered by commitment, driven by passion, and inspired by the future we aim to build.</p>
+
+      <a href="#history" class="oj-hero-cta">
+        <span class="oj-hero-cta-label">Explore Our Journey</span>
+        <span class="oj-hero-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <div class="oj-hero-features">
+        <div class="oj-hero-feature">
+          <span class="oj-hero-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M6.5 17.5C10 14 8 10 11 8s2-4 5.5-3" stroke-dasharray="2 3"/></svg>
+          </span>
+          <span class="oj-hero-feature-text">
+            <span class="oj-hero-feature-value">Endless</span>
+            <span class="oj-hero-feature-label">Miles Traveled</span>
+          </span>
+        </div>
+        <span class="oj-hero-feature-div" aria-hidden="true"></span>
+        <div class="oj-hero-feature">
+          <span class="oj-hero-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 20 9 8l4 6 2-3 6 9H3Z"/><path d="M14 4v6M14 4l4 2-4 2"/></svg>
+          </span>
+          <span class="oj-hero-feature-text">
+            <span class="oj-hero-feature-value">Achieved</span>
+            <span class="oj-hero-feature-label">Milestones</span>
+          </span>
+        </div>
+        <span class="oj-hero-feature-div" aria-hidden="true"></span>
+        <div class="oj-hero-feature">
+          <span class="oj-hero-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="9" r="2.4" opacity=".7"/><path d="M2.5 20c0-3.6 2.8-5.8 6-5.8s6 2.2 6 5.8"/><path d="M14.5 14.3c2.8.3 5 2.4 5 5.7"/></svg>
+          </span>
+          <span class="oj-hero-feature-text">
+            <span class="oj-hero-feature-value">Empowered</span>
+            <span class="oj-hero-feature-label">People</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oj-hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="oj-hero-wave-line" d="M0,90 C300,20 620,140 960,55 C1180,-5 1320,35 1440,20" fill="none"/>
+      <path class="oj-hero-wave-fill" d="M0,115 C300,48 620,168 960,82 C1180,22 1320,60 1440,46 L1440,160 L0,160 Z"/>
+    </svg>
+  </div>
 </header>
 
 <section class="section" id="history">
@@ -421,6 +482,8 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="site.js"></script>
+<script src="journey-hero.js"></script>
 </body>
 </html>
