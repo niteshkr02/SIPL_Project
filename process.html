@@ -231,10 +231,15 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
   box-shadow:0 24px 50px rgba(20,22,28,.14), 0 0 0 1px rgba(255,106,31,.08), 0 0 44px rgba(255,106,31,.14);
 }
 .visual-panel svg{ width:62%; height:62%; position:relative; z-index:1; }
+.visual-panel video{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; background:#0A0B0E; }
 .visual-caption{
   position:absolute; bottom:-2.2rem; left:0; right:0; text-align:center;
   font-family:var(--font-mono); font-size:.74rem; font-weight:600; letter-spacing:.1em; color:var(--ink);
 }
+
+/* ══ PRODUCT CARD PHOTOS ══ */
+.prod-card{ overflow:hidden; }
+.prod-card-photo{ width:calc(100% + 3.8rem); margin:-2.1rem -1.9rem 1.3rem; height:170px; object-fit:cover; display:block; }
 
 .connector{ height:110px; display:flex; align-items:center; justify-content:center; position:relative; }
 .connector-line{ width:2px; height:100%; background:repeating-linear-gradient(var(--border) 0 6px, transparent 6px 12px); position:relative; }
@@ -1016,15 +1021,10 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="38" cy="70" rx="30" ry="20" fill="url(#oreGrad)"/>
-          <ellipse cx="30" cy="55" rx="18" ry="13" fill="url(#oreGrad)" opacity=".85"/>
-          <ellipse cx="82" cy="72" rx="28" ry="18" fill="url(#charGrad)"/>
-          <ellipse cx="90" cy="58" rx="16" ry="11" fill="url(#charGrad)" opacity=".9"/>
-          <circle cx="38" cy="60" r="4" fill="#F0C79A" opacity=".6"/>
-          <circle cx="86" cy="62" r="3" fill="#7C8797" opacity=".5"/>
-        </svg>
-        <div class="visual-caption">ORE + COAL</div>
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s1-mining-excavators-poster.jpg"
+          data-src="optimized-videos/process/s1-mining-excavators.mp4" aria-label="Excavators and dump trucks mining coal at Shakambhari's own mines"></video>
+        <div class="visual-caption">OWN COAL MINES</div>
       </div>
     </div>
   </section>
@@ -1045,17 +1045,9 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="24" y="38" width="72" height="46" rx="6" fill="url(#steelGrad)"/>
-          <rect x="30" y="44" width="60" height="32" rx="4" fill="url(#steelGradLight)" opacity=".5"/>
-          <polygon points="40,22 80,22 72,38 48,38" fill="#4A5560"/>
-          <circle cx="46" cy="98" r="7" fill="url(#oreGrad)"/>
-          <circle cx="63" cy="102" r="7" fill="url(#oreGrad)"/>
-          <circle cx="80" cy="98" r="7" fill="url(#oreGrad)"/>
-          <circle cx="55" cy="108" r="5" fill="url(#oreGrad)" opacity=".85"/>
-          <circle cx="72" cy="108" r="5" fill="url(#oreGrad)" opacity=".85"/>
-          <circle cx="60" cy="61" r="9" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/>
-        </svg>
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s2-pellet-pouring-poster.jpg"
+          data-src="optimized-videos/process/s2-pellet-pouring.mp4" aria-label="Iron ore pellets pouring at the SIPL Rukni pelletization plant"></video>
         <div class="visual-caption">PELLET PLANT</div>
       </div>
     </div>
@@ -1078,15 +1070,9 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="60" cy="34" rx="34" ry="11" fill="#3E4550"/>
-          <rect x="26" y="34" width="68" height="56" fill="url(#steelGrad)"/>
-          <ellipse cx="60" cy="90" rx="34" ry="11" fill="#2E343D"/>
-          <line x1="42" y1="48" x2="42" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" filter="url(#glow)"/>
-          <line x1="60" y1="44" x2="60" y2="80" stroke="url(#emberGrad)" stroke-width="3" opacity=".75" filter="url(#glow)"/>
-          <line x1="78" y1="48" x2="78" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" filter="url(#glow)"/>
-          <ellipse cx="60" cy="94" rx="13" ry="8" fill="url(#emberGrad)" filter="url(#glow)"/>
-        </svg>
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s3-rotary-kiln-poster.jpg"
+          data-src="optimized-videos/process/s3-rotary-kiln.mp4" aria-label="Industrial rotary kiln rotating during direct reduction"></video>
         <div class="visual-caption">ROTARY KILN</div>
       </div>
     </div>
@@ -1115,17 +1101,9 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="22" y="40" width="76" height="60" rx="8" fill="url(#steelGrad)"/>
-          <rect x="28" y="46" width="64" height="48" rx="6" fill="#2E343D"/>
-          <ellipse cx="60" cy="82" rx="26" ry="9" fill="url(#emberGrad)" filter="url(#glow)"/>
-          <rect x="42" y="12" width="7" height="32" rx="3" fill="#7C8797"/>
-          <rect x="57" y="10" width="7" height="34" rx="3" fill="#7C8797"/>
-          <rect x="72" y="12" width="7" height="32" rx="3" fill="#7C8797"/>
-          <line x1="45" y1="46" x2="45" y2="58" stroke="#3E9FD8" stroke-width="2" filter="url(#glow)"/>
-          <line x1="60" y1="44" x2="60" y2="56" stroke="#3E9FD8" stroke-width="2" filter="url(#glow)"/>
-          <line x1="75" y1="46" x2="75" y2="58" stroke="#3E9FD8" stroke-width="2" filter="url(#glow)"/>
-        </svg>
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s4-induction-furnace-poster.jpg"
+          data-src="optimized-videos/process/s4-induction-furnace.mp4" aria-label="Steel making inside the induction furnace"></video>
         <div class="visual-caption">INDUCTION FURNACE</div>
       </div>
     </div>
@@ -1147,13 +1125,9 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30 16 Q60 10 90 16 L84 46 Q60 52 36 46 Z" fill="url(#steelGrad)"/>
-          <rect x="55" y="48" width="10" height="20" rx="3" fill="url(#emberGrad)" filter="url(#glow)"/>
-          <rect x="42" y="68" width="36" height="16" rx="3" fill="#3E4550"/>
-          <rect x="46" y="84" width="28" height="30" rx="2" fill="url(#steelGradLight)"/>
-          <rect x="46" y="84" width="28" height="4" fill="url(#emberGrad)" opacity=".7"/>
-        </svg>
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s5-continuous-casting-pour-poster.jpg"
+          data-src="optimized-videos/process/s5-continuous-casting-pour.mp4" aria-label="Molten steel being poured during continuous casting"></video>
         <div class="visual-caption">CASTING MACHINE</div>
       </div>
     </div>
@@ -1175,17 +1149,10 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     </div>
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="18" y="24" width="84" height="72" rx="7" fill="url(#steelGrad)"/>
-          <ellipse cx="60" cy="50" rx="30" ry="11" fill="#2E343D"/>
-          <ellipse cx="60" cy="72" rx="30" ry="11" fill="#2E343D"/>
-          <rect x="30" y="56" width="60" height="10" rx="2" fill="url(#barGrad)"/>
-          <circle cx="24" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
-          <circle cx="96" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
-          <circle cx="24" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
-          <circle cx="96" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5"/>
-        </svg>
-        <div class="visual-caption">ROLLING MILL</div>
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s6-structural-steel-skyline-poster.jpg"
+          data-src="optimized-videos/process/s6-structural-steel-skyline.mp4" aria-label="Structural steel framing rising above the city skyline"></video>
+        <div class="visual-caption">STRUCTURAL STEEL, IN USE</div>
       </div>
     </div>
   </section>
@@ -1201,15 +1168,11 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 
   <div class="products-grid">
     <div class="prod-card reveal">
-      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="22" width="44" height="12" rx="3" fill="url(#barGrad)"/>
-        <rect x="12" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
-        <rect x="20" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
-        <rect x="28" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
-        <rect x="36" y="20" width="4" height="16" rx="1" fill="#6B5A3B"/>
-        <circle cx="8" cy="28" r="5" fill="url(#barGrad)" stroke="#6B5A3B" stroke-width="1"/>
-        <circle cx="48" cy="28" r="5" fill="url(#barGrad)" stroke="#6B5A3B" stroke-width="1"/>
-      </svg>
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/process/product-tmt-bars-elegant-steel.avif">
+        <source type="image/webp" srcset="optimized-images/images/process/product-tmt-bars-elegant-steel.webp">
+        <img src="optimized-images/images/process/product-tmt-bars-elegant-steel.jpg" alt="Elegant Steel QST TMT bars, tagged and ready for dispatch" class="prod-card-photo" loading="lazy">
+      </picture>
       <h4>TMT Bars</h4>
       <p>Thermomechanically treated reinforcement bars for RCC construction, marketed as Elegant Steel / QST TMT Bars. Somewhere right now, one of these is holding up a roof over someone's family.</p>
       <div class="prod-badge">Core Product</div>
@@ -1227,13 +1190,11 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       <div class="prod-badge">Semi-Finished</div>
     </div>
     <div class="prod-card reveal">
-      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="14" width="36" height="6" rx="1" fill="url(#barGrad)"/>
-        <rect x="22" y="20" width="12" height="16" rx="1" fill="#6B5A3B"/>
-        <rect x="10" y="36" width="36" height="6" rx="1" fill="url(#barGrad)"/>
-        <rect x="40" y="12" width="5" height="28" rx="1" fill="url(#barGrad)" opacity=".7"/>
-        <rect x="32" y="38" width="13" height="5" rx="1" fill="url(#barGrad)" opacity=".7"/>
-      </svg>
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/process/product-structural-steel-welding.avif">
+        <source type="image/webp" srcset="optimized-images/images/process/product-structural-steel-welding.webp">
+        <img src="optimized-images/images/process/product-structural-steel-welding.jpg" alt="Workers welding a structural steel frame on a high-rise construction site" class="prod-card-photo" loading="lazy">
+      </picture>
       <h4>Structural Steel</h4>
       <p>Angles, channels, joists, H-beams and I-beams, rolled to standard sizes, the skeleton inside the skylines rising across India.</p>
       <div class="prod-badge">Construction</div>
@@ -1478,6 +1439,25 @@ const stageObs = new IntersectionObserver((entries)=>{
   });
 },{ rootMargin:'-45% 0px -45% 0px', threshold:0 });
 stages.forEach(s=> s && stageObs.observe(s));
+
+// ── stage videos: lazy-load + play only while visible ──
+(function(){
+  const videos = document.querySelectorAll('.stage-video');
+  if(!videos.length) return;
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videoObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const v = e.target;
+      if(e.isIntersecting){
+        if(!v.src && v.dataset.src) v.src = v.dataset.src;
+        if(!noMotion) v.play().catch(()=>{});
+      } else {
+        v.pause();
+      }
+    });
+  },{ threshold:.35 });
+  videos.forEach(v=> videoObs.observe(v));
+})();
 
 const canvas = document.getElementById('embers');
 const ctx = canvas.getContext('2d');
