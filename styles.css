@@ -102,8 +102,8 @@ a{ color:inherit; }
 .site-nav:focus-within{ transform:translateY(0) !important; }
 @media(prefers-reduced-motion: reduce){ .site-nav{ transition:background .3s ease, box-shadow .3s ease; } }
 .nav-brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; }
-.nav-brand svg{ width:32px; height:32px; flex-shrink:0; }
-.nav-brand-logo{ width:32px; height:32px; flex-shrink:0; object-fit:contain; }
+.nav-brand svg{ width:52px; height:52px; flex-shrink:0; }
+.nav-brand-logo{ width:52px; height:52px; flex-shrink:0; object-fit:contain; }
 .nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#1B1F26; line-height:1.3; }
 .nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-ink); }
 .nav-links{ display:flex; align-items:center; gap:1.3rem; list-style:none; }
@@ -272,7 +272,7 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 @media(max-width:380px){
   .site-nav{ padding:0 1rem; gap:.4rem; }
   .nav-brand-text{ font-size:.68rem; }
-  .nav-brand svg, .nav-brand-logo{ width:28px; height:28px; }
+  .nav-brand svg, .nav-brand-logo{ width:40px; height:40px; }
 }
 
 /* page content sits below the fixed nav */
@@ -523,8 +523,8 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
 @media(max-width:640px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:420px){ .footer-grid{ grid-template-columns:1fr; } }
 .footer-brand{ display:flex; align-items:center; gap:.7rem; margin-bottom:1rem; text-decoration:none; }
-.footer-brand svg{ width:34px; height:34px; }
-.footer-brand-logo{ width:34px; height:34px; object-fit:contain; }
+.footer-brand svg{ width:46px; height:46px; }
+.footer-brand-logo{ width:46px; height:46px; object-fit:contain; }
 .footer-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.85rem; letter-spacing:.14em; color:var(--ink); }
 .footer-col h5{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.14em; color:var(--accent-ink); text-transform:uppercase; margin-bottom:1rem; }
 .footer-col p, .footer-col a{ display:block; font-size:.92rem; color:var(--ink-soft); text-decoration:none; margin-bottom:.6rem; line-height:1.5; }
