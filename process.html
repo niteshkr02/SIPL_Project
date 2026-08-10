@@ -6,10 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Process — From Earth to Structure | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="process-hero.css">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
-/* Default tokens = light "brushed steel" content theme. .hero locally overrides to dark — untouched. */
+/* Default tokens = light "brushed steel" content theme. The hero (.op-hero, process-hero.css) is a separate dark-themed component. */
 :root{
   --bg:#E7EAEE;
   --surface:#FFFFFF;
@@ -101,69 +102,7 @@ p{ line-height:1.65; }
 .rail-dot.active::after{ opacity:1; color:var(--accent-ink); }
 @media(max-width:1080px){ .rail{ display:none; } }
 
-/* ══ HERO — unchanged, dark, scoped tokens ══ */
-.hero{
-  --bg:#0A0B0E; --surface:#14161C; --surface-2:#1B1E26; --border:#262A34;
-  --ink:#EEEAE1; --ink-dim:#9C9A90; --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative;
-  min-height:94vh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center;
-  padding:calc(var(--nav-h) + 1.5rem) 1.5rem 1.5rem;
-  overflow:hidden;
-  background:
-    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.35), transparent 55%),
-    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.2), transparent 45%),
-    var(--bg);
-}
-#embers{ position:absolute; inset:0; width:100%; height:100%; z-index:2; }
-.hero-glow{
-  position:absolute; inset:-15%; z-index:1; pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 108%, rgba(255,106,31,.6), transparent 42%),
-    radial-gradient(circle at 26% 96%, rgba(255,194,75,.4), transparent 38%),
-    radial-gradient(circle at 74% 100%, rgba(226,59,31,.45), transparent 40%);
-  filter:blur(6px);
-  animation:furnaceBreathe 7s ease-in-out infinite;
-  transform-origin:50% 100%;
-}
-@keyframes furnaceBreathe{
-  0%,100%{ transform:scale(1); opacity:.8; }
-  50%{ transform:scale(1.22); opacity:1; }
-}
-.hero-content{ position:relative; z-index:5; max-width:900px; animation:heroZoomIn 1.5s cubic-bezier(.16,.84,.44,1) both; }
-@keyframes heroZoomIn{ 0%{ opacity:0; transform:scale(1.18); } 100%{ opacity:1; transform:scale(1); } }
-.hero-kicker{
-  font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.35em;
-  color:var(--accent-hot); margin-bottom:1.4rem;
-}
-.hero-logo{ display:flex; flex-direction:column; align-items:center; gap:.6rem; margin-bottom:2rem; }
-.hero-logo svg{ width:56px; height:56px; animation:furnacePulse 7s ease-in-out infinite; }
-@keyframes furnacePulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
-.hero-logo-text{ font-family:var(--font-mono); font-size:.68rem; font-weight:600; letter-spacing:.35em; color:var(--ink-dim); }
-.hero h1{ font-size:clamp(2.6rem,7vw,5.2rem); font-weight:700; line-height:1.02; letter-spacing:-.01em; color:var(--ink); }
-.hero h1 .grad{
-  background:linear-gradient(100deg,var(--accent-hot),var(--accent) 60%,var(--accent-deep));
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  background-size:200% 100%;
-  animation:emberShift 6s ease-in-out infinite;
-}
-@keyframes emberShift{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
-.hero p.lede{ margin:1.6rem auto 0; max-width:560px; font-size:1.05rem; color:var(--ink-dim); }
-.hero .pill{
-  display:inline-flex; align-items:center; gap:.6rem; margin-top:2.2rem;
-  padding:.55rem 1.3rem; border:1px solid var(--border); border-radius:2rem;
-  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em;
-  color:var(--ink-dim); background:rgba(255,255,255,.02);
-}
-.hero .pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); }
-.scroll-cue{
-  position:absolute; bottom:2.2rem; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:.5rem;
-  color:var(--border); animation:bob 2.2s ease-in-out infinite; z-index:5;
-}
-.scroll-cue span{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.25em; }
-@keyframes bob{ 0%,100%{ transform:translateX(-50%) translateY(0);} 50%{ transform:translateX(-50%) translateY(8px);} }
+/* ══ HERO — see process-hero.css / process-hero.js (.op-hero) ══ */
 
 /* ══ INTRO / MANIFESTO ══ */
 .intro{ position:relative; z-index:1; max-width:800px; margin:0 auto; padding:6.5rem 1.75rem 1.5rem; text-align:center; }
@@ -620,27 +559,107 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-glow"></div>
-  <canvas id="embers"></canvas>
-  <div class="hero-content">
-    <div class="hero-kicker">FORGED, NOT ASSEMBLED</div>
-    <div class="hero-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="50,6 94,86 6,86" fill="none" stroke="#9C9A90" stroke-width="4" stroke-linejoin="round"/>
-        <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(-30 50 50)"/>
-        <ellipse cx="50" cy="50" rx="13" ry="21" fill="url(#emberGrad)" transform="rotate(30 50 50)"/>
-        <ellipse cx="50" cy="50" rx="9" ry="17" fill="url(#emberGrad)"/>
-      </svg>
-      <div class="hero-logo-text">SHAKAMBHARI GROUP</div>
+<!-- ══════════════════ HERO (isolated component — see process-hero.css / process-hero.js) ══════════════════ -->
+<header class="op-hero" id="opHero">
+  <div class="op-hero-bg" aria-hidden="true">
+    <div class="op-hero-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/our-process.webp">
+        <img class="op-hero-visual-img" src="Hero/our-process.jpg" alt="" loading="eager" decoding="async">
+      </picture>
     </div>
-    <h1>Integrated Steel<br>Production<br><span class="grad">From Earth to Structure</span></h1>
-    <p class="lede">We didn't buy into the steel industry — we built it from the ground up. Our own mines, our own furnace, our own hands, at every stage between raw earth and reinforced tomorrow.</p>
-    <div class="pill"><span class="dot"></span> Shakambhari Ispat &amp; Power Limited · #SteelWithin</div>
+    <div class="op-hero-scrim"></div>
+    <div class="op-hero-grid"></div>
   </div>
-  <div class="scroll-cue"><span>SCROLL</span>
-    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M1 1L7 18L13 1" stroke="#3A3E46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+  <div class="op-hero-inner">
+    <div class="op-hero-content">
+      <div class="op-hero-eyebrow">
+        <span class="op-hero-eyebrow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2M7.05 7.05l1.41 1.41M15.54 15.54l1.41 1.41M7.05 16.95l1.41-1.41M15.54 8.46l1.41-1.41"/></svg>
+        </span>
+        <span class="op-hero-eyebrow-line" aria-hidden="true"></span>
+        Our Process
+      </div>
+
+      <h1 class="op-hero-heading">
+        <span class="line"><span class="ink">Turning Raw Potential</span></span>
+        <span class="line"><span class="accent">Into Real Progress.</span></span>
+      </h1>
+
+      <p class="op-hero-desc">Our process is a blend of precision, technology, and expertise—designed to deliver quality at every step and excellence in every outcome.</p>
+
+      <a href="#s1" class="op-hero-cta">
+        <span class="op-hero-cta-label">Explore Our Process</span>
+        <span class="op-hero-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="op-hero-arc" aria-hidden="false">
+      <svg class="op-arc-svg" viewBox="0 0 400 260" aria-hidden="true">
+        <path class="op-arc-path-bg" d="M30,240 C41,225 71.8,176.8 96,150 C120.2,123.2 145.8,98.2 175,79 C204.2,59.8 236.8,46.5 271,35 C305.2,23.5 361.8,14.2 380,10"/>
+        <path class="op-arc-path" d="M30,240 C41,225 71.8,176.8 96,150 C120.2,123.2 145.8,98.2 175,79 C204.2,59.8 236.8,46.5 271,35 C305.2,23.5 361.8,14.2 380,10"/>
+      </svg>
+      <ol class="op-arc-nodes">
+        <li class="op-arc-node" style="left:7.5%;top:92.3%" tabindex="0">
+          <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.1"/><circle cx="6.5" cy="16" r="2.1"/><circle cx="17.5" cy="16" r="2.1"/><path d="M10.8 7.4 7.7 14.1M13.2 7.4l3.1 6.7M8.7 16h6.6"/></svg></span>
+          <span class="op-arc-label">Raw Material Selection</span>
+        </li>
+        <li class="op-arc-node" style="left:24%;top:57.7%" tabindex="0">
+          <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V12l4.5 3V12l4.5 3V9l5 3.3V21H3Z"/><path d="M17 12V8h2.2v4"/><path d="M7 21v-3M11 21v-3M15 21v-3"/></svg></span>
+          <span class="op-arc-label">Advanced Processing</span>
+        </li>
+        <li class="op-arc-node" style="left:43.75%;top:30.4%" tabindex="0">
+          <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="op-arc-label">Strict Quality Control</span>
+        </li>
+        <li class="op-arc-node" style="left:67.75%;top:13.5%" tabindex="0">
+          <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="14.5" width="16" height="4.5" rx="1"/><rect x="6" y="8" width="12" height="4.5" rx="1"/></svg></span>
+          <span class="op-arc-label">Precision Manufacturing</span>
+        </li>
+        <li class="op-arc-node" style="left:95%;top:3.8%" tabindex="0">
+          <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7.5h10.5v9H3z"/><path d="M13.5 10.5H17l3.5 3v3h-7z"/><circle cx="7" cy="18.3" r="1.7"/><circle cx="17.5" cy="18.3" r="1.7"/></svg></span>
+          <span class="op-arc-label">On-Time Delivery</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="op-hero-timeline-mobile">
+      <ol class="op-mobile-scroll">
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><path d="M4 9 12 3l8 6-3 11H7L4 9Z"/><path d="M4 9h16M9 9l3 11 3-11"/></svg></span>
+          <span class="op-step-num">01</span>
+          <span class="op-step-title">Raw Material</span>
+          <span class="op-step-sub">Strong foundations for superior quality.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><path d="M12 2c2 3-2 4-2 7a4 4 0 1 0 8 0c0-1.5-1-2.5-1-2.5.5 2-.5 3-1.5 3 1-3-1-4.5-1-6.5-1 1-2 1.5-2 3.5 0-2.5-2-3-2-4.5Z"/></svg></span>
+          <span class="op-step-num">02</span>
+          <span class="op-step-title">Melting</span>
+          <span class="op-step-sub">Shaping potential with extreme heat.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="4" rx="1"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></span>
+          <span class="op-step-num">03</span>
+          <span class="op-step-title">Forming</span>
+          <span class="op-step-sub">Precision engineering that builds strength.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></span>
+          <span class="op-step-num">04</span>
+          <span class="op-step-title">Processing</span>
+          <span class="op-step-sub">Advanced technology for flawless results.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="op-step-num">05</span>
+          <span class="op-step-title">Quality Check</span>
+          <span class="op-step-sub">Tested. Verified. Trusted every time.</span>
+        </li>
+      </ol>
+    </div>
   </div>
 </header>
 
@@ -1479,38 +1498,6 @@ const stageObs = new IntersectionObserver((entries)=>{
 },{ rootMargin:'-45% 0px -45% 0px', threshold:0 });
 stages.forEach(s=> s && stageObs.observe(s));
 
-const canvas = document.getElementById('embers');
-const ctx = canvas.getContext('2d');
-const heroEl = document.querySelector('.hero');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let particles = [];
-
-function resizeCanvas(){ canvas.width = heroEl.offsetWidth; canvas.height = heroEl.offsetHeight; }
-function spawn(){
-  return {
-    x: Math.random()*canvas.width, y: canvas.height + Math.random()*40,
-    r: 1 + Math.random()*2.4, vy: .3 + Math.random()*.8, vx: (Math.random()-.5)*.4,
-    life: 0, maxLife: 240 + Math.random()*260,
-    hue: Math.random() > .5 ? '255,106,31' : '255,194,75'
-  };
-}
-function initParticles(){ particles = Array.from({length: 55}, spawn); }
-function tick(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.y -= p.vy; p.x += p.vx + Math.sin(p.life*.02)*.3; p.life++;
-    const fade = 1 - p.life/p.maxLife;
-    if(fade <= 0 || p.y < -20){ Object.assign(p, spawn()); return; }
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = `rgba(${p.hue},${Math.max(fade,0)*.85})`;
-    ctx.shadowColor = `rgba(${p.hue},.8)`; ctx.shadowBlur = 6; ctx.fill();
-  });
-  requestAnimationFrame(tick);
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-if(!reduceMotion){ initParticles(); tick(); }
-
 // ── flowchart node spec modal ──
 (function setupSpecModal(){
   const specData = {
@@ -1795,5 +1782,7 @@ if(!reduceMotion){ initParticles(); tick(); }
   window.addEventListener('resize', () => { if(currentNode) position(currentNode); });
 })();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="process-hero.js"></script>
 </body>
 </html>

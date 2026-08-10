@@ -7,18 +7,8 @@
 <title>Insights | Shakambhari Group</title>
 <meta name="description" content="Explainers on the materials, processes and industry shifts behind steel, ferro alloys and aluminium foil manufacturing — researched, cited, and written for the industry.">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="insight-hero.css">
 <style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
-
 .insight-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; }
 @media(max-width:1024px){ .insight-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:680px){ .insight-grid{ grid-template-columns:1fr; } }
@@ -143,14 +133,88 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HEADER -->
-<header class="page-header">
-  <div class="kicker reveal">INSIGHTS</div>
-  <h1 class="reveal">The Materials &amp; Industry Behind Every Batch</h1>
-  <p class="reveal">Researched explainers on the processes, standards and market forces shaping steel, ferro alloys and aluminium foil manufacturing — every claim cited back to its source.</p>
+<!-- ══════════════════ HERO (isolated component — see insight-hero.css / insight-hero.js) ══════════════════ -->
+<header class="ins-hero" id="insHero">
+  <div class="ins-hero-bg" aria-hidden="true">
+    <div class="ins-hero-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/insight.webp">
+        <img class="ins-hero-visual-img" src="Hero/insight.jpg" alt="" loading="eager" decoding="async">
+      </picture>
+    </div>
+    <div class="ins-hero-glow"></div>
+    <div class="ins-hero-scrim"></div>
+    <div class="ins-hero-grid"></div>
+    <div class="ins-pulse-field" aria-hidden="true">
+      <span class="ins-pulse-dot ins-pulse-dot--lg ins-pulse-dot--signal" style="--x:58%;--y:12%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--lg ins-pulse-dot--signal" style="--x:72%;--y:24%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--lg ins-pulse-dot--signal" style="--x:91%;--y:68%"></span>
+      <span class="ins-pulse-dot" style="--x:50%;--y:5%"></span>
+      <span class="ins-pulse-dot" style="--x:63%;--y:38%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--sm" style="--x:92%;--y:14%"></span>
+      <span class="ins-pulse-dot" style="--x:96%;--y:40%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--sm" style="--x:35%;--y:4%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--sm" style="--x:6%;--y:6%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--sm" style="--x:68%;--y:7%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--sm" style="--x:97%;--y:85%"></span>
+      <span class="ins-pulse-dot ins-pulse-dot--sm" style="--x:55%;--y:92%"></span>
+    </div>
+  </div>
+
+  <div class="ins-hero-inner">
+    <div class="ins-hero-content">
+      <div class="ins-hero-eyebrow">
+        <span class="ins-hero-eyebrow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.45 1 .96 1.15 1.6h4.7c.15-.64.55-1.15 1.15-1.6A6 6 0 0 0 12 3Z"/></svg>
+        </span>
+        <span class="ins-hero-eyebrow-line" aria-hidden="true"></span>
+        Insight
+      </div>
+
+      <h1 class="ins-hero-heading">
+        <span class="line"><span class="ink">Turning Insights</span></span>
+        <span class="line"><span class="accent">Into Impact.</span></span>
+      </h1>
+
+      <p class="ins-hero-desc">We uncover what matters, analyze what drives results, and deliver insights that empower better decisions and stronger outcomes.</p>
+
+      <a href="#s1" class="ins-hero-cta">
+        <span class="ins-hero-cta-label">Explore Our Insights</span>
+        <span class="ins-hero-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <div class="ins-hero-features">
+        <div class="ins-feature" tabindex="0">
+          <span class="ins-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor" stroke="none"/></svg></span>
+          <span>
+            <span class="ins-feature-title">Data Driven</span>
+            <span class="ins-feature-sub">Facts that create clarity.</span>
+          </span>
+        </div>
+        <div class="ins-feature-divider" aria-hidden="true"></div>
+        <div class="ins-feature" tabindex="0">
+          <span class="ins-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19V10M11 19V5M17 19v-6"/><circle cx="18.5" cy="8.5" r="3"/><path d="m20.6 10.6 2 2"/></svg></span>
+          <span>
+            <span class="ins-feature-title">Deep Analysis</span>
+            <span class="ins-feature-sub">Understanding that drives performance.</span>
+          </span>
+        </div>
+        <div class="ins-feature-divider" aria-hidden="true"></div>
+        <div class="ins-feature" tabindex="0">
+          <span class="ins-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-4 2-2 4 4-2 2-4Z"/></svg></span>
+          <span>
+            <span class="ins-feature-title">Strategic Insight</span>
+            <span class="ins-feature-sub">Guiding decisions that lead to growth.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
 
-<section class="section">
+<section class="section" id="s1">
   <div class="insight-grid">
 
     <a href="insight-tempcore-tmt-bars.html" class="insight-card panel reveal">
@@ -283,5 +347,7 @@
 
 <style>.accent-text{ color:var(--accent-ink); font-weight:700; }</style>
 <script src="site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="insight-hero.js"></script>
 </body>
 </html>
