@@ -4,8 +4,8 @@
 <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ferro Alloys, Silico Manganese &amp; Ferro Carbon | Shakambhari Group</title>
-<meta name="description" content="Premier manufacturer and global exporter of Silico Manganese and High Carbon Ferro products, 9,000 MT monthly capacity, 90% exported worldwide.">
+<title>Aluminium Foil, 9 to 60 Microns | Shakambhari Group</title>
+<meta name="description" content="Pharma, food and industrial-grade aluminium foil rolled at SIPL Mogra, India Foils, Hooghly, 9 to 60 microns across bare, blister, laminate, household, container, lidding and tagger foil.">
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ══ PAGE HEADER (dark, short) ══ */
@@ -17,7 +17,7 @@
 }
 .page-header .kicker{ justify-content:center; color:var(--accent-hot); }
 .page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.4rem); max-width:20ch; margin:0 auto; }
+.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.4rem); max-width:22ch; margin:0 auto; }
 .page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
 .page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 
@@ -33,6 +33,11 @@
 .spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
 .spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
 .spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
+.product-group-head{ margin:0 0 1.4rem; }
+.product-group-head .kicker{ margin-bottom:.5rem; }
+.product-group-head h3{ font-size:1.3rem; font-weight:700; font-family:var(--font-display); text-transform:none; }
+.product-group{ margin-bottom:2.6rem; }
+.product-group:last-child{ margin-bottom:0; }
 
 /* ══ ABOUT / FOOTPRINT TWO-COL ══ */
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
@@ -87,13 +92,13 @@
 .field select{ cursor:pointer; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus){ border-color:var(--accent-hot); }
-.ferro-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
-.ferro-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
-.ferro-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
-.ferro-form-status.show{ display:block; }
-.ferro-form-status.error{ color:var(--accent-deep); }
-.ferro-form-status.success{ color:#1E8449; }
-html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
+.alu-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
+.alu-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
+.alu-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
+.alu-form-status.show{ display:block; }
+.alu-form-status.error{ color:var(--accent-deep); }
+.alu-form-status.success{ color:#1E8449; }
+html[data-theme="dark"] .alu-form-status.success{ color:#8CE0A0; }
 </style>
 </head>
 <body>
@@ -183,7 +188,7 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
           </div>
         </div>
         <a href="ferro-alloys.html">Ferro Alloys</a>
-        <a href="aluminium-foil.html">Aluminium Foil</a>
+        <a href="aluminium-foil.html" class="active">Aluminium Foil</a>
       </div>
     </li>
     <li><a href="process.html">Our Process</a></li>
@@ -210,9 +215,9 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 
 <!-- PAGE HEADER -->
 <header class="page-header">
-  <div class="kicker reveal">FERRO ALLOYS · GLOBAL EXPORT</div>
-  <h1 class="reveal">Powering the Global Steel Industry with Premium Ferro Alloys</h1>
-  <p class="reveal">Delivering high-grade Silico Manganese and Ferro Carbon products worldwide. Engineered for excellence, trusted by industry leaders.</p>
+  <div class="kicker reveal">ALUMINIUM FOIL · INDIA FOILS</div>
+  <h1 class="reveal">Pharma-Grade Aluminium Foil, Rolled 9 to 60 Microns</h1>
+  <p class="reveal">From blister packs to bottle seals, precision-rolled aluminium foil manufactured at SIPL Mogra, our India Foils facility in Hooghly, West Bengal.</p>
   <div class="page-header-cta reveal">
     <a href="#our-products" class="btn btn-primary">Explore Our Products</a>
     <a href="#contact" class="btn btn-ghost">Contact Sales</a>
@@ -223,20 +228,20 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 <section class="section tight">
   <div class="stat-band">
     <div class="stat reveal-scale" style="transition-delay:.05s">
-      <div class="stat-num ferro-counter" data-target="9000" data-suffix=" MT">0 MT</div>
-      <div class="stat-label">Monthly Production Capacity</div>
+      <div class="stat-num alu-counter" data-target="60" data-suffix=" µ">0 µ</div>
+      <div class="stat-label">Maximum Foil Thickness, From 9µ</div>
     </div>
     <div class="stat reveal-scale" style="transition-delay:.15s">
-      <div class="stat-num ferro-counter" data-target="90" data-suffix="%">0%</div>
-      <div class="stat-label">Global Export Rate</div>
+      <div class="stat-num alu-counter" data-target="8" data-suffix="">0</div>
+      <div class="stat-label">Distinct Foil Product Lines</div>
     </div>
     <div class="stat reveal-scale" style="transition-delay:.25s">
-      <div class="stat-num ferro-counter" data-target="6" data-suffix="">0</div>
-      <div class="stat-label">Submerged Arc Furnaces (9 MVA)</div>
+      <div class="stat-num alu-counter" data-target="1040" data-suffix="mm">0mm</div>
+      <div class="stat-label">Maximum Roll Width</div>
     </div>
     <div class="stat reveal-scale" style="transition-delay:.35s">
-      <div class="stat-num ferro-counter" data-target="100" data-suffix="%">0%</div>
-      <div class="stat-label">Strict 3rd-Party Quality Inspection</div>
+      <div class="stat-num alu-counter" data-target="100" data-suffix="%">0%</div>
+      <div class="stat-label">Video-Inspected for Defects</div>
     </div>
   </div>
 </section>
@@ -248,26 +253,16 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
   <div class="split">
     <div>
       <div class="kicker reveal">ABOUT US</div>
-      <h2 class="reveal">Engineering Excellence in Ferro Alloys</h2>
-      <p class="reveal">We are a premier manufacturer and global exporter of high-quality ferro alloys, specializing in Silico Manganese and High Carbon Ferro products. With a robust production capacity of 9,000 metric tons per month, we are dedicated to supplying the essential elements that make modern steel stronger, cleaner, and more durable.</p>
-      <p class="reveal">Our state-of-the-art facility is powered by six 9 MVA Submerged Arc Furnaces (SAF), allowing us to maintain continuous, high-volume production without compromising on the precise chemical compositions our clients demand.</p>
+      <h2 class="reveal">Metal to Foil, Under One Roof</h2>
+      <p class="reveal">India Foils is Shakambhari Group's aluminium arm, precision-rolling foil from 9 to 60 microns at SIPL Mogra in Hoera, Hooghly. What started as a steel and ferro alloys group extended into aluminium under the same discipline: in-house rolling, annealing and coating, tested before it ever reaches a customer's line.</p>
+      <p class="reveal">Recognised as a 4-Star Export House, the facility supplies pharmaceutical, food, FMCG and industrial customers with foil built to exact alloy, temper and thickness specification, not a generic roll cut to size.</p>
+      <div class="callout-badge reveal">4-Star Export House</div>
     </div>
-    <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" class="split-photo reveal">
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- GLOBAL FOOTPRINT -->
-<section class="section" id="global-footprint">
-  <div class="split">
-    <img src="images/Ferro_Alloys.png" alt="Ferro Alloys Production" class="split-photo reveal" style="order:2;">
-    <div style="order:1;">
-      <div class="kicker reveal">GLOBAL FOOTPRINT</div>
-      <h2 class="reveal">A Globally Recognized Partner</h2>
-      <p class="reveal">We are a globally recognized partner. Currently, 90% of our products (approx. 8,500 tons monthly) are exported to international markets. We are particularly proud of our continuous supply of specialized Low Boron Silico Manganese to Japan's highly demanding steel industry, a testament to our manufacturing precision.</p>
-      <div class="callout-badge reveal">Continuous Supply of Low Boron SiMn to Japan</div>
-    </div>
+    <picture>
+      <source type="image/avif" srcset="optimized-images/images/Aluminium_Foil.avif">
+      <source type="image/webp" srcset="optimized-images/images/Aluminium_Foil.webp">
+      <img src="optimized-images/images/Aluminium_Foil.jpg" alt="Aluminium Foil" class="split-photo reveal">
+    </picture>
   </div>
 </section>
 
@@ -277,30 +272,79 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 <section class="section" id="our-products">
   <div class="section-head reveal">
     <div class="kicker center">OUR PRODUCTS</div>
-    <h2>Our Product Portfolio</h2>
-    <p>Strictly controlled to meet international specifications, ensuring optimal deoxidation and alloying for steel manufacturing.</p>
+    <h2>Eight Foils, One Rolling Mill</h2>
+    <p>Every product shares the same 9 to 60 micron range and the same mill, split by alloy, temper and finish into three families.</p>
   </div>
-  <div class="spec-grid">
-    <div class="spec-card panel reveal">
-      <img src="images/Ferro_Alloy_Photo.jpeg" alt="Silico Manganese (SiMn) 65/16 Grade" class="spec-card-photo" loading="lazy">
-      <div class="spec-top"><h4>Silico Manganese (SiMn) 65/16 Grade</h4></div>
-      <p>Our flagship product, providing a highly effective combination of silicon and manganese for steel purification and strength.</p>
-      <div class="spec-tags"><span class="spec-tag">Flagship Grade</span><span class="spec-tag">Deoxidation</span></div>
+
+  <div class="product-group">
+    <div class="product-group-head reveal">
+      <div class="kicker">PHARMA FOIL</div>
+      <h3>Built for Blister, Strip &amp; Sachet Packaging</h3>
     </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Low Boron Silico Manganese</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
-      <p>A highly refined, specialized grade engineered specifically for continuous export to the Japanese market.</p>
-      <div class="spec-tags"><span class="spec-tag">Export Grade</span><span class="spec-tag">Japan</span></div>
+    <div class="spec-grid">
+      <div class="spec-card panel reveal">
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/Aluminium_Foil.avif">
+          <source type="image/webp" srcset="optimized-images/images/Aluminium_Foil.webp">
+          <img src="optimized-images/images/Aluminium_Foil.jpg" alt="Bare Pharmaceutical Foil" class="spec-card-photo" loading="lazy">
+        </picture>
+        <div class="spec-top"><h4>Bare Pharmaceutical Foil</h4></div>
+        <p>Premium protective foil for tablet and capsule packaging, cut for blister packs, strip packs and sachet packaging.</p>
+        <div class="spec-tags"><span class="spec-tag">AA8011 / AA8079</span><span class="spec-tag">Hard &amp; Soft Temper</span><span class="spec-tag">20–40 Micron</span><span class="spec-tag">700–1025mm</span></div>
+      </div>
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Blister Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Heat-sealable coated foil for tablet and capsule blister packs, one-side coated with VMCH or HSL and print primer or clear lacquer.</p>
+        <div class="spec-tags"><span class="spec-tag">AA8011</span><span class="spec-tag">Hard Temper</span><span class="spec-tag">20–30 Micron</span><span class="spec-tag">VMCH / HSL Coated</span></div>
+      </div>
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Strip Laminated Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Multi-layer laminate bonded with LDPE, PET or paper, built for moisture-sensitive tablets, capsules and effervescent products.</p>
+        <div class="spec-tags"><span class="spec-tag">AA8011 / AA8079</span><span class="spec-tag">Soft (O) Temper</span><span class="spec-tag">30–45 Micron Foil</span><span class="spec-tag">60–100 Micron Laminate</span></div>
+      </div>
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Printed Pharmaceutical Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Branded, high-definition printed foil with automatic registration control and full defect detection, for branded blister and strip packs.</p>
+        <div class="spec-tags"><span class="spec-tag">Up to 5-Colour Print</span><span class="spec-tag">Food-Grade Inks</span><span class="spec-tag">100% Video-Inspected</span></div>
+      </div>
     </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>High Carbon Ferro Manganese (70–75 Grade)</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#charGrad)"/></svg></div></div>
-      <p>Delivering high manganese content to improve the tensile strength, workability, and wear resistance of steel.</p>
-      <div class="spec-tags"><span class="spec-tag">70–75 Grade</span><span class="spec-tag">Tensile Strength</span></div>
+  </div>
+
+  <div class="product-group">
+    <div class="product-group-head reveal">
+      <div class="kicker">FOOD &amp; FMCG FOIL</div>
+      <h3>Kitchen, Container &amp; Lidding Foil</h3>
     </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Medium Carbon (MC) Silico Manganese</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#goldGrad)"/></svg></div></div>
-      <p>Carefully processed to meet the rigorous demands of specialized low-carbon steel production.</p>
-      <div class="spec-tags"><span class="spec-tag">MC Grade</span><span class="spec-tag">Low-Carbon Steel</span></div>
+    <div class="spec-grid">
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Household Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Everyday kitchen foil safe for direct food contact, for wrapping, covering dishes, baking and grilling.</p>
+        <div class="spec-tags"><span class="spec-tag">AA8011 / AA1200</span><span class="spec-tag">Soft / Semi-Hard</span><span class="spec-tag">10–20 Micron</span><span class="spec-tag">290–450mm</span></div>
+      </div>
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Semi-Rigid Container Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Strong, oven-safe foil for takeaway containers, airline meal trays and bakery trays.</p>
+        <div class="spec-tags"><span class="spec-tag">AA3003</span><span class="spec-tag">H22 / H24 Temper</span><span class="spec-tag">25–70 Micron</span><span class="spec-tag">200–1040mm</span></div>
+      </div>
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Lidding Foil &amp; Induction Wads</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Heat-sealable foil for leak-proof, tamper-evident closures, dairy cup lids, juice and water bottle seals, and induction sealing.</p>
+        <div class="spec-tags"><span class="spec-tag">AA8011</span><span class="spec-tag">Soft (O) / H14</span><span class="spec-tag">30–50 Micron</span><span class="spec-tag">300–1025mm</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-group">
+    <div class="product-group-head reveal">
+      <div class="kicker">INDUSTRIAL &amp; CLOSURE FOIL</div>
+      <h3>Bottle Caps &amp; Closures</h3>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-card panel reveal">
+        <div class="spec-top"><h4>Tagger Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
+        <p>Hard-temper foil for bottle caps and closures, wine and spirit closures, and tagger lids, available with or without NC coating.</p>
+        <div class="spec-tags"><span class="spec-tag">AA8011 / AA1235</span><span class="spec-tag">Hard / Semi-Hard</span><span class="spec-tag">50–100 Micron</span><span class="spec-tag">50–1025mm</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -311,43 +355,50 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 <section class="section">
   <div class="section-head reveal">
     <div class="kicker center">OUR MANUFACTURING PROCESS</div>
-    <h2>The Carbothermic Reduction Process</h2>
-    <p>We utilize a highly controlled Carbothermic Reduction Process to ensure the highest grade of alloy extraction. Our modernized facility allows for seamless material handling from raw ore to final dispatch.</p>
+    <h2>From Raw Aluminium to Finished Roll</h2>
+    <p>A six-stage protocol, rolled, annealed, slit, coated, printed and inspected before anything is packed for dispatch.</p>
   </div>
   <div class="pflow-list">
     <div class="pflow-step reveal">
       <div class="pflow-num">1</div>
       <div>
-        <h4>Raw Material Sourcing &amp; Handling</h4>
-        <p>Quality begins at the source. We utilize high and medium-grade manganese ore, combined with premium reductants including coke, coal, and dolomite. Materials are fed into storage bunkers via an automated belt conveyor system.</p>
+        <h4>Cold Rolling</h4>
+        <p>Raw aluminium stock is reduced through successive cold-rolling passes on our Achenbach foil rolling mill until it reaches the target micron gauge, from as thin as 9 microns up to 100 micron tagger stock.</p>
       </div>
     </div>
     <div class="pflow-step reveal">
       <div class="pflow-num">2</div>
       <div>
-        <h4>Automated Batch Charging</h4>
-        <p>Precision is managed from our central control room. A programmable logic controller (PLC) system seamlessly regulates the exact ratios of raw materials, dropping batches into the furnace charging hoppers for optimal chemical balance.</p>
+        <h4>Annealing</h4>
+        <p>Rolled foil is annealed on a Wesman furnace under a controlled atmosphere, relieving rolling stress and setting the soft, semi-hard or hard temper each product calls for.</p>
       </div>
     </div>
     <div class="pflow-step reveal">
       <div class="pflow-num">3</div>
       <div>
-        <h4>The Carbothermic Process (Smelting)</h4>
-        <p>The charge is fed into our Submerged Arc Furnaces. Heavy electric currents are passed through three massive carbon electrodes, generating the intense heat required to reduce the manganese ore into molten alloy and slag.</p>
+        <h4>Slitting &amp; Rewinding</h4>
+        <p>Master rolls are slit to the width each order specifies, from 50mm tagger stock to 1040mm container-grade foil, and rewound onto cores.</p>
       </div>
     </div>
     <div class="pflow-step reveal">
       <div class="pflow-num">4</div>
       <div>
-        <h4>Tapping &amp; Separation</h4>
-        <p>After reaching target power consumption, tapping is initiated by opening the tap hole via oxygen lancing. The liquid metal and slag flow through a sophisticated runner and skimmer system. The lighter slag is diverted to a sand bed, while the pure molten alloy is channeled into casting moulds.</p>
+        <h4>Coating &amp; Lamination</h4>
+        <p>Where a product calls for it, foil is coated on a Rotomec VMCH machine or laminated with LDPE, PET or paper for moisture-barrier and heat-seal performance.</p>
       </div>
     </div>
     <div class="pflow-step reveal">
       <div class="pflow-num">5</div>
       <div>
-        <h4>Cooling &amp; Sizing</h4>
-        <p>The liquid metal cools in designated metal beds. Once solidified, the metal casts are transferred to the finished yard, where they are crushed and broken into specific lump sizes tailored to individual client order requirements.</p>
+        <h4>Printing</h4>
+        <p>Printed grades run through up to five-colour rotogravure or flexographic printing with automatic registration control, using food-grade, migration-compliant inks.</p>
+      </div>
+    </div>
+    <div class="pflow-step reveal">
+      <div class="pflow-num">6</div>
+      <div>
+        <h4>Inspection &amp; Packing</h4>
+        <p>Finished rolls are checked against alloy, temper, thickness and width tolerance, video-inspected for defects, then packed into jumbo rolls for dispatch.</p>
       </div>
     </div>
   </div>
@@ -360,24 +411,60 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
   <div class="section-head reveal">
     <div class="kicker center">QUALITY ASSURANCE &amp; PACKAGING</div>
     <h2>Uncompromising Quality Control</h2>
-    <p>Quality is not just a promise; it is a verifiable metric in every batch we produce.</p>
+    <p>Quality is not just a promise, it is a verifiable metric in every roll we produce.</p>
   </div>
   <div class="qa-grid">
     <div class="qa-card panel reveal">
       <div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="10" y="8" width="20" height="24" rx="3" stroke="var(--accent-ink)" stroke-width="2"/><path d="M14 16h12M14 22h12M14 28h7" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <h4>In-House Lot Testing</h4>
-      <p>Once sized, the metal is grouped into designated lots and rigorously tested by our internal quality assurance team.</p>
+      <h4>ISO-Certified Systems</h4>
+      <p>Manufacturing and quality management certified to ISO 9001:2015 and ISO 14001:2015, audited and maintained across every production batch.</p>
     </div>
     <div class="qa-card panel reveal">
       <div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><circle cx="17" cy="17" r="9" stroke="var(--accent-ink)" stroke-width="2"/><path d="M24 24l7 7" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <h4>Third-Party Pre-Inspection</h4>
-      <p>Before any material leaves our facility, an independent third party takes samples and conducts powder testing in their own laboratories to guarantee unbiased certification.</p>
+      <h4>100% Video-Inspected</h4>
+      <p>Printed and coated foil runs through automatic video inspection for full defect detection, not spot-checked sampling, before it clears for dispatch.</p>
     </div>
   </div>
   <div class="section-head reveal" style="margin-bottom:1.4rem;">
-    <div class="kicker center">SECURE GLOBAL DISPATCH</div>
+    <div class="kicker center">SECURE DISPATCH</div>
   </div>
-  <p class="dispatch-note reveal">Once approved, the finished ferro alloys are securely packed into heavy-duty <strong>1 MT (Metric Ton) Jumbo Bags</strong>. Our streamlined dispatch operations ensure that our <strong>8,500 tons</strong> of monthly exports reach global ports safely, efficiently, and exactly to spec.</p>
+  <p class="dispatch-note reveal">Finished foil is wound onto cores and packed into <strong>jumbo rolls, 100 to 700 kg</strong> depending on the product, and dispatched as a certified <strong>4-Star Export House</strong>.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+    <h2>Aluminium Foil, Common Questions</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item panel reveal">
+      <summary>What thickness range do you produce?</summary>
+      <p class="faq-a">From 9 to 60 microns across our full range. Pharma and household foils sit toward the thinner end, while semi-rigid container and tagger foils run toward the thicker end, up to 100 microns for tagger stock.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>Do you supply printed and branded foil?</summary>
+      <p class="faq-a">Yes. Printed pharmaceutical foil is available in up to five-colour rotogravure or flexographic printing, with automatic registration control and 100% video inspection for defects.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>What alloys and tempers do you work in?</summary>
+      <p class="faq-a">Primarily AA8011 and AA8079 for pharma and lidding foil, AA1200 for household foil, AA3003 for semi-rigid container foil, and AA1235 for tagger foil, produced in hard, soft and semi-hard tempers depending on the product.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>Is your foil safe for direct food contact?</summary>
+      <p class="faq-a">Yes. Household, semi-rigid container and lidding foils are manufactured for direct food contact, and inks used on printed foil are food-grade and migration-compliant.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>How is the foil packed for dispatch?</summary>
+      <p class="faq-a">Finished rolls are wound onto cores and packed as jumbo rolls, ranging from around 100 kg for household foil up to 700 kg for pharma and lidding foil, depending on the product.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>Where is this foil manufactured?</summary>
+      <p class="faq-a">At SIPL Mogra, our India Foils facility in Hoera, Hooghly, West Bengal, the same integrated facility handling rolling, annealing, coating and printing under one roof.</p>
+    </details>
+  </div>
 </section>
 
 <div class="divider"></div>
@@ -386,8 +473,8 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 <section class="section" id="contact">
   <div class="section-head reveal">
     <div class="kicker center">CONTACT US</div>
-    <h2>Partner with a Global Leader in Ferro Alloys</h2>
-    <p>Whether you need standard SiMn 65/16 or specialized low-boron formulations, our team is ready to meet your exact specifications.</p>
+    <h2>Partner with Our Aluminium Foil Team</h2>
+    <p>Whether you need bare pharma foil or a custom-coated FMCG lidding grade, our team is ready to meet your exact specification.</p>
   </div>
   <div class="contact-split">
     <div class="panel reveal" style="padding:2rem;">
@@ -408,44 +495,48 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
       <div class="contact-info-row">
         <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
         <div>
-          <h5>Location</h5>
-          <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+          <h5>Plant</h5>
+          <p>Hoera, P.O. Mogra, Hooghly,<br>West Bengal 712147</p>
         </div>
       </div>
     </div>
     <div class="panel reveal" style="padding:2rem;">
-      <form id="ferroContactForm" novalidate>
+      <form id="aluContactForm" novalidate>
         <div class="field-grid">
           <div class="field">
-            <label for="fcName">Name</label>
-            <input type="text" id="fcName" name="name" placeholder="Your name" required>
+            <label for="acName">Name</label>
+            <input type="text" id="acName" name="name" placeholder="Your name" required>
           </div>
           <div class="field">
-            <label for="fcCompany">Company</label>
-            <input type="text" id="fcCompany" name="company" placeholder="Company name" required>
+            <label for="acCompany">Company</label>
+            <input type="text" id="acCompany" name="company" placeholder="Company name" required>
           </div>
         </div>
         <div class="field">
-          <label for="fcEmail">Email</label>
-          <input type="email" id="fcEmail" name="email" placeholder="you@company.com" required>
+          <label for="acEmail">Email</label>
+          <input type="email" id="acEmail" name="email" placeholder="you@company.com" required>
         </div>
         <div class="field">
-          <label for="fcProduct">Product Required</label>
-          <select id="fcProduct" name="product" required>
+          <label for="acProduct">Product Required</label>
+          <select id="acProduct" name="product" required>
             <option value="" disabled selected>Select a product</option>
-            <option value="Silico Manganese (SiMn) 65/16">Silico Manganese (SiMn) 65/16 Grade</option>
-            <option value="Low Boron Silico Manganese">Low Boron Silico Manganese</option>
-            <option value="High Carbon Ferro Manganese (70-75)">High Carbon Ferro Manganese (70–75 Grade)</option>
-            <option value="Medium Carbon (MC) Silico Manganese">Medium Carbon (MC) Silico Manganese</option>
+            <option value="Bare Pharmaceutical Foil">Bare Pharmaceutical Foil</option>
+            <option value="Blister Foil">Blister Foil</option>
+            <option value="Strip Laminated Foil">Strip Laminated Foil</option>
+            <option value="Printed Pharmaceutical Foil">Printed Pharmaceutical Foil</option>
+            <option value="Household Foil">Household Foil</option>
+            <option value="Semi-Rigid Container Foil">Semi-Rigid Container Foil</option>
+            <option value="Lidding Foil & Induction Wads">Lidding Foil &amp; Induction Wads</option>
+            <option value="Tagger Foil">Tagger Foil</option>
             <option value="Other / Not Sure">Other / Not Sure</option>
           </select>
         </div>
         <div class="field">
-          <label for="fcMessage">Message</label>
-          <textarea id="fcMessage" name="message" placeholder="Quantity, specification &amp; delivery timeline" rows="4" required></textarea>
+          <label for="acMessage">Message</label>
+          <textarea id="acMessage" name="message" placeholder="Thickness, width, alloy &amp; delivery timeline" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary ferro-form-submit">Send Inquiry →</button>
-        <p class="ferro-form-status" id="ferroFormStatus"></p>
+        <button type="submit" class="btn btn-primary alu-form-submit">Send Inquiry →</button>
+        <p class="alu-form-status" id="aluFormStatus"></p>
       </form>
     </div>
   </div>
@@ -508,7 +599,7 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 <script>
   /* ── STAT COUNTER ANIMATION ── */
   (function () {
-    const counters = document.querySelectorAll('.ferro-counter');
+    const counters = document.querySelectorAll('.alu-counter');
     const duration = 1800;
     function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
     function animateCounter(el) {
@@ -546,29 +637,29 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 <script>
   /* ── CONTACT FORM ── */
   (function () {
-    const form = document.getElementById('ferroContactForm');
-    const status = document.getElementById('ferroFormStatus');
-    const FERRO_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+    const form = document.getElementById('aluContactForm');
+    const status = document.getElementById('aluFormStatus');
+    const ALU_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.classList.add('show');
-      status.className = 'ferro-form-status show';
+      status.className = 'alu-form-status show';
 
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
-      if (FERRO_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+      if (ALU_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
         status.textContent = "This form isn't connected yet, please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
         status.classList.add('error');
         return;
       }
 
-      const submitBtn = form.querySelector('.ferro-form-submit');
+      const submitBtn = form.querySelector('.alu-form-submit');
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
 
-      fetch(FERRO_WEBHOOK_URL, {
+      fetch(ALU_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))
