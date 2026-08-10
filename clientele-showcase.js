@@ -143,10 +143,22 @@
     construction: 'A leading EPC and construction partner building nationally significant projects with Shakambhari steel.',
   };
 
+  // cache each card's inner refs once instead of re-querying the DOM every
+  // time the panel opens (item 7: never query the DOM repeatedly)
+  const cardMeta = new Map();
+  cards.forEach((card) => {
+    cardMeta.set(card, {
+      img: card.querySelector('.cli-card-logo img'),
+      name: card.querySelector('.cli-card-name'),
+      tagEls: card.querySelectorAll('.cli-card-tag'),
+    });
+  });
+
   function openPanel(card) {
-    const img = card.querySelector('.cli-card-logo img');
-    const name = card.querySelector('.cli-card-name');
-    const tagEls = card.querySelectorAll('.cli-card-tag');
+    const meta = cardMeta.get(card) || {};
+    const img = meta.img;
+    const name = meta.name;
+    const tagEls = meta.tagEls || [];
     if (panelLogo) panelLogo.innerHTML = img ? `<img src="${img.currentSrc || img.src}" alt="${img.alt}">` : '';
     if (panelName) panelName.textContent = name ? name.textContent.trim() : '';
     if (panelTags) {
@@ -192,6 +204,10 @@
   if (reduceMotion || !gsapReady) return;
 
   // ── card hover lift ──
+  // Only ever tweens transform (y, scale) on the single card passed in —
+  // never the grid, never other cards, never innerHTML. overwrite:'auto' is
+  // scoped to that one GSAP target, so a fast mouse sweep across several
+  // cards cancels only each card's own in-flight tween, not its neighbors'.
   function lift(card, on) {
     gsap.to(card, { y: on ? -12 : 0, scale: on ? 1.03 : 1, duration: .45, ease: 'power3.out', overwrite: 'auto' });
   }
@@ -203,18 +219,44 @@
   });
 
   // ── whole-grid tilt parallax ──
+  // Rotating .cli-grid repaints every card inside it unless the browser can
+  // treat the rotation as a pure GPU recomposite. That requires (a) the grid
+  // to already be its own compositor layer (see `will-change: transform` on
+  // .cli-grid in the CSS) and (b) never reading layout or writing style more
+  // than once per animation frame. Previously getBoundingClientRect() ran on
+  // every native mousemove (which can fire far more often than the screen
+  // refreshes) and forced a synchronous layout read each time; it's now
+  // cached on mouseenter, and the rotation update itself is coalesced into a
+  // single requestAnimationFrame callback per frame.
   if (grid && window.matchMedia('(hover: hover)').matches) {
     const quickRotX = gsap.quickTo(grid, 'rotationX', { duration: .6, ease: 'power3.out' });
     const quickRotY = gsap.quickTo(grid, 'rotationY', { duration: .6, ease: 'power3.out' });
     grid.style.transformStyle = 'preserve-3d';
+
+    let gridRect = null;
+    let pendingNX = 0;
+    let pendingNY = 0;
+    let tiltRaf = null;
+
+    function applyTilt() {
+      tiltRaf = null;
+      quickRotY(pendingNX * 1.8);
+      quickRotX(-pendingNY * 1.8);
+    }
+
+    grid.addEventListener('mouseenter', () => { gridRect = grid.getBoundingClientRect(); });
     grid.addEventListener('mousemove', (e) => {
-      const rect = grid.getBoundingClientRect();
-      const nx = (e.clientX - rect.left) / rect.width - .5;
-      const ny = (e.clientY - rect.top) / rect.height - .5;
-      quickRotY(nx * 1.8);
-      quickRotX(-ny * 1.8);
+      if (!gridRect) gridRect = grid.getBoundingClientRect();
+      pendingNX = (e.clientX - gridRect.left) / gridRect.width - .5;
+      pendingNY = (e.clientY - gridRect.top) / gridRect.height - .5;
+      if (tiltRaf === null) tiltRaf = requestAnimationFrame(applyTilt);
     });
-    grid.addEventListener('mouseleave', () => { quickRotX(0); quickRotY(0); });
+    grid.addEventListener('mouseleave', () => {
+      gridRect = null;
+      if (tiltRaf !== null) { cancelAnimationFrame(tiltRaf); tiltRaf = null; }
+      quickRotX(0);
+      quickRotY(0);
+    });
   }
 
   // ── magnetic CTA + shine already handled by CSS ──

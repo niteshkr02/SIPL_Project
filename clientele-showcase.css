@@ -412,7 +412,9 @@
   border-radius: 2rem;
   padding: .5rem 1.1rem;
   cursor: pointer;
-  transition: all .25s ease;
+  /* explicit properties only — "transition: all" forces the browser to watch
+     every property (including layout ones) for changes every frame */
+  transition: color .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
 
 .cli-filter-btn:hover {
@@ -433,6 +435,13 @@
   outline-offset: 2px;
 }
 
+@media (max-width: 560px) {
+  .cli-filter-btn {
+    /* taller vertical padding brings the tap target closer to ~40px on touch phones */
+    padding: .65rem 1.1rem;
+  }
+}
+
 /* ── client grid ── */
 .cli-grid {
   position: relative;
@@ -441,6 +450,12 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 1.6rem;
   margin-top: 2.8rem;
+  /* pre-promote the grid to its own compositor layer so the mousemove tilt
+     (rotationX/rotationY, set in JS) is a pure GPU recomposite — without
+     this, rotating the parent forces the browser to repaint every card
+     inside it on each mousemove, which is the main source of the flicker */
+  will-change: transform;
+  contain: layout;
 }
 
 @media (max-width: 960px) {
@@ -473,8 +488,21 @@
   overflow: hidden;
   cursor: pointer;
   outline: none;
-  will-change: transform;
+  /* isolate + contain: hovering/lifting one card can never force a repaint of
+     sibling cards — each card paints and lays out independently */
+  contain: layout paint style;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   transition: box-shadow .45s cubic-bezier(.16, .84, .44, 1), border-color .45s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* will-change only while a card is actually interactive — keeping it on all
+   ~30 cards permanently would pin that many compositor layers in memory for
+   no benefit, so it's scoped to the active/focused card only */
+.cli-card:hover,
+.cli-card:focus-visible {
+  will-change: transform;
 }
 
 .cli-card::before {
@@ -555,6 +583,10 @@
   color: var(--ink);
   text-align: center;
   line-height: 1.3;
+  /* at the 2-column ~320-375px layout, single long words (e.g. "Infraprojects")
+     exceed the card's content width — without this they clip against .cli-card's overflow:hidden */
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .cli-card-tag {
@@ -577,6 +609,13 @@
   border-color: transparent;
   color: #fff;
   transform: translateY(-2px);
+}
+
+/* the sector tag reads better as part of the click-through detail panel
+   than as clutter under every logo in the grid itself — kept in the DOM
+   (still cloned into #cliPanelTags on open) but hidden on the card view */
+.cli-grid .cli-card-tag {
+  display: none;
 }
 
 .cli-card-trusted {
@@ -685,6 +724,8 @@
   font-weight: 700;
   color: var(--ink);
   margin-bottom: .7rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .cli-panel-tags {
@@ -739,17 +780,22 @@
 .cli-cta-shine {
   position: absolute;
   top: 0;
+  /* left is set once and never animated (animating "left" forces a layout
+     recalc on every frame); the sweep itself is driven purely by transform,
+     which the compositor can animate without touching layout at all */
   left: -75%;
   width: 45%;
   height: 100%;
   background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .55), transparent);
-  transform: skewX(-20deg);
-  transition: left .6s ease;
+  transform: translateX(0) skewX(-20deg);
+  transition: transform .6s ease;
   pointer-events: none;
 }
 
 .cli-cta:hover .cli-cta-shine {
-  left: 125%;
+  /* 444% of the element's own (45%-of-parent) width reproduces the exact
+     same travel distance as the original left:-75% -> left:125% sweep */
+  transform: translateX(444%) skewX(-20deg);
 }
 
 .cli-cta-arrow {
@@ -776,4 +822,32 @@
   .cli-panel-overlay {
     transition: none !important;
   }
+}
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .cli-mesh {
+  background:
+    radial-gradient(ellipse 55% 48% at 18% 12%, rgba(255, 145, 40, .07), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 84% 18%, rgba(255, 255, 255, .03), transparent 60%),
+    radial-gradient(ellipse 62% 55% at 50% 100%, rgba(255, 255, 255, .02), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+
+html[data-theme="dark"] .cli-metric {
+  background: linear-gradient(155deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+  border-color: rgba(255, 255, 255, .12);
+}
+
+html[data-theme="dark"] .cli-filter-btn {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .cli-card {
+  background: linear-gradient(165deg, #1B1F26 0%, #20242C 100%);
+  border-color: rgba(255, 255, 255, .08);
+}
+
+html[data-theme="dark"] .cli-panel {
+  background: var(--surface);
 }

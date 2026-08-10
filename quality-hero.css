@@ -1,0 +1,412 @@
+/* ════════════════════════════════════════════════════════════════════
+   QUALITY — Cinematic Precision Hero
+   Isolated component (see quality-hero.js). Replaces the plain
+   .page-header banner on quality.html only. Full-bleed photographic
+   composition of the quality dial + holographic hand (Hero/quality.*)
+   with a single left-to-right scrim carrying the headline — one
+   full-inset photo + one scrim, matching the site's established hero
+   convention (.oj-hero in journey-hero.css, .mvv-hero in vision-hero.css,
+   .gc-hero in group-hero.css), not a boxed image stitched against a
+   separately drawn background.
+
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.q-hero {
+  --navy: #061B49;
+  --navy-mid: #08265C;
+  --navy-deep: #020814;
+  --ink: #F5F7FB;
+  --ink-dim: #B9C4DE;
+  --accent: #FF6B00;
+  --accent-2: #FF7518;
+  --accent-hot: #FFC24B;
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 760px;
+  max-height: 1200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--navy);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .q-hero { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.q-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo ══ */
+.q-hero-visual { position: absolute; inset: 0; overflow: hidden; }
+
+.q-hero-visual picture,
+.q-hero-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.q-hero-visual-img {
+  object-fit: cover;
+  object-position: 64% 42%;
+  /* settles at a small permanent overscale so the scroll-parallax
+     translate in quality-hero.js always has clipping headroom inside
+     the overflow:hidden wrapper — same technique as .gc-hero-visual-img */
+  transform: scale(1.06);
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .q-hero-visual-img { object-position: 62% 40%; }
+}
+
+/* single scrim: dark navy on the left carries the headline, fading
+   naturally into the quality dial / holographic hand on the right; a
+   faint top/bottom vignette blends into the nav above and the curve
+   below */
+.q-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(96deg, var(--navy) 0%, rgba(6, 27, 73, .96) 26%, rgba(6, 27, 73, .82) 42%, rgba(6, 27, 73, .44) 58%, rgba(6, 27, 73, .12) 74%, transparent 90%),
+    linear-gradient(180deg, rgba(2, 8, 20, .4) 0%, transparent 18%, transparent 76%, rgba(2, 8, 20, .58) 100%);
+}
+
+@media (max-width: 900px) {
+  .q-hero-scrim { display: none; }
+}
+
+/* ── thin orbital HUD rings around the quality dial, very slow spin,
+   with 1-2 tiny orange light points drifting along the path — precision
+   / measurement / control, kept low-opacity so it never competes with
+   the dial itself ── */
+.q-hero-orbit {
+  position: absolute;
+  left: 68%;
+  top: 46%;
+  width: min(46vw, 620px);
+  height: min(46vw, 620px);
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 2;
+  pointer-events: none;
+  opacity: .6;
+}
+
+.q-hero-orbit svg { display: block; width: 100%; height: 100%; }
+
+.q-hero-orbit-spin {
+  transform-origin: 450px 450px;
+  animation: qOrbitSpin 28s linear infinite;
+  will-change: transform;
+}
+
+@keyframes qOrbitSpin { to { transform: rotate(360deg); } }
+
+@media (max-width: 1100px) {
+  .q-hero-orbit { left: 66%; width: min(58vw, 520px); height: min(58vw, 520px); }
+}
+
+/* ── very subtle ambient glow pulsing around the quality indicator ── */
+.q-hero-glow {
+  position: absolute;
+  right: 24%;
+  top: 30%;
+  width: min(24vw, 300px);
+  height: min(24vw, 300px);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 194, 75, .48), rgba(255, 117, 24, .15) 45%, transparent 72%);
+  filter: blur(6px);
+  opacity: .7;
+  animation: qGlowPulse 4.6s ease-in-out infinite;
+}
+
+@keyframes qGlowPulse {
+  0%, 100% { opacity: .6; }
+  50% { opacity: .85; }
+}
+
+@media (max-width: 900px) {
+  .q-hero-glow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .q-hero-orbit-spin, .q-hero-glow { animation: none !important; }
+}
+
+/* ══ content ══ */
+.q-hero-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) 1.75rem 4rem;
+}
+
+.q-hero-content { max-width: 600px; }
+
+.q-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  opacity: 0;
+}
+
+.q-hero-eyebrow-icon { display: flex; flex-shrink: 0; color: var(--accent); }
+.q-hero-eyebrow-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.q-hero-eyebrow-line {
+  width: 30px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hot));
+}
+
+.q-hero-heading {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.6rem, 4.6vw + 1vh, 4.3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+
+.q-hero-heading .line { display: block; opacity: 0; }
+.q-hero-heading .ink { color: var(--ink); }
+.q-hero-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 107, 0, .32));
+}
+
+.q-hero-desc {
+  margin-top: 1.2rem;
+  max-width: 46ch;
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+/* ── CTA: orange pill, white text, arrow badge ── */
+.q-hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: 1.9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 26px rgba(255, 107, 0, .28);
+  opacity: 0;
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease;
+}
+
+.q-hero-cta:hover,
+.q-hero-cta:focus-visible {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #E85D00, var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 107, 0, .4);
+}
+
+.q-hero-cta:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
+}
+
+.q-hero-cta-label {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.q-hero-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.q-hero-cta-arrow svg { width: 16px; height: 16px; }
+
+.q-hero-cta:hover .q-hero-cta-arrow,
+.q-hero-cta:focus-visible .q-hero-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ── bottom feature row: compact indicators, not cards ── */
+.q-hero-features {
+  display: flex;
+  align-items: stretch;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  opacity: 0;
+}
+
+.q-hero-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
+}
+
+.q-hero-feature-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 117, 24, .4);
+  color: var(--accent-hot);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), color .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+.q-hero-feature-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.q-hero-feature-text { display: flex; flex-direction: column; gap: .2rem; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
+
+.q-hero-feature-title {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color .28s ease;
+}
+
+.q-hero-feature-sub {
+  font-size: .72rem;
+  line-height: 1.4;
+  max-width: 15ch;
+  color: var(--ink-dim);
+}
+
+.q-hero-feature:hover { transform: translateY(-2px); }
+
+.q-hero-feature:hover .q-hero-feature-icon {
+  transform: scale(1.08);
+  color: #fff;
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 0 5px rgba(255, 117, 24, .12), 0 0 16px rgba(255, 194, 75, .35);
+}
+
+.q-hero-feature:hover .q-hero-feature-title { color: var(--accent-hot); }
+
+.q-hero-feature-div {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, .14);
+}
+
+@media (max-width: 1100px) {
+  .q-hero-content { max-width: 520px; }
+  .q-hero-features { gap: 1.2rem; margin-top: 2.2rem; }
+  .q-hero-feature-sub { max-width: 13ch; }
+}
+
+@media (max-width: 560px) {
+  .q-hero-features { flex-wrap: wrap; row-gap: 1.4rem; column-gap: 1.1rem; justify-content: center; }
+  .q-hero-feature-div { display: none; }
+  .q-hero-feature-sub { max-width: 20ch; }
+}
+
+/* ── bottom curved transition: dark navy fill + thin orange accent line ── */
+.q-hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 3;
+  height: clamp(56px, 8vw, 100px);
+  pointer-events: none;
+}
+
+.q-hero-wave svg { display: block; width: 100%; height: 100%; }
+
+.q-hero-wave-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.q-hero-wave-fill { fill: var(--surface, #0A0B0E); }
+
+@media (max-width: 900px) {
+  .q-hero-wave { display: none; }
+}
+
+/* ══ mobile: vertical stack — eyebrow, headline, copy, CTA, features,
+   then the quality visual as a contained, uncropped card, matching the
+   site's established mobile hero pattern (.oj-hero / .mvv-hero / .gc-hero) ══ */
+@media (max-width: 900px) {
+  .q-hero { display: flex; flex-direction: column; align-items: stretch; }
+
+  .q-hero-bg { position: relative; inset: auto; order: 2; }
+
+  .q-hero-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; }
+
+  .q-hero-content { max-width: none; text-align: center; }
+
+  .q-hero-eyebrow { justify-content: center; }
+
+  .q-hero-desc { margin-left: auto; margin-right: auto; }
+
+  .q-hero-cta { margin-left: auto; margin-right: auto; }
+
+  .q-hero-features { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; text-align: left; }
+
+  .q-hero-visual {
+    position: relative;
+    inset: auto;
+    margin: 2.2rem 1.25rem 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--navy-deep);
+    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
+  }
+
+  .q-hero-visual picture,
+  .q-hero-visual-img { position: absolute; inset: 0; }
+
+  .q-hero-visual-img { object-fit: cover; object-position: 58% 40%; }
+
+  .q-hero-orbit { left: 50%; top: 48%; width: 92%; height: 92%; opacity: .5; }
+}

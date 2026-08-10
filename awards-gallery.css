@@ -16,13 +16,23 @@
   padding: 5rem 1.75rem 6rem;
 }
 
-/* ── ambient background: mesh + blueprint + dot grid + glow + noise ── */
-.awx-mesh {
+/* ── ambient background: mesh + blueprint + dot grid + glow + noise + shapes,
+   all clipped to one rounded panel — same "floating card" recipe as the
+   "Why Join Us" / "Our Process" carousels' .cbc-bg / .pcc-bg, so this
+   gallery reads as one continuous carousel system with the rest of the
+   site instead of a flat, edge-to-edge tint. ── */
+.awx-bg {
   position: absolute;
   inset: -4% -2%;
   z-index: 0;
   pointer-events: none;
   border-radius: 2rem;
+  overflow: hidden;
+}
+
+.awx-mesh {
+  position: absolute;
+  inset: 0;
   background:
     radial-gradient(ellipse 55% 45% at 20% 15%, rgba(255, 145, 40, .05), transparent 60%),
     radial-gradient(ellipse 55% 50% at 82% 20%, rgba(241, 243, 246, .85), transparent 60%),
@@ -32,9 +42,7 @@
 
 .awx-blueprint {
   position: absolute;
-  inset: -4% -2%;
-  z-index: 0;
-  pointer-events: none;
+  inset: 0;
   background-image:
     repeating-linear-gradient(90deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 42px),
     repeating-linear-gradient(0deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 42px);
@@ -45,9 +53,7 @@
 
 .awx-dots {
   position: absolute;
-  inset: -4% -2%;
-  z-index: 0;
-  pointer-events: none;
+  inset: 0;
   background-image: radial-gradient(rgba(15, 23, 42, .05) 1px, transparent 1px);
   background-size: 24px 24px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 65%, #000 35%, transparent 95%);
@@ -61,17 +67,24 @@
   width: 65%;
   height: 55%;
   transform: translate(-50%, -50%);
-  z-index: 0;
-  pointer-events: none;
   background: radial-gradient(ellipse at center, rgba(255, 106, 31, .08), transparent 65%);
   filter: blur(46px);
 }
 
+/* floating ambient blobs — same recipe as the "Why Join Us" / "Our Process"
+   carousels' .cbc-shape / .pcc-shape. */
+.awx-shape { position: absolute; border-radius: 50%; filter: blur(28px); opacity: .35; pointer-events: none; }
+.awx-shape.s1 { left: 6%; top: 18%; width: 130px; height: 130px; background: rgba(255, 106, 31, .16); animation: awxShapeFloat 13s ease-in-out infinite; }
+.awx-shape.s2 { right: 8%; top: 55%; width: 90px; height: 90px; background: rgba(255, 194, 75, .18); animation: awxShapeFloat 16s ease-in-out infinite 2s; }
+.awx-shape.s3 { left: 30%; bottom: 6%; width: 70px; height: 70px; background: rgba(255, 106, 31, .12); animation: awxShapeFloat 11s ease-in-out infinite 4s; }
+@keyframes awxShapeFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(18px, -24px); }
+}
+
 .awx-noise {
   position: absolute;
-  inset: -4% -2%;
-  z-index: 0;
-  pointer-events: none;
+  inset: 0;
   opacity: .02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -210,12 +223,23 @@
   pointer-events: none;
 }
 
-/* ── carousel viewport ── */
+/* ── carousel viewport: nav arrows flank the track, same layout as the
+   "Why Join Us" / "Our Process" carousels' .cbc-viewport / .pcc-viewport ── */
 .awx-viewport {
   position: relative;
   z-index: 1;
   width: 100%;
   margin-top: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  overflow: visible;
+}
+
+.awx-track-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: visible;
 }
 
@@ -255,7 +279,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
+  background: linear-gradient(165deg, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, .55) 100%);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid rgba(255, 145, 40, .15);
   border-radius: 28px;
   padding: 1.5rem 1.5rem 1.75rem;
@@ -565,31 +591,22 @@
   }
 }
 
-/* ── navigation + progress ── */
-.awx-controls {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 640px;
-  margin: 2.5rem auto 0;
-}
-
+/* ── navigation: arrows flank the track (.awx-viewport), same position as
+   the "Why Join Us" / "Our Process" carousels' .cbc-nav / .pcc-nav ── */
 .awx-arrow {
   position: relative;
-  flex-shrink: 0;
+  flex: 0 0 auto;
   appearance: none;
   -webkit-appearance: none;
   overflow: hidden;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .75);
+  background: rgba(255, 255, 255, .6);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(15, 23, 42, .08);
-  color: var(--accent-ink);
+  border: 1px solid var(--border);
+  color: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -605,11 +622,9 @@
 }
 
 .awx-arrow:hover {
-  background: var(--accent);
-  color: #FFF;
-  border-color: var(--accent);
-  box-shadow: 0 14px 32px rgba(255, 106, 31, .35);
   transform: scale(1.08);
+  border-color: var(--accent);
+  box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
 }
 
 .awx-arrow.prev:hover svg {
@@ -646,25 +661,31 @@
   }
 }
 
-.awx-progress {
+/* ── pagination dots — same recipe as .cbc-dots / .pcc-dots. Named
+   .awx-pager (not .awx-dots) because .awx-dots is already the decorative
+   background dot-grid layer defined above. ── */
+.awx-pager {
   position: relative;
-  flex: 1;
-  height: 3px;
-  background: rgba(15, 23, 42, .08);
-  border-radius: 3px;
-  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  margin-top: 2rem;
 }
-
-.awx-progress-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--accent-hot), var(--accent));
-  box-shadow: 0 0 10px rgba(255, 106, 31, .6);
-  transition: left .5s cubic-bezier(.16, .84, .44, 1), width .5s cubic-bezier(.16, .84, .44, 1);
+.awx-pager-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  background: var(--border);
+  cursor: pointer;
+  transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
 }
+.awx-pager-dot:hover { background: var(--accent-hot); }
+.awx-pager-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.awx-pager-dot.is-active { width: 26px; background: linear-gradient(90deg, var(--accent-hot), var(--accent)); }
 
 /* ── responsive: 4 / 2 / 1 visible cards ── */
 @media (max-width: 1180px) and (min-width: 769px) {
@@ -677,6 +698,11 @@
     height: 420px;
     margin: -210px 0 0 -130px;
   }
+
+  .awx-arrow {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -685,18 +711,53 @@
   }
 
   .awx-slot {
-    width: min(78vw, 300px);
+    width: min(72vw, 300px);
     height: 420px;
     margin-top: -210px;
-    margin-left: calc(min(78vw, 300px) / -2);
+    margin-left: calc(min(72vw, 300px) / -2);
   }
 
   .awx-timeline {
     gap: 1rem;
   }
 
-  .awx-controls {
-    max-width: 100%;
+  .awx-viewport {
+    gap: .25rem;
+  }
+
+  .awx-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .awx-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .awx-slot {
+    width: min(58vw, 300px);
+    margin-left: calc(min(58vw, 300px) / -2);
+  }
+
+  .awx-arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .awx-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .awx-timeline {
+    flex-wrap: wrap;
+    row-gap: .6rem;
+    gap: .75rem;
   }
 }
 
@@ -725,4 +786,31 @@
   .awx-frame img {
     transition: none;
   }
+}
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .awx-mesh {
+  background:
+    radial-gradient(ellipse 55% 45% at 20% 15%, rgba(255, 145, 40, .07), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 82% 20%, rgba(255, 255, 255, .03), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(255, 255, 255, .02), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+
+html[data-theme="dark"] .awx-card {
+  background: linear-gradient(165deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, .02) 100%);
+  border-color: rgba(255, 145, 40, .18);
+}
+
+html[data-theme="dark"] .awx-frame {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+  border-color: rgba(255, 145, 40, .22);
+}
+
+html[data-theme="dark"] .awx-title {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .awx-arrow {
+  background: rgba(27, 31, 38, .7);
 }

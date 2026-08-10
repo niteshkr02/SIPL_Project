@@ -38,6 +38,7 @@
     playEntrance();
   }
 
+<<<<<<< HEAD
   // ── subtle cursor parallax tilt ──
   if (gsapReady && !reduceMotion && window.matchMedia('(hover: hover)').matches) {
     const quickX = gsap.quickTo(panel, 'rotationY', { duration: .6, ease: 'power3.out' });
@@ -68,6 +69,8 @@
     });
   }
 
+=======
+>>>>>>> be3f87c91abe0ca5b4cc40daf79bb4238742fbc8
   // ── button ripple (primary/secondary contact actions) ──
   panel.addEventListener('click', (e) => {
     const btn = e.target.closest('.mpp-btn');

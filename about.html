@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About the Group | Shakambhari Group</title>
@@ -126,7 +127,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="about.html" class="dropdown-label active">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -135,11 +136,65 @@
     </li>
     <li><a href="companies.html">Group Companies</a></li>
     <li><a href="quality.html">Quality</a></li>
-    <li><a href="products.html">Products</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -150,6 +205,10 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -170,7 +229,7 @@
     <a href="journey.html" class="hub-card panel reveal">
       <div class="icon-wrap">01</div>
       <h4>Our Journey</h4>
-      <p>From a single Durgapur factory in 1953 to the acquisitions and launches that built the group we are today.</p>
+      <p>From a single Durgapur factory in 2000 to the acquisitions and launches that built the group we are today.</p>
       <span class="go">READ THE TIMELINE →</span>
     </a>
     <a href="vision.html" class="hub-card panel reveal">
@@ -188,7 +247,7 @@
     <a href="companies.html" class="hub-card panel reveal">
       <div class="icon-wrap">04</div>
       <h4>Group Companies</h4>
-      <p>Seven integrated units across West Bengal, plus the aluminium and agriculture ventures alongside them.</p>
+      <p>Eight integrated units across West Bengal, spanning steel, ferro alloys, aluminium and agriculture.</p>
       <span class="go">SEE ALL UNITS →</span>
     </a>
     <a href="quality.html" class="hub-card panel reveal">
@@ -249,6 +308,7 @@
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>

@@ -27,10 +27,15 @@
       cards.forEach((c) => { c.style.opacity = 1; });
       return;
     }
-    gsap.set(cards, { opacity: 0, y: 40, scale: .92, filter: 'blur(10px)' });
+    // No filter/blur here: animating blur on 20 cards at once is expensive
+    // enough that weaker devices can drop or stall the tween mid-flight,
+    // leaving logos looking like they never finished loading in. Opacity +
+    // transform alone stays cheap and reliable, and a tighter stagger gets
+    // every card fully visible in well under a second either way.
+    gsap.set(cards, { opacity: 0, y: 40, scale: .92 });
     gsap.to(cards, {
-      opacity: 1, y: 0, scale: 1, filter: 'blur(0px)',
-      duration: .8, ease: EASE, stagger: .08,
+      opacity: 1, y: 0, scale: 1,
+      duration: .6, ease: EASE, stagger: { each: .035, from: 'start' },
     });
   }
 
@@ -73,30 +78,62 @@
   });
 
   // ── whole-grid tilt + "nearest card" elevation, both very subtle ──
+  // Card centers are read once (on grid entry + resize), not on every native
+  // mousemove — getBoundingClientRect() inside a per-card loop on every
+  // mousemove was forcing a synchronous layout read for all ~20 cards at
+  // native pointer-event frequency (which can run well past 60Hz), starving
+  // the main thread and causing the hover state to visibly stutter/flicker.
+  // The whole update is now coalesced into a single requestAnimationFrame
+  // per frame, matching the pattern already used for clientele-showcase.js's
+  // grid tilt.
   if (window.matchMedia('(hover: hover)').matches) {
     const quickRotX = gsap.quickTo(grid, 'rotationX', { duration: .6, ease: 'power3.out' });
     const quickRotY = gsap.quickTo(grid, 'rotationY', { duration: .6, ease: 'power3.out' });
     const PROXIMITY_RADIUS = 240;
 
-    grid.addEventListener('mousemove', (e) => {
-      const rect = grid.getBoundingClientRect();
-      const nx = (e.clientX - rect.left) / rect.width - .5;
-      const ny = (e.clientY - rect.top) / rect.height - .5;
+    let gridRect = null;
+    let cardCenters = null;
+    let pendingX = 0;
+    let pendingY = 0;
+    let proximityRaf = null;
+
+    function measure() {
+      gridRect = grid.getBoundingClientRect();
+      cardCenters = cards.map((card) => {
+        const cr = card.getBoundingClientRect();
+        return { card, cx: cr.left + cr.width / 2, cy: cr.top + cr.height / 2 };
+      });
+    }
+
+    function applyProximity() {
+      proximityRaf = null;
+      if (!gridRect) return;
+      const nx = (pendingX - gridRect.left) / gridRect.width - .5;
+      const ny = (pendingY - gridRect.top) / gridRect.height - .5;
       quickRotY(nx * 2.2);
       quickRotX(-ny * 2.2);
 
-      cards.forEach((card) => {
+      cardCenters.forEach(({ card, cx, cy }) => {
         if (card.matches(':hover, :focus-visible')) return;
-        const cr = card.getBoundingClientRect();
-        const cx = cr.left + cr.width / 2;
-        const cy = cr.top + cr.height / 2;
-        const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+        const dist = Math.hypot(pendingX - cx, pendingY - cy);
         const influence = Math.max(0, 1 - dist / PROXIMITY_RADIUS);
         gsap.to(card, { y: -influence * 3, duration: .4, ease: 'power2.out', overwrite: 'auto' });
       });
+    }
+
+    grid.addEventListener('mouseenter', measure);
+    window.addEventListener('resize', () => { if (gridRect) measure(); }, { passive: true });
+
+    grid.addEventListener('mousemove', (e) => {
+      if (!gridRect) measure();
+      pendingX = e.clientX;
+      pendingY = e.clientY;
+      if (proximityRaf === null) proximityRaf = requestAnimationFrame(applyProximity);
     });
 
     grid.addEventListener('mouseleave', () => {
+      if (proximityRaf !== null) { cancelAnimationFrame(proximityRaf); proximityRaf = null; }
+      gridRect = null;
       quickRotX(0);
       quickRotY(0);
       cards.forEach((card) => {

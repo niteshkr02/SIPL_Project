@@ -1,0 +1,245 @@
+/* ════════════════════════════════════════════════════════════════════
+   QUALITY WITHOUT COMPROMISE CAROUSEL — index.html "Quality Without
+   Compromise" section, card data pulled from quality.html's eight QC
+   checkpoints. Isolated component (see quality-carousel.js). Class
+   prefix .qcc. Deliberately the same coverflow/background recipe as
+   the "OUR PROCESS" carousel on this same page (process-carousel.css,
+   prefix .pcc) so both carousels read as one system — only the slide
+   content differs, wrapped in the existing .pillar-card visual
+   (image/icon panel + badge + body) rather than a new card design.
+
+   Positioning model: identical to .pcc — each .qcc-slide is absolutely
+   centered and moved with translate3d/scale driven by CSS custom
+   properties (--tx/--sc/--op/--z) that quality-carousel.js updates per
+   slide based on its circular distance from the active index.
+   ════════════════════════════════════════════════════════════════════ */
+
+.qcc {
+  position: relative;
+  margin-top: 3rem;
+  padding: 2.5rem 0 1rem;
+  border-radius: 2rem;
+  isolation: isolate;
+}
+
+.qcc.is-visible .qcc-viewport { opacity: 1; transform: translateY(0); }
+.qcc-viewport {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.16, .84, .44, 1), transform .7s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* ── ambient background (same recipe family as .pcc-mesh/.pcc-glow) ── */
+.qcc-bg { position: absolute; inset: -6% -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
+
+.qcc-mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 82% 12%, rgba(255, 106, 31, .06), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 12% 22%, rgba(241, 243, 246, .8), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(228, 231, 236, .45), transparent 65%),
+    linear-gradient(180deg, #FCFCFD 0%, #F5F6F8 100%);
+}
+
+.qcc-texture {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(0deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 44px);
+  opacity: .025;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 90%);
+}
+
+.qcc-glow {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 60%; height: 60%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(255, 106, 31, .09), transparent 65%);
+  filter: blur(46px);
+  animation: qccGlowBreathe 9s ease-in-out infinite;
+}
+@keyframes qccGlowBreathe {
+  0%, 100% { opacity: .7; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.qcc-shape { position: absolute; border-radius: 50%; filter: blur(28px); opacity: .35; pointer-events: none; }
+.qcc-shape.s1 { left: 6%; top: 18%; width: 130px; height: 130px; background: rgba(255, 106, 31, .16); animation: qccFloat 13s ease-in-out infinite; }
+.qcc-shape.s2 { right: 8%; top: 55%; width: 90px; height: 90px; background: rgba(255, 194, 75, .18); animation: qccFloat 16s ease-in-out infinite 2s; }
+.qcc-shape.s3 { left: 30%; bottom: 6%; width: 70px; height: 70px; background: rgba(255, 106, 31, .12); animation: qccFloat 11s ease-in-out infinite 4s; }
+@keyframes qccFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(18px, -24px); }
+}
+
+/* ── viewport + track ── */
+.qcc-viewport {
+  position: relative;
+  padding: 2.5rem 0 1.5rem;
+}
+
+.qcc-track-wrap { position: relative; flex: 1 1 auto; min-width: 0; overflow-x: hidden; overflow-y: visible; }
+.qcc-track-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 1rem; }
+
+.qcc-track {
+  position: relative;
+  height: 460px;
+  touch-action: pan-y;
+  cursor: grab;
+  transform: translate3d(var(--drag, 0px), 0, 0);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+.qcc-track.is-dragging { cursor: grabbing; transition: none; }
+
+.qcc-slide {
+  position: absolute;
+  top: 0; left: 50%;
+  width: min(340px, 84vw);
+  margin-left: calc(min(340px, 84vw) / -2);
+  transform: translate3d(var(--tx, 0px), 0, 0) scale(var(--sc, 1));
+  opacity: var(--op, 1);
+  z-index: var(--z, 1);
+  transition: transform .7s cubic-bezier(.16, .84, .44, 1), opacity .7s cubic-bezier(.16, .84, .44, 1), filter .7s ease;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.qcc-slide.is-hidden-visual { pointer-events: none; }
+.qcc-slide.is-far { filter: saturate(.7); }
+
+/* the shared .pillar-card already provides the card's own background/
+   border/hover-lift/accent-underline (index.html inline styles) — .qcc-card
+   only layers carousel-specific flourishes on top: cursor spotlight (via
+   ::before, since .pillar-card already owns ::after for its underline
+   bar) and a stronger glow/border when centered. */
+.qcc-card {
+  position: relative;
+  display: flex;
+  height: 100%;
+  cursor: pointer;
+}
+
+.qcc-card::before {
+  /* cursor spotlight, position set via --mx/--my by quality-carousel.js */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 0%), rgba(255, 145, 40, .12), transparent 70%);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.qcc-card:hover::before, .qcc-card:focus-visible::before { opacity: 1; }
+.qcc-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.qcc-slide.is-center .qcc-card .pillar-img-wrap.icon-wrap { animation: qccIconPulse 3.2s ease-in-out infinite; }
+@keyframes qccIconPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 106, 31, 0) inset; }
+  50% { box-shadow: 0 0 0 8px rgba(255, 106, 31, .07) inset; }
+}
+
+/* ── center-card focus: stronger shadow + accent border, same values as .pcc ── */
+.qcc-slide.is-center .qcc-card {
+  border-color: rgba(255, 106, 31, .4);
+  box-shadow: 0 30px 60px -18px rgba(20, 22, 28, .18), 0 0 46px rgba(255, 106, 31, .16);
+}
+
+/* ── bottom control bar: prev arrow · dots · next arrow ── */
+.qcc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  margin-top: .5rem;
+}
+
+/* ── nav buttons ── */
+.qcc-nav {
+  flex: 0 0 auto;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease;
+}
+.qcc-nav svg { width: 20px; height: 20px; }
+.qcc-nav:hover, .qcc-nav:focus-visible {
+  transform: scale(1.08);
+  border-color: var(--accent);
+  box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
+  outline: none;
+}
+.qcc-nav:active { transform: scale(.96); }
+
+/* ── pagination ── */
+.qcc-dots { display: flex; align-items: center; justify-content: center; gap: .55rem; }
+.qcc-dot {
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  background: var(--border);
+  cursor: pointer;
+  transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
+}
+.qcc-dot:hover { background: var(--accent-hot); }
+.qcc-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.qcc-dot.is-active { width: 26px; background: linear-gradient(90deg, var(--accent-hot), var(--accent)); }
+
+.qcc-sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── responsive step/scale tuning is computed in JS from measured card
+   width; these breakpoints only resize the card + track height ── */
+@media (max-width: 1024px) {
+  .qcc-track { height: 480px; }
+  .qcc-nav { width: 42px; height: 42px; }
+}
+@media (max-width: 640px) {
+  .qcc-slide { width: min(300px, 82vw); margin-left: calc(min(300px, 82vw) / -2); }
+  .qcc-track { height: 500px; }
+  .qcc-viewport { padding: 1.75rem 0 1rem; }
+  .qcc-controls { gap: .8rem; }
+  .qcc-nav { width: 38px; height: 38px; }
+  .qcc-nav svg { width: 17px; height: 17px; }
+}
+@media (max-width: 420px) {
+  .qcc-slide { width: min(250px, 56vw); margin-left: calc(min(250px, 56vw) / -2); }
+  .qcc-track { height: 520px; }
+}
+
+/* ══ DARK MODE — same recipe as process-carousel.css's
+   html[data-theme="dark"] overrides ══ */
+html[data-theme="dark"] .qcc-mesh {
+  background:
+    radial-gradient(ellipse 55% 45% at 82% 12%, rgba(255, 145, 40, .08), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 12% 22%, rgba(32, 36, 44, .5), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(18, 21, 26, .5), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+html[data-theme="dark"] .qcc-texture {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .5) 0, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .5) 0, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 44px);
+  opacity: .02;
+}
+html[data-theme="dark"] .qcc-nav {
+  background: rgba(27, 31, 38, .7);
+}
+html[data-theme="dark"] .qcc-slide.is-center .qcc-card {
+  border-color: rgba(255, 106, 31, .5);
+  box-shadow: 0 30px 60px -18px rgba(0, 0, 0, .45), 0 0 46px rgba(255, 106, 31, .18);
+}

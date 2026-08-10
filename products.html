@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Product Portfolio | Shakambhari Group</title>
@@ -21,24 +22,30 @@
 /* ══ SPEC CARDS ══ */
 .spec-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
 @media(max-width:800px){ .spec-grid{ grid-template-columns:1fr; } }
-.spec-card{ padding:1.9rem 1.8rem; }
+.spec-card{ padding:1.9rem 1.8rem; overflow:hidden; }
 .spec-card .spec-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:.8rem; }
 .spec-card h4{ font-size:1.08rem; font-weight:700; text-transform:none; font-family:var(--font-body); }
 .spec-card .icon-wrap{ width:46px; height:46px; border-radius:.8rem; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
 .spec-card .icon-wrap svg{ width:26px; height:26px; }
+.spec-card-photo{ width:calc(100% + 3.6rem); margin:-1.9rem -1.8rem 1.2rem; height:170px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
 .spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
 .spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
 .spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
-
-/* ══ COMPETITIVE MATRIX ══ */
-.matrix{ display:flex; flex-direction:column; gap:1rem; }
-.matrix-row{ display:grid; grid-template-columns:1fr 1.4fr 1.4fr; gap:1.4rem; padding:1.6rem 1.8rem; align-items:center; }
-@media(max-width:800px){ .matrix-row{ grid-template-columns:1fr; gap:.7rem; } }
-.matrix-row .m-label{ font-family:var(--font-display); font-weight:700; font-size:1rem; color:var(--accent-ink); text-transform:uppercase; }
-.matrix-row .m-col h5{ font-family:var(--font-mono); font-size:.65rem; font-weight:700; letter-spacing:.1em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:.35rem; }
-.matrix-row .m-col p{ font-size:.9rem; color:var(--ink-soft); }
+.spec-card-link{ display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.03em; color:var(--accent-ink); }
+.spec-card-link:hover{ color:var(--accent); text-decoration:underline; }
 
 .section-divider-label{ text-align:center; margin:0 auto 3rem; }
+
+/* ══ PRODUCT CATEGORY CARDS ══ */
+.category-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; }
+@media(max-width:960px){ .category-grid{ grid-template-columns:1fr; max-width:520px; margin:0 auto; } }
+.category-card{ padding:0; overflow:hidden; display:flex; flex-direction:column; }
+.category-card-photo{ width:100%; height:220px; object-fit:cover; display:block; }
+.category-card-body{ padding:1.9rem 1.9rem 2.1rem; flex:1; display:flex; flex-direction:column; }
+.category-card-eyebrow{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.category-card-body h3{ font-size:1.35rem; font-weight:800; text-transform:none; font-family:var(--font-display); margin-bottom:.9rem; }
+.category-card-body p{ color:var(--ink-soft); font-size:.92rem; line-height:1.68; margin-bottom:1.6rem; flex:1; }
+.category-card-body .btn{ align-self:flex-start; }
 </style>
 </head>
 <body>
@@ -69,7 +76,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="about.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -78,11 +85,65 @@
     </li>
     <li><a href="companies.html">Group Companies</a></li>
     <li><a href="quality.html">Quality</a></li>
-    <li><a href="products.html" class="active">Products</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label active" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -93,6 +154,10 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -103,33 +168,44 @@
   <p class="reveal">From the pellets that start the chain to the bars that finish it, and the foil that's newest to it. Every product tested against IS, BIS and ISO standards before it ever reaches a customer.</p>
 </header>
 
-<!-- UPSTREAM -->
-<section class="section">
+<!-- PRODUCT CATEGORIES -->
+<section class="section" id="categories">
   <div class="section-head reveal">
-    <div class="kicker center">UPSTREAM &amp; INTERMEDIATE</div>
-    <h2>What Feeds the Furnace</h2>
-    <p>Most of these never reach a customer directly. They're what makes everything downstream possible.</p>
+    <div class="kicker center">EXPLORE OUR RANGE</div>
+    <h2>Three Ways Into Our Product Range</h2>
+    <p>Steel, ferro alloys and aluminium, each built on its own dedicated line, each with a range deep enough to deserve its own tour.</p>
   </div>
-  <div class="spec-grid">
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Iron Pellets</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><circle cx="14" cy="16" r="7" fill="url(#oreGrad)"/><circle cx="26" cy="18" r="7" fill="url(#oreGrad)" opacity=".85"/><circle cx="19" cy="27" r="6" fill="url(#oreGrad)" opacity=".7"/></svg></div></div>
-      <p>Spheroids of 6–16mm, mixing iron ore fines with limestone, dolomite and bentonite binders before thermal hardening, premium feedstock for DRI kilns and blast furnaces alike.</p>
-      <div class="spec-tags"><span class="spec-tag">6–16mm</span><span class="spec-tag">Rukni Unit</span><span class="spec-tag">0.9+ MTPA</span></div>
+  <div class="category-grid">
+    <div class="category-card panel reveal">
+      <img src="images/pipe_section.jpeg" alt="Steel Long Products" class="category-card-photo" loading="lazy">
+      <div class="category-card-body">
+        <div class="category-card-eyebrow">Steel Long Products</div>
+        <h3>Tube, Structural &amp; Long Steel</h3>
+        <p>From primary hot-rolled billets to precision-drawn cold wire and structural hollow sections. Discover mill-direct steel solutions engineered for heavy construction, manufacturing and industrial fabrication.</p>
+        <a href="/steel/" class="btn btn-primary">Explore Steel Long Products →</a>
+      </div>
     </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Sponge Iron</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="8" y="10" width="24" height="18" rx="4" fill="#8B7355"/><circle cx="15" cy="17" r="2" fill="#6B5335"/><circle cx="23" cy="15" r="2" fill="#6B5335"/><circle cx="19" cy="22" r="2" fill="#6B5335"/></svg></div></div>
-      <p>Solid-state direct reduced metallic iron, made by removing oxygen from raw ore. India is the world's largest producer of this, and it's the primary feed for our electric furnace route.</p>
-      <div class="spec-tags"><span class="spec-tag">Coal-Based DRI</span><span class="spec-tag">High Metallisation</span></div>
+    <div class="category-card panel reveal">
+      <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" class="category-card-photo" loading="lazy">
+      <div class="category-card-body">
+        <div class="category-card-eyebrow">Ferro Alloys</div>
+        <h3>Silicomanganese &amp; High-Carbon Ferro</h3>
+        <p>Smelted in-house at Eloquent Steel in a submerged arc furnace, a portion feeds our own furnace, the surplus is exported to steelmakers worldwide.</p>
+        <a href="ferro-alloys.html" class="btn btn-primary">Explore Ferro Alloys →</a>
+      </div>
     </div>
-    <div class="spec-card panel reveal" id="ferro-alloys">
-      <div class="spec-top"><h4>Ferro Alloys</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="10" y="10" width="20" height="20" rx="4" fill="url(#goldGrad)"/></svg></div></div>
-      <p>Silicomanganese, Ferromanganese, Ferrosilicon and Ferrochrome: iron alloys rich in manganese, silicon and chromium, made in-house for our own furnace and for stainless steel producers worldwide.</p>
-      <div class="spec-tags"><span class="spec-tag">SiMn</span><span class="spec-tag">FeMn</span><span class="spec-tag">FeSi</span><span class="spec-tag">FeCr</span></div>
-    </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>M.S. Billets</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="6" y="14" width="28" height="10" rx="2" fill="url(#barGrad)"/></svg></div></div>
-      <p>High-grade semi-finished feed for rolling mills, produced by melting sponge iron, pig iron and select ferro alloys at ~1600°C, then shaped via Continuous Casting.</p>
-      <div class="spec-tags"><span class="spec-tag">100mm–160mm</span><span class="spec-tag">IS 2830:2012</span></div>
+    <div class="category-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/Aluminium_Foil.avif">
+        <source type="image/webp" srcset="optimized-images/images/Aluminium_Foil.webp">
+        <img src="optimized-images/images/Aluminium_Foil.jpg" alt="Aluminium Foil" class="category-card-photo" loading="lazy">
+      </picture>
+      <div class="category-card-body">
+        <div class="category-card-eyebrow">Aluminium</div>
+        <h3>Pharma, Household &amp; Industrial Foil</h3>
+        <p>Rolled at SIPL Mogra, India Foils, Hooghly, from 9 to 60 microns, backed by decades built entirely in iron and steel.</p>
+        <a href="aluminium-foil.html" class="btn btn-primary">Explore Aluminium →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -137,131 +213,85 @@
 <div class="divider"></div>
 
 <!-- FINISHED -->
-<section class="section">
+<section class="section" id="finished-steel">
   <div class="section-head reveal">
     <div class="kicker center">FINISHED STEEL &amp; ENGINEERED GOODS</div>
     <h2>What Actually Gets Built With</h2>
   </div>
   <div class="spec-grid">
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>QST Bars</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="6" y="17" width="28" height="8" rx="2" fill="url(#barGrad)"/><rect x="12" y="15" width="3" height="12" fill="#6B5A3B"/><rect x="19" y="15" width="3" height="12" fill="#6B5A3B"/><rect x="26" y="15" width="3" height="12" fill="#6B5A3B"/></svg></div></div>
-      <p>Quenched and Self Tempered rebar with a hard martensitic outer surface and a softer, formable ferrite-pearlite core, shaped by our TEMPCORE quenching system. Marketed as Elegant TMT.</p>
-      <div class="spec-tags"><span class="spec-tag">6–32mm</span><span class="spec-tag">Fe 500D / 550D / CRS</span><span class="spec-tag">ISI 1786:2008</span></div>
+      <img src="images/elegant_qst_bar.jpeg" alt="Elegant QST TMT Bars" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>TMT / QST Bar</h4></div>
+      <p>Quenched and Self Tempered rebar with a hard martensitic outer surface and a softer, formable ferrite-pearlite core, shaped by our TEMPCORE quenching system, full-size Elegant and Thermocon TMT, 8mm to 32mm.</p>
+      <div class="spec-tags"><span class="spec-tag">8–32mm</span><span class="spec-tag">Fe 500 / 500D / 550D / CRS</span><span class="spec-tag">ISI 1786:2008</span></div>
+      <a href="/steel/concrete-reinforcement/tmt-qst-bars/" class="spec-card-link">Explore TMT / QST Bar →</a>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Wire Rods</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="11" fill="none" stroke="url(#steelGrad)" stroke-width="4"/></svg></div></div>
-      <p>Hot-rolled coiled round bars, cooled and coiled from continuously cast billets, the base material behind more than 1,000 distinct finished consumer products.</p>
+      <img src="images/Wire_Rods_Photo.jpeg" alt="Wire Rods" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Wire Rods</h4></div>
+      <p>Hot-rolled coiled round bars, cooled and coiled from continuously cast billets, the base material behind Torkari, HB and Binding Wire and more than 1,000 distinct finished consumer products.</p>
       <div class="spec-tags"><span class="spec-tag">5.5–12mm</span><span class="spec-tag">IS 2062:2011</span></div>
+      <a href="/steel/wire-rods-and-wires/primary-wire-rods/" class="spec-card-link">Explore Wire Rods →</a>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Structural Steel</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="7" y="9" width="26" height="4" fill="url(#barGrad)"/><rect x="16" y="13" width="8" height="14" fill="#6B5A3B"/><rect x="7" y="27" width="26" height="4" fill="url(#barGrad)"/></svg></div></div>
+      <img src="images/Structural steel.jpeg" alt="Structural Steel" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Structural Steel</h4></div>
       <p>Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.</p>
       <div class="spec-tags"><span class="spec-tag">Elegant</span><span class="spec-tag">Elecart</span></div>
+      <a href="/steel/heavy-structural/isa-equal-angles/" class="spec-card-link">Explore Structural Steel →</a>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Hot Strip Coil (HRC)</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="6" y="15" width="28" height="5" rx="1" fill="url(#barGrad)"/><rect x="6" y="21" width="28" height="5" rx="1" fill="url(#barGrad)" opacity=".8"/></svg></div></div>
+      <img src="images/hot strip coils.jpeg" alt="Hot Strip Coil (HRC)" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Hot Strip Coil (HRC)</h4></div>
       <p>Flat-rolled strip produced by heating steel slabs and rolling them into continuous coils: uniform strength, dimensional precision and good formability, supporting automotive, pipe and tube manufacturing, infrastructure and general engineering.</p>
       <div class="spec-tags"><span class="spec-tag">Cold Rolling Feed</span><span class="spec-tag">Galvanizing</span><span class="spec-tag">Fabrication</span></div>
+      <a href="/steel/precision-strips/hr-cr-slit-strips/" class="spec-card-link">Explore Steel Strips →</a>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Binding Wire</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><path d="M8 20c4-6 8 6 12 0s8 6 12 0" stroke="url(#steelGrad)" stroke-width="3" fill="none"/></svg></div></div>
+      <img src="images/Binding_Wire.jpeg" alt="Binding Wire" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Binding Wire</h4></div>
       <p>Annealed mild steel wire, cold-drawn from round wire rods, softness and flexibility tuned specifically for tying rebar joints tight inside a structure.</p>
       <div class="spec-tags"><span class="spec-tag">12–23 SWG</span></div>
+      <a href="/steel/wire-rods-and-wires/binding-wires/" class="spec-card-link">Explore Binding Wire →</a>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Pipes &amp; Sections</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><circle cx="15" cy="20" r="9" fill="none" stroke="url(#steelGrad)" stroke-width="3"/><rect x="24" y="12" width="10" height="16" fill="url(#barGrad)"/></svg></div></div>
-      <p>Elegant Pipes &amp; Sections deliver superior strength and durability with a wide range of sizes to suit diverse industrial and structural needs. Manufactured with precision and tested rigorously for chemical composition and mechanical properties, each product reflects our commitment to unmatched quality and performance.</p>
-      <div class="spec-tags"><span class="spec-tag">Elegant</span><span class="spec-tag">Wide Size Range</span></div>
-    </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Link Easy</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="10" y="10" width="20" height="20" rx="10" fill="none" stroke="url(#steelGrad)" stroke-width="3"/></svg></div></div>
-      <p>Pre-formed reinforcement stirrups locking rebar together inside concrete frames, cut to precise dimensions for faster, more consistent site assembly.</p>
-      <div class="spec-tags"><span class="spec-tag">6/8/10mm</span></div>
-    </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Nails</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><line x1="20" y1="8" x2="20" y2="30" stroke="url(#steelGrad)" stroke-width="3"/><rect x="13" y="6" width="14" height="4" rx="1" fill="url(#steelGrad)"/></svg></div></div>
-      <p>Precision-forged Elegant nails sold in 25kg bags, each marked with an embossed "E" for authenticity.</p>
-      <div class="spec-tags"><span class="spec-tag">Elegant</span><span class="spec-tag">25kg Bags</span></div>
+      <img src="images/pipe_section.jpeg" alt="Tube: Round, SHS &amp; RHS" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Structural Tube</h4></div>
+      <p>Elegant Round, SHS and RHS structural tube, manufactured with precision and tested rigorously for chemical composition and mechanical properties.</p>
+      <div class="spec-tags"><span class="spec-tag">Round</span><span class="spec-tag">SHS</span><span class="spec-tag">RHS</span></div>
+      <a href="/steel/espl-tubes/" class="spec-card-link">Explore Structural Tube →</a>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- COMPETITIVE MATRIX -->
+<!-- CONSTRUCTION HARDWARE -->
 <section class="section">
   <div class="section-head reveal">
-    <div class="kicker center">WHY ELEGANT QST 550D</div>
-    <h2>Engineering, Translated Into Benefit</h2>
-    <p>Every technical decision behind our TMT bars exists for one reason: what it means on your site.</p>
-  </div>
-  <div class="matrix">
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Sustainable Construction</div>
-      <div class="m-col"><h5>Engineering</h5><p>Formed from virgin iron ore and pure steel with a carefully regulated carbon equivalent.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>High structural strength built to safeguard infrastructure for generations.</p></div>
-    </div>
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Easily Bendable</div>
-      <div class="m-col"><h5>Engineering</h5><p>A balanced chemical recipe with high manganese fusion maximises material ductility.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>High malleability for complex structural shapes, less installation time and cost.</p></div>
-    </div>
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Unshakable Grip</div>
-      <div class="m-col"><h5>Engineering</h5><p>Cut with CNC precision to generate uniform, deep rib patterns.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>An indestructible bond with surrounding concrete that resists cracking.</p></div>
-    </div>
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Assured Weight</div>
-      <div class="m-col"><h5>Engineering</h5><p>Processed on high-speed continuous rolling mills under automated control.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>Guaranteed sectional weight, safely within BIS allowable limits.</p></div>
-    </div>
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Earthquake Resistant</div>
-      <div class="m-col"><h5>Engineering</h5><p>Computer-guided quenching builds a uniform ferrite-pearlite core with &gt;20% elongation.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>Resists high structural stress and violent movement during severe earthquakes.</p></div>
-    </div>
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Corrosion &amp; Fire Resistant</div>
-      <div class="m-col"><h5>Engineering</h5><p>Pure steel manufacturing paired with a dense, tempered martensitic surface rim.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>Extends the steel's functional lifespan by preventing oxidation and heat collapse.</p></div>
-    </div>
-    <div class="matrix-row panel reveal">
-      <div class="m-label">Value for Money</div>
-      <div class="m-col"><h5>Engineering</h5><p>Pairs extreme durability with natural structural ductility.</p></div>
-      <div class="m-col"><h5>Benefit</h5><p>Minimises overall steel mass required by up to 18%, leaner material budgets.</p></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ALUMINIUM FOIL -->
-<section class="section" id="aluminium-foil">
-  <div class="section-head reveal">
-    <div class="kicker center">ALUMINIUM FOIL</div>
-    <h2>The Newest Metal We Work In</h2>
-    <p>After seven decades in iron and steel, Shakambhari rolled its first aluminium foil: 9 to 60 microns, made at our India Foils facility in Mogra, Hooghly, and exported to 29+ countries.</p>
+    <div class="kicker center">CONSTRUCTION HARDWARE</div>
+    <h2>The Small Parts That Finish a Structure</h2>
+    <p>What locks a rebar cage square and what drives into the formwork holding it, bulk-bagged and ready for site consumption.</p>
   </div>
   <div class="spec-grid">
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Pharmaceutical Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
-      <p>Bare and printed foil for blister packs, engineered to protect tablets and capsules from moisture, light and contamination.</p>
-      <div class="spec-tags"><span class="spec-tag">9–60 Micron</span><span class="spec-tag">BIS Certified</span></div>
+      <img src="images/link easy final.jpeg" alt="Link Easy" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Link Easy</h4></div>
+      <p>Pre-formed reinforcement stirrups locking rebar together inside concrete frames, cut to precise dimensions for faster, more consistent site assembly.</p>
+      <div class="spec-tags"><span class="spec-tag">6/8/10mm</span></div>
+      <a href="/steel/fasteners/link-easy/" class="spec-card-link">Explore Link Easy →</a>
     </div>
     <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Household &amp; FMCG Foil</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
-      <p>Everyday kitchen and food-service foil, plus semi-rigid container foil for ready-to-eat and takeaway packaging.</p>
-      <div class="spec-tags"><span class="spec-tag">Food Grade</span><span class="spec-tag">ISO 14001:2015</span></div>
-    </div>
-    <div class="spec-card panel reveal">
-      <div class="spec-top"><h4>Lidding &amp; Tagger Foils</h4><div class="icon-wrap"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="9" width="22" height="22" rx="3" fill="url(#silverGrad)"/></svg></div></div>
-      <p>Lidding foils with induction wads for sealed containers, and tagger foils used in bottle and jar closures.</p>
-      <div class="spec-tags"><span class="spec-tag">Induction Sealing</span><span class="spec-tag">ISO 9001:2015</span></div>
+      <img src="images/nails_final.jpeg" alt="Nails" class="spec-card-photo" loading="lazy">
+      <div class="spec-top"><h4>Nails</h4></div>
+      <p>Precision-forged Elegant nails sold in 25kg bags, each marked with an embossed "E" for authenticity.</p>
+      <div class="spec-tags"><span class="spec-tag">Elegant</span><span class="spec-tag">25kg Bags</span></div>
+      <a href="/steel/fasteners/industrial-wire-nails/" class="spec-card-link">Explore Nails →</a>
     </div>
   </div>
-  <p style="text-align:center; max-width:64ch; margin:2rem auto 0; color:var(--ink-soft); font-size:.94rem;" class="reveal">Rolled on an Achenbach Foil Rolling Mill, annealed on a Wesman furnace with controlled atmosphere, and coated on a Rotomec VMCH machine for multi-layer applications, backed by a six-stage quality protocol from raw aluminium to finished roll.</p>
 </section>
+
+<div class="divider"></div>
 
 <!-- CTA -->
 <section class="section" style="text-align:center;">
@@ -299,6 +329,7 @@
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>

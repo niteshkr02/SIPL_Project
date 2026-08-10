@@ -5,11 +5,12 @@
    recipe as trusted-by-section.css / awards-gallery.css so all three
    light-themed showcases read as one continuous system.
 
-   Carousel architecture matches the Beyond Steel slider and Awards
-   gallery: index-based, infinite via shortest-path modulo offsets, a
-   static .grp-slot (carousel position) wrapping an animated .grp-card
-   (breathing/hover/parallax) so the two transform systems never fight
-   over the same inline style.
+   Carousel is the same coverflow architecture as the Beyond Steel
+   slider (.bs3d): index-based, infinite via shortest-path modulo
+   offsets, center card + two neighbors on each side visible (5 of the
+   7 units at once) with the rest faded out. A static .grp-slot
+   (carousel position) wraps the animated .grp-card so the two
+   transform systems never fight over the same inline style.
 
    Motion contract: only transform / opacity / minimal filter are
    animated. Width, height, margin, left and top are never transitioned.
@@ -22,13 +23,23 @@
   padding: 5rem 1.75rem 6rem;
 }
 
-/* ── ambient background (same recipe as Trusted By / Awards) ── */
-.grp-mesh {
+/* ── ambient background: mesh + blueprint + dot grid + glow + noise + shapes,
+   all clipped to one rounded panel — same "floating card" recipe as the
+   Quality / Our Process / Beyond Steel / Awards carousels' .qcc-bg / .pcc-bg
+   / .bs3d-bg / .awx-bg, so this showcase reads as one continuous carousel
+   system with the rest of the site instead of a flat, edge-to-edge tint. ── */
+.grp-bg {
   position: absolute;
   inset: -4% -2%;
   z-index: 0;
   pointer-events: none;
   border-radius: 2rem;
+  overflow: hidden;
+}
+
+.grp-mesh {
+  position: absolute;
+  inset: 0;
   background:
     radial-gradient(ellipse 55% 45% at 82% 18%, rgba(255, 145, 40, .05), transparent 60%),
     radial-gradient(ellipse 55% 50% at 16% 20%, rgba(241, 243, 246, .85), transparent 60%),
@@ -38,9 +49,7 @@
 
 .grp-blueprint {
   position: absolute;
-  inset: -4% -2%;
-  z-index: 0;
-  pointer-events: none;
+  inset: 0;
   background-image:
     repeating-linear-gradient(90deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 42px),
     repeating-linear-gradient(0deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 42px);
@@ -49,11 +58,9 @@
   -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 30%, transparent 90%);
 }
 
-.grp-dots {
+.grp-bg-dots {
   position: absolute;
-  inset: -4% -2%;
-  z-index: 0;
-  pointer-events: none;
+  inset: 0;
   background-image: radial-gradient(rgba(15, 23, 42, .06) 1px, transparent 1px);
   background-size: 24px 24px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 60%, #000 35%, transparent 95%);
@@ -67,17 +74,25 @@
   width: 65%;
   height: 55%;
   transform: translate(-50%, -50%);
-  z-index: 0;
-  pointer-events: none;
   background: radial-gradient(ellipse at center, rgba(255, 106, 31, .07), transparent 65%);
   filter: blur(46px);
 }
 
+/* floating ambient blobs — same recipe as the Quality / Our Process /
+   Beyond Steel / Awards carousels' .qcc-shape / .pcc-shape / .bs3d-shape /
+   .awx-shape. */
+.grp-shape { position: absolute; border-radius: 50%; filter: blur(28px); opacity: .35; pointer-events: none; }
+.grp-shape.s1 { left: 6%; top: 18%; width: 130px; height: 130px; background: rgba(255, 106, 31, .16); animation: grpShapeFloat 13s ease-in-out infinite; }
+.grp-shape.s2 { right: 8%; top: 55%; width: 90px; height: 90px; background: rgba(255, 194, 75, .18); animation: grpShapeFloat 16s ease-in-out infinite 2s; }
+.grp-shape.s3 { left: 30%; bottom: 6%; width: 70px; height: 70px; background: rgba(255, 106, 31, .12); animation: grpShapeFloat 11s ease-in-out infinite 4s; }
+@keyframes grpShapeFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(18px, -24px); }
+}
+
 .grp-noise {
   position: absolute;
-  inset: -4% -2%;
-  z-index: 0;
-  pointer-events: none;
+  inset: 0;
   opacity: .02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -114,102 +129,53 @@
   }
 }
 
-/* ── carousel viewport ── */
+/* ── carousel viewport: coverflow recipe shared with Beyond Steel's
+   .bs3d-viewport/.bs3d-stage — a fixed-height viewport holding a
+   pointer-events:none stage, with each .grp-slot a static centering
+   wrapper (never animated) and its .grp-card the only element the
+   carousel logic moves (x / scale / opacity). ── */
 .grp-viewport {
   position: relative;
   z-index: 1;
   width: 100%;
+  height: 560px;
   margin-top: 3.5rem;
 }
 
-.grp-track {
-  position: relative;
-  height: 560px;
+.grp-stage {
+  position: absolute;
+  inset: 0;
   outline: none;
   cursor: grab;
   touch-action: pan-y;
+  transition: transform .5s cubic-bezier(.16, .84, .44, 1);
+  pointer-events: none;
 }
 
-.grp-track.dragging {
+.grp-stage.dragging {
   cursor: grabbing;
+  transition: none;
 }
 
-.grp-track:focus-visible {
+.grp-stage:focus-visible {
   box-shadow: 0 0 0 3px rgba(255, 106, 31, .35);
   border-radius: 1.75rem;
 }
 
-/* subtle animated line connecting the visible units — the integrated
-   ecosystem metaphor. almost invisible, small pulses travel along it */
-.grp-connector {
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 50%;
-  height: 1px;
-  z-index: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(255, 106, 31, .16) 20%, rgba(255, 106, 31, .16) 80%, transparent);
-}
-
-.grp-pulse {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent-hot);
-  box-shadow: 0 0 8px 2px rgba(255, 194, 75, .6);
-  transform: translate(-50%, -50%);
-  animation: grpPulseTravel 6s linear infinite;
-}
-
-.grp-pulse.p2 {
-  animation-delay: 2s;
-}
-
-.grp-pulse.p3 {
-  animation-delay: 4s;
-}
-
-@keyframes grpPulseTravel {
-  0% {
-    left: 0%;
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
 /* static positioning wrapper — carousel logic (x / scale / opacity) only
-   ever touches this element */
+   ever touches the .grp-card inside it */
 .grp-slot {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 380px;
+  width: 320px;
   height: 520px;
-  margin: -260px 0 0 -190px;
+  margin: -260px 0 0 -160px;
 }
 
-/* breathing float + hover lift live one layer in, so they never fight the
-   slot's carousel-position transform for the same inline style */
 .grp-card {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
@@ -217,7 +183,8 @@
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 40px 80px -20px rgba(15, 23, 42, .16), 0 10px 26px rgba(15, 23, 42, .07);
-  will-change: transform;
+  will-change: transform, opacity;
+  pointer-events: auto;
 }
 
 .grp-card::before {
@@ -256,25 +223,30 @@
 
 .grp-slot.is-active .grp-card {
   border-color: rgba(255, 194, 75, .5);
+  /* accent glow ring on the active card, same recipe as the Beyond Steel
+     slider's .bs3d-card.is-center so the two carousels read as one system */
+  box-shadow: 0 44px 92px -20px rgba(15, 23, 42, .22), 0 0 44px rgba(255, 106, 31, .16);
 }
 
 /* ── image: the hero of the card, ~65% of its height ── */
 .grp-image-wrap {
   position: relative;
   flex-shrink: 0;
-  height: 64%;
+  height: 52%;
   overflow: hidden;
   background: #14161C;
 }
 
 .grp-image-wrap::before {
-  /* orange ambient light around the image */
+  /* orange ambient light around the image — follows the cursor via --mx/--my
+     (set by group-showcase.js on .grp-card, inherits down), same spotlight
+     technique as the Beyond Steel slider's .bs3d-shine */
   content: '';
   position: absolute;
   inset: -20% -20% 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 145, 40, .25), transparent 70%);
+  background: radial-gradient(circle 260px at var(--mx, 50%) var(--my, 0%), rgba(255, 145, 40, .32), transparent 70%);
   opacity: 0;
   transition: opacity .5s ease;
 }
@@ -446,7 +418,6 @@
   font-size: .8rem;
   line-height: 1.5;
   color: var(--ink-soft);
-  flex: 1;
   margin-bottom: .85rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -458,6 +429,7 @@
   appearance: none;
   -webkit-appearance: none;
   align-self: flex-start;
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
   gap: .4rem;
@@ -486,15 +458,16 @@
   outline-offset: 3px;
 }
 
-/* ── nav arrows + bottom unit stepper ── */
+/* ── nav arrows + pagination dots, same bottom control-bar recipe as the
+   Beyond Steel slider's .bs3d-controls/.bs3d-dots ── */
 .grp-controls {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
-  max-width: 900px;
-  margin: 2.5rem auto 0;
+  margin-top: 2.5rem;
 }
 
 .grp-arrow {
@@ -550,6 +523,64 @@
   outline-offset: 2px;
 }
 
+.grp-dots {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+.grp-dot {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: var(--border);
+  cursor: pointer;
+  transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
+}
+
+.grp-dot:hover {
+  background: var(--accent-hot);
+}
+
+.grp-dot.active {
+  width: 26px;
+  background: linear-gradient(90deg, var(--accent-hot), var(--accent));
+}
+
+.grp-dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.grp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── magnetic glass-orange CTA (shares the Hero's magnetic technique) ── */
+.grp-cta-wrap {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.grp-cta {
+  position: relative;
+  overflow: hidden;
+}
+
 .grp-ripple {
   position: absolute;
   border-radius: 50%;
@@ -567,103 +598,6 @@
   }
 }
 
-.grp-stepper {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .3rem;
-}
-
-.grp-stepper::before {
-  content: '';
-  position: absolute;
-  left: 4%;
-  right: 4%;
-  top: 5px;
-  height: 1px;
-  background: rgba(15, 23, 42, .12);
-  z-index: 0;
-}
-
-.grp-step {
-  position: relative;
-  z-index: 1;
-  appearance: none;
-  -webkit-appearance: none;
-  background: none;
-  border: none;
-  padding: 0 0 .55rem;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: .64rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-  letter-spacing: .01em;
-  text-align: center;
-  flex: 1;
-  min-width: 0;
-}
-
-.grp-step-dot {
-  display: block;
-  width: 8px;
-  height: 8px;
-  margin: 0 auto .5rem;
-  border-radius: 50%;
-  background: #FFF;
-  border: 1.5px solid rgba(15, 23, 42, .22);
-  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-
-.grp-step-label {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.grp-step:hover {
-  color: var(--ink);
-}
-
-.grp-step.active {
-  color: var(--accent-ink);
-}
-
-.grp-step.active .grp-step-dot {
-  background: linear-gradient(135deg, #FF9128, #FF6A1F);
-  border-color: transparent;
-  box-shadow: 0 0 0 4px rgba(255, 106, 31, .14), 0 0 12px rgba(255, 106, 31, .5);
-  transform: scale(1.2);
-}
-
-.grp-step:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-@media (max-width: 640px) {
-  .grp-step-label {
-    display: none;
-  }
-}
-
-/* ── magnetic glass-orange CTA (shares the Hero's magnetic technique) ── */
-.grp-cta-wrap {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.grp-cta {
-  position: relative;
-  overflow: hidden;
-}
-
 .grp-cta-arrow {
   display: inline-block;
   transition: transform .35s cubic-bezier(.16, .84, .44, 1);
@@ -673,47 +607,236 @@
   transform: translateX(5px);
 }
 
-/* ── responsive: 3 / 2 / 1 visible units ── */
-@media (max-width: 1180px) and (min-width: 769px) {
-  .grp-track {
-    height: 540px;
+/* ── unit-jump timeline: one stop per unit, jumps the carousel straight
+   to that card and stays in sync with whichever card is centered ── */
+.grp-timeline {
+  position: relative;
+  z-index: 1;
+  margin-top: 3rem;
+}
+
+.grp-timeline-track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 4px;
+}
+
+.grp-timeline-track::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 9px;
+  height: 1px;
+  background: var(--border);
+}
+
+.grp-tl-item {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .65rem;
+  cursor: pointer;
+}
+
+.grp-tl-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  transition: border-color .3s ease, background .3s ease, transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
+}
+
+.grp-tl-item:hover .grp-tl-dot {
+  border-color: var(--accent-hot);
+  transform: scale(1.15);
+}
+
+.grp-tl-item.active .grp-tl-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 6px rgba(255, 106, 31, .16);
+  animation: grpTlPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes grpTlPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 6px rgba(255, 106, 31, .16);
   }
 
-  .grp-slot {
-    width: 320px;
-    height: 500px;
-    margin: -250px 0 0 -160px;
+  50% {
+    box-shadow: 0 0 0 9px rgba(255, 106, 31, .05);
   }
 }
 
-@media (max-width: 768px) {
-  .grp-track {
-    height: 540px;
+.grp-tl-label {
+  position: relative;
+  padding-bottom: .35rem;
+  font-family: var(--font-display);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  color: var(--ink-dim);
+  transition: color .3s ease;
+}
+
+.grp-tl-item.active .grp-tl-label {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.grp-tl-label::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: translateX(-50%);
+  transition: width .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.grp-tl-item:hover .grp-tl-label::after,
+.grp-tl-item:focus-visible .grp-tl-label::after {
+  width: 18px;
+}
+
+.grp-tl-item:focus-visible {
+  outline: none;
+}
+
+.grp-tl-item:focus-visible .grp-tl-dot {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── responsive: 5 / 3 / 1 visible units — same breakpoints and slot
+   sizing recipe as the Beyond Steel slider's tablet/mobile overrides ── */
+@media (max-width: 1022px) and (min-width: 641px) {
+  .grp-viewport {
+    height: 480px;
   }
 
   .grp-slot {
-    width: min(80vw, 360px);
-    height: 500px;
-    margin-top: -250px;
-    margin-left: calc(min(80vw, 360px) / -2);
+    width: 260px;
+    height: 420px;
+    margin: -210px 0 0 -130px;
+  }
+}
+
+@media (max-width: 640px) {
+  .grp-viewport {
+    height: 480px;
+  }
+
+  .grp-slot {
+    width: min(84vw, 300px);
+    height: 420px;
+    margin-top: -210px;
+    margin-left: calc(min(84vw, 300px) / -2);
   }
 
   .grp-controls {
+    gap: 1.1rem;
+  }
+
+  .grp-timeline {
+    margin-top: 2.2rem;
+  }
+
+  .grp-timeline-track {
     max-width: 100%;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 0 1.2rem .4rem;
+    scrollbar-width: none;
+  }
+
+  .grp-timeline-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grp-tl-item {
+    flex-shrink: 0;
+  }
+
+  .grp-tl-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .grp-timeline-track::before {
+    top: 7px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .grp-tl-label {
+    font-size: .64rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
   .grp-kicker-glow,
-  .grp-pulse,
-  .grp-hotspot::after {
+  .grp-hotspot::after,
+  .grp-tl-item.active .grp-tl-dot {
     animation: none;
   }
 
+  .grp-stage,
   .grp-card,
   .grp-card::after,
   .grp-image-wrap img {
     transition: none;
   }
+}
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .grp-mesh {
+  background:
+    radial-gradient(ellipse 55% 45% at 82% 18%, rgba(255, 145, 40, .07), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 16% 20%, rgba(32, 36, 44, .55), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(18, 21, 26, .55), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+
+html[data-theme="dark"] .grp-card {
+  background: linear-gradient(165deg, #1B1F26 0%, #20242C 100%);
+}
+
+html[data-theme="dark"] .grp-name {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .grp-chip {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+html[data-theme="dark"] .grp-arrow {
+  background: rgba(32, 36, 44, .75);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+html[data-theme="dark"] .grp-slot.is-active .grp-card {
+  box-shadow: 0 44px 92px -20px rgba(0, 0, 0, .5), 0 0 44px rgba(255, 106, 31, .2);
 }

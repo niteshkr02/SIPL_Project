@@ -1,0 +1,181 @@
+/* ══════════════════════════════════════════════════════════
+   COMPANY PROFILES — app-style card grid + slide-up detail
+   sheet with a sliding pill tab bar. Used on companies.html.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Entry grid ──
+   Flexbox rather than CSS Grid on purpose: with an odd card count (7
+   today, more later as new units join), a 3-column grid leaves the
+   last row's empty cells as dead space. Flex-wrap distributes free
+   space only within the row a card actually belongs to, so a lone
+   card left in the last row stretches to fill it instead of sitting
+   next to a gap. */
+.cp-grid{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+.cp-card, .cp-card-static{ flex:1 1 calc(33.333% - 1.4rem * 2 / 3); min-width:280px; }
+@media(max-width:960px){ .cp-card, .cp-card-static{ flex-basis:calc(50% - .7rem); } }
+@media(max-width:640px){ .cp-card, .cp-card-static{ flex-basis:100%; } }
+
+.cp-card, .cp-card-static{
+  position:relative; padding:0; overflow:hidden; text-align:left;
+  display:flex; flex-direction:column;
+  border-radius:1.25rem; background:var(--surface);
+  border:1px solid var(--border);
+  transition:transform .35s cubic-bezier(.16,.84,.44,1), box-shadow .35s ease, border-color .35s ease;
+}
+.cp-card{ cursor:pointer; font:inherit; color:inherit; }
+.cp-card:hover, .cp-card:focus-visible{
+  transform:translateY(-6px); border-color:var(--accent);
+  box-shadow:0 20px 45px rgba(20,22,28,.14), 0 0 35px rgba(255,106,31,.12);
+  outline:none;
+}
+.cp-card-photo-wrap{ width:100%; height:190px; position:relative; overflow:hidden; flex-shrink:0; background:#14161C; }
+.cp-card-photo-wrap img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.16,.84,.44,1); }
+.cp-card:hover .cp-card-photo-wrap img{ transform:scale(1.08); }
+.cp-card-photo-wrap::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(10,11,14,0) 45%, rgba(10,11,14,.55) 100%);
+}
+.cp-card-num{
+  position:absolute; top:.9rem; left:.9rem; z-index:1;
+  font-family:var(--font-mono); font-weight:800; font-size:.78rem; letter-spacing:.05em; color:#fff;
+  background:rgba(10,11,14,.55); backdrop-filter:blur(6px); padding:.3rem .65rem; border-radius:.5rem;
+}
+.cp-card-body{ padding:1.3rem 1.4rem 1.5rem; flex:1; display:flex; flex-direction:column; }
+.cp-card-tag{ font-family:var(--font-mono); font-size:.64rem; font-weight:700; letter-spacing:.09em; color:var(--accent-ink); margin-bottom:.5rem; }
+.cp-card-body h4{ font-size:1.05rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.5rem; color:var(--ink); }
+.cp-card-body p{ font-size:.86rem; color:var(--ink-soft); line-height:1.6; flex:1; margin-bottom:1rem; }
+.cp-card-cta{
+  display:inline-flex; align-items:center; gap:.4rem; margin-top:auto;
+  font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--accent-ink);
+}
+.cp-card-cta svg{ width:14px; height:14px; transition:transform .25s ease; }
+.cp-card:hover .cp-card-cta svg{ transform:translateX(3px); }
+
+/* ── Overlay + sheet ── */
+.cp-overlay{
+  position:fixed; inset:0; z-index:2000;
+  background:rgba(8,9,12,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.cp-overlay.open{ opacity:1; visibility:visible; }
+@media(min-width:761px){ .cp-overlay{ align-items:center; padding:2rem; } }
+
+.cp-sheet{
+  position:relative; width:100%; max-width:880px; max-height:92vh; max-height:92dvh; z-index:1;
+  background:var(--surface); border-radius:1.5rem 1.5rem 0 0; overflow:hidden;
+  display:flex; flex-direction:column;
+  transform:translateY(100%); transition:transform .38s cubic-bezier(.16,.84,.44,1);
+  box-shadow:0 -20px 60px rgba(0,0,0,.4);
+}
+.cp-overlay.open .cp-sheet{ transform:translateY(0); }
+@media(min-width:761px){
+  .cp-sheet{ border-radius:1.5rem; max-height:88vh; }
+}
+
+/* Only the active profile renders — the rest sit hidden until their card
+   is clicked (all 7 are static markup, no JS templating). */
+.cp-profile{ display:none; }
+.cp-profile.active{ display:flex; flex-direction:column; min-height:0; flex:1; }
+
+.cp-sheet-drag{ display:flex; justify-content:center; padding:.7rem 0 0; flex-shrink:0; }
+.cp-sheet-drag span{ width:36px; height:4px; border-radius:2px; background:var(--border); }
+@media(min-width:761px){ .cp-sheet-drag{ display:none; } }
+
+.cp-sheet-hero{ position:relative; height:180px; flex-shrink:0; overflow:hidden; }
+.cp-sheet-hero img{ width:100%; height:100%; object-fit:cover; display:block; }
+.cp-sheet-hero::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(10,11,14,.15) 0%, rgba(10,11,14,.75) 100%);
+}
+.cp-sheet-hero-content{ position:absolute; left:1.6rem; right:1.6rem; bottom:1.1rem; z-index:1; }
+.cp-sheet-tag{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.09em; color:var(--accent-hot); margin-bottom:.35rem; }
+.cp-sheet-hero-content h3{ font-family:var(--font-display); font-size:clamp(1.3rem,3vw,1.7rem); color:#EEEAE1; text-transform:none; }
+.cp-sheet-close{
+  position:absolute; top:1rem; right:1rem; z-index:2; width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; border:none;
+  background:rgba(10,11,14,.5); backdrop-filter:blur(6px); color:#EEEAE1;
+  transition:background .2s ease, transform .2s ease;
+}
+.cp-sheet-close:hover{ background:rgba(255,106,31,.85); transform:rotate(90deg); }
+.cp-sheet-close svg{ width:18px; height:18px; }
+
+/* ── Sliding pill tabs ── */
+.cp-tabs{
+  position:relative; display:flex; gap:.3rem; padding:.6rem .9rem; flex-shrink:0;
+  overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.cp-tabs::-webkit-scrollbar{ display:none; }
+.cp-tab{
+  position:relative; z-index:1; flex-shrink:0; cursor:pointer; border:none; background:none; font:inherit;
+  font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--ink-soft); padding:.6rem 1.05rem; border-radius:2rem; white-space:nowrap;
+  transition:color .25s ease;
+}
+.cp-tab.active{ color:#fff; }
+.cp-tab-indicator{
+  position:absolute; top:.6rem; bottom:.6rem; left:0; z-index:0; border-radius:2rem;
+  background:linear-gradient(135deg,var(--accent-hot),var(--accent));
+  transition:transform .32s cubic-bezier(.16,.84,.44,1), width .32s cubic-bezier(.16,.84,.44,1);
+  width:0;
+}
+
+.cp-panels{ flex:1; overflow-y:auto; padding:1.6rem 1.8rem 2.2rem; }
+.cp-panel{ display:none; }
+.cp-panel.active{ display:block; animation:cpFadeIn .3s ease; }
+@keyframes cpFadeIn{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+
+.cp-panel h5{
+  font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent-ink); margin-bottom:.8rem;
+}
+.cp-panel > p{ color:var(--ink-soft); font-size:.94rem; line-height:1.75; margin-bottom:1rem; }
+.cp-panel > p:last-child{ margin-bottom:0; }
+
+/* address rows (Location tab) */
+.cp-addr-row{ display:flex; gap:.9rem; padding:1rem 0; border-bottom:1px solid var(--border); }
+.cp-addr-row:last-child{ border-bottom:none; }
+.cp-addr-icon{
+  width:38px; height:38px; border-radius:.7rem; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border);
+}
+.cp-addr-icon svg{ width:18px; height:18px; color:var(--accent-ink); }
+.cp-addr-row h6{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:.3rem; }
+.cp-addr-row p{ font-size:.9rem; color:var(--ink); line-height:1.55; }
+
+/* icon list (Operations tab) */
+.cp-op-list{ display:flex; flex-direction:column; gap:1rem; }
+.cp-op-item{ display:flex; gap:.9rem; }
+.cp-op-icon{
+  width:34px; height:34px; border-radius:50%; flex-shrink:0; margin-top:.1rem;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(255,194,75,.18), rgba(255,106,31,.1)); border:1px solid var(--border);
+  font-family:var(--font-mono); font-weight:800; font-size:.78rem; color:var(--accent-ink);
+}
+.cp-op-item h6{ font-size:.94rem; font-weight:700; color:var(--ink); margin-bottom:.25rem; }
+.cp-op-item p{ font-size:.88rem; color:var(--ink-soft); line-height:1.6; }
+
+/* stat grid (Capacity tab) */
+.cp-stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+@media(max-width:520px){ .cp-stat-grid{ grid-template-columns:1fr; } }
+.cp-stat{ padding:1rem 1.1rem; border-radius:.9rem; background:var(--surface-2); border:1px solid var(--border); }
+.cp-stat .num{ font-family:var(--font-mono); font-weight:800; font-size:1rem; color:var(--accent-ink); line-height:1.3; }
+.cp-stat .label{ font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); margin-top:.3rem; }
+
+/* chip list (Products tab) */
+.cp-chip-list{ display:flex; flex-direction:column; gap:.7rem; }
+.cp-chip-row{ display:flex; align-items:flex-start; gap:.7rem; padding:.9rem 1rem; border-radius:.8rem; background:var(--surface-2); border:1px solid var(--border); }
+.cp-chip-row svg{ width:16px; height:16px; color:var(--accent-ink); flex-shrink:0; margin-top:.15rem; }
+.cp-chip-row strong{ color:var(--ink); font-size:.9rem; }
+.cp-chip-row span{ display:block; color:var(--ink-soft); font-size:.86rem; line-height:1.55; margin-top:.15rem; }
+
+/* certification badges (Quality tab) */
+.cp-badge-row{ display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1.2rem; }
+.cp-badge{
+  font-family:var(--font-mono); font-size:.74rem; font-weight:700; padding:.5rem 1rem; border-radius:2rem;
+  background:var(--surface-2); border:1px solid var(--border); color:var(--accent-ink);
+}
+
+body.cp-lock{ overflow:hidden; }

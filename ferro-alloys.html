@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferro Alloys, Silico Manganese &amp; Ferro Carbon | Shakambhari Group</title>
+<meta name="description" content="Premier manufacturer and global exporter of Silico Manganese and High Carbon Ferro products, 9,000 MT monthly capacity, 90% exported worldwide.">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ══ PAGE HEADER (dark, short) ══ */
+.page-header{
+  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
+  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
+  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4rem; text-align:center; overflow:hidden;
+  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
+}
+.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
+.page-header .kicker::before{ background:var(--accent); }
+.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.4rem); max-width:20ch; margin:0 auto; }
+.page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
+.page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
+
+/* ══ SPEC CARDS (reused product-grid pattern) ══ */
+.spec-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
+@media(max-width:800px){ .spec-grid{ grid-template-columns:1fr; } }
+.spec-card{ padding:1.9rem 1.8rem; overflow:hidden; }
+.spec-card .spec-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:.8rem; }
+.spec-card h4{ font-size:1.08rem; font-weight:700; text-transform:none; font-family:var(--font-body); }
+.spec-card .icon-wrap{ width:46px; height:46px; border-radius:.8rem; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
+.spec-card .icon-wrap svg{ width:26px; height:26px; }
+.spec-card-photo{ width:calc(100% + 3.6rem); margin:-1.9rem -1.8rem 1.2rem; height:190px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
+.spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
+.spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
+
+/* ══ ABOUT / FOOTPRINT TWO-COL ══ */
+.split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
+@media(max-width:860px){ .split{ grid-template-columns:1fr; } }
+.split h2{ margin-bottom:1.1rem; }
+.split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; margin-bottom:1.1rem; }
+.split p:last-child{ margin-bottom:0; }
+.split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
+.callout-badge{ display:inline-flex; align-items:center; gap:.5rem; padding:.55rem 1rem; border-radius:2rem; background:var(--surface-2); border:1px solid var(--border); font-family:var(--font-mono); font-size:.78rem; font-weight:700; color:var(--accent-ink); margin-top:.4rem; }
+
+/* ══ PROCESS STEPS ══ */
+.pflow-list{ max-width:920px; margin:0 auto; }
+.pflow-step{ display:grid; grid-template-columns:60px 1fr; gap:1.6rem; padding:1.9rem 0; border-bottom:1px solid var(--border); }
+.pflow-step:last-child{ border-bottom:none; }
+.pflow-num{ width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:800; font-size:1.2rem; color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent)); box-shadow:0 8px 18px rgba(255,106,31,.3); flex-shrink:0; }
+.pflow-step h4{ font-size:1.14rem; margin-bottom:.5rem; }
+.pflow-step p{ color:var(--ink-soft); font-size:.94rem; line-height:1.68; }
+
+/* ══ QUALITY FEATURE CARDS ══ */
+.qa-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-bottom:2.2rem; }
+@media(max-width:760px){ .qa-grid{ grid-template-columns:1fr; } }
+.qa-card{ padding:2rem; }
+.qa-card .icon-wrap{ width:52px; height:52px; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.1rem; }
+.qa-card .icon-wrap svg{ width:28px; height:28px; }
+.qa-card-photo{ width:calc(100% + 4rem); margin:-2rem -2rem 1.2rem; height:180px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
+.qa-card h4{ font-size:1.12rem; margin-bottom:.6rem; }
+.qa-card p{ color:var(--ink-soft); font-size:.92rem; line-height:1.65; }
+.dispatch-photo{ width:100%; max-width:900px; height:260px; object-fit:cover; border-radius:1.2rem; margin:0 auto 1.8rem; display:block; border:1px solid var(--border); }
+.dispatch-note{ max-width:76ch; margin:0 auto; text-align:center; color:var(--ink-soft); font-size:.96rem; line-height:1.7; }
+.dispatch-note strong{ color:var(--accent-ink); }
+
+/* ══ PROCESS STEP PHOTOS ══ */
+.pflow-photo{ width:100%; max-width:440px; height:210px; object-fit:cover; border-radius:1rem; margin-top:1.1rem; border:1px solid var(--border); display:block; }
+
+/* ══ CONTACT SPLIT ══ */
+.contact-split{ display:grid; grid-template-columns:.85fr 1.15fr; gap:3rem; align-items:start; }
+@media(max-width:860px){ .contact-split{ grid-template-columns:1fr; } }
+.contact-info-row{ display:flex; align-items:flex-start; gap:1rem; padding:1.1rem 0; border-bottom:1px solid var(--border); }
+.contact-info-row:last-child{ border-bottom:none; }
+.contact-info-row .icon-wrap{ width:42px; height:42px; border-radius:.7rem; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
+.contact-info-row .icon-wrap svg{ width:20px; height:20px; }
+.contact-info-row h5{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:.3rem; }
+.contact-info-row a, .contact-info-row p{ font-size:.98rem; color:var(--ink); font-weight:600; }
+.contact-info-row p{ font-weight:500; line-height:1.5; }
+
+/* ══ FORM FIELDS (reused pattern) ══ */
+.field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 1.5rem; }
+@media(max-width:640px){ .field-grid{ grid-template-columns:1fr; } }
+.field{ display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.3rem; }
+.field label{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink); }
+.field input[type=text], .field input[type=email], .field input[type=tel], .field select, .field textarea{
+  font-family:var(--font-body); font-size:.94rem; color:var(--ink);
+  padding:.75rem .9rem; border:1.5px solid var(--border); border-radius:.6rem;
+  background:var(--surface); transition:border-color .2s ease, box-shadow .2s ease; width:100%;
+}
+.field textarea{ resize:vertical; min-height:100px; font-family:var(--font-body); }
+.field select{ cursor:pointer; }
+.field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,106,31,.15); }
+.field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus){ border-color:var(--accent-hot); }
+.ferro-form-submit{ border:none; cursor:pointer; width:100%; justify-content:center; }
+.ferro-form-submit:disabled{ opacity:.6; cursor:not-allowed; }
+.ferro-form-status{ display:none; text-align:center; margin-top:1rem; font-size:.86rem; font-weight:600; }
+.ferro-form-status.show{ display:block; }
+.ferro-form-status.error{ color:var(--accent-deep); }
+.ferro-form-status.success{ color:#1E8449; }
+html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
+</style>
+</head>
+<body>
+<div class="sheen"></div>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/></linearGradient>
+    <linearGradient id="charGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3A3E46"/><stop offset="100%" stop-color="#131519"/></linearGradient>
+    <linearGradient id="oreGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D08A54"/><stop offset="100%" stop-color="#8A4B2C"/></linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F0C368"/><stop offset="100%" stop-color="#9C6E22"/></linearGradient>
+    <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2F4F6"/><stop offset="50%" stop-color="#C7CDD5"/><stop offset="100%" stop-color="#8792A2"/></linearGradient>
+    <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo" width="219" height="252" decoding="async">
+</picture>
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-dropdown">
+      <a href="about.html" class="dropdown-label">About</a>
+      <div class="dropdown">
+        <a href="journey.html">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+      </div>
+    </li>
+    <li><a href="companies.html">Group Companies</a></li>
+    <li><a href="quality.html">Quality</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label active" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
+    <li><a href="process.html">Our Process</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label">Others</span>
+      <div class="dropdown">
+        <a href="insights.html">Insights</a>
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html">Clientele</a>
+      </div>
+    </li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="kicker reveal">FERRO ALLOYS · GLOBAL EXPORT</div>
+  <h1 class="reveal">Powering the Global Steel Industry with Premium Ferro Alloys</h1>
+  <p class="reveal">Delivering high-grade Silico Manganese and Ferro Carbon products worldwide. Engineered for excellence, trusted by industry leaders.</p>
+  <div class="page-header-cta reveal">
+    <a href="#our-products" class="btn btn-primary">Explore Our Products</a>
+    <a href="#contact" class="btn btn-ghost">Contact Sales</a>
+  </div>
+</header>
+
+<!-- KEY METRICS -->
+<section class="section tight">
+  <div class="stat-band">
+    <div class="stat reveal-scale" style="transition-delay:.05s">
+      <div class="stat-num ferro-counter" data-target="9000" data-suffix=" MT">0 MT</div>
+      <div class="stat-label">Monthly Production Capacity</div>
+    </div>
+    <div class="stat reveal-scale" style="transition-delay:.15s">
+      <div class="stat-num ferro-counter" data-target="90" data-suffix="%">0%</div>
+      <div class="stat-label">Global Export Rate</div>
+    </div>
+    <div class="stat reveal-scale" style="transition-delay:.25s">
+      <div class="stat-num ferro-counter" data-target="6" data-suffix="">0</div>
+      <div class="stat-label">Submerged Arc Furnaces (9 MVA)</div>
+    </div>
+    <div class="stat reveal-scale" style="transition-delay:.35s">
+      <div class="stat-num ferro-counter" data-target="100" data-suffix="%">0%</div>
+      <div class="stat-label">Strict 3rd-Party Quality Inspection</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT US -->
+<section class="section" id="about">
+  <div class="split">
+    <div>
+      <div class="kicker reveal">ABOUT US</div>
+      <h2 class="reveal">Engineering Excellence in Ferro Alloys</h2>
+      <p class="reveal">We are a premier manufacturer and global exporter of high-quality ferro alloys, specializing in Silico Manganese and High Carbon Ferro products. With a robust production capacity of 9,000 metric tons per month, we are dedicated to supplying the essential elements that make modern steel stronger, cleaner, and more durable.</p>
+      <p class="reveal">Our state-of-the-art facility is powered by six 9 MVA Submerged Arc Furnaces (SAF), allowing us to maintain continuous, high-volume production without compromising on the precise chemical compositions our clients demand.</p>
+    </div>
+    <picture>
+      <source type="image/avif" srcset="optimized-images/images/ferro-alloys/about-arc-furnace-tapping.avif">
+      <source type="image/webp" srcset="optimized-images/images/ferro-alloys/about-arc-furnace-tapping.webp">
+      <img src="optimized-images/images/ferro-alloys/about-arc-furnace-tapping.jpg" alt="Submerged Arc Furnace tapping molten ferro alloy at the Shakambhari facility" class="split-photo reveal" loading="lazy">
+    </picture>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GLOBAL FOOTPRINT -->
+<section class="section" id="global-footprint">
+  <div class="split">
+    <picture style="order:2;">
+      <source type="image/avif" srcset="optimized-images/images/ferro-alloys/footprint-port-export-loading.avif">
+      <source type="image/webp" srcset="optimized-images/images/ferro-alloys/footprint-port-export-loading.webp">
+      <img src="optimized-images/images/ferro-alloys/footprint-port-export-loading.jpg" alt="Low Boron Silico Manganese container being loaded for export to Japan" class="split-photo reveal" loading="lazy">
+    </picture>
+    <div style="order:1;">
+      <div class="kicker reveal">GLOBAL FOOTPRINT</div>
+      <h2 class="reveal">A Globally Recognized Partner</h2>
+      <p class="reveal">We are a globally recognized partner. Currently, 90% of our products (approx. 8,500 tons monthly) are exported to international markets. We are particularly proud of our continuous supply of specialized Low Boron Silico Manganese to Japan's highly demanding steel industry, a testament to our manufacturing precision.</p>
+      <div class="callout-badge reveal">Continuous Supply of Low Boron SiMn to Japan</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OUR PRODUCTS -->
+<section class="section" id="our-products">
+  <div class="section-head reveal">
+    <div class="kicker center">OUR PRODUCTS</div>
+    <h2>Our Product Portfolio</h2>
+    <p>Strictly controlled to meet international specifications, ensuring optimal deoxidation and alloying for steel manufacturing.</p>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.avif">
+        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.webp">
+        <img src="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.jpg" alt="Silico Manganese SiMn 65/16 Grade lumps" class="spec-card-photo" loading="lazy">
+      </picture>
+      <div class="spec-top"><h4>Silico Manganese (SiMn) 65/16 Grade</h4></div>
+      <p>Our flagship product, providing a highly effective combination of silicon and manganese for steel purification and strength.</p>
+      <div class="spec-tags"><span class="spec-tag">Flagship Grade</span><span class="spec-tag">Deoxidation</span></div>
+    </div>
+    <div class="spec-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-low-boron-simn.avif">
+        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-low-boron-simn.webp">
+        <img src="optimized-images/images/ferro-alloys/product-low-boron-simn.jpg" alt="Low Boron Silico Manganese lumps" class="spec-card-photo" loading="lazy">
+      </picture>
+      <div class="spec-top"><h4>Low Boron Silico Manganese</h4></div>
+      <p>A highly refined, specialized grade engineered specifically for continuous export to the Japanese market.</p>
+      <div class="spec-tags"><span class="spec-tag">Export Grade</span><span class="spec-tag">Japan</span></div>
+    </div>
+    <div class="spec-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-high-carbon-femn.avif">
+        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-high-carbon-femn.webp">
+        <img src="optimized-images/images/ferro-alloys/product-high-carbon-femn.jpg" alt="High Carbon Ferro Manganese 70-75 Grade lumps" class="spec-card-photo" loading="lazy">
+      </picture>
+      <div class="spec-top"><h4>High Carbon Ferro Manganese (70–75 Grade)</h4></div>
+      <p>Delivering high manganese content to improve the tensile strength, workability, and wear resistance of steel.</p>
+      <div class="spec-tags"><span class="spec-tag">70–75 Grade</span><span class="spec-tag">Tensile Strength</span></div>
+    </div>
+    <div class="spec-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-mc-simn.avif">
+        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-mc-simn.webp">
+        <img src="optimized-images/images/ferro-alloys/product-mc-simn.jpg" alt="Medium Carbon MC Silico Manganese lumps" class="spec-card-photo" loading="lazy">
+      </picture>
+      <div class="spec-top"><h4>Medium Carbon (MC) Silico Manganese</h4></div>
+      <p>Carefully processed to meet the rigorous demands of specialized low-carbon steel production.</p>
+      <div class="spec-tags"><span class="spec-tag">MC Grade</span><span class="spec-tag">Low-Carbon Steel</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MANUFACTURING PROCESS -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">OUR MANUFACTURING PROCESS</div>
+    <h2>The Carbothermic Reduction Process</h2>
+    <p>We utilize a highly controlled Carbothermic Reduction Process to ensure the highest grade of alloy extraction. Our modernized facility allows for seamless material handling from raw ore to final dispatch.</p>
+  </div>
+  <div class="pflow-list">
+    <div class="pflow-step reveal">
+      <div class="pflow-num">1</div>
+      <div>
+        <h4>Raw Material Sourcing &amp; Handling</h4>
+        <p>Quality begins at the source. We utilize high and medium-grade manganese ore, combined with premium reductants including coke, coal, and dolomite. Materials are fed into storage bunkers via an automated belt conveyor system.</p>
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/ferro-alloys/process-raw-material-silos.avif">
+          <source type="image/webp" srcset="optimized-images/images/ferro-alloys/process-raw-material-silos.webp">
+          <img src="optimized-images/images/ferro-alloys/process-raw-material-silos.jpg" alt="Manganese ore, coke, coal and dolomite storage silos with conveyor feed" class="pflow-photo" loading="lazy">
+        </picture>
+      </div>
+    </div>
+    <div class="pflow-step reveal">
+      <div class="pflow-num">2</div>
+      <div>
+        <h4>Automated Batch Charging</h4>
+        <p>Precision is managed from our central control room. A programmable logic controller (PLC) system seamlessly regulates the exact ratios of raw materials, dropping batches into the furnace charging hoppers for optimal chemical balance.</p>
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/ferro-alloys/process-batch-charging-control-room.avif">
+          <source type="image/webp" srcset="optimized-images/images/ferro-alloys/process-batch-charging-control-room.webp">
+          <img src="optimized-images/images/ferro-alloys/process-batch-charging-control-room.jpg" alt="Engineer monitoring PLC batch charging system in the control room" class="pflow-photo" loading="lazy">
+        </picture>
+      </div>
+    </div>
+    <div class="pflow-step reveal">
+      <div class="pflow-num">3</div>
+      <div>
+        <h4>The Carbothermic Process (Smelting)</h4>
+        <p>The charge is fed into our Submerged Arc Furnaces. Heavy electric currents are passed through three massive carbon electrodes, generating the intense heat required to reduce the manganese ore into molten alloy and slag.</p>
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/ferro-alloys/process-carbothermic-smelting.avif">
+          <source type="image/webp" srcset="optimized-images/images/ferro-alloys/process-carbothermic-smelting.webp">
+          <img src="optimized-images/images/ferro-alloys/process-carbothermic-smelting.jpg" alt="Submerged Arc Furnace electrodes during carbothermic smelting" class="pflow-photo" loading="lazy">
+        </picture>
+      </div>
+    </div>
+    <div class="pflow-step reveal">
+      <div class="pflow-num">4</div>
+      <div>
+        <h4>Tapping &amp; Separation</h4>
+        <p>After reaching target power consumption, tapping is initiated by opening the tap hole via oxygen lancing. The liquid metal and slag flow through a sophisticated runner and skimmer system. The lighter slag is diverted to a sand bed, while the pure molten alloy is channeled into casting moulds.</p>
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/ferro-alloys/process-tapping-oxygen-lancing.avif">
+          <source type="image/webp" srcset="optimized-images/images/ferro-alloys/process-tapping-oxygen-lancing.webp">
+          <img src="optimized-images/images/ferro-alloys/process-tapping-oxygen-lancing.jpg" alt="Worker performing oxygen lancing to open the furnace tap hole" class="pflow-photo" loading="lazy">
+        </picture>
+      </div>
+    </div>
+    <div class="pflow-step reveal">
+      <div class="pflow-num">5</div>
+      <div>
+        <h4>Cooling &amp; Sizing</h4>
+        <p>The liquid metal cools in designated metal beds. Once solidified, the metal casts are transferred to the finished yard, where they are crushed and broken into specific lump sizes tailored to individual client order requirements.</p>
+        <picture>
+          <source type="image/avif" srcset="optimized-images/images/ferro-alloys/process-cooling-sizing-lumps.avif">
+          <source type="image/webp" srcset="optimized-images/images/ferro-alloys/process-cooling-sizing-lumps.webp">
+          <img src="optimized-images/images/ferro-alloys/process-cooling-sizing-lumps.jpg" alt="Workers sizing cooled ferro alloy lumps in the finished yard" class="pflow-photo" loading="lazy">
+        </picture>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUALITY ASSURANCE & PACKAGING -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">QUALITY ASSURANCE &amp; PACKAGING</div>
+    <h2>Uncompromising Quality Control</h2>
+    <p>Quality is not just a promise; it is a verifiable metric in every batch we produce.</p>
+  </div>
+  <div class="qa-grid">
+    <div class="qa-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/qa-lab-xrf-analysis.avif">
+        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/qa-lab-xrf-analysis.webp">
+        <img src="optimized-images/images/ferro-alloys/qa-lab-xrf-analysis.jpg" alt="Metallurgist analyzing ferro alloy composition on an XRF analyzer" class="qa-card-photo" loading="lazy">
+      </picture>
+      <h4>In-House Lot Testing</h4>
+      <p>Once sized, the metal is grouped into designated lots and rigorously tested by our internal quality assurance team.</p>
+    </div>
+    <div class="qa-card panel reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/qa-third-party-lab-testing.avif">
+        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/qa-third-party-lab-testing.webp">
+        <img src="optimized-images/images/ferro-alloys/qa-third-party-lab-testing.jpg" alt="Lab technician conducting independent silico manganese analysis" class="qa-card-photo" loading="lazy">
+      </picture>
+      <h4>Third-Party Pre-Inspection</h4>
+      <p>Before any material leaves our facility, an independent third party takes samples and conducts powder testing in their own laboratories to guarantee unbiased certification.</p>
+    </div>
+  </div>
+  <div class="section-head reveal" style="margin-bottom:1.4rem;">
+    <div class="kicker center">SECURE GLOBAL DISPATCH</div>
+  </div>
+  <picture>
+    <source type="image/avif" srcset="optimized-images/images/ferro-alloys/dispatch-jumbo-bags-warehouse.avif">
+    <source type="image/webp" srcset="optimized-images/images/ferro-alloys/dispatch-jumbo-bags-warehouse.webp">
+    <img src="optimized-images/images/ferro-alloys/dispatch-jumbo-bags-warehouse.jpg" alt="Jumbo bags of silico manganese alloy staged in the dispatch warehouse" class="dispatch-photo reveal" loading="lazy">
+  </picture>
+  <p class="dispatch-note reveal">Once approved, the finished ferro alloys are securely packed into heavy-duty <strong>1 MT (Metric Ton) Jumbo Bags</strong>. Our streamlined dispatch operations ensure that our <strong>8,500 tons</strong> of monthly exports reach global ports safely, efficiently, and exactly to spec.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT US -->
+<section class="section" id="contact">
+  <div class="section-head reveal">
+    <div class="kicker center">CONTACT US</div>
+    <h2>Partner with a Global Leader in Ferro Alloys</h2>
+    <p>Whether you need standard SiMn 65/16 or specialized low-boron formulations, our team is ready to meet your exact specifications.</p>
+  </div>
+  <div class="contact-split">
+    <div class="panel reveal" style="padding:2rem;">
+      <div class="contact-info-row">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6l8 6 8-6"/></svg></div>
+        <div>
+          <h5>Sales Inquiry</h5>
+          <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+        </div>
+      </div>
+      <div class="contact-info-row">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M6 3h4l1 5-3 2c1 3 3 5 6 6l2-3 5 1v4c0 1-1 2-2 2C10 20 4 14 4 5c0-1 1-2 2-2Z" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h5>Phone</h5>
+          <a href="tel:+913366255252">033 6625 5252</a>
+        </div>
+      </div>
+      <div class="contact-info-row">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div>
+          <h5>Location</h5>
+          <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel reveal" style="padding:2rem;">
+      <form id="ferroContactForm" novalidate>
+        <div class="field-grid">
+          <div class="field">
+            <label for="fcName">Name</label>
+            <input type="text" id="fcName" name="name" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="fcCompany">Company</label>
+            <input type="text" id="fcCompany" name="company" placeholder="Company name" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fcEmail">Email</label>
+          <input type="email" id="fcEmail" name="email" placeholder="you@company.com" required>
+        </div>
+        <div class="field">
+          <label for="fcProduct">Product Required</label>
+          <select id="fcProduct" name="product" required>
+            <option value="" disabled selected>Select a product</option>
+            <option value="Silico Manganese (SiMn) 65/16">Silico Manganese (SiMn) 65/16 Grade</option>
+            <option value="Low Boron Silico Manganese">Low Boron Silico Manganese</option>
+            <option value="High Carbon Ferro Manganese (70-75)">High Carbon Ferro Manganese (70–75 Grade)</option>
+            <option value="Medium Carbon (MC) Silico Manganese">Medium Carbon (MC) Silico Manganese</option>
+            <option value="Other / Not Sure">Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fcMessage">Message</label>
+          <textarea id="fcMessage" name="message" placeholder="Quantity, specification &amp; delivery timeline" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary ferro-form-submit">Send Inquiry →</button>
+        <p class="ferro-form-status" id="ferroFormStatus"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async">
+</picture>
+          <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+      </a>
+      <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="process.html">Our Process</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="journey.html">Our Journey</a>
+      <a href="vision.html">Mission, Vision &amp; Values</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="companies.html">Group Companies</a>
+      <a href="quality.html">Quality</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="insights.html">Insights</a>
+      <a href="awards.html">Awards &amp; Certifications</a>
+      <a href="csr.html">Corporate Social Responsibility</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="clientele.html">Clientele</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+913366255252">033 6625 5252</a>
+      <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+      <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+    <div class="footer-social">
+      <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z"/></svg></a>
+      <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script>
+  /* ── STAT COUNTER ANIMATION ── */
+  (function () {
+    const counters = document.querySelectorAll('.ferro-counter');
+    const duration = 1800;
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const decimals = parseInt(el.dataset.decimal || '0', 10);
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutExpo(progress);
+        const value = target * eased;
+        el.textContent = prefix + value.toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target.toFixed(decimals) + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { animateCounter(entry.target); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function (c) { obs.observe(c); });
+    } else {
+      counters.forEach(function (el) {
+        const target = parseFloat(el.dataset.target);
+        el.textContent = (el.dataset.prefix || '') + target.toFixed(parseInt(el.dataset.decimal || '0', 10)) + (el.dataset.suffix || '');
+      });
+    }
+  })();
+</script>
+<script>
+  /* ── CONTACT FORM ── */
+  (function () {
+    const form = document.getElementById('ferroContactForm');
+    const status = document.getElementById('ferroFormStatus');
+    const FERRO_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.classList.add('show');
+      status.className = 'ferro-form-status show';
+
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      if (FERRO_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
+        status.textContent = "This form isn't connected yet, please call 033 6625 5252 or email info@shakambharigroup.in and our team will help you directly.";
+        status.classList.add('error');
+        return;
+      }
+
+      const submitBtn = form.querySelector('.ferro-form-submit');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      fetch(FERRO_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      })
+        .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
+        .then(function () {
+          status.textContent = "Thanks, we've received your inquiry and will be in touch shortly.";
+          status.classList.add('success');
+          form.reset();
+        })
+        .catch(function () {
+          status.textContent = 'Something went wrong. Please try again or email info@shakambharigroup.in.';
+          status.classList.add('error');
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        });
+    });
+  })();
+</script>
+</body>
+</html>

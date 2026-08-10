@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Careers | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="careers-hero.css">
+<link rel="stylesheet" href="careers-content.css">
+<link rel="stylesheet" href="career-benefits-carousel.css">
 <style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 3.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
-
 /* ══ APPLICATION FORM ══ */
 .apply-shell{ max-width:840px; margin:0 auto; }
 /* This panel is thousands of px tall, so it skips the shared .panel hover
    lift/shadow-transition (fine on a small card, a visible repaint cost on
    something this size) and the scroll-gated .reveal fade (which stayed
-   invisible until 15% of it had scrolled into view — reading as "stuck
+   invisible until 15% of it had scrolled into view, reading as "stuck
    loading"). It renders at full opacity immediately; only its inner
    sections animate in. */
 .apply-panel{ padding:clamp(1.6rem,4vw,3rem); transition:none; position:relative; overflow:hidden; }
@@ -41,6 +34,7 @@
 .apply-progress-track{ flex:1; height:8px; border-radius:999px; background:var(--surface-2); overflow:hidden; }
 .apply-progress-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--accent-hot),var(--accent)); transition:width .4s ease; }
 .apply-progress-label{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; color:var(--accent-ink); white-space:nowrap; }
+html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 
 @keyframes formBlockIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
 .form-block{ padding-bottom:2.2rem; margin-bottom:2.2rem; border-bottom:1px solid var(--border); animation:formBlockIn .5s ease both; }
@@ -79,7 +73,7 @@
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus):not([readonly]){ border-color:var(--accent-hot); }
 .field select{ cursor:pointer; }
 /* Native <input type=date> renders mm/dd/yyyy or dd/mm/yyyy purely off OS/browser
-   locale — the lang attribute doesn't override it in Chromium, so there's no
+   locale, the lang attribute doesn't override it in Chromium, so there's no
    reliable way to force DD/MM/YYYY that way. Three explicit selects in DD/MM/YYYY
    order sidestep the ambiguity entirely; a hidden field carries the ISO value. */
 .dob-row{ display:flex; flex-wrap:wrap; gap:.6rem; }
@@ -118,6 +112,14 @@
 }
 .segmented-toggle.is-fresher .segmented-thumb, .segmented-toggle.is-experienced .segmented-thumb{ opacity:1; }
 .segmented-toggle.is-experienced .segmented-thumb{ transform:translateX(100%); }
+/* label's min-width:112px is a hard floor that doesn't shrink, on phones
+   under ~370px wide the two labels (224px+) no longer fit the modal's
+   available width and were spilling past the toggle; let them share the
+   full-width pill equally instead, with the long word wrapping if needed. */
+@media(max-width:480px){
+  .segmented-toggle{ width:100%; }
+  .segmented-toggle label{ min-width:0; flex:1 1 0; padding:.6rem .8rem; overflow-wrap:break-word; }
+}
 
 .field.experienced-only{
   overflow:hidden; max-height:120px; opacity:1; margin-top:0;
@@ -168,6 +170,47 @@
 .form-success .icon-wrap{ width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.3rem; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
 .form-success h3{ font-size:1.5rem; margin-bottom:.7rem; }
 .form-success p{ color:var(--ink-soft); max-width:46ch; margin:0 auto 1.6rem; }
+
+/* ══ APPLICATION FORM MODAL ══ */
+.apply-modal-overlay{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center;
+  padding:1.5rem; background:rgba(10,12,18,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease;
+}
+.apply-modal-overlay.active{ opacity:1; visibility:visible; }
+.apply-modal{
+  position:relative; width:100%; max-width:900px; max-height:90vh;
+  display:flex; flex-direction:column; border-radius:1.25rem; overflow:hidden;
+  background:var(--surface); box-shadow:0 40px 90px rgba(15,23,42,.4);
+  transform:translateY(24px) scale(.97); opacity:0;
+  transition:transform .4s cubic-bezier(.16,.84,.44,1), opacity .4s ease;
+}
+.apply-modal-overlay.active .apply-modal{ transform:translateY(0) scale(1); opacity:1; }
+.apply-modal-close{
+  position:absolute; top:.9rem; right:.9rem; z-index:5; width:36px; height:36px; border-radius:50%;
+  border:1.5px solid var(--border); background:var(--surface); color:var(--ink-soft);
+  font-size:1.3rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 16px rgba(20,22,28,.15); transition:color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.apply-modal-close:hover{ color:var(--accent-ink); border-color:var(--accent); transform:rotate(90deg); }
+.apply-modal-scroll{ overflow-y:auto; padding:clamp(1.2rem,4vw,2rem); }
+.apply-modal .apply-shell{ margin:0; }
+.apply-modal .apply-progress{ position:sticky; top:0; }
+@media (prefers-reduced-motion: reduce){ .apply-modal-overlay, .apply-modal, .apply-modal-close{ transition:none !important; } }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; padding:0 1.75rem 6rem; max-width:1180px; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+  --ink:#EEEAE1; --border:#262A34; --surface:#14161C;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -193,7 +236,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="about.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -202,11 +245,65 @@
     </li>
     <li><a href="companies.html">Group Companies</a></li>
     <li><a href="quality.html">Quality</a></li>
-    <li><a href="products.html">Products</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -217,24 +314,734 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HEADER -->
-<header class="page-header">
-  <div class="kicker reveal">CAREERS</div>
-  <h1 class="reveal">Apply to Join Shakambhari Group</h1>
-  <p class="reveal">Fill in your details below and our HR team will reach out as roles matching your profile open up across our plants and corporate offices.</p>
+<!-- ══════════════════ CINEMATIC RECRUITMENT HERO (isolated component, see careers-hero.css / careers-hero.js) ══════════════════ -->
+<header class="cah" id="careersHero" aria-labelledby="cahHeading">
+  <div class="cah-bg" aria-hidden="true">
+    <div class="cah-mesh"></div>
+    <div class="cah-grid-lines"></div>
+    <div class="cah-glow-wrap"><div class="cah-glow"></div></div>
+    <div class="cah-rays"></div>
+    <div class="cah-shapes">
+      <span class="cah-shape tri"></span>
+      <span class="cah-shape hex"></span>
+      <span class="cah-shape ring"></span>
+      <span class="cah-shape square"></span>
+    </div>
+    <div class="cah-particles" id="cahParticles"></div>
+    <div class="cah-scanlines"></div>
+    <div class="cah-noise"></div>
+  </div>
+
+  <div class="cah-inner">
+    <div class="cah-content">
+      <div class="cah-badge"><span class="cah-badge-dot" aria-hidden="true"></span><span>We're Hiring</span></div>
+
+      <h1 class="cah-heading" id="cahHeading">
+        <span class="cah-line"><span class="cah-line-inner">Build Your Career.</span></span>
+        <span class="cah-line"><span class="cah-line-inner">Shape the <span class="grad">Future.</span></span></span>
+      </h1>
+
+      <p class="cah-desc">Join the people engineering India's infrastructure from the ground up, across our plants, our corporate teams, and everything in between. Real work, real growth, real steel.</p>
+
+      <div class="cah-cta-row">
+        <a href="#openPositions" class="cah-cta cah-cta-primary">
+          <span class="cah-cta-shine" aria-hidden="true"></span>
+          <span>Explore Opportunities</span>
+          <span class="cah-cta-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#careerApplyForm" class="cah-cta cah-cta-ghost">
+          <span class="cah-cta-shine" aria-hidden="true"></span>
+          <span>Join Our Team</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="cah-visual" aria-hidden="true">
+      <div class="cah-visual-glow"></div>
+      <svg class="cah-illustration" viewBox="0 0 480 480" fill="none">
+        <line x1="10" y1="400" x2="470" y2="400" stroke="rgba(238,234,225,.15)" stroke-width="2"/>
+
+        <!-- factory skyline -->
+        <rect x="20" y="280" width="70" height="120" fill="url(#steelGrad)" opacity=".85"/>
+        <rect x="95" y="240" width="55" height="160" fill="url(#steelGrad)" opacity=".65"/>
+        <rect x="34" y="255" width="16" height="30" fill="url(#steelGrad)"/>
+        <rect x="112" y="205" width="13" height="40" fill="url(#steelGrad)" opacity=".8"/>
+        <circle class="cah-illu-spark" cx="42" cy="248" r="5" fill="url(#emberGrad)"/>
+        <circle class="cah-illu-spark" cx="118" cy="198" r="4" fill="url(#emberGrad)" style="animation-delay:.6s"/>
+        <circle class="cah-illu-spark" cx="45" cy="232" r="3" fill="url(#emberGrad)" style="animation-delay:1.2s"/>
+
+        <!-- gear -->
+        <g class="cah-illu-cog">
+          <circle cx="368" cy="118" r="46" fill="none" stroke="url(#steelGrad)" stroke-width="14" stroke-dasharray="9 9"/>
+          <circle cx="368" cy="118" r="20" fill="url(#steelGrad)"/>
+        </g>
+
+        <!-- career growth bars -->
+        <rect class="cah-illu-bar" x="250" y="360" width="28" height="40" rx="3" fill="url(#emberGrad)" opacity=".55"/>
+        <rect class="cah-illu-bar" x="290" y="330" width="28" height="70" rx="3" fill="url(#emberGrad)" opacity=".7" style="animation-delay:.3s"/>
+        <rect class="cah-illu-bar" x="330" y="300" width="28" height="100" rx="3" fill="url(#emberGrad)" opacity=".85" style="animation-delay:.6s"/>
+        <rect class="cah-illu-bar" x="370" y="260" width="28" height="140" rx="3" fill="url(#emberGrad)" style="animation-delay:.9s"/>
+
+        <path d="M264,354 L304,324 L344,294 L384,254" stroke="url(#emberGrad)" stroke-width="3" stroke-linecap="round"/>
+        <circle class="cah-illu-spark" cx="384" cy="254" r="6" fill="#FFC24B"/>
+
+        <!-- abstract workforce figures -->
+        <circle cx="281" cy="316" r="8" fill="url(#steelGrad)"/>
+        <rect x="272" y="324" width="18" height="28" rx="9" fill="url(#steelGrad)"/>
+        <circle cx="361" cy="246" r="8" fill="url(#steelGrad)"/>
+        <rect x="352" y="254" width="18" height="28" rx="9" fill="url(#steelGrad)"/>
+      </svg>
+    </div>
+  </div>
+
+  <button type="button" class="cah-scroll-indicator" id="cahScrollIndicator" aria-label="Scroll to explore">
+    <span class="cah-scroll-mouse" aria-hidden="true"><span class="cah-scroll-dot"></span></span>
+    <span class="cah-scroll-text">Scroll to Explore</span>
+  </button>
 </header>
 
-<!-- APPLICATION FORM -->
-<section class="section">
-  <div class="apply-shell">
-    <div class="apply-progress">
-      <div class="apply-progress-track"><div class="apply-progress-fill" id="applyProgressFill"></div></div>
-      <span class="apply-progress-label" id="applyProgressLabel">0% Complete</span>
+<!-- ══════════════════ WHY JOIN US ══════════════════ -->
+<section class="section" id="whyJoinUs">
+  <div class="section-head reveal">
+    <div class="kicker center">WHY JOIN US</div>
+    <h2>Built For People Who Build Things</h2>
+    <p>Six reasons our people choose to stay and grow with Shakambhari Group.</p>
+  </div>
+  <div class="cbc" id="cbcCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Why Join Us, career benefits">
+    <div class="cbc-bg" aria-hidden="true">
+      <div class="cbc-mesh"></div>
+      <div class="cbc-texture"></div>
+      <div class="cbc-glow"></div>
+      <div class="cbc-shape s1"></div>
+      <div class="cbc-shape s2"></div>
+      <div class="cbc-shape s3"></div>
     </div>
-    <form class="panel apply-panel" id="careerApplyForm" novalidate>
+
+    <div class="cbc-viewport">
+      <button type="button" class="cbc-nav cbc-prev" aria-label="Previous benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+
+      <div class="cbc-track-wrap" role="region" aria-roledescription="carousel" aria-label="Career benefits slides" tabindex="0">
+        <div class="cbc-track" id="cbcTrack">
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Career Growth">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+              <h3>Career Growth</h3>
+              <p>Clear progression paths from graduate roles to leadership, built on merit and measurable impact.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Learning &amp; Development">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div>
+              <h3>Learning &amp; Development</h3>
+              <p>Structured technical training, SAP certification and leadership programmes at every stage.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Innovation">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a6 6 0 0 0-4 10.5V15h8v-2.5A6 6 0 0 0 12 2Z"/><path d="M9.5 18h5M10.5 21h3"/></svg></div>
+              <h3>Innovation</h3>
+              <p>Modern process technology and continuous improvement, from melt shop to market.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Inclusive Culture">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg></div>
+              <h3>Inclusive Culture</h3>
+              <p>A workplace where plant floor and corporate office share the same respect and voice.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Competitive Benefits">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+              <h3>Competitive Benefits</h3>
+              <p>Health cover, retirement savings and recognition programmes that support life beyond work.</p>
+            </div>
+          </div>
+          <div class="cbc-slide" role="group" aria-roledescription="slide" aria-label="Work-Life Balance">
+            <div class="car-card cbc-card">
+              <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></div>
+              <h3>Work-Life Balance</h3>
+              <p>Rotational shift planning and paid leave designed around real life, not just rosters.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="cbc-nav cbc-next" aria-label="Next benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <div class="cbc-dots" id="cbcDots" role="tablist" aria-label="Choose a benefit"></div>
+    <div class="cbc-sr-only cbc-sr-status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+</section>
+
+<!-- ══════════════════ OUR VALUES ══════════════════ -->
+<section class="section" id="ourValues">
+  <div class="section-head reveal">
+    <div class="kicker center">OUR VALUES</div>
+    <h2>What Guides Every Decision</h2>
+    <p>Three principles that shape how we work, build and grow together.</p>
+  </div>
+  <div class="cov-grid">
+    <div class="car-card cov-card reveal">
+      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/><path d="M8 12l3 3 5-6"/></svg></div>
+      <h3>Integrity</h3>
+      <p>We do what's right, especially when no one is watching.</p>
+    </div>
+    <div class="car-card cov-card reveal" style="transition-delay:.05s">
+      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a6 6 0 0 0-4 10.5V15h8v-2.5A6 6 0 0 0 12 2Z"/><path d="M9.5 18h5M10.5 21h3"/></svg></div>
+      <h3>Innovation</h3>
+      <p>We keep asking how our process can be better, safer and faster.</p>
+    </div>
+    <div class="car-card cov-card reveal" style="transition-delay:.1s">
+      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/></svg></div>
+      <h3>Safety</h3>
+      <p>Every person goes home the way they arrived. No exceptions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ LEARNING & DEVELOPMENT, ROADMAP ══════════════════ -->
+<section class="section" id="learningDevelopment">
+  <div class="section-head reveal">
+    <div class="kicker center">LEARNING &amp; DEVELOPMENT</div>
+    <h2>Your Growth, Mapped Out</h2>
+    <p>From your first day to your next promotion, a structured path, not a guess.</p>
+  </div>
+  <div class="cld-roadmap reveal">
+    <svg class="cld-line-svg" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true">
+      <path class="cld-line-path" d="M2,2 H98"/>
+      <path class="cld-line-progress" d="M2,2 H98"/>
+    </svg>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Employee Onboarding, view details">
+      <div class="cld-node">01</div><div class="cld-label">Employee Onboarding</div><div class="cld-sub">Week 1</div>
+      <ul class="cld-info" hidden>
+        <li>Welcome orientation &amp; company introduction</li>
+        <li>HR documentation and policy briefing</li>
+        <li>IT account and system setup</li>
+        <li>Team introductions &amp; workplace tour</li>
+        <li>Initial role expectations and first-week goals</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Professional Training, view details">
+      <div class="cld-node">02</div><div class="cld-label">Training</div><div class="cld-sub">Month 1–4</div>
+      <ul class="cld-info" hidden>
+        <li>Technical and functional skill development</li>
+        <li>Product &amp; process training</li>
+        <li>Safety and compliance programs</li>
+        <li>Hands-on practical assignments</li>
+        <li>Continuous performance assessments</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Mentorship Program, view details">
+      <div class="cld-node">03</div><div class="cld-label">Mentorship</div><div class="cld-sub">Ongoing</div>
+      <ul class="cld-info" hidden>
+        <li>Dedicated mentor guidance</li>
+        <li>Regular feedback sessions</li>
+        <li>Career coaching and support</li>
+        <li>Knowledge sharing workshops</li>
+        <li>Personal growth planning</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Skill Development, view details">
+      <div class="cld-node">04</div><div class="cld-label">Skill Development</div><div class="cld-sub">Year 1+</div>
+      <ul class="cld-info" hidden>
+        <li>Advanced technical certifications</li>
+        <li>Cross-functional learning opportunities</li>
+        <li>Leadership skill enhancement</li>
+        <li>Innovation and problem-solving projects</li>
+        <li>Continuous learning culture</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Leadership Development, view details">
+      <div class="cld-node">05</div><div class="cld-label">Leadership</div><div class="cld-sub">Year 2+</div>
+      <ul class="cld-info" hidden>
+        <li>Team management responsibilities</li>
+        <li>Strategic decision-making exposure</li>
+        <li>Project ownership opportunities</li>
+        <li>Communication &amp; people management</li>
+        <li>Future leadership preparation</li>
+      </ul>
+    </div>
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Career Growth, view details">
+      <div class="cld-node">06</div><div class="cld-label">Career Growth</div><div class="cld-sub">Ongoing</div>
+      <ul class="cld-info" hidden>
+        <li>Internal promotion opportunities</li>
+        <li>Performance-based recognition</li>
+        <li>Long-term career progression</li>
+        <li>Learning beyond current role</li>
+        <li>Professional success roadmap</li>
+      </ul>
+    </div>
+    <div class="cld-tooltip" id="cldTooltip" role="tooltip" aria-hidden="true">
+      <span class="cld-tooltip-arrow" aria-hidden="true"></span>
+      <h4 class="cld-tooltip-title"></h4>
+      <ul class="cld-tooltip-list"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CAREER GROWTH JOURNEY ══════════════════ -->
+<section class="section ccj-section" id="careerJourney">
+  <div class="ccj-bg" aria-hidden="true">
+    <span class="ccj-glow"></span>
+    <span class="ccj-shape ccj-shape-1"></span>
+    <span class="ccj-shape ccj-shape-2"></span>
+    <span class="ccj-particle ccj-particle-1"></span>
+    <span class="ccj-particle ccj-particle-2"></span>
+    <span class="ccj-particle ccj-particle-3"></span>
+    <span class="ccj-particle ccj-particle-4"></span>
+    <span class="ccj-particle ccj-particle-5"></span>
+  </div>
+
+  <div class="section-head ccj-head reveal">
+    <div class="kicker center">CAREER GROWTH JOURNEY</div>
+    <h2>Grow Your Career.<br><span class="ccj-highlight">Shape the Future.</span><br>Build With Us.</h2>
+    <p>Every successful career begins with curiosity and grows through learning, leadership, and opportunity. Explore our structured 8-tier journey designed to help every employee progress from a fresh graduate to executive leadership.</p>
+  </div>
+
+  <div class="ccj-timeline reveal" id="ccjTimeline">
+    <div class="ccj-track" aria-hidden="true"><span class="ccj-track-fill" id="ccjFill"></span></div>
+    <div class="ccj-steps" role="tablist" aria-label="Career growth tiers">
+
+      <button type="button" class="ccj-step" id="ccjTab-0" data-index="0" data-badge="Learn. Explore. Grow." role="tab" aria-selected="true" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c2.6 1.9 4.2 5 4.2 8.4 0 2-.6 3.9-1.6 5.4l-2.6 3.2-2.6-3.2c-1-1.5-1.6-3.4-1.6-5.4 0-3.4 1.6-6.5 4.2-8.4Z"/><circle cx="12" cy="10" r="1.7"/><path d="M9.3 16.8 6.5 19.5M14.7 16.8l2.8 2.7M9.5 21.5h5"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">01</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 01</span><span class="ccj-step-title">Graduate &amp; Intern Career Launchpad</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Campus hiring and graduate onboarding</li>
+          <li>Department rotation program</li>
+          <li>Learn business operations</li>
+          <li>Discover strengths and interests</li>
+          <li>Build a strong career foundation</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-1" data-index="1" data-badge="Adapt. Contribute. Build." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">02</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 02</span><span class="ccj-step-title">Associate Specialist</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Join a dedicated department</li>
+          <li>Develop technical expertise</li>
+          <li>Learn operational processes</li>
+          <li>Work with experienced mentors</li>
+          <li>Strengthen collaboration skills</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-2" data-index="2" data-badge="Build. Collaborate. Deliver Impact." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M8.5 8V6.3A2.3 2.3 0 0 1 10.8 4h2.4a2.3 2.3 0 0 1 2.3 2.3V8"/><path d="M3 13h18"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">03</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 03</span><span class="ccj-step-title">Specialist / Professional</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Independently manage projects</li>
+          <li>Cross-functional collaboration</li>
+          <li>Improve business performance</li>
+          <li>Build professional expertise</li>
+          <li>Deliver measurable impact</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-3" data-index="3" data-badge="Solve. Innovate. Lead." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m8.5 13.2-1.7 7.3 5.2-3 5.2 3-1.7-7.3"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">04</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 04</span><span class="ccj-step-title">Senior Specialist / Technical Lead</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Solve complex technical challenges</li>
+          <li>Lead innovation initiatives</li>
+          <li>Mentor junior professionals</li>
+          <li>Improve operational excellence</li>
+          <li>Strengthen domain expertise</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-4" data-index="4" data-badge="Guide. Deliver. Inspire." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.3" cy="8" r="3"/><circle cx="16" cy="9" r="2.6"/><path d="M2.8 20c0-3.1 2.5-5.4 5.5-5.4s5.5 2.3 5.5 5.4"/><path d="M14.8 15.2c2.5.3 4.4 2.3 4.4 4.8"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">05</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 05</span><span class="ccj-step-title">Team Lead / Associate Manager</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Manage project teams</li>
+          <li>Guide emerging professionals</li>
+          <li>Deliver strategic objectives</li>
+          <li>Improve productivity</li>
+          <li>Build leadership capabilities</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-5" data-index="5" data-badge="Plan. Execute. Optimize." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="3.2" height="8" rx="1"/><rect x="10.4" y="7" width="3.2" height="13" rx="1"/><rect x="16.8" y="3.5" width="3.2" height="16.5" rx="1"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">06</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 06</span><span class="ccj-step-title">Manager / Principal Specialist</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Resource planning</li>
+          <li>Strategic execution</li>
+          <li>Cross-functional leadership</li>
+          <li>Business optimization</li>
+          <li>Department coordination</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-6" data-index="6" data-badge="Lead. Empower. Grow." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">07</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 07</span><span class="ccj-step-title">Senior Manager / Department Head</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Lead complete business functions</li>
+          <li>Budget management</li>
+          <li>Build future leaders</li>
+          <li>Drive organizational growth</li>
+          <li>Shape departmental strategy</li>
+        </ul>
+      </button>
+
+      <button type="button" class="ccj-step" id="ccjTab-7" data-index="7" data-badge="Envision. Inspire. Transform." role="tab" aria-selected="false" aria-controls="ccjPanel">
+        <span class="ccj-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18l-1.6-8.4-4.2 3.4-2.7-5.4-2.7 5.4-4.2-3.4L3 18Z"/><path d="M5 21h14"/></svg></span>
+        <span class="ccj-node"><span class="ccj-node-num">08</span><svg class="ccj-node-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="ccj-step-label"><span class="ccj-step-tier">Tier 08</span><span class="ccj-step-title">Executive Leadership</span></span>
+        <ul class="ccj-info" hidden>
+          <li>Define company vision</li>
+          <li>Shape long-term strategy</li>
+          <li>Lead global growth</li>
+          <li>Inspire innovation</li>
+          <li>Drive sustainable success</li>
+        </ul>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="ccj-panel reveal-scale" id="ccjPanel" role="tabpanel" aria-labelledby="ccjTab-0">
+    <div class="ccj-panel-icon">
+      <span class="ccj-panel-icon-glow" aria-hidden="true"></span>
+      <span class="ccj-panel-icon-shape" id="ccjPanelIcon" aria-hidden="true"></span>
+    </div>
+    <div class="ccj-panel-body" id="ccjPanelBody">
+      <div class="ccj-panel-top">
+        <span class="ccj-panel-tier" id="ccjPanelTier">Tier 01</span>
+        <span class="ccj-panel-badge" id="ccjPanelBadge">Learn. Explore. Grow.</span>
+      </div>
+      <h3 class="ccj-panel-title" id="ccjPanelTitle">Graduate &amp; Intern Career Launchpad</h3>
+      <span class="ccj-panel-divider" aria-hidden="true"></span>
+      <ul class="ccj-panel-list" id="ccjPanelList"></ul>
+    </div>
+  </div>
+
+  <div class="ccj-cta reveal-scale">
+    <div class="ccj-cta-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 5H5.5A2.5 2.5 0 0 0 8 9.8"/><path d="M16 5h2.5A2.5 2.5 0 0 1 16 9.8"/><path d="M12 13v3"/><path d="M9 20h6"/><path d="M10 16.5h4v1.7a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1.7Z"/></svg>
+    </div>
+    <div class="ccj-cta-text">
+      <h3>Your Journey Doesn't End Here</h3>
+      <p>Every achievement unlocks new opportunities for innovation, leadership, and impact. We invest in continuous learning so your career keeps growing alongside our organization.</p>
+    </div>
+    <a href="#openPositions" class="ccj-cta-btn"><span>Explore Opportunities</span><span class="ccj-cta-arrow" aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<!-- ══════════════════ EMPLOYEE SUCCESS STORIES ══════════════════ -->
+<section class="section" id="successStories">
+  <div class="section-head reveal">
+    <div class="kicker center">EMPLOYEE SUCCESS STORIES</div>
+    <h2>Grown Here, Not Just Hired Here</h2>
+    <p><span class="car-placeholder-tag">Sample layout</span>, real employee stories will replace these placeholders.</p>
+  </div>
+  <div class="ces-wrap reveal">
+    <div class="ces-track-viewport">
+      <div class="ces-track">
+        <div class="ces-slide">
+          <div class="ces-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
+          <p class="ces-quote">"[Employee Quote]"</p>
+          <div class="ces-name">[Employee Name]</div>
+          <div class="ces-path">[Promotion Timeline] · [Experience]</div>
+          <div class="ces-stars" aria-label="Rating placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+          </div>
+        </div>
+        <div class="ces-slide">
+          <div class="ces-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
+          <p class="ces-quote">"[Employee Quote]"</p>
+          <div class="ces-name">[Employee Name]</div>
+          <div class="ces-path">[Promotion Timeline] · [Experience]</div>
+          <div class="ces-stars" aria-label="Rating placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+          </div>
+        </div>
+        <div class="ces-slide">
+          <div class="ces-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"/></svg></div>
+          <p class="ces-quote">"[Employee Quote]"</p>
+          <div class="ces-name">[Employee Name]</div>
+          <div class="ces-path">[Promotion Timeline] · [Experience]</div>
+          <div class="ces-stars" aria-label="Rating placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2-4.8-4.3 6.3-.6L12 3Z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ces-controls">
+      <button type="button" class="ces-arrow prev" aria-label="Previous story">&#8249;</button>
+      <div class="ces-dots"></div>
+      <button type="button" class="ces-arrow next" aria-label="Next story">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ EMPLOYEE BENEFITS ══════════════════ -->
+<section class="section" id="employeeBenefits">
+  <div class="section-head reveal">
+    <div class="kicker center">EMPLOYEE BENEFITS</div>
+    <h2>What You Get, Beyond Salary</h2>
+    <p>Support structured around your health, growth and financial security.</p>
+  </div>
+  <div class="ceb-grid">
+    <div class="car-card ceb-card reveal"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Health Insurance</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.04s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H7"/></svg></div><h3>Performance Bonus</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.08s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><h3>Provident Fund</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.12s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div><h3>Learning Budget</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.16s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 14 7 21l5-2.5L17 21l-1.5-7"/></svg></div><h3>Recognition Awards</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.2s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div><h3>Paid Leave</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.24s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div><h3>Wellness Programmes</h3></div>
+    <div class="car-card ceb-card reveal" style="transition-delay:.28s"><div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div><h3>Career Growth</h3></div>
+  </div>
+</section>
+
+<!-- ══════════════════ OPEN POSITIONS ══════════════════ -->
+<section class="section" id="openPositions">
+  <div class="section-head reveal">
+    <div class="kicker center">OPEN POSITIONS</div>
+    <h2>Find Your Role</h2>
+    <p>Filter by department, location or experience, no page reload required.</p>
+    <p style="margin-top:.8rem;"><span class="car-placeholder-tag">Sample layout</span>, no live openings are published yet; real roles will appear here in this exact format.</p>
+  </div>
+
+  <div class="cop-toolbar reveal">
+    <div class="cop-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="copSearch" placeholder="Search job title or keyword…" aria-label="Search open positions">
+    </div>
+    <select class="cop-select" id="copDept" aria-label="Filter by department">
+      <option value="all">All Departments</option>
+      <option value="manufacturing-plant-ops">Manufacturing &amp; Plant Operations</option>
+      <option value="quality-rd">Quality &amp; R&amp;D</option>
+      <option value="sales-bd">Sales &amp; Business Development</option>
+      <option value="supply-chain-logistics">Supply Chain &amp; Logistics</option>
+      <option value="finance-corporate">Finance &amp; Corporate</option>
+      <option value="hr-admin">HR &amp; Administration</option>
+    </select>
+    <select class="cop-select" id="copLocation" aria-label="Filter by location">
+      <option value="all">All Locations</option>
+      <option value="madandih-purulia">Unit Madandih, Purulia</option>
+      <option value="mohuda-purulia">Unit Mohuda, Purulia</option>
+      <option value="mogra-hooghly">Unit Mogra, Hooghly</option>
+      <option value="durgapur">SPS Steels, Durgapur</option>
+      <option value="kolkata-ho">Corporate Head Office, Kolkata</option>
+    </select>
+    <select class="cop-select" id="copExperience" aria-label="Filter by experience">
+      <option value="all">All Experience Levels</option>
+      <option value="fresher">Fresher</option>
+      <option value="1-3">1 – 3 years</option>
+      <option value="3-5">3 – 5 years</option>
+      <option value="5-plus">5+ years</option>
+    </select>
+  </div>
+
+  <div class="cop-count" id="copCount"></div>
+
+  <div class="cop-grid" id="copGrid">
+    <div class="cop-card" data-dept="manufacturing-plant-ops" data-location="madandih-purulia" data-experience="1-3" data-search="production engineer manufacturing plant operations madandih purulia">
+      <div class="cop-card-top"><div><div class="cop-card-title">Production Engineer</div><div class="cop-card-dept">Manufacturing &amp; Plant Operations</div></div><span class="cop-badge">Full-Time</span></div>
+      <div class="cop-meta">
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Unit Madandih, Purulia</span>
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
+      </div>
+      <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="cop-card" data-dept="quality-rd" data-location="mogra-hooghly" data-experience="3-5" data-search="quality control engineer quality r&d mogra hooghly">
+      <div class="cop-card-top"><div><div class="cop-card-title">Quality Control Engineer</div><div class="cop-card-dept">Quality &amp; R&amp;D</div></div><span class="cop-badge">Full-Time</span></div>
+      <div class="cop-meta">
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Unit Mogra, Hooghly</span>
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
+      </div>
+      <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="cop-card" data-dept="sales-bd" data-location="kolkata-ho" data-experience="5-plus" data-search="business development manager sales business development kolkata head office">
+      <div class="cop-card-top"><div><div class="cop-card-title">Business Development Manager</div><div class="cop-card-dept">Sales &amp; Business Development</div></div><span class="cop-badge">Full-Time</span></div>
+      <div class="cop-meta">
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Corporate HO, Kolkata</span>
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
+      </div>
+      <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="cop-card" data-dept="supply-chain-logistics" data-location="durgapur" data-experience="3-5" data-search="logistics manager supply chain logistics durgapur">
+      <div class="cop-card-top"><div><div class="cop-card-title">Logistics Manager</div><div class="cop-card-dept">Supply Chain &amp; Logistics</div></div><span class="cop-badge">Full-Time</span></div>
+      <div class="cop-meta">
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>SPS Steels, Durgapur</span>
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
+      </div>
+      <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="cop-card" data-dept="finance-corporate" data-location="kolkata-ho" data-experience="1-3" data-search="finance executive finance corporate kolkata head office">
+      <div class="cop-card-top"><div><div class="cop-card-title">Finance Executive</div><div class="cop-card-dept">Finance &amp; Corporate</div></div><span class="cop-badge">Full-Time</span></div>
+      <div class="cop-meta">
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Corporate HO, Kolkata</span>
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
+      </div>
+      <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="cop-card" data-dept="hr-admin" data-location="mohuda-purulia" data-experience="fresher" data-search="hr executive hr administration mohuda purulia">
+      <div class="cop-card-top"><div><div class="cop-card-title">HR Executive</div><div class="cop-card-dept">HR &amp; Administration</div></div><span class="cop-badge">Full-Time</span></div>
+      <div class="cop-meta">
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>Unit Mohuda, Purulia</span>
+        <span class="cop-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>[Experience]</span>
+      </div>
+      <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
+    </div>
+  </div>
+  <div class="cop-empty" id="copEmpty">No roles match your filters right now, try widening your search.</div>
+</section>
+
+<!-- ══════════════════ INTERNSHIP & CAMPUS HIRING ══════════════════ -->
+<section class="section" id="internshipHiring">
+  <div class="section-head reveal">
+    <div class="kicker center">INTERNSHIP &amp; CAMPUS HIRING</div>
+    <h2>Start Here, Go Anywhere</h2>
+    <p>Structured entry programmes for students and recent graduates.</p>
+  </div>
+  <div class="cic-grid">
+    <div class="car-card cic-card reveal">
+      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+      <h3>Internships</h3>
+      <div class="cic-tagline">For Students</div>
+      <ul class="cic-list">
+        <li><span class="cic-list-label">Duration:</span> [Duration]</li>
+        <li><span class="cic-list-label">Eligibility:</span> [Eligibility Criteria]</li>
+        <li><span class="cic-list-label">Benefits:</span> Mentorship, hands-on project work and a completion certificate</li>
+        <li><span class="cic-list-label">Timeline:</span> [Timeline]</li>
+      </ul>
+      <a href="#careerApplyForm" class="btn btn-ghost">Register Interest →</a>
+    </div>
+    <div class="car-card cic-card reveal" style="transition-delay:.06s">
+      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+      <h3>Graduate Programme</h3>
+      <div class="cic-tagline">For Recent Graduates</div>
+      <ul class="cic-list">
+        <li><span class="cic-list-label">Duration:</span> [Duration]</li>
+        <li><span class="cic-list-label">Eligibility:</span> [Eligibility Criteria]</li>
+        <li><span class="cic-list-label">Benefits:</span> Rotational exposure across functions with structured mentorship</li>
+        <li><span class="cic-list-label">Timeline:</span> [Timeline]</li>
+      </ul>
+      <a href="#careerApplyForm" class="btn btn-ghost">Register Interest →</a>
+    </div>
+    <div class="car-card cic-card reveal" style="transition-delay:.12s">
+      <div class="car-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div>
+      <h3>Campus Hiring</h3>
+      <div class="cic-tagline">For Institutions</div>
+      <ul class="cic-list">
+        <li><span class="cic-list-label">Duration:</span> [Duration]</li>
+        <li><span class="cic-list-label">Eligibility:</span> [Eligibility Criteria]</li>
+        <li><span class="cic-list-label">Benefits:</span> Direct placement track into our graduate engineer roles</li>
+        <li><span class="cic-list-label">Timeline:</span> [Timeline]</li>
+      </ul>
+      <a href="contact.html" class="btn btn-ghost">Partner With Us →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ RECRUITMENT PROCESS ══════════════════ -->
+<section class="section" id="recruitmentProcess">
+  <div class="section-head reveal">
+    <div class="kicker center">RECRUITMENT PROCESS</div>
+    <h2>What Happens After You Apply</h2>
+  </div>
+  <div class="crp-row reveal">
+    <svg class="crp-line-svg" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true">
+      <path class="crp-line-path" d="M2,2 H98"/>
+      <path class="crp-line-progress" d="M2,2 H98"/>
+    </svg>
+    <div class="crp-steps">
+      <div class="crp-step"><div class="crp-step-num">1</div><h3>Apply</h3><p>Click "Apply" and submit the form with your resume.</p></div>
+      <div class="crp-step"><div class="crp-step-num">2</div><h3>Screening</h3><p>Our HR team reviews your profile against open roles.</p></div>
+      <div class="crp-step"><div class="crp-step-num">3</div><h3>Technical Interview</h3><p>A conversation on your skills and experience.</p></div>
+      <div class="crp-step"><div class="crp-step-num">4</div><h3>HR Interview</h3><p>Fit, expectations and offer discussion.</p></div>
+      <div class="crp-step"><div class="crp-step-num">5</div><h3>Team Interview</h3><p>Meet the team and manager you'll be working with directly.</p></div>
+      <div class="crp-step"><div class="crp-step-num">6</div><h3>Offer</h3><p>A formal offer is extended if it's a match.</p></div>
+      <div class="crp-step"><div class="crp-step-num">7</div><h3>Onboarding</h3><p>Structured induction into your team and role.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FAQ ══════════════════ -->
+<section class="section tight" id="careersFaq">
+  <div class="section-head reveal">
+    <div class="kicker center">FAQ</div>
+    <h2>Common Questions</h2>
+  </div>
+  <div class="cfq-list reveal">
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">How do I apply for a role at Shakambhari Group?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Click any "Apply" button on this page to open the application form, complete all required sections, attach your resume and submit. You'll see a confirmation on screen once it's received.</p></div></div>
+    </div>
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">Can I apply if I don't see a matching open role?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Yes, the application form accepts general applications across departments and locations, and our HR team keeps profiles on file as new roles open up.</p></div></div>
+    </div>
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">How long does the hiring process take?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Timelines vary by role and department. We typically aim to respond within 2–3 weeks of application if your profile matches an open position.</p></div></div>
+    </div>
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">Do freshers and graduate engineers get considered?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Yes, select "Fresher" under Employment Status and "Graduate Trainee / Apprentice" under Career Track in the application form to be considered for entry-level and graduate programmes.</p></div></div>
+    </div>
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">Is relocation required for plant roles?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">It depends on the specific role and unit. The application form asks about your willingness to relocate and work rotational shifts so we can match you appropriately.</p></div></div>
+    </div>
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">What documents do I need to apply?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">A resume or CV in PDF or Word format (up to 5 MB) is required. A cover letter is optional but helps us understand your interest in the specific role.</p></div></div>
+    </div>
+    <div class="cfq-item">
+      <button type="button" class="cfq-q" aria-expanded="false">Who can I contact for questions about my application?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Reach our HR team at <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a> or 033 6625 5252 for any questions about an in-progress application.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM MODAL -->
+<div class="apply-modal-overlay" id="applyModalOverlay" aria-hidden="true">
+  <div class="apply-modal" role="dialog" aria-modal="true" aria-label="Career application form">
+    <button type="button" class="apply-modal-close" id="applyModalClose" aria-label="Close application form">&times;</button>
+    <div class="apply-modal-scroll">
+      <div class="apply-shell">
+        <div class="apply-progress">
+          <div class="apply-progress-track"><div class="apply-progress-fill" id="applyProgressFill"></div></div>
+          <span class="apply-progress-label" id="applyProgressLabel">0% Complete</span>
+        </div>
+        <form class="panel apply-panel" id="careerApplyForm" novalidate>
 
       <!-- 1. PERSONAL DETAILS -->
       <div class="form-block" style="animation-delay:.03s">
@@ -518,8 +1325,23 @@
         <div class="field-grid">
           <div class="field full">
             <label for="resume">Resume / CV <span class="req">*</span></label>
-            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-            <span class="hint">PDF or Word document, up to 5 MB.</span>
+            <div class="car-dropzone" id="resumeDropzone">
+              <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required class="car-dropzone-input" aria-describedby="resumeHint">
+              <div class="car-dropzone-empty">
+                <svg class="car-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+                <p><strong>Drag &amp; drop your resume</strong> or click to browse</p>
+              </div>
+              <div class="car-dropzone-file" id="resumeFilePreview">
+                <svg class="car-dropzone-file-icon" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" fill="url(#steelGrad)"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="1.3"/></svg>
+                <div class="car-dropzone-file-info">
+                  <span class="car-dropzone-file-name" id="resumeFileName"></span>
+                  <span class="car-dropzone-file-size" id="resumeFileSize"></span>
+                  <div class="car-dropzone-progress-track"><div class="car-dropzone-progress-fill" id="resumeProgressFill"></div></div>
+                </div>
+                <button type="button" class="car-dropzone-remove" id="resumeRemoveBtn" aria-label="Remove file">&times;</button>
+              </div>
+            </div>
+            <span class="hint" id="resumeHint">PDF or Word document, up to 5 MB.</span>
           </div>
           <div class="field full">
             <label for="coverLetter">Cover Letter / Why This Role <span class="opt">(optional)</span></label>
@@ -591,8 +1413,57 @@
       <p>Thank you for applying to Shakambhari Group. Our HR team will review your profile and reach out if there's a match with an open role.</p>
       <button type="button" class="btn btn-ghost" id="applyAgainBtn">Submit Another Application</button>
     </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ NEWSLETTER ══════════════════ -->
+<section class="section tight">
+  <div class="cnl-band reveal-scale">
+    <div class="cnl-copy">
+      <h2>Stay Updated</h2>
+      <p>Get new openings and hiring events delivered to your inbox.</p>
+    </div>
+    <form class="cnl-form" id="newsletterForm" novalidate>
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+      <div class="cnl-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/><path d="M8 12l3 3 5-6"/></svg> You're subscribed!</div>
+      <p class="cnl-error"></p>
+    </form>
   </div>
 </section>
+
+<!-- ══════════════════ FINAL CTA ══════════════════ -->
+<section class="cfc reveal-scale">
+  <div class="cfc-mesh" aria-hidden="true"></div>
+  <div class="cfc-particles" aria-hidden="true"></div>
+  <div class="cfc-shapes" aria-hidden="true">
+    <span class="cfc-shape a"></span>
+    <span class="cfc-shape b"></span>
+    <span class="cfc-shape c"></span>
+  </div>
+  <div class="cfc-content">
+    <h2>Your Future Starts Here</h2>
+    <p>Join a company where innovation, integrity and growth define every career journey.</p>
+    <div class="cfc-cta-row">
+      <a href="#openPositions" class="cah-cta cah-cta-primary"><span class="cah-cta-shine" aria-hidden="true"></span><span>Explore Careers</span><span class="cah-cta-arrow" aria-hidden="true">→</span></a>
+      <a href="#careerApplyForm" class="cah-cta cah-cta-ghost"><span class="cah-cta-shine" aria-hidden="true"></span><span>Submit Resume</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>Ready to Build With Us?</h2>
+    <p>Whether you're looking to join the team or place an order, we're one message away.</p>
+    <div class="cta-btn-row">
+      <a href="contact.html" class="btn btn-primary">Get In Touch →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
@@ -625,6 +1496,7 @@
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>
@@ -646,7 +1518,41 @@
   </div>
 </footer>
 
+<!-- ══════════════════ STICKY QUICK ACTIONS (desktop) ══════════════════ -->
+<nav class="csa-rail" aria-label="Quick actions">
+  <a href="#careerApplyForm" class="csa-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/><path d="M8 12l3 3 5-6"/></svg><span class="csa-tooltip">Apply Now</span></a>
+  <a href="#openPositions" class="csa-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg><span class="csa-tooltip">Open Positions</span></a>
+  <a href="#internshipHiring" class="csa-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 11.5v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg><span class="csa-tooltip">Internships</span></a>
+  <a href="contact.html" class="csa-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg><span class="csa-tooltip">Contact HR</span></a>
+</nav>
+
+<!-- ══════════════════ FLOATING HR ASSISTANT ══════════════════ -->
+<button type="button" class="cha-fab" id="chaFab" aria-label="Open HR assistant" aria-expanded="false" aria-controls="chaPanel">
+  <span class="cha-fab-pulse" aria-hidden="true"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.4-5.6A8.5 8.5 0 1 1 21 12Z"/><circle cx="9" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="15" cy="12" r="1"/></svg>
+</button>
+<div class="cha-panel" id="chaPanel" role="dialog" aria-label="HR assistant">
+  <div class="cha-head">
+    <div class="cha-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4" opacity=".65"/><path d="M2.5 20c0-3.6 3-5.8 6.5-5.8s6.5 2.2 6.5 5.8"/></svg></div>
+    <div><div class="cha-head-title">HR Assistant</div><div class="cha-head-sub">Ask about roles, applying &amp; more</div></div>
+    <button type="button" class="cha-close" aria-label="Close" style="margin-left:auto;background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;">&times;</button>
+  </div>
+  <div class="cha-body">
+    <div class="cha-msg bot">Hi! I can help you find open roles, walk you through applying, or point you to our HR team. What would you like to do?</div>
+  </div>
+  <div class="cha-quick">
+    <button type="button" class="cha-quick-btn" data-key="openings">See open roles</button>
+    <button type="button" class="cha-quick-btn" data-key="apply">How do I apply?</button>
+    <button type="button" class="cha-quick-btn" data-key="internship">Internship info</button>
+    <button type="button" class="cha-quick-btn" data-key="hr">Contact HR</button>
+  </div>
+</div>
+
 <script src="site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="careers-hero.js"></script>
+<script src="careers-content.js"></script>
+<script src="career-benefits-carousel.js"></script>
 <script>
 // Careers application form: pill-style choice UI, conditional shift question,
 // and submission to an n8n webhook (multipart/form-data, so the resume file rides along).
@@ -658,6 +1564,48 @@
   const errorMsg = document.getElementById('applyError');
   const submitBtn = document.getElementById('applySubmitBtn');
   const shiftField = document.getElementById('shiftField');
+
+  // Apply form now lives in a modal, opened from every "Apply" link/button
+  // across the page instead of an in-page anchor jump.
+  const applyOverlay = document.getElementById('applyModalOverlay');
+  const applyModalClose = document.getElementById('applyModalClose');
+  let lastFocusedBeforeApply = null;
+
+  function openApplyModal(){
+    if(!applyOverlay) return;
+    lastFocusedBeforeApply = document.activeElement;
+    applyOverlay.classList.add('active');
+    applyOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    applyModalClose.focus();
+  }
+
+  function closeApplyModal(){
+    if(!applyOverlay) return;
+    applyOverlay.classList.remove('active');
+    applyOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if(lastFocusedBeforeApply) lastFocusedBeforeApply.focus();
+  }
+
+  window.openCareerApplyModal = openApplyModal;
+
+  document.querySelectorAll('a[href="#careerApplyForm"]').forEach(link=>{
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      openApplyModal();
+    });
+  });
+
+  if(applyModalClose) applyModalClose.addEventListener('click', closeApplyModal);
+  if(applyOverlay){
+    applyOverlay.addEventListener('click', function(e){
+      if(e.target === applyOverlay) closeApplyModal();
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && applyOverlay && applyOverlay.classList.contains('active')) closeApplyModal();
+  });
 
   // TODO: replace with the Production URL of your n8n Webhook node
   // (Method: POST, accepts multipart/form-data so the resume upload comes through as a binary field).
@@ -790,7 +1738,7 @@
   });
 
   // Safety / Equipment Certifications: a plain per-checkbox `required` would force
-  // ALL of them checked, which isn't the intent — at least one (including "None")
+  // ALL of them checked, which isn't the intent, at least one (including "None")
   // must be picked. Custom validity is anchored to the first checkbox in the group.
   const certCheckboxes = form.querySelectorAll('input[name="certifications"]');
   function validateCertifications(){

@@ -1,0 +1,409 @@
+/* ════════════════════════════════════════════════════════════════════
+   GROUP COMPANIES — Cinematic Industrial Hero
+   Isolated component (see group-hero.js). Replaces the plain
+   .page-header banner on companies.html only. Full-bleed photographic
+   composition of the industrial plant at night (Hero/group-company.*)
+   with a single left-to-right scrim carrying the headline — one
+   full-inset photo + one scrim, matching the site's established hero
+   convention (see .oj-hero in journey-hero.css, .mvv-hero in
+   vision-hero.css), not a boxed image stitched against a separately
+   drawn background.
+
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.gc-hero {
+  --navy: #061B49;
+  --navy-mid: #08265C;
+  --navy-deep: #040F2C;
+  --ink: #F5F7FB;
+  --ink-dim: #B9C4DE;
+  --accent: #FF6B00;
+  --accent-2: #FF7518;
+  --accent-hot: #FFC24B;
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 760px;
+  max-height: 1200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--navy);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .gc-hero { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.gc-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo ══ */
+.gc-hero-visual { position: absolute; inset: 0; overflow: hidden; }
+
+.gc-hero-visual picture,
+.gc-hero-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.gc-hero-visual-img {
+  object-fit: cover;
+  object-position: 62% 34%;
+  /* settles at a small permanent overscale so the scroll-parallax
+     translate in group-hero.js always has clipping headroom inside
+     the overflow:hidden wrapper — same technique as .oj-hero-visual-img */
+  transform: scale(1.06);
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .gc-hero-visual-img { object-position: 58% 38%; }
+}
+
+/* single scrim: dark navy on the left carries the headline, fading
+   naturally into the bright industrial detail on the right; a faint
+   top/bottom vignette blends into the nav above and the curve below */
+.gc-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(96deg, var(--navy) 0%, rgba(6, 27, 73, .96) 26%, rgba(6, 27, 73, .82) 42%, rgba(6, 27, 73, .46) 58%, rgba(6, 27, 73, .14) 74%, transparent 90%),
+    linear-gradient(180deg, rgba(4, 15, 44, .4) 0%, transparent 18%, transparent 76%, rgba(4, 15, 44, .58) 100%);
+}
+
+@media (max-width: 900px) {
+  .gc-hero-scrim { display: none; }
+}
+
+/* ── thin orbital rings around the illuminated towers, very slow spin,
+   with 1-2 tiny orange light points drifting along the path ── */
+.gc-hero-orbit {
+  position: absolute;
+  left: 68%;
+  top: 40%;
+  width: min(50vw, 660px);
+  height: min(50vw, 660px);
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 2;
+  pointer-events: none;
+  opacity: .75;
+}
+
+.gc-hero-orbit svg { display: block; width: 100%; height: 100%; }
+
+.gc-hero-orbit-spin {
+  transform-origin: 450px 450px;
+  animation: gcOrbitSpin 26s linear infinite;
+  will-change: transform;
+}
+
+@keyframes gcOrbitSpin { to { transform: rotate(360deg); } }
+
+@media (max-width: 1100px) {
+  .gc-hero-orbit { left: 66%; width: min(60vw, 560px); height: min(60vw, 560px); }
+}
+
+/* ── very subtle ambient glow pulsing around the industrial lights ── */
+.gc-hero-glow {
+  position: absolute;
+  right: 20%;
+  top: 12%;
+  width: min(30vw, 360px);
+  height: min(30vw, 360px);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 194, 75, .5), rgba(255, 117, 24, .16) 45%, transparent 72%);
+  filter: blur(6px);
+  opacity: .7;
+  animation: gcGlowPulse 5.2s ease-in-out infinite;
+}
+
+@keyframes gcGlowPulse {
+  0%, 100% { opacity: .7; }
+  50% { opacity: .9; }
+}
+
+@media (max-width: 900px) {
+  .gc-hero-glow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc-hero-orbit-spin, .gc-hero-glow { animation: none !important; }
+}
+
+/* ══ content ══ */
+.gc-hero-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) 1.75rem 4rem;
+}
+
+.gc-hero-content { max-width: 600px; }
+
+.gc-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  opacity: 0;
+}
+
+.gc-hero-eyebrow-icon { display: flex; flex-shrink: 0; color: var(--accent); }
+.gc-hero-eyebrow-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.gc-hero-eyebrow-line {
+  width: 30px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hot));
+}
+
+.gc-hero-heading {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.6rem, 4.6vw + 1vh, 4.3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+
+.gc-hero-heading .line { display: block; opacity: 0; }
+.gc-hero-heading .ink { color: var(--ink); }
+.gc-hero-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 107, 0, .32));
+}
+
+.gc-hero-desc {
+  margin-top: 1.2rem;
+  max-width: 46ch;
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+/* ── CTA: orange pill, white text, arrow badge ── */
+.gc-hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: 1.9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 26px rgba(255, 107, 0, .28);
+  opacity: 0;
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease;
+}
+
+.gc-hero-cta:hover,
+.gc-hero-cta:focus-visible {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #E85D00, var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 107, 0, .4);
+}
+
+.gc-hero-cta:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
+}
+
+.gc-hero-cta-label {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.gc-hero-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.gc-hero-cta-arrow svg { width: 16px; height: 16px; }
+
+.gc-hero-cta:hover .gc-hero-cta-arrow,
+.gc-hero-cta:focus-visible .gc-hero-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ── bottom feature row: compact indicators, not cards ── */
+.gc-hero-features {
+  display: flex;
+  align-items: stretch;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  opacity: 0;
+}
+
+.gc-hero-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
+}
+
+.gc-hero-feature-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 117, 24, .4);
+  color: var(--accent-hot);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), color .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+.gc-hero-feature-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.gc-hero-feature-text { display: flex; flex-direction: column; gap: .2rem; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
+
+.gc-hero-feature-title {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color .28s ease;
+}
+
+.gc-hero-feature-sub {
+  font-size: .72rem;
+  line-height: 1.4;
+  max-width: 15ch;
+  color: var(--ink-dim);
+}
+
+.gc-hero-feature:hover { transform: translateY(-2px); }
+
+.gc-hero-feature:hover .gc-hero-feature-icon {
+  transform: scale(1.08);
+  color: #fff;
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 0 5px rgba(255, 117, 24, .12), 0 0 16px rgba(255, 194, 75, .35);
+}
+
+.gc-hero-feature:hover .gc-hero-feature-title { color: var(--accent-hot); }
+
+.gc-hero-feature-div {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, .14);
+}
+
+@media (max-width: 1100px) {
+  .gc-hero-content { max-width: 520px; }
+  .gc-hero-features { gap: 1.2rem; margin-top: 2.2rem; }
+  .gc-hero-feature-sub { max-width: 13ch; }
+}
+
+@media (max-width: 560px) {
+  .gc-hero-features { flex-wrap: wrap; row-gap: 1.4rem; column-gap: 1.1rem; justify-content: center; }
+  .gc-hero-feature-div { display: none; }
+  .gc-hero-feature-sub { max-width: 20ch; }
+}
+
+/* ── bottom curved transition: dark navy fill + thin orange accent line ── */
+.gc-hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 3;
+  height: clamp(56px, 8vw, 100px);
+  pointer-events: none;
+}
+
+.gc-hero-wave svg { display: block; width: 100%; height: 100%; }
+
+.gc-hero-wave-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.gc-hero-wave-fill { fill: var(--surface, #fff); }
+
+@media (max-width: 900px) {
+  .gc-hero-wave { display: none; }
+}
+
+/* ══ mobile: vertical stack — eyebrow, headline, copy, CTA, features,
+   then the industrial visual as a contained, uncropped card, matching
+   the site's established mobile hero pattern (.oj-hero / .mvv-hero) ══ */
+@media (max-width: 900px) {
+  .gc-hero { display: flex; flex-direction: column; align-items: stretch; }
+
+  .gc-hero-bg { position: relative; inset: auto; order: 2; }
+
+  .gc-hero-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; }
+
+  .gc-hero-content { max-width: none; text-align: center; }
+
+  .gc-hero-eyebrow { justify-content: center; }
+
+  .gc-hero-desc { margin-left: auto; margin-right: auto; }
+
+  .gc-hero-cta { margin-left: auto; margin-right: auto; }
+
+  .gc-hero-features { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; text-align: left; }
+
+  .gc-hero-visual {
+    position: relative;
+    inset: auto;
+    margin: 2.2rem 1.25rem 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--navy-deep);
+    box-shadow: 0 20px 44px rgba(4, 15, 44, .35);
+  }
+
+  .gc-hero-visual picture,
+  .gc-hero-visual-img { position: absolute; inset: 0; }
+
+  .gc-hero-visual-img { object-fit: cover; object-position: 46% 38%; }
+
+  .gc-hero-orbit { left: 50%; top: 50%; width: 92%; height: 92%; opacity: .55; }
+}

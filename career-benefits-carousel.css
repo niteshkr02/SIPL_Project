@@ -1,0 +1,260 @@
+/* ════════════════════════════════════════════════════════════════════
+   CAREER BENEFITS CAROUSEL — "Why Join Us" premium coverflow carousel
+   Isolated component (see career-benefits-carousel.js). Class prefix
+   .cbc. Replaces the static .cwj-grid inside #whyJoinUs with a
+   center-weighted, infinitely-looping carousel. Reuses the site's
+   .car-card / .car-icon visual language (careers-content.css) — only
+   the wrapping .cbc-card modifier adds carousel-specific hover flair
+   (cursor spotlight, title accent, glass sheen on the active card) so
+   every OTHER .car-card on the page (Employee Benefits, Values,
+   Internships…) is left untouched.
+
+   Positioning model: each .cbc-slide is absolutely centered and moved
+   with translate3d/scale driven by CSS custom properties (--tx/--sc/
+   --op/--z) that career-benefits-carousel.js updates per slide based
+   on its *circular* distance from the active index. Because distance
+   wraps the short way round, looping never "jumps" a strip — there is
+   no strip, just per-slide targets recomputed each time the active
+   index changes, so index 5 -> 0 animates one step forward exactly
+   like 0 -> 1 would.
+
+   Motion contract: only transform / opacity / filter are transitioned
+   on slides. The sitewide prefers-reduced-motion rule in styles.css
+   (`*{transition-duration:.001ms!important}`) already collapses these
+   to instant snaps, so no local reduced-motion override is needed here
+   — career-benefits-carousel.js separately turns autoplay off in that
+   mode.
+   ════════════════════════════════════════════════════════════════════ */
+
+.cbc {
+  position: relative;
+  margin-top: 3rem;
+  padding: 2.5rem 0 1rem;
+  border-radius: 2rem;
+  isolation: isolate;
+}
+
+.cbc.is-visible .cbc-viewport { opacity: 1; transform: translateY(0); }
+.cbc-viewport {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.16, .84, .44, 1), transform .7s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* ── ambient background (same recipe family as .qw-mesh/.qw-grid/.qw-glow) ── */
+.cbc-bg { position: absolute; inset: -6% -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
+
+.cbc-mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 82% 12%, rgba(255, 106, 31, .06), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 12% 22%, rgba(241, 243, 246, .8), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(228, 231, 236, .45), transparent 65%),
+    linear-gradient(180deg, #FCFCFD 0%, #F5F6F8 100%);
+}
+
+.cbc-texture {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(0deg, rgba(15, 23, 42, .5) 0, rgba(15, 23, 42, .5) 1px, transparent 1px, transparent 44px);
+  opacity: .025;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 90%);
+}
+
+.cbc-glow {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 60%; height: 60%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(255, 106, 31, .09), transparent 65%);
+  filter: blur(46px);
+  animation: cbcGlowBreathe 9s ease-in-out infinite;
+}
+@keyframes cbcGlowBreathe {
+  0%, 100% { opacity: .7; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.cbc-shape { position: absolute; border-radius: 50%; filter: blur(28px); opacity: .35; pointer-events: none; }
+.cbc-shape.s1 { left: 6%; top: 18%; width: 130px; height: 130px; background: rgba(255, 106, 31, .16); animation: cbcFloat 13s ease-in-out infinite; }
+.cbc-shape.s2 { right: 8%; top: 55%; width: 90px; height: 90px; background: rgba(255, 194, 75, .18); animation: cbcFloat 16s ease-in-out infinite 2s; }
+.cbc-shape.s3 { left: 30%; bottom: 6%; width: 70px; height: 70px; background: rgba(255, 106, 31, .12); animation: cbcFloat 11s ease-in-out infinite 4s; }
+@keyframes cbcFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(18px, -24px); }
+}
+
+/* ── viewport + track ── */
+.cbc-viewport {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 2.5rem 0 3rem;
+}
+
+.cbc-track-wrap { position: relative; flex: 1 1 auto; min-width: 0; overflow-x: hidden; overflow-y: visible; }
+.cbc-track-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 1rem; }
+
+.cbc-track {
+  position: relative;
+  height: 372px;
+  touch-action: pan-y;
+  cursor: grab;
+  transform: translate3d(var(--drag, 0px), 0, 0);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+.cbc-track.is-dragging { cursor: grabbing; transition: none; }
+
+.cbc-slide {
+  position: absolute;
+  top: 0; left: 50%;
+  width: min(320px, 84vw);
+  margin-left: calc(min(320px, 84vw) / -2);
+  transform: translate3d(var(--tx, 0px), 0, 0) scale(var(--sc, 1));
+  opacity: var(--op, 1);
+  z-index: var(--z, 1);
+  transition: transform .7s cubic-bezier(.16, .84, .44, 1), opacity .7s cubic-bezier(.16, .84, .44, 1), filter .7s ease;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.cbc-slide.is-hidden-visual { pointer-events: none; }
+.cbc-slide.is-far { filter: saturate(.7); }
+
+/* the shared .car-card already provides padding/radius/gradient-border-on-hover/
+   icon box/hover-lift (careers-content.css lines ~20-70) — .cbc-card only layers
+   carousel-specific flourishes on top, scoped so plain .car-card usage elsewhere
+   on the site (Employee Benefits, Values, Internships) is unaffected. */
+.cbc-card {
+  position: relative;
+  height: 100%;
+  cursor: pointer;
+}
+
+.cbc-card::after {
+  /* cursor spotlight, position set via --mx/--my by career-benefits-carousel.js */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 0%), rgba(255, 145, 40, .12), transparent 70%);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.cbc-card:hover::after, .cbc-card:focus-visible::after { opacity: 1; }
+.cbc-card:hover h3, .cbc-card:focus-visible h3 { color: var(--accent-ink); transition: color .3s ease; }
+.cbc-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.cbc-card .car-icon { position: relative; }
+.cbc-slide.is-center .cbc-card .car-icon { animation: cbcIconPulse 3.2s ease-in-out infinite; }
+@keyframes cbcIconPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 106, 31, 0); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 106, 31, .07); }
+}
+
+/* ── center-card focus: stronger shadow, glow ring, glass sheen ── */
+.cbc-slide.is-center .cbc-card {
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .4) 0%, transparent 32%),
+    linear-gradient(155deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .6));
+  border-color: rgba(255, 106, 31, .3);
+  box-shadow: 0 30px 60px -18px rgba(20, 22, 28, .18), 0 0 46px rgba(255, 106, 31, .16);
+}
+.cbc-slide.is-center .cbc-card::before { opacity: .55; }
+
+/* ── nav buttons ── */
+.cbc-nav {
+  flex: 0 0 auto;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease;
+}
+.cbc-nav svg { width: 20px; height: 20px; }
+.cbc-nav:hover, .cbc-nav:focus-visible {
+  transform: scale(1.08);
+  border-color: var(--accent);
+  box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
+  outline: none;
+}
+.cbc-nav:active { transform: scale(.96); }
+
+/* ── pagination ── */
+.cbc-dots { display: flex; align-items: center; justify-content: center; gap: .55rem; margin-top: .5rem; }
+.cbc-dot {
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  background: var(--border);
+  cursor: pointer;
+  transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
+}
+.cbc-dot:hover { background: var(--accent-hot); }
+.cbc-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cbc-dot.is-active { width: 26px; background: linear-gradient(90deg, var(--accent-hot), var(--accent)); }
+
+.cbc-sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── responsive step/scale tuning is computed in JS from measured card
+   width; these breakpoints only resize the card + track height ── */
+@media (max-width: 1024px) {
+  .cbc-track { height: 400px; }
+  .cbc-nav { width: 42px; height: 42px; }
+}
+@media (max-width: 640px) {
+  .cbc-slide { width: min(280px, 82vw); margin-left: calc(min(280px, 82vw) / -2); }
+  .cbc-track { height: 420px; }
+  .cbc-viewport { padding: 1.75rem 0 2.5rem; gap: .25rem; }
+  .cbc-nav { width: 38px; height: 38px; }
+  .cbc-nav svg { width: 17px; height: 17px; }
+}
+/* below ~420px the 280px slide plus both 38px nav buttons no longer fits
+   .cbc-track-wrap's share of the viewport, so it was getting clipped by
+   the wrap's overflow-x:hidden — shrink the slide to what's actually left */
+@media (max-width: 420px) {
+  .cbc-slide { width: min(230px, 52vw); margin-left: calc(min(230px, 52vw) / -2); }
+}
+
+/* ══ DARK MODE — same recipe as quality-section.css's html[data-theme="dark"]
+   overrides, so this carousel reads as one continuous system when the
+   site-wide theme is toggled. ══ */
+html[data-theme="dark"] .cbc-mesh {
+  background:
+    radial-gradient(ellipse 55% 45% at 82% 12%, rgba(255, 145, 40, .08), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 12% 22%, rgba(32, 36, 44, .5), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(18, 21, 26, .5), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #161A20 100%);
+}
+html[data-theme="dark"] .cbc-texture {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .5) 0, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .5) 0, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 44px);
+  opacity: .02;
+}
+html[data-theme="dark"] .cbc-nav {
+  background: rgba(27, 31, 38, .7);
+}
+html[data-theme="dark"] .cbc-slide.is-center .cbc-card {
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .06) 0%, transparent 32%),
+    linear-gradient(155deg, rgba(27, 31, 38, .92), rgba(18, 21, 26, .6));
+  box-shadow: 0 30px 60px -18px rgba(0, 0, 0, .45), 0 0 46px rgba(255, 106, 31, .18);
+}
+html[data-theme="dark"] .cbc-card:hover h3, html[data-theme="dark"] .cbc-card:focus-visible h3 { color: var(--accent-ink); }

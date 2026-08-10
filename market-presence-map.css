@@ -17,6 +17,13 @@
    top are never transitioned.
    ════════════════════════════════════════════════════════════════════ */
 
+/* ── tighter section padding than the site default (.section's 5rem) —
+   this component is already visually dense with its own map cards ── */
+#market-presence {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 /* ── ambient section background (same recipe as Group / Trusted By / Awards) ── */
 .mp-mesh {
   position: absolute;
@@ -94,6 +101,7 @@
 .mp-head {
   position: relative;
   z-index: 1;
+  margin-bottom: 1.8rem;
 }
 
 .mp-kicker-glow {
@@ -128,7 +136,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
 }
 
@@ -163,12 +171,18 @@
 /* ── outer card ──
    .market-full-wrapper already carries class="panel" in the markup, so
    the white glass background/border/radius/shadow/hover-lift all come
-   from styles.css .panel — only layout properties belong here. */
+   from styles.css .panel — only layout properties belong here.
+   The 3D cursor-tilt part of .panel:hover is switched off below: with
+   a card this large, the rotateX/rotateY swing was very noticeable
+   near the corners. */
 .market-full-wrapper {
   position: relative;
   z-index: 1;
-  padding: 2rem 1.5rem;
+  padding: 1.4rem 1.5rem;
   overflow: visible;
+}
+.market-full-wrapper.panel:hover {
+  transform: translateY(-8px);
 }
 
 .market-dashboard-grid {
@@ -190,7 +204,7 @@
   background: linear-gradient(160deg, rgba(255, 255, 255, .85) 0%, rgba(237, 240, 243, .55) 100%);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.1rem;
   position: relative;
   overflow: visible;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 1px 2px rgba(20, 22, 28, .04);
@@ -200,7 +214,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.85rem;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
@@ -258,7 +272,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 700 / 800;
-  max-height: 700px;
+  max-height: 620px;
   margin: 0 auto;
   user-select: none;
   overflow: visible;
@@ -266,7 +280,7 @@
 
 .map-viewport-box.world-box {
   aspect-ratio: 1000 / 500;
-  max-height: 540px;
+  max-height: 460px;
 }
 
 .india-svg,
@@ -275,6 +289,13 @@
   height: 100%;
   display: block;
   filter: drop-shadow(0 20px 45px rgba(20, 22, 28, .12)) drop-shadow(0 0 40px rgba(255, 106, 31, .08));
+}
+
+/* India domestic map: plain black-outline coloring-map look (kept apart
+   from the world map's warmer glow so state highlighting still reads
+   clearly) — no drop-shadow, so it sits flat like a printed map */
+.india-svg {
+  filter: none;
 }
 
 /* faint blueprint reference grid inside the map itself (raw stroke= attribute
@@ -313,9 +334,9 @@
 
 .state-shape {
   fill: url(#indiaGrad);
-  stroke: #FF6A1F;
-  stroke-width: 1.1;
-  stroke-opacity: 0.6;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-opacity: 0.85;
   stroke-linejoin: round;
   cursor: pointer;
   transition: fill 0.3s ease, stroke 0.3s ease, stroke-opacity 0.3s ease, stroke-width 0.3s ease, opacity 0.35s ease, filter 0.35s ease;
@@ -404,6 +425,11 @@
   cursor: pointer;
   z-index: 20;
   transition: opacity .3s ease, filter .3s ease;
+  /* GPU hint: the beacon inside keeps animating (pulse/ripple/breathe)
+     continuously — promoting the pin to its own compositor layer keeps
+     that animation isolated so it never forces a repaint of the map/SVG
+     underneath it (rule 5 / rule 2 "excessive repaint regions") */
+  backface-visibility: hidden;
 }
 
 .map-pin:hover,
@@ -444,6 +470,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* this is the element JS scales on hover/active (scaleBeacon()) — hinting
+     the browser up front avoids the first-frame paint jump that otherwise
+     reads as a flicker when a fresh compositor layer is created mid-hover */
+  will-change: transform;
 }
 
 .pin-beacon::before {
@@ -481,6 +511,9 @@
   opacity: 0.85;
   animation: pinWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   animation-delay: var(--pulse-jitter, 0s);
+  /* runs forever, independent of hover — its own layer keeps this endless
+     scale/opacity loop from repainting siblings on every frame */
+  will-change: transform, opacity;
 }
 
 .pin-ripple {
@@ -510,6 +543,8 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
   animation: pinBreathe var(--breathe-dur, 3.2s) ease-in-out infinite;
   animation-delay: var(--breathe-delay, 0s);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes pinBreathe {
@@ -586,7 +621,10 @@
   bottom: calc(100% + 14px);
   left: 50%;
   transform: translateX(-50%) translateY(8px);
-  width: 270px;
+  /* clamp instead of a flat 270px so pins near the map's edge on narrow
+     phones can't push the popover past the (silently clipped) viewport */
+  width: clamp(230px, 70vw, 300px);
+  max-width: calc(100vw - 2rem);
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -702,6 +740,21 @@
   color: var(--ink);
 }
 
+.pop-detail-icon {
+  flex-shrink: 0;
+}
+
+.pop-detail-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pop-detail-text .pop-link {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .pop-link {
   color: var(--accent-ink);
   text-decoration: none;
@@ -780,6 +833,12 @@
     margin-top: 1.5rem;
     padding-top: 1.5rem;
   }
+
+  /* pill button's vertical padding + font left it a couple px shy of a
+     40px tap target on phones */
+  .map-tab-btn {
+    padding: 0.85rem 1.3rem;
+  }
 }
 
 /* ── accessibility ── */
@@ -801,4 +860,51 @@
   .state-shape {
     transition: none;
   }
+}
+
+/* ══ DARK MODE ══ */
+/* whole-section ambient "paper" background — was solid near-white
+   (#FCFCFD → #F5F6F8), which is the main reason this section rendered
+   as a bright white block against the dark page in dark mode */
+html[data-theme="dark"] .mp-mesh {
+  background:
+    radial-gradient(ellipse 55% 45% at 84% 16%, rgba(255, 145, 40, .08), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 14% 22%, rgba(255, 255, 255, .03), transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 100%, rgba(255, 255, 255, .02), transparent 65%),
+    linear-gradient(180deg, #12151A 0%, #0E1013 100%);
+}
+
+html[data-theme="dark"] .map-tab-btn {
+  background: rgba(27, 31, 38, .6);
+}
+
+html[data-theme="dark"] .world-map-container,
+html[data-theme="dark"] .india-map-container {
+  background: linear-gradient(160deg, rgba(27, 31, 38, .85) 0%, rgba(18, 21, 26, .55) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+html[data-theme="dark"] .map-badge {
+  background: rgba(255, 122, 51, .15);
+}
+
+html[data-theme="dark"] .pin-tag {
+  background: rgba(27, 31, 38, .95);
+}
+
+html[data-theme="dark"] .pin-popover {
+  background: rgba(27, 31, 38, 0.97);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 106, 31, 0.15);
+}
+
+html[data-theme="dark"] .pin-popover::after {
+  border-color: rgba(27, 31, 38, 0.97) transparent transparent transparent;
+}
+
+html[data-theme="dark"] .pin-popover.popover-below::after {
+  border-color: transparent transparent rgba(27, 31, 38, 0.97) transparent;
+}
+
+html[data-theme="dark"] .pop-badge-type {
+  background: rgba(255, 122, 51, .15);
 }

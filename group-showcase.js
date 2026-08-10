@@ -1,305 +1,386 @@
 /* ════════════════════════════════════════════════════════════════════
    THE GROUP — Premium Industrial Showcase
-   Isolated component. Same proven carousel architecture as the Beyond
-   Steel slider and Awards gallery: index-based, infinite via shortest-
-   path modulo offsets, a variable visible-card window (3/2/1), and a
-   static .grp-slot (carousel position) wrapping an animated .grp-card
-   (breathing/hover) so the two transform systems never conflict.
-   Hotspot tooltips and the connector-line pulses are pure CSS — nothing
-   to wire up here. Falls back to a static layout if GSAP failed to load.
+   Isolated component. Same coverflow carousel architecture as the
+   Beyond Steel slider (beyond-steel-slider.js): index-based, infinite
+   via shortest-path modulo offsets, center card facing the viewer with
+   two neighbors scaled/faded on each side (5 of the 7 units visible at
+   once on desktop), the rest parked out of view ready to swing in. A
+   static .grp-slot (carousel position) wraps the animated .grp-card so
+   the two transform systems never fight over the same inline style.
+
+   Falls back to plain CSS transitions if GSAP failed to load from the
+   CDN, so the slider still works (just without the named eases).
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  const section = document.getElementById('groupShowcase');
-  const track = document.getElementById('grpTrack');
-  if (!section || !track) return;
+  const root = document.getElementById('groupShowcase');
+  const stage = document.getElementById('grpStage');
+  if (!root || !stage) return;
 
-  const slotEls = Array.from(track.querySelectorAll('.grp-slot'));
-  if (!slotEls.length) return;
-
-  const slots = slotEls.map((slotEl) => ({
-    slotEl,
-    cardEl: slotEl.querySelector('.grp-card'),
-  }));
+  const slots = Array.from(stage.querySelectorAll('.grp-slot'));
   const n = slots.length;
+  if (!n) return;
+
+  const cards = slots.map((slot) => slot.querySelector('.grp-card'));
+  const dotsWrap = document.getElementById('grpDots');
+  const prevBtn = root.querySelector('.grp-arrow.prev');
+  const nextBtn = root.querySelector('.grp-arrow.next');
+  const status = root.querySelector('.grp-sr-status');
+  const timelineItems = Array.from(document.querySelectorAll('#grpTimeline .grp-tl-item'));
+
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = window.matchMedia('(hover: hover)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
-  const EASE = 'power4.out';
-  const DURATION = reduceMotion ? 0 : 0.95;
-  const GAP = 32;
+  const EASE = 'power4.inOut';
+  const DURATION = reduceMotion ? 0 : 1.05;
+  const AUTOPLAY_MS = 4200;
+  const SWIPE_THRESHOLD = 60; // px of drag before it counts as a slide change
+  const CLICK_SUPPRESS_THRESHOLD = 6; // px of drag before a click is treated as a drag, not a tap
 
-  const prevBtn = document.querySelector('.grp-arrow.prev');
-  const nextBtn = document.querySelector('.grp-arrow.next');
-  const stepper = document.getElementById('grpStepper');
-  const steps = stepper ? Array.from(stepper.querySelectorAll('.grp-step')) : [];
+  // Per-viewport look: magnitude values for side cards, mirrored left/right
+  // by sign at apply-time. Center card is always the same everywhere.
+  // Level 3 exists purely to park the two farthest units (n=7, so offsets
+  // run to ±3) fully invisible — that caps what reads as "visible" at 5.
+  const CENTER = { x: 0, scale: 1, opacity: 1, blur: 0, zIndex: 5 };
+  const PRESETS = {
+    desktop: {
+      1: { xMag: 300, scale: .86, opacity: .55, blur: 0, zIndex: 3 },
+      2: { xMag: 560, scale: .74, opacity: .16, blur: 0, zIndex: 1 },
+      3: { xMag: 780, scale: .68, opacity: 0, blur: 0, zIndex: 0 },
+    },
+    tablet: {
+      1: { xMag: 210, scale: .82, opacity: .45, blur: 0, zIndex: 3 },
+      2: { xMag: 380, scale: .68, opacity: 0, blur: 0, zIndex: 1 },
+      3: { xMag: 480, scale: .6, opacity: 0, blur: 0, zIndex: 0 },
+    },
+    mobile: {
+      1: { xMag: 180, scale: .82, opacity: 0, blur: 0, zIndex: 1 },
+      2: { xMag: 180, scale: .82, opacity: 0, blur: 0, zIndex: 0 },
+      3: { xMag: 180, scale: .82, opacity: 0, blur: 0, zIndex: 0 },
+    },
+  };
 
-  let activeIndex = 0;
+  let active = 0;
+  let hovered = false;
+  let dragging = false;
+  let timer = null;
 
-  function getVisibleCount() {
-    const w = window.innerWidth;
-    if (w <= 768) return 1;
-    if (w <= 1180) return 2;
-    return 3;
+  function getMQ() {
+    const w = root.getBoundingClientRect().width || window.innerWidth;
+    if (w <= 640) return 'mobile';
+    if (w <= 1022) return 'tablet';
+    return 'desktop';
   }
 
-  function windowRange(count) {
-    return [-Math.floor((count - 1) / 2), Math.ceil((count - 1) / 2)];
-  }
-
-  function signedOffset(i, active) {
-    const raw = ((i - active) % n + n) % n;
+  // shortest signed distance from `active`, wrapped into [-floor(n/2), floor(n/2)]
+  function signedOffset(i, activeIndex) {
+    const raw = ((i - activeIndex) % n + n) % n;
     return raw > n / 2 ? raw - n : raw;
   }
 
-  function getCardStep() {
-    const w = slots[0].slotEl.getBoundingClientRect().width;
-    return (w || 380) + GAP;
+  function targetFor(offset, mq) {
+    if (offset === 0) return CENTER;
+    const sign = offset < 0 ? -1 : 1;
+    const abs = Math.min(Math.abs(offset), 3);
+    const p = PRESETS[mq][abs];
+    return {
+      x: p.xMag * sign,
+      scale: p.scale,
+      opacity: p.opacity,
+      blur: p.blur,
+      zIndex: p.zIndex,
+    };
   }
 
-  function targetFor(offset, inWindow, step) {
-    if (!inWindow) {
-      const sign = offset < 0 ? -1 : 1;
-      return { x: sign * step * 1.35, scale: .85, opacity: 0, z: 0 };
-    }
-    const isActive = offset === 0;
-    return { x: offset * step, scale: isActive ? 1 : .92, opacity: isActive ? 1 : .6, z: isActive ? 3 : 2 };
+  function computeItems() {
+    const mq = getMQ();
+    return slots.map((slot, i) => {
+      const offset = signedOffset(i, active);
+      return { slot, card: cards[i], offset, target: targetFor(offset, mq) };
+    });
   }
 
-  function applySlot(slotEl, target, duration) {
-    slotEl.style.zIndex = target.z;
+  function applyCardTransform(card, t, duration) {
     if (gsapReady) {
-      gsap.to(slotEl, { x: target.x, scale: target.scale, opacity: target.opacity, filter: target.opacity < 1 && target.opacity > 0 ? 'blur(1.5px)' : 'blur(0px)', duration, ease: EASE, overwrite: 'auto' });
+      gsap.to(card, {
+        x: t.x, scale: t.scale,
+        opacity: t.opacity, filter: `blur(${t.blur}px)`,
+        duration, ease: EASE, overwrite: 'auto',
+      });
     } else {
-      slotEl.style.transition = duration ? `transform ${duration}s cubic-bezier(.16,.84,.44,1), opacity ${duration}s ease` : 'none';
-      slotEl.style.transform = `translateX(${target.x}px) scale(${target.scale})`;
-      slotEl.style.opacity = target.opacity;
+      card.style.transition = duration
+        ? `transform ${duration}s cubic-bezier(.16,.84,.44,1), opacity ${duration}s ease, filter ${duration}s ease`
+        : 'none';
+      card.style.transform = `translateX(${t.x}px) scale(${t.scale})`;
+      card.style.opacity = t.opacity;
+      card.style.filter = `blur(${t.blur}px)`;
     }
-  }
-
-  function updateStepper() {
-    steps.forEach((step, i) => step.classList.toggle('active', i === activeIndex));
   }
 
   function render(opts) {
     const duration = opts && opts.duration != null ? opts.duration : DURATION;
-    const vc = Math.min(getVisibleCount(), n);
-    const [lo, hi] = windowRange(vc);
-    const step = getCardStep();
+    const items = computeItems();
+    items.forEach(({ slot, card, offset, target }) => {
+      slot.style.zIndex = target.zIndex;
+      applyCardTransform(card, target, duration);
+      const hidden = target.opacity < .05;
+      card.style.pointerEvents = hidden ? 'none' : '';
+      slot.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+      slot.classList.toggle('is-active', offset === 0);
 
-    slots.forEach((slot, i) => {
-      const offset = signedOffset(i, activeIndex);
-      const inWindow = offset >= lo && offset <= hi;
-      applySlot(slot.slotEl, targetFor(offset, inWindow, step), duration);
-      slot.slotEl.classList.toggle('is-active', inWindow && offset === 0);
-
-      const hidden = !inWindow;
-      slot.slotEl.style.pointerEvents = hidden ? 'none' : '';
-      slot.slotEl.setAttribute('aria-hidden', hidden ? 'true' : 'false');
-      const explore = slot.cardEl.querySelector('.grp-explore');
-      const hotspots = slot.cardEl.querySelectorAll('.grp-hotspot');
-      if (explore) explore.tabIndex = hidden ? -1 : 0;
+      const hotspots = card.querySelectorAll('.grp-hotspot');
       hotspots.forEach((h) => { h.tabIndex = hidden ? -1 : 0; });
     });
+    updateDots();
+    updateStatus();
+    return items;
+  }
 
-    updateStepper();
+  function updateStatus() {
+    if (!status) return;
+    const name = slots[active].querySelector('.grp-name');
+    status.textContent = 'Showing ' + (active + 1) + ' of ' + n + (name ? ': ' + name.textContent : '');
+  }
+
+  function updateDots() {
+    if (!dotsWrap) return;
+    Array.from(dotsWrap.children).forEach((dot, i) => {
+      const isActive = i === active;
+      dot.classList.toggle('active', isActive);
+      dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
   }
 
   function goTo(index) {
-    activeIndex = ((index % n) + n) % n;
+    active = ((index % n) + n) % n;
     render();
   }
-  function next() { goTo(activeIndex + 1); }
-  function prev() { goTo(activeIndex - 1); }
 
-  if (prevBtn) prevBtn.addEventListener('click', () => prev());
-  if (nextBtn) nextBtn.addEventListener('click', () => next());
+  function userGoTo(index) {
+    goTo(index);
+    restartAutoplay();
+  }
 
-  [prevBtn, nextBtn].forEach((btn) => {
-    if (!btn) return;
-    btn.addEventListener('click', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 1.4;
-      const ripple = document.createElement('span');
-      ripple.className = 'grp-ripple';
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      btn.appendChild(ripple);
-      ripple.addEventListener('animationend', () => ripple.remove());
+  function next() { goTo(active + 1); }
+
+  function startAutoplay() {
+    if (reduceMotion) return;
+    stopAutoplay();
+    timer = setInterval(() => {
+      if (!hovered && !dragging && document.visibilityState === 'visible') next();
+    }, AUTOPLAY_MS);
+  }
+  function stopAutoplay() { if (timer) { clearInterval(timer); timer = null; } }
+  function restartAutoplay() { if (timer) startAutoplay(); }
+
+  // ── pagination dots (built from the cards already in the DOM) ──
+  if (dotsWrap) {
+    slots.forEach((slot, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'grp-dot';
+      btn.setAttribute('role', 'tab');
+      const name = slot.querySelector('.grp-name');
+      btn.setAttribute('aria-label', 'Go to ' + (name ? name.textContent : 'unit ' + (i + 1)));
+      btn.addEventListener('click', () => userGoTo(i));
+      dotsWrap.appendChild(btn);
+    });
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => userGoTo(active - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => userGoTo(active + 1));
+
+  // ── timeline: a click-driven jump to a named unit, independent of
+  // arrow/dot/swipe navigation — it only changes which button is
+  // highlighted when the user interacts with the timeline itself, it
+  // doesn't track the carousel ──
+  timelineItems.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      timelineItems.forEach((b) => {
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+      const index = parseInt(btn.dataset.index, 10);
+      if (!isNaN(index)) userGoTo(index);
     });
   });
 
-  steps.forEach((step, i) => step.addEventListener('click', () => goTo(i)));
-
   // ── keyboard ──
-  track.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
-    else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
-    else if (e.key === 'End') { e.preventDefault(); goTo(n - 1); }
+  stage.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); userGoTo(active + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); userGoTo(active - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); userGoTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); userGoTo(n - 1); }
   });
 
-  // ── wheel (cooldown so one trackpad gesture doesn't fire many steps) ──
-  let wheelCooldown = false;
-  track.addEventListener('wheel', (e) => {
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) < 12) return;
-    e.preventDefault();
-    if (wheelCooldown) return;
-    wheelCooldown = true;
-    if (delta > 0) next(); else prev();
-    setTimeout(() => { wheelCooldown = false; }, 550);
-  }, { passive: false });
+  // ── hover: pause autoplay, lift + glow the center card ──
+  function liftCenter(slot, card, on) {
+    const item = computeItems().find((it) => it.card === card);
+    if (!item || item.offset !== 0) return;
+    slot.classList.toggle('is-hovered', on);
+    if (!gsapReady) return;
+    if (on) {
+      gsap.to(card, { scale: 1.03, y: -10, duration: .45, ease: 'power2.out', overwrite: 'auto' });
+    } else {
+      gsap.to(card, { scale: item.target.scale, y: 0, duration: .45, ease: 'power2.out', overwrite: 'auto' });
+    }
+  }
 
-  // ── drag / swipe (pointer events cover mouse + touch), momentum snap ──
-  let pointerDown = false, dragging = false, captured = false;
-  let startX = 0, dragMoved = 0, lastPointerX = 0, lastMoveTime = 0, velocity = 0;
-  const CLICK_SUPPRESS_THRESHOLD = 6;
+  slots.forEach((slot, i) => {
+    const card = cards[i];
+    card.addEventListener('mouseenter', () => liftCenter(slot, card, true));
+    card.addEventListener('mouseleave', () => liftCenter(slot, card, false));
 
-  track.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.grp-explore, .grp-hotspot')) return;
+    // off-center cards recenter on click; hotspots keep their own behavior
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.grp-hotspot')) return;
+      const offset = signedOffset(i, active);
+      if (offset !== 0) userGoTo(i);
+    });
+  });
+
+  root.addEventListener('mouseenter', () => { hovered = true; });
+  root.addEventListener('mouseleave', () => { hovered = false; });
+  // keyboard users tabbing through cards/arrows/dots get the same autoplay
+  // pause hover users get, so a card doesn't advance out from under them
+  root.addEventListener('focusin', () => { hovered = true; });
+  root.addEventListener('focusout', (e) => {
+    if (!root.contains(e.relatedTarget)) hovered = false;
+  });
+
+  // ── cursor spotlight (mirrors beyond-steel-slider.js, scoped to
+  // .grp-card only — rAF-coalesced so a fast mouse sweep never forces
+  // more than one style write per painted frame) ──
+  if (canHover && !reduceMotion) {
+    cards.forEach((card) => {
+      let rect = null, raf = null;
+      card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+      card.addEventListener('mousemove', (e) => {
+        if (!rect) rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          card.style.setProperty('--mx', (px * 100) + '%');
+          card.style.setProperty('--my', (py * 100) + '%');
+        });
+      });
+      card.addEventListener('mouseleave', () => { rect = null; if (raf) { cancelAnimationFrame(raf); raf = null; } });
+    });
+  }
+
+  // ── drag / swipe (pointer events cover both mouse and touch) ──
+  let pointerDown = false;
+  let captured = false;
+  let startX = 0;
+  let dragMoved = 0;
+
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.grp-hotspot')) return;
     pointerDown = true;
     dragging = false;
     captured = false;
     dragMoved = 0;
     startX = e.clientX;
-    lastPointerX = e.clientX;
-    lastMoveTime = performance.now();
-    velocity = 0;
   });
 
-  track.addEventListener('pointermove', (e) => {
+  stage.addEventListener('pointermove', (e) => {
     if (!pointerDown) return;
-    const now = performance.now();
-    const dtMs = Math.max(now - lastMoveTime, 1);
-    velocity = (e.clientX - lastPointerX) / (dtMs / 1000);
-    dragMoved = Math.abs(e.clientX - startX);
-
+    const dx = e.clientX - startX;
+    dragMoved = Math.abs(dx);
     if (dragMoved > 4) {
       dragging = true;
-      track.classList.add('dragging');
-    }
-    if (dragging && gsapReady && !reduceMotion) {
-      gsap.set(track, { x: (e.clientX - startX) * .85 });
+      stage.classList.add('dragging');
+      if (!reduceMotion) {
+        // rubber-band follow: tracks the pointer closely at first, then
+        // resists further travel so side cards never fully reveal what's
+        // parked off-stage
+        const clampedX = Math.max(-110, Math.min(110, dx * .4));
+        stage.style.transform = `translateX(${clampedX}px)`;
+      }
     }
     if (dragging && !captured && dragMoved > CLICK_SUPPRESS_THRESHOLD) {
       captured = true;
-      track.setPointerCapture(e.pointerId);
+      stage.setPointerCapture(e.pointerId);
     }
-    lastPointerX = e.clientX;
-    lastMoveTime = now;
   });
 
   function endDrag(e) {
     if (!pointerDown) return;
     pointerDown = false;
-    track.classList.remove('dragging');
-
+    stage.classList.remove('dragging');
+    stage.style.transform = '';
     if (dragging) {
-      const endX = (e && e.clientX != null) ? e.clientX : lastPointerX;
-      const totalDx = endX - startX;
-      const step = getCardStep();
-      const projected = totalDx + velocity * .15;
-      const steps2 = Math.round(-projected / step);
-      if (steps2 !== 0) goTo(activeIndex + steps2);
-      else render();
-
-      if (gsapReady) gsap.to(track, { x: 0, duration: .6, ease: 'power3.out', overwrite: 'auto' });
-
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > SWIPE_THRESHOLD) {
+        userGoTo(active + (dx < 0 ? 1 : -1));
+      }
       const suppressClick = (ev) => {
         ev.preventDefault();
         ev.stopPropagation();
-        track.removeEventListener('click', suppressClick, true);
+        stage.removeEventListener('click', suppressClick, true);
       };
-      track.addEventListener('click', suppressClick, true);
+      stage.addEventListener('click', suppressClick, true);
     }
     dragging = false;
   }
   window.addEventListener('pointerup', endDrag);
-  track.addEventListener('pointercancel', endDrag);
+  stage.addEventListener('pointercancel', endDrag);
 
-  // ── breathing float + hover lift (own transform layer on .grp-card) ──
-  function startBreathing(cardEl) {
-    if (!gsapReady || reduceMotion) return;
-    cardEl._breatheTween = gsap.to(cardEl, {
-      y: 7,
-      duration: 6 + Math.random() * 2,
-      delay: Math.random() * 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-  }
-
-  function setHover(slot, on) {
-    slot.slotEl.classList.toggle('is-hovered', on);
-    if (!gsapReady || reduceMotion) return;
-    if (on) {
-      if (slot.cardEl._breatheTween) slot.cardEl._breatheTween.pause();
-      gsap.to(slot.cardEl, { y: -12, rotationX: 2, rotationY: -2, scale: 1.03, duration: .45, ease: EASE, overwrite: 'auto' });
-    } else {
-      gsap.to(slot.cardEl, {
-        y: 0, rotationX: 0, rotationY: 0, scale: 1, duration: .45, ease: EASE, overwrite: 'auto',
-        onComplete: () => { if (slot.cardEl._breatheTween) slot.cardEl._breatheTween.resume(); },
-      });
-    }
-  }
-
-  slots.forEach((slot) => {
-    slot.cardEl.addEventListener('mouseenter', () => setHover(slot, true));
-    slot.cardEl.addEventListener('mouseleave', () => setHover(slot, false));
-    const explore = slot.cardEl.querySelector('.grp-explore');
-    if (explore) {
-      explore.addEventListener('focus', () => setHover(slot, true));
-      explore.addEventListener('blur', () => setHover(slot, false));
-    }
-    startBreathing(slot.cardEl);
-  });
-
-  // ── responsive re-layout (no animation) ──
+  // ── responsive: re-layout (no animation) when the breakpoint changes ──
   let resizeRaf = null;
   window.addEventListener('resize', () => {
     if (resizeRaf) cancelAnimationFrame(resizeRaf);
     resizeRaf = requestAnimationFrame(() => render({ duration: 0 }));
   });
 
-  // ── initial layout + staggered entrance ──
+  // ── initial layout + entrance animation on first scroll into view ──
   render({ duration: 0 });
 
   function playEntrance() {
-    const cardEls = slots.map((s) => s.cardEl);
-    if (!gsapReady || reduceMotion) {
-      cardEls.forEach((c) => { c.style.opacity = 1; });
-      return;
-    }
-    gsap.set(cardEls, { opacity: 0, y: 50, scale: .92, filter: 'blur(8px)' });
-    gsap.to(cardEls, {
-      opacity: 1, y: 0, scale: 1, filter: 'blur(0px)',
-      duration: .9, ease: EASE, stagger: .1,
+    const items = computeItems();
+    if (reduceMotion) return;
+    items.forEach(({ card, target }) => {
+      if (gsapReady) gsap.set(card, { opacity: 0, y: 34, scale: target.scale * .9 });
+      else card.style.opacity = 0;
     });
+    items
+      .slice()
+      .sort((a, b) => Math.abs(a.offset) - Math.abs(b.offset)) // center assembles first, sides swing in after
+      .forEach(({ card, target }, idx) => {
+        if (gsapReady) {
+          gsap.to(card, {
+            opacity: target.opacity, y: 0, scale: target.scale,
+            duration: 1, delay: idx * .1, ease: 'power3.out',
+          });
+        } else {
+          card.style.transition = 'opacity .8s ease';
+          card.style.opacity = target.opacity;
+        }
+      });
   }
-
-  if (gsapReady && !reduceMotion) gsap.set(slots.map((s) => s.cardEl), { opacity: 0 });
 
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          io.unobserve(track);
+          io.unobserve(root);
           playEntrance();
+          startAutoplay();
         }
       });
-    }, { threshold: .15 });
-    io.observe(track);
+    }, { threshold: .2 });
+    io.observe(root);
   } else {
-    playEntrance();
+    startAutoplay();
   }
 
   // ── magnetic CTA (shared technique with the Hero) ──
-  const cta = document.querySelector('.grp-cta');
-  if (cta && gsapReady && !reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  const cta = root.querySelector('.grp-cta');
+  if (cta && gsapReady && !reduceMotion && canHover) {
     const quickX = gsap.quickTo(cta, 'x', { duration: .35, ease: 'power3.out' });
     const quickY = gsap.quickTo(cta, 'y', { duration: .35, ease: 'power3.out' });
     cta.addEventListener('mouseenter', () => quickY(-3));

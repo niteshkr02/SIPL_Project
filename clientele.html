@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clientele | Shakambhari Group</title>
@@ -19,6 +20,8 @@
 }
 .cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
 .cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -43,7 +46,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="about.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -52,11 +55,65 @@
     </li>
     <li><a href="companies.html">Group Companies</a></li>
     <li><a href="quality.html">Quality</a></li>
-    <li><a href="products.html">Products</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -67,10 +124,14 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO: CINEMATIC TRUST HERO (isolated component — see clientele-hero.css / clientele-hero.js) -->
+<!-- HERO: CINEMATIC TRUST HERO (isolated component, see clientele-hero.css / clientele-hero.js) -->
 <header class="clh" id="clienteleHero" aria-labelledby="clhHeading">
   <div class="clh-bg" aria-hidden="true">
     <div class="clh-grid"></div>
@@ -148,7 +209,7 @@
       <span class="clh-line"><span class="clh-line-inner">With Our <span class="grad">Steel</span></span></span>
     </h1>
 
-    <p class="clh-desc">India's largest infrastructure organisations, government bodies and industrial leaders trust Shakambhari Group — a client list built on engineering excellence and long-term partnership, not the lowest bid.</p>
+    <p class="clh-desc">India's largest infrastructure organisations, government bodies and industrial leaders trust Shakambhari Group, a client list built on engineering excellence and long-term partnership, not the lowest bid.</p>
 
     <div class="clh-stats-bar" role="group" aria-label="Client trust metrics">
       <div class="clh-stat">
@@ -180,7 +241,7 @@
   </div>
 </header>
 
-<!-- CLIENTELE: PREMIUM CLIENT TRUST ECOSYSTEM (isolated component — see clientele-showcase.css / clientele-showcase.js) -->
+<!-- CLIENTELE: PREMIUM CLIENT TRUST ECOSYSTEM (isolated component, see clientele-showcase.css / clientele-showcase.js) -->
 <section class="cli" id="clientele" aria-labelledby="cliHeading">
   <div class="cli-mesh" aria-hidden="true"></div>
   <div class="cli-dots" aria-hidden="true"></div>
@@ -596,9 +657,12 @@
 <!-- CTA BAND -->
 <div class="cta-band reveal-scale">
   <div class="cta-inner">
-    <h2>Watch Earth Become Strength</h2>
-    <p>Multiple stages, one continuous chain: raw ore from a mine becomes the reinforcement holding up buildings across the nation. This is where #SteelWithin begins.</p>
-    <a href="process.html" class="btn btn-primary">Walk The Process →</a>
+    <h2>None of This Happens Without Our People</h2>
+    <p>Behind every client relationship and every certified batch is a team that shows up every day, at every plant. See what it's like to build your career here.</p>
+    <div class="cta-btn-row">
+      <a href="careers.html" class="btn btn-primary">Explore Careers →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
   </div>
 </div>
 
@@ -633,6 +697,7 @@
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>

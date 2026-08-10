@@ -1,9 +1,10 @@
 /* ════════════════════════════════════════════════════════════════════
-   AWARDS & CERTIFICATIONS — Ceremonial Hero behavior
-   Isolated component. Drives the entrance sequence (badge → heading →
-   description → counters → CTA → background lighting → particles),
-   the magnetic/ripple CTA, the cursor spotlight and the floating gold
-   dust field. Falls back to a static, unanimated reveal if GSAP failed
+   AWARDS & CERTIFICATIONS — Cinematic Trophy Hero behavior
+   Isolated component. Drives the one-time entrance sequence (trophy
+   reveal → badge → headline lines → copy → CTA → four-item achievement
+   row → wave line draw), a small restrained gold-particle drift, and an
+   extremely subtle scroll parallax on the background photo only — text
+   never moves. Falls back to a static, unanimated reveal if GSAP failed
    to load or the user prefers reduced motion.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
@@ -12,120 +13,102 @@
   const hero = document.querySelector('.awh');
   if (!hero) return;
 
+  const photo = hero.querySelector('.awh-visual-img');
   const badge = hero.querySelector('.awh-badge');
-  const lines = hero.querySelectorAll('.awh-line-inner');
+  const headingLines = hero.querySelectorAll('.awh-heading .line');
   const desc = hero.querySelector('.awh-desc');
-  const stats = hero.querySelector('.awh-stats');
-  const ctaRow = hero.querySelector('.awh-cta-row');
-  const bgLighting = hero.querySelectorAll('.awh-glow-wrap, .awh-rays');
+  const cta = hero.querySelector('.awh-cta');
+  const features = hero.querySelector('.awh-features');
+  const featureItems = hero.querySelectorAll('.awh-feature');
+  const featuresMobile = hero.querySelector('.awh-features-mobile');
+  const featureItemsMobile = hero.querySelectorAll('.awh-feature-m');
+  const waveLine = hero.querySelector('.awh-wave-line');
   const particlesLayer = hero.querySelector('.awh-particles');
-  const statNodes = stats ? stats.querySelectorAll('.counter') : [];
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
-  const EASE = 'power4.out';
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-  // ── floating gold dust: generated once, then purely CSS-driven ──
+  // ── a small, restrained number of gold particles ──
   function spawnParticles() {
-    if (!particlesLayer || reduceMotion) return;
-    const count = window.innerWidth < 640 ? 10 : 20;
+    if (!particlesLayer || reduceMotion || window.innerWidth < 900) return;
+    const count = 8;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('span');
       p.className = 'awh-particle';
-      p.style.setProperty('--px', (Math.random() * 100) + '%');
-      p.style.setProperty('--ps', (2 + Math.random() * 2.4).toFixed(1) + 'px');
-      p.style.setProperty('--pd', (10 + Math.random() * 10).toFixed(1) + 's');
-      p.style.setProperty('--pdelay', (-Math.random() * 20).toFixed(1) + 's');
-      p.style.setProperty('--pdx', ((Math.random() - .5) * 60).toFixed(0) + 'px');
+      p.style.setProperty('--px', (55 + Math.random() * 40) + '%');
+      p.style.setProperty('--ps', (2 + Math.random() * 2) + 'px');
+      p.style.setProperty('--pd', (6 + Math.random() * 6).toFixed(1) + 's');
+      p.style.setProperty('--pdelay', (-Math.random() * 12).toFixed(1) + 's');
+      p.style.setProperty('--pdx', ((Math.random() - .5) * 40).toFixed(0) + 'px');
       p.style.setProperty('--pc', Math.random() > .5 ? 'var(--accent-hot)' : 'var(--accent)');
       particlesLayer.appendChild(p);
     }
-  }
-
-  function triggerCounters() {
-    statNodes.forEach((el) => {
-      if (el._counted) return;
-      el._counted = true;
-      const target = parseFloat(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
-      const prefix = el.dataset.prefix || '';
-      const decimals = parseInt(el.dataset.decimal || '0', 10);
-      if (reduceMotion || !gsapReady) { el.textContent = prefix + target.toFixed(decimals) + suffix; return; }
-      const obj = { v: 0 };
-      gsap.to(obj, {
-        v: target, duration: 1.5, ease: 'expo.out',
-        onUpdate: () => { el.textContent = prefix + obj.v.toFixed(decimals) + suffix; },
-      });
-    });
   }
 
   function playEntrance() {
     spawnParticles();
 
     if (!gsapReady || reduceMotion) {
-      triggerCounters();
+      if (photo) { photo.style.opacity = 1; photo.style.transform = 'scale(1)'; }
+      [badge, ...headingLines, desc, cta, features, featuresMobile].forEach((el) => { if (el) el.style.opacity = 1; });
+      featureItems.forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
+      featureItemsMobile.forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
+      if (waveLine) { waveLine.style.opacity = 1; waveLine.style.transform = 'scaleX(1)'; }
       return;
     }
 
     const tl = gsap.timeline({ defaults: { ease: EASE } });
-    if (badge) tl.fromTo(badge, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: .7 }, .1);
-    if (lines.length) tl.fromTo(lines, { opacity: 0, y: 34, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .9, stagger: .14 }, .3);
-    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .8 }, .62);
-    if (stats) tl.fromTo(stats, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .7, onStart: triggerCounters }, .82);
-    if (ctaRow) tl.fromTo(ctaRow, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .6 }, 1);
-    if (bgLighting.length) tl.fromTo(bgLighting, { opacity: 0 }, { opacity: 1, duration: 1.3, ease: 'sine.out' }, 1.05);
-    if (particlesLayer) tl.fromTo(particlesLayer, { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'sine.out' }, 1.3);
+    if (photo) tl.fromTo(photo, { opacity: 0, scale: .94, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 1.5, ease: 'sine.out' }, 0);
+    if (badge) tl.fromTo(badge, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .6 }, .1);
+    if (headingLines.length) tl.fromTo(headingLines, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: .7, stagger: .08 }, .2);
+    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .6 }, .4);
+    if (cta) tl.fromTo(cta, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .6 }, .55);
+
+    if (features) tl.set(features, { opacity: 1 }, .7);
+    featureItems.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 }, .7 + i * .1));
+
+    if (featuresMobile) tl.set(featuresMobile, { opacity: 1 }, .7);
+    featureItemsMobile.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 }, .7 + i * .1));
+
+    if (waveLine) tl.fromTo(waveLine, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 1.2, ease: 'power2.inOut' }, .5);
   }
 
-  // hero is above the fold — play immediately once layout settles
+  if (gsapReady && !reduceMotion) {
+    gsap.set([badge, cta, features, featuresMobile].filter(Boolean), { opacity: 0 });
+    if (headingLines.length) gsap.set(headingLines, { opacity: 0 });
+    if (desc) gsap.set(desc, { opacity: 0 });
+    gsap.set(Array.from(featureItems), { opacity: 0 });
+    gsap.set(Array.from(featureItemsMobile), { opacity: 0 });
+    if (waveLine) gsap.set(waveLine, { opacity: 0 });
+  }
   requestAnimationFrame(playEntrance);
 
-  if (reduceMotion || !gsapReady) return;
+  // ── extremely subtle scroll parallax on the background photo only
+  // (≈14px total travel, well inside the resting scale(1) the photo
+  // settles to after entrance), text and features never move ──
+  if (reduceMotion || !photo || window.matchMedia('(max-width: 900px)').matches) return;
 
-  // ── magnetic CTA + ripple ──
-  if (ctaRow && window.matchMedia('(hover: hover)').matches) {
-    const btn = ctaRow.querySelector('.awh-cta');
-    if (btn) {
-      const quickX = gsap.quickTo(btn, 'x', { duration: .35, ease: 'power3.out' });
-      const quickY = gsap.quickTo(btn, 'y', { duration: .35, ease: 'power3.out' });
-      btn.addEventListener('mouseenter', () => quickY(-3));
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        quickX((e.clientX - rect.left - rect.width / 2) * .3);
-        quickY(-3 + (e.clientY - rect.top - rect.height / 2) * .35);
-      });
-      btn.addEventListener('mouseleave', () => { quickX(0); quickY(0); });
-    }
-  }
+  const MAX_SHIFT = 14;
+  let heroTop = 0;
+  let heroHeight = 0;
+  const measure = () => {
+    const rect = hero.getBoundingClientRect();
+    heroTop = rect.top + window.scrollY;
+    heroHeight = rect.height;
+  };
+  measure();
+  window.addEventListener('resize', measure);
 
-  if (ctaRow) {
-    ctaRow.addEventListener('click', (e) => {
-      const btn = e.target.closest('.awh-cta');
-      if (!btn) return;
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 1.3;
-      const ripple = document.createElement('span');
-      ripple.className = 'awh-ripple';
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      btn.appendChild(ripple);
-      ripple.addEventListener('animationend', () => ripple.remove());
+  let raf = null;
+  function onScroll() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      const progress = Math.min(1, Math.max(0, (window.scrollY - heroTop + heroHeight) / heroHeight));
+      const shift = (progress - .5) * MAX_SHIFT;
+      photo.style.transform = 'translate3d(0,' + shift.toFixed(1) + 'px,0) scale(1)';
+      raf = null;
     });
   }
-
-  // ── cursor-following spotlight ──
-  if (window.matchMedia('(hover: hover)').matches) {
-    let raf = null, pending = null;
-    hero.addEventListener('pointermove', (e) => {
-      const rect = hero.getBoundingClientRect();
-      pending = { x: ((e.clientX - rect.left) / rect.width) * 100, y: ((e.clientY - rect.top) / rect.height) * 100 };
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        hero.style.setProperty('--mx', pending.x + '%');
-        hero.style.setProperty('--my', pending.y + '%');
-        raf = null;
-      });
-    });
-  }
+  window.addEventListener('scroll', onScroll, { passive: true });
 })();

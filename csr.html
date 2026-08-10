@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Corporate Social Responsibility | Shakambhari Group</title>
@@ -23,7 +24,7 @@
 .csr-pledge-card{ padding:2.1rem 2rem; display:flex; flex-direction:column; justify-content:center; }
 .csr-pledge-card .kicker{ margin-bottom:.9rem; }
 .csr-pledge-card p{ color:var(--ink-soft); font-size:.95rem; line-height:1.7; margin-bottom:1.6rem; }
-.csr-pledge-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; border-top:1px solid var(--border); padding-top:1.3rem; }
+.csr-pledge-stats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem; border-top:1px solid var(--border); padding-top:1.3rem; }
 .csr-pledge-stats .stat-num{ font-family:var(--font-display); font-weight:800; font-size:1.5rem; color:var(--accent-ink); line-height:1; }
 .csr-pledge-stats .stat-label{ font-family:var(--font-mono); font-size:.6rem; font-weight:700; letter-spacing:.06em; color:var(--ink-dim); margin-top:.4rem; text-transform:uppercase; line-height:1.3; }
 
@@ -120,7 +121,9 @@
 .flagship-plaque-label::before{ content:''; width:16px; height:2px; background:#FFC24B; }
 .flagship-plaque-cap{ font-size:.78rem; color:#C7D2F2; line-height:1.5; padding-top:.7rem; border-top:1px solid rgba(255,255,255,.16); }
 
-.flagship-mini-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.8rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.18); }
+.flagship-mini-stats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1.8rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.18); }
+/* below ~420px "Purulia" / "Elegant Care" no longer fit 3-up against flagship-detail's own padding; 2 columns keeps every value on one line */
+@media(max-width:420px){ .flagship-mini-stats{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .flagship-mini-num{ font-family:var(--font-display); font-weight:800; color:#FFC24B; font-size:1.2rem; }
 .flagship-mini-label{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.08em; color:#B9C5EE; text-transform:uppercase; margin-top:.3rem; line-height:1.3; }
 
@@ -135,6 +138,8 @@
 }
 .cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
 .cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -163,7 +168,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="about.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -172,11 +177,65 @@
     </li>
     <li><a href="companies.html">Group Companies</a></li>
     <li><a href="quality.html">Quality</a></li>
-    <li><a href="products.html">Products</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html">Awards &amp; Certifications</a>
         <a href="csr.html" class="active">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -187,73 +246,126 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO: COMMUNITY TRUST HERO (isolated component — see csr-hero.css / csr-hero.js) -->
+<!-- HERO: BUILDING A BETTER TOMORROW (isolated component — see csr-hero.css / csr-hero.js) -->
 <header class="csrh" id="csrHero" aria-labelledby="csrhHeading">
   <div class="csrh-bg" aria-hidden="true">
-    <div class="csrh-grid"></div>
-    <div class="csrh-blueprint"></div>
-    <div class="csrh-dots"></div>
-    <div class="csrh-glow-wrap"><div class="csrh-glow"></div></div>
-    <div class="csrh-rays"></div>
-    <div class="csrh-glass"></div>
-
-    <div class="csrh-lineart">
-      <svg class="csrh-art school" viewBox="0 0 24 24"><path d="M12 3l10 5-10 5L2 8l10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M20 8v6.5"/></svg>
-      <svg class="csrh-art heart" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-      <svg class="csrh-art water" viewBox="0 0 24 24"><path d="M12 2C12 2 5 10 5 15A7 7 0 0 0 19 15C19 10 12 2 12 2Z"/></svg>
-      <svg class="csrh-art tree" viewBox="0 0 24 24"><path d="M2 21V12l5-3v3l5-3v3l5-3v11H2Z"/><path d="M17 10V6h3v3"/><path d="M2 21h16"/></svg>
-      <svg class="csrh-art book" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg>
+    <div class="csrh-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/csr.webp">
+        <img class="csrh-visual-img" src="Hero/csr.jpg" alt="" loading="eager" decoding="async">
+      </picture>
     </div>
-
-    <div class="csrh-particles" id="csrhParticles" aria-hidden="true"></div>
-    <div class="csrh-scanlines"></div>
-    <div class="csrh-noise"></div>
+    <div class="csrh-scrim"></div>
+    <div class="csrh-grid"></div>
+    <svg class="csrh-network" viewBox="0 0 300 380">
+      <g class="csrh-network-lines">
+        <path d="M40,40 L150,90 L240,50 M150,90 L260,170 L170,240 L70,190 L150,90"/>
+      </g>
+      <g class="csrh-network-nodes">
+        <circle cx="40" cy="40" r="4"/>
+        <circle cx="150" cy="90" r="5"/>
+        <circle cx="240" cy="50" r="4"/>
+        <circle cx="260" cy="170" r="4"/>
+        <circle cx="170" cy="240" r="5"/>
+        <circle cx="70" cy="190" r="4"/>
+      </g>
+      <g class="csrh-network-icons">
+        <g transform="translate(28,16)"><path d="M0,16C0,16 -1,4 8,-2 17,4 15,16 15,16"/><path d="M0,16C3,10 8,4 15,0"/></g>
+        <g transform="translate(228,32)"><path d="M8,18S1,13,1,7A4,4 0 0 1 8,4 4,4 0 0 1 15,7C15,13 8,18 8,18Z"/></g>
+        <g transform="translate(246,148)"><path d="M0,3 8,-1 16,3 8,7Z"/><path d="M4,5V9c0,1.2 1.8,2 4,2s4,-.8 4,-2V5"/></g>
+        <g transform="translate(154,222)"><circle cx="4" cy="2" r="2.4"/><path d="M0,12c0,-3 2,-5 4,-5s4,2 4,5"/></g>
+      </g>
+    </svg>
   </div>
 
-  <div class="csrh-content">
-    <div class="csrh-badge">
-      <span class="csrh-badge-dot" aria-hidden="true"></span>
-      <span>Corporate Social Responsibility</span>
-    </div>
-
-    <h1 class="csrh-heading" id="csrhHeading">
-      <span class="csrh-line"><span class="csrh-line-inner">The Strongest Thing</span></span>
-      <span class="csrh-line"><span class="csrh-line-inner">We Build Isn't <span class="grad">Steel</span></span></span>
-    </h1>
-
-    <p class="csrh-desc">At Shakambhari Group, community work isn't confined to a CSR office — it happens on the ground, through the same plants that make our steel. <span class="hl">Classrooms, clinics, clean water</span> and skill workshops for the villages around us: giving back is simply <span class="hl">part of how we operate</span>.</p>
-
-    <div class="csrh-stats" role="group" aria-label="Community impact metrics">
-      <div class="csrh-stat">
-        <div class="csrh-stat-num counter" data-target="12" data-suffix="+">0+</div>
-        <div class="csrh-stat-label">Villages Served</div>
+  <div class="csrh-inner">
+    <div class="csrh-content">
+      <div class="csrh-badge">
+        <span class="csrh-badge-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.2 2.5-5.5 6-5.5"/><path d="M22 20c0-3.2-2.5-5.5-6-5.5"/><path d="M8 20c0-2.8 1.8-4.5 4-4.5s4 1.7 4 4.5"/></svg>
+        </span>
+        <span class="csrh-badge-line" aria-hidden="true"></span>
+        CSR
       </div>
-      <span class="csrh-stat-divider" aria-hidden="true"></span>
-      <div class="csrh-stat">
-        <div class="csrh-stat-num counter" data-target="50" data-suffix="k+">0k+</div>
-        <div class="csrh-stat-label">Trees Planted</div>
-      </div>
-      <span class="csrh-stat-divider" aria-hidden="true"></span>
-      <div class="csrh-stat">
-        <div class="csrh-stat-num counter" data-target="20" data-suffix="+">0+</div>
-        <div class="csrh-stat-label">NGO Partners</div>
-      </div>
-      <span class="csrh-stat-divider" aria-hidden="true"></span>
-      <div class="csrh-stat">
-        <div class="csrh-stat-num">Purulia</div>
-        <div class="csrh-stat-label">Flagship School</div>
-      </div>
-    </div>
 
-    <div class="csrh-cta-row">
+      <h1 class="csrh-heading" id="csrhHeading">
+        <span class="line"><span class="ink">Building A Better</span></span>
+        <span class="line"><span class="accent">Tomorrow, Together.</span></span>
+      </h1>
+
+      <p class="csrh-desc">Our commitment to Corporate Social Responsibility drives us to create positive impact for communities, the environment, and future generations.</p>
+
       <a href="#csr" class="csrh-cta">
-        <span class="csrh-cta-shine" aria-hidden="true"></span>
-        <span>Explore Our Initiatives</span>
-        <span class="csrh-cta-arrow" aria-hidden="true">→</span>
+        <span class="csrh-cta-label">Our Commitment</span>
+        <span class="csrh-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </a>
+    </div>
+
+    <div class="csrh-features">
+      <div class="csrh-features-row">
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 20c9 0 13-6 13-15-9 0-15 4-15 13 0 1 .1 1.4.2 2Z"/><path d="M6 20c2.5-5 6-8.5 11-11"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Environmental Stewardship</span>
+            <span class="csrh-feature-sub">Protecting our planet for a sustainable future.</span>
+          </span>
+        </div>
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.2 2.5-5.5 6-5.5"/><path d="M22 20c0-3.2-2.5-5.5-6-5.5"/><path d="M8 20c0-2.8 1.8-4.5 4-4.5s4 1.7 4 4.5"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Community Empowerment</span>
+            <span class="csrh-feature-sub">Supporting communities and creating opportunities for all.</span>
+          </span>
+        </div>
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l10 5-10 5L2 8l10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M20 8v6.5"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Education Support</span>
+            <span class="csrh-feature-sub">Investing in education to build a stronger tomorrow.</span>
+          </span>
+        </div>
+        <div class="csrh-feature" tabindex="0">
+          <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></span>
+          <span>
+            <span class="csrh-feature-title">Health &amp; Wellbeing</span>
+            <span class="csrh-feature-sub">Promoting health, safety and wellbeing for a better society.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="csrh-features-mobile">
+    <div class="csrh-features-grid-m">
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 20c9 0 13-6 13-15-9 0-15 4-15 13 0 1 .1 1.4.2 2Z"/><path d="M6 20c2.5-5 6-8.5 11-11"/></svg></span>
+        <span class="csrh-feature-title">Environmental Stewardship</span>
+        <span class="csrh-feature-sub">Protecting our planet for a sustainable future.</span>
+      </div>
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.2 2.5-5.5 6-5.5"/><path d="M22 20c0-3.2-2.5-5.5-6-5.5"/><path d="M8 20c0-2.8 1.8-4.5 4-4.5s4 1.7 4 4.5"/></svg></span>
+        <span class="csrh-feature-title">Community Empowerment</span>
+        <span class="csrh-feature-sub">Supporting communities and creating opportunities for all.</span>
+      </div>
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l10 5-10 5L2 8l10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M20 8v6.5"/></svg></span>
+        <span class="csrh-feature-title">Education Support</span>
+        <span class="csrh-feature-sub">Investing in education to build a stronger tomorrow.</span>
+      </div>
+      <div class="csrh-feature-m">
+        <span class="csrh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></span>
+        <span class="csrh-feature-title">Health &amp; Wellbeing</span>
+        <span class="csrh-feature-sub">Promoting health, safety and wellbeing for a better society.</span>
+      </div>
     </div>
   </div>
 </header>
@@ -263,7 +375,7 @@
   <div class="section-head reveal">
     <div class="kicker center">OUR PHILOSOPHY</div>
     <h2>Written Into the Business, Not Bolted On</h2>
-    <p>Community investment runs alongside every plant we operate — ongoing work in the field, not a once-a-year report.</p>
+    <p>Community investment runs alongside every plant we operate, ongoing work in the field, not a once-a-year report.</p>
   </div>
   <div class="csr-field-grid">
 
@@ -275,7 +387,7 @@
 </picture>
       <div class="csr-field-caption">
         <span class="tag">In the Field</span>
-        <p>Sarad Bhaktivedanta Public School, Purulia — one of the places our community work comes together.</p>
+        <p>Sarad Bhaktivedanta Public School, Purulia, one of the places our community work comes together.</p>
       </div>
     </div>
 
@@ -317,7 +429,7 @@
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 8-4v6h1.5V8L12 3Z" fill="url(#goldGrad)"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" stroke="url(#goldGrad)" stroke-width="1.6" fill="none"/></svg>
       </div>
       <h4>Schools That Stand Taller</h4>
-      <p>Desks, fans, learning aids and sanitation blocks for village schools and local hospitals near our plants — the everyday basics a classroom or a ward shouldn't have to go without.</p>
+      <p>Desks, fans, learning aids and sanitation blocks for village schools and local hospitals near our plants, the everyday basics a classroom or a ward shouldn't have to go without.</p>
     </div>
 
     <div class="csr-card panel reveal">
@@ -325,7 +437,7 @@
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 5 10 5 15A7 7 0 0 0 19 15C19 10 12 2 12 2Z" fill="#3E9FD8"/></svg>
       </div>
       <h4>Clean Water, Better Roads</h4>
-      <p>Hand-pumps, water lines and paved roads for the settlements around our units — infrastructure built to outlast a single monsoon, not just survive it.</p>
+      <p>Hand-pumps, water lines and paved roads for the settlements around our units, infrastructure built to outlast a single monsoon, not just survive it.</p>
     </div>
 
     <div class="csr-card panel reveal">
@@ -341,7 +453,7 @@
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="5" fill="url(#goldGrad)"/><path d="M8.5 12.5L6 21l6-3 6 3-2.5-8.5" stroke="url(#goldGrad)" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
       </div>
       <h4>Skills That Outlast a Shift</h4>
-      <p>Hands-on training for local women and youth — trades and confidence that keep paying off long after the workshop ends.</p>
+      <p>Hands-on training for local women and youth, trades and confidence that keep paying off long after the workshop ends.</p>
     </div>
 
     <div class="csr-card panel reveal">
@@ -357,7 +469,7 @@
         <svg viewBox="0 0 24 24" fill="none"><path d="M20 34C20 34 8 28 8 16C8 10 13 6 20 6C27 6 32 10 32 16C32 28 20 34 20 34Z" fill="url(#greenGrad)" transform="scale(0.6) translate(2,2)"/></svg>
       </div>
       <h4>Greener Than We Found It</h4>
-      <p>Tree-plantation drives, maintained green patches and rainwater harvesting around our sites — our way of putting something back into the land that feeds our furnaces.</p>
+      <p>Tree-plantation drives, maintained green patches and rainwater harvesting around our sites, our way of putting something back into the land that feeds our furnaces.</p>
     </div>
 
   </div>
@@ -439,7 +551,7 @@
       <div class="flagship-detail-grid">
         <div class="flagship-detail-text">
           <p>Run by the Elegant Care Foundation, the group's CSR wing, this school in Purulia opened its doors on 19 December 2023, inaugurated by Smt. Premlata Devi Agarwal.</p>
-          <p>It carries the name of Late Sarad Agarwal Ji — a memorial that now shapes the education of children from the villages around our plants.</p>
+          <p>It carries the name of Late Sarad Agarwal Ji, a memorial that now shapes the education of children from the villages around our plants.</p>
           <div class="flagship-mini-stats">
             <div>
               <div class="flagship-mini-num">2023</div>
@@ -478,9 +590,12 @@
 <!-- CTA BAND -->
 <div class="cta-band reveal-scale">
   <div class="cta-inner">
-    <h2>Watch Earth Become Strength</h2>
-    <p>Multiple stages, one continuous chain: raw ore from a mine becomes the reinforcement holding up buildings across the nation. This is where #SteelWithin begins.</p>
-    <a href="process.html" class="btn btn-primary">Walk The Process →</a>
+    <h2>Giving Back Starts With How We Operate</h2>
+    <p>Community work matters, but so does what happens inside our plants every single day. See the environmental commitments behind our operations.</p>
+    <div class="cta-btn-row">
+      <a href="sustainability.html" class="btn btn-primary">Explore Our Sustainability →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
   </div>
 </div>
 
@@ -515,6 +630,7 @@
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>

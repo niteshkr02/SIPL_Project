@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Awards & Certifications | Shakambhari Group</title>
@@ -63,6 +64,13 @@
 .award-title{ font-size:.88rem; font-weight:800; color:#111111; line-height:1.3; margin-bottom:.25rem; }
 .award-issuer{ font-size:.73rem; color:var(--accent-ink); font-weight:700; text-transform:uppercase; letter-spacing:.06em; font-family:var(--font-mono); }
 
+html[data-theme="dark"] .award-card{
+  background:linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+html[data-theme="dark"] .award-card.no-scan:hover{ box-shadow:0 8px 25px rgba(0,0,0,.3); }
+html[data-theme="dark"] .award-title{ color:var(--ink); }
+
 /* CERTIFICATE LIGHTBOX MODAL */
 .cert-modal-overlay{
   position:fixed; inset:0; background:rgba(10,12,18,.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
@@ -74,11 +82,15 @@
   max-width:900px; max-height:90vh; background:#0F1218; border:1.5px solid rgba(255,194,75,.5); border-radius:16px;
   padding:1.5rem; position:relative; box-shadow:0 25px 60px rgba(0,0,0,.8);
   display:flex; flex-direction:column; align-items:center;
+  /* min-width:0 stops the flex item's auto min-size defaulting to the
+     loaded certificate's intrinsic width (up to 1800px), which would
+     otherwise push this wider than narrow viewports */
+  min-width:0;
 }
 .cert-modal-img{ max-width:100%; max-height:75vh; object-fit:contain; border-radius:8px; }
 .cert-modal-title{ color:#FFFFFF; font-size:1.05rem; font-weight:800; margin-top:1rem; text-align:center; }
 .cert-modal-close{
-  position:absolute; top:-15px; right:-15px; width:36px; height:36px; background:var(--accent); color:#FFFFFF;
+  position:absolute; top:-15px; right:-15px; width:40px; height:40px; background:var(--accent); color:#FFFFFF;
   border:2px solid #FFFFFF; border-radius:50%; font-size:1.2rem; font-weight:700; cursor:pointer;
   display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.4);
 }
@@ -94,6 +106,8 @@
 }
 .cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
 .cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
@@ -103,6 +117,8 @@
   <defs>
     <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/><stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/></radialGradient>
     <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F0C368"/><stop offset="100%" stop-color="#9C6E22"/></linearGradient>
+    <linearGradient id="awhTrailGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFC24B" stop-opacity="0"/><stop offset="50%" stop-color="#FF6A1F" stop-opacity=".9"/><stop offset="100%" stop-color="#FFC24B" stop-opacity="0"/></linearGradient>
+    <linearGradient id="awhWaveGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFC24B" stop-opacity="0"/><stop offset="50%" stop-color="#FF6A1F" stop-opacity=".8"/><stop offset="100%" stop-color="#E23B1F" stop-opacity="0"/></linearGradient>
   </defs>
 </svg>
 
@@ -119,7 +135,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label" tabindex="0">About</span>
+      <a href="about.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -128,11 +144,65 @@
     </li>
     <li><a href="companies.html">Group Companies</a></li>
     <li><a href="quality.html">Quality</a></li>
-    <li><a href="products.html">Products</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
     <li><a href="process.html">Our Process</a></li>
     <li class="has-dropdown">
-      <span class="dropdown-label">Others</span>
+      <span class="dropdown-label" tabindex="0">Others</span>
       <div class="dropdown">
+        <a href="insights.html">Insights</a>
         <a href="awards.html" class="active">Awards &amp; Certifications</a>
         <a href="csr.html">Corporate Social Responsibility</a>
         <a href="sustainability.html">Sustainability</a>
@@ -143,74 +213,125 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO: NATIONAL RECOGNITION (isolated component — see awards-hero.css / awards-hero.js) -->
-<header class="awh" id="awardsHero" aria-labelledby="awhHeading">
+<!-- ══════════════════ HERO (isolated component — see awards-hero.css / awards-hero.js) ══════════════════ -->
+<header class="awh" id="awardsHero">
   <div class="awh-bg" aria-hidden="true">
-    <div class="awh-grid"></div>
-    <div class="awh-blueprint"></div>
-    <div class="awh-dots"></div>
-    <div class="awh-glow-wrap"><div class="awh-glow"></div></div>
-    <div class="awh-rays"></div>
-    <div class="awh-glass"></div>
-
-    <div class="awh-lineart">
-      <svg class="awh-art trophy" viewBox="0 0 24 24"><path d="M8 4h8v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4V4Z"/><path d="M8 5H5a3 3 0 0 0 3 3"/><path d="M16 5h3a3 3 0 0 1-3 3"/><path d="M12 11v3.5"/><path d="M9 19h6"/><path d="M9 19c0-2.2 1-2.8 3-2.8s3 .6 3 2.8"/></svg>
-      <svg class="awh-art medal" viewBox="0 0 24 24"><path d="M9 3 6.5 10"/><path d="M15 3l2.5 7"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.3l.9 1.85 2.05.3-1.48 1.45.35 2.05L12 16.95l-1.82.95.35-2.05-1.48-1.45 2.05-.3Z"/></svg>
-      <svg class="awh-art cert" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M6 8h6M6 11h9"/><circle cx="17.5" cy="19" r="2.3"/><path d="M16 21l1.5-1 1.5 1v-2.6M17.5 16.7V17"/></svg>
-      <svg class="awh-art ribbon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M9 12.5 7 21l5-2.5L17 21l-2-8.5"/></svg>
-      <svg class="awh-art seal" viewBox="0 0 100 100"><path d="M50 6l7.6 15.6 17-3-3 17 15.6 7.6-15.6 7.6 3 17-17-3L50 82l-7.6-15.6-17 3 3-17-15.6-7.6L28.4 37l-3-17 17 3Z"/></svg>
+    <div class="awh-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/awards.webp">
+        <img class="awh-visual-img" src="Hero/awards.jpg" alt="" loading="eager" decoding="async">
+      </picture>
+      <div class="awh-sweep"></div>
     </div>
-
-    <div class="awh-particles" id="awhParticles" aria-hidden="true"></div>
-    <div class="awh-scanlines"></div>
-    <div class="awh-noise"></div>
+    <div class="awh-glow"></div>
+    <div class="awh-scrim"></div>
+    <div class="awh-grid"></div>
+    <svg class="awh-hud" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="94" stroke-width="1" stroke-dasharray="2 8"/>
+      <circle cx="100" cy="100" r="70" stroke-width="1" stroke-dasharray="1 6"/>
+    </svg>
+    <svg class="awh-trail" viewBox="0 0 380 380" aria-hidden="true">
+      <path d="M40,320 C40,180 160,40 340,60"/>
+    </svg>
+    <div class="awh-particles" aria-hidden="true"></div>
   </div>
 
-  <div class="awh-content">
-    <div class="awh-badge">
-      <span class="awh-badge-dot" aria-hidden="true"></span>
-      <span>National Recognition</span>
-    </div>
-
-    <h1 class="awh-heading" id="awhHeading">
-      <span class="awh-line"><span class="awh-line-inner">Awards &amp;</span></span>
-      <span class="awh-line"><span class="awh-line-inner"><span class="grad">Certifications</span></span></span>
-    </h1>
-
-    <p class="awh-desc">A decade of external validation, from the Ministry of Steel to the country's biggest brand rankings, for standards we'd hold ourselves to regardless.</p>
-
-    <div class="awh-stats" role="group" aria-label="Recognition milestones">
-      <div class="awh-stat">
-        <div class="awh-stat-num counter" data-target="50" data-suffix="+">0+</div>
-        <div class="awh-stat-label">Years of Excellence</div>
+  <div class="awh-inner">
+    <div class="awh-content">
+      <div class="awh-badge">
+        <span class="awh-badge-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M9 12.5 7 21l5-2.5L17 21l-2-8.5"/></svg>
+        </span>
+        <span class="awh-badge-line" aria-hidden="true"></span>
+        Awards &amp; Certification
       </div>
-      <div class="awh-stat-divider" aria-hidden="true"></div>
-      <div class="awh-stat">
-        <div class="awh-stat-num counter" data-target="15" data-suffix="+">0+</div>
-        <div class="awh-stat-label">National Awards</div>
-      </div>
-      <div class="awh-stat-divider" aria-hidden="true"></div>
-      <div class="awh-stat">
-        <div class="awh-stat-num counter" data-target="25" data-suffix="+">0+</div>
-        <div class="awh-stat-label">Industry Certifications</div>
-      </div>
-      <div class="awh-stat-divider" aria-hidden="true"></div>
-      <div class="awh-stat">
-        <div class="awh-stat-num counter" data-target="100" data-suffix="+">0+</div>
-        <div class="awh-stat-label">Government Projects</div>
-      </div>
-    </div>
 
-    <div class="awh-cta-row">
+      <h1 class="awh-heading">
+        <span class="line"><span class="ink">Recognizing Excellence.</span></span>
+        <span class="line"><span class="accent">Driving Trust Forward.</span></span>
+      </h1>
+
+      <p class="awh-desc">Our achievements reflect our commitment to quality, innovation, and customer satisfaction. Every award inspires us to do better, every day.</p>
+
       <a href="#awards" class="awh-cta">
-        <span class="awh-cta-shine" aria-hidden="true"></span>
-        <span>Explore Our Recognition</span>
-        <span class="awh-cta-arrow" aria-hidden="true">→</span>
+        <span class="awh-cta-label">Explore Our Achievements</span>
+        <span class="awh-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </a>
     </div>
+
+    <div class="awh-features">
+      <div class="awh-features-row">
+        <div class="awh-feature" tabindex="0">
+          <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4V4Z"/><path d="M8 5H5a3 3 0 0 0 3 3"/><path d="M16 5h3a3 3 0 0 1-3 3"/><path d="M12 11v3.5"/><path d="M9 19h6"/><path d="M9 19c0-2.2 1-2.8 3-2.8s3 .6 3 2.8"/></svg></span>
+          <span>
+            <span class="awh-feature-title">Proven Excellence</span>
+            <span class="awh-feature-sub">Recognized for our performance.</span>
+          </span>
+        </div>
+        <div class="awh-feature" tabindex="0">
+          <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span>
+            <span class="awh-feature-title">Trusted Quality</span>
+            <span class="awh-feature-sub">Certified processes and standards.</span>
+          </span>
+        </div>
+        <div class="awh-feature" tabindex="0">
+          <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M9 12.5 7 21l5-2.5L17 21l-2-8.5"/></svg></span>
+          <span>
+            <span class="awh-feature-title">Industry Recognition</span>
+            <span class="awh-feature-sub">Honored by leading organizations.</span>
+          </span>
+        </div>
+        <div class="awh-feature" tabindex="0">
+          <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V10M11 19V5M18 19v-7"/><path d="m4 9 5-4 4 3 6-5"/></svg></span>
+          <span>
+            <span class="awh-feature-title">Committed to Improvement</span>
+            <span class="awh-feature-sub">Continuously raising the benchmark.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="awh-features-mobile">
+    <div class="awh-features-grid-m">
+      <div class="awh-feature-m">
+        <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4V4Z"/><path d="M8 5H5a3 3 0 0 0 3 3"/><path d="M16 5h3a3 3 0 0 1-3 3"/><path d="M12 11v3.5"/><path d="M9 19h6"/><path d="M9 19c0-2.2 1-2.8 3-2.8s3 .6 3 2.8"/></svg></span>
+        <span class="awh-feature-title">Proven Excellence</span>
+        <span class="awh-feature-sub">Recognized for our performance.</span>
+      </div>
+      <div class="awh-feature-m">
+        <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span class="awh-feature-title">Trusted Quality</span>
+        <span class="awh-feature-sub">Certified processes and standards.</span>
+      </div>
+      <div class="awh-feature-m">
+        <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M9 12.5 7 21l5-2.5L17 21l-2-8.5"/></svg></span>
+        <span class="awh-feature-title">Industry Recognition</span>
+        <span class="awh-feature-sub">Honored by leading organizations.</span>
+      </div>
+      <div class="awh-feature-m">
+        <span class="awh-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V10M11 19V5M18 19v-7"/><path d="m4 9 5-4 4 3 6-5"/></svg></span>
+        <span class="awh-feature-title">Committed to Improvement</span>
+        <span class="awh-feature-sub">Continuously raising the benchmark.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="awh-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
+      <path class="awh-wave-fill" d="M0,55 C240,105 480,15 720,55 C960,95 1200,25 1440,60 L1440,110 L0,110 Z"/>
+      <path class="awh-wave-line" d="M0,55 C240,105 480,15 720,55 C960,95 1200,25 1440,60"/>
+    </svg>
   </div>
 </header>
 
@@ -366,9 +487,12 @@
 <!-- CTA BAND -->
 <div class="cta-band reveal-scale">
   <div class="cta-inner">
-    <h2>Watch Earth Become Strength</h2>
-    <p>Multiple stages, one continuous chain: raw ore from a mine becomes the reinforcement holding up buildings across the nation. This is where #SteelWithin begins.</p>
-    <a href="process.html" class="btn btn-primary">Walk The Process →</a>
+    <h2>What We Build Is Only Half the Story</h2>
+    <p>Awards measure our steel. They don't measure who we build it for. See how Shakambhari gives back to the communities and land around every plant we run.</p>
+    <div class="cta-btn-row">
+      <a href="csr.html" class="btn btn-primary">See Our CSR Initiatives →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
   </div>
 </div>
 
@@ -403,6 +527,7 @@
     </div>
     <div class="footer-col">
       <h5>More</h5>
+      <a href="insights.html">Insights</a>
       <a href="awards.html">Awards &amp; Certifications</a>
       <a href="csr.html">Corporate Social Responsibility</a>
       <a href="sustainability.html">Sustainability</a>

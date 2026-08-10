@@ -1,535 +1,516 @@
 /* ════════════════════════════════════════════════════════════════════
-   AWARDS & CERTIFICATIONS — Ceremonial Hero
-   Isolated component (see awards-hero.js for the GSAP entrance /
-   magnetic CTA / particle field). Replaces the plain .page-header on
-   awards.html only — every other section on the page is untouched.
+   AWARDS & CERTIFICATIONS — Cinematic Trophy Hero
+   Isolated component (see awards-hero.js). Replaces the previous
+   vector line-art .awh hero on awards.html only. Full-bleed photographic
+   composition of the gold trophy + certificates (Hero/awards.*) with a
+   single left-to-right scrim carrying the headline — one full-inset
+   photo + one scrim, matching the site's established hero convention
+   (.op-hero in process-hero.css, .ins-hero in insight-hero.css), not a
+   boxed image stitched against a separately drawn background. A
+   four-item achievement row spans the full width of the lower band,
+   and — because this particular photo doesn't bake in its own curve
+   the way the process/insight plates do — a drawn SVG wave (same
+   technique as .lh-wave in leadership-hero.css) closes the hero with
+   the orange accent line the reference calls for.
 
-   Dark scoped tokens mirror .hero / .page-header exactly, so the page
-   reads as one continuous premium theme, not a bolted-on section.
-
-   Motion contract: only transform / opacity / filter are animated.
-   Width, height, margin, left and top are never transitioned.
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
    ════════════════════════════════════════════════════════════════════ */
 
 .awh {
-  --bg: #0A0B0E;
-  --surface: #14161C;
-  --border: #262A34;
-  --ink: #EEEAE1;
-  --ink-dim: #9C9A90;
-  --accent: #FF6A1F;
+  --navy: #061B49;
+  --navy-mid: #08265C;
+  --navy-deep: #020814;
+  --ink: #F5F7FB;
+  --ink-dim: #B9C4DE;
+  --accent: #FF6B00;
+  --accent-2: #FF7518;
   --accent-hot: #FFC24B;
-  --accent-deep: #E23B1F;
   position: relative;
-  min-height: clamp(640px, 92vh, 940px);
+  height: 90vh;
+  min-height: 760px;
+  max-height: 940px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: calc(var(--nav-h) + 3rem) 1.5rem 3rem;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 112%, rgba(255, 106, 31, .3), transparent 55%),
-    radial-gradient(ellipse at 50% 130%, rgba(255, 194, 75, .18), transparent 45%),
-    var(--bg);
+  background: var(--navy);
+  color: var(--ink);
 }
 
-/* cursor-following spotlight, same technique as the homepage hero */
-.awh::after {
-  content: '';
+@media (max-width: 900px) {
+  .awh { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.awh-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo ══ */
+.awh-visual { position: absolute; inset: 0; overflow: hidden; }
+
+.awh-visual picture,
+.awh-visual-img {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  background: radial-gradient(circle 320px at var(--mx, 50%) var(--my, 38%), rgba(255, 194, 75, .14), transparent 70%);
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.awh-visual-img {
+  object-fit: cover;
+  object-position: 68% 42%;
+  transform: scale(.94) translateY(20px);
   opacity: 0;
-  transition: opacity .6s ease;
-  pointer-events: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
-.awh:hover::after {
-  opacity: 1;
+@media (max-width: 900px) {
+  .awh-visual-img { object-position: 66% 38%; }
 }
 
-.awh-bg {
+/* ── slow diagonal sheen sweeping once across the trophy's metallic
+   surface — a single soft highlight pass, not a flashing effect ── */
+.awh-sweep {
   position: absolute;
-  inset: 0;
-  z-index: 0;
+  top: -20%;
+  left: -40%;
+  width: 45%;
+  height: 140%;
+  background: linear-gradient(100deg, transparent, rgba(255, 235, 200, .16) 45%, transparent 90%);
+  transform: skewX(-18deg) translateX(0);
+  z-index: 2;
+  animation: awhSweep 7s ease-in-out infinite;
+  animation-delay: 2s;
 }
 
-/* ── engineering grid: coarse structural lines ── */
-.awh-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
-  background-size: 58px 58px;
-  mask-image: radial-gradient(ellipse 70% 62% at 50% 38%, #000 40%, transparent 92%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 62% at 50% 38%, #000 40%, transparent 92%);
+@keyframes awhSweep {
+  0%, 40%, 100% { transform: skewX(-18deg) translateX(0); }
+  70% { transform: skewX(-18deg) translateX(420%); }
 }
 
-/* ── blueprint texture: finer cross-hatch beneath the grid ── */
-.awh-blueprint {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(255, 194, 75, .5) 0, rgba(255, 194, 75, .5) 1px, transparent 1px, transparent 21px),
-    repeating-linear-gradient(0deg, rgba(255, 194, 75, .5) 0, rgba(255, 194, 75, .5) 1px, transparent 1px, transparent 21px);
-  opacity: .025;
-  mask-image: radial-gradient(ellipse 60% 55% at 50% 42%, #000 20%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 42%, #000 20%, transparent 85%);
+@media (max-width: 900px) {
+  .awh-sweep { display: none; }
 }
 
-.awh-dots {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, .09) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: radial-gradient(ellipse 75% 65% at 50% 60%, #000 30%, transparent 92%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 60%, #000 30%, transparent 92%);
-}
-
-/* ── ceremonial spotlight + golden ambient wash ── */
-.awh-glow-wrap {
-  position: absolute;
-  inset: -15%;
-}
-
+/* warm gold/orange ambient glow breathing behind the trophy */
 .awh-glow {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 105%, rgba(255, 106, 31, .5), transparent 42%),
-    radial-gradient(circle at 22% 92%, rgba(255, 194, 75, .3), transparent 38%),
-    radial-gradient(circle at 78% 96%, rgba(226, 59, 31, .35), transparent 40%);
-  filter: blur(8px);
-  animation: awhBreathe 8s ease-in-out infinite;
-  transform-origin: 50% 100%;
+  z-index: 1;
+  background: radial-gradient(ellipse 40% 55% at 74% 40%, rgba(255, 178, 60, .28), transparent 62%);
+  opacity: .7;
+  animation: awhGlowBreathe 6s ease-in-out infinite;
 }
 
-@keyframes awhBreathe {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: .75;
-  }
-
-  50% {
-    transform: scale(1.16);
-    opacity: 1;
-  }
+@keyframes awhGlowBreathe {
+  0%, 100% { opacity: .65; }
+  50% { opacity: .8; }
 }
 
-/* ── volumetric light rays, sweeping almost imperceptibly ── */
-.awh-rays {
-  position: absolute;
-  left: 50%;
-  bottom: -12%;
-  width: 140%;
-  height: 90%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  background:
-    conic-gradient(from 250deg at 50% 100%,
-      transparent 0deg,
-      rgba(255, 194, 75, .05) 8deg,
-      transparent 16deg,
-      transparent 42deg,
-      rgba(255, 106, 31, .045) 52deg,
-      transparent 62deg,
-      transparent 102deg,
-      rgba(255, 194, 75, .04) 110deg,
-      transparent 120deg);
-  animation: awhRaysSway 18s ease-in-out infinite;
-  mix-blend-mode: screen;
+@media (max-width: 900px) {
+  .awh-glow { display: none; }
 }
 
-@keyframes awhRaysSway {
-
-  0%,
-  100% {
-    transform: translateX(-50%) rotate(-1.4deg);
-  }
-
-  50% {
-    transform: translateX(-50%) rotate(1.4deg);
-  }
-}
-
-/* ── soft glass reflection near the top of the scene ── */
-.awh-glass {
-  position: absolute;
-  left: 50%;
-  top: -6%;
-  width: 90%;
-  height: 46%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .06), transparent 68%);
-}
-
-/* ── ceremonial line-art: trophy / medal / certificate / ribbon / seal ──
-   Kept semi-transparent and masked away from the exact heading position
-   so it reads as ambient set-dressing, never competing with the text. */
-.awh-lineart {
+/* single scrim reinforcing the plate's own navy field so the headline
+   stays readable, plus a bottom band darkened for the achievement row */
+.awh-scrim {
   position: absolute;
   inset: 0;
-  mask-image: radial-gradient(ellipse 46% 50% at 50% 46%, transparent 30%, #000 78%);
-  -webkit-mask-image: radial-gradient(ellipse 46% 50% at 50% 46%, transparent 30%, #000 78%);
+  z-index: 1;
+  background:
+    linear-gradient(100deg, var(--navy) 0%, rgba(6, 27, 73, .94) 24%, rgba(6, 27, 73, .78) 40%, rgba(6, 27, 73, .42) 56%, rgba(6, 27, 73, .12) 72%, transparent 86%),
+    linear-gradient(180deg, rgba(2, 8, 20, .3) 0%, transparent 14%, transparent 56%, rgba(2, 8, 20, .62) 88%, rgba(2, 8, 20, .74) 100%);
 }
 
-.awh-art {
+@media (max-width: 900px) {
+  .awh-scrim { display: none; }
+}
+
+/* ── faint technical grid + slowly rotating HUD ring — low opacity ── */
+.awh-grid {
   position: absolute;
-  stroke: var(--accent-hot);
-  fill: none;
-  stroke-width: 1;
-  opacity: .1;
+  inset: 0;
+  z-index: 1;
+  opacity: .05;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 42px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 42px);
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, #000 38%, transparent 58%);
+  mask-image: linear-gradient(100deg, #000 0%, #000 38%, transparent 58%);
+  animation: awhGridDrift 22s linear infinite;
 }
 
-.awh-art.trophy {
-  top: 12%;
-  left: 6%;
-  width: clamp(90px, 11vw, 160px);
-  animation: awhArtFloat 10s ease-in-out infinite;
+@keyframes awhGridDrift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 84px 0, 0 84px; }
 }
 
-.awh-art.medal {
-  top: 18%;
-  right: 7%;
-  width: clamp(70px, 8vw, 120px);
-  animation: awhArtFloat 12s ease-in-out infinite 1.2s;
-}
-
-.awh-art.cert {
-  bottom: 10%;
-  left: 9%;
-  width: clamp(100px, 12vw, 180px);
-  opacity: .08;
-  animation: awhArtFloat 13s ease-in-out infinite .6s;
-}
-
-.awh-art.ribbon {
-  bottom: 14%;
+.awh-hud {
+  position: absolute;
+  top: 14%;
   right: 8%;
-  width: clamp(70px, 8vw, 130px);
-  animation: awhArtFloat 11s ease-in-out infinite 2s;
+  width: clamp(120px, 14vw, 200px);
+  height: clamp(120px, 14vw, 200px);
+  z-index: 2;
+  opacity: .16;
+  animation: awhHudSpin 26s linear infinite;
+  pointer-events: none;
 }
 
-.awh-art.seal {
-  top: 50%;
-  left: 50%;
-  width: clamp(320px, 34vw, 560px);
-  transform: translate(-50%, -50%);
-  opacity: .04;
-  stroke: none;
-  fill: url(#goldGrad);
+.awh-hud circle { fill: none; stroke: var(--accent-hot); }
+
+@keyframes awhHudSpin {
+  to { transform: rotate(360deg); }
 }
 
-@keyframes awhArtFloat {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* ── floating particles: gold dust, drifting up and gently fading ── */
-.awh-particles {
+/* ── orange light trail tracing a thin arc around the trophy ── */
+.awh-trail {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  right: 4%;
+  top: 8%;
+  width: clamp(220px, 26vw, 380px);
+  height: clamp(220px, 26vw, 380px);
+  z-index: 2;
+  opacity: .55;
+  pointer-events: none;
 }
+
+.awh-trail path {
+  fill: none;
+  stroke: url(#awhTrailGrad);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 12 14;
+  animation: awhTrailFlow 10s linear infinite;
+}
+
+@keyframes awhTrailFlow {
+  to { stroke-dashoffset: -260; }
+}
+
+@media (max-width: 900px) {
+  .awh-hud, .awh-trail { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .awh-grid, .awh-glow, .awh-sweep, .awh-hud, .awh-trail { animation: none !important; }
+}
+
+/* ── a small, restrained number of gold particles drifting slowly ── */
+.awh-particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 
 .awh-particle {
   position: absolute;
-  bottom: -6%;
-  left: var(--px, 50%);
-  width: var(--ps, 3px);
-  height: var(--ps, 3px);
+  left: var(--px);
+  bottom: -10px;
+  width: var(--ps);
+  height: var(--ps);
   border-radius: 50%;
-  background: var(--pc, var(--accent-hot));
-  box-shadow: 0 0 6px 1px var(--pc, var(--accent-hot));
+  background: var(--pc);
   opacity: 0;
-  animation: awhParticleDrift var(--pd, 12s) ease-in var(--pdelay, 0s) infinite;
+  box-shadow: 0 0 6px 1px currentColor;
+  animation: awhParticleRise var(--pd) ease-in-out infinite;
+  animation-delay: var(--pdelay);
 }
 
-@keyframes awhParticleDrift {
-  0% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-
-  8% {
-    opacity: .8;
-  }
-
-  85% {
-    opacity: .3;
-  }
-
-  100% {
-    transform: translate(var(--pdx, 20px), -112vh);
-    opacity: 0;
-  }
+@keyframes awhParticleRise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  12% { opacity: .8; }
+  85% { opacity: .5; }
+  100% { transform: translate(var(--pdx), -70vh); opacity: 0; }
 }
 
-.awh-scanlines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: .03;
-  background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .awh-particles { display: none; }
 }
 
-.awh-noise {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: .025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ══ FOREGROUND CONTENT ══ */
-.awh-content {
+/* ══ content ══ */
+.awh-inner {
   position: relative;
   z-index: 5;
-  max-width: 760px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2.25rem) 1.75rem 0;
 }
+
+.awh-content { max-width: 740px; padding-bottom: 2rem; }
 
 .awh-badge {
   display: inline-flex;
   align-items: center;
-  gap: .6rem;
-  padding: .55rem 1.2rem;
-  border: 1px solid rgba(255, 106, 31, .35);
-  border-radius: 2rem;
-  background: rgba(255, 106, 31, .07);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  gap: .65rem;
   font-family: var(--font-mono);
-  font-size: .72rem;
+  font-size: .76rem;
   font-weight: 700;
-  letter-spacing: .3em;
+  letter-spacing: .26em;
+  text-transform: uppercase;
   color: var(--accent-hot);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+  opacity: 0;
 }
 
-.awh-badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-hot);
-  box-shadow: 0 0 8px 2px var(--accent-hot);
-  flex-shrink: 0;
-  animation: awhDotPulse 1.8s ease-in-out infinite;
-}
+.awh-badge-icon { display: flex; flex-shrink: 0; color: var(--accent); }
+.awh-badge-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
-@keyframes awhDotPulse {
-
-  0%,
-  100% {
-    box-shadow: 0 0 14px 4px var(--accent);
-    opacity: 1;
-  }
-
-  50% {
-    box-shadow: 0 0 20px 8px var(--accent);
-    opacity: .7;
-  }
-}
+.awh-badge-line { width: 30px; height: 1.5px; background: linear-gradient(90deg, var(--accent), var(--accent-hot)); }
 
 .awh-heading {
-  margin-top: 1.5rem;
-  font-size: clamp(2.4rem, 6.2vw, 4.4rem);
-  font-weight: 700;
-  line-height: 1.06;
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.2rem, 3.4vw + 1vh, 3.35rem);
+  font-weight: 800;
+  line-height: 1.14;
   letter-spacing: -.01em;
-  color: var(--ink);
 }
 
-.awh-line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: .1em;
-}
-
-.awh-line-inner {
-  display: block;
-}
-
-.awh-heading .grad {
-  background: linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  background-size: 200% 100%;
-  animation: awhEmberShift 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(255, 106, 31, .3));
-}
-
-@keyframes awhEmberShift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
+.awh-heading .line { display: block; opacity: 0; }
+.awh-heading .ink { color: var(--ink); }
+.awh-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 107, 0, .32));
 }
 
 .awh-desc {
-  margin: 1.5rem auto 0;
-  max-width: 58ch;
-  font-size: 1.08rem;
+  margin-top: 1.2rem;
+  max-width: 48ch;
+  font-size: 1.04rem;
+  line-height: 1.75;
   color: var(--ink-dim);
+  opacity: 0;
 }
 
-/* ── trust metrics ── */
-.awh-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.7rem;
-  margin-top: 2.6rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid rgba(255, 255, 255, .08);
-}
-
-.awh-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .3rem;
-}
-
-.awh-stat-num {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
-  color: var(--accent-hot);
-  line-height: 1;
-  letter-spacing: -.01em;
-}
-
-.awh-stat-label {
-  font-family: var(--font-mono);
-  font-size: .64rem;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-
-.awh-stat-divider {
-  width: 1px;
-  height: 30px;
-  background: rgba(255, 255, 255, .12);
-}
-
-/* ── CTA: glass + orange gradient, magnetic hover, soft glow ── */
-.awh-cta-row {
-  margin-top: 2.6rem;
-}
-
+/* ── CTA: orange pill, white text, arrow badge ── */
 .awh-cta {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: .7rem;
-  padding: .95rem 2rem;
-  border-radius: 2.5rem;
+  gap: .9rem;
+  margin-top: 1.9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
   overflow: hidden;
-  font-family: var(--font-mono);
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
-  border: 1px solid rgba(255, 255, 255, .25);
-  box-shadow: 0 10px 26px rgba(255, 106, 31, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
-  transition: box-shadow .35s ease;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 26px rgba(255, 107, 0, .28);
+  opacity: 0;
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease;
 }
 
-.awh-cta:hover {
-  box-shadow: 0 16px 36px rgba(255, 106, 31, .5), inset 0 1px 0 rgba(255, 255, 255, .35);
+.awh-cta:hover,
+.awh-cta:focus-visible {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #E85D00, var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 107, 0, .4);
 }
 
-.awh-cta-shine {
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
-  transform: skewX(-20deg);
-  transition: left .6s ease;
-  pointer-events: none;
-}
+.awh-cta:focus-visible { outline: 2px solid var(--accent-hot); outline-offset: 3px; }
 
-.awh-cta:hover .awh-cta-shine {
-  left: 125%;
+.awh-cta-label {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
 }
 
 .awh-cta-arrow {
-  display: inline-block;
-  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
-}
-
-.awh-cta:hover .awh-cta-arrow {
-  transform: translateX(5px);
-}
-
-.awh-ripple {
-  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .5);
-  transform: scale(0);
-  opacity: .55;
-  pointer-events: none;
-  animation: awhRippleAnim .6s ease-out forwards;
+  background: #fff;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
 }
 
-@keyframes awhRippleAnim {
-  to {
-    transform: scale(2.6);
-    opacity: 0;
-  }
+.awh-cta-arrow svg { width: 16px; height: 16px; }
+
+.awh-cta:hover .awh-cta-arrow,
+.awh-cta:focus-visible .awh-cta-arrow { transform: translateX(5px); }
+
+/* ══ four-item achievement row — full width across the lower band ══ */
+.awh-features {
+  position: relative;
+  padding-bottom: clamp(2rem, 4.5vw, 3.25rem);
+  opacity: 0;
 }
 
-@media (max-width: 640px) {
-  .awh-stats {
-    gap: 1.1rem;
-  }
+.awh-features-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
 
-  .awh-stat-divider {
-    display: none;
-  }
+.awh-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  padding: 0 1.3rem;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+  outline: none;
+  opacity: 0;
+  transform: translateY(14px);
+}
 
-  .awh-art {
-    display: none;
-  }
+.awh-feature:first-child { border-left: none; padding-left: 0; }
+
+.awh-feature-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 107, 0, .26), rgba(255, 107, 0, .06));
+  border: 1.5px solid rgba(255, 107, 0, .45);
+  color: var(--accent-hot);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .28s ease, box-shadow .28s ease, color .28s ease;
+}
+
+.awh-feature-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.awh-feature-title {
+  display: block;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--ink);
+  transition: color .28s ease;
+}
+
+.awh-feature-sub {
+  display: block;
+  margin-top: .3rem;
+  font-size: .78rem;
+  line-height: 1.4;
+  color: var(--ink-dim);
+}
+
+.awh-feature:hover,
+.awh-feature:focus-visible { transform: translateY(-2px); }
+
+.awh-feature:hover .awh-feature-icon,
+.awh-feature:focus-visible .awh-feature-icon {
+  transform: scale(1.08);
+  border-color: var(--accent-hot);
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(255, 117, 24, .14), 0 0 18px rgba(255, 194, 75, .4);
+}
+
+.awh-feature:hover .awh-feature-title,
+.awh-feature:focus-visible .awh-feature-title { color: var(--accent-hot); }
+
+@media (max-width: 1100px) {
+  .awh-content { max-width: 540px; }
+  .awh-feature-sub { display: none; }
+  .awh-feature-icon { width: 34px; height: 34px; }
+  .awh-feature-icon svg { width: 16px; height: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-
-  .awh-glow,
-  .awh-rays,
-  .awh-art,
-  .awh-particle,
-  .awh-badge-dot,
-  .awh-heading .grad {
-    animation: none !important;
-  }
+  .awh-feature, .awh-feature:hover, .awh-feature:focus-visible { transform: none !important; }
 }
+
+/* below 900px the hero switches to the stacked mobile layout */
+@media (max-width: 900px) {
+  .awh-features { display: none; }
+}
+
+/* ── bottom curved wave, drawn (not baked into the photo) — orange
+   accent line traces the crest, matching the leadership.html .lh-wave
+   technique ── */
+.awh-wave { position: absolute; left: 0; right: 0; bottom: -1px; z-index: 6; line-height: 0; pointer-events: none; }
+.awh-wave svg { display: block; width: 100%; height: clamp(44px, 5.5vw, 78px); }
+.awh-wave-fill { fill: var(--surface); }
+.awh-wave-line {
+  fill: none;
+  stroke: url(#awhWaveGrad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 106, 31, .55));
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@media (max-width: 900px) { .awh-wave { display: none; } }
+
+/* ══ mobile: vertical stack — badge, headline, copy, CTA, then the
+   photo as a contained, uncropped card, then the four features as a
+   compact 2×2 grid beneath, matching the site's established mobile
+   hero pattern (.op-hero / .ins-hero) ══ */
+@media (max-width: 900px) {
+  .awh { display: flex; flex-direction: column; align-items: stretch; }
+  .awh-bg { position: relative; inset: auto; order: 2; }
+  .awh-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .awh-content { max-width: none; text-align: center; padding-bottom: 0; }
+  .awh-badge { justify-content: center; }
+  .awh-desc { margin-left: auto; margin-right: auto; }
+  .awh-cta { margin-left: auto; margin-right: auto; }
+
+  .awh-visual {
+    position: relative;
+    inset: auto;
+    margin: 2.2rem 1.25rem 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--navy-deep);
+    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
+  }
+
+  .awh-visual picture, .awh-visual-img { position: absolute; inset: 0; }
+  .awh-visual-img { object-fit: cover; object-position: 70% 36%; transform: scale(1); }
+  .awh-glow { display: none; }
+}
+
+.awh-features-mobile {
+  display: none;
+  position: relative;
+  z-index: 3;
+  order: 3;
+  margin: 1.8rem 0 0;
+  padding: 0 1.25rem 2.2rem;
+  opacity: 0;
+}
+
+@media (max-width: 900px) { .awh-features-mobile { display: block; } }
+
+.awh-features-grid-m {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9rem;
+}
+
+.awh-feature-m {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: .55rem;
+  padding: 1.1rem .8rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 107, 0, .22);
+  background: linear-gradient(155deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.awh-feature-m .awh-feature-icon { width: 40px; height: 40px; }
+.awh-feature-m .awh-feature-icon svg { width: 18px; height: 18px; }
+.awh-feature-m .awh-feature-title { font-size: .76rem; }
+.awh-feature-m .awh-feature-sub { display: block; font-size: .72rem; }

@@ -149,18 +149,28 @@
 .mpp-header {
   position: relative;
   z-index: 1;
+  /* this + .mpp-body are the two elements the JS crossfade (opacity +
+     translateY) runs on every hover/click — promoting them to their own
+     compositor layer up front stops the "pop" as a layer is created mid
+     animation, which is what read as a flash/flicker on state changes */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .mpp-state {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: .55rem;
-  font-size: 1.75rem;
+  gap: .5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--ink);
   line-height: 1.15;
-  margin: 0 0 .55rem;
+  margin: 0 0 .5rem;
+  /* reserve height for two lines so switching between a short state name
+     (no wrap) and a longer one + badge (wraps) never jumps the layout —
+     the crossfade should read as a fade, never as a resize */
+  min-height: calc(1.4rem * 1.15 * 2);
 }
 
 /* JS stamps this exact class on the badge span it (re)creates on every
@@ -181,11 +191,11 @@
 }
 
 .mpp-company {
-  font-size: .95rem;
+  font-size: .85rem;
   font-weight: 600;
   color: var(--accent-ink);
-  margin-bottom: 1.15rem;
-  padding-bottom: 1.15rem;
+  margin-bottom: .95rem;
+  padding-bottom: .95rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -204,6 +214,9 @@
   display: flex;
   flex-direction: column;
   gap: .65rem;
+  /* see .mpp-header — same crossfade target, same GPU-layer reasoning */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* default / no-hover state — nothing selected yet, so no vendor details
@@ -233,11 +246,11 @@
 .mpp-mini {
   display: flex;
   align-items: flex-start;
-  gap: .65rem;
+  gap: .6rem;
   background: rgba(255, 255, 255, .55);
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: .75rem .85rem;
+  border-radius: 16px;
+  padding: .65rem .75rem;
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease;
 }
 
@@ -250,14 +263,14 @@
 
 .mpp-mini-icon {
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.05rem;
+  font-size: .95rem;
   line-height: 1;
-  border-radius: 10px;
+  border-radius: 9px;
   background: rgba(255, 106, 31, .12);
   border: 1px solid rgba(255, 106, 31, .22);
 }
@@ -265,22 +278,25 @@
 .mpp-mini-text {
   display: flex;
   flex-direction: column;
-  gap: .3rem;
+  gap: .25rem;
   min-width: 0;
 }
 
 .mpp-label {
-  font-size: .68rem;
+  font-size: .64rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .07em;
   color: var(--ink-soft);
 }
 
 .mpp-value {
-  font-size: 1.0625rem;
+  font-size: .88rem;
   font-weight: 500;
   color: var(--ink);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* ── contact actions ── */
@@ -391,7 +407,11 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: .5rem;
+<<<<<<< HEAD
   max-height: 260px;
+=======
+  max-height: 240px;
+>>>>>>> be3f87c91abe0ca5b4cc40daf79bb4238742fbc8
   overflow-y: auto;
   padding-right: .25rem;
   scrollbar-width: thin;
@@ -407,6 +427,7 @@
 }
 
 .mpp-empty {
+  grid-column: 1 / -1;
   font-size: .78rem;
   color: var(--ink-soft);
   padding: .6rem;
@@ -429,16 +450,23 @@
   font-size: .8rem;
   color: var(--ink-soft);
   cursor: pointer;
+<<<<<<< HEAD
   /* No transform here: shifting the box under the cursor on :hover made the
      pointer land outside the shifted box, which re-fired mouseleave/mouseenter
      in a loop and made the hovered state name flicker instead of holding. */
+=======
+>>>>>>> be3f87c91abe0ca5b4cc40daf79bb4238742fbc8
   transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
 }
 
 .quick-location-item:hover {
   background: rgba(255, 255, 255, .85);
   border-color: rgba(255, 106, 31, .35);
+<<<<<<< HEAD
   box-shadow: 0 6px 16px rgba(255, 106, 31, .12);
+=======
+  box-shadow: 0 6px 16px rgba(255, 106, 31, .1);
+>>>>>>> be3f87c91abe0ca5b4cc40daf79bb4238742fbc8
   color: var(--ink);
 }
 
@@ -534,6 +562,17 @@
   .mpp-actions {
     grid-template-columns: 1fr;
   }
+
+  /* directory rows were a few px under the ~40px tap-target guideline */
+  .quick-location-item {
+    padding: 0.8rem 0.85rem 0.8rem 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .mpp-directory-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -549,4 +588,46 @@
   .ql-indicator {
     transition: none;
   }
+}
+
+/* ══ DARK MODE ══ */
+html[data-theme="dark"] .mpp {
+  background: linear-gradient(180deg, rgba(27, 31, 38, .94) 0%, rgba(32, 36, 44, .92) 50%, rgba(18, 21, 26, .9) 100%);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+
+html[data-theme="dark"] .mpp-status {
+  background: rgba(27, 31, 38, .6);
+}
+
+html[data-theme="dark"] .mpp-search-input {
+  background: rgba(27, 31, 38, .7);
+}
+
+html[data-theme="dark"] .mpp-search-input:focus {
+  background: rgba(27, 31, 38, .9);
+}
+
+html[data-theme="dark"] .mpp-mini {
+  background: rgba(27, 31, 38, .55);
+}
+
+html[data-theme="dark"] .mpp-mini:hover {
+  background: rgba(27, 31, 38, .8);
+}
+
+html[data-theme="dark"] .mpp-btn-secondary {
+  background: rgba(27, 31, 38, .65);
+}
+
+html[data-theme="dark"] .quick-location-item {
+  background: rgba(27, 31, 38, .55);
+}
+
+html[data-theme="dark"] .quick-location-item:hover {
+  background: rgba(27, 31, 38, .85);
+}
+
+html[data-theme="dark"] .ql-code {
+  background: rgba(27, 31, 38, .7);
 }

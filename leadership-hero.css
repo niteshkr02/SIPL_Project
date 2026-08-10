@@ -1,0 +1,557 @@
+/* ════════════════════════════════════════════════════════════════════
+   LEADERSHIP — Cinematic Summit Hero
+   Isolated component (see leadership-hero.js). Replaces the plain
+   .page-header banner on leadership.html only. Dark scoped tokens
+   mirror the site's existing .hero / .cah / .csrh convention.
+
+   --font-serif is scoped to :root here (this stylesheet only loads on
+   leadership.html) so the elegant serif display headings used across
+   this page's hero / team / values / CTA sections share one source.
+
+   Motion contract: only transform / opacity / filter are animated, and
+   every animation here is CSS-keyframe driven (no scroll/pointer state
+   feeds a transform), so the hero never flickers, jumps or restarts on
+   hover — it plays once on load and otherwise sits still.
+   ════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+}
+
+.lh {
+  --bg: #0A0B0E;
+  --surface: #14161C;
+  --border: #262A34;
+  --ink: #EEEAE1;
+  --ink-dim: #9C9A90;
+  --accent: #FF6A1F;
+  --accent-hot: #FFC24B;
+  --accent-deep: #E23B1F;
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  max-height: 1100px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.lh-row {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-top: var(--nav-h);
+  /* reserved floor so vertically-centered content never gets pushed
+     down into the scroll-cue/wave zone on shorter viewports (e.g. the
+     very common 1366×768 laptop height) */
+  padding-bottom: clamp(3.5rem, 9vh, 5.5rem);
+}
+
+/* below 980px the hero grows to fit stacked text + photo + wave rather
+   than staying a fixed 100vh box, but keeps a tall floor so the summit
+   photo still has room to read behind the content */
+@media (max-width: 980px) {
+  .lh {
+    height: auto;
+    min-height: 100svh;
+    max-height: none;
+  }
+
+  .lh-row {
+    height: auto;
+    min-height: calc(100svh - var(--nav-h));
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: calc(var(--nav-h) + 2.5rem) 0 5rem;
+  }
+}
+
+/* ── ambient background layers behind everything ── */
+.lh-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ── real summit photo: two climbers helping each other at sunset —
+   the central visual story the rest of the hero is built around ── */
+.lh-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.lh-photo picture,
+.lh-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 64% 38%;
+}
+
+.lh-photo img {
+  transform: scale(1);
+  transform-origin: 64% 38%;
+  animation: lhPhotoZoom 16s ease-in-out infinite alternate;
+  /* deepens shadows and tempers the highlights for a moodier, more
+     cinematic grade than the flat source photo */
+  filter: brightness(.87) contrast(1.1) saturate(1.06);
+}
+
+/* very slow ambient zoom, CSS-only so it never restarts or jumps on
+   pointer/hover — see motion contract note above */
+@keyframes lhPhotoZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.03); }
+}
+
+@media (max-width: 980px) {
+  .lh-photo img { object-position: 74% 30%; }
+}
+
+/* dark-to-transparent scrim: keeps the left-side type legible while
+   letting the photograph read naturally toward the right, with a
+   cinematic top/bottom vignette so it blends into the nav above and
+   the wave below rather than reading as a pasted-in rectangle */
+.lh-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, var(--bg) 0%, rgba(10, 11, 14, .97) 22%, rgba(10, 11, 14, .87) 36%, rgba(10, 11, 14, .58) 50%, rgba(10, 11, 14, .24) 62%, transparent 76%),
+    linear-gradient(180deg, rgba(10, 11, 14, .55) 0%, transparent 20%, transparent 72%, rgba(10, 11, 14, .68) 100%);
+}
+
+@media (max-width: 980px) {
+  .lh-photo-scrim {
+    background:
+      linear-gradient(180deg, rgba(10, 11, 14, .7) 0%, rgba(10, 11, 14, .38) 24%, rgba(10, 11, 14, .24) 46%, rgba(10, 11, 14, .48) 68%, rgba(10, 11, 14, .92) 100%),
+      linear-gradient(90deg, rgba(10, 11, 14, .62) 0%, transparent 42%, transparent 62%, rgba(10, 11, 14, .38) 100%);
+  }
+}
+
+/* ── slow volumetric light rays fanning out from the sunset glow ── */
+.lh-rays {
+  position: absolute;
+  right: -15%;
+  bottom: -25%;
+  width: 85%;
+  height: 130%;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: .5;
+  background:
+    conic-gradient(from 200deg at 78% 78%,
+      transparent 0deg, rgba(255, 194, 75, .1) 9deg, transparent 18deg,
+      transparent 44deg, rgba(255, 122, 26, .09) 54deg, transparent 64deg,
+      transparent 94deg, rgba(255, 194, 75, .07) 103deg, transparent 113deg);
+  animation: lhRaysSway 20s ease-in-out infinite;
+}
+
+@keyframes lhRaysSway {
+  0%, 100% { transform: rotate(-1.4deg) scale(1); }
+  50% { transform: rotate(1.6deg) scale(1.03); }
+}
+
+/* ── drifting embers: plain DOM spans, positioned once by JS, animated
+   purely by this shared CSS keyframe (transform + opacity only) ── */
+.lh-embers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.lh-ember {
+  position: absolute;
+  bottom: -6%;
+  left: var(--ex, 50%);
+  width: var(--es, 3px);
+  height: var(--es, 3px);
+  border-radius: 50%;
+  background: var(--ec, var(--accent-hot));
+  box-shadow: 0 0 7px 1.5px var(--ec, var(--accent-hot));
+  opacity: 0;
+  animation: lhEmberDrift var(--ed, 13s) ease-in var(--edelay, 0s) infinite;
+}
+
+@keyframes lhEmberDrift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: .85; }
+  85% { opacity: .3; }
+  100% { transform: translate(var(--exd, 22px), -108vh); opacity: 0; }
+}
+
+/* ── cinematic corner vignette: deepens the frame beyond the scrim ── */
+.lh-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse 115% 85% at 50% 45%, transparent 55%, rgba(6, 7, 9, .5) 100%);
+}
+
+/* ── faint film grain, static texture only (no motion) ── */
+.lh-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: .05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── extremely faint scan-line texture — the only texture treatment,
+   kept almost invisible per the brief ── */
+.lh-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .025;
+  background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
+}
+
+/* ══ text column ══ */
+.lh-content {
+  position: relative;
+  z-index: 5;
+  width: 50%;
+  flex-shrink: 0;
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+}
+
+@media (max-width: 980px) {
+  .lh-content { width: 100%; padding: 0 1.75rem; text-align: center; }
+}
+
+.lh-label {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.lh-label b {
+  font-weight: 700;
+  color: var(--accent-hot);
+  margin: 0 .5em;
+  opacity: .8;
+  display: inline-block;
+  animation: lhDotPulse 2.6s ease-in-out infinite;
+}
+
+.lh-label b:nth-of-type(2) { animation-delay: .7s; }
+
+@keyframes lhDotPulse {
+  0%, 100% { opacity: .5; text-shadow: none; }
+  50% { opacity: 1; text-shadow: 0 0 8px rgba(255, 194, 75, .8); }
+}
+
+.lh-heading {
+  position: relative;
+  margin-top: .9rem;
+  font-family: var(--font-serif);
+  /* vh term makes the headline shrink on short-but-wide viewports
+     (laptops at ~768px tall), not just narrow ones, so it can never
+     grow tall enough to push the CTA into the scroll-cue zone */
+  font-size: clamp(2.6rem, 3.6vw + 2vh, 5.4rem);
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  text-shadow: 0 6px 28px rgba(0, 0, 0, .5);
+}
+
+/* soft breathing glow pooling behind the accent lines, purely
+   decorative — CSS keyframe only, never touched by JS/hover */
+.lh-ember-glow {
+  position: absolute;
+  left: -6%;
+  bottom: 4%;
+  width: 70%;
+  height: 55%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 60% at 30% 60%, rgba(255, 106, 31, .32), transparent 72%);
+  filter: blur(18px);
+  animation: lhEmberGlowPulse 6s ease-in-out infinite;
+}
+
+@keyframes lhEmberGlowPulse {
+  0%, 100% { opacity: .6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* per-line reveal: .lh-heading-line is a static clipping mask,
+   .lh-heading-inner is what the entrance transition actually animates */
+.lh-heading-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .06em;
+}
+
+.lh-heading-inner {
+  display: block;
+}
+
+.lh-heading-inner.accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 18px rgba(255, 106, 31, .4));
+}
+
+.lh-heading-glow {
+  position: relative;
+  margin-top: 1.1rem;
+  height: 3px;
+  width: min(220px, 60%);
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--accent-hot), var(--accent) 55%, transparent 95%);
+  transform-origin: left;
+  transform: scaleX(0);
+  filter: drop-shadow(0 0 10px rgba(255, 194, 75, .65));
+}
+
+/* slow shimmer travelling along the accent line, loops after the
+   entrance reveal settles */
+.lh-heading-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .9), transparent);
+  animation: lhGlowShimmer 3.4s ease-in-out 2.2s infinite;
+}
+
+@keyframes lhGlowShimmer {
+  0%, 15% { transform: translateX(-120%); }
+  55%, 100% { transform: translateX(280%); }
+}
+
+@media (max-width: 980px) {
+  .lh-heading-glow { margin-left: auto; margin-right: auto; }
+}
+
+.lh-desc {
+  margin-top: 1.1rem;
+  max-width: 420px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 980px) {
+  .lh-desc { margin-left: auto; margin-right: auto; }
+}
+
+/* ── hero CTA: links out to the Mission, Vision & Values page ── */
+.lh-cta-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: 1.8rem;
+  padding: .45rem .45rem .45rem 1.5rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow: 0 12px 28px rgba(255, 106, 31, .3), inset 0 1px 0 rgba(255, 255, 255, .3);
+  transition: box-shadow .35s ease, transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+/* soft ambient pulse painted between the button's gradient background
+   and its label/arrow (a plain ::before is inserted before its DOM
+   siblings, so it naturally sits behind them with no z-index hack) —
+   kept inset:0 rather than bleeding outward, since .lh-cta-btn's own
+   overflow:hidden (needed for the shine sweep) would clip anything
+   that tried to escape its bounds */
+.lh-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 100% at 15% 50%, rgba(255, 231, 176, .55), transparent 75%);
+  animation: lhCtaPulse 3.6s ease-in-out infinite;
+}
+
+@keyframes lhCtaPulse {
+  0%, 100% { opacity: .5; }
+  50% { opacity: 1; }
+}
+
+.lh-cta-btn:hover,
+.lh-cta-btn:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(255, 106, 31, .45), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+
+.lh-cta-btn:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
+}
+
+@media (max-width: 980px) {
+  .lh-cta-btn { margin-left: auto; margin-right: auto; }
+}
+
+.lh-cta-btn-label {
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.lh-cta-btn-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent-deep);
+  flex-shrink: 0;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.lh-cta-btn-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.lh-cta-btn:hover .lh-cta-btn-arrow,
+.lh-cta-btn:focus-visible .lh-cta-btn-arrow {
+  transform: translateX(3px) rotate(-8deg);
+}
+
+.lh-cta-btn-shine {
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
+  transform: translateX(0) skewX(-20deg);
+  transition: transform .6s ease;
+  pointer-events: none;
+}
+
+.lh-cta-btn:hover .lh-cta-btn-shine {
+  transform: translateX(444%) skewX(-20deg);
+}
+
+/* ══ scroll indicator — bottom-left, above the wave ══ */
+.lh-scroll-cue {
+  position: absolute;
+  left: clamp(1.5rem, 5vw, 4.5rem);
+  bottom: clamp(1.6rem, 3.4vw, 2.25rem);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  text-decoration: none;
+  opacity: 0;
+}
+
+@media (max-width: 980px), (max-height: 680px) {
+  .lh-scroll-cue { display: none; }
+}
+
+.lh-scroll-cue-label {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  transition: color .3s ease;
+}
+
+.lh-scroll-cue:hover .lh-scroll-cue-label {
+  color: var(--ink);
+}
+
+.lh-scroll-cue-icon {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(238, 234, 225, .4);
+  border-radius: 12px;
+  transition: border-color .3s ease;
+}
+
+.lh-scroll-cue:hover .lh-scroll-cue-icon {
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 12px rgba(255, 194, 75, .3);
+}
+
+.lh-scroll-cue-dot {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent-hot);
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px 1px rgba(255, 194, 75, .6);
+  animation: lhScrollCueDrop 1.8s ease-in-out infinite;
+}
+
+@keyframes lhScrollCueDrop {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  70% { opacity: .4; }
+  100% { transform: translate(-50%, 12px); opacity: 0; }
+}
+
+/* ══ bottom wave divider — smooth curve into the next section, with a
+   thin glowing accent line tracing the crest ══ */
+.lh-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 6;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.lh-wave svg {
+  display: block;
+  width: 100%;
+  height: clamp(60px, 9vw, 120px);
+}
+
+.lh-wave-fill {
+  fill: var(--surface);
+}
+
+.lh-wave-line {
+  fill: none;
+  stroke: url(#lhWaveGrad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 106, 31, .55));
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lh-photo img, .lh-scroll-cue-dot, .lh-rays, .lh-ember,
+  .lh-ember-glow, .lh-heading-glow::after, .lh-cta-btn::before,
+  .lh-label b {
+    animation: none !important;
+  }
+}
