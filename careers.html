@@ -15,7 +15,7 @@
 /* This panel is thousands of px tall, so it skips the shared .panel hover
    lift/shadow-transition (fine on a small card, a visible repaint cost on
    something this size) and the scroll-gated .reveal fade (which stayed
-   invisible until 15% of it had scrolled into view — reading as "stuck
+   invisible until 15% of it had scrolled into view, reading as "stuck
    loading"). It renders at full opacity immediately; only its inner
    sections animate in. */
 .apply-panel{ padding:clamp(1.6rem,4vw,3rem); transition:none; position:relative; overflow:hidden; }
@@ -73,7 +73,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 .field input:hover:not(:focus), .field select:hover:not(:focus), .field textarea:hover:not(:focus):not([readonly]){ border-color:var(--accent-hot); }
 .field select{ cursor:pointer; }
 /* Native <input type=date> renders mm/dd/yyyy or dd/mm/yyyy purely off OS/browser
-   locale — the lang attribute doesn't override it in Chromium, so there's no
+   locale, the lang attribute doesn't override it in Chromium, so there's no
    reliable way to force DD/MM/YYYY that way. Three explicit selects in DD/MM/YYYY
    order sidestep the ambiguity entirely; a hidden field carries the ISO value. */
 .dob-row{ display:flex; flex-wrap:wrap; gap:.6rem; }
@@ -112,7 +112,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
 }
 .segmented-toggle.is-fresher .segmented-thumb, .segmented-toggle.is-experienced .segmented-thumb{ opacity:1; }
 .segmented-toggle.is-experienced .segmented-thumb{ transform:translateX(100%); }
-/* label's min-width:112px is a hard floor that doesn't shrink — on phones
+/* label's min-width:112px is a hard floor that doesn't shrink, on phones
    under ~370px wide the two labels (224px+) no longer fit the modal's
    available width and were spilling past the toggle; let them share the
    full-width pill equally instead, with the long word wrapping if needed. */
@@ -296,7 +296,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
           </div>
         </div>
         <a href="ferro-alloys.html">Ferro Alloys</a>
-        <a href="products.html#aluminium-foil">Aluminium Foil</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
       </div>
     </li>
     <li><a href="process.html">Our Process</a></li>
@@ -321,7 +321,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ══════════════════ CINEMATIC RECRUITMENT HERO (isolated component — see careers-hero.css / careers-hero.js) ══════════════════ -->
+<!-- ══════════════════ CINEMATIC RECRUITMENT HERO (isolated component, see careers-hero.css / careers-hero.js) ══════════════════ -->
 <header class="cah" id="careersHero" aria-labelledby="cahHeading">
   <div class="cah-bg" aria-hidden="true">
     <div class="cah-mesh"></div>
@@ -348,7 +348,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <span class="cah-line"><span class="cah-line-inner">Shape the <span class="grad">Future.</span></span></span>
       </h1>
 
-      <p class="cah-desc">Join the people engineering India's infrastructure from the ground up — across our plants, our corporate teams, and everything in between. Real work, real growth, real steel.</p>
+      <p class="cah-desc">Join the people engineering India's infrastructure from the ground up, across our plants, our corporate teams, and everything in between. Real work, real growth, real steel.</p>
 
       <div class="cah-cta-row">
         <a href="#openPositions" class="cah-cta cah-cta-primary">
@@ -414,7 +414,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     <h2>Built For People Who Build Things</h2>
     <p>Six reasons our people choose to stay and grow with Shakambhari Group.</p>
   </div>
-  <div class="cbc" id="cbcCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Why Join Us — career benefits">
+  <div class="cbc" id="cbcCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Why Join Us, career benefits">
     <div class="cbc-bg" aria-hidden="true">
       <div class="cbc-mesh"></div>
       <div class="cbc-texture"></div>
@@ -512,19 +512,19 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   </div>
 </section>
 
-<!-- ══════════════════ LEARNING & DEVELOPMENT — ROADMAP ══════════════════ -->
+<!-- ══════════════════ LEARNING & DEVELOPMENT, ROADMAP ══════════════════ -->
 <section class="section" id="learningDevelopment">
   <div class="section-head reveal">
     <div class="kicker center">LEARNING &amp; DEVELOPMENT</div>
     <h2>Your Growth, Mapped Out</h2>
-    <p>From your first day to your next promotion — a structured path, not a guess.</p>
+    <p>From your first day to your next promotion, a structured path, not a guess.</p>
   </div>
   <div class="cld-roadmap reveal">
     <svg class="cld-line-svg" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true">
       <path class="cld-line-path" d="M2,2 H98"/>
       <path class="cld-line-progress" d="M2,2 H98"/>
     </svg>
-    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Employee Onboarding — view details">
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Employee Onboarding, view details">
       <div class="cld-node">01</div><div class="cld-label">Employee Onboarding</div><div class="cld-sub">Week 1</div>
       <ul class="cld-info" hidden>
         <li>Welcome orientation &amp; company introduction</li>
@@ -534,7 +534,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <li>Initial role expectations and first-week goals</li>
       </ul>
     </div>
-    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Professional Training — view details">
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Professional Training, view details">
       <div class="cld-node">02</div><div class="cld-label">Training</div><div class="cld-sub">Month 1–4</div>
       <ul class="cld-info" hidden>
         <li>Technical and functional skill development</li>
@@ -544,7 +544,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <li>Continuous performance assessments</li>
       </ul>
     </div>
-    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Mentorship Program — view details">
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Mentorship Program, view details">
       <div class="cld-node">03</div><div class="cld-label">Mentorship</div><div class="cld-sub">Ongoing</div>
       <ul class="cld-info" hidden>
         <li>Dedicated mentor guidance</li>
@@ -554,7 +554,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <li>Personal growth planning</li>
       </ul>
     </div>
-    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Skill Development — view details">
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Skill Development, view details">
       <div class="cld-node">04</div><div class="cld-label">Skill Development</div><div class="cld-sub">Year 1+</div>
       <ul class="cld-info" hidden>
         <li>Advanced technical certifications</li>
@@ -564,7 +564,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <li>Continuous learning culture</li>
       </ul>
     </div>
-    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Leadership Development — view details">
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Leadership Development, view details">
       <div class="cld-node">05</div><div class="cld-label">Leadership</div><div class="cld-sub">Year 2+</div>
       <ul class="cld-info" hidden>
         <li>Team management responsibilities</li>
@@ -574,7 +574,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
         <li>Future leadership preparation</li>
       </ul>
     </div>
-    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Career Growth — view details">
+    <div class="cld-milestone" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="cldTooltip" aria-label="Career Growth, view details">
       <div class="cld-node">06</div><div class="cld-label">Career Growth</div><div class="cld-sub">Ongoing</div>
       <ul class="cld-info" hidden>
         <li>Internal promotion opportunities</li>
@@ -755,7 +755,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   <div class="section-head reveal">
     <div class="kicker center">EMPLOYEE SUCCESS STORIES</div>
     <h2>Grown Here, Not Just Hired Here</h2>
-    <p><span class="car-placeholder-tag">Sample layout</span> — real employee stories will replace these placeholders.</p>
+    <p><span class="car-placeholder-tag">Sample layout</span>, real employee stories will replace these placeholders.</p>
   </div>
   <div class="ces-wrap reveal">
     <div class="ces-track-viewport">
@@ -833,8 +833,8 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   <div class="section-head reveal">
     <div class="kicker center">OPEN POSITIONS</div>
     <h2>Find Your Role</h2>
-    <p>Filter by department, location or experience — no page reload required.</p>
-    <p style="margin-top:.8rem;"><span class="car-placeholder-tag">Sample layout</span> — no live openings are published yet; real roles will appear here in this exact format.</p>
+    <p>Filter by department, location or experience, no page reload required.</p>
+    <p style="margin-top:.8rem;"><span class="car-placeholder-tag">Sample layout</span>, no live openings are published yet; real roles will appear here in this exact format.</p>
   </div>
 
   <div class="cop-toolbar reveal">
@@ -920,7 +920,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
       <div class="cop-card-foot"><a href="#careerApplyForm" class="cop-apply">Apply Now <span aria-hidden="true">→</span></a></div>
     </div>
   </div>
-  <div class="cop-empty" id="copEmpty">No roles match your filters right now — try widening your search.</div>
+  <div class="cop-empty" id="copEmpty">No roles match your filters right now, try widening your search.</div>
 </section>
 
 <!-- ══════════════════ INTERNSHIP & CAMPUS HIRING ══════════════════ -->
@@ -1006,7 +1006,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     </div>
     <div class="cfq-item">
       <button type="button" class="cfq-q" aria-expanded="false">Can I apply if I don't see a matching open role?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Yes — the application form accepts general applications across departments and locations, and our HR team keeps profiles on file as new roles open up.</p></div></div>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Yes, the application form accepts general applications across departments and locations, and our HR team keeps profiles on file as new roles open up.</p></div></div>
     </div>
     <div class="cfq-item">
       <button type="button" class="cfq-q" aria-expanded="false">How long does the hiring process take?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
@@ -1014,7 +1014,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
     </div>
     <div class="cfq-item">
       <button type="button" class="cfq-q" aria-expanded="false">Do freshers and graduate engineers get considered?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Yes — select "Fresher" under Employment Status and "Graduate Trainee / Apprentice" under Career Track in the application form to be considered for entry-level and graduate programmes.</p></div></div>
+      <div class="cfq-a-wrap"><div class="cfq-a-inner"><p class="cfq-a">Yes, select "Fresher" under Employment Status and "Graduate Trainee / Apprentice" under Career Track in the application form to be considered for entry-level and graduate programmes.</p></div></div>
     </div>
     <div class="cfq-item">
       <button type="button" class="cfq-q" aria-expanded="false">Is relocation required for plant roles?<span class="cfq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
@@ -1738,7 +1738,7 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   });
 
   // Safety / Equipment Certifications: a plain per-checkbox `required` would force
-  // ALL of them checked, which isn't the intent — at least one (including "None")
+  // ALL of them checked, which isn't the intent, at least one (including "None")
   // must be picked. Custom validity is anchored to the first checkbox in the group.
   const certCheckboxes = form.querySelectorAll('input[name="certifications"]');
   function validateCertifications(){

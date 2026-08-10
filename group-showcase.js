@@ -29,14 +29,6 @@
   const status = root.querySelector('.grp-sr-status');
   const timelineItems = Array.from(document.querySelectorAll('#grpTimeline .grp-tl-item'));
 
-  // first slot found for each founding year, so a timeline click jumps
-  // straight to the matching unit; units with no data-year (e.g. the
-  // newest acquisition) are only reachable via "All"
-  const yearToIndex = {};
-  slots.forEach((slot, i) => {
-    const year = slot.getAttribute('data-year');
-    if (year && !(year in yearToIndex)) yearToIndex[year] = i;
-  });
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover)').matches;
@@ -200,18 +192,18 @@
   if (prevBtn) prevBtn.addEventListener('click', () => userGoTo(active - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => userGoTo(active + 1));
 
-  // ── timeline: a click-driven year filter, independent of arrow/dot/swipe
-  // navigation — it only changes which button is highlighted when the user
-  // interacts with the timeline itself, it doesn't track the carousel ──
+  // ── timeline: a click-driven jump to a named unit, independent of
+  // arrow/dot/swipe navigation — it only changes which button is
+  // highlighted when the user interacts with the timeline itself, it
+  // doesn't track the carousel ──
   timelineItems.forEach((btn) => {
     btn.addEventListener('click', () => {
       timelineItems.forEach((b) => {
         b.classList.toggle('active', b === btn);
         b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
       });
-      const year = btn.dataset.year;
-      if (year === 'all') userGoTo(0);
-      else if (year in yearToIndex) userGoTo(yearToIndex[year]);
+      const index = parseInt(btn.dataset.index, 10);
+      if (!isNaN(index)) userGoTo(index);
     });
   });
 
