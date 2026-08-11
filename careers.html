@@ -321,90 +321,76 @@ html[data-theme="dark"] .apply-progress{ background:rgba(27,31,38,.9); }
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ══════════════════ CINEMATIC RECRUITMENT HERO (isolated component, see careers-hero.css / careers-hero.js) ══════════════════ -->
+<!-- ══════════════════ CAREER GROWTH HERO (isolated component, see careers-hero.css / careers-hero.js) ══════════════════ -->
 <header class="cah" id="careersHero" aria-labelledby="cahHeading">
   <div class="cah-bg" aria-hidden="true">
-    <div class="cah-mesh"></div>
-    <div class="cah-grid-lines"></div>
-    <div class="cah-glow-wrap"><div class="cah-glow"></div></div>
-    <div class="cah-rays"></div>
-    <div class="cah-shapes">
-      <span class="cah-shape tri"></span>
-      <span class="cah-shape hex"></span>
-      <span class="cah-shape ring"></span>
-      <span class="cah-shape square"></span>
+    <!-- full-bleed staircase/skyline/sunrise plate — already carries the
+         dark navy field on the left, the orange stair-light strips, the
+         city skyline and the bottom orange curve, so none of those are
+         redrawn separately ── -->
+    <div class="cah-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/Career.webp">
+        <img class="cah-visual-img" src="Hero/Career.jpg" alt="" loading="eager" decoding="async">
+      </picture>
     </div>
-    <div class="cah-particles" id="cahParticles"></div>
-    <div class="cah-scanlines"></div>
-    <div class="cah-noise"></div>
+    <div class="cah-scrim"></div>
+    <div class="cah-grid-lines"></div>
+
+    <div class="cah-network" id="cahNetwork"></div>
+
+    <div class="cah-glow-wrap"><div class="cah-glow"></div></div>
   </div>
 
   <div class="cah-inner">
     <div class="cah-content">
-      <div class="cah-badge"><span class="cah-badge-dot" aria-hidden="true"></span><span>We're Hiring</span></div>
+      <div class="cah-badge">
+        <span class="cah-badge-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1.5"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg></span>
+        <span>Career</span>
+        <span class="cah-badge-line" aria-hidden="true"></span>
+      </div>
 
       <h1 class="cah-heading" id="cahHeading">
-        <span class="cah-line"><span class="cah-line-inner">Build Your Career.</span></span>
-        <span class="cah-line"><span class="cah-line-inner">Shape the <span class="grad">Future.</span></span></span>
+        <span class="cah-line"><span class="cah-line-inner ink">Build Your</span></span>
+        <span class="cah-line"><span class="cah-line-inner accent">Future With Us.</span></span>
       </h1>
 
-      <p class="cah-desc">Join the people engineering India's infrastructure from the ground up, across our plants, our corporate teams, and everything in between. Real work, real growth, real steel.</p>
+      <p class="cah-desc">Discover opportunities to grow, innovate and make a meaningful impact. Together we can build a brighter tomorrow.</p>
 
       <div class="cah-cta-row">
         <a href="#openPositions" class="cah-cta cah-cta-primary">
-          <span class="cah-cta-shine" aria-hidden="true"></span>
-          <span>Explore Opportunities</span>
-          <span class="cah-cta-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#careerApplyForm" class="cah-cta cah-cta-ghost">
-          <span class="cah-cta-shine" aria-hidden="true"></span>
-          <span>Join Our Team</span>
+          <span>Explore Careers</span>
+          <span class="cah-cta-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
         </a>
       </div>
     </div>
-
-    <div class="cah-visual" aria-hidden="true">
-      <div class="cah-visual-glow"></div>
-      <svg class="cah-illustration" viewBox="0 0 480 480" fill="none">
-        <line x1="10" y1="400" x2="470" y2="400" stroke="rgba(238,234,225,.15)" stroke-width="2"/>
-
-        <!-- factory skyline -->
-        <rect x="20" y="280" width="70" height="120" fill="url(#steelGrad)" opacity=".85"/>
-        <rect x="95" y="240" width="55" height="160" fill="url(#steelGrad)" opacity=".65"/>
-        <rect x="34" y="255" width="16" height="30" fill="url(#steelGrad)"/>
-        <rect x="112" y="205" width="13" height="40" fill="url(#steelGrad)" opacity=".8"/>
-        <circle class="cah-illu-spark" cx="42" cy="248" r="5" fill="url(#emberGrad)"/>
-        <circle class="cah-illu-spark" cx="118" cy="198" r="4" fill="url(#emberGrad)" style="animation-delay:.6s"/>
-        <circle class="cah-illu-spark" cx="45" cy="232" r="3" fill="url(#emberGrad)" style="animation-delay:1.2s"/>
-
-        <!-- gear -->
-        <g class="cah-illu-cog">
-          <circle cx="368" cy="118" r="46" fill="none" stroke="url(#steelGrad)" stroke-width="14" stroke-dasharray="9 9"/>
-          <circle cx="368" cy="118" r="20" fill="url(#steelGrad)"/>
-        </g>
-
-        <!-- career growth bars -->
-        <rect class="cah-illu-bar" x="250" y="360" width="28" height="40" rx="3" fill="url(#emberGrad)" opacity=".55"/>
-        <rect class="cah-illu-bar" x="290" y="330" width="28" height="70" rx="3" fill="url(#emberGrad)" opacity=".7" style="animation-delay:.3s"/>
-        <rect class="cah-illu-bar" x="330" y="300" width="28" height="100" rx="3" fill="url(#emberGrad)" opacity=".85" style="animation-delay:.6s"/>
-        <rect class="cah-illu-bar" x="370" y="260" width="28" height="140" rx="3" fill="url(#emberGrad)" style="animation-delay:.9s"/>
-
-        <path d="M264,354 L304,324 L344,294 L384,254" stroke="url(#emberGrad)" stroke-width="3" stroke-linecap="round"/>
-        <circle class="cah-illu-spark" cx="384" cy="254" r="6" fill="#FFC24B"/>
-
-        <!-- abstract workforce figures -->
-        <circle cx="281" cy="316" r="8" fill="url(#steelGrad)"/>
-        <rect x="272" y="324" width="18" height="28" rx="9" fill="url(#steelGrad)"/>
-        <circle cx="361" cy="246" r="8" fill="url(#steelGrad)"/>
-        <rect x="352" y="254" width="18" height="28" rx="9" fill="url(#steelGrad)"/>
-      </svg>
-    </div>
   </div>
 
-  <button type="button" class="cah-scroll-indicator" id="cahScrollIndicator" aria-label="Scroll to explore">
-    <span class="cah-scroll-mouse" aria-hidden="true"><span class="cah-scroll-dot"></span></span>
-    <span class="cah-scroll-text">Scroll to Explore</span>
-  </button>
+  <!-- five compact career-value features spanning the lower band -->
+  <div class="cah-features" role="group" aria-label="Why build your career with us">
+    <div class="cah-feature" tabindex="0">
+      <span class="cah-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2.5 2.5 4 6 4 10 0 2-1 3.5-1 3.5H9S8 14 8 12c0-4 1.5-7.5 4-10Z"/><path d="M9 15.5 6 19l1 2 3-2.5"/><path d="M15 15.5 18 19l-1 2-3-2.5"/><circle cx="12" cy="10" r="1.6"/></svg></span>
+      <span class="cah-feature-body"><span class="cah-feature-title">Grow Your Career</span><span class="cah-feature-sub">Unlock your true potential with us.</span></span>
+    </div>
+    <div class="cah-feature" tabindex="0">
+      <span class="cah-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.55 1 1.3 1 2.1V16h6v-.4c0-.8.4-1.55 1-2.1A6 6 0 0 0 12 3Z"/></svg></span>
+      <span class="cah-feature-body"><span class="cah-feature-title">Innovate Together</span><span class="cah-feature-sub">Turn great ideas into real impact.</span></span>
+    </div>
+    <div class="cah-feature" tabindex="0">
+      <span class="cah-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9.5" r="2.4"/><path d="M2.5 20v-1.2A4.8 4.8 0 0 1 7.3 14h2.4a4.8 4.8 0 0 1 4.8 4.8V20"/><path d="M15.5 14.3a4.4 4.4 0 0 1 3.9 4.37V20"/></svg></span>
+      <span class="cah-feature-body"><span class="cah-feature-title">Thrive As A Team</span><span class="cah-feature-sub">Be part of an inclusive and supportive culture.</span></span>
+    </div>
+    <div class="cah-feature" tabindex="0">
+      <span class="cah-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 2 9l10 4 10-4-10-4Z"/><path d="M6 11.5V16c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-4.5"/><path d="M22 9v6"/></svg></span>
+      <span class="cah-feature-body"><span class="cah-feature-title">Learn &amp; Evolve</span><span class="cah-feature-sub">Continuous learning for a better tomorrow.</span></span>
+    </div>
+    <div class="cah-feature" tabindex="0">
+      <span class="cah-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v4a4 4 0 0 1-4 4 4 4 0 0 1-4-4V4Z"/><path d="M8 5H5a3 3 0 0 0 3 3.4"/><path d="M16 5h3a3 3 0 0 1-3 3.4"/><path d="M12 12v3.5"/><path d="M9 20h6"/><path d="M9 20c0-2.2 1-2.8 3-2.8s3 .6 3 2.8"/></svg></span>
+      <span class="cah-feature-body"><span class="cah-feature-title">Make A Difference</span><span class="cah-feature-sub">Contribute to a smarter, sustainable future.</span></span>
+    </div>
+  </div>
 </header>
 
 <!-- ══════════════════ WHY JOIN US ══════════════════ -->

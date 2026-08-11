@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Process, From Earth to Structure | Shakambhari Group</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="process-hero.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* Default tokens = light "brushed steel" content theme. The hero (.op-hero, process-hero.css) is a separate dark-themed component. */
+:root{
+  --bg:#E7EAEE;
+  --surface:#FFFFFF;
+  --surface-2:#EDF0F3;
+  --border:#C7CDD5;
+  --ink:#000000;
+  --ink-dim:#000000;
+  --ink-soft:#3A3D42;
+  --accent:#FF6A1F;
+  --accent-ink:#C1440E;
+  --accent-hot:#FFC24B;
+  --accent-deep:#E23B1F;
+  --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+html{ scroll-behavior:smooth; }
+body{
+  color:var(--ink);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  position:relative;
+  background-color:#DDE1E6;
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.5) 0px, rgba(255,255,255,.5) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(115deg, rgba(0,0,0,.02) 0px, rgba(0,0,0,.02) 2px, transparent 2px, transparent 5px),
+    linear-gradient(160deg, #CBD1D8 0%, #E3E7EB 24%, #F2F4F6 46%, #DCE1E7 68%, #C3C9D1 100%);
+  background-attachment:fixed;
+}
+.sheen{
+  position:fixed; inset:-20%; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 30% 20%, rgba(255,255,255,.55), transparent 60%);
+  animation:sheenMove 22s ease-in-out infinite;
+  mix-blend-mode:overlay;
+}
+@keyframes sheenMove{
+  0%,100%{ transform:translate(0,0); }
+  50%{ transform:translate(8%,6%); }
+}
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:2000;
+  opacity:.03;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+h1,h2,h3,h4{ font-family:var(--font-display); text-transform:uppercase; text-wrap:balance; color:var(--ink); }
+p{ line-height:1.65; }
+.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; letter-spacing:.02em; }
+::selection{ background:var(--accent); color:#fff; }
+.hl{ font-weight:800; background:linear-gradient(transparent 62%, rgba(255,106,31,.32) 62%); }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+.defs{ position:absolute; width:0; height:0; overflow:hidden; }
+
+/* ══ PROGRESS RAIL (chapters) ══ */
+.rail{
+  position:fixed;
+  left:2.4rem; top:50%;
+  transform:translateY(-50%);
+  z-index:500;
+  display:flex; flex-direction:column; align-items:center;
+}
+.rail-track{ position:relative; width:2px; height:280px; background:var(--border); border-radius:2px; }
+.rail-fill{
+  position:absolute; top:0; left:0; width:100%; height:0%;
+  background:linear-gradient(var(--accent-hot),var(--accent));
+  border-radius:2px;
+  transition:height .15s linear;
+}
+.rail-dots{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.rail-dot{
+  position:relative; width:9px; height:9px; margin-left:-4px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--ink);
+  transition:all .3s ease;
+}
+.rail-dot::after{
+  content:attr(data-label);
+  position:absolute; left:20px; top:50%; transform:translateY(-50%);
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.08em; font-weight:600;
+  color:var(--ink); white-space:nowrap; opacity:0; transition:opacity .25s ease;
+}
+.rail-dot.active{ border-color:var(--accent); background:var(--accent); box-shadow:0 0 0 4px rgba(255,106,31,.18); }
+.rail-dot.active::after{ opacity:1; color:var(--accent-ink); }
+@media(max-width:1080px){ .rail{ display:none; } }
+
+/* ══ HERO — see process-hero.css / process-hero.js (.op-hero) ══ */
+
+/* ══ INTRO / MANIFESTO ══ */
+.intro{ position:relative; z-index:1; max-width:800px; margin:0 auto; padding:6.5rem 1.75rem 1.5rem; text-align:center; }
+.intro .kicker{ font-family:var(--font-mono); font-size:.78rem; font-weight:600; letter-spacing:.3em; color:var(--accent-ink); margin-bottom:1.2rem; }
+.intro h2{ font-size:clamp(2.1rem,4.6vw,3rem); margin-bottom:1.3rem; }
+.intro p{ color:var(--ink-soft); font-size:1.18rem; max-width:60ch; margin:0 auto; }
+
+/* ══ SECTION SCAFFOLDING ══ */
+main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1.75rem; }
+.stage{
+  display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+  padding:6.5rem 0; position:relative;
+}
+.stage.reverse .stage-text{ order:2; }
+.stage.reverse .stage-visual{ order:1; }
+@media(max-width:860px){
+  .stage{ grid-template-columns:1fr; gap:2.5rem; padding:4rem 0; }
+  .stage.reverse .stage-text{ order:1; }
+  .stage.reverse .stage-visual{ order:2; }
+}
+
+.stage-code{
+  font-family:var(--font-mono); font-size:.85rem; font-weight:600; letter-spacing:.18em; color:var(--accent-ink);
+  display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
+}
+.stage-code::before{ content:''; width:30px; height:2px; background:var(--accent); }
+.stage-text h2{ font-size:clamp(2rem,3.6vw,2.9rem); font-weight:700; margin-bottom:.5rem; }
+.stage-text h3{
+  font-family:var(--font-body); text-transform:none; font-size:1.15rem; font-weight:700;
+  color:var(--ink-soft); margin-bottom:1.2rem;
+}
+.stage-text p{ color:var(--ink-soft); font-size:1.1rem; max-width:48ch; }
+.chips{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.5rem; }
+.chip{
+  font-family:var(--font-mono); font-size:.8rem; font-weight:600; padding:.5rem 1rem;
+  border:1.5px solid var(--border); border-radius:.4rem; color:var(--ink);
+  background:var(--surface); transition:all .25s ease;
+}
+.chip:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+.chip.hot{ border-color:var(--accent); color:var(--accent-ink); background:#FFF4EC; }
+
+.stage-visual{ display:flex; align-items:center; justify-content:center; }
+.visual-panel{
+  position:relative; width:100%; max-width:380px; aspect-ratio:1/1;
+  border-radius:1.4rem;
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.8), rgba(255,255,255,0) 40%),
+    radial-gradient(circle at 30% 15%, var(--surface-2), var(--surface));
+  border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 1px 2px rgba(20,22,28,.06), 0 16px 36px rgba(20,22,28,.1);
+  overflow:hidden;
+  transition:transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.visual-panel::before{
+  content:'';
+  position:absolute; left:0; right:0; top:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--accent-hot), transparent);
+  opacity:0; transition:opacity .3s ease; z-index:2;
+}
+.visual-panel:hover::before{ opacity:1; animation:scan 1.3s ease-in-out infinite; }
+@keyframes scan{ 0%{ top:0; } 100%{ top:calc(100% - 2px); } }
+.visual-panel:hover{
+  transform:translateY(-6px); border-color:var(--accent);
+  box-shadow:0 24px 50px rgba(20,22,28,.14), 0 0 0 1px rgba(255,106,31,.08), 0 0 44px rgba(255,106,31,.14);
+}
+.visual-panel svg{ width:62%; height:62%; position:relative; z-index:1; }
+.visual-panel video{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; display:block; background:#0A0B0E; }
+.visual-caption{
+  position:absolute; bottom:-2.2rem; left:0; right:0; text-align:center;
+  font-family:var(--font-mono); font-size:.74rem; font-weight:600; letter-spacing:.1em; color:var(--ink);
+}
+
+/* ══ PRODUCT CARD PHOTOS ══ */
+.prod-card{ overflow:hidden; }
+.prod-card-photo{ width:calc(100% + 3.8rem); margin:-2.1rem -1.9rem 1.3rem; height:170px; object-fit:cover; display:block; }
+
+.connector{ height:110px; display:flex; align-items:center; justify-content:center; position:relative; }
+.connector-line{ width:2px; height:100%; background:repeating-linear-gradient(var(--border) 0 6px, transparent 6px 12px); position:relative; }
+.connector-spark{
+  position:absolute; left:50%; top:0; width:9px; height:9px; margin-left:-4.5px; border-radius:50%;
+  background:var(--accent); box-shadow:0 0 14px 4px rgba(255,106,31,.55);
+  animation:travel 2.4s ease-in-out infinite;
+}
+@keyframes travel{ 0%{ top:0; opacity:0;} 12%{opacity:1;} 88%{opacity:1;} 100%{ top:100%; opacity:0;} }
+
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible{ opacity:1; transform:translateY(0); }
+.reveal-scale{ opacity:0; transform:translateY(20px) scale(.96); transition:opacity .6s ease, transform .6s ease; }
+.reveal-scale.visible{ opacity:1; transform:translateY(0) scale(1); }
+.reveal-left{ opacity:0; transform:translateX(-90px); transition:opacity .8s cubic-bezier(.16,.84,.44,1), transform .8s cubic-bezier(.16,.84,.44,1); }
+.reveal-left.visible{ opacity:1; transform:translateX(0); }
+.reveal-right{ opacity:0; transform:translateX(90px); transition:opacity .8s cubic-bezier(.16,.84,.44,1), transform .8s cubic-bezier(.16,.84,.44,1); }
+.reveal-right.visible{ opacity:1; transform:translateX(0); }
+
+.divider{
+  height:1px; background:linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  margin:0 auto; max-width:1180px;
+}
+
+/* ══ FLOWCHART, vertical, scroll-revealed ══ */
+.flowchart-head{ text-align:center; margin-bottom:2rem; }
+.flowchart-head .stage-code{ justify-content:center; }
+.flowchart-head .stage-code::before{ display:none; }
+.flowchart-head h2{ font-size:clamp(2rem,4.2vw,2.9rem); margin-bottom:.6rem; }
+.flowchart-head p{ color:var(--ink-soft); font-size:1.08rem; max-width:56ch; margin:0 auto; }
+.vflow-svg .reveal-scale{ transform-box:fill-box; transform-origin:center; }
+
+.fc-node-label{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; fill:#000; }
+
+.fc-node{ cursor:pointer; outline:none; }
+.fc-node rect:first-child{ transition:filter .25s cubic-bezier(.16,.84,.44,1), transform .25s cubic-bezier(.16,.84,.44,1); transform-box:fill-box; transform-origin:center; }
+.fc-node:hover rect:first-child, .fc-node:focus-visible rect:first-child{ filter:brightness(1.12); transform:scale(1.05); }
+.fc-node:focus-visible rect:first-child{ stroke-dasharray:6 3; }
+.fc-legend{ display:flex; gap:1.4rem; justify-content:center; align-items:center; margin-top:1.2rem; flex-wrap:wrap; }
+.fc-legend-item{ display:flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.05em; color:var(--ink-soft); }
+.fc-legend-swatch{ width:14px; height:14px; border-radius:4px; }
+.fc-legend-swatch.machine{ background:#1D4E7A; }
+.fc-legend-swatch.product{ background:#8A5A15; }
+.fc-legend-swatch.step{ background:#FF6A1F; }
+.fc-legend-swatch.material{ background:#E4E8EC; border:1px solid #8792A2; }
+.fc-legend-hint{ font-size:.7rem; color:var(--ink-soft); opacity:.75; }
+
+/* ══ FLAT 2D PROCESS DIAGRAM ══ */
+.flow2-frame{
+  max-width:1300px; margin:0 auto; padding:1.5rem;
+  background:var(--surface); border:1px solid var(--border); border-radius:1rem;
+  overflow-x:auto;
+}
+.flow2-svg{ width:100%; min-width:920px; height:auto; display:block; background:#F7F8FA; border-radius:.85rem; }
+.flow2-notes{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.6rem; }
+@media(max-width:800px){ .flow2-notes{ grid-template-columns:1fr; } }
+.flow2-notes .panel{ padding:1.8rem; }
+.flow2-notes .panel h4{ font-size:1.02rem; font-weight:700; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.flow2-notes .panel p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
+
+/* ══ SPEC MODAL ══ */
+/* ══ HOVER SPEC CARD (replaces click modal) ══ */
+.spec-hovercard{
+  position:fixed; z-index:3000; width:300px; max-width:88vw;
+  background:var(--surface); border-radius:1rem; overflow:hidden;
+  box-shadow:0 24px 60px rgba(20,22,28,.28), 0 0 0 1px rgba(20,22,28,.06);
+  opacity:0; transform:scale(.92) translateY(6px);
+  transform-origin:var(--hc-origin-x,50%) var(--hc-origin-y,100%);
+  pointer-events:none;
+  transition:opacity .2s cubic-bezier(.16,.84,.44,1), transform .28s cubic-bezier(.16,.84,.44,1);
+}
+.spec-hovercard.visible{ opacity:1; transform:scale(1) translateY(0); pointer-events:auto; }
+.spec-hovercard-img{ width:100%; height:140px; object-fit:cover; display:block; background:#DDE1E6; }
+.spec-hovercard-body{ padding:1.3rem 1.4rem; }
+.spec-hovercard-badge{
+  display:inline-block; font-family:var(--font-mono); font-size:.65rem; font-weight:700; letter-spacing:.08em;
+  padding:.28rem .6rem; border-radius:.4rem; color:#fff; margin-bottom:.7rem;
+}
+.spec-hovercard-badge.machine{ background:#1D4E7A; }
+.spec-hovercard-badge.product{ background:#8A5A15; }
+.spec-hovercard h4{ font-size:1.12rem; margin-bottom:.5rem; font-family:var(--font-display); text-transform:none; }
+.spec-hovercard p{ color:var(--ink-soft); font-size:.86rem; line-height:1.55; margin-bottom:.8rem; }
+.spec-hovercard-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.spec-hovercard-tags .chip{ font-size:.68rem; padding:.28rem .55rem; }
+
+.fc-node-label.on-dark{ fill:#fff; }
+.fc-node-sub{ font-family:var(--font-mono); font-weight:600; fill:var(--accent-deep); }
+.fc-edge-label{ font-family:var(--font-mono); font-size:12px; font-weight:600; fill:#000; }
+
+.spec-hovercard-expand{
+  display:none; width:100%; margin-top:.2rem; padding:.65rem .8rem; border-radius:.6rem;
+  background:var(--surface-2); border:1px solid var(--border); color:var(--accent-ink);
+  font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.04em; text-align:center;
+  cursor:pointer; transition:background .2s ease, border-color .2s ease;
+}
+.spec-hovercard-expand:hover{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* ══ PROCESS DETAIL MODAL (sub-process flowcharts) ══ */
+.pdm-overlay{
+  position:fixed; inset:0; z-index:4000; display:flex; align-items:flex-end; justify-content:center;
+  background:rgba(8,9,12,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden; transition:opacity .28s ease, visibility 0s linear .28s; padding:0;
+}
+.pdm-overlay.open{ opacity:1; visibility:visible; transition:opacity .28s ease; }
+@media(min-width:761px){ .pdm-overlay{ align-items:center; padding:2rem; } }
+.pdm-panel{
+  width:100%; max-width:820px; max-height:92vh; overflow-y:auto; background:var(--surface);
+  border-radius:1.4rem 1.4rem 0 0; border:1px solid var(--border); box-shadow:0 30px 80px rgba(0,0,0,.4);
+  transform:translateY(100%); transition:transform .32s cubic-bezier(.16,.84,.44,1);
+}
+.pdm-overlay.open .pdm-panel{ transform:translateY(0); }
+@media(min-width:761px){ .pdm-panel{ border-radius:1.4rem; transform:translateY(24px) scale(.97); } .pdm-overlay.open .pdm-panel{ transform:translateY(0) scale(1); } }
+.pdm-head{
+  position:sticky; top:0; z-index:2; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;
+  padding:1.5rem 1.7rem 1.1rem; background:var(--surface); border-bottom:1px solid var(--border);
+}
+.pdm-head .kicker{ margin-bottom:.4rem; }
+.pdm-head h3{ font-size:1.4rem; font-family:var(--font-display); text-transform:none; }
+.pdm-head p{ color:var(--ink-soft); font-size:.9rem; margin-top:.4rem; max-width:56ch; }
+.pdm-close{
+  flex-shrink:0; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:var(--surface-2); border:1px solid var(--border); color:var(--ink); cursor:pointer;
+  transition:background .2s ease, transform .2s ease;
+}
+.pdm-close:hover{ background:var(--accent); color:#fff; transform:rotate(90deg); }
+.pdm-close svg{ width:16px; height:16px; }
+.pdm-body{ padding:1.5rem 1.2rem 2rem; }
+.pdm-svg-wrap{ overflow-x:auto; }
+.pdm-svg-wrap svg{ display:block; width:100%; height:auto; min-width:480px; }
+.pdm-legend{ justify-content:flex-start; margin-bottom:1.2rem; padding:0 .5rem; }
+.pdm-node-title{ font-family:var(--font-display); font-weight:700; text-transform:uppercase; }
+.pdm-node-title.on-dark{ fill:#fff; }
+.pdm-node-sub{ font-family:var(--font-mono); font-weight:600; letter-spacing:.02em; }
+.pdm-edge-label{ font-family:var(--font-mono); font-size:10.5px; font-weight:700; letter-spacing:.03em; }
+
+/* ══ PULL QUOTES ══ */
+.pull-quote{ position:relative; z-index:1; text-align:center; padding:5.5rem 1.75rem; max-width:940px; margin:0 auto; }
+.pull-quote .line{
+  font-family:var(--font-display); font-weight:700; text-transform:uppercase;
+  font-size:clamp(2.1rem,5.8vw,3.8rem); line-height:1.08; letter-spacing:-.01em;
+  background:linear-gradient(100deg,var(--accent-deep),var(--accent) 55%,var(--accent-hot));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.pull-quote .sub{ margin-top:1.3rem; color:var(--ink-soft); font-size:1.08rem; max-width:54ch; margin-left:auto; margin-right:auto; }
+
+/* ══ PRODUCTS ══ */
+.products-head{ position:relative; z-index:1; text-align:center; padding:6.5rem 0 3rem; }
+.products-head .stage-code{ justify-content:center; }
+.products-head .stage-code::before{ display:none; }
+.products-head h2{ font-size:clamp(2.1rem,4.4vw,3.1rem); }
+.products-head p{ color:var(--ink-soft); font-size:1.1rem; max-width:58ch; margin:.9rem auto 0; }
+
+.products-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; padding-bottom:6.5rem; }
+@media(max-width:860px){ .products-grid{ grid-template-columns:1fr; } }
+.prod-card{
+  background:linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), var(--surface);
+  border:1px solid var(--border); border-radius:1.1rem;
+  padding:2.1rem 1.9rem 2.3rem;
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 12px 30px rgba(20,22,28,.07);
+  transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.prod-card:hover{
+  transform:translateY(-8px); border-color:var(--accent);
+  box-shadow:0 24px 50px rgba(20,22,28,.12), 0 0 44px rgba(255,106,31,.12);
+}
+.prod-card svg{ width:64px; height:64px; margin-bottom:1.2rem; }
+.prod-card h4{ font-size:1.2rem; font-weight:700; margin-bottom:.6rem; text-transform:none; font-family:var(--font-body); }
+.prod-card p{ font-size:.98rem; color:var(--ink-soft); margin-bottom:1.3rem; }
+.prod-badge{ display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink); }
+.prod-badge::before{ content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+
+/* ══ INTEGRATION ══ */
+.integration{ position:relative; z-index:1; margin:0 auto 4rem; max-width:1180px; padding:0 1.75rem; }
+.integration-box{
+  position:relative; border:1px solid var(--border); border-radius:1.4rem; padding:3.2rem 2.6rem; text-align:center;
+  background:linear-gradient(155deg, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), radial-gradient(ellipse at 50% 0%, rgba(255,106,31,.06), transparent 60%), var(--surface);
+  box-shadow:0 1px 2px rgba(20,22,28,.05), 0 16px 38px rgba(20,22,28,.09);
+  overflow:hidden;
+}
+.integration-box h3{ font-size:1.7rem; margin-bottom:1rem; }
+.integration-box p{ color:var(--ink-soft); max-width:64ch; margin:0 auto 1.9rem; font-size:1.05rem; }
+.flow-strip{ display:flex; align-items:center; justify-content:center; gap:0; margin-top:1rem; }
+.flow-node{ display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+.flow-node svg{ width:38px; height:38px; }
+.flow-node span{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.1em; color:var(--ink); }
+.flow-track{
+  flex:1; max-width:120px; height:2px; margin:0 .5rem 1.4rem;
+  background:repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 12px);
+  position:relative; overflow:hidden;
+}
+.flow-track::after{
+  content:''; position:absolute; top:0; left:-30%; width:30%; height:100%;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation:slide 2.6s linear infinite;
+}
+@keyframes slide{ 0%{ left:-30%; } 100%{ left:100%; } }
+
+/* ══ BRAND CLOSE ══ */
+.brand-close{ position:relative; z-index:1; text-align:center; padding:5rem 1.75rem 6rem; max-width:840px; margin:0 auto; }
+.brand-close .tag{
+  font-family:var(--font-display); font-weight:700; letter-spacing:-.01em;
+  font-size:clamp(2.6rem,8.5vw,5.1rem);
+  background:linear-gradient(100deg,var(--accent-deep),var(--accent) 55%,var(--accent-hot));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.brand-close p{ margin-top:1.5rem; color:var(--ink-soft); font-size:1.12rem; max-width:58ch; margin-left:auto; margin-right:auto; }
+
+/* ══ FOOTER ══ */
+footer{ position:relative; z-index:1; border-top:1px solid var(--border); padding:2.2rem 1.5rem; text-align:center; color:var(--ink); font-size:.9rem; font-weight:500; }
+footer .accent-text{ color:var(--accent-ink); font-weight:700; }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; padding:0 1.75rem 6rem; max-width:1180px; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+  --ink:#EEEAE1; --border:#262A34; --surface:#14161C;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<div class="sheen"></div>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="steelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9AA4B2"/><stop offset="100%" stop-color="#3E4550"/>
+    </linearGradient>
+    <linearGradient id="steelGradLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C3CAD4"/><stop offset="100%" stop-color="#6C7686"/>
+    </linearGradient>
+    <linearGradient id="charGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A3E46"/><stop offset="100%" stop-color="#131519"/>
+    </linearGradient>
+    <linearGradient id="oreGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D08A54"/><stop offset="100%" stop-color="#8A4B2C"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0C368"/><stop offset="100%" stop-color="#9C6E22"/>
+    </linearGradient>
+    <radialGradient id="emberGrad" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/>
+      <stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/>
+    </radialGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C7B489"/><stop offset="100%" stop-color="#8A7550"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7F8FA"/><stop offset="100%" stop-color="#D7DCE2"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#FF6A1F"/>
+    </marker>
+    <marker id="flowArrow" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#1D4E7A"/>
+    </marker>
+    <radialGradient id="emberGradFlat" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#FFE7B0"/><stop offset="40%" stop-color="#FFC24B"/>
+      <stop offset="75%" stop-color="#FF6A1F"/><stop offset="100%" stop-color="#E23B1F"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo" width="219" height="252" decoding="async">
+</picture>
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-dropdown">
+      <a href="about.html" class="dropdown-label">About</a>
+      <div class="dropdown">
+        <a href="journey.html">Our Journey</a>
+        <a href="vision.html">Mission, Vision &amp; Values</a>
+        <a href="leadership.html">Leadership</a>
+      </div>
+    </li>
+    <li><a href="companies.html">Group Companies</a></li>
+    <li><a href="quality.html">Quality</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label" tabindex="0">Products</span>
+      <div class="dropdown">
+        <a href="products.html">All Products</a>
+        <div class="has-dropdown">
+          <a href="steel/">Steel</a>
+          <div class="dropdown-flyout">
+            <a href="steel/">All Steel Products</a>
+            <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
+            <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <div class="has-dropdown">
+              <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
+              <div class="dropdown-flyout">
+                <a href="steel/espl-tubes/">All Tubes &amp; Pipes</a>
+                <a href="steel/espl-tubes/erw-round-tubes/">Round Tubes</a>
+                <a href="steel/espl-tubes/shs-box-pipes/">Square Pipes (SHS)</a>
+                <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
+              </div>
+            </div>
+            <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
+            <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <div class="has-dropdown">
+              <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
+              <div class="dropdown-flyout">
+                <a href="steel/wire-rods-and-wires/">All Wire Rods &amp; Wires</a>
+                <a href="steel/wire-rods-and-wires/primary-wire-rods/">Wire Rods</a>
+                <a href="steel/wire-rods-and-wires/torkari-rods/">Torkari Rods</a>
+                <a href="steel/wire-rods-and-wires/hb-wires/">HB Wires</a>
+                <a href="steel/wire-rods-and-wires/binding-wires/">Binding Wires</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/fasteners/">Nails &amp; Hardware</a>
+              <div class="dropdown-flyout">
+                <a href="steel/fasteners/">All Nails &amp; Hardware</a>
+                <a href="steel/fasteners/industrial-wire-nails/">Wire Nails</a>
+                <a href="steel/fasteners/link-easy/">Link Easy</a>
+              </div>
+            </div>
+            <div class="has-dropdown">
+              <a href="steel/upstream-intermediate/">Raw &amp; Intermediate Materials</a>
+              <div class="dropdown-flyout">
+                <a href="steel/upstream-intermediate/">All Raw Materials</a>
+                <a href="steel/upstream-intermediate/iron-pellets/">Iron Pellets</a>
+                <a href="steel/upstream-intermediate/sponge-iron/">Sponge Iron</a>
+                <a href="steel/upstream-intermediate/ms-billets/">M.S. Billets</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="ferro-alloys.html">Ferro Alloys</a>
+        <a href="aluminium-foil.html">Aluminium Foil</a>
+      </div>
+    </li>
+    <li><a href="process.html" class="active">Our Process</a></li>
+    <li class="has-dropdown">
+      <span class="dropdown-label">Others</span>
+      <div class="dropdown">
+        <a href="insights.html">Insights</a>
+        <a href="awards.html">Awards &amp; Certifications</a>
+        <a href="csr.html">Corporate Social Responsibility</a>
+        <a href="sustainability.html">Sustainability</a>
+        <a href="clientele.html">Clientele</a>
+      </div>
+    </li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="theme-toggle-icon theme-toggle-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg class="theme-toggle-icon theme-toggle-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>
+  </button>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<nav class="rail" id="rail" aria-hidden="true">
+  <div class="rail-track">
+    <div class="rail-fill" id="railFill"></div>
+    <div class="rail-dots" id="railDots">
+      <div class="rail-dot" data-target="s1" data-label="I · EARTH"></div>
+      <div class="rail-dot" data-target="s2" data-label="II · SHAPE"></div>
+      <div class="rail-dot" data-target="s3" data-label="III · STRIP"></div>
+      <div class="rail-dot" data-target="s4" data-label="IV · UNITE"></div>
+      <div class="rail-dot" data-target="s5" data-label="V · CAST"></div>
+      <div class="rail-dot" data-target="s6" data-label="VI · PRESS"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════ HERO (isolated component — see process-hero.css / process-hero.js) ══════════════════ -->
+<header class="op-hero" id="opHero">
+  <div class="op-hero-bg" aria-hidden="true">
+    <div class="op-hero-visual">
+      <picture>
+        <source type="image/webp" srcset="Hero/our-process.webp">
+        <img class="op-hero-visual-img" src="Hero/our-process.jpg" alt="" loading="eager" decoding="async">
+      </picture>
+    </div>
+    <div class="op-hero-scrim"></div>
+    <div class="op-hero-grid"></div>
+  </div>
+
+  <div class="op-hero-inner">
+    <div class="op-hero-content">
+      <div class="op-hero-eyebrow">
+        <span class="op-hero-eyebrow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2M7.05 7.05l1.41 1.41M15.54 15.54l1.41 1.41M7.05 16.95l1.41-1.41M15.54 8.46l1.41-1.41"/></svg>
+        </span>
+        <span class="op-hero-eyebrow-line" aria-hidden="true"></span>
+        Our Process
+      </div>
+
+      <h1 class="op-hero-heading">
+        <span class="line"><span class="ink">Turning Raw Potential</span></span>
+        <span class="line"><span class="accent">Into Real Progress.</span></span>
+      </h1>
+
+      <p class="op-hero-desc">Our process is a blend of precision, technology, and expertise—designed to deliver quality at every step and excellence in every outcome.</p>
+
+      <a href="#s1" class="op-hero-cta">
+        <span class="op-hero-cta-label">Explore Our Process</span>
+        <span class="op-hero-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="op-hero-arc" aria-hidden="false">
+      <svg class="op-arc-svg" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="opArcTrail" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#FF6B00"/>
+            <stop offset="48%" stop-color="#FFA53C"/>
+            <stop offset="100%" stop-color="#FFE0A3"/>
+          </linearGradient>
+        </defs>
+        <path class="op-arc-path-halo" vector-effect="non-scaling-stroke" d="M48,558 C79,530 165,443 232,392 C299,341 371,294 448,252 C525,210 609,172 692,142 C775,112 905,82 948,70"/>
+        <path class="op-arc-path" vector-effect="non-scaling-stroke" d="M48,558 C79,530 165,443 232,392 C299,341 371,294 448,252 C525,210 609,172 692,142 C775,112 905,82 948,70"/>
+      </svg>
+      <ol class="op-arc-nodes">
+        <li class="op-arc-node" style="--x:4.8%;--y:93%;--d:0s" tabindex="0">
+          <span class="op-arc-medallion">
+            <span class="op-arc-ring" aria-hidden="true"></span>
+            <span class="op-arc-pulse" aria-hidden="true"></span>
+            <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.1"/><circle cx="6.5" cy="16" r="2.1"/><circle cx="17.5" cy="16" r="2.1"/><path d="M10.8 7.4 7.7 14.1M13.2 7.4l3.1 6.7M8.7 16h6.6"/></svg></span>
+            <span class="op-arc-num">01</span>
+          </span>
+          <span class="op-arc-label">Raw Material Selection</span>
+        </li>
+        <li class="op-arc-node" style="--x:23.2%;--y:65.3%;--d:.5s" tabindex="0">
+          <span class="op-arc-medallion">
+            <span class="op-arc-ring" aria-hidden="true"></span>
+            <span class="op-arc-pulse" aria-hidden="true"></span>
+            <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V12l4.5 3V12l4.5 3V9l5 3.3V21H3Z"/><path d="M17 12V8h2.2v4"/><path d="M7 21v-3M11 21v-3M15 21v-3"/></svg></span>
+            <span class="op-arc-num">02</span>
+          </span>
+          <span class="op-arc-label">Advanced Processing</span>
+        </li>
+        <li class="op-arc-node" style="--x:44.8%;--y:42%;--d:1s" tabindex="0">
+          <span class="op-arc-medallion">
+            <span class="op-arc-ring" aria-hidden="true"></span>
+            <span class="op-arc-pulse" aria-hidden="true"></span>
+            <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span class="op-arc-num">03</span>
+          </span>
+          <span class="op-arc-label">Strict Quality Control</span>
+        </li>
+        <li class="op-arc-node" style="--x:69.2%;--y:23.7%;--d:1.5s" tabindex="0">
+          <span class="op-arc-medallion">
+            <span class="op-arc-ring" aria-hidden="true"></span>
+            <span class="op-arc-pulse" aria-hidden="true"></span>
+            <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="14.5" width="16" height="4.5" rx="1"/><rect x="6" y="8" width="12" height="4.5" rx="1"/></svg></span>
+            <span class="op-arc-num">04</span>
+          </span>
+          <span class="op-arc-label">Precision Manufacturing</span>
+        </li>
+        <li class="op-arc-node" style="--x:94.8%;--y:11.7%;--d:2s" tabindex="0">
+          <span class="op-arc-medallion">
+            <span class="op-arc-ring" aria-hidden="true"></span>
+            <span class="op-arc-pulse" aria-hidden="true"></span>
+            <span class="op-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7.5h10.5v9H3z"/><path d="M13.5 10.5H17l3.5 3v3h-7z"/><circle cx="7" cy="18.3" r="1.7"/><circle cx="17.5" cy="18.3" r="1.7"/></svg></span>
+            <span class="op-arc-num">05</span>
+          </span>
+          <span class="op-arc-label">On-Time Delivery</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="op-hero-timeline-mobile">
+      <ol class="op-mobile-scroll">
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><path d="M4 9 12 3l8 6-3 11H7L4 9Z"/><path d="M4 9h16M9 9l3 11 3-11"/></svg></span>
+          <span class="op-step-num">01</span>
+          <span class="op-step-title">Raw Material</span>
+          <span class="op-step-sub">Strong foundations for superior quality.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><path d="M12 2c2 3-2 4-2 7a4 4 0 1 0 8 0c0-1.5-1-2.5-1-2.5.5 2-.5 3-1.5 3 1-3-1-4.5-1-6.5-1 1-2 1.5-2 3.5 0-2.5-2-3-2-4.5Z"/></svg></span>
+          <span class="op-step-num">02</span>
+          <span class="op-step-title">Melting</span>
+          <span class="op-step-sub">Shaping potential with extreme heat.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="4" rx="1"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></span>
+          <span class="op-step-num">03</span>
+          <span class="op-step-title">Forming</span>
+          <span class="op-step-sub">Precision engineering that builds strength.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></span>
+          <span class="op-step-num">04</span>
+          <span class="op-step-title">Processing</span>
+          <span class="op-step-sub">Advanced technology for flawless results.</span>
+        </li>
+        <li class="op-mobile-step">
+          <span class="op-step-icon"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="op-step-num">05</span>
+          <span class="op-step-title">Quality Check</span>
+          <span class="op-step-sub">Tested. Verified. Trusted every time.</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<!-- MANIFESTO -->
+<section class="intro reveal">
+  <div class="kicker">OUR PROCESS</div>
+  <h2>Everything Begins Underground</h2>
+  <p>Long before a beam holds a roof or a bar reinforces a wall, there is only rock and fire. Shakambhari chose not to buy steel, but to build the entire chain that makes it, our own mines, our own reduction, our own furnace, our own hands at every stage. What follows is that journey, six stages from raw earth to reinforced tomorrow. <span class="hl">#SteelWithin</span> isn't a line on a label; it's the discipline running through all six, so that whatever carries our name carries the strength of everything that came before it.</p>
+</section>
+
+<!-- ═══ FULL PROCESS FLOWCHART, vertical, scroll-revealed ═══ -->
+<section class="section">
+  <div class="flowchart-head reveal">
+    <div class="stage-code">THE FULL CHAIN</div>
+    <h2>One Continuous Process</h2>
+    <p>Every input, every merge, every transformation, mapped in a single unbroken chain. Keep scrolling: the chain builds itself top to bottom, stage by stage, like material through a mill.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Machines &amp; Divisions</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Materials &amp; Products</span>
+      <span class="fc-legend-hint">Hover over any box for details</span>
+    </div>
+  </div>
+  <div class="flow2-frame reveal">
+    <svg class="flow2-svg vflow-svg" viewBox="-30 -30 940 1252" xmlns="http://www.w3.org/2000/svg">
+<path d="M160.0,112 L160.0,220" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.0s" path="M160.0,112 L160.0,220"/></circle>
+<path d="M460.0,112 L460.0,220" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.3s" path="M460.0,112 L460.0,220"/></circle>
+<path d="M280,256.0 L340,256.0" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s" path="M280,256.0 L340,256.0"/></circle>
+<path d="M460.0,292 L460.0,400" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.9s" path="M460.0,292 L460.0,400"/></circle>
+<path d="M460.0,472 L460.0,580" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s" path="M460.0,472 L460.0,580"/></circle>
+<path d="M640,616.0 L580,616.0" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.5s" path="M640,616.0 L580,616.0"/></circle>
+<path d="M460.0,652 L460.0,760" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s" path="M460.0,652 L460.0,760"/></circle>
+<path d="M460.0,832 L460.0,940" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.1s" path="M460.0,832 L460.0,940"/></circle>
+<path d="M580,976.0 L640,976.0" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.4s" path="M580,976.0 L640,976.0"/></circle>
+<path d="M760.0,1012 L760.0,1040 L760.0,1040 L760.0,1120" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.8s" repeatCount="indefinite" begin="2.7s" path="M760.0,1012 L760.0,1040 L760.0,1040 L760.0,1120"/></circle>
+<path d="M760.0,1012 L760.0,1052 L460.0,1052 L460.0,1120" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.8s" repeatCount="indefinite" begin="3.0s" path="M760.0,1012 L760.0,1052 L460.0,1052 L460.0,1120"/></circle>
+<path d="M760.0,1012 L760.0,1064 L160.0,1064 L160.0,1120" stroke="#7C8797" stroke-width="3" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+<circle r="5" fill="url(#emberGrad)"><animateMotion dur="2.8s" repeatCount="indefinite" begin="3.3s" path="M760.0,1012 L760.0,1064 L160.0,1064 L160.0,1120"/></circle>
+<text class="fc-edge-label" x="310.0" y="206" text-anchor="middle">IRON PELLETS</text>
+<text class="fc-edge-label" x="555.0" y="526.0" text-anchor="middle">~950°C · DRI</text>
+<text class="fc-edge-label" x="578.0" y="706.0" text-anchor="middle">~1600°C · LIQUID STEEL</text>
+<g class="fc-node fc-product reveal-scale" data-node="iron-ore" tabindex="0" role="button" aria-label="ORE" style="transition-delay:0.05s">
+<rect x="40" y="40" width="240" height="72" rx="12" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label on-dark" x="160" y="81.8" text-anchor="middle" font-size="16">IRON ORE</text>
+<rect x="48" y="46" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="79" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="coal" tabindex="0" role="button" aria-label="COAL" style="transition-delay:0.15s">
+<rect x="340" y="40" width="240" height="72" rx="12" fill="url(#charGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label on-dark" x="460" y="81.8" text-anchor="middle" font-size="16">COAL</text>
+<rect x="348" y="46" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="57" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="pellet-plant" tabindex="0" role="button" aria-label="PELLET PLANT" style="transition-delay:0.25s">
+<rect x="40" y="220" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="160" y="252.4" text-anchor="middle" font-size="15">PELLET</text>
+<text class="fc-node-label" x="160" y="270.4" text-anchor="middle" font-size="15">PLANT</text>
+<rect x="48" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="79" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="rotary-kiln" tabindex="0" role="button" aria-label="ROTARY KILN" style="transition-delay:0.35s">
+<rect x="340" y="220" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="252.4" text-anchor="middle" font-size="15">ROTARY</text>
+<text class="fc-node-label" x="460" y="270.4" text-anchor="middle" font-size="15">KILN</text>
+<rect x="348" y="226" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="379" y="237" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="sponge-iron" tabindex="0" role="button" aria-label="SPONGE IRON" style="transition-delay:0.45s">
+<rect x="340" y="400" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="432.4" text-anchor="middle" font-size="15">SPONGE</text>
+<text class="fc-node-label" x="460" y="450.4" text-anchor="middle" font-size="15">IRON</text>
+<rect x="348" y="406" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="417" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="induction-furnace" tabindex="0" role="button" aria-label="INDUCTION FURNACE" style="transition-delay:0.55s">
+<rect x="340" y="580" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="612.4" text-anchor="middle" font-size="15">INDUCTION</text>
+<text class="fc-node-label" x="460" y="630.4" text-anchor="middle" font-size="15">FURNACE</text>
+<rect x="348" y="586" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="379" y="597" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="scrap-simn" tabindex="0" role="button" aria-label="SCRAP + PIG IRON + IN-HOUSE SIMN" style="transition-delay:0.6s">
+<rect x="640" y="580" width="240" height="72" rx="12" fill="url(#goldGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label on-dark" x="760" y="612.4" text-anchor="middle" font-size="15">SCRAP + PIG IRON</text>
+<text class="fc-node-label on-dark" x="760" y="630.4" text-anchor="middle" font-size="15">+ IN-HOUSE SiMn ⭐</text>
+<rect x="648" y="586" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="679" y="597" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="continuous-casting" tabindex="0" role="button" aria-label="CONTINUOUS CASTING" style="transition-delay:0.7s">
+<rect x="340" y="760" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="792.4" text-anchor="middle" font-size="15">CONTINUOUS</text>
+<text class="fc-node-label" x="460" y="810.4" text-anchor="middle" font-size="15">CASTING</text>
+<rect x="348" y="766" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="379" y="777" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="billets" tabindex="0" role="button" aria-label="BILLETS" style="transition-delay:0.8s">
+<rect x="340" y="940" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#8A5A15" stroke-width="3"/>
+<text class="fc-node-label" x="460" y="981.8" text-anchor="middle" font-size="16">BILLETS</text>
+<rect x="348" y="946" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="957" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-machine reveal-scale" data-node="rolling-mill" tabindex="0" role="button" aria-label="ROLLING MILL" style="transition-delay:0.85s">
+<rect x="640" y="940" width="240" height="72" rx="12" fill="url(#panelGrad)" stroke="#1D4E7A" stroke-width="3"/>
+<text class="fc-node-label" x="760" y="972.4" text-anchor="middle" font-size="15">ROLLING</text>
+<text class="fc-node-label" x="760" y="990.4" text-anchor="middle" font-size="15">MILL</text>
+<rect x="648" y="946" width="62" height="15" rx="7.5" fill="#1D4E7A"/>
+<text x="679" y="957" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">MACHINE</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="tmt-bars" tabindex="0" role="button" aria-label="TMT BARS" style="transition-delay:0.95s">
+<rect x="40" y="1120" width="240" height="72" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
+<rect x="40" y="1120" width="240" height="6" rx="3" fill="#FF6A1F"/>
+<text class="fc-node-label on-dark" x="160" y="1161.8" text-anchor="middle" font-size="16">TMT BARS</text>
+<rect x="48" y="1126" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="79" y="1137" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="strips" tabindex="0" role="button" aria-label="STRIPS" style="transition-delay:1.0s">
+<rect x="340" y="1120" width="240" height="72" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
+<rect x="340" y="1120" width="240" height="6" rx="3" fill="#FF6A1F"/>
+<text class="fc-node-label on-dark" x="460" y="1161.8" text-anchor="middle" font-size="16">STRIPS</text>
+<rect x="348" y="1126" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="379" y="1137" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+<g class="fc-node fc-product reveal-scale" data-node="structural-steel" tabindex="0" role="button" aria-label="STRUCTURAL STEEL" style="transition-delay:1.05s">
+<rect x="640" y="1120" width="240" height="72" rx="12" fill="url(#barGrad)" stroke="#8A5A15" stroke-width="3"/>
+<rect x="640" y="1120" width="240" height="6" rx="3" fill="#FF6A1F"/>
+<text class="fc-node-label on-dark" x="760" y="1152.4" text-anchor="middle" font-size="15">STRUCTURAL</text>
+<text class="fc-node-label on-dark" x="760" y="1170.4" text-anchor="middle" font-size="15">STEEL</text>
+<rect x="648" y="1126" width="62" height="15" rx="7.5" fill="#8A5A15"/>
+<text x="679" y="1137" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono, monospace" fill="#fff" letter-spacing=".04em">PRODUCT</text>
+</g>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══ PART 2: FERRO ALLOYS PROCESS FLOW ═══ -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">PART 2 · SILICOMANGANESE</div>
+    <h2>The Ferro Alloys Process Flow</h2>
+    <p>From furnace charge to dispatch, silicomanganese production follows a fixed sequence, with its own closed loop for cooling and power, and the slag stream worked a second time to recover metal rather than discard it.</p>
+    <div class="fc-legend">
+      <span class="fc-legend-item"><span class="fc-legend-swatch step"></span>Key Process Step</span>
+      <span class="fc-legend-item"><span class="fc-legend-swatch material"></span>Material / Output</span>
+      <span class="fc-legend-hint">Hover over any box or icon for details</span>
+    </div>
+  </div>
+  <div class="flow2-frame reveal">
+    <svg class="flow2-svg" viewBox="-10 0 1520 915" xmlns="http://www.w3.org/2000/svg">
+<g class="fc-node fc-machine" data-node="power-house" tabindex="0" role="button" aria-label="POWER HOUSE">
+<rect x="785.0" y="45.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="798.0" y="66.0" width="64" height="42" fill="#8B93A0"/>
+    <polygon points="798.0,66.0 814.0,52.0 814.0,66.0" fill="#5B6470"/>
+    <polygon points="814.0,66.0 832.0,50.0 832.0,66.0" fill="#8B93A0"/>
+    <polygon points="832.0,66.0 848.0,52.0 848.0,66.0" fill="#5B6470"/>
+    <rect x="836.0" y="30.0" width="10" height="26" fill="#5B6470"/>
+    <rect x="836.0" y="30.0" width="10" height="7" fill="#FF6A1F"/>
+    <rect x="805.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="820.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="835.0" y="76.0" width="9" height="9" fill="#fff" opacity=".85"/>
+    <rect x="820.0" y="92.0" width="10" height="16" fill="#5B6470"/>
+    </g>
+<text x="830.0" y="122.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">POWER HOUSE</text>
+</g>
+<g class="fc-node fc-machine" data-node="furnace-transformer" tabindex="0" role="button" aria-label="FURNACE TRANSFORMER">
+<rect x="565.0" y="180.0" width="70" height="50" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<polygon points="594.0,189.0 605.0,189.0 598.0,204.0 607.0,204.0 593.0,223.0 598.0,207.0 590.0,207.0" fill="#FF6A1F" stroke="#C1440E" stroke-width="0.8"/>
+<text x="600.0" y="235.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">FURNACE</text>
+<text x="600.0" y="249.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">TRANSFORMER</text>
+</g>
+<text x="190.0" y="258.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">RAW MATERIAL</text>
+<g class="fc-node fc-product" data-node="raw-coal" tabindex="0" role="button" aria-label="COAL">
+<rect x="60.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="81.0" cy="326.0" r="11" fill="#3E434B"/>
+    <circle cx="99.0" cy="326.0" r="11" fill="#3E434B"/>
+    <circle cx="90.0" cy="312.0" r="13" fill="#2B2E33"/>
+    <circle cx="86.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="90.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COAL</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-quartz" tabindex="0" role="button" aria-label="QUARTZ">
+<rect x="135.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="156.0" cy="326.0" r="11" fill="#C7A472"/>
+    <circle cx="174.0" cy="326.0" r="11" fill="#C7A472"/>
+    <circle cx="165.0" cy="312.0" r="13" fill="#D7B98A"/>
+    <circle cx="161.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="165.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">QUARTZ</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-ore" tabindex="0" role="button" aria-label="ORE">
+<rect x="210.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="231.0" cy="326.0" r="11" fill="#C1440E"/>
+    <circle cx="249.0" cy="326.0" r="11" fill="#C1440E"/>
+    <circle cx="240.0" cy="312.0" r="13" fill="#FF6A1F"/>
+    <circle cx="236.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="240.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">ORE</text>
+</g>
+<g class="fc-node fc-product" data-node="raw-coke" tabindex="0" role="button" aria-label="COKE">
+<rect x="285.0" y="290.0" width="60" height="60" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <circle cx="306.0" cy="326.0" r="11" fill="#2B2E33"/>
+    <circle cx="324.0" cy="326.0" r="11" fill="#2B2E33"/>
+    <circle cx="315.0" cy="312.0" r="13" fill="#3E434B"/>
+    <circle cx="311.0" cy="309.0" r="3.2" fill="#fff" opacity=".22"/>
+    </g>
+<text x="315.0" y="354.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COKE</text>
+</g>
+<g class="fc-node fc-machine" data-node="electric-arc-furnace" tabindex="0" role="button" aria-label="ELECTRIC ARC FURNACE">
+<rect x="535.0" y="280.0" width="150" height="110" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+<rect x="588.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="587.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="606.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="605.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="624.5" y="281.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="623.0" y="277.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<polygon points="568.0,305.0 652.0,305.0 634.0,349.0 586.0,349.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+<ellipse cx="610.0" cy="307.0" rx="36" ry="6.5" fill="url(#emberGradFlat)"/>
+<rect x="590.0" y="349.0" width="40" height="8" fill="#5B6470"/>
+</g>
+<text x="610.0" y="381.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">ELECTRIC ARC</text>
+<text x="610.0" y="395.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">FURNACE</text>
+</g>
+<g class="fc-node fc-machine" data-node="pump-house" tabindex="0" role="button" aria-label="PUMP HOUSE">
+<rect x="835.0" y="285.0" width="90" height="70" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="854.0" y="310.0" width="52" height="34" fill="#8B93A0"/>
+    <polygon points="850.0,310.0 880.0,288.0 910.0,310.0" fill="#5B6470"/>
+    <circle cx="880.0" cy="327.0" r="10" fill="#fff" opacity=".9"/>
+    <path d="M880.0,327.0 m-6,0 a6,6 0 1 1 6,6" fill="none" stroke="#1D4E7A" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="880.0" cy="327.0" r="2" fill="#1D4E7A"/>
+    </g>
+<text x="880.0" y="356.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">PUMP HOUSE</text>
+</g>
+<g class="fc-node fc-machine" data-node="cooling-tower" tabindex="0" role="button" aria-label="COOLING TOWER">
+<rect x="995.0" y="275.0" width="90" height="80" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <polygon points="1016.0,341.0 1024.0,289.0 1056.0,289.0 1064.0,341.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+    <circle cx="1040.0" cy="311.0" r="11" fill="#fff" opacity=".92"/>
+    <g stroke="#1D4E7A" stroke-width="2" stroke-linecap="round">
+    <line x1="1040.0" y1="302.0" x2="1040.0" y2="320.0"/>
+    <line x1="1031.0" y1="311.0" x2="1049.0" y2="311.0"/>
+    <line x1="1033.6" y1="304.6" x2="1046.4" y2="317.4"/>
+    <line x1="1033.6" y1="317.4" x2="1046.4" y2="304.6"/>
+    </g>
+    <circle cx="1040.0" cy="311.0" r="2.2" fill="#1D4E7A"/>
+    </g>
+<text x="1040.0" y="357.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">COOLING TOWER</text>
+</g>
+<g class="fc-node fc-machine" data-node="tapping" tabindex="0" role="button" aria-label="TAPPING">
+<rect x="535.0" y="490.0" width="150" height="110" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+<rect x="588.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="587.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="606.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="605.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<rect x="624.5" y="491.0" width="7" height="22" rx="2" fill="#5B6470"/>
+<rect x="623.0" y="487.0" width="10" height="6" rx="2" fill="#8B93A0"/>
+<polygon points="568.0,515.0 652.0,515.0 634.0,559.0 586.0,559.0" fill="#8B93A0" stroke="#5B6470" stroke-width="1.5"/>
+<ellipse cx="610.0" cy="517.0" rx="36" ry="6.5" fill="url(#emberGradFlat)"/>
+<rect x="590.0" y="559.0" width="40" height="8" fill="#5B6470"/>
+</g>
+<text x="610.0" y="591.0" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">TAPPING</text>
+</g>
+<g class="fc-node fc-product" data-node="metal-fa" tabindex="0" role="button" aria-label="METAL">
+<rect x="365.0" y="519.0" width="110" height="52" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="420.0" y="549.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">METAL</text>
+</g>
+<g class="fc-node fc-machine" data-node="cleaning-sizing" tabindex="0" role="button" aria-label="CLEANING & SIZING">
+<rect x="160.0" y="516.0" width="150" height="58" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="235.0" y="541.6" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">CLEANING &</text>
+<text x="235.0" y="557.1" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">SIZING</text>
+</g>
+<text x="235.0" y="650.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">WEIGHING & PACKING</text>
+<text x="235.0" y="735.0" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">LOT PREPARATION</text>
+<g class="fc-node fc-product" data-node="dispatch-simn" tabindex="0" role="button" aria-label="DISPATCH">
+<rect x="405.0" y="707.0" width="130" height="56" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="470.0" y="739.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">DISPATCH</text>
+</g>
+<g class="fc-node fc-product" data-node="dispatch-truck" tabindex="0" role="button" aria-label="SILICO MANGANESE">
+<rect x="425.0" y="790.0" width="90" height="40" rx="10" fill="#FFFFFF" stroke="#E3E7EB" stroke-width="1.5" opacity="0.001"/>
+<g>
+    <rect x="440.0" y="791.0" width="38" height="20" rx="2" fill="#8B93A0"/>
+    <path d="M478.0,797.0 h14 l8,8 v6 h-22 z" fill="#5B6470"/>
+    <rect x="482.0" y="800.0" width="8" height="6" fill="#CFE3F2"/>
+    <circle cx="450.0" cy="813.0" r="5" fill="#14161C"/>
+    <circle cx="450.0" cy="813.0" r="2" fill="#AEB6C2"/>
+    <circle cx="490.0" cy="813.0" r="5" fill="#14161C"/>
+    <circle cx="490.0" cy="813.0" r="2" fill="#AEB6C2"/>
+    </g>
+<text x="470.0" y="836.0" text-anchor="middle" font-size="11" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SILICO MANGANESE</text>
+</g>
+<g class="fc-node fc-product" data-node="slag-mixed-material" tabindex="0" role="button" aria-label="SLAG MIXED MATERIAL">
+<rect x="755.0" y="516.0" width="150" height="58" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="830.0" y="541.6" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SLAG MIXED</text>
+<text x="830.0" y="557.1" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">MATERIAL</text>
+</g>
+<g class="fc-node fc-machine" data-node="jigging" tabindex="0" role="button" aria-label="JIGGING">
+<rect x="980.0" y="517.0" width="120" height="56" rx="8" fill="#FF6A1F" stroke="#C1440E" stroke-width="1.5"/>
+<text x="1040.0" y="549.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#fff">JIGGING</text>
+</g>
+<text x="950.0" y="660.0" text-anchor="middle" font-size="13" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">SLAG</text>
+<g class="fc-node fc-product" data-node="metal-recovered" tabindex="0" role="button" aria-label="RECOVERED METAL">
+<rect x="1095.0" y="634.0" width="110" height="52" rx="8" fill="#E4E8EC" stroke="#8792A2" stroke-width="1.5"/>
+<text x="1150.0" y="664.3" text-anchor="middle" font-size="13.5" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#14161C">METAL</text>
+</g>
+<rect x="840.0" y="689.5" width="220" height="31" rx="15.5" fill="#163A5C"/>
+<text x="950.0" y="702.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">CAN BE USED FOR ROAD</text>
+<text x="950.0" y="715.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">CONSTRUCTION / LAND FILL</text>
+<rect x="1335.0" y="544.5" width="190" height="31" rx="15.5" fill="#163A5C"/>
+<text x="1430.0" y="557.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">WASTE TRANSFORMER OIL</text>
+<text x="1430.0" y="570.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="var(--font-mono)" letter-spacing=".03em" fill="#fff">STORED IN DRUMS</text>
+<path d="M830.0,115.0 L830.0,150.0 L600.0,150.0 L600.0,181.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0,257.0 L600.0,281.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M600.0,180.0 L600.0,28.0 L1430.0,28.0 L1430.0,540.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M345.0,320.0 L535.0,320.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M995.0,315.0 L925.0,318.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M835.0,320.0 L685.0,325.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M610.0,390.0 L610.0,490.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M535.0,545.0 L475.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M365.0,545.0 L310.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235.0,574.0 L235.0,636.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235.0,660.0 L235.0,722.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M300.0,735.0 L405.0,735.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M685.0,545.0 L755.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M905.0,545.0 L980.0,545.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1010.0,573.0 L950.0,610.0 L950.0,648.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1070.0,573.0 L1150.0,610.0 L1150.0,634.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1150.0,686.0 L1150.0,875.0 L420.0,875.0 L420.0,571.0" fill="none" stroke="#1D4E7A" stroke-width="2.6" marker-end="url(#flowArrow)" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="785.0" y="891.0" text-anchor="middle" font-size="10" font-weight="700" font-family="var(--font-display)" letter-spacing=".02em" fill="#1D4E7A">RECOVERED METAL</text>
+    </svg>
+  </div>
+  <div class="flow2-notes">
+    <div class="panel reveal">
+      <h4>Slag Isn't Waste</h4>
+      <p>Material tapped from the furnace splits two ways. The metal moves straight into cleaning, sizing, weighing and lot preparation for dispatch. The slag mixed with it goes through jigging instead of the bin, a process that separates by density, recovering additional metal back into the main stream and leaving behind a slag by-product that's put to use in road construction and land filling.</p>
+    </div>
+    <div class="panel reveal">
+      <h4>A Closed Cooling &amp; Power Loop</h4>
+      <p>The furnace transformer draws power from the power house and steps it up to run the furnace itself, while a cooling tower and pump house keep water circulating continuously through the furnace to manage the heat. Waste transformer oil is never discharged, it's drained and stored safely in drums.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<main>
+
+  <!-- ═══ I, THE EARTH GIVES ═══ -->
+  <section class="stage" id="s1">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER I</div>
+      <h2>The Earth Gives</h2>
+      <h3>Raw Materials, Iron Ore &amp; Coal</h3>
+      <p>Before a single beam is cast, there is only rock. Iron ore fines are sourced from trusted market suppliers; coal is drawn straight from Shakambhari's <span class="hl">own mines</span>, the first link in a chain we chose to own end to end, not rent piece by piece.</p>
+      <div class="chips">
+        <div class="chip">Iron Ore Fines</div>
+        <div class="chip hot">Coal · Own Mines ⭐</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s1-mining-excavators-poster.jpg"
+          data-src="optimized-videos/process/s1-mining-excavators.mp4" aria-label="Excavators and dump trucks mining coal at Shakambhari's own mines"></video>
+        <div class="visual-caption">OWN COAL MINES</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark"></div></div></div>
+
+  <!-- ═══ II, SHAPED FOR PURPOSE ═══ -->
+  <section class="stage reverse" id="s2">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER II</div>
+      <h2>Shaped for Purpose</h2>
+      <h3>Pelletization, SIPL Rukni</h3>
+      <p>Raw ore fines alone are unruly, too fine, too inconsistent for the kiln ahead. At SIPL Rukni they're agglomerated into uniform spherical pellets, engineered for the <span class="hl">permeability</span> that clean, efficient reduction demands.</p>
+      <div class="chips">
+        <div class="chip">SIPL Rukni</div>
+        <div class="chip">Spherical Pellets</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s2-pellet-pouring-poster.jpg"
+          data-src="optimized-videos/process/s2-pellet-pouring.mp4" aria-label="Iron ore pellets pouring at the SIPL Rukni pelletization plant"></video>
+        <div class="visual-caption">PELLET PLANT</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:.6s"></div></div></div>
+
+  <!-- ═══ III, THE STRIPPING AWAY ═══ -->
+  <section class="stage" id="s3">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER III</div>
+      <h2>The Stripping Away</h2>
+      <h3>Direct Reduced Iron, Rotary Kiln</h3>
+      <p>At roughly 950°C, pellets and mined coal meet inside the rotary kiln. Oxygen is stripped away; only metallic iron remains. <span class="hl">No coking, no blast furnace</span>, impurities fall, and what's left is closer to the strength we're building toward.</p>
+      <div class="chips">
+        <div class="chip hot mono">~950°C</div>
+        <div class="chip">Non-Coking Coal</div>
+        <div class="chip">No Blast Furnace</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s3-rotary-kiln-poster.jpg"
+          data-src="optimized-videos/process/s3-rotary-kiln.mp4" aria-label="Industrial rotary kiln rotating during direct reduction"></video>
+        <div class="visual-caption">ROTARY KILN</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- pull quote 1 -->
+  <div class="pull-quote reveal">
+    <div class="line">Strength isn't added.<br>It's revealed.</div>
+    <p class="sub">What remains after reduction becomes the core of everything Shakambhari builds, the #SteelWithin, before it has a name.</p>
+  </div>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:1.2s"></div></div></div>
+
+  <!-- ═══ IV, WHERE IT BECOMES ONE ═══ -->
+  <section class="stage reverse" id="s4">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER IV</div>
+      <h2>Where It Becomes One</h2>
+      <h3>Steel Making, Induction Furnace</h3>
+      <p>Sponge iron meets externally sourced scrap and pig iron, and silicomanganese made entirely <span class="hl">in-house</span>, three sources, melted at roughly 1600°C into one liquid steel. Almost none of it was bought as a finished input we simply had to have; nearly all of it, we made ourselves.</p>
+      <div class="chips">
+        <div class="chip hot mono">~1600°C</div>
+        <div class="chip">Scrap &amp; Pig Iron · External</div>
+        <div class="chip hot">Silicomanganese · In-House ⭐</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s4-induction-furnace-poster.jpg"
+          data-src="optimized-videos/process/s4-induction-furnace.mp4" aria-label="Steel making inside the induction furnace"></video>
+        <div class="visual-caption">INDUCTION FURNACE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:1.8s"></div></div></div>
+
+  <!-- ═══ V, DISCIPLINE TAKES FORM ═══ -->
+  <section class="stage" id="s5">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER V</div>
+      <h2>Discipline Takes Form</h2>
+      <h3>Continuous Casting, Billets</h3>
+      <p>Liquid steel is poured into water-cooled molds and drawn out continuously, no batch, no interruption. What emerges is a billet with a grain structure disciplined enough to <span class="hl">hold whatever shape</span> comes next.</p>
+      <div class="chips">
+        <div class="chip">Water-Cooled Molds</div>
+        <div class="chip">Homogeneous Structure</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s5-continuous-casting-pour-poster.jpg"
+          data-src="optimized-videos/process/s5-continuous-casting-pour.mp4" aria-label="Molten steel being poured during continuous casting"></video>
+        <div class="visual-caption">CASTING MACHINE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"><div class="connector-spark" style="animation-delay:2.4s"></div></div></div>
+
+  <!-- ═══ VI, PRESSURE REVEALS PURPOSE ═══ -->
+  <section class="stage reverse" id="s6">
+    <div class="stage-text reveal-left">
+      <div class="stage-code">CHAPTER VI</div>
+      <h2>Pressure Reveals Purpose</h2>
+      <h3>Rolling Mills, Finished Long Products</h3>
+      <p>Billets are reheated and driven through rolling mills under enormous pressure, elongating and refining into three distinct products, each one built to <span class="hl">hold something up</span>: a wall, a roof, a skyline.</p>
+      <div class="chips">
+        <div class="chip">3 Finished Products</div>
+        <div class="chip">Pan-India Distribution</div>
+      </div>
+    </div>
+    <div class="stage-visual reveal-right">
+      <div class="visual-panel">
+        <video class="stage-video" muted loop playsinline preload="none"
+          poster="optimized-images/images/process/s6-structural-steel-skyline-poster.jpg"
+          data-src="optimized-videos/process/s6-structural-steel-skyline.mp4" aria-label="Structural steel framing rising above the city skyline"></video>
+        <div class="visual-caption">STRUCTURAL STEEL, IN USE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ PRODUCTS ═══ -->
+  <section class="products-head reveal">
+    <div class="stage-code">WHAT THIS BUILDS</div>
+    <h2>From One Furnace, Three Futures</h2>
+    <p>Every stage before this exists to arrive here, steel with #SteelWithin inside it, headed into the walls, roofs, and skylines of a growing nation.</p>
+  </section>
+
+  <div class="products-grid">
+    <div class="prod-card reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/process/product-tmt-bars-elegant-steel.avif">
+        <source type="image/webp" srcset="optimized-images/images/process/product-tmt-bars-elegant-steel.webp">
+        <img src="optimized-images/images/process/product-tmt-bars-elegant-steel.jpg" alt="Elegant Steel QST TMT bars, tagged and ready for dispatch" class="prod-card-photo" loading="lazy">
+      </picture>
+      <h4>TMT Bars</h4>
+      <p>Thermomechanically treated reinforcement bars for RCC construction, marketed as Elegant Steel / QST TMT Bars. Somewhere right now, one of these is holding up a roof over someone's family.</p>
+      <div class="prod-badge">Core Product</div>
+    </div>
+    <div class="prod-card reveal">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="32" width="44" height="7" rx="2" fill="url(#barGrad)"/>
+        <rect x="6" y="24" width="44" height="7" rx="2" fill="url(#barGrad)" opacity=".85"/>
+        <rect x="6" y="16" width="44" height="7" rx="2" fill="url(#barGrad)" opacity=".7"/>
+        <ellipse cx="44" cy="46" rx="7" ry="5" fill="none" stroke="#8792A2" stroke-width="1.5"/>
+        <rect x="37" y="41" width="14" height="10" fill="none" stroke="#545C6B" stroke-width="1"/>
+      </svg>
+      <h4>Narrow Strips (Hot Rolled)</h4>
+      <p>Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.</p>
+      <div class="prod-badge">Semi-Finished</div>
+    </div>
+    <div class="prod-card reveal">
+      <picture>
+        <source type="image/avif" srcset="optimized-images/images/process/product-structural-steel-welding.avif">
+        <source type="image/webp" srcset="optimized-images/images/process/product-structural-steel-welding.webp">
+        <img src="optimized-images/images/process/product-structural-steel-welding.jpg" alt="Workers welding a structural steel frame on a high-rise construction site" class="prod-card-photo" loading="lazy">
+      </picture>
+      <h4>Structural Steel</h4>
+      <p>Angles, channels, joists, H-beams and I-beams, rolled to standard sizes, the skeleton inside the skylines rising across India.</p>
+      <div class="prod-badge">Construction</div>
+    </div>
+  </div>
+
+  <!-- ═══ INTEGRATION ═══ -->
+  <section class="integration">
+    <div class="integration-box reveal">
+      <h3>Mine to Market. Core to Skyline.</h3>
+      <p>Shakambhari controls the entire value chain, our own coal mines, our own pelletization, our own reduction, our own furnace, our own mills. Waste streams are captured and recycled internally. Silicomanganese is produced in-house. Nothing here was outsourced because it was easier, it was built this way because pioneers don't rent the parts that matter.</p>
+      <div class="flow-strip">
+        <div class="flow-node">
+          <svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="24" rx="15" ry="10" fill="url(#charGrad)"/><ellipse cx="14" cy="16" rx="9" ry="6" fill="url(#charGrad)" opacity=".85"/></svg>
+          <span>MINE</span>
+        </div>
+        <div class="flow-track"></div>
+        <div class="flow-node">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="8" y="12" width="24" height="18" rx="3" fill="url(#steelGrad)"/><ellipse cx="20" cy="32" rx="10" ry="7" fill="url(#emberGrad)" filter="url(#glow)"/></svg>
+          <span>MILL</span>
+        </div>
+        <div class="flow-track"></div>
+        <div class="flow-node">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="10" y="16" width="20" height="16" fill="url(#barGrad)"/><polygon points="20,6 32,16 8,16" fill="url(#barGrad)" opacity=".8"/></svg>
+          <span>MARKET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BRAND CLOSE ═══ -->
+  <section class="brand-close reveal">
+    <div class="tag">#SteelWithin</div>
+    <p>Every structure standing on our steel is standing, in part, on a decision made underground, at a mine, at the very start of this story, the decision to build the whole chain ourselves, so that whatever bears our name carries our strength from the core outward.</p>
+  </section>
+
+</main>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal-scale">
+  <div class="cta-inner">
+    <h2>A Process This Precise Has to Be Tested</h2>
+    <p>Every stage you just walked through is checked, not assumed. See the quality standards and testing that stand behind every batch that leaves our mills.</p>
+    <div class="cta-btn-row">
+      <a href="quality.html" class="btn btn-primary">See Our Quality Standards →</a>
+      <a href="products.html" class="btn btn-ghost">Explore Our Products →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-brand">
+        <picture>
+  <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
+  <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async">
+</picture>
+          <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
+      </a>
+      <p style="max-width:26ch;">Proud to partner in our nation's progress. #SteelWithin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="process.html">Our Process</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="journey.html">Our Journey</a>
+      <a href="vision.html">Mission, Vision &amp; Values</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="companies.html">Group Companies</a>
+      <a href="quality.html">Quality</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="insights.html">Insights</a>
+      <a href="awards.html">Awards &amp; Certifications</a>
+      <a href="csr.html">Corporate Social Responsibility</a>
+      <a href="sustainability.html">Sustainability</a>
+      <a href="clientele.html">Clientele</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+913366255252">033 6625 5252</a>
+      <a href="mailto:info@shakambharigroup.in">info@shakambharigroup.in</a>
+      <p>Diamond Prestige, 41A A.J.C. Bose Road,<br>Kolkata 700017, West Bengal</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span class="accent-text">Shakambhari Ispat &amp; Power Limited</span>. All rights reserved</p>
+    <div class="footer-social">
+      <a href="https://facebook.com/SPSElegant" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.3 13.4 5.5 15.1 5.5H17V2.1C16.7 2 15.5 2 14.2 2 11.4 2 9.5 3.7 9.5 6.8V10H6.5v4H9.5v8H13Z"/></svg></a>
+      <a href="https://linkedin.com/company/shakambhari-group" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5A2 2 0 1 1 5 3a2 2 0 0 1 1.94 2ZM5.28 8.5h3.32V21H5.28ZM10.5 8.5h3.18v1.71h.05c.44-.83 1.53-1.71 3.15-1.71 3.37 0 4 2.22 4 5.1V21h-3.32v-5.83c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08V21H10.5Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- SPEC HOVER CARD -->
+<div class="spec-hovercard" id="specHoverCard" role="tooltip">
+  <img class="spec-hovercard-img" id="hcImg" alt="" style="display:none;">
+  <div class="spec-hovercard-body">
+    <span class="spec-hovercard-badge" id="hcBadge"></span>
+    <h4 id="hcTitle"></h4>
+    <p id="hcDesc"></p>
+    <div class="spec-hovercard-tags" id="hcTags"></div>
+    <button type="button" class="spec-hovercard-expand" id="hcExpand">View Full Pelletization Flowchart →</button>
+  </div>
+</div>
+
+<!-- PROCESS DETAIL MODAL -->
+<div class="pdm-overlay" id="pdmOverlay">
+  <div class="pdm-panel" role="dialog" aria-modal="true" aria-labelledby="pdmTitle">
+    <div class="pdm-head">
+      <div>
+        <div class="kicker" style="margin-bottom:.4rem;">SIPL RUKNI, SUB-PROCESS</div>
+        <h3 id="pdmTitle">The Pelletisation Flowchart</h3>
+        <p>Eight stages between a pile of ore fines and a hardened, kiln-ready sphere, one continuous, closed-loop line.</p>
+      </div>
+      <button type="button" class="pdm-close" id="pdmClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="pdm-body">
+      <div class="fc-legend pdm-legend">
+        <span class="fc-legend-item"><span class="fc-legend-swatch product"></span>Raw Material / Product</span>
+        <span class="fc-legend-item"><span class="fc-legend-swatch machine"></span>Process Equipment</span>
+        <span class="fc-legend-hint">Dashed lines are recirculation / recycle loops</span>
+      </div>
+      <div class="pdm-svg-wrap">
+        <svg viewBox="0 0 680 1030" xmlns="http://www.w3.org/2000/svg">
+          <!-- edges: inputs -> dryer -->
+          <path d="M89,70 L89,100 L220,100 L220,130" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M243,70 L243,105 L280,105 L280,130" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M397,70 L397,105 L360,105 L360,130" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M551,70 L551,100 L420,100 L420,130" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <!-- main chain -->
+          <path d="M320,190 L320,230" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,290 L320,330" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,390 L320,430" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,490 L320,530" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,600 L320,640" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,700 L320,740" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,800 L320,840" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M320,900 L320,940" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <!-- binder + water -> mixer -->
+          <path d="M500,343 L450,343" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <path d="M500,377 L450,377" stroke="#7C8797" stroke-width="2.5" fill="none" opacity=".85" marker-end="url(#arrowhead)"/>
+          <!-- hot air recirculation loop (dashed) -->
+          <path d="M450,670 L475,670 L475,705 L500,705" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 4" fill="none" opacity=".8" marker-end="url(#arrowhead)"/>
+          <path d="M450,770 L475,770 L475,725 L500,725" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 4" fill="none" opacity=".8" marker-end="url(#arrowhead)"/>
+          <path d="M575,685 L575,565 L450,565" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 4" fill="none" opacity=".8" marker-end="url(#arrowhead)"/>
+          <text class="pdm-edge-label" fill="var(--accent-deep)" x="583" y="625" text-anchor="start" transform="rotate(-90 583 625)">HOT AIR RECIRCULATION</text>
+          <!-- undersize recycle loop (dashed) -->
+          <path d="M190,870 L120,870 L120,460 L190,460" stroke="var(--brand-blue)" stroke-width="2.5" stroke-dasharray="6 4" fill="none" opacity=".8" marker-end="url(#arrowhead)"/>
+          <text class="pdm-edge-label" fill="var(--brand-blue)" x="112" y="665" text-anchor="middle" transform="rotate(-90 112 665)">UNDERSIZE RECYCLE</text>
+          <!-- edge labels -->
+          <text class="pdm-edge-label" fill="var(--ink-soft)" x="320" y="514" text-anchor="middle">GREEN BALLS</text>
+          <text class="pdm-edge-label" fill="var(--ink-soft)" x="320" y="924" text-anchor="middle">SCREENED TO SIZE</text>
+
+          <!-- input nodes -->
+          <g><rect x="19" y="20" width="140" height="50" rx="9" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="2"/><text class="pdm-node-title on-dark" x="89" y="41" text-anchor="middle" font-size="10.5">IRON ORE</text><text class="pdm-node-title on-dark" x="89" y="55" text-anchor="middle" font-size="10.5">FINES</text></g>
+          <g><rect x="173" y="20" width="140" height="50" rx="9" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="2"/><text class="pdm-node-title on-dark" x="243" y="49" text-anchor="middle" font-size="10.5">LIMESTONE</text></g>
+          <g><rect x="327" y="20" width="140" height="50" rx="9" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="2"/><text class="pdm-node-title on-dark" x="397" y="49" text-anchor="middle" font-size="10.5">ANTHRACITE</text></g>
+          <g><rect x="481" y="20" width="140" height="50" rx="9" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="2"/><text class="pdm-node-title on-dark" x="551" y="49" text-anchor="middle" font-size="10.5">DOLOMITE</text></g>
+
+          <!-- main chain nodes -->
+          <g><rect x="190" y="130" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="165" text-anchor="middle" font-size="15">DRYER</text></g>
+          <g><rect x="190" y="230" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="265" text-anchor="middle" font-size="15">GRINDER</text></g>
+          <g><rect x="190" y="330" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="365" text-anchor="middle" font-size="15">MIXER</text></g>
+          <g><rect x="500" y="330" width="150" height="26" rx="7" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="1.6"/><text class="pdm-node-title on-dark" x="575" y="347" text-anchor="middle" font-size="9.5">BINDER</text></g>
+          <g><rect x="500" y="364" width="150" height="26" rx="7" fill="url(#oreGrad)" stroke="#8A5A15" stroke-width="1.6"/><text class="pdm-node-title on-dark" x="575" y="381" text-anchor="middle" font-size="9.5">WATER / SLURRY</text></g>
+          <g><rect x="190" y="430" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="465" text-anchor="middle" font-size="15">BALLING EQUIPMENT</text></g>
+          <g><rect x="190" y="530" width="260" height="70" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="558" text-anchor="middle" font-size="15">TRAVELLING GRATE</text><text class="pdm-node-sub" fill="var(--accent-hot)" x="320" y="578" text-anchor="middle" font-size="9.5">DRYING → PREHEATING ZONES</text></g>
+          <g><rect x="190" y="640" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="675" text-anchor="middle" font-size="15">ROTARY KILN</text></g>
+          <g><rect x="500" y="685" width="150" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="575" y="712" text-anchor="middle" font-size="11.5">AIR</text><text class="pdm-node-title on-dark" x="575" y="726" text-anchor="middle" font-size="11.5">HEATER</text></g>
+          <g><rect x="190" y="740" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="775" text-anchor="middle" font-size="15">ANNULAR COOLER</text></g>
+          <g><rect x="190" y="840" width="260" height="60" rx="11" fill="url(#steelGrad)" stroke="#3E4550" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="875" text-anchor="middle" font-size="15">PRODUCT SCREEN</text></g>
+          <g><rect x="190" y="940" width="260" height="60" rx="11" fill="url(#goldGrad)" stroke="#9C6E22" stroke-width="2.5"/><text class="pdm-node-title on-dark" x="320" y="965" text-anchor="middle" font-size="14">PELLETS</text><text class="pdm-node-sub" fill="#3A2A08" x="320" y="982" text-anchor="middle" font-size="9.5">6–16MM SPHEROIDS</text></g>
+        </svg>
+      </div>
+      <p style="color:var(--ink-soft); font-size:.86rem; line-height:1.6; margin-top:1rem;"><strong style="color:var(--ink);">A closed-loop by design:</strong> hot air drawn off the rotary kiln and annular cooler is recirculated through the air heater back into the travelling grate, and undersize pellets from the product screen are recycled rather than discarded.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── glass nav: scroll state + mobile toggle ──
+(function(){
+  const nav = document.querySelector('.site-nav');
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  function onNavScroll(){ if(!nav) return; nav.classList.toggle('scrolled', window.scrollY > 20); }
+  window.addEventListener('scroll', onNavScroll, { passive:true });
+  onNavScroll();
+  if(toggle && links){
+    toggle.addEventListener('click', ()=>{ toggle.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{ toggle.classList.remove('open'); links.classList.remove('open'); }));
+  }
+  document.querySelectorAll('.has-dropdown').forEach(item=>{
+    let closeTimer;
+    const open = ()=>{ clearTimeout(closeTimer); item.classList.add('open'); };
+    const scheduleClose = ()=>{ closeTimer = setTimeout(()=>item.classList.remove('open'), 350); };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', scheduleClose);
+    item.addEventListener('focusin', open);
+    item.addEventListener('focusout', scheduleClose);
+  });
+})();
+
+const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+const revealObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+},{ threshold:.15 });
+revealEls.forEach(el=>revealObs.observe(el));
+
+const railFill = document.getElementById('railFill');
+const dots = document.querySelectorAll('.rail-dot');
+const stages = [...dots].map(d=>document.getElementById(d.dataset.target));
+
+function updateRail(){
+  const main = document.querySelector('main');
+  const rect = main.getBoundingClientRect();
+  const total = main.offsetHeight - window.innerHeight * .5;
+  const scrolled = Math.min(Math.max(-rect.top, 0), total);
+  const pct = total > 0 ? (scrolled/total)*100 : 0;
+  railFill.style.height = pct + '%';
+}
+window.addEventListener('scroll', updateRail, { passive:true });
+updateRail();
+
+const stageObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    const idx = stages.indexOf(e.target);
+    if(idx === -1) return;
+    if(e.isIntersecting){ dots.forEach(d=>d.classList.remove('active')); dots[idx].classList.add('active'); }
+  });
+},{ rootMargin:'-45% 0px -45% 0px', threshold:0 });
+stages.forEach(s=> s && stageObs.observe(s));
+
+// ── stage videos: lazy-load + play only while visible ──
+(function(){
+  const videos = document.querySelectorAll('.stage-video');
+  if(!videos.length) return;
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videoObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const v = e.target;
+      if(e.isIntersecting){
+        if(!v.src && v.dataset.src) v.src = v.dataset.src;
+        if(!noMotion) v.play().catch(()=>{});
+      } else {
+        v.pause();
+      }
+    });
+  },{ threshold:.35 });
+  videos.forEach(v=> videoObs.observe(v));
+})();
+
+// ── flowchart node spec modal ──
+(function setupSpecModal(){
+  const specData = {
+    'iron-ore': {
+      category: 'product', title: 'Iron Ore',
+      desc: 'Before a single beam is cast, there is only rock. Iron ore fines are sourced from trusted market suppliers, the first link in a chain built to be owned end to end, not rented piece by piece.',
+      tags: ['Iron Ore Fines']
+    },
+    'coal': {
+      category: 'product', title: 'Coal',
+      desc: 'Coal is drawn straight from Shakambhari\'s own mines, feeding the rotary kiln as the reducing agent that strips oxygen from iron ore.',
+      tags: ['Own Mines']
+    },
+    'pellet-plant': {
+      category: 'machine', title: 'Pellet Plant, SIPL Rukni',
+      img: 'images/Rukni_Unit.png',
+      desc: 'Raw ore fines alone are too fine and inconsistent for the kiln ahead. At SIPL Rukni they\'re agglomerated into uniform spherical pellets, engineered for the permeability that clean, efficient reduction demands.',
+      tags: ['SIPL Rukni', 'Spherical Pellets', 'Commercial Since 2003'],
+      detail: 'pelletization'
+    },
+    'rotary-kiln': {
+      category: 'machine', title: 'Rotary Kiln',
+      img: 'images/Madandih_Unit.png',
+      desc: 'At roughly 950°C, pellets and mined coal meet inside the rotary kiln. Oxygen is stripped away; only metallic iron remains, no coking, no blast furnace.',
+      tags: ['~950°C', 'Non-Coking Coal', 'No Blast Furnace']
+    },
+    'sponge-iron': {
+      category: 'product', title: 'Sponge Iron',
+      img: 'images/Sponge_Iron.jpeg',
+      desc: 'Solid-state direct reduced metallic iron, made by removing oxygen from raw ore. India is the world\'s largest producer of this, and it\'s the primary feed for our induction furnace route.',
+      tags: ['Coal-Based DRI', 'High Metallisation']
+    },
+    'induction-furnace': {
+      category: 'machine', title: 'Induction Furnace',
+      img: 'images/Madandih_Unit.png',
+      desc: 'Sponge iron meets externally sourced scrap and pig iron, and silicomanganese made entirely in-house, three sources, melted at roughly 1600°C into one liquid steel.',
+      tags: ['~1600°C', 'Continuous Casting Feed']
+    },
+    'scrap-simn': {
+      category: 'product', title: 'Scrap + Pig Iron + In-House SiMn',
+      img: 'images/Ferro_Alloys.png',
+      desc: 'Externally sourced scrap and pig iron combine with silicomanganese produced entirely in-house at Eloquent Steel, almost nothing here was bought as a finished input we simply had to have.',
+      tags: ['External Scrap & Pig Iron', 'In-House SiMn']
+    },
+    'continuous-casting': {
+      category: 'machine', title: 'Continuous Casting',
+      img: 'images/Madandih_Unit.png',
+      desc: 'Liquid steel is poured into water-cooled molds and drawn out continuously, no batch, no interruption, producing a billet with a homogeneous grain structure.',
+      tags: ['Water-Cooled Molds', 'Homogeneous Structure']
+    },
+    'billets': {
+      category: 'product', title: 'M.S. / CRS Billets',
+      img: 'images/MS_Billets.jpeg',
+      desc: 'High-grade semi-finished feed for rolling mills, produced by melting sponge iron, pig iron and select ferro alloys at ~1600°C, then shaped via continuous casting.',
+      tags: ['100mm–160mm', 'IS 2830:2012']
+    },
+    'rolling-mill': {
+      category: 'machine', title: 'Rolling Mill',
+      img: 'images/Durgapur.png',
+      desc: 'Billets are reheated and driven through rolling mills under enormous pressure, elongating and refining into three distinct finished products, distributed pan-India.',
+      tags: ['3 Finished Products', 'Pan-India Distribution']
+    },
+    'tmt-bars': {
+      category: 'product', title: 'TMT Bars',
+      img: 'images/elegant_qst_bar.jpeg',
+      desc: 'Thermomechanically treated reinforcement bars for RCC construction, marketed as Elegant Steel / QST TMT Bars, quenched and self-tempered via our TEMPCORE system.',
+      tags: ['6–32mm', 'Fe 500D / 550D / CRS', 'ISI 1786:2008']
+    },
+    'strips': {
+      category: 'product', title: 'Narrow Strips (Hot Rolled)',
+      img: 'images/hot strip coils.jpeg',
+      desc: 'Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.',
+      tags: ['Semi-Finished', 'Pipe Manufacturing Feed']
+    },
+    'structural-steel': {
+      category: 'product', title: 'Structural Steel',
+      img: 'images/Structural steel.jpeg',
+      desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
+      tags: ['Elegant', 'Elecart']
+    },
+    'power-house': {
+      category: 'machine', title: 'Power House',
+      desc: 'Supplies the electrical power that the furnace transformer steps up and feeds into the electric arc furnace.',
+      tags: ['Furnace Power Supply']
+    },
+    'furnace-transformer': {
+      category: 'machine', title: 'Furnace Transformer',
+      desc: 'Steps up power from the power house to the levels the electric arc furnace needs to strike and sustain its arc. Waste transformer oil is drained and stored safely in drums rather than discharged.',
+      tags: ['Waste Oil Stored in Drums']
+    },
+    'raw-coal': {
+      category: 'product', title: 'Coal',
+      desc: 'One of four raw materials charged into the furnace, acting as a reducing agent in the manganese-ore reduction reaction.',
+      tags: ['Furnace Charge']
+    },
+    'raw-quartz': {
+      category: 'product', title: 'Quartz',
+      desc: 'Charged into the furnace as a flux, helping form the slag that separates from the metal during smelting.',
+      tags: ['Furnace Charge']
+    },
+    'raw-ore': {
+      category: 'product', title: 'Ore',
+      desc: 'Manganese-bearing ore, the primary feedstock reduced under intense heat in the electric arc furnace to produce silicomanganese.',
+      tags: ['Furnace Charge']
+    },
+    'raw-coke': {
+      category: 'product', title: 'Coke',
+      desc: 'Charged into the furnace alongside coal, ore and quartz as an additional reducing agent.',
+      tags: ['Furnace Charge']
+    },
+    'electric-arc-furnace': {
+      category: 'machine', title: 'Electric Arc Furnace',
+      desc: 'Raw materials are melted using an electric arc struck between electrodes, reaching the temperature needed to reduce ore into liquid ferroalloy. It draws its power from the furnace transformer and runs on a continuous cooling-water loop.',
+      tags: ['High-Temperature Melt', 'Continuous Process']
+    },
+    'pump-house': {
+      category: 'machine', title: 'Pump House',
+      desc: 'Circulates cooling water in a continuous loop between the furnace and the cooling tower, keeping the electric arc furnace within safe operating temperature.',
+      tags: ['Continuous Circulation']
+    },
+    'cooling-tower': {
+      category: 'machine', title: 'Cooling Tower',
+      desc: 'Dissipates heat from the water drawn out of the furnace\'s cooling loop before it is recirculated back through the pump house.',
+      tags: ['Furnace Cooling Loop']
+    },
+    'tapping': {
+      category: 'machine', title: 'Tapping',
+      desc: 'At set intervals the furnace is drained, releasing the molten charge as tapped material, a mix of metal and slag that is then separated into their own process streams.',
+      tags: ['Furnace Drain']
+    },
+    'metal-fa': {
+      category: 'product', title: 'Metal',
+      desc: 'The metal fraction recovered from tapping, carried forward for cleaning and sizing on its way to becoming finished silicomanganese. It is topped up by metal recovered from the slag stream during jigging.',
+      tags: ['Silicomanganese Feed']
+    },
+    'cleaning-sizing': {
+      category: 'machine', title: 'Cleaning & Sizing',
+      desc: 'Tapped metal is cleaned of adhering slag and broken down into consistent, market-ready lump sizes before it is weighed and packed.',
+      tags: ['Lump Sizing']
+    },
+    'dispatch-simn': {
+      category: 'product', title: 'Dispatch',
+      desc: 'Packed, lot-prepared silicomanganese staged and ready to leave the plant by road.',
+      tags: ['Dispatch-Ready']
+    },
+    'dispatch-truck': {
+      category: 'product', title: 'Dispatch, Silicomanganese',
+      img: 'images/Ferro_Alloy_Photo.jpeg',
+      desc: 'Finished silicomanganese lots leave the plant by road, a portion kept for captive use in our own steel-making furnace, the surplus sold externally to other producers.',
+      tags: ['Captive Use', 'External Sale']
+    },
+    'slag-mixed-material': {
+      category: 'product', title: 'Slag Mixed Material',
+      desc: 'The slag fraction from tapping still carries entrained metal within it, so rather than being discarded outright it\'s routed to jigging for a second separation.',
+      tags: ['Routed to Jigging']
+    },
+    'jigging': {
+      category: 'machine', title: 'Jigging',
+      desc: 'A density-based separation process that splits the slag-mixed material into recoverable metal, which rejoins the main metal stream, and a lighter slag by-product left behind.',
+      tags: ['Density Separation']
+    },
+    'metal-recovered': {
+      category: 'product', title: 'Recovered Metal',
+      desc: 'Metal separated back out of the slag stream during jigging, looped back to rejoin the main metal line ahead of cleaning and sizing rather than being lost to the slag heap.',
+      tags: ['Rejoins Main Stream']
+    },
+  };
+
+  const card = document.getElementById('specHoverCard');
+  const imgEl = document.getElementById('hcImg');
+  const badgeEl = document.getElementById('hcBadge');
+  const titleEl = document.getElementById('hcTitle');
+  const descEl = document.getElementById('hcDesc');
+  const tagsEl = document.getElementById('hcTags');
+  const expandEl = document.getElementById('hcExpand');
+  if(!card) return;
+
+  let currentNode = null;
+  let hideTimer = null;
+
+  function render(d){
+    if(d.img){ imgEl.src = d.img; imgEl.alt = d.title; imgEl.style.display = 'block'; }
+    else { imgEl.style.display = 'none'; imgEl.removeAttribute('src'); }
+    badgeEl.textContent = d.category === 'machine' ? 'MACHINE / DIVISION' : 'MATERIAL / PRODUCT';
+    badgeEl.className = 'spec-hovercard-badge ' + d.category;
+    titleEl.textContent = d.title;
+    descEl.textContent = d.desc;
+    tagsEl.innerHTML = (d.tags || []).map(t => `<span class="chip">${t}</span>`).join('');
+    if(d.detail){ expandEl.style.display = 'block'; expandEl.dataset.detail = d.detail; }
+    else { expandEl.style.display = 'none'; delete expandEl.dataset.detail; }
+  }
+
+  // ── process detail modal (diagrammatic sub-process flowcharts) ──
+  const pdmOverlay = document.getElementById('pdmOverlay');
+  const pdmClose = document.getElementById('pdmClose');
+  let pdmTrigger = null;
+  function openDetailModal(triggerNode){
+    if(!pdmOverlay) return;
+    pdmTrigger = triggerNode;
+    pdmOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    pdmClose.focus();
+  }
+  function closeDetailModal(){
+    if(!pdmOverlay) return;
+    pdmOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if(pdmTrigger) pdmTrigger.focus();
+    pdmTrigger = null;
+  }
+  if(pdmOverlay){
+    pdmClose.addEventListener('click', closeDetailModal);
+    pdmOverlay.addEventListener('click', e => { if(e.target === pdmOverlay) closeDetailModal(); });
+    window.addEventListener('keydown', e => { if(e.key === 'Escape' && pdmOverlay.classList.contains('open')) closeDetailModal(); });
+  }
+  if(expandEl){
+    expandEl.addEventListener('click', () => {
+      const triggerNode = currentNode;
+      hide(triggerNode);
+      openDetailModal(triggerNode);
+    });
+    card.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    card.addEventListener('mouseleave', () => { if(currentNode) hideTimer = setTimeout(() => hide(currentNode), 60); });
+    card.addEventListener('focusin', () => clearTimeout(hideTimer));
+    card.addEventListener('focusout', () => { if(currentNode) hideTimer = setTimeout(() => hide(currentNode), 60); });
+  }
+
+  function position(node){
+    const r = node.getBoundingClientRect();
+    const gap = 14;
+    const cardW = card.offsetWidth || 300;
+    const cardH = card.offsetHeight || 220;
+    const cx = r.left + r.width / 2;
+    let top, originY;
+    if(r.top - cardH - gap > 10){
+      top = r.top - cardH - gap;
+      originY = '100%';
+    } else {
+      top = r.bottom + gap;
+      originY = '0%';
+    }
+    top = Math.max(10, Math.min(top, window.innerHeight - cardH - 10));
+    let left = cx - cardW / 2;
+    left = Math.max(10, Math.min(left, window.innerWidth - cardW - 10));
+    const originX = ((cx - left) / cardW * 100) + '%';
+    card.style.setProperty('--hc-origin-x', originX);
+    card.style.setProperty('--hc-origin-y', originY);
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  function show(node){
+    const d = specData[node.dataset.node];
+    if(!d) return;
+    currentNode = node;
+    render(d);
+    position(node);
+    requestAnimationFrame(() => {
+      if(currentNode !== node) return;
+      position(node);
+      card.classList.add('visible');
+    });
+  }
+  function hide(node){
+    if(currentNode !== node) return;
+    card.classList.remove('visible');
+    currentNode = null;
+  }
+
+  document.querySelectorAll('.fc-node').forEach(node => {
+    node.addEventListener('mouseenter', () => { clearTimeout(hideTimer); show(node); });
+    node.addEventListener('mouseleave', () => { hideTimer = setTimeout(() => hide(node), 60); });
+    node.addEventListener('focus', () => { clearTimeout(hideTimer); show(node); });
+    node.addEventListener('blur', () => { hideTimer = setTimeout(() => hide(node), 60); });
+    node.addEventListener('click', () => {
+      if(currentNode === node && card.classList.contains('visible')) hide(node);
+      else show(node);
+    });
+  });
+
+  window.addEventListener('scroll', () => { if(currentNode) position(currentNode); }, { passive:true, capture:true });
+  window.addEventListener('resize', () => { if(currentNode) position(currentNode); });
+})();
+</script>
+
+<script src="process-hero.js"></script>
+</body>
+</html>

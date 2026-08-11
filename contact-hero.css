@@ -1,0 +1,495 @@
+/* ════════════════════════════════════════════════════════════════════
+   CONTACT — "Let's Connect. We're Here To Help." Hero
+   Isolated component (see contact-hero.js). Full-bleed photographic
+   composition of a hand reaching toward a futuristic CONTACT US
+   interface (Hero/contact.*) — one full-inset photo + one scrim,
+   matching the site's established hero convention (.op-hero in
+   process-hero.css, .sush in sustainability-hero.css, .cnh in
+   clientele-hero.css), not a boxed image stitched against a separately
+   drawn background. The plate already bakes in its own navy field on
+   the left, the envelope HUD ring, the phone/email/message icons, the
+   circuit lines and the orange curve along the bottom, so none of
+   those are redrawn — real HTML/CSS layers are added on top only
+   where the photo has nothing to show: the "CONTACT US" caption,
+   a breathing glow + slow rotation behind the ring, a handful of
+   pulsing nodes, a one-time "line draw" accent, the three
+   contact-option cards and the commitment strip.
+
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.ch-hero {
+  --navy: #061B49;
+  --navy-mid: #08265C;
+  --navy-deep: #020814;
+  --navy-black: #030B16;
+  --ink: #FFFFFF;
+  --ink-dim: #D8DEE8;
+  --accent: #FF6B00;
+  --accent-2: #FF7518;
+  --accent-hot: #FFC24B;
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--navy);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .ch-hero { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.ch-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo — already carries the navy field on the left,
+   the HUD ring, the phone/@/message icons, the circuit lines, the
+   world map and the orange curve, so no separate decorative layer
+   duplicates them ══ */
+.ch-visual { position: absolute; inset: 0; overflow: hidden; }
+
+.ch-visual picture,
+.ch-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ch-visual-img {
+  object-fit: cover;
+  object-position: 66% 42%;
+  transform: scale(1.045) translateX(15px);
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 1100px) {
+  .ch-visual-img { object-position: 60% 40%; }
+}
+
+/* single scrim reinforcing the plate's own navy field so the headline
+   stays readable at any crop, with a deeper footer band so the card
+   row and commitment strip always sit on a clean, legible surface */
+.ch-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(100deg, var(--navy) 0%, rgba(6, 27, 73, .93) 24%, rgba(6, 27, 73, .76) 40%, rgba(6, 27, 73, .4) 55%, rgba(6, 27, 73, .1) 70%, transparent 84%),
+    linear-gradient(180deg, rgba(2, 8, 20, .12) 0%, transparent 18%, transparent 46%, rgba(2, 8, 20, .5) 66%, rgba(2, 8, 20, .86) 84%, rgba(2, 8, 20, .96) 100%);
+}
+
+@media (max-width: 900px) {
+  .ch-scrim { display: none; }
+}
+
+/* ── faint technical grid, low opacity, confined to the content field ── */
+.ch-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .05;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 42px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 42px);
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, #000 36%, transparent 58%);
+  mask-image: linear-gradient(100deg, #000 0%, #000 36%, transparent 58%);
+  animation: chGridDrift 20s linear infinite;
+}
+
+@keyframes chGridDrift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 84px 0, 0 84px; }
+}
+
+@media (max-width: 900px) {
+  .ch-grid { display: none; }
+}
+
+/* ══ HUD accents layered over the ring baked into the plate — a soft
+   breathing glow, a very slow rotating ring and a small stable caption
+   chip. Positioned by percentage against the crop used at ≥1100px;
+   hidden below that since object-position/crop shifts too much for a
+   pixel-referenced overlay to stay aligned (no image segmentation is
+   attempted, per the brief) ══ */
+.ch-hud { position: absolute; inset: 0; z-index: 2; pointer-events: none; display: none; }
+
+@media (min-width: 1100px) {
+  .ch-hud { display: block; }
+}
+
+.ch-hud-glow {
+  position: absolute;
+  left: 73.5%;
+  top: 22%;
+  width: clamp(180px, 15vw, 280px);
+  height: clamp(180px, 15vw, 280px);
+  margin: -50% 0 0 -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 194, 75, .5) 0%, rgba(255, 107, 0, .16) 55%, transparent 75%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: chHudBreathe 6s ease-in-out infinite 1.6s;
+}
+
+@keyframes chHudBreathe {
+  0%, 100% { opacity: .5; }
+  50% { opacity: .75; }
+}
+
+/* entrance (opacity/scale, one-shot, forwards) lives on the wrapper;
+   the continuous rotation (transform: rotate only) lives on the inner
+   ring so the two transforms never compete on the same element */
+.ch-hud-ring {
+  position: absolute;
+  left: 73.5%;
+  top: 22%;
+  width: clamp(150px, 12.5vw, 230px);
+  height: clamp(150px, 12.5vw, 230px);
+  margin: -50% 0 0 -50%;
+  opacity: 0;
+  transform: scale(.9);
+  animation: chHudRingIn 1.1s cubic-bezier(.22, 1, .36, 1) .9s forwards;
+}
+
+.ch-hud-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 165, 80, .5);
+  animation: chHudSpin 22s linear infinite;
+}
+
+@keyframes chHudRingIn {
+  from { opacity: 0; transform: scale(.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes chHudSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* subtle response when the cursor approaches the HUD (desktop only) */
+.ch-hero.ch-hud-near .ch-hud-glow { animation-play-state: running; opacity: .85; }
+.ch-hero.ch-hud-near .ch-hud-ring-inner { border-color: rgba(255, 194, 75, .85); }
+
+/* ── one-time "line draw" toward the phone / email / message icons
+   baked into the plate, plus small pulsing nodes along the way and at
+   the fingertip — approximate positions, kept purely decorative ── */
+.ch-line {
+  position: absolute;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(255, 140, 40, .05), rgba(255, 165, 80, .65));
+  border-radius: 1px;
+  transform-origin: left center;
+  opacity: 0;
+  box-shadow: 0 0 6px rgba(255, 140, 40, .4);
+  animation: chLineDraw 1.6s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: var(--line-delay, 1.1s);
+}
+
+@keyframes chLineDraw {
+  0% { opacity: 0; transform: rotate(var(--rot, 0deg)) scaleX(0); }
+  40% { opacity: .8; }
+  100% { opacity: .55; transform: rotate(var(--rot, 0deg)) scaleX(1); }
+}
+
+.ch-line-1 { left: 76%; top: 32.5%; width: 17%; --rot: 6deg; --line-delay: 1.1s; }
+.ch-line-2 { left: 76%; top: 45.5%; width: 17.5%; --rot: 1deg; --line-delay: 1.3s; }
+.ch-line-3 { left: 75.5%; top: 55%; width: 17%; --rot: -5deg; --line-delay: 1.5s; }
+
+.ch-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--accent-hot);
+  box-shadow: 0 0 12px 3px rgba(255, 194, 75, .8);
+  opacity: .3;
+  transform: scale(.85);
+  animation: chNodePulse var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.ch-node-tip { left: 73.5%; top: 50%; }
+.ch-node-phone { left: 93%; top: 34.5%; --delay: .4s; }
+.ch-node-email { left: 93.2%; top: 47.5%; --delay: 1.3s; }
+.ch-node-msg { left: 92.6%; top: 58%; --delay: 2.1s; }
+
+@keyframes chNodePulse {
+  0%, 100% { opacity: .2; transform: scale(.85); }
+  50% { opacity: .8; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch-grid, .ch-hud-ring-inner, .ch-node { animation: none !important; }
+  .ch-hud-glow, .ch-hud-ring, .ch-line {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .ch-hud-glow { opacity: .6; }
+  .ch-hud-ring { transform: scale(1); }
+  .ch-line { transform: rotate(var(--rot, 0deg)) scaleX(1); opacity: .55; }
+  .ch-node { opacity: .55; transform: scale(1); }
+}
+
+/* ══ content ══ */
+.ch-inner {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(4rem, 9vw, 7.5rem);
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) 1.75rem 0;
+}
+
+.ch-content { max-width: min(45%, 620px); }
+
+.ch-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  opacity: 0;
+}
+
+.ch-eyebrow-icon { display: flex; flex-shrink: 0; color: var(--accent); }
+.ch-eyebrow-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.ch-eyebrow-line { width: 30px; height: 1.5px; background: linear-gradient(90deg, var(--accent), var(--accent-hot)); }
+
+.ch-heading {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.4rem, 4vw + 1vh, 3.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -.01em;
+}
+
+.ch-heading .line { display: block; opacity: 0; }
+.ch-heading .ink { color: var(--ink); }
+.ch-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 107, 0, .32));
+}
+
+.ch-desc {
+  margin-top: 1.2rem;
+  max-width: 44ch;
+  font-size: 1.03rem;
+  line-height: 1.7;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+/* ══ lower band: three contact-option cards + commitment strip, sat on
+   the deepened footer scrim ══ */
+.ch-lower { position: relative; z-index: 5; padding-bottom: clamp(1.8rem, 4vw, 3rem); }
+
+.ch-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  opacity: 0;
+}
+
+.ch-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: .9rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(6, 16, 38, .5);
+  border: 1px solid rgba(255, 107, 0, .28);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform: translateY(0);
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.ch-card:hover,
+.ch-card:focus-visible {
+  transform: translateY(-5px);
+  border-color: rgba(255, 165, 80, .7);
+  background: rgba(8, 20, 46, .62);
+  box-shadow: 0 16px 34px rgba(2, 8, 20, .4), 0 0 22px rgba(255, 107, 0, .16);
+}
+
+.ch-card:focus-visible { outline: 2px solid var(--accent-hot); outline-offset: 3px; }
+
+.ch-card-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 32% 26%, rgba(255, 165, 80, .4), rgba(255, 107, 0, .1) 68%), rgba(6, 16, 38, .65);
+  border: 1.5px solid rgba(255, 150, 70, .5);
+  color: var(--accent-hot);
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ch-card-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.ch-card:hover .ch-card-icon,
+.ch-card:focus-visible .ch-card-icon { transform: scale(1.08); }
+
+.ch-card-body { flex: 1; padding-right: 1.2rem; }
+
+.ch-card-title {
+  display: block;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: .98rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ch-card-desc {
+  display: block;
+  margin-top: .3rem;
+  font-size: .8rem;
+  line-height: 1.45;
+  color: var(--ink-dim);
+}
+
+.ch-card-arrow {
+  position: absolute;
+  right: 1.1rem;
+  top: 1.15rem;
+  display: flex;
+  color: var(--accent-hot);
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ch-card-arrow svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.ch-card:hover .ch-card-arrow,
+.ch-card:focus-visible .ch-card-arrow { transform: translateX(5px); }
+
+/* ── commitment strip ── */
+.ch-commit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  text-align: center;
+  opacity: 0;
+}
+
+.ch-commit-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 107, 0, .12);
+  border: 1.5px solid rgba(255, 150, 70, .5);
+  color: var(--accent-hot);
+}
+
+.ch-commit-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.ch-commit-body { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; justify-content: center; }
+
+.ch-commit-title {
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: .98rem;
+  font-weight: 700;
+  color: var(--accent-hot);
+}
+
+.ch-commit-sep { color: rgba(255, 255, 255, .25); }
+
+.ch-commit-desc { font-size: .84rem; line-height: 1.5; color: var(--ink-dim); }
+
+@media (max-width: 1100px) {
+  .ch-content { max-width: 56%; }
+  .ch-card-desc { display: none; }
+  .ch-card { padding: .95rem 1rem; }
+  .ch-commit-body { flex-direction: column; gap: .2rem; }
+  .ch-commit-sep { display: none; }
+}
+
+/* ══ mobile / tablet: vertical stack — eyebrow, headline, copy, cards,
+   then the photo as a contained, uncropped card, then the commitment
+   strip, matching the site's established mobile hero pattern
+   (.op-hero-visual / .sush-visual) ══ */
+@media (max-width: 900px) {
+  .ch-hero { display: flex; flex-direction: column; align-items: stretch; }
+
+  .ch-bg { position: relative; inset: auto; order: 3; }
+
+  .ch-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+
+  .ch-content { max-width: none; text-align: center; padding-bottom: 0; }
+
+  .ch-eyebrow { justify-content: center; }
+
+  .ch-desc { margin-left: auto; margin-right: auto; }
+
+  .ch-lower { order: 2; padding: 1.8rem 1.25rem 0; }
+
+  .ch-cards { grid-template-columns: 1fr 1fr; }
+  .ch-cards .ch-card:last-child { grid-column: 1 / -1; max-width: 320px; margin: 0 auto; }
+  .ch-card-desc { display: block; }
+
+  .ch-visual {
+    position: relative;
+    inset: auto;
+    margin: 2rem 1.25rem 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--navy-deep);
+    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
+  }
+
+  .ch-visual picture,
+  .ch-visual-img { position: absolute; inset: 0; }
+
+  .ch-visual-img { object-fit: cover; object-position: 62% 38%; transform: scale(1); }
+
+  .ch-commit { order: 4; margin: 1.8rem 1.25rem 0; padding-top: 1.4rem; }
+}
+
+@media (max-width: 560px) {
+  .ch-cards { grid-template-columns: 1fr; }
+  .ch-cards .ch-card:last-child { grid-column: auto; max-width: none; margin: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch-card, .ch-card-icon, .ch-card-arrow { transition: none !important; }
+}
