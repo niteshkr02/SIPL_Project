@@ -1,0 +1,256 @@
+{
+  "version": "1.0",
+  "updatedAsOf": "2026-08-10",
+  "totalActiveStates": 8,
+  "states": [
+    {
+      "zoneState": "North India",
+      "totalCount": 23,
+      "stateHead": {
+        "slNo": 1,
+        "empName": "VISHWAMBHAR JAIMAN",
+        "designation": "GM",
+        "cluster": "Haryana, Punjab, Rajasthan, Uttrakhand, Himachal, J&K.",
+        "districts": "ALL, haryana & rajasthan (retail) & punjab (project)",
+        "phoneOfficial": "7605057738",
+        "phonePersonal": "",
+        "primaryEmail": "vbhjaiman@gmail.com",
+        "groupEmail": "marketing.jaipur@shakambharigroup.in"
+      },
+      "districtPersonnel": [
+        { "slNo": 1, "empName": "VISHWAMBHAR JAIMAN", "designation": "GM", "cluster": "Haryana, Punjab, Rajasthan, Uttrakhand, Himachal, J&K.", "districts": "ALL, haryana & rajasthan (retail) & punjab (project)", "phoneOfficial": "7605057738", "phonePersonal": "", "primaryEmail": "vbhjaiman@gmail.com", "groupEmail": "marketing.jaipur@shakambharigroup.in" },
+        { "slNo": 2, "empName": "AJAY KUMAR", "designation": "Senior Marketing Executive", "cluster": "Haryana", "districts": "Jhajjhar, Sonipat", "phoneOfficial": "7596014912", "phonePersonal": "9621701648", "primaryEmail": "ajvj00007@gmail.com", "groupEmail": "" },
+        { "slNo": 3, "empName": "RAVI KUMAR", "designation": "ASO", "cluster": "Haryana", "districts": "Sirsa", "phoneOfficial": "9147413396", "phonePersonal": "9050133006", "primaryEmail": "ravisidhmukhiya1593@gmail.com", "groupEmail": "" },
+        { "slNo": 4, "empName": "KHAGENDAR YADAV", "designation": "Senior Technical Executive", "cluster": "Haryana", "districts": "Karnal, Pundri & Sonepat", "phoneOfficial": "9147763619", "phonePersonal": "7206604516", "primaryEmail": "khagender11009@gmail.com", "groupEmail": "" },
+        { "slNo": 5, "empName": "SACHIN VERMA", "designation": "ASO", "cluster": "Haryana", "districts": "Rohtak", "phoneOfficial": "9748995559", "phonePersonal": "9996439264", "primaryEmail": "kundanpura55@gmail.com", "groupEmail": "" },
+        { "slNo": 6, "empName": "NIRAJ (NEW JOINER)", "designation": "ASO", "cluster": "Haryana", "districts": "Hasi & Jind", "phoneOfficial": "8053383862", "phonePersonal": "", "primaryEmail": "vermaneeraj0013@gmail.com", "groupEmail": "" },
+        { "slNo": 7, "empName": "MOHIT GILL", "designation": "Senior Manager", "cluster": "Haryana", "districts": "Haryana", "phoneOfficial": "9038414747", "phonePersonal": "7015279997", "primaryEmail": "", "groupEmail": "elegant.haryana@shakambharigroup.in" },
+        { "slNo": 8, "empName": "SOHAN LAL", "designation": "ASM", "cluster": "Haryana", "districts": "AMBALA & YAMUNA NAGAR", "phoneOfficial": "9147767625", "phonePersonal": "7206719492", "primaryEmail": "sohan.gyasiya@gmail.com", "groupEmail": "" },
+        { "slNo": 9, "empName": "ANIL DOGRA", "designation": "ASM", "cluster": "Punjab", "districts": "Patiala, Ludhiana, Jalandhar, Amritsar, Tarn Taran Sahib, Chandigarh, Mohali, Panchkula, Ropar (Rupnagar), Shahid Bhagat Singh Nagar (nawanshahr)", "phoneOfficial": "9147104665", "phonePersonal": "9888755595", "primaryEmail": "anildogra.chd@gmail.com", "groupEmail": "" },
+        { "slNo": 10, "empName": "ANIL KATARIA", "designation": "Technical Executive", "cluster": "Punjab", "districts": "Mohali, Chandigarh, Panchkula", "phoneOfficial": "8981220768", "phonePersonal": "8968883665", "primaryEmail": "lalitkumardimpy44@gmail.com", "groupEmail": "" },
+        { "slNo": 11, "empName": "RAJESH SINGHLA", "designation": "ASM", "cluster": "Punjab", "districts": "Bhatinda, Fazilka, Muktsar, Faridkot, Mansa & Ferozepur.", "phoneOfficial": "9147104666", "phonePersonal": "9814421115", "primaryEmail": "rajeshsingla0106@gmail.com", "groupEmail": "" },
+        { "slNo": 12, "empName": "LALIT KUMAR CHOUDHURY", "designation": "ASO", "cluster": "Punjab", "districts": "Bhatinda & Muktsar", "phoneOfficial": "8981228649", "phonePersonal": "9872583808", "primaryEmail": "lalitkumardimpy44@gmail.com", "groupEmail": "" },
+        { "slNo": 13, "empName": "MUKESH SONI", "designation": "ASM", "cluster": "Punjab", "districts": "Patiala, Sangrur, Barnala (South Punjab) new district Malerkotla.", "phoneOfficial": "", "phonePersonal": "9781800208", "primaryEmail": "mukeshsonimicky@gmail.com", "groupEmail": "" },
+        { "slNo": 14, "empName": "SURESH KUMAR MAHALA", "designation": "ASO", "cluster": "Rajasthan", "districts": "SIKAR, NAWALGARH", "phoneOfficial": "9748929991", "phonePersonal": "8696800057", "primaryEmail": "kps1997suresh@gmail.com", "groupEmail": "" },
+        { "slNo": 15, "empName": "LALIT SHARMA", "designation": "Technical Executive", "cluster": "Rajasthan", "districts": "BHARATPUR", "phoneOfficial": "9007549944", "phonePersonal": "8619379633", "primaryEmail": "lalitsharma3039@gmail.com", "groupEmail": "" },
+        { "slNo": 16, "empName": "DINESH CHAND JAIMAN", "designation": "ASO", "cluster": "Rajasthan", "districts": "DAUSA", "phoneOfficial": "9007303633", "phonePersonal": "8890661856", "primaryEmail": "dinesh8890661856@gmail.com", "groupEmail": "" },
+        { "slNo": 17, "empName": "VIKASH KUMAR CHOUDHURY", "designation": "ASO", "cluster": "Rajasthan", "districts": "JHUNJHUNU", "phoneOfficial": "9038417441", "phonePersonal": "9610076210", "primaryEmail": "vk076210@gmail.com", "groupEmail": "" },
+        { "slNo": 18, "empName": "SHASHANK SHARMA", "designation": "ASO", "cluster": "Rajasthan", "districts": "HANUMANGARH", "phoneOfficial": "9007967596", "phonePersonal": "9001550500", "primaryEmail": "vinusharma50@gmail.com", "groupEmail": "" },
+        { "slNo": 19, "empName": "VIJENDRA SAINI", "designation": "Manager", "cluster": "Rajasthan", "districts": "JHUNJHUNU, CHURU, SIKAR, BIKANER, GANGANAGAR, HANUMAN GARH", "phoneOfficial": "9831648447", "phonePersonal": "9414272021", "primaryEmail": "viju0721@gmail.com", "groupEmail": "" },
+        { "slNo": 20, "empName": "VIKAS SARASWAT", "designation": "Manager", "cluster": "Rajasthan", "districts": "JAIPUR", "phoneOfficial": "9007968296", "phonePersonal": "8003698711", "primaryEmail": "vikassaraswat123@gmail.com", "groupEmail": "" },
+        { "slNo": 21, "empName": "MANU JAIMAN", "designation": "Senior Marketing Executive", "cluster": "Rajasthan", "districts": "ALWAR, DAUSA, DHOLPUR, BHARATPUR, KARAULI, TONK, SAWAI MADHOPUR.", "phoneOfficial": "9007959578", "phonePersonal": "9928172922", "primaryEmail": "manu.jaiman7@gmail.com", "groupEmail": "" },
+        { "slNo": 22, "empName": "SANJAY SINGH", "designation": "SO", "cluster": "UTTARAKHAND", "districts": "DEHRADUN", "phoneOfficial": "", "phonePersonal": "9639535352", "primaryEmail": "sanjugariya72@gmail.com", "groupEmail": "" },
+        { "slNo": 51, "empName": "VIKRAM SINGH", "designation": "ASO", "cluster": "Rajasthan", "districts": "ALWAR", "phoneOfficial": "9038416868", "phonePersonal": "7597576016", "primaryEmail": "vikramsingh7576@gmail.com", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "Jharkhand",
+      "totalCount": 9,
+      "stateHead": {
+        "slNo": 23,
+        "empName": "MANOJ SHARMA",
+        "designation": "Senior GM",
+        "cluster": "JHARKHAND, MP & UP",
+        "districts": "JHARKHAND, MP & UP",
+        "phoneOfficial": "9748322412",
+        "phonePersonal": "",
+        "primaryEmail": "manoj.sharma@shakambharigroup.in",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 23, "empName": "MANOJ SHARMA", "designation": "Senior GM", "cluster": "JHARKHAND, MP & UP", "districts": "JHARKHAND, MP & UP", "phoneOfficial": "9748322412", "phonePersonal": "", "primaryEmail": "manoj.sharma@shakambharigroup.in", "groupEmail": "" },
+        { "slNo": 24, "empName": "RAVI KUMAR YADAV (DSO)", "designation": "Distributor Sales Officer", "cluster": "Jharkhand", "districts": "Koderma", "phoneOfficial": "9748989998", "phonePersonal": "8340156934", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 25, "empName": "RAJNI KANT JHA", "designation": "Sales Manager", "cluster": "Jharkhand", "districts": "Khunti, Simdega, Lohardaga, Gumla, Latehar, Ramgarh & Ranchi.", "phoneOfficial": "9097283759", "phonePersonal": "7250239611", "primaryEmail": "rajnikant.jha@gmail.com", "groupEmail": "" },
+        { "slNo": 26, "empName": "PARITOSH DANGI", "designation": "Senior Marketing Executive", "cluster": "Jharkhand", "districts": "Hazaribagh, Chatra, Koderma & Giridih", "phoneOfficial": "9534982177", "phonePersonal": "7004313360", "primaryEmail": "paritosh.dangi@gmail.com", "groupEmail": "" },
+        { "slNo": 27, "empName": "JANAK YADAV", "designation": "Senior Marketing Executive", "cluster": "Jharkhand", "districts": "Gumla & Lohardaga", "phoneOfficial": "9147747859", "phonePersonal": "9110190117", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 28, "empName": "MANOJ KUMAR", "designation": "Senior Marketing Executive", "cluster": "Jharkhand", "districts": "Koderma, Chatra & Hazaribagh", "phoneOfficial": "9147747870", "phonePersonal": "9507914066", "primaryEmail": "manojsinghhaz@gmail.com", "groupEmail": "" },
+        { "slNo": 29, "empName": "SANTOSH KUMAR", "designation": "Senior Marketing Executive", "cluster": "Jharkhand", "districts": "Hazaribagh", "phoneOfficial": "9147747872", "phonePersonal": "9934149866", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 30, "empName": "Binod Bedi", "designation": "Senior Marketing Executive", "cluster": "Jharkhand", "districts": "RANCHI", "phoneOfficial": "9147747874", "phonePersonal": "7004245785", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 31, "empName": "Roshan Kumar Singh", "designation": "Senior Marketing Executive", "cluster": "Jharkhand", "districts": "CHATRA", "phoneOfficial": "9147747875", "phonePersonal": "8210356166", "primaryEmail": "rajraushann999@gmail.com", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "Madhya Pradesh",
+      "totalCount": 2,
+      "stateHead": {
+        "slNo": 32,
+        "empName": "DEEPAK UPADHYAY",
+        "designation": "ASM",
+        "cluster": "Madhya Pradesh",
+        "districts": "Madhya Pradesh",
+        "phoneOfficial": "9147380807",
+        "phonePersonal": "9755502693",
+        "primaryEmail": "du350011@live.com",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 32, "empName": "DEEPAK UPADHYAY", "designation": "ASM", "cluster": "Madhya Pradesh", "districts": "Madhya Pradesh", "phoneOfficial": "9147380807", "phonePersonal": "9755502693", "primaryEmail": "du350011@live.com", "groupEmail": "" },
+        { "slNo": 33, "empName": "Arun Jatav", "designation": "Senior Marketing Executive", "cluster": "Madhya Pradesh", "districts": "Shivpuri, Sheopur, Rajgarh, Vidisha, Morena, Bhind, Gwalior, Ashoknagar.", "phoneOfficial": "9147422959", "phonePersonal": "9179836367", "primaryEmail": "arun.jatav2008@gmail.com", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "North East",
+      "totalCount": 17,
+      "stateHead": {
+        "slNo": 34,
+        "empName": "DEBASHIS DUTTA",
+        "designation": "DGM",
+        "cluster": "North East",
+        "districts": "North East",
+        "phoneOfficial": "7605042475",
+        "phonePersonal": "",
+        "primaryEmail": "4mdebashis@gmail.com",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 34, "empName": "DEBASHIS DUTTA", "designation": "DGM", "cluster": "North East", "districts": "North East", "phoneOfficial": "7605042475", "phonePersonal": "", "primaryEmail": "4mdebashis@gmail.com", "groupEmail": "" },
+        { "slNo": 35, "empName": "RANJEET KR SINGH", "designation": "GM", "cluster": "North East", "districts": "ASSAM", "phoneOfficial": "9147999502", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 36, "empName": "PRADIP KR. DEB", "designation": "Senior Marketing Executive", "cluster": "BarakValley (BKV)", "districts": "Karimganj, Hailakandi, Cachar", "phoneOfficial": "9147157105", "phonePersonal": "9435073012", "primaryEmail": "lock0112@gmail.com", "groupEmail": "" },
+        { "slNo": 37, "empName": "SURAJ MUNDA", "designation": "Distributor Sales Officer", "cluster": "BarakValley (BKV)", "districts": "Cachar", "phoneOfficial": "9163478800", "phonePersonal": "7002572202", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 38, "empName": "DEBASHISH ACHARJEE", "designation": "ASO", "cluster": "BarakValley (BKV)", "districts": "Hailakandi", "phoneOfficial": "7596036736", "phonePersonal": "9401377855", "primaryEmail": "bittuvirus@gmail.com", "groupEmail": "" },
+        { "slNo": 39, "empName": "DIGANTA DEKA", "designation": "ASM", "cluster": "Lower Assam", "districts": "BARPETA, KOKRAJHAR, KAMRUP, NALBARI", "phoneOfficial": "9147164285", "phonePersonal": "9864276189", "primaryEmail": "diganta2u1989@gmail.com", "groupEmail": "" },
+        { "slNo": 40, "empName": "NAZRUL ISLAM", "designation": "ASO", "cluster": "Lower Assam", "districts": "BARPETA & NALBARI", "phoneOfficial": "8420048233", "phonePersonal": "7002636402", "primaryEmail": "n.islam0550@gmail.com", "groupEmail": "" },
+        { "slNo": 41, "empName": "KANAK DEY", "designation": "ASM", "cluster": "Central Assam", "districts": "MORIGAON, HOJAI, NAGAON, LUMDING, DIMA, HASAO, ANGLONG", "phoneOfficial": "7596014919", "phonePersonal": "9854378120", "primaryEmail": "kanakdey0052@gmail.com", "groupEmail": "" },
+        { "slNo": 42, "empName": "PAWAN CHAWDHURY", "designation": "ASO", "cluster": "Lower Assam", "districts": "KOKRAJHAR", "phoneOfficial": "9147163566", "phonePersonal": "8638641977", "primaryEmail": "munna121choudhary@gmail.com", "groupEmail": "" },
+        { "slNo": 43, "empName": "SAMARJEET SINHA", "designation": "ASM", "cluster": "Tripura", "districts": "KHOWAI, DHALAI", "phoneOfficial": "", "phonePersonal": "9774390089", "primaryEmail": "samarjitsinha01@gmail.com", "groupEmail": "" },
+        { "slNo": 44, "empName": "RAKESH DEBNATH", "designation": "SO", "cluster": "Tripura", "districts": "Dharmanagar, Dhalai & North Tripura", "phoneOfficial": "", "phonePersonal": "8794828113", "primaryEmail": "rakeshmaplst1234@gmail.com", "groupEmail": "" },
+        { "slNo": 45, "empName": "SUJAN BANIK", "designation": "ASM", "cluster": "Tripura", "districts": "Agartala, West Tripura, North Tripura", "phoneOfficial": "", "phonePersonal": "9436489392", "primaryEmail": "sams.banik@gmail.com", "groupEmail": "" },
+        { "slNo": 46, "empName": "SINTU SAIKIA", "designation": "ASM", "cluster": "Kamrup", "districts": "KAMRUP", "phoneOfficial": "", "phonePersonal": "8011295982", "primaryEmail": "sintusaikia999@gmail.com", "groupEmail": "" },
+        { "slNo": 47, "empName": "SAAN SAIKIA", "designation": "ASM", "cluster": "Upper Assam", "districts": "JORHAT", "phoneOfficial": "", "phonePersonal": "8638148090", "primaryEmail": "saan0908@gmail.com", "groupEmail": "" },
+        { "slNo": 48, "empName": "DILIP Shah", "designation": "ASM", "cluster": "Upper Assam", "districts": "NB - Sonitpur, North Lakhimpur, Upper Assam", "phoneOfficial": "", "phonePersonal": "9864239864", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 49, "empName": "Golam Rahman", "designation": "SO", "cluster": "Kamrup", "districts": "KAMRUP", "phoneOfficial": "", "phonePersonal": "7002167732", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 50, "empName": "TARUN HAZARIKA", "designation": "ASM", "cluster": "Meghalaya", "districts": "Meghalaya", "phoneOfficial": "", "phonePersonal": "8638139588", "primaryEmail": "", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "Uttar Pradesh",
+      "totalCount": 6,
+      "stateHead": {
+        "slNo": 52,
+        "empName": "SUJIT BAJPAI",
+        "designation": "SH",
+        "cluster": "Uttar Pradesh",
+        "districts": "UP",
+        "phoneOfficial": "",
+        "phonePersonal": "9838382222",
+        "primaryEmail": "",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 52, "empName": "SUJIT BAJPAI", "designation": "SH", "cluster": "Uttar Pradesh", "districts": "UP", "phoneOfficial": "", "phonePersonal": "9838382222", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 53, "empName": "SIDDHARTH PANDEY", "designation": "", "cluster": "Uttar Pradesh", "districts": "Deoria, Kushinagar", "phoneOfficial": "", "phonePersonal": "9415886915", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 54, "empName": "ARUN KUMAR", "designation": "Deputy Manager", "cluster": "Uttar Pradesh", "districts": "Gorakhpur, Basti, Sant Kabir Nagar, Maharajganj, Siddharth Nagar.", "phoneOfficial": "9748969998", "phonePersonal": "8887752175", "primaryEmail": "ararun755@gmail.com", "groupEmail": "" },
+        { "slNo": 55, "empName": "VARUN TIWARI", "designation": "Senior Marketing Executive", "cluster": "Uttar Pradesh", "districts": "Kanpur, Unnao, Fatehpur, Etawah, Auraiya & Orai.", "phoneOfficial": "9748130708", "phonePersonal": "7007421370", "primaryEmail": "varun.tivari@gmail.com", "groupEmail": "" },
+        { "slNo": 56, "empName": "AVINESH JAISWAL", "designation": "Senior Manager", "cluster": "Uttar Pradesh", "districts": "Azamgarh, Ballia, Mau, Ghazipur, Varanasi, Jaunpur, Mirzapur, Ambedkar Nagar, chandauli, sonbhadra, sultanpur.", "phoneOfficial": "9147026877", "phonePersonal": "8004928373", "primaryEmail": "rajjournalist01@gmail.com", "groupEmail": "" },
+        { "slNo": 57, "empName": "SHIVJEET MISHRA", "designation": "Senior ASM", "cluster": "Uttar Pradesh", "districts": "PRAYAGRAJ, PRATAPGARH, Banda, chitrakoot, Kaushambi.", "phoneOfficial": "", "phonePersonal": "9140411332", "primaryEmail": "shivjitmishra@gmail.com", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "Odisha",
+      "totalCount": 7,
+      "stateHead": {
+        "slNo": 58,
+        "empName": "Pradyut Chakraborty",
+        "designation": "DGM",
+        "cluster": "Odisha",
+        "districts": "Odisha",
+        "phoneOfficial": "7606002213",
+        "phonePersonal": "",
+        "primaryEmail": "pradyut0310@gmail.com",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 58, "empName": "Pradyut Chakraborty", "designation": "DGM", "cluster": "Odisha", "districts": "Odisha", "phoneOfficial": "7606002213", "phonePersonal": "", "primaryEmail": "pradyut0310@gmail.com", "groupEmail": "" },
+        { "slNo": 59, "empName": "Sheikh Noor Ifteqar", "designation": "ASM", "cluster": "Odisha", "districts": "Jagatsinghpur, Cuttack, Nayagarh, Khordah & Puri.", "phoneOfficial": "", "phonePersonal": "9438014855", "primaryEmail": "Iftekhar4855@gmail.com", "groupEmail": "" },
+        { "slNo": 60, "empName": "Pratap Singh", "designation": "ASO", "cluster": "Odisha", "districts": "Jajpur", "phoneOfficial": "", "phonePersonal": "8280208226", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 61, "empName": "Shekhar Nayak", "designation": "ASM", "cluster": "Odisha", "districts": "Jajpur, Bhadrak, Kendrapara, Keonjar, Mayurbhanj & Balasore.", "phoneOfficial": "", "phonePersonal": "9090623635", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 62, "empName": "Amit Das", "designation": "", "cluster": "Odisha", "districts": "Balasore", "phoneOfficial": "", "phonePersonal": "7008133503", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 63, "empName": "Swaroop Ranjan Patnayak", "designation": "", "cluster": "Odisha", "districts": "Berhampore", "phoneOfficial": "", "phonePersonal": "8249826362", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 64, "empName": "Pankaj Panda", "designation": "", "cluster": "Odisha", "districts": "Angul", "phoneOfficial": "", "phonePersonal": "8917228941", "primaryEmail": "", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "Bihar",
+      "totalCount": 30,
+      "stateHead": {
+        "slNo": 66,
+        "empName": "PRIYESH PRIYAM",
+        "designation": "AGM",
+        "cluster": "Bihar",
+        "districts": "BIHAR",
+        "phoneOfficial": "9931318677",
+        "phonePersonal": "",
+        "primaryEmail": "priyeshpriyam@gmail.com",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 65, "empName": "DHIRAJ KUMAR SINHA", "designation": "ACCOUNTANT", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "8083422361", "phonePersonal": "", "primaryEmail": "dhirajkumar427@gmail.com", "groupEmail": "" },
+        { "slNo": 66, "empName": "PRIYESH PRIYAM", "designation": "AGM", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "9931318677", "phonePersonal": "", "primaryEmail": "priyeshpriyam@gmail.com", "groupEmail": "" },
+        { "slNo": 67, "empName": "AMANJEET KUMAR SUNNY", "designation": "ASM", "cluster": "Bihar", "districts": "VAISHALI & SAMASTIPUR", "phoneOfficial": "9147106704", "phonePersonal": "9199341071", "primaryEmail": "amanjeet.sunny@gmail.com", "groupEmail": "" },
+        { "slNo": 68, "empName": "DEEPAK SINHA", "designation": "ASM", "cluster": "Bihar", "districts": "GAYA GT ROAD", "phoneOfficial": "9147106688", "phonePersonal": "9572793135", "primaryEmail": "sinhaji.gaya@gmail.com", "groupEmail": "" },
+        { "slNo": 69, "empName": "KUNAL KAUSHIK", "designation": "ASM", "cluster": "Bihar", "districts": "PATNA, BEGUSARIA, ARA & KHAGARIA", "phoneOfficial": "9147106700", "phonePersonal": "9386737525", "primaryEmail": "kunalkaushik007@gmail.com", "groupEmail": "" },
+        { "slNo": 70, "empName": "ASHISH KUMAR", "designation": "ASO", "cluster": "Bihar", "districts": "PATNA", "phoneOfficial": "9147106701", "phonePersonal": "9304381831", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 71, "empName": "SANTOSH KUMAR", "designation": "DRIVER", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "9006440644", "phonePersonal": "", "primaryEmail": "santoshkumarneha2@gmail.com", "groupEmail": "" },
+        { "slNo": 72, "empName": "SREE RAM KAUSHIK", "designation": "GM", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "6207086601", "phonePersonal": "", "primaryEmail": "shreeramkaushik06@gmail.com", "groupEmail": "" },
+        { "slNo": 73, "empName": "NIRBHAY KUMAR SINGH", "designation": "MANAGER & CO-ORDINATOR (BRANDING & LOGISTICS)", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "9708888829", "phonePersonal": "", "primaryEmail": "nirbhay4patna@gmail.com", "groupEmail": "" },
+        { "slNo": 74, "empName": "RAHUL TIWARI", "designation": "Manager", "cluster": "Bihar", "districts": "ROHTAS, SASARAM", "phoneOfficial": "9525520730", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 75, "empName": "RAJNISH KUMAR", "designation": "Manager", "cluster": "Bihar", "districts": "MUZAFFARPUR, SITAMARHI", "phoneOfficial": "9147106692", "phonePersonal": "9113110292", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 76, "empName": "RITESH KUMAR RITURAJ", "designation": "OFFICE BOY", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "7677181373", "phonePersonal": "", "primaryEmail": "riteshgorgama@gmail.com", "groupEmail": "" },
+        { "slNo": 77, "empName": "CHANDAN KUMAR KARN", "designation": "PROJECT MANAGER (MARKETING)", "cluster": "Bihar", "districts": "BIHAR", "phoneOfficial": "9147106687", "phonePersonal": "9835069796", "primaryEmail": "ckkarn2009@gmail.com", "groupEmail": "" },
+        { "slNo": 78, "empName": "RAKESH KUMAR SINHA", "designation": "ASO", "cluster": "Bihar", "districts": "ROHTAS, KAIMUR & AURANGABAD", "phoneOfficial": "9147106694", "phonePersonal": "7903513292", "primaryEmail": "rakesh.sinha132@gmail.com", "groupEmail": "" },
+        { "slNo": 79, "empName": "RAVI KUMAR", "designation": "ASO", "cluster": "Bihar", "districts": "GAYA", "phoneOfficial": "9147106689", "phonePersonal": "9334336040", "primaryEmail": "ravinayan2k9@gmail.com", "groupEmail": "" },
+        { "slNo": 80, "empName": "PRAMOD KUMAR", "designation": "ASO", "cluster": "Bihar", "districts": "VAISHALI", "phoneOfficial": "9147106690", "phonePersonal": "7979848143", "primaryEmail": "pramod.sri2014@gmail.com", "groupEmail": "" },
+        { "slNo": 81, "empName": "SUNIL SINGH", "designation": "ASO", "cluster": "Bihar", "districts": "ROHTAS, KAIMUR", "phoneOfficial": "8409948622", "phonePersonal": "", "primaryEmail": "sunilsinghg001@gmail.com", "groupEmail": "" },
+        { "slNo": 82, "empName": "SINTU KUMAR", "designation": "ASO", "cluster": "Bihar", "districts": "GAYA", "phoneOfficial": "9147106702", "phonePersonal": "9570535316", "primaryEmail": "sintusintugudiya@gmail.com", "groupEmail": "" },
+        { "slNo": 83, "empName": "BHASKAR KUMAR", "designation": "ASO", "cluster": "Bihar", "districts": "BEGHUSARAI", "phoneOfficial": "9508610910", "phonePersonal": "", "primaryEmail": "singhbhaskar961@gmail.com", "groupEmail": "" },
+        { "slNo": 84, "empName": "GAUTAM KHAN (Vicky Singh)", "designation": "ASO", "cluster": "Bihar", "districts": "JEHANABAD", "phoneOfficial": "9147163570", "phonePersonal": "7004443904", "primaryEmail": "gautamkhan786@gmail.com", "groupEmail": "" },
+        { "slNo": 85, "empName": "SUBODH KUMAR", "designation": "Technical Executive", "cluster": "Bihar", "districts": "MUZAFFARPUR", "phoneOfficial": "7258889285", "phonePersonal": "", "primaryEmail": "subodhkum456sin@gmail.com", "groupEmail": "" },
+        { "slNo": 86, "empName": "RAJESH RANJAN", "designation": "ASO", "cluster": "Bihar", "districts": "DARBHANGA", "phoneOfficial": "8051870207", "phonePersonal": "", "primaryEmail": "rrjha1992@gmail.com", "groupEmail": "" },
+        { "slNo": 87, "empName": "BHANU KUMAR THAKUR", "designation": "ASO", "cluster": "Bihar", "districts": "SAHARSA & MADHEPURA", "phoneOfficial": "6204830189", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 88, "empName": "SHARAT KIRAN", "designation": "Senior Manager", "cluster": "Bihar", "districts": "MOTIHARI (E/W-CHAMAPARAN), MADHUBANI, DARBHANGA, MUZAFFARPUR, SITAMARHI, SHEOHAR.", "phoneOfficial": "9147106703", "phonePersonal": "9955511011", "primaryEmail": "sharatkiran9@gmail.com", "groupEmail": "" },
+        { "slNo": 89, "empName": "SARVESH KUMAR", "designation": "Senior Marketing Executive", "cluster": "Bihar", "districts": "LAKHISARAI, JAMUI, SOME PART OF PATNA EAST (BARH TO LAKHISARAI).", "phoneOfficial": "9038949476", "phonePersonal": "9006093400", "primaryEmail": "sarveshkumarpaharpur@gmail.com", "groupEmail": "" },
+        { "slNo": 90, "empName": "DILIP KUMAR", "designation": "ASO", "cluster": "Bihar", "districts": "SAHARSA, MADHEPURA & SUPAUL", "phoneOfficial": "9147106699", "phonePersonal": "9122822839", "primaryEmail": "dilipkumar73391@gmail.com", "groupEmail": "" },
+        { "slNo": 91, "empName": "DHIRAJ BHARDWAJ", "designation": "ASO", "cluster": "Bihar", "districts": "BEGHUSARAI, KHAGARIA", "phoneOfficial": "7044103139", "phonePersonal": "7277259021", "primaryEmail": "dhrj.bharadwaj@gmail.com", "groupEmail": "" },
+        { "slNo": 92, "empName": "GUNJAN KUMAR SHARMA", "designation": "Senior Marketing Executive", "cluster": "Bihar", "districts": "NALANDA, NAWADA", "phoneOfficial": "9147106697", "phonePersonal": "8789823671", "primaryEmail": "gunjan98760@gmail.com", "groupEmail": "" },
+        { "slNo": 93, "empName": "VIKASH KUMAR SINGH", "designation": "ASO", "cluster": "Bihar", "districts": "SITAMARHI, SHEOHAR", "phoneOfficial": "7488743845", "phonePersonal": "", "primaryEmail": "vikashsolanki983@yahoo.in", "groupEmail": "" },
+        { "slNo": 94, "empName": "ASFAQUE AHAMAD", "designation": "Technical Executive", "cluster": "Bihar", "districts": "SAHARSA", "phoneOfficial": "9147106698", "phonePersonal": "7903264639", "primaryEmail": "asfaque05mit@gmail.com", "groupEmail": "" }
+      ]
+    },
+    {
+      "zoneState": "North Bengal",
+      "totalCount": 19,
+      "stateHead": {
+        "slNo": 113,
+        "empName": "RANJAN SAHU",
+        "designation": "AGM",
+        "cluster": "North Bengal",
+        "districts": "APD-COB-DARJ-JALP",
+        "phoneOfficial": "9337240385",
+        "phonePersonal": "",
+        "primaryEmail": "",
+        "groupEmail": ""
+      },
+      "districtPersonnel": [
+        { "slNo": 95, "empName": "Vikram Narsaria", "designation": "", "cluster": "North Bengal", "districts": "SILIGURI", "phoneOfficial": "", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 96, "empName": "BINOY JHA", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "ALIPURDUAR", "phoneOfficial": "8918486044", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 97, "empName": "ANIRUDHYA DEY", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "ALIPURDUAR", "phoneOfficial": "7605083445", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 98, "empName": "CHANCHAL DEY", "designation": "Technical Executive", "cluster": "North Bengal", "districts": "ALIPURDUAR", "phoneOfficial": "8420161646", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 99, "empName": "RAKESH SARKAR", "designation": "Deputy Manager", "cluster": "North Bengal", "districts": "ALIPURDUAR & COOCHBEHAR", "phoneOfficial": "8420161687", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 100, "empName": "RATUL ROY", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "COOCHBEHAR", "phoneOfficial": "9147106683", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 101, "empName": "KARTIK DEY", "designation": "Senior Marketing Executive", "cluster": "North Bengal", "districts": "COOCHBEHAR", "phoneOfficial": "9147114714", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 102, "empName": "SURESH SHIL", "designation": "Technical Executive", "cluster": "North Bengal", "districts": "COOCHBEHAR", "phoneOfficial": "9147157110", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 103, "empName": "SUVANKAR DHAR", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "COOCHBEHAR", "phoneOfficial": "9831648291", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 104, "empName": "SUBARNA SARKHEL", "designation": "Technical Executive", "cluster": "North Bengal", "districts": "COOCHBEHAR", "phoneOfficial": "9147114712", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 105, "empName": "ANIMESH KARMAKAR", "designation": "Distributor Sales Officer", "cluster": "North Bengal", "districts": "COOCHBEHAR", "phoneOfficial": "6293149698", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 106, "empName": "DIPANKAR PAUL", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "DARJEELING", "phoneOfficial": "9163512277", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 107, "empName": "SANJEEB BARMAN", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "DARJEELING", "phoneOfficial": "9147106676", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 108, "empName": "CHIRNJEET CHAKRABORTY", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "DARJEELING", "phoneOfficial": "7605085436", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 109, "empName": "BIMAN SANYAL", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "JALPAIGURI", "phoneOfficial": "8695612047", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 110, "empName": "AVIJIT DAS", "designation": "Marketing Executive", "cluster": "North Bengal", "districts": "JALPAIGURI", "phoneOfficial": "9163263311", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 111, "empName": "SUBHJIT ROY", "designation": "Distributor Sales Officer", "cluster": "North Bengal", "districts": "JALPAIGURI", "phoneOfficial": "6293149697", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 112, "empName": "AGNIVA DUTTA", "designation": "Technical Manager", "cluster": "North Bengal", "districts": "APD-COB-DARJ-JALP", "phoneOfficial": "7596036703", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" },
+        { "slNo": 113, "empName": "RANJAN SAHU", "designation": "AGM", "cluster": "North Bengal", "districts": "APD-COB-DARJ-JALP", "phoneOfficial": "9337240385", "phonePersonal": "", "primaryEmail": "", "groupEmail": "" }
+      ]
+    }
+  ]
+}

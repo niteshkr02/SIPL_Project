@@ -575,6 +575,310 @@
   }
 }
 
+/* ── India drill-down: state head card + zone/district panel ──
+   Additive only, reuses .mpp / .mpp-mini / .mpp-btn / .mpp-actions from
+   above for the glass card language and CTA buttons — these rules only
+   cover the pieces that don't already exist: the compact head card under
+   the map, the breadcrumb bar, and the two grid layouts (zone badges /
+   district cards) that swap inside #idpGrid. */
+
+.state-head-card {
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, .65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 106, 31, .22);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+}
+
+.state-head-card.is-empty {
+  text-align: center;
+}
+
+.state-head-card .mpp-empty-hint {
+  display: none;
+}
+
+.state-head-card.is-empty .mpp-empty-hint {
+  display: block;
+  border: none;
+  padding: .5rem;
+}
+
+.shc-row {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-bottom: .75rem;
+}
+
+.shc-avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF9128, #FF6A1F);
+  color: #FFF;
+  font-size: 1rem;
+  box-shadow: 0 8px 18px rgba(255, 106, 31, .3);
+}
+
+.shc-name {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.shc-role {
+  font-size: .75rem;
+  color: var(--ink-soft);
+  margin-top: .15rem;
+}
+
+.state-head-card .mpp-mini {
+  background: rgba(255, 255, 255, .7);
+}
+
+.state-head-card .mpp-actions {
+  margin-top: .85rem;
+}
+
+/* ── India drill-down panel (right column, sibling of #vendorLiveCard) ── */
+.mp-india-panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.mpp-breadcrumb {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1.1rem;
+}
+
+.mpp-crumb-btn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, .6);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .2s ease;
+}
+
+.mpp-crumb-btn:not(:disabled):hover {
+  border-color: rgba(255, 106, 31, .5);
+  color: var(--accent-ink);
+  background: rgba(255, 106, 31, .08);
+  transform: translateY(-1px);
+}
+
+.mpp-crumb-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.mpp-crumb-trail {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .8rem;
+  flex-wrap: wrap;
+}
+
+.crumb-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-ink);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.crumb-sep {
+  color: var(--ink-soft);
+}
+
+.crumb-current {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.idp-hq-actions:empty {
+  display: none;
+}
+
+.idp-hq-actions:not(:empty) {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.1rem;
+}
+
+.idp-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: .65rem;
+  margin-top: .9rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: .25rem;
+  scrollbar-width: thin;
+}
+
+.idp-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.idp-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 106, 31, .4);
+  border-radius: 4px;
+}
+
+.idp-grid-zones {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.idp-grid-districts {
+  grid-template-columns: 1fr;
+}
+
+.zone-badge {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: .85rem .9rem;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  transition: transform .25s cubic-bezier(.16, .84, .44, 1), box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.zone-badge:hover,
+.zone-badge:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(255, 106, 31, .45);
+  background: rgba(255, 255, 255, .85);
+  box-shadow: 0 14px 30px rgba(20, 22, 28, .1);
+}
+
+.zone-badge-name {
+  font-weight: 800;
+  font-size: .92rem;
+}
+
+.zone-badge-count {
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--accent-ink);
+}
+
+.zone-badge-head {
+  font-size: .72rem;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+
+.district-card {
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: .85rem .95rem;
+}
+
+.dc-cluster {
+  font-size: .64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--accent-ink);
+  margin-bottom: .3rem;
+}
+
+.dc-name {
+  font-weight: 800;
+  font-size: .92rem;
+  color: var(--ink);
+}
+
+.dc-role {
+  font-size: .78rem;
+  color: var(--ink-soft);
+  margin: .1rem 0 .3rem;
+}
+
+.dc-districts {
+  font-size: .76rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.district-card .mpp-actions {
+  margin-top: .7rem;
+}
+
+/* covered states get a pointer cursor; everything else on the India map
+   stays inert (no personnel data to show) */
+.state-covered {
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .mp-india-panel {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mp-india-panel {
+    max-width: none;
+    padding: 1.4rem 1.25rem;
+  }
+
+  .idp-hq-actions:not(:empty) > .mpp-actions,
+  .district-card .mpp-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .idp-grid-zones {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .zone-badge,
+  .mpp-crumb-btn {
+    transition: none;
+  }
+}
+
 /* ══ DARK MODE ══ */
 html[data-theme="dark"] .mpp {
   background: linear-gradient(180deg, rgba(27, 31, 38, .94) 0%, rgba(32, 36, 44, .92) 50%, rgba(18, 21, 26, .9) 100%);
