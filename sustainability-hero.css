@@ -218,6 +218,38 @@
   .sush-pulse::after { opacity: 0; }
 }
 
+/* ── drifting glow-dot particles (mirrors .hero-particles on the
+   homepage / .ph-particles on the products page) — a separate rising
+   float layer, distinct from the stationary .sush-pulse ring effect
+   above. Plain spans injected once by sustainability-hero.js with
+   randomized CSS custom properties, animated purely by the keyframe
+   below. ── */
+.sush-particles { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+
+.sush-particle {
+  position: absolute;
+  bottom: -5%;
+  left: var(--x, 50%);
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--hue, var(--accent-2));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 117, 24, .6));
+  opacity: 0;
+  animation: sushParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes sushParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .7; }
+  85% { opacity: .35; }
+  100% { transform: translateY(-115vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sush-particle { animation: none !important; }
+}
+
 /* ══ content ══ */
 .sush-inner {
   position: relative;

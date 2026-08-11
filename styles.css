@@ -24,7 +24,7 @@
   --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --font-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
-  --nav-h:80px;
+  --nav-h:96px;
 }
 html[data-theme="dark"]{
   --bg:#12151A;
@@ -103,7 +103,7 @@ a{ color:inherit; }
 @media(prefers-reduced-motion: reduce){ .site-nav{ transition:background .3s ease, box-shadow .3s ease; } }
 .nav-brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; }
 .nav-brand svg{ width:52px; height:52px; flex-shrink:0; }
-.nav-brand-logo{ width:52px; height:52px; flex-shrink:0; object-fit:contain; }
+.nav-brand-logo{ width:88px; height:88px; flex-shrink:0; object-fit:contain; }
 .nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#1B1F26; line-height:1.3; }
 .nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-ink); }
 .nav-links{ display:flex; align-items:center; gap:1.3rem; list-style:none; }
@@ -272,7 +272,7 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 @media(max-width:380px){
   .site-nav{ padding:0 1rem; gap:.4rem; }
   .nav-brand-text{ font-size:.68rem; }
-  .nav-brand svg, .nav-brand-logo{ width:40px; height:40px; }
+  .nav-brand svg, .nav-brand-logo{ width:46px; height:46px; }
 }
 
 /* page content sits below the fixed nav */
@@ -606,3 +606,44 @@ html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h1, html[data-t
 html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h3, html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h4{
   color:var(--ink);
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   SITE-WIDE FLOATING WHATSAPP BUTTON (injected by site.js on every page)
+   ══════════════════════════════════════════════════════════════════ */
+.wa-float{
+  position:fixed; right:1.6rem; bottom:1.6rem; z-index:3000;
+  width:60px; height:60px; border-radius:50%;
+  background:#25D366; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 20px rgba(37,211,102,.42), 0 2px 8px rgba(15,23,42,.18);
+  transition:transform .25s cubic-bezier(.16,.84,.44,1), box-shadow .25s ease;
+  text-decoration:none; isolation:isolate;
+}
+.wa-float:hover{ transform:translateY(-3px) scale(1.06); box-shadow:0 12px 30px rgba(37,211,102,.5), 0 3px 10px rgba(15,23,42,.22); }
+.wa-float svg{ width:32px; height:32px; position:relative; z-index:1; }
+.wa-float-pulse{
+  position:absolute; inset:0; border-radius:50%; background:#25D366; z-index:-1;
+  animation:waPulse 2.4s ease-out infinite;
+}
+@keyframes waPulse{ 0%{ transform:scale(1); opacity:.55; } 100%{ transform:scale(1.7); opacity:0; } }
+@media(prefers-reduced-motion: reduce){ .wa-float-pulse{ animation:none; } }
+@media(max-width:640px){ .wa-float{ right:1.1rem; bottom:1.1rem; width:52px; height:52px; } .wa-float svg{ width:27px; height:27px; } }
+
+/* ══════════════════════════════════════════════════════════════════
+   QUICK-CONTACT BAR — WhatsApp / Call / Email / Book a Meeting
+   Used in product page heroes (.page-header-cta) and bottom CTA bands.
+   Colors pick up whatever --surface/--border/--ink/--accent are scoped
+   to the section it's dropped into (dark hero vs dark cta-band alike).
+   ══════════════════════════════════════════════════════════════════ */
+.qc-bar{ display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; margin-top:1.3rem; }
+.qc-btn{
+  display:inline-flex; align-items:center; gap:.5rem; padding:.65rem 1.15rem;
+  border-radius:2rem; font-family:var(--font-mono); font-size:.76rem; font-weight:700;
+  letter-spacing:.03em; text-decoration:none; border:1.5px solid var(--border);
+  background:var(--surface); color:var(--ink); transition:all .25s ease;
+}
+.qc-btn svg{ width:16px; height:16px; flex-shrink:0; }
+.qc-btn:hover{ transform:translateY(-2px); border-color:var(--accent); box-shadow:0 10px 22px rgba(20,22,28,.16); }
+.qc-btn.qc-whatsapp{ background:#25D366; border-color:#25D366; color:#fff; }
+.qc-btn.qc-whatsapp:hover{ background:#20BD5A; border-color:#20BD5A; }
+.qc-btn.qc-call{ background:var(--accent); border-color:var(--accent); color:#fff; }
+.qc-btn.qc-call:hover{ background:var(--accent-deep); border-color:var(--accent-deep); }

@@ -5,8 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Concrete Reinforcement, TMT &amp; QST Reinforcement Bars | Shakambhari Group</title>
-<meta name="description" content="TMT & QST reinforcement bars from Shakambhari Group, 8mm to 32mm, the steel that holds concrete together.">
+<meta name="description" content="TMT/QST reinforcement bars 8mm to 32mm, Elegant 550D, Elegant 500D, Thermocon 500D and Thermocon Lite 500D grades, TEMPCORE-engineered for seismic ductility.">
 <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/page-header-particles.css">
 <style>
 .page-header{
   --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
@@ -17,7 +18,8 @@
 .page-header .kicker{ justify-content:center; color:var(--accent-hot); }
 .page-header .kicker::before{ background:var(--accent); }
 .page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.2rem); max-width:24ch; margin:0 auto; }
-.page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
+.page-header .tagline{ color:var(--accent-hot); font-weight:700; font-size:1.02rem; max-width:56ch; margin:1rem auto 0; }
+.page-header p.sub{ color:var(--ink-dim); max-width:62ch; margin:.8rem auto 0; font-size:1.02rem; }
 .page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
 @media(max-width:860px){ .split{ grid-template-columns:1fr; } }
@@ -25,6 +27,14 @@
 .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; margin-bottom:1.1rem; }
 .split p:last-child{ margin-bottom:0; }
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
+.why-panel{ max-width:820px; margin:0 auto; padding:2.4rem 2.6rem; position:relative; }
+.why-panel::before{ content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--accent-hot),var(--accent),var(--accent-deep)); }
+.why-panel p{ color:var(--ink-soft); font-size:1.02rem; line-height:1.8; }
+.spec-extra-table-wrap{ overflow-x:auto; border-radius:1rem; border:1px solid var(--border); margin-top:1.6rem; }
+.spec-extra-table{ width:100%; border-collapse:collapse; min-width:480px; }
+.spec-extra-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.74rem; letter-spacing:.04em; padding:.8rem 1rem; text-align:left; white-space:nowrap; }
+.spec-extra-table td{ padding:.75rem 1rem; border-top:1px solid var(--border); font-size:.9rem; color:var(--ink); font-family:var(--font-mono); }
+.spec-extra-table tr:nth-child(even) td{ background:var(--surface-2); }
 </style>
 </head>
 <body>
@@ -42,7 +52,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="/index.html">Home</a></li>
     <li class="has-dropdown">
-      <a href="/about.html" class="dropdown-label">About</a>
+      <a href="/journey.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="/journey.html">Our Journey</a>
         <a href="/vision.html">Mission, Vision &amp; Values</a>
@@ -59,8 +69,8 @@
           <a href="/steel/">Steel</a>
           <div class="dropdown-flyout">
             <a href="/steel/">All Steel Products</a>
-            <a href="/steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
-            <a href="/steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+            <a href="/steel/concrete-reinforcement/">TMT &amp; Rebars</a>
+            <a href="/steel/heavy-structural/">Structural Steel</a>
             <div class="has-dropdown">
               <a href="/steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
               <div class="dropdown-flyout">
@@ -70,8 +80,8 @@
                 <a href="/steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
               </div>
             </div>
-            <a href="/steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
-            <a href="/steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+            <a href="/steel/precision-strips/">Steel Strips</a>
+            <a href="/steel/scaffolding-systems/">Scaffolding Pipes</a>
             <div class="has-dropdown">
               <a href="/steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
               <div class="dropdown-flyout">
@@ -128,44 +138,162 @@
 </nav>
 
 <header class="page-header">
+  <div class="page-header-particles" aria-hidden="true"></div>
   <nav class="breadcrumb reveal" aria-label="Breadcrumb">
     <a href="/index.html">Home</a><span class="bc-sep">/</span><a href="/steel/">Steel</a><span class="bc-sep">/</span><span class="bc-current">Concrete Reinforcement</span>
   </nav>
   <div class="kicker reveal">CATEGORY 1</div>
   <h1 class="reveal">Concrete Reinforcement (Rebars &amp; Accessories)</h1>
-  <p class="reveal">Concrete is like bone, strong under pressure, but brittle under twisting or pulling. Our TMT/QST rebar is the muscle inside it, engineered to bend without breaking under earthquakes, heavy winds or traffic loads.</p>
+  <p class="tagline reveal">The muscle inside every concrete structure, hard on the outside, flexible at the core.</p>
   <div class="page-header-cta reveal">
-    <a href="#products" class="btn btn-primary">View Products</a>
-    <a href="/contact.html" class="btn btn-ghost">Contact Sales</a>
+    <a href="#specs" class="btn btn-primary">View Specifications</a>
+    <a href="/contact.html" class="btn btn-ghost">Request Bulk Quote</a>
+  </div>
+  <div class="qc-bar reveal">
+    <a href="https://wa.me/916293148696?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20products." target="_blank" rel="noopener" class="qc-btn qc-whatsapp"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.25.62 4.36 1.7 6.16L4 29l7.99-1.66a12 12 0 0 0 4.03.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3Zm7.03 17.13c-.3.85-1.72 1.63-2.38 1.73-.62.1-1.38.14-2.22-.14-.51-.16-1.17-.38-2.02-.75-3.55-1.53-5.87-5.1-6.05-5.34-.18-.24-1.44-1.92-1.44-3.66s.9-2.6 1.23-2.96c.3-.32.65-.4.87-.4.22 0 .43 0 .62.01.2.01.47-.08.73.56l.9 2.16c.08.18.13.38.03.6-.1.24-.15.38-.3.58-.15.2-.32.45-.46.6-.15.16-.31.34-.14.66.18.32.78 1.28 1.67 2.07 1.15 1.03 2.12 1.35 2.44 1.5.33.16.52.14.71-.08.2-.21.83-.94 1.04-1.27.21-.32.42-.27.71-.16.3.1 1.88.88 2.2 1.04.33.16.54.24.62.38.08.14.08.79-.22 1.62Z"/></svg>WhatsApp</a>
+    <a href="tel:+916293148696" class="qc-btn qc-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>Call</a>
+    <a href="mailto:info@shakambharigroup.in" class="qc-btn qc-email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6l8 6 8-6"/></svg>Email</a>
+    <a href="/contact.html" class="qc-btn qc-book" data-booking-link="pending"><!-- TODO: replace with real booking/scheduling link --><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a Meeting</a>
   </div>
 </header>
 
+<!-- WHAT IS IT -->
 <section class="section">
   <div class="split">
     <div>
-      <div class="kicker reveal">ABOUT THIS CATEGORY</div>
-      <h2 class="reveal">The Steel That Holds Concrete Together</h2>
-      <p class="reveal">TMT (Thermo-Mechanically Treated) rebar is crafted through a rapid-cooling heat process that creates a rock-hard outer shell around a flexible, shock-absorbing soft core, placed inside liquid concrete before it sets so the finished structure can bend, not break, during earthquakes, heavy winds or traffic loads.</p>
-      <p class="reveal">Every grade and diameter is quenched and self-tempered through the same TEMPCORE process and tested against IS 1786:2008 before it ever leaves the mill, from house slabs to skyscraper pillars and dam foundations.</p>
+      <div class="kicker reveal">WHAT IS IT?</div>
+      <h2 class="reveal">Strong Bones Need Flexible Muscle</h2>
+      <p class="reveal">Imagine a giant concrete building as a human body. Concrete is like the bones, it is extremely strong when you push down on it, but it can crack easily if pulled or twisted.</p>
+      <p class="reveal">TMT (Thermo-Mechanically Treated) steel rebars act like strong muscles inside the concrete. They are steel rods crafted through a unique rapid-cooling heat process that creates a rock-hard outer shell with a flexible, shock-absorbing soft inner core. Every grade and diameter is quenched and self-tempered through the same TEMPCORE process and tested against IS 1786:2008 before it ever leaves the mill, embossed Elegant Steel QST 500D on every rod, the steel that will one day hold up the roof over a family's dinner table.</p>
     </div>
-    <img src="/images/elegant_qst_bar.jpeg" alt="TMT / QST Reinforcement Bars" class="split-photo reveal">
+    <img src="/images/product page/tmt qst reenforcement bar page and subpages/TMT_bars_for_construction_202608101215.jpeg" alt="Elegant Steel QST 500D rebar framing a family's dining room in their under-construction home" class="split-photo reveal" loading="lazy">
   </div>
 </section>
 
 <div class="divider"></div>
 
-<section class="section" id="products">
+<!-- USE CASES -->
+<section class="section">
   <div class="section-head reveal">
-    <div class="kicker center">PRODUCTS IN THIS CATEGORY</div>
-    <h2>One Product, Fully Specified</h2>
+    <div class="kicker center">PRIMARY PURPOSE &amp; BEST USE CASES</div>
+    <h2>Bends, Not Breaks, When the Ground Shakes</h2>
+    <p>TMT bars are placed inside liquid concrete before it sets. Their main job is to bend without breaking when earthquakes, heavy winds, or traffic shake a building.</p>
   </div>
-  <div class="subprod-grid cols-1">
-    <a href="/steel/concrete-reinforcement/tmt-qst-bars/" class="subprod-card panel reveal">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 3v18M6 8l6-5 6 5M6 16l6 5 6-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <h3>TMT &amp; QST Reinforcement Bars</h3>
-      <p>8 MM to 32 MM Elegant and Thermocon grade bars, from house slabs to skyscraper pillars and dam foundations.</p>
-      <span class="steel-hub-link">Explore TMT/QST Bars →</span>
-    </a>
+  <div class="usecase-grid">
+    <div class="usecase-item panel reveal">
+      <div class="usecase-size">8 MM &amp; 10 MM</div>
+      <p>Best used for house floor slabs, balconies, staircases, and small support rings (stirrups).</p>
+    </div>
+    <div class="usecase-item panel reveal">
+      <div class="usecase-size">12 MM &amp; 16 MM</div>
+      <p>Best used for the main load-bearing vertical columns, floor beams, and ceiling frames of multi-story houses and office buildings.</p>
+    </div>
+    <div class="usecase-item panel reveal">
+      <div class="usecase-size">20 MM, 25 MM &amp; 32 MM</div>
+      <p>Best used for heavy foundations, high-rise skyscraper pillars, bridge piers, flyovers, and dams.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SPECIFICATIONS -->
+<section class="section" id="specs">
+  <div class="section-head reveal">
+    <div class="kicker center">PRODUCT SPECIFICATIONS</div>
+    <h2>Clean, Scannable Parameters</h2>
+  </div>
+  <div class="split">
+    <div>
+      <dl class="spec-dl panel reveal" style="padding:1.6rem 2rem;">
+        <div class="spec-dl-row"><dt>Available Diameters</dt><dd>8 MM, 10 MM, 12 MM, 16 MM, 20 MM, 25 MM, 32 MM</dd></div>
+        <div class="spec-dl-row"><dt>Surface Design</dt><dd>Deep spiral ribbed pattern designed to lock tightly into concrete like a screw</dd></div>
+      </dl>
+      <div class="spec-extra-table-wrap reveal">
+        <table class="spec-extra-table">
+          <thead><tr><th>Featured Certified Brand &amp; Grade</th></tr></thead>
+          <tbody>
+            <tr><td>8 MM, ELEGANT 550 D (High-Ductility Grade for seismic earthquake safety)</td></tr>
+            <tr><td>10 MM, ELEGANT 500 D</td></tr>
+            <tr><td>12 MM, THERMOCON 500 D</td></tr>
+            <tr><td>16 MM, THERMOCON LITE 500 D</td></tr>
+            <tr><td>20–32 MM, Mill-Certified Heavy Infrastructure Grade</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <picture>
+      <source type="image/avif" srcset="/optimized-images/images/product-pages/tmt-what-is-it-aerial-tying.avif">
+      <source type="image/webp" srcset="/optimized-images/images/product-pages/tmt-what-is-it-aerial-tying.webp">
+      <img src="/optimized-images/images/product-pages/tmt-what-is-it-aerial-tying.jpg" alt="Workers tying TMT rebar to spec on a construction site" class="split-photo reveal" loading="lazy">
+    </picture>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OUR TMT BRANDS -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">OUR TMT BRANDS</div>
+    <h2>Two Certified Lines, One Standard</h2>
+    <p>Every diameter is sold under one of two certified TMT brands, both TEMPCORE-quenched and IS 1786:2008 tested before dispatch.</p>
+  </div>
+  <div class="split">
+    <div>
+      <div class="kicker reveal">BRAND · SINCE 1993</div>
+      <h2 class="reveal">Elegant Steel, Fe 550D QST Bar</h2>
+      <p class="reveal">India's No.1 QST bar, rolled at SPS Steels' Durgapur and Purulia units. High-ductility Fe 500D / 550D grade, engineered for superior bond strength, corrosion resistance and earthquake safety, the mark customers look for on every rebar leaving our mills.</p>
+    </div>
+    <img src="/images/product page/tmt qst reenforcement bar page and subpages/ELEGANT_STEEL.jpg_202608101122.jpeg" alt="Elegant Steel Fe 550D QST bar tags on coiled rebar" class="split-photo reveal">
+  </div>
+  <div class="split" style="margin-top:2.4rem;">
+    <div>
+      <div class="kicker reveal">BRAND · TMT BARS</div>
+      <h2 class="reveal">Thermocon TMT, The No Compromise Steel</h2>
+      <p class="reveal">HSD &amp; QST TMT rebar produced at Eloquent Steel's continuous rolling mills, IS 1786 licensed and TEMPCORE-engineered alongside Elegant as our second certified TMT line, built for the same seismic-grade ductility at every diameter.</p>
+    </div>
+    <img src="/images/product page/tmt qst reenforcement bar page and subpages/thermocon-tmt-bar.jpeg_202608101122.jpeg" alt="Thermocon TMT bar tags on coiled rebar" class="split-photo reveal">
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY CHOOSE -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">WHY CHOOSE OUR TMT BARS?</div>
+    <h2>Steel That Stretches to Save Lives</h2>
+  </div>
+  <div class="split">
+    <div class="why-panel panel reveal" style="margin:0;">
+      <p>Our TMT bars carry the official "D" (Ductility) certification, proven on a full-scale seismic simulation bed, not just a lab coupon. That means during an earthquake, instead of snapping suddenly, our steel stretches safely to absorb the earth's energy, giving families precious time to reach safety.</p>
+    </div>
+    <img src="/images/product page/tmt qst reenforcement bar page and subpages/Concrete_building_with_seismic_r…_202608101207.jpeg" alt="D-certified ductile TMT reinforcement steel undergoing seismic simulation testing on a full-scale concrete frame" class="split-photo reveal" loading="lazy">
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="kicker center">FREQUENTLY ASKED QUESTIONS</div>
+    <h2>TMT Bars, Common Questions</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item panel reveal">
+      <summary>What does the "D" in 500D / 550D mean?</summary>
+      <p class="faq-a">It's the official Ductility certification. D-grade bars stretch and absorb energy during an earthquake instead of snapping suddenly, the standard choice for seismic zones.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>Which diameter should I use, a column or a slab?</summary>
+      <p class="faq-a">8mm and 10mm suit slabs, balconies and stirrups; 12mm and 16mm suit columns and beams; 20mm to 32mm suit heavy foundations, high-rise pillars, bridges and dams. Talk to our sales team for a structural-drawing-specific recommendation.</p>
+    </details>
+    <details class="faq-item panel reveal">
+      <summary>Do your TMT bars come with Mill Test Certificates?</summary>
+      <p class="faq-a">Yes, every bulk shipment comes complete with official Mill Test Certificates confirming chemical composition and mechanical strength tests.</p>
+    </details>
   </div>
 </section>
 
@@ -185,6 +313,12 @@
     <div class="cta-btn-row">
       <a href="/contact.html" class="btn btn-primary">Request Commercial Bulk Quote →</a>
       <a href="/steel/" class="btn btn-ghost">Back to Steel Hub</a>
+    </div>
+    <div class="qc-bar reveal">
+      <a href="https://wa.me/916293148696?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20products." target="_blank" rel="noopener" class="qc-btn qc-whatsapp"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.25.62 4.36 1.7 6.16L4 29l7.99-1.66a12 12 0 0 0 4.03.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3Zm7.03 17.13c-.3.85-1.72 1.63-2.38 1.73-.62.1-1.38.14-2.22-.14-.51-.16-1.17-.38-2.02-.75-3.55-1.53-5.87-5.1-6.05-5.34-.18-.24-1.44-1.92-1.44-3.66s.9-2.6 1.23-2.96c.3-.32.65-.4.87-.4.22 0 .43 0 .62.01.2.01.47-.08.73.56l.9 2.16c.08.18.13.38.03.6-.1.24-.15.38-.3.58-.15.2-.32.45-.46.6-.15.16-.31.34-.14.66.18.32.78 1.28 1.67 2.07 1.15 1.03 2.12 1.35 2.44 1.5.33.16.52.14.71-.08.2-.21.83-.94 1.04-1.27.21-.32.42-.27.71-.16.3.1 1.88.88 2.2 1.04.33.16.54.24.62.38.08.14.08.79-.22 1.62Z"/></svg>WhatsApp</a>
+      <a href="tel:+916293148696" class="qc-btn qc-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>Call</a>
+      <a href="mailto:info@shakambharigroup.in" class="qc-btn qc-email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6l8 6 8-6"/></svg>Email</a>
+      <a href="/contact.html" class="qc-btn qc-book" data-booking-link="pending"><!-- TODO: replace with real booking/scheduling link --><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a Meeting</a>
     </div>
   </div>
 </section>
@@ -242,5 +376,7 @@
 </footer>
 
 <script src="/site.js"></script>
+<script src="/page-header-particles.js" defer></script>
+<script src="/wa-float.js"></script>
 </body>
 </html>
