@@ -717,7 +717,8 @@
       background: #14161C;
     }
 
-    .pillar-img-wrap img {
+    .pillar-img-wrap img,
+    .pillar-img-wrap video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -725,7 +726,8 @@
       transition: transform .55s cubic-bezier(.16, .84, .44, 1);
     }
 
-    .pillar-card:hover .pillar-img-wrap img {
+    .pillar-card:hover .pillar-img-wrap img,
+    .pillar-card:hover .pillar-img-wrap video {
       transform: scale(1.08);
     }
 
@@ -1137,7 +1139,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
       <li class="has-dropdown">
-        <a href="about.html" class="dropdown-label">About</a>
+        <a href="journey.html" class="dropdown-label">About</a>
         <div class="dropdown">
           <a href="journey.html">Our Journey</a>
           <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -1154,8 +1156,8 @@
             <a href="steel/">Steel</a>
             <div class="dropdown-flyout">
               <a href="steel/">All Steel Products</a>
-              <a href="steel/concrete-reinforcement/tmt-qst-bars/">TMT &amp; Rebars</a>
-              <a href="steel/heavy-structural/isa-equal-angles/">Structural Steel</a>
+              <a href="steel/concrete-reinforcement/">TMT &amp; Rebars</a>
+              <a href="steel/heavy-structural/">Structural Steel</a>
               <div class="has-dropdown">
                 <a href="steel/espl-tubes/">Structural Tubes &amp; Pipes</a>
                 <div class="dropdown-flyout">
@@ -1165,8 +1167,8 @@
                   <a href="steel/espl-tubes/rhs-box-pipes/">Rectangular Pipes (RHS)</a>
                 </div>
               </div>
-              <a href="steel/precision-strips/hr-cr-slit-strips/">Steel Strips</a>
-              <a href="steel/scaffolding-systems/staging-pipes/">Scaffolding Pipes</a>
+              <a href="steel/precision-strips/">Steel Strips</a>
+              <a href="steel/scaffolding-systems/">Scaffolding Pipes</a>
               <div class="has-dropdown">
                 <a href="steel/wire-rods-and-wires/">Wire Rods &amp; Wires</a>
                 <div class="dropdown-flyout">
@@ -1647,7 +1649,11 @@
                 <a href="quality.html#qc-2" class="pillar-card qcc-card">
                   <div class="pillar-img-wrap">
                     <span class="pillar-badge">02 · LIVE MONITORING</span>
-                    <img src="images/Sponge_Iron.jpeg" alt="Sponge Iron output" loading="lazy">
+                    <picture>
+                      <source type="image/avif" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.avif">
+                      <source type="image/webp" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.webp">
+                      <img src="optimized-images/images/quality/cp2-monitoring-feed-rate.jpg" alt="Control room monitoring live DRI feed rate and kiln temperature" loading="lazy">
+                    </picture>
                   </div>
                   <div class="pillar-body">
                     <h4>DRI Live Monitoring &amp; Lab Analysis</h4>
@@ -1662,7 +1668,11 @@
                 <a href="quality.html#qc-3" class="pillar-card qcc-card">
                   <div class="pillar-img-wrap">
                     <span class="pillar-badge">03 · LAB TEST</span>
-                    <img src="images/Ferro_Alloy_Photo.jpeg" alt="Ferro Alloys" loading="lazy">
+                    <picture>
+                      <source type="image/avif" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.avif">
+                      <source type="image/webp" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.webp">
+                      <img src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="SMS lab inspector examining incoming pig iron" loading="lazy">
+                    </picture>
                   </div>
                   <div class="pillar-body">
                     <h4>SMS Lab Analysis</h4>
@@ -1696,7 +1706,11 @@
                 <a href="quality.html#qc-5" class="pillar-card qcc-card">
                   <div class="pillar-img-wrap">
                     <span class="pillar-badge">05 · LAB TEST</span>
-                    <img src="images/MS_Billets.jpeg" alt="M.S. Billets" loading="lazy">
+                    <picture>
+                      <source type="image/avif" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.avif">
+                      <source type="image/webp" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.webp">
+                      <img src="optimized-images/images/quality/cp5-billets-emerging-from-machine.jpg" alt="Billets emerging from the casting machine for inspection" loading="lazy">
+                    </picture>
                   </div>
                   <div class="pillar-body">
                     <h4>Billet Inspection &amp; Documentation</h4>
@@ -1730,7 +1744,11 @@
                 <a href="quality.html#qc-7" class="pillar-card qcc-card">
                   <div class="pillar-img-wrap">
                     <span class="pillar-badge">07 · LAB TEST</span>
-                    <img src="images/elegant_qst_bar.jpeg" alt="Elegant QST TMT Bars" loading="lazy">
+                    <picture>
+                      <source type="image/avif" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.avif">
+                      <source type="image/webp" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.webp">
+                      <img src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="Engineer inspecting finished TMT bars in the materials testing lab" loading="lazy">
+                    </picture>
                   </div>
                   <div class="pillar-body">
                     <h4>Finished Material Testing</h4>
@@ -2034,7 +2052,7 @@
                 <picture>
   <source type="image/avif" srcset="optimized-images/images/Shakambhari_Agrotech.avif">
   <source type="image/webp" srcset="optimized-images/images/Shakambhari_Agrotech.webp">
-  <img src="optimized-images/images/Shakambhari_Agrotech.jpg" alt="Shakambhari Agrotech Private Limited" loading="lazy" width="1600" height="908" decoding="async">
+  <img src="optimized-images/images/Shakambhari_Agrotech.jpg" alt="Shakambhari Agrotech Private Limited" loading="lazy" width="1600" height="896" decoding="async">
 </picture>
                 <button type="button" class="grp-hotspot" style="top:30%; left:30%;">
                   <span class="grp-hotspot-tip">🌿 Organic Fields</span>
@@ -2148,16 +2166,11 @@
 
               <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="The Earth Gives">
                 <a href="process.html#s1" class="pillar-card pcc-card">
-                  <div class="pillar-img-wrap icon-wrap">
+                  <div class="pillar-img-wrap">
                     <span class="pillar-badge">CHAPTER I</span>
-                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <ellipse cx="38" cy="70" rx="30" ry="20" fill="url(#oreGrad)" />
-                      <ellipse cx="30" cy="55" rx="18" ry="13" fill="url(#oreGrad)" opacity=".85" />
-                      <ellipse cx="82" cy="72" rx="28" ry="18" fill="url(#charGrad)" />
-                      <ellipse cx="90" cy="58" rx="16" ry="11" fill="url(#charGrad)" opacity=".9" />
-                      <circle cx="38" cy="60" r="4" fill="#F0C79A" opacity=".6" />
-                      <circle cx="86" cy="62" r="3" fill="#7C8797" opacity=".5" />
-                    </svg>
+                    <video class="pcc-video" muted loop playsinline preload="none"
+                      poster="optimized-images/images/process/s1-mining-excavators-poster.jpg"
+                      data-src="optimized-videos/process/s1-mining-excavators.mp4" aria-label="Excavators and dump trucks mining coal at Shakambhari's own mines"></video>
                   </div>
                   <div class="pillar-body">
                     <h4>The Earth Gives</h4>
@@ -2170,19 +2183,11 @@
 
               <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Shaped for Purpose">
                 <a href="process.html#s2" class="pillar-card pcc-card">
-                  <div class="pillar-img-wrap icon-wrap">
+                  <div class="pillar-img-wrap">
                     <span class="pillar-badge">CHAPTER II</span>
-                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="24" y="38" width="72" height="46" rx="6" fill="url(#steelGrad)" />
-                      <rect x="30" y="44" width="60" height="32" rx="4" fill="url(#silverGrad)" opacity=".5" />
-                      <polygon points="40,22 80,22 72,38 48,38" fill="#4A5560" />
-                      <circle cx="46" cy="98" r="7" fill="url(#oreGrad)" />
-                      <circle cx="63" cy="102" r="7" fill="url(#oreGrad)" />
-                      <circle cx="80" cy="98" r="7" fill="url(#oreGrad)" />
-                      <circle cx="55" cy="108" r="5" fill="url(#oreGrad)" opacity=".85" />
-                      <circle cx="72" cy="108" r="5" fill="url(#oreGrad)" opacity=".85" />
-                      <circle cx="60" cy="61" r="9" fill="none" stroke="#FF6A1F" stroke-width="2" stroke-dasharray="4 4" />
-                    </svg>
+                    <video class="pcc-video" muted loop playsinline preload="none"
+                      poster="optimized-images/images/process/s2-pellet-pouring-poster.jpg"
+                      data-src="optimized-videos/process/s2-pellet-pouring.mp4" aria-label="Iron ore pellets pouring at the pelletization plant"></video>
                   </div>
                   <div class="pillar-body">
                     <h4>Shaped for Purpose</h4>
@@ -2195,17 +2200,11 @@
 
               <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="The Stripping Away">
                 <a href="process.html#s3" class="pillar-card pcc-card">
-                  <div class="pillar-img-wrap icon-wrap">
+                  <div class="pillar-img-wrap">
                     <span class="pillar-badge">~950°C · KILN</span>
-                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <ellipse cx="60" cy="34" rx="34" ry="11" fill="#3E4550" />
-                      <rect x="26" y="34" width="68" height="56" fill="url(#steelGrad)" />
-                      <ellipse cx="60" cy="90" rx="34" ry="11" fill="#2E343D" />
-                      <line x1="42" y1="48" x2="42" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" />
-                      <line x1="60" y1="44" x2="60" y2="80" stroke="url(#emberGrad)" stroke-width="3" opacity=".75" />
-                      <line x1="78" y1="48" x2="78" y2="76" stroke="url(#emberGrad)" stroke-width="3" opacity=".6" />
-                      <ellipse cx="60" cy="94" rx="13" ry="8" fill="url(#emberGrad)" />
-                    </svg>
+                    <video class="pcc-video" muted loop playsinline preload="none"
+                      poster="optimized-images/images/process/s3-rotary-kiln-poster.jpg"
+                      data-src="optimized-videos/process/s3-rotary-kiln.mp4" aria-label="Industrial rotary kiln rotating during direct reduction"></video>
                   </div>
                   <div class="pillar-body">
                     <h4>The Stripping Away</h4>
@@ -2218,19 +2217,11 @@
 
               <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Where It Becomes One">
                 <a href="process.html#s4" class="pillar-card pcc-card">
-                  <div class="pillar-img-wrap icon-wrap">
+                  <div class="pillar-img-wrap">
                     <span class="pillar-badge">~1600°C · EAF</span>
-                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="22" y="40" width="76" height="60" rx="8" fill="url(#steelGrad)" />
-                      <rect x="28" y="46" width="64" height="48" rx="6" fill="#2E343D" />
-                      <ellipse cx="60" cy="82" rx="26" ry="9" fill="url(#emberGrad)" />
-                      <rect x="42" y="12" width="7" height="32" rx="3" fill="#7C8797" />
-                      <rect x="57" y="10" width="7" height="34" rx="3" fill="#7C8797" />
-                      <rect x="72" y="12" width="7" height="32" rx="3" fill="#7C8797" />
-                      <line x1="45" y1="46" x2="45" y2="58" stroke="#3E9FD8" stroke-width="2" />
-                      <line x1="60" y1="44" x2="60" y2="56" stroke="#3E9FD8" stroke-width="2" />
-                      <line x1="75" y1="46" x2="75" y2="58" stroke="#3E9FD8" stroke-width="2" />
-                    </svg>
+                    <video class="pcc-video" muted loop playsinline preload="none"
+                      poster="optimized-images/images/process/s4-induction-furnace-poster.jpg"
+                      data-src="optimized-videos/process/s4-induction-furnace.mp4" aria-label="Steel making inside the induction furnace"></video>
                   </div>
                   <div class="pillar-body">
                     <h4>Where It Becomes One</h4>
@@ -2243,15 +2234,11 @@
 
               <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Discipline Takes Form">
                 <a href="process.html#s5" class="pillar-card pcc-card">
-                  <div class="pillar-img-wrap icon-wrap">
+                  <div class="pillar-img-wrap">
                     <span class="pillar-badge">CONTINUOUS CASTING</span>
-                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M30 16 Q60 10 90 16 L84 46 Q60 52 36 46 Z" fill="url(#steelGrad)" />
-                      <rect x="55" y="48" width="10" height="20" rx="3" fill="url(#emberGrad)" />
-                      <rect x="42" y="68" width="36" height="16" rx="3" fill="#3E4550" />
-                      <rect x="46" y="84" width="28" height="30" rx="2" fill="url(#silverGrad)" />
-                      <rect x="46" y="84" width="28" height="4" fill="url(#emberGrad)" opacity=".7" />
-                    </svg>
+                    <video class="pcc-video" muted loop playsinline preload="none"
+                      poster="optimized-images/images/process/s5-continuous-casting-pour-poster.jpg"
+                      data-src="optimized-videos/process/s5-continuous-casting-pour.mp4" aria-label="Molten steel being poured during continuous casting"></video>
                   </div>
                   <div class="pillar-body">
                     <h4>Discipline Takes Form</h4>
@@ -2264,18 +2251,11 @@
 
               <div class="pcc-slide" role="group" aria-roledescription="slide" aria-label="Pressure Reveals Purpose">
                 <a href="process.html#s6" class="pillar-card pcc-card">
-                  <div class="pillar-img-wrap icon-wrap">
+                  <div class="pillar-img-wrap">
                     <span class="pillar-badge">ROLLING MILL</span>
-                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="18" y="24" width="84" height="72" rx="7" fill="url(#steelGrad)" />
-                      <ellipse cx="60" cy="50" rx="30" ry="11" fill="#2E343D" />
-                      <ellipse cx="60" cy="72" rx="30" ry="11" fill="#2E343D" />
-                      <rect x="30" y="56" width="60" height="10" rx="2" fill="url(#barGrad)" />
-                      <circle cx="24" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-                      <circle cx="96" cy="50" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-                      <circle cx="24" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-                      <circle cx="96" cy="72" r="7" fill="#3E4550" stroke="#7C8797" stroke-width="1.5" />
-                    </svg>
+                    <video class="pcc-video" muted loop playsinline preload="none"
+                      poster="optimized-images/images/process/s6b-billet-rolling-poster.jpg"
+                      data-src="optimized-videos/process/s6b-billet-rolling.mp4" aria-label="A red-hot billet driven through the rolling mill under pressure"></video>
                   </div>
                   <div class="pillar-body">
                     <h4>Pressure Reveals Purpose</h4>
@@ -5845,6 +5825,7 @@
   <script src="hero-cinematic.js"></script>
   <script src="process-carousel.js"></script>
   <script src="quality-carousel.js"></script>
+<script src="wa-float.js"></script>
 </body>
 
 </html>

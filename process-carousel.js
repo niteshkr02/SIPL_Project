@@ -92,6 +92,17 @@
 
       const card = slide.querySelector('.pcc-card');
       if (card) card.tabIndex = delta === 0 ? 0 : -1;
+
+      // ── stage video: only the centered slide's clip plays; every side slide pauses ──
+      const video = slide.querySelector('.pcc-video');
+      if (video) {
+        if (delta === 0) {
+          if (!video.src && video.dataset.src) video.src = video.dataset.src;
+          if (!reduceMotion) video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      }
     });
 
     dots.forEach((dot, i) => {
