@@ -3623,16 +3623,11 @@
       // One set of functions drives markers, state-shape tinting, route
       // brightening and the map "focus" zoom consistently no matter which
       // of those four entry points triggered it.
-<<<<<<< HEAD
       // Nothing is locked by default — no pin, state tint or route on the
       // map itself is pre-selected until the user actually interacts with
       // it. (The card's own default text, shown before any interaction,
       // is handled separately by showDefaultCardText() below — it never
       // touches the map.)
-=======
-      // Nothing is locked by default, the panel shows an empty "hover a
-      // marker" hint until the user actually interacts with the map.
->>>>>>> be3f87c91abe0ca5b4cc40daf79bb4238742fbc8
       const lockedSelection = { india: null, world: null };
 
       // Card-only defaults: which item's details the info card shows before
@@ -4092,16 +4087,11 @@
           else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
           activeDataset = indiaStatesData;
           renderQuickList(indiaStatesData);
-<<<<<<< HEAD
           if (lockedSelection.india) {
             updateVendorCard(indiaStatesData.find(d => d.id === lockedSelection.india));
           } else {
             showDefaultCardText(indiaStatesData.find(s => s.id === DEFAULT_CARD_ITEM_ID.india));
           }
-=======
-          const current = lockedSelection.india ? indiaStatesData.find(d => d.id === lockedSelection.india) : defaultIndiaItem;
-          updateVendorCard(current);
->>>>>>> be3f87c91abe0ca5b4cc40daf79bb4238742fbc8
           setIndiaHighlight(lockedSelection.india);
         });
       }
