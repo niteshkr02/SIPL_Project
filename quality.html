@@ -65,6 +65,43 @@
 .qc-checkpoint-body{ position:relative; z-index:1; display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:2rem; align-items:start; }
 @media(max-width:860px){ .qc-checkpoint-body{ grid-template-columns:1fr; } }
 
+/* ══ QC HERO MEDIA — compact click-through photo gallery: small main frame,
+   thumbnail strip, prev/next arrows. No autoplay, click-driven only. ══ */
+.qc-hero-photos{ display:flex; flex-direction:column; gap:.55rem; }
+.qc-hero-main{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:1rem; overflow:hidden;
+  border:1.5px solid #262A34; background:#0E0F13;
+}
+.qc-hero-main img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity .45s ease;
+}
+.qc-hero-main img.active{ opacity:1; }
+.qc-hero-main::after{
+  content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(0deg, rgba(0,0,0,.4) 0%, transparent 32%);
+}
+.qc-hero-arrow{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(10,11,14,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.22); color:#fff; padding:0; cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+.qc-hero-arrow:hover{ background:rgba(255,106,31,.85); border-color:transparent; }
+.qc-hero-arrow.prev{ left:.55rem; }
+.qc-hero-arrow.next{ right:.55rem; }
+.qc-hero-arrow svg{ width:15px; height:15px; }
+.qc-hero-thumbs{ display:flex; gap:.45rem; }
+.qc-hero-thumb{
+  flex:1; aspect-ratio:16/9; border-radius:.55rem; overflow:hidden; cursor:pointer; padding:0;
+  border:2px solid transparent; background:none; opacity:.5;
+  transition:opacity .25s ease, border-color .25s ease;
+}
+.qc-hero-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.qc-hero-thumb:hover{ opacity:.85; }
+.qc-hero-thumb.active{ opacity:1; border-color:var(--accent,#FF6A1F); }
+
 .qc-mini-flow{ display:flex; flex-wrap:wrap; align-items:stretch; gap:.6rem; align-content:flex-start; }
 .qc-substep{
   flex:1 1 175px; min-width:165px; position:relative;
