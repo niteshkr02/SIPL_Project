@@ -141,6 +141,7 @@
   /* match the contained mobile image card (see .ins-hero-visual below)
      so points stay confined to the photo, not the surrounding gutter */
   .ins-pulse-field { top: 0; right: 1.25rem; bottom: 2.2rem; left: 1.25rem; inset: auto; border-radius: 1.25rem; overflow: hidden; }
+  .ins-hero-particles { top: 0; right: 1.25rem; bottom: 2.2rem; left: 1.25rem; inset: auto; border-radius: 1.25rem; overflow: hidden; }
 }
 
 .ins-pulse-dot {
@@ -218,6 +219,38 @@
 @media (prefers-reduced-motion: reduce) {
   .ins-pulse-dot { animation: none !important; opacity: .25; transform: translate(-50%, -50%) scale(1); }
   .ins-pulse-dot--signal::after { animation: none !important; display: none; }
+}
+
+/* ── drifting glow-dot particles (mirrors .hero-particles on the
+   homepage / .ph-particles on the products page) — a separate rising
+   float layer, distinct from the stationary .ins-pulse-dot signal
+   points above. Plain spans injected once by insight-hero.js with
+   randomized CSS custom properties, animated purely by the keyframe
+   below. ── */
+.ins-hero-particles { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+
+.ins-hero-particle {
+  position: absolute;
+  bottom: -5%;
+  left: var(--x, 50%);
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--hue, var(--accent-2));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 117, 24, .6));
+  opacity: 0;
+  animation: insHeroParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes insHeroParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .7; }
+  85% { opacity: .35; }
+  100% { transform: translateY(-115vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ins-hero-particle { animation: none !important; }
 }
 
 /* ══ content ══ */

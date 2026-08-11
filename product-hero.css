@@ -1,0 +1,476 @@
+/* ════════════════════════════════════════════════════════════════════
+   PRODUCT HERO — cinematic industrial split (Products page only)
+   Isolated component: scoped tokens on .product-hero, own markup, own
+   entrance system (mirrors hero-cinematic.css's .hero-loaded pattern).
+   Photo technique follows the site's proven full-inset-photo + single
+   scrim rule (see .hero-photo/.hero-photo-scrim on the homepage): one
+   real photo (images/product-hero-visual.jpg — rebar, steel/aluminium
+   coils, ferro-alloy bowl and a construction frame at sunset) bleeds
+   edge-to-edge on desktop, weighted right so the left text column
+   reads clean; on mobile it becomes a contained card that flows in
+   after the three product categories.
+   ════════════════════════════════════════════════════════════════════ */
+
+.product-hero {
+  --ph-navy: #061B49;
+  --ph-navy2: #08265C;
+  --ph-dark: #020814;
+  --ph-orange: #FF6B00;
+  --ph-orange2: #FF7518;
+  --ph-white: #FFFFFF;
+  --ph-gray: #D8DEE8;
+
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--nav-h) + 2.75rem) 1.75rem 4.75rem;
+  min-height: clamp(720px, 92vh, 940px);
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse 65% 55% at 82% 18%, rgba(255, 107, 0, .16), transparent 62%),
+    linear-gradient(150deg, var(--ph-dark) 0%, var(--ph-navy) 48%, var(--ph-navy2) 100%);
+  color: var(--ph-white);
+}
+
+/* ══ BACKGROUND LAYERS (ambient glow only) ══
+   The world map + orange constellation are baked into the hero photo
+   itself (images/product-hero-visual.jpg); this layer just adds two
+   soft ambient light blobs behind it. ══ */
+.ph-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* drifting glow-dot particles (mirrors .hero-particles on the homepage):
+   plain spans positioned once by product-hero.js with randomized CSS
+   custom properties, then animated purely by the shared keyframe below
+   — cheap at any particle count, floats bottom-to-top across the hero. */
+.ph-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ph-particle {
+  position: absolute;
+  bottom: -5%;
+  left: var(--x, 50%);
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--hue, var(--ph-orange2));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 117, 24, .6));
+  opacity: 0;
+  animation: phParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes phParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .7; }
+  85% { opacity: .35; }
+  100% { transform: translateY(-115vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+.ph-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.ph-glow-a { top: 6%; right: 8%; width: 30vw; height: 30vw; background: rgba(255, 107, 0, .18); }
+.ph-glow-b { bottom: -6%; left: 18%; width: 24vw; height: 24vw; background: rgba(8, 38, 92, .55); }
+
+/* ══ LAYOUT ══
+   The hero photo is a full-bleed layer of its own (see .ph-visual below),
+   not a grid column — .ph-inner exists purely to center/pad the text
+   column so the right two-thirds of the photo stays unobstructed,
+   exactly like the homepage's .hero-inner / .hero-photo split. */
+.ph-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ph-content { min-width: 0; }
+
+@media (min-width: 960px) {
+  .ph-content { max-width: 45%; }
+}
+
+/* ══ KICKER ══ */
+.ph-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: 1.4rem;
+}
+
+.ph-kicker-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  stroke: var(--ph-orange);
+  fill: none;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 6px rgba(255, 107, 0, .45));
+}
+
+.ph-kicker-text {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.ph-kicker-label {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  color: var(--ph-orange);
+  text-transform: uppercase;
+}
+
+.ph-kicker-rule {
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ph-orange), var(--ph-orange2));
+  border-radius: 2px;
+}
+
+/* ══ HEADLINE ══ */
+.product-hero h1.ph-heading {
+  text-transform: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 4.6vw, 3.85rem);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin: 0 0 1.3rem;
+}
+
+.ph-line { display: block; overflow: hidden; padding-bottom: .1em; }
+.ph-line-inner { display: block; color: var(--ph-white); }
+.ph-line-inner.ph-accent { color: var(--ph-orange); }
+
+.ph-desc {
+  color: var(--ph-gray);
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  line-height: 1.7;
+  max-width: 46ch;
+  margin: 0 0 2.1rem;
+}
+
+/* ══ CTA ══ */
+.ph-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: .3rem .3rem .3rem 1.7rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--ph-orange2), var(--ph-orange));
+  box-shadow: 0 10px 30px rgba(255, 107, 0, .35), 0 0 0 1px rgba(255, 255, 255, .06) inset;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
+}
+
+.ph-cta-label {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.ph-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.ph-cta-arrow svg { width: 17px; height: 17px; }
+
+.ph-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(255, 107, 0, .46), 0 0 0 1px rgba(255, 255, 255, .08) inset; }
+.ph-cta:hover .ph-cta-arrow { transform: translateX(5px); }
+.ph-cta:focus-visible { outline: 2px solid var(--ph-white); outline-offset: 3px; }
+
+/* ══ THREE PRODUCT CATEGORIES ══ */
+.ph-categories {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+}
+
+.ph-cat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .7rem;
+  padding: .2rem 0;
+  flex: 1;
+  min-width: 0;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.ph-sep {
+  width: 1px;
+  align-self: stretch;
+  background: linear-gradient(180deg, transparent, rgba(255, 107, 0, .4), transparent);
+  flex-shrink: 0;
+}
+
+.ph-cat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 107, 0, .5);
+  box-shadow: 0 0 16px rgba(255, 107, 0, .18);
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.ph-cat-icon svg {
+  width: 21px;
+  height: 21px;
+  stroke: var(--ph-orange);
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.ph-cat h3 {
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: .84rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  color: var(--ph-white);
+  margin: 0;
+  transition: color .3s ease;
+}
+
+.ph-cat p {
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--ph-gray);
+  opacity: .82;
+  margin: 0;
+  transition: opacity .3s ease;
+}
+
+.ph-cat:hover { transform: translateY(-4px); }
+.ph-cat:hover .ph-cat-icon { box-shadow: 0 0 26px rgba(255, 107, 0, .4); }
+.ph-cat:hover .ph-cat-icon svg { transform: scale(1.08); }
+.ph-cat:hover h3 { color: var(--ph-orange); }
+.ph-cat:hover p { opacity: 1; }
+
+/* ══ HERO VISUAL: full-bleed photo + single scrim (proven pattern —
+   see .hero-photo/.hero-photo-scrim on the homepage). The uploaded
+   reference composition (rebar, coils, ferro-alloy bowl, construction
+   frame, sunset) is one real photo, not stitched cutouts: on desktop
+   it bleeds edge-to-edge behind the text column; on mobile it becomes
+   a contained card that flows in after the categories. ══ */
+.ph-visual {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+.ph-visual-frame {
+  position: absolute;
+  inset: 0;
+  transition: transform .4s ease-out;
+}
+
+.ph-visual-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 40%;
+  filter: saturate(1.05) contrast(1.04) brightness(.97);
+}
+
+.ph-visual-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, var(--ph-dark) 0%, rgba(2, 8, 20, .95) 16%, rgba(6, 27, 73, .72) 30%, rgba(6, 27, 73, .3) 46%, transparent 62%),
+    linear-gradient(180deg, rgba(2, 8, 20, .55) 0%, transparent 14%, transparent 78%, rgba(2, 8, 20, .6) 100%),
+    radial-gradient(ellipse 60% 55% at 74% 55%, transparent 55%, rgba(2, 8, 20, .32) 100%);
+}
+
+.ph-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 220, 180, .16) 48%, rgba(255, 220, 180, .28) 50%, rgba(255, 220, 180, .16) 52%, transparent 60%);
+  background-size: 260% 260%;
+  background-position: 120% 0%;
+  animation: phSweep 8s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes phSweep {
+  0%, 100% { background-position: 120% 0%; }
+  50% { background-position: -20% 100%; }
+}
+
+@media (min-width: 960px) {
+  .ph-visual {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+}
+
+/* ══ BOTTOM ORANGE CURVE ══ */
+.ph-curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: clamp(36px, 6vw, 70px);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.ph-curve path {
+  fill: none;
+  stroke: var(--ph-orange);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 0, .55));
+}
+
+/* ══ ENTRANCE (JS flips .ph-loaded on .product-hero) ══ */
+.ph-kicker, .ph-line-inner, .ph-desc, .ph-cta, .ph-cat {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ph-loaded .ph-kicker { opacity: 1; transform: none; transition-delay: .1s; }
+.ph-loaded .ph-line:nth-child(1) .ph-line-inner { opacity: 1; transform: none; transition-delay: .2s; }
+.ph-loaded .ph-line:nth-child(2) .ph-line-inner { opacity: 1; transform: none; transition-delay: .3s; }
+.ph-loaded .ph-desc { opacity: 1; transform: none; transition-delay: .4s; }
+.ph-loaded .ph-cta { opacity: 1; transform: none; transition-delay: .55s; }
+.ph-loaded .ph-cat:nth-child(1) { opacity: 1; transform: none; transition-delay: .7s; }
+.ph-loaded .ph-cat:nth-child(3) { opacity: 1; transform: none; transition-delay: .8s; }
+.ph-loaded .ph-cat:nth-child(5) { opacity: 1; transform: none; transition-delay: .9s; }
+
+.ph-visual {
+  opacity: 0;
+  transform: translateX(20px) scale(1.03);
+  transition: opacity 1.7s cubic-bezier(.22, 1, .36, 1), transform 1.7s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ph-loaded .ph-visual { opacity: 1; transform: none; }
+
+/* subtle mouse parallax on background depth layers only (text stays put) */
+.ph-bg, .ph-visual-frame {
+  transition: transform .4s ease-out;
+}
+
+/* ══ TABLET / MOBILE SHARED: .ph-visual sits outside .ph-inner in the
+   markup (after it, before the curve), so once it drops out of absolute
+   full-bleed mode below it simply flows in normal document order —
+   after all text content and the three categories — with no order/
+   flex tricks required. ══ */
+@media (max-width: 959px) {
+  /* .ph-visual becomes a normal-flow sibling of .ph-inner here (see the
+     ≥960px rule above that pulls it out via position:absolute); without
+     this, .product-hero's own display:flex (row, used to vertically
+     center .ph-inner on desktop) would lay the two out side by side
+     instead of stacked. */
+  .product-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 4rem; min-height: auto; }
+  .ph-content { max-width: none; }
+
+  .ph-visual {
+    max-width: 620px;
+    margin: 2.4rem auto 0;
+    aspect-ratio: 1.15 / 1;
+    min-height: 300px;
+    border-radius: 1.25rem;
+    box-shadow: 0 18px 44px rgba(2, 8, 20, .45);
+  }
+  .ph-visual-frame img { object-position: 70% 44%; }
+  .ph-visual-scrim {
+    background:
+      linear-gradient(100deg, rgba(2, 8, 20, .55) 0%, transparent 28%),
+      linear-gradient(180deg, rgba(2, 8, 20, .4) 0%, transparent 16%, transparent 76%, rgba(2, 8, 20, .5) 100%);
+  }
+
+  .ph-categories { gap: 1.1rem; }
+  .ph-cat h3 { font-size: .78rem; }
+  .ph-cat p { font-size: .76rem; }
+}
+
+/* ══ MOBILE: intentional vertical order (kicker → heading → desc → CTA
+   → categories → visual), all achieved through normal flow ══ */
+@media (max-width: 640px) {
+  .product-hero { padding: calc(var(--nav-h) + 1.6rem) 1.15rem 3.25rem; }
+
+  .ph-kicker { margin-bottom: 1.1rem; }
+  .ph-heading { margin-bottom: 1rem; }
+  .ph-desc { margin-bottom: 1.6rem; }
+  .ph-cta { margin-bottom: 2.2rem; }
+  .ph-categories { margin-top: 0; margin-bottom: 0; }
+
+  .product-hero h1.ph-heading { font-size: clamp(2rem, 9vw, 2.6rem); }
+
+  .ph-categories {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .ph-cat {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: .9rem 0;
+    border-top: 1px solid rgba(255, 107, 0, .18);
+  }
+
+  .ph-cat:first-child { border-top: none; }
+  .ph-cat:hover { transform: none; }
+  .ph-sep { display: none; }
+  .ph-cat-icon { flex-shrink: 0; }
+
+  .ph-visual { max-width: 100%; aspect-ratio: 1.25 / 1; min-height: 240px; margin-top: 2rem; }
+  .ph-visual-frame img { object-position: 76% 46%; }
+}
+
+/* ══ ACCESSIBILITY: reduced motion ══ */
+@media (prefers-reduced-motion: reduce) {
+  .ph-kicker, .ph-line-inner, .ph-desc, .ph-cta, .ph-cat, .ph-visual {
+    transition: opacity .4s ease !important;
+    transform: none !important;
+  }
+  .ph-sweep, .ph-particle {
+    animation: none !important;
+  }
+  .ph-bg, .ph-visual-frame {
+    transition: none !important;
+  }
+}

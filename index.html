@@ -2311,7 +2311,7 @@
           🌐 International Presence (29+ Countries)
         </button>
         <button class="map-tab-btn active" id="tabIndiaBtn" data-target="indiaMapWrap">
-          🇮🇳 Domestic Network (8 Zones · 113 Team Members)
+          🇮🇳 Domestic Network (15 States · 113 Team Members)
         </button>
       </div>
 
@@ -2593,7 +2593,7 @@
             <div class="map-tab-content active" id="indiaMapWrap">
               <div class="india-map-container">
                 <div class="map-header">
-                  <span class="map-badge"><span class="pulse-dot"></span> 8 ZONES · 113 PERSONNEL</span>
+                  <span class="map-badge"><span class="pulse-dot"></span> 15 STATES · 113 PERSONNEL</span>
                   <span class="map-subtitle">Interactive Domestic Distribution Network</span>
                 </div>
 
@@ -4886,37 +4886,97 @@
         }
       ];
 
-      // Some personnel zones span several map states (North India, North
-      // East); North Bengal covers only part of West Bengal. Every other
-      // state/UT on the map has no personnel data and stays non-interactive
-      // on this tab.
-      const STATE_SLUG_TO_ZONE = {
-        'haryana': 'north-india', 'punjab': 'north-india', 'rajasthan': 'north-india',
-        'uttarakhand': 'north-india', 'himachal-pradesh': 'north-india', 'jammu-and-kashmir': 'north-india',
+      // Some personnel zones in the source PDF bundle several states under one
+      // regional head (North India covers 6 states, North East covers 3);
+      // showing them as one shared bubble/card meant every state in that
+      // zone lit up together and stacked identical popovers on screen. So
+      // the site view is state-based instead: every covered state gets its
+      // own independent card, bubble and popover, built here by splitting
+      // each zone's roster to the actual state each person's cluster/
+      // district text belongs to (a regional GM/DGM with no single
+      // assigned state — e.g. slNo 1 covers all of North India — appears
+      // under every state in their zone, since they're the only contact
+      // for the ones with no dedicated local rep, like Himachal Pradesh
+      // and J&K here).
+      const REGION_MEMBER_STATE_MAP = {
+        1: ['haryana', 'punjab', 'rajasthan', 'uttarakhand', 'himachal-pradesh', 'jammu-and-kashmir'],
+        2: ['haryana'], 3: ['haryana'], 4: ['haryana'], 5: ['haryana'], 6: ['haryana'], 7: ['haryana'], 8: ['haryana'],
+        9: ['punjab'], 10: ['punjab'], 11: ['punjab'], 12: ['punjab'], 13: ['punjab'],
+        14: ['rajasthan'], 15: ['rajasthan'], 16: ['rajasthan'], 17: ['rajasthan'], 18: ['rajasthan'],
+        19: ['rajasthan'], 20: ['rajasthan'], 21: ['rajasthan'], 51: ['rajasthan'],
+        22: ['uttarakhand'],
+        34: ['assam', 'tripura', 'meghalaya'],
+        35: ['assam'], 36: ['assam'], 37: ['assam'], 38: ['assam'], 39: ['assam'], 40: ['assam'],
+        41: ['assam'], 42: ['assam'], 46: ['assam'], 47: ['assam'], 48: ['assam'], 49: ['assam'],
+        43: ['tripura'], 44: ['tripura'], 45: ['tripura'],
+        50: ['meghalaya']
+      };
+
+      // every zone not listed above maps entirely onto one state (North
+      // Bengal's coverage is only part of West Bengal on the map, hence the
+      // 'west-bengal' slug)
+      const ZONE_SINGLE_STATE = {
         'jharkhand': 'jharkhand',
         'madhya-pradesh': 'madhya-pradesh',
-        'assam': 'north-east', 'tripura': 'north-east', 'meghalaya': 'north-east',
         'uttar-pradesh': 'uttar-pradesh',
         'odisha': 'odisha',
         'bihar': 'bihar',
-        'west-bengal': 'north-bengal'
+        'north-bengal': 'west-bengal'
       };
 
-      function findZone(key) { return indiaZonesData.find(z => z.key === key) || null; }
+      function isHeadDesignation(desig) {
+        const d = (desig || '').toUpperCase();
+        return ['GM', 'DGM', 'SH', 'AGM', 'SENIOR MANAGER'].some((k) => d.includes(k));
+      }
+
+      // bubble coordinates reused from the original (pre-refactor) fake
+      // per-state data; Uttarakhand never had its own entry there, so its
+      // position is estimated from the map's own geography
+      const COVERED_STATE_MARKERS = [
+        { slug: 'rajasthan', code: 'RJ', name: 'Rajasthan', left: '27.6%', top: '34.8%' },
+        { slug: 'haryana', code: 'HR', name: 'Haryana', left: '31.6%', top: '30.1%' },
+        { slug: 'punjab', code: 'PB', name: 'Punjab', left: '27.8%', top: '22.7%' },
+        { slug: 'uttarakhand', code: 'UK', name: 'Uttarakhand', left: '37.5%', top: '27.5%' },
+        { slug: 'himachal-pradesh', code: 'HP', name: 'Himachal Pradesh', left: '30.8%', top: '22.6%' },
+        { slug: 'jammu-and-kashmir', code: 'JK', name: 'Jammu & Kashmir', left: '24.6%', top: '17.2%' },
+        { slug: 'uttar-pradesh', code: 'UP', name: 'Uttar Pradesh', left: '44.2%', top: '35.0%' },
+        { slug: 'madhya-pradesh', code: 'MP', name: 'Madhya Pradesh', left: '27.8%', top: '47.6%' },
+        { slug: 'bihar', code: 'BR', name: 'Bihar', left: '57.7%', top: '38.8%' },
+        { slug: 'jharkhand', code: 'JH', name: 'Jharkhand', left: '58.3%', top: '45.7%' },
+        { slug: 'west-bengal', code: 'WB', name: 'West Bengal', left: '68.1%', top: '48.0%' },
+        { slug: 'odisha', code: 'OD', name: 'Odisha', left: '59.9%', top: '54.9%' },
+        { slug: 'assam', code: 'AS', name: 'Assam', left: '78.9%', top: '37.2%' },
+        { slug: 'tripura', code: 'TR', name: 'Tripura', left: '77.5%', top: '44.2%' },
+        { slug: 'meghalaya', code: 'ML', name: 'Meghalaya', left: '79.5%', top: '38.9%' }
+      ];
+
+      function buildIndiaStatesFlat() {
+        const personnelBySlug = {};
+        COVERED_STATE_MARKERS.forEach((m) => { personnelBySlug[m.slug] = []; });
+
+        indiaZonesData.forEach((zone) => {
+          zone.districtPersonnel.forEach((person) => {
+            const slugs = REGION_MEMBER_STATE_MAP[person.slNo] || (ZONE_SINGLE_STATE[zone.key] ? [ZONE_SINGLE_STATE[zone.key]] : []);
+            slugs.forEach((slug) => { if (personnelBySlug[slug]) personnelBySlug[slug].push(person); });
+          });
+        });
+
+        return COVERED_STATE_MARKERS
+          .map((m) => {
+            const personnel = personnelBySlug[m.slug] || [];
+            const head = personnel.find((p) => isHeadDesignation(p.designation)) || personnel[0] || null;
+            return { slug: m.slug, code: m.code, name: m.name, left: m.left, top: m.top, stateHead: head, districtPersonnel: personnel };
+          })
+          .filter((s) => s.districtPersonnel.length > 0);
+      }
+
+      const indiaStatesFlat = buildIndiaStatesFlat();
+      function findState(slug) { return indiaStatesFlat.find((s) => s.slug === slug) || null; }
 
       // blank/"-" contact fields should simply not render a dead tel:/mailto:
       // button, rather than link to nothing
       function telHref(num) { return num && num.trim() ? `tel:${num.replace(/\s+/g, '')}` : null; }
       function mailHref(addr) { return addr && addr.trim() ? `mailto:${addr.trim()}` : null; }
-
-      function contactRowsHtml(person) {
-        const rows = [];
-        if (person.phoneOfficial) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📞</span><div class="mpp-mini-text"><span class="mpp-label">Office Phone</span><span class="mpp-value">${person.phoneOfficial}</span></div></div>`);
-        if (person.phonePersonal) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📱</span><div class="mpp-mini-text"><span class="mpp-label">Personal Phone</span><span class="mpp-value">${person.phonePersonal}</span></div></div>`);
-        if (person.primaryEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">✉️</span><div class="mpp-mini-text"><span class="mpp-label">Email</span><span class="mpp-value">${person.primaryEmail}</span></div></div>`);
-        if (person.groupEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">🏢</span><div class="mpp-mini-text"><span class="mpp-label">Group Email</span><span class="mpp-value">${person.groupEmail}</span></div></div>`);
-        return rows.join('');
-      }
 
       function personActionsHtml(person, primaryLabel, secondaryLabel) {
         const callHref = telHref(person.phoneOfficial) || telHref(person.phonePersonal);
@@ -4927,32 +4987,37 @@
         return btns.length ? `<div class="mpp-actions">${btns.join('')}</div>` : '';
       }
 
-      // ── LEFT: state head card, updates whenever a zone is selected ──
+      // ── LEFT: state head card, updates whenever a state is selected ──
       const stateHeadCard = document.getElementById('stateHeadCard');
 
-      function renderStateHeadCard(zone) {
+      function renderStateHeadCard(state) {
         if (!stateHeadCard) return;
-        if (!zone) {
+        if (!state || !state.stateHead) {
           stateHeadCard.classList.add('is-empty');
           stateHeadCard.innerHTML = `<p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>`;
           return;
         }
         stateHeadCard.classList.remove('is-empty');
-        const head = zone.stateHead;
+        const head = state.stateHead;
+        const rows = [];
+        if (head.phoneOfficial) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📞</span><div class="mpp-mini-text"><span class="mpp-label">Office Phone</span><span class="mpp-value">${head.phoneOfficial}</span></div></div>`);
+        if (head.phonePersonal) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📱</span><div class="mpp-mini-text"><span class="mpp-label">Personal Phone</span><span class="mpp-value">${head.phonePersonal}</span></div></div>`);
+        if (head.primaryEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">✉️</span><div class="mpp-mini-text"><span class="mpp-label">Email</span><span class="mpp-value">${head.primaryEmail}</span></div></div>`);
+        if (head.groupEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">🏢</span><div class="mpp-mini-text"><span class="mpp-label">Group Email</span><span class="mpp-value">${head.groupEmail}</span></div></div>`);
         stateHeadCard.innerHTML = `
           <div class="shc-row">
             <span class="shc-avatar" aria-hidden="true">⭐</span>
             <div class="shc-id">
               <div class="shc-name">${head.empName}</div>
-              <div class="shc-role">${head.designation || 'State Head'} · ${zone.zoneState}</div>
+              <div class="shc-role">${head.designation || 'State Head'} · ${state.name}</div>
             </div>
           </div>
-          ${contactRowsHtml(head)}
+          ${rows.join('')}
           ${personActionsHtml(head, 'Call', 'Email')}
         `;
       }
 
-      // ── RIGHT: breadcrumb + back/forward history + zone/district grid ──
+      // ── RIGHT: breadcrumb + back/forward history + state/personnel grid ──
       const vendorLiveCard = document.getElementById('vendorLiveCard');
       const indiaDrillPanel = document.getElementById('indiaDrillPanel');
       const idpTitle = document.getElementById('idpTitle');
@@ -4963,15 +5028,15 @@
       const idpBackBtn = document.getElementById('idpBackBtn');
       const idpForwardBtn = document.getElementById('idpForwardBtn');
 
-      // simple two-level history: an array of zone keys (null = root "All
-      // States"), with a pointer — selecting a new zone truncates any
+      // simple two-level history: an array of state slugs (null = root "All
+      // States"), with a pointer — selecting a new state truncates any
       // forward entries, same as browser history
       const idpHistory = { stack: [null], pointer: 0 };
 
-      function idpNavigateTo(zoneKey) {
-        if (idpHistory.stack[idpHistory.pointer] === zoneKey) return;
+      function idpNavigateTo(stateSlug) {
+        if (idpHistory.stack[idpHistory.pointer] === stateSlug) return;
         idpHistory.stack = idpHistory.stack.slice(0, idpHistory.pointer + 1);
-        idpHistory.stack.push(zoneKey);
+        idpHistory.stack.push(stateSlug);
         idpHistory.pointer = idpHistory.stack.length - 1;
         renderCurrentIdpView();
       }
@@ -4988,41 +5053,43 @@
         renderCurrentIdpView();
       }
 
-      function selectZone(zoneKey) {
-        idpNavigateTo(zoneKey);
+      function selectState(stateSlug) {
+        idpNavigateTo(stateSlug);
       }
 
-      function renderZoneGrid() {
+      const TOTAL_UNIQUE_PERSONNEL = indiaZonesData.reduce((n, z) => n + z.totalCount, 0);
+
+      function renderStateGrid() {
         if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">🇮🇳</span> All States`;
-        if (idpSubtitle) idpSubtitle.textContent = `${indiaZonesData.length} zones · ${indiaZonesData.reduce((n, z) => n + z.totalCount, 0)} active personnel`;
+        if (idpSubtitle) idpSubtitle.textContent = `${indiaStatesFlat.length} states · ${TOTAL_UNIQUE_PERSONNEL} active personnel`;
         if (idpHqActions) idpHqActions.innerHTML = '';
         if (!idpGrid) return;
         idpGrid.className = 'idp-grid idp-grid-zones';
-        idpGrid.innerHTML = indiaZonesData.map(zone => `
-          <button type="button" class="zone-badge" data-zone="${zone.key}">
-            <span class="zone-badge-name">${zone.zoneState}</span>
-            <span class="zone-badge-count">${zone.totalCount} team members</span>
-            <span class="zone-badge-head">${zone.stateHead.empName} · ${zone.stateHead.designation || 'State Head'}</span>
+        idpGrid.innerHTML = indiaStatesFlat.map((state) => `
+          <button type="button" class="zone-badge" data-state="${state.slug}">
+            <span class="zone-badge-name">${state.name}</span>
+            <span class="zone-badge-count">${state.districtPersonnel.length} team members</span>
+            <span class="zone-badge-head">${state.stateHead ? state.stateHead.empName + ' · ' + (state.stateHead.designation || 'State Head') : ''}</span>
           </button>
         `).join('');
-        idpGrid.querySelectorAll('.zone-badge').forEach(btn => {
-          btn.addEventListener('click', () => selectZone(btn.dataset.zone));
+        idpGrid.querySelectorAll('.zone-badge').forEach((btn) => {
+          btn.addEventListener('click', () => selectState(btn.dataset.state));
         });
       }
 
-      function renderDistrictGrid(zoneKey) {
-        const zone = findZone(zoneKey);
-        if (!zone) { renderZoneGrid(); return; }
+      function renderDistrictGrid(stateSlug) {
+        const state = findState(stateSlug);
+        if (!state) { renderStateGrid(); return; }
 
-        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">📍</span> ${zone.zoneState}`;
-        if (idpSubtitle) idpSubtitle.textContent = `${zone.totalCount} team members across this zone's districts & clusters`;
-        if (idpHqActions) idpHqActions.innerHTML = personActionsHtml(zone.stateHead, 'Call State Head', 'Email State Office');
+        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">📍</span> ${state.name}`;
+        if (idpSubtitle) idpSubtitle.textContent = `${state.districtPersonnel.length} team members in ${state.name}`;
+        if (idpHqActions) idpHqActions.innerHTML = state.stateHead ? personActionsHtml(state.stateHead, 'Call State Head', 'Email State Office') : '';
 
         if (!idpGrid) return;
         idpGrid.className = 'idp-grid idp-grid-districts';
-        idpGrid.innerHTML = zone.districtPersonnel.map(person => `
+        idpGrid.innerHTML = state.districtPersonnel.map((person) => `
           <div class="district-card">
-            <div class="dc-cluster">${person.cluster || zone.zoneState}</div>
+            <div class="dc-cluster">${person.cluster || state.name}</div>
             <div class="dc-name">${person.empName}</div>
             <div class="dc-role">${person.designation || 'Team Member'}</div>
             <div class="dc-districts">${person.districts || ''}</div>
@@ -5032,183 +5099,77 @@
       }
 
       function renderCurrentIdpView() {
-        const zoneKey = idpHistory.stack[idpHistory.pointer];
+        const stateSlug = idpHistory.stack[idpHistory.pointer];
 
         if (idpBackBtn) idpBackBtn.disabled = idpHistory.pointer === 0;
         if (idpForwardBtn) idpForwardBtn.disabled = idpHistory.pointer >= idpHistory.stack.length - 1;
         if (idpCrumbTrail) {
-          const zone = zoneKey ? findZone(zoneKey) : null;
-          idpCrumbTrail.innerHTML = zone
-            ? `<button type="button" class="crumb-link" data-crumb="root">All States</button><span class="crumb-sep" aria-hidden="true">›</span><span class="crumb-current">${zone.zoneState}</span>`
+          const state = stateSlug ? findState(stateSlug) : null;
+          idpCrumbTrail.innerHTML = state
+            ? `<button type="button" class="crumb-link" data-crumb="root">All States</button><span class="crumb-sep" aria-hidden="true">›</span><span class="crumb-current">${state.name}</span>`
             : `<span class="crumb-current">All States</span>`;
           const rootLink = idpCrumbTrail.querySelector('[data-crumb="root"]');
           if (rootLink) rootLink.addEventListener('click', () => idpNavigateTo(null));
         }
 
-        paintIdpZone(zoneKey);
-        syncIndiaPinActiveState(zoneKey);
+        paintIdpState(stateSlug);
+        syncIndiaPinActiveState(stateSlug);
       }
 
       if (idpBackBtn) idpBackBtn.addEventListener('click', idpGoBack);
       if (idpForwardBtn) idpForwardBtn.addEventListener('click', idpGoForward);
 
-      // Bubble marker per covered STATE (not per zone — several states
-      // share a zone, e.g. North India, so each gets its own pin at its own
-      // coordinates, but hovering/clicking any of them previews/selects the
-      // zone it belongs to via STATE_SLUG_TO_ZONE).
-      const COVERED_STATE_MARKERS = [
-        {
-          "slug": "rajasthan",
-          "code": "RJ",
-          "name": "Rajasthan",
-          "left": "27.6%",
-          "top": "34.8%"
-        },
-        {
-          "slug": "haryana",
-          "code": "HR",
-          "name": "Haryana",
-          "left": "31.6%",
-          "top": "30.1%"
-        },
-        {
-          "slug": "punjab",
-          "code": "PB",
-          "name": "Punjab",
-          "left": "27.8%",
-          "top": "22.7%"
-        },
-        {
-          "slug": "uttarakhand",
-          "code": "UK",
-          "name": "Uttarakhand",
-          "left": "37.5%",
-          "top": "27.5%"
-        },
-        {
-          "slug": "himachal-pradesh",
-          "code": "HP",
-          "name": "Himachal Pradesh",
-          "left": "30.8%",
-          "top": "22.6%"
-        },
-        {
-          "slug": "jammu-and-kashmir",
-          "code": "JK",
-          "name": "Jammu & Kashmir",
-          "left": "24.6%",
-          "top": "17.2%"
-        },
-        {
-          "slug": "uttar-pradesh",
-          "code": "UP",
-          "name": "Uttar Pradesh",
-          "left": "44.2%",
-          "top": "35.0%"
-        },
-        {
-          "slug": "madhya-pradesh",
-          "code": "MP",
-          "name": "Madhya Pradesh",
-          "left": "27.8%",
-          "top": "47.6%"
-        },
-        {
-          "slug": "bihar",
-          "code": "BR",
-          "name": "Bihar",
-          "left": "57.7%",
-          "top": "38.8%"
-        },
-        {
-          "slug": "jharkhand",
-          "code": "JH",
-          "name": "Jharkhand",
-          "left": "58.3%",
-          "top": "45.7%"
-        },
-        {
-          "slug": "west-bengal",
-          "code": "WB",
-          "name": "West Bengal",
-          "left": "68.1%",
-          "top": "48.0%"
-        },
-        {
-          "slug": "odisha",
-          "code": "OD",
-          "name": "Odisha",
-          "left": "59.9%",
-          "top": "54.9%"
-        },
-        {
-          "slug": "assam",
-          "code": "AS",
-          "name": "Assam",
-          "left": "78.9%",
-          "top": "37.2%"
-        },
-        {
-          "slug": "tripura",
-          "code": "TR",
-          "name": "Tripura",
-          "left": "77.5%",
-          "top": "44.2%"
-        },
-        {
-          "slug": "meghalaya",
-          "code": "ML",
-          "name": "Meghalaya",
-          "left": "79.5%",
-          "top": "38.9%"
-        }
-      ];
-
-      function syncIndiaPinActiveState(zoneKey) {
-        if (!indiaPinsLayer) return;
-        indiaPinsLayer.querySelectorAll('.map-pin').forEach((p) => {
-          p.classList.toggle('active', !!zoneKey && STATE_SLUG_TO_ZONE[p.dataset.slug] === zoneKey);
+      function setStateHighlight(stateSlug) {
+        if (!statesGroupEl) return;
+        statesGroupEl.classList.toggle('has-active', !!stateSlug);
+        stateShapeEls.forEach((s) => {
+          s.classList.toggle('state-active', !!stateSlug && s.dataset.state === stateSlug);
         });
       }
 
-      function paintIdpZone(zoneKey) {
-        if (zoneKey) renderDistrictGrid(zoneKey);
-        else renderZoneGrid();
-        renderStateHeadCard(zoneKey ? findZone(zoneKey) : null);
-        setZoneHighlight(zoneKey);
+      function syncIndiaPinActiveState(stateSlug) {
+        if (!indiaPinsLayer) return;
+        indiaPinsLayer.querySelectorAll('.map-pin').forEach((p) => {
+          p.classList.toggle('active', !!stateSlug && p.dataset.slug === stateSlug);
+        });
+      }
+
+      function paintIdpState(stateSlug) {
+        if (stateSlug) renderDistrictGrid(stateSlug);
+        else renderStateGrid();
+        renderStateHeadCard(stateSlug ? findState(stateSlug) : null);
+        setStateHighlight(stateSlug);
       }
 
       // hover = temporary preview, does not touch history/breadcrumb/back-
       // forward, reverts to whatever is actually locked in on mouse-leave
       // (same hover-vs-lock split the World tab already uses)
-      function previewIdpZone(zoneKey) {
-        paintIdpZone(zoneKey);
+      function previewIdpState(stateSlug) {
+        paintIdpState(stateSlug);
       }
 
       function clearIdpPreview() {
-        paintIdpZone(idpHistory.stack[idpHistory.pointer]);
+        paintIdpState(idpHistory.stack[idpHistory.pointer]);
       }
 
       function renderIndiaMarkers() {
-        if (!indiaPinsLayer) return;
+        if (!indiaPinsLayer) return {};
         indiaPinsLayer.innerHTML = '';
         const pinsBySlug = {};
 
-        COVERED_STATE_MARKERS.forEach((marker) => {
-          const zoneKey = STATE_SLUG_TO_ZONE[marker.slug];
-          const zone = findZone(zoneKey);
-          if (!zone) return;
-          const head = zone.stateHead;
+        indiaStatesFlat.forEach((state) => {
+          const marker = COVERED_STATE_MARKERS.find((m) => m.slug === state.slug);
+          if (!marker || !state.stateHead) return;
+          const head = state.stateHead;
 
           const pin = document.createElement('div');
           pin.className = 'map-pin';
           pin.style.left = marker.left;
           pin.style.top = marker.top;
-          pin.dataset.slug = marker.slug;
-          pin.dataset.zone = zoneKey;
+          pin.dataset.slug = state.slug;
           pin.setAttribute('role', 'button');
           pin.setAttribute('tabindex', '0');
-          pin.setAttribute('aria-label', `${marker.name}, part of the ${zone.zoneState} team. Press Enter to view details.`);
+          pin.setAttribute('aria-label', `${state.name}, ${state.districtPersonnel.length} team members. Press Enter to view details.`);
           pin.style.setProperty('--breathe-dur', (2.6 + Math.random() * 1.6).toFixed(2) + 's');
           pin.style.setProperty('--breathe-delay', (Math.random() * 2).toFixed(2) + 's');
           pin.style.setProperty('--pulse-jitter', (Math.random() * 1.4).toFixed(2) + 's');
@@ -5223,7 +5184,6 @@
           const callNum = head.phoneOfficial || head.phonePersonal;
           const mailHrefVal = mailHref(head.groupEmail) || mailHref(head.primaryEmail);
           const mailAddr = head.groupEmail || head.primaryEmail;
-          const coverage = head.districts || head.cluster || zone.zoneState;
 
           pin.innerHTML = `
             <div class="pin-beacon">
@@ -5234,28 +5194,27 @@
             <div class="pin-tag">${marker.code}</div>
             <div class="${popoverClasses}">
               <div class="pop-state">
-                <span>📍 ${marker.name.toUpperCase()}</span>
-                <span class="pop-badge-type">${zone.zoneState} Zone</span>
+                <span>📍 ${state.name.toUpperCase()}</span>
+                <span class="pop-badge-type">${state.districtPersonnel.length} Personnel</span>
               </div>
-              <div class="pop-vendor">${zone.zoneState} Regional Team · ${zone.totalCount} personnel</div>
+              <div class="pop-vendor">${state.name} Regional Team</div>
               <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text"><strong>State Head:</strong> ${head.empName}${head.designation ? ` (${head.designation})` : ''}</span></div>
               ${callHref ? `<div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><strong>Phone:</strong> <a class="pop-link" href="${callHref}">${callNum}</a></span></div>` : ''}
               ${mailHrefVal ? `<div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><strong>Email:</strong> <a class="pop-link" href="${mailHrefVal}">${mailAddr}</a></span></div>` : ''}
-              <div class="pop-detail-line" style="border-top:1px solid var(--border); padding-top:0.35rem; margin-top:0.35rem;"><span class="pop-detail-icon">🏢</span><span class="pop-detail-text"><strong>Coverage:</strong> ${coverage}</span></div>
               <div class="pop-cta">Click to view details →</div>
             </div>
           `;
 
-          pin.addEventListener('mouseenter', () => { previewIdpZone(zoneKey); });
+          pin.addEventListener('mouseenter', () => { previewIdpState(state.slug); });
           pin.addEventListener('mouseleave', () => { clearIdpPreview(); });
-          pin.addEventListener('focus', () => { previewIdpZone(zoneKey); });
+          pin.addEventListener('focus', () => { previewIdpState(state.slug); });
           pin.addEventListener('blur', () => { clearIdpPreview(); });
-          pin.addEventListener('click', (e) => { e.stopPropagation(); selectZone(zoneKey); syncIndiaPinActiveState(zoneKey); });
+          pin.addEventListener('click', (e) => { e.stopPropagation(); selectState(state.slug); syncIndiaPinActiveState(state.slug); });
           pin.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectZone(zoneKey); syncIndiaPinActiveState(zoneKey); }
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectState(state.slug); syncIndiaPinActiveState(state.slug); }
           });
 
-          pinsBySlug[marker.slug] = pin;
+          pinsBySlug[state.slug] = pin;
           indiaPinsLayer.appendChild(pin);
         });
 
@@ -5311,14 +5270,6 @@
       // before the class-toggle write below, i.e. read-after-write thrashing).
       const statesGroupEl = document.querySelector('.states-group');
       const stateShapeEls = statesGroupEl ? Array.from(statesGroupEl.querySelectorAll('.state-shape')) : [];
-
-      function setZoneHighlight(zoneKey) {
-        if (!statesGroupEl) return;
-        statesGroupEl.classList.toggle('has-active', !!zoneKey);
-        stateShapeEls.forEach((s) => {
-          s.classList.toggle('state-active', !!zoneKey && STATE_SLUG_TO_ZONE[s.dataset.state] === zoneKey);
-        });
-      }
 
       function focusMapOnItem(item, dataList) {
         if (!window.gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -5658,7 +5609,7 @@
         return slug.split('-').map(w => w === 'and' ? 'and' : w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
       }
 
-      const indiaPinsBySlug = renderIndiaMarkers();
+            const indiaPinsBySlug = renderIndiaMarkers();
 
       document.querySelectorAll('.state-shape[data-state]').forEach((shape) => {
         const slug = shape.dataset.state;
@@ -5666,26 +5617,26 @@
         titleEl.textContent = slugToStateName(slug);
         shape.insertBefore(titleEl, shape.firstChild);
 
-        const zoneKey = STATE_SLUG_TO_ZONE[slug];
-        if (zoneKey) {
+        const state = findState(slug);
+        if (state) {
           shape.classList.add('state-covered');
-          // hovering the shape previews the zone AND shows its matching
+          // hovering the shape previews the state AND shows its matching
           // bubble's popover, so map-shape hover and pin hover read as the
           // same interaction no matter which one the pointer is actually over
           const pin = indiaPinsBySlug[slug];
           shape.addEventListener('mouseenter', () => {
-            previewIdpZone(zoneKey);
+            previewIdpState(slug);
             if (pin && !pin.classList.contains('active')) pin.classList.add('preview');
           });
           shape.addEventListener('mouseleave', () => {
             clearIdpPreview();
             if (pin) pin.classList.remove('preview');
           });
-          shape.addEventListener('click', () => { selectZone(zoneKey); syncIndiaPinActiveState(zoneKey); });
+          shape.addEventListener('click', () => { selectState(slug); syncIndiaPinActiveState(slug); });
         }
       });
 
-      // Default landing view: the "All States" zone grid + empty state-head
+      // Default landing view: the "All States" grid + empty state-head
       // hint, nothing pre-selected on the map until the user actually
       // hovers or clicks a covered state.
       renderCurrentIdpView();

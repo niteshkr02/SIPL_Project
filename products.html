@@ -6,19 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Product Portfolio | Shakambhari Group</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="product-hero.css">
 <style>
-/* ══ PAGE HEADER (dark, short) ══ */
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 4.5rem) 1.75rem 4.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.2rem,5.5vw,3.6rem); }
-.page-header p{ color:var(--ink-dim); max-width:60ch; margin:1.2rem auto 0; font-size:1.08rem; }
-
 /* ══ SPEC CARDS ══ */
 .spec-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
 @media(max-width:800px){ .spec-grid{ grid-template-columns:1fr; } }
@@ -161,11 +150,91 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HEADER -->
-<header class="page-header">
-  <div class="kicker reveal">PRODUCT PORTFOLIO</div>
-  <h1 class="reveal">Everything That Leaves Our Mills</h1>
-  <p class="reveal">From the pellets that start the chain to the bars that finish it, and the foil that's newest to it. Every product tested against IS, BIS and ISO standards before it ever reaches a customer.</p>
+<!-- PRODUCT HERO -->
+<header class="product-hero">
+  <div class="ph-bg" aria-hidden="true">
+    <div class="ph-particles" id="phParticles"></div>
+    <div class="ph-glow ph-glow-a"></div>
+    <div class="ph-glow ph-glow-b"></div>
+  </div>
+
+  <div class="ph-inner">
+    <div class="ph-content">
+      <div class="ph-kicker">
+        <svg class="ph-kicker-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2 L21 7 L21 17 L12 22 L3 17 L3 7 Z" />
+          <path d="M12 2 L12 12 M3 7 L12 12 L21 7 M12 12 L12 22" />
+        </svg>
+        <span class="ph-kicker-text">
+          <span class="ph-kicker-label">Products</span>
+          <span class="ph-kicker-rule"></span>
+        </span>
+      </div>
+
+      <h1 class="ph-heading">
+        <span class="ph-line"><span class="ph-line-inner">Built Strong.</span></span>
+        <span class="ph-line"><span class="ph-line-inner ph-accent">Built For The Future.</span></span>
+      </h1>
+
+      <p class="ph-desc">High-quality steel solutions engineered for strength, durability and performance across industries and applications.</p>
+
+      <a href="#categories" class="ph-cta">
+        <span class="ph-cta-label">Explore Products</span>
+        <span class="ph-cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <div class="ph-categories">
+        <div class="ph-cat">
+          <div class="ph-cat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2 L20 6 V11 C20 16.5 16.5 20.5 12 22 C7.5 20.5 4 16.5 4 11 V6 Z" />
+              <path d="M8.5 12 L11 14.5 L15.5 9.5" />
+            </svg>
+          </div>
+          <h3>Steel</h3>
+          <p>Strong. Reliable.<br>Built to last.</p>
+        </div>
+        <div class="ph-sep" aria-hidden="true"></div>
+        <div class="ph-cat">
+          <div class="ph-cat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 15 L15 9" />
+              <path d="M10.5 5.5 L13 3a4 4 0 0 1 6 6l-2.5 2.5" />
+              <path d="M13.5 18.5 L11 21a4 4 0 0 1-6-6l2.5-2.5" />
+            </svg>
+          </div>
+          <h3>Ferro Alloys</h3>
+          <p>Enhanced strength.<br>Maximum performance.</p>
+        </div>
+        <div class="ph-sep" aria-hidden="true"></div>
+        <div class="ph-cat">
+          <div class="ph-cat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="4" height="10" />
+              <rect x="10" y="6" width="4" height="14" />
+              <rect x="16" y="13" width="4" height="7" />
+            </svg>
+          </div>
+          <h3>Aluminium</h3>
+          <p>Lightweight. Versatile.<br>Future ready.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <figure class="ph-visual">
+    <div class="ph-visual-frame">
+      <img src="images/product-hero-visual.jpg" alt="Steel rebar, rolled steel coils and ferro-alloy material staged at an industrial construction site during sunset" loading="eager" fetchpriority="high" decoding="async">
+      <div class="ph-visual-scrim"></div>
+      <div class="ph-sweep"></div>
+    </div>
+  </figure>
+
+  <svg class="ph-curve" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C 340,72 1100,-14 1440,32" />
+  </svg>
 </header>
 
 <!-- PRODUCT CATEGORIES -->
@@ -353,5 +422,6 @@
 
 <script src="site.js"></script>
 <script src="wa-float.js"></script>
+<script src="product-hero.js" defer></script>
 </body>
 </html>

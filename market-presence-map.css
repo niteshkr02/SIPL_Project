@@ -908,3 +908,38 @@ html[data-theme="dark"] .pin-popover.popover-below::after {
 html[data-theme="dark"] .pop-badge-type {
   background: rgba(255, 122, 51, .15);
 }
+
+/* ── India pins only: don't keep the popover permanently open on .active ──
+   World's pins are spread across a whole globe, so a locked pin's popover
+   staying open rarely overlaps a neighbor. India's covered states cluster
+   tightly in places (all six North India states sit in one corner of the
+   map), so a permanently-open popover for whichever state is selected can
+   sit directly on top of — and intercept hover/click for — the pins next
+   to it. The right-hand drill-down panel already shows the same info in
+   full and persistently, so the on-map popover only needs to appear on
+   actual hover/focus here; the beacon glow (.pin-core, untouched) remains
+   the persistent "this one's selected" indicator. Scoped to #pinsLayer
+   (India) via ID specificity so World's #worldPinsLayer is unaffected. */
+#pinsLayer .map-pin.active .pin-popover {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+#pinsLayer .map-pin.active:hover .pin-popover,
+#pinsLayer .map-pin.active:focus-visible .pin-popover,
+#pinsLayer .map-pin.active.preview .pin-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+#pinsLayer .map-pin.active .pin-popover.popover-left {
+  transform: translateY(-8px);
+}
+
+#pinsLayer .map-pin.active:hover .pin-popover.popover-left,
+#pinsLayer .map-pin.active:focus-visible .pin-popover.popover-left,
+#pinsLayer .map-pin.active.preview .pin-popover.popover-left {
+  transform: translateY(0);
+}

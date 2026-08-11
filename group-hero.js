@@ -26,6 +26,29 @@
   const gsapReady = typeof window.gsap !== 'undefined';
   const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
+  // ── drifting glow particles: plain spans positioned once with
+  // randomized CSS custom properties, animated entirely by the shared
+  // CSS keyframe (no per-frame JS) ──
+  const particleHost = hero.querySelector('#gcHeroParticles');
+  if (particleHost && !reduceMotion) {
+    const COUNT = 14;
+    const hues = ['#FF6B00', '#FF7518'];
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < COUNT; i++) {
+      const span = document.createElement('span');
+      span.className = 'gc-hero-particle';
+      const dur = 14 + Math.random() * 12;
+      span.style.setProperty('--x', (Math.random() * 100) + '%');
+      span.style.setProperty('--size', (2 + Math.random() * 2.5) + 'px');
+      span.style.setProperty('--dur', dur + 's');
+      span.style.setProperty('--delay', (-Math.random() * dur) + 's');
+      span.style.setProperty('--drift', (Math.random() * 40 - 20) + 'px');
+      span.style.setProperty('--hue', hues[i % 2]);
+      frag.appendChild(span);
+    }
+    particleHost.appendChild(frag);
+  }
+
   function playEntrance() {
     if (!gsapReady || reduceMotion) {
       if (photo) { photo.style.opacity = 1; photo.style.transform = 'scale(1.035)'; }
