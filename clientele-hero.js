@@ -1,192 +1,106 @@
 /* ════════════════════════════════════════════════════════════════════
-   CLIENTELE — Cinematic Trust Hero behavior
-   Isolated component. Drives the entrance sequence (bg → badge →
-   heading → left trophy composition → right India network draw-in →
-   description → stats → CTA, ~2.5s total), the floating particle/ember
-   field, cursor + scroll parallax on the flanking visuals, the magnetic
-   CTA, and the stat counters. Falls back to a static, unanimated reveal
-   if GSAP failed to load or the user prefers reduced motion.
+   CLIENTELE — "Our Strength. Your Trust." Hero behavior
+   Isolated component. Drives the one-time entrance sequence (photo
+   reveal → eyebrow → heading lines → underline → copy → three feature
+   items), a small rising-ember particle field over the plate's own
+   wave band, and a very subtle desktop-only mouse parallax across the
+   photo, the ambient glow and the particle layer (each at its own
+   depth). Falls back to a static, unanimated reveal if GSAP failed to
+   load or the user prefers reduced motion.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  const hero = document.querySelector('.clh');
+  const hero = document.querySelector('.cnh');
   if (!hero) return;
 
-  const bgLayers = hero.querySelectorAll('.clh-glow-wrap, .clh-rays');
-  const badge = hero.querySelector('.clh-badge');
-  const lines = hero.querySelectorAll('.clh-line-inner');
-  const left = hero.querySelector('.clh-left');
-  const right = hero.querySelector('.clh-right');
-  const desc = hero.querySelector('.clh-desc');
-  const statsBar = hero.querySelector('.clh-stats-bar');
-  const ctaRow = hero.querySelector('.clh-cta-row');
-  const particlesLayer = hero.querySelector('.clh-particles');
-  const statNodes = statsBar ? statsBar.querySelectorAll('.counter') : [];
-  const outline = hero.querySelector('.clh-india-outline');
-  const routes = hero.querySelectorAll('.clh-route');
+  const photo = hero.querySelector('.cnh-visual-img');
+  const visual = hero.querySelector('.cnh-visual');
+  const glowWrap = hero.querySelector('.cnh-glow-wrap');
+  const particlesLayer = hero.querySelector('.cnh-particles');
+  const eyebrow = hero.querySelector('.cnh-eyebrow');
+  const headingLines = hero.querySelectorAll('.cnh-heading .line');
+  const underline = hero.querySelector('.cnh-underline');
+  const desc = hero.querySelector('.cnh-desc');
+  const features = hero.querySelector('.cnh-features');
+  const featureItems = hero.querySelectorAll('.cnh-feature');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
-  const EASE = 'power4.out';
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-  // ── floating gold dust + embers ──
+  // ── tiny embers rising through the plate's own wave band ──
   function spawnParticles() {
     if (!particlesLayer || reduceMotion) return;
-    const count = window.innerWidth < 640 ? 8 : 16;
+    const count = window.innerWidth < 900 ? 0 : 10;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('span');
-      const isEmber = Math.random() > .6;
-      p.className = 'clh-particle' + (isEmber ? ' ember' : '');
-      p.style.setProperty('--px', (Math.random() * 100) + '%');
-      p.style.setProperty('--ps', (isEmber ? 3 + Math.random() * 2.5 : 1.5 + Math.random() * 1.8) + 'px');
-      p.style.setProperty('--pd', (10 + Math.random() * 10) + 's');
-      p.style.setProperty('--pdelay', (-Math.random() * 20) + 's');
-      p.style.setProperty('--pdx', ((Math.random() - .5) * 50) + 'px');
-      p.style.setProperty('--pc', Math.random() > .5 ? 'var(--accent-hot)' : 'var(--accent)');
+      p.className = 'cnh-particle';
+      p.style.setProperty('--px', (55 + Math.random() * 42) + '%');
+      p.style.setProperty('--ps', (2 + Math.random() * 2.2) + 'px');
+      p.style.setProperty('--pd', (7 + Math.random() * 6) + 's');
+      p.style.setProperty('--pdelay', (-Math.random() * 12) + 's');
+      p.style.setProperty('--pdx', ((Math.random() - .5) * 40) + 'px');
       particlesLayer.appendChild(p);
     }
-  }
-
-  // ── prep SVG paths for a GSAP-driven draw-in (free stroke-dashoffset technique) ──
-  function prepDraw(el) {
-    if (!el) return 0;
-    const len = el.getTotalLength();
-    el.style.strokeDasharray = len;
-    el.style.strokeDashoffset = len;
-    return len;
-  }
-
-  function triggerCounters() {
-    statNodes.forEach((el) => {
-      if (el._counted) return;
-      el._counted = true;
-      const target = parseFloat(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
-      const prefix = el.dataset.prefix || '';
-      const decimals = parseInt(el.dataset.decimal || '0', 10);
-      if (reduceMotion || !gsapReady) { el.textContent = prefix + target.toFixed(decimals) + suffix; return; }
-      const obj = { v: 0 };
-      gsap.to(obj, {
-        v: target, duration: 1.4, ease: 'expo.out',
-        onUpdate: () => { el.textContent = prefix + obj.v.toFixed(decimals) + suffix; },
-      });
-    });
   }
 
   function playEntrance() {
     spawnParticles();
 
     if (!gsapReady || reduceMotion) {
-      triggerCounters();
-      if (outline) { outline.style.strokeDasharray = 'none'; outline.style.strokeDashoffset = '0'; }
-      routes.forEach((r) => { r.style.strokeDasharray = 'none'; r.style.strokeDashoffset = '0'; });
+      if (photo) { photo.style.opacity = 1; }
+      [eyebrow, underline, desc, features].forEach((el) => { if (el) el.style.opacity = 1; });
+      headingLines.forEach((el) => { el.style.opacity = 1; });
+      featureItems.forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
       return;
     }
 
-    // dash-offset draw-in prep must happen before the timeline references these values
-    const outlineLen = prepDraw(outline);
-    const routeLens = Array.from(routes).map(prepDraw);
-
     const tl = gsap.timeline({ defaults: { ease: EASE } });
-    if (bgLayers.length) tl.fromTo(bgLayers, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'sine.out' }, 0);
-    if (badge) tl.fromTo(badge, { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: .55 }, .15);
-    if (lines.length) tl.fromTo(lines, { opacity: 0, y: 34, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .8, stagger: .12 }, .35);
-    if (left) tl.fromTo(left, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: .8 }, .7);
-    if (outline) tl.to(outline, { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' }, .75);
-    if (routeLens.length) tl.to(routes, { strokeDashoffset: 0, duration: .6, stagger: .12, ease: 'power2.inOut' }, 1.15);
-    if (right) tl.fromTo(right, { opacity: 0 }, { opacity: .9, duration: .6 }, .7);
-    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .7 }, 1.5);
-    if (statsBar) tl.fromTo(statsBar, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .6, onStart: triggerCounters }, 1.7);
-    if (ctaRow) tl.fromTo(ctaRow, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .5 }, 1.95);
+    if (photo) tl.fromTo(photo, { opacity: 0, scale: 1.09 }, { opacity: 1, scale: 1.05, duration: 1.7, ease: 'sine.out' }, 0);
+    if (eyebrow) tl.fromTo(eyebrow, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .6 }, .1);
+    if (headingLines.length) tl.fromTo(headingLines, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: .8, stagger: .1 }, .25);
+    if (underline) tl.fromTo(underline, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: .5, transformOrigin: 'left center' }, .55);
+    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .7 }, .65);
+
+    if (features) tl.set(features, { opacity: 1 }, .85);
+    featureItems.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 }, .85 + i * .12));
   }
 
-  // hero is above the fold — play immediately once layout settles
   if (gsapReady && !reduceMotion) {
-    gsap.set([badge, ...lines, left, desc, statsBar, ctaRow].filter(Boolean), { opacity: 0 });
-    if (right) gsap.set(right, { opacity: 0 });
-    if (bgLayers.length) gsap.set(bgLayers, { opacity: 0 });
+    gsap.set([eyebrow, underline, desc, features].filter(Boolean), { opacity: 0 });
+    if (headingLines.length) gsap.set(headingLines, { opacity: 0 });
+    gsap.set(Array.from(featureItems), { opacity: 0 });
   }
   requestAnimationFrame(playEntrance);
 
   if (reduceMotion || !gsapReady) return;
 
-  // ── magnetic CTA + ripple ──
-  if (ctaRow && window.matchMedia('(hover: hover)').matches) {
-    const btn = ctaRow.querySelector('.clh-cta');
-    if (btn) {
-      const quickX = gsap.quickTo(btn, 'x', { duration: .35, ease: 'power3.out' });
-      const quickY = gsap.quickTo(btn, 'y', { duration: .35, ease: 'power3.out' });
-      btn.addEventListener('mouseenter', () => quickY(-3));
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        quickX((e.clientX - rect.left - rect.width / 2) * .3);
-        quickY(-3 + (e.clientY - rect.top - rect.height / 2) * .35);
-      });
-      btn.addEventListener('mouseleave', () => { quickX(0); quickY(0); });
-    }
-  }
+  // ── desktop-only mouse parallax: photo, ambient glow and particles
+  // each move at their own subtle depth, capped well under 10px ──
+  if (window.matchMedia('(hover: hover)').matches && window.matchMedia('(min-width: 901px)').matches) {
+    const quickVisualX = visual ? gsap.quickTo(visual, 'x', { duration: .7, ease: 'power3.out' }) : null;
+    const quickVisualY = visual ? gsap.quickTo(visual, 'y', { duration: .7, ease: 'power3.out' }) : null;
+    const quickGlowX = glowWrap ? gsap.quickTo(glowWrap, 'x', { duration: .8, ease: 'power3.out' }) : null;
+    const quickGlowY = glowWrap ? gsap.quickTo(glowWrap, 'y', { duration: .8, ease: 'power3.out' }) : null;
+    const quickPartX = particlesLayer ? gsap.quickTo(particlesLayer, 'x', { duration: .6, ease: 'power3.out' }) : null;
 
-  if (ctaRow) {
-    ctaRow.addEventListener('click', (e) => {
-      const btn = e.target.closest('.clh-cta');
-      if (!btn) return;
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 1.3;
-      const ripple = document.createElement('span');
-      ripple.className = 'clh-ripple';
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      btn.appendChild(ripple);
-      ripple.addEventListener('animationend', () => ripple.remove());
-    });
-  }
-
-  // ── cursor-following spotlight + subtle parallax on the flanking visuals ──
-  if (window.matchMedia('(hover: hover)').matches) {
-    const quickLeftX = left ? gsap.quickTo(left, 'x', { duration: .7, ease: 'power3.out' }) : null;
-    const quickRightX = right ? gsap.quickTo(right, 'x', { duration: .7, ease: 'power3.out' }) : null;
-
-    let raf = null, pending = null;
     hero.addEventListener('pointermove', (e) => {
       const rect = hero.getBoundingClientRect();
-      pending = { x: ((e.clientX - rect.left) / rect.width) * 100, y: ((e.clientY - rect.top) / rect.height) * 100 };
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        hero.style.setProperty('--mx', pending.x + '%');
-        hero.style.setProperty('--my', pending.y + '%');
-        raf = null;
-      });
       const nx = (e.clientX - rect.left) / rect.width - .5;
-      if (quickLeftX) quickLeftX(-nx * 10);
-      if (quickRightX) quickRightX(-nx * 10);
+      const ny = (e.clientY - rect.top) / rect.height - .5;
+      if (quickVisualX) quickVisualX(-nx * 8);
+      if (quickVisualY) quickVisualY(-ny * 6);
+      if (quickGlowX) quickGlowX(-nx * 12);
+      if (quickGlowY) quickGlowY(-ny * 10);
+      if (quickPartX) quickPartX(-nx * 5);
     });
     hero.addEventListener('mouseleave', () => {
-      if (quickLeftX) quickLeftX(0);
-      if (quickRightX) quickRightX(0);
+      if (quickVisualX) quickVisualX(0);
+      if (quickVisualY) quickVisualY(0);
+      if (quickGlowX) quickGlowX(0);
+      if (quickGlowY) quickGlowY(0);
+      if (quickPartX) quickPartX(0);
     });
   }
-
-  // ── scroll effect: background lags behind content, flanking visuals float,
-  //    lighting dims — mirrors the homepage hero's scroll treatment ──
-  const glowWrap = hero.querySelector('.clh-glow-wrap');
-  let ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const rect = hero.getBoundingClientRect();
-      const heroHeight = rect.height || 1;
-      const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
-
-      gsap.set(hero.querySelector('.clh-bg'), { y: progress * 36 });
-      if (glowWrap) gsap.set(glowWrap, { opacity: 1 - progress * .7 });
-      if (left) gsap.set(left, { y: progress * -18 });
-      if (right) gsap.set(right, { y: progress * -18 });
-
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
 })();

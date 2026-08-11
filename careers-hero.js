@@ -1,11 +1,12 @@
 /* ════════════════════════════════════════════════════════════════════
-   CAREERS — Cinematic Recruitment Hero behavior
-   Isolated component. Drives the entrance sequence (bg → badge →
-   heading (split by line) → description → CTAs → illustration, ~2s
-   total), the floating particle/ember field, cursor + scroll parallax
-   on the illustration, the magnetic CTAs, and the scroll indicator.
-   Falls back to a static, unanimated reveal if GSAP failed to load or
-   the user prefers reduced motion.
+   CAREERS — "Build Your Future With Us." Hero behavior
+   Isolated component. Drives the one-time entrance sequence (photo
+   reveal → badge → heading lines → copy → CTA → five feature items),
+   a small generated network of connection lines/pulsing nodes over the
+   dark navy field, and a subtle desktop-only mouse parallax across the
+   photo and the ambient sunrise glow. Falls back to a static,
+   unanimated reveal if GSAP failed to load or the user prefers reduced
+   motion.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -13,149 +14,112 @@
   const hero = document.querySelector('.cah');
   if (!hero) return;
 
-  const bgLayers = hero.querySelectorAll('.cah-glow-wrap, .cah-rays');
+  const photo = hero.querySelector('.cah-visual-img');
+  const visual = hero.querySelector('.cah-visual');
+  const glowWrap = hero.querySelector('.cah-glow-wrap');
+  const networkLayer = hero.querySelector('.cah-network');
   const badge = hero.querySelector('.cah-badge');
-  const lines = hero.querySelectorAll('.cah-line-inner');
+  const headingLines = hero.querySelectorAll('.cah-heading .line');
   const desc = hero.querySelector('.cah-desc');
   const ctaRow = hero.querySelector('.cah-cta-row');
-  const visual = hero.querySelector('.cah-visual');
-  const particlesLayer = hero.querySelector('.cah-particles');
-  const scrollIndicator = hero.querySelector('.cah-scroll-indicator');
+  const featureItems = hero.querySelectorAll('.cah-feature');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gsapReady = typeof window.gsap !== 'undefined';
-  const EASE = 'power4.out';
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const SVG_NS = 'http://www.w3.org/2000/svg';
 
-  // ── floating gold dust + embers ──
-  function spawnParticles() {
-    if (!particlesLayer || reduceMotion) return;
-    const count = window.innerWidth < 640 ? 8 : 16;
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement('span');
-      const isEmber = Math.random() > .6;
-      p.className = 'cah-particle' + (isEmber ? ' ember' : '');
-      p.style.setProperty('--px', (Math.random() * 100) + '%');
-      p.style.setProperty('--ps', (isEmber ? 3 + Math.random() * 2.5 : 1.5 + Math.random() * 1.8) + 'px');
-      p.style.setProperty('--pd', (10 + Math.random() * 10) + 's');
-      p.style.setProperty('--pdelay', (-Math.random() * 20) + 's');
-      p.style.setProperty('--pdx', ((Math.random() - .5) * 50) + 'px');
-      p.style.setProperty('--pc', Math.random() > .5 ? 'var(--accent-hot)' : 'var(--accent)');
-      particlesLayer.appendChild(p);
-    }
+  // ── faint career-network: a handful of connection lines with pulsing
+  // orange nodes, confined to the dark navy field on the left ──
+  function buildNetwork() {
+    if (!networkLayer || window.innerWidth < 900) return;
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+
+    const points = [
+      [6, 18], [24, 10], [15, 38], [32, 30], [10, 58],
+      [27, 52], [18, 78], [34, 70], [8, 92],
+    ];
+    const links = [[0, 1], [0, 2], [2, 3], [1, 3], [2, 4], [4, 5], [3, 5], [4, 6], [6, 7], [5, 7], [6, 8]];
+
+    links.forEach(([a, b]) => {
+      const line = document.createElementNS(SVG_NS, 'line');
+      line.setAttribute('x1', points[a][0]);
+      line.setAttribute('y1', points[a][1]);
+      line.setAttribute('x2', points[b][0]);
+      line.setAttribute('y2', points[b][1]);
+      line.setAttribute('stroke', 'rgba(255, 255, 255, .14)');
+      line.setAttribute('stroke-width', '.2');
+      line.setAttribute('vector-effect', 'non-scaling-stroke');
+      svg.appendChild(line);
+    });
+
+    networkLayer.appendChild(svg);
+
+    points.forEach(([x, y], i) => {
+      const dot = document.createElement('span');
+      dot.className = 'cah-network-node';
+      dot.style.setProperty('--x', x + '%');
+      dot.style.setProperty('--y', y + '%');
+      dot.style.setProperty('--dur', (3 + (i % 4) * .6) + 's');
+      dot.style.setProperty('--delay', (i * .45) + 's');
+      networkLayer.appendChild(dot);
+    });
   }
 
   function playEntrance() {
-    spawnParticles();
+    buildNetwork();
 
-    if (!gsapReady || reduceMotion) return;
+    if (!gsapReady || reduceMotion) {
+      if (photo) { photo.style.opacity = 1; }
+      [badge, desc, ctaRow].forEach((el) => { if (el) el.style.opacity = 1; });
+      headingLines.forEach((el) => { el.style.opacity = 1; });
+      featureItems.forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
+      return;
+    }
 
     const tl = gsap.timeline({ defaults: { ease: EASE } });
-    if (bgLayers.length) tl.fromTo(bgLayers, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'sine.out' }, 0);
-    if (badge) tl.fromTo(badge, { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: .55 }, .15);
-    if (lines.length) tl.fromTo(lines, { opacity: 0, y: 34, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .8, stagger: .12 }, .35);
-    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .7 }, .85);
-    if (ctaRow) tl.fromTo(ctaRow, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .6 }, 1.05);
-    if (visual) tl.fromTo(visual, { opacity: 0, scale: .92, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1 }, .55);
-    if (scrollIndicator) tl.fromTo(scrollIndicator, { opacity: 0 }, { opacity: 1, duration: .6 }, 1.4);
+    if (photo) tl.fromTo(photo, { opacity: 0, scale: 1.09, y: 15 }, { opacity: 1, scale: 1.05, y: 0, duration: 1.7, ease: 'sine.out' }, 0);
+    if (badge) tl.fromTo(badge, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .55 }, .1);
+    if (headingLines.length) tl.fromTo(headingLines, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: .75, stagger: .1 }, .2);
+    if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .65 }, .4);
+    if (ctaRow) tl.fromTo(ctaRow, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .55 }, .55);
+
+    featureItems.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .5 }, .7 + i * .1));
   }
 
-  // hero is above the fold — play immediately once layout settles
   if (gsapReady && !reduceMotion) {
-    gsap.set([badge, ...lines, desc, ctaRow].filter(Boolean), { opacity: 0 });
-    if (visual) gsap.set(visual, { opacity: 0 });
-    if (scrollIndicator) gsap.set(scrollIndicator, { opacity: 0 });
-    if (bgLayers.length) gsap.set(bgLayers, { opacity: 0 });
+    gsap.set([badge, desc, ctaRow].filter(Boolean), { opacity: 0 });
+    if (headingLines.length) gsap.set(headingLines, { opacity: 0 });
+    gsap.set(Array.from(featureItems), { opacity: 0 });
   }
   requestAnimationFrame(playEntrance);
 
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', () => {
-      const next = hero.nextElementSibling;
-      if (next) next.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-    });
-  }
-
   if (reduceMotion || !gsapReady) return;
 
-  // ── magnetic CTAs + ripple ──
-  if (ctaRow && window.matchMedia('(hover: hover)').matches) {
-    ctaRow.querySelectorAll('.cah-cta').forEach((btn) => {
-      const quickX = gsap.quickTo(btn, 'x', { duration: .35, ease: 'power3.out' });
-      const quickY = gsap.quickTo(btn, 'y', { duration: .35, ease: 'power3.out' });
-      btn.addEventListener('mouseenter', () => quickY(-3));
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        quickX((e.clientX - rect.left - rect.width / 2) * .3);
-        quickY(-3 + (e.clientY - rect.top - rect.height / 2) * .35);
-      });
-      btn.addEventListener('mouseleave', () => { quickX(0); quickY(0); });
-    });
-  }
-
-  if (ctaRow) {
-    ctaRow.addEventListener('click', (e) => {
-      const btn = e.target.closest('.cah-cta');
-      if (!btn) return;
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 1.3;
-      const ripple = document.createElement('span');
-      ripple.className = 'cah-ripple';
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      btn.appendChild(ripple);
-      ripple.addEventListener('animationend', () => ripple.remove());
-    });
-  }
-
-  // ── cursor-following spotlight + subtle parallax on the illustration ──
-  // Coalesced into a single requestAnimationFrame per pointermove so the
-  // spotlight position and parallax offset are read/written at most once
-  // per frame, instead of once per raw pointer event.
-  if (window.matchMedia('(hover: hover)').matches) {
+  // ── desktop-only mouse parallax: photo and ambient glow move at
+  // their own subtle depth, capped well under 15px, text stays put ──
+  if (window.matchMedia('(hover: hover)').matches && window.matchMedia('(min-width: 901px)').matches) {
     const quickVisualX = visual ? gsap.quickTo(visual, 'x', { duration: .7, ease: 'power3.out' }) : null;
     const quickVisualY = visual ? gsap.quickTo(visual, 'y', { duration: .7, ease: 'power3.out' }) : null;
+    const quickGlowX = glowWrap ? gsap.quickTo(glowWrap, 'x', { duration: .8, ease: 'power3.out' }) : null;
+    const quickGlowY = glowWrap ? gsap.quickTo(glowWrap, 'y', { duration: .8, ease: 'power3.out' }) : null;
 
-    let raf = null;
-    let pending = null;
     hero.addEventListener('pointermove', (e) => {
       const rect = hero.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width - .5;
       const ny = (e.clientY - rect.top) / rect.height - .5;
-      pending = { mx: ((e.clientX - rect.left) / rect.width) * 100, my: ((e.clientY - rect.top) / rect.height) * 100, nx, ny };
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        hero.style.setProperty('--mx', pending.mx + '%');
-        hero.style.setProperty('--my', pending.my + '%');
-        if (quickVisualX) quickVisualX(pending.nx * -14);
-        if (quickVisualY) quickVisualY(pending.ny * -10);
-        raf = null;
-      });
+      if (quickVisualX) quickVisualX(-nx * 10);
+      if (quickVisualY) quickVisualY(-ny * 8);
+      if (quickGlowX) quickGlowX(-nx * 14);
+      if (quickGlowY) quickGlowY(-ny * 12);
     });
     hero.addEventListener('mouseleave', () => {
       if (quickVisualX) quickVisualX(0);
       if (quickVisualY) quickVisualY(0);
+      if (quickGlowX) quickGlowX(0);
+      if (quickGlowY) quickGlowY(0);
     });
   }
-
-  // ── scroll effect: background lags behind content, illustration floats,
-  //    lighting dims — mirrors the clientele hero's scroll treatment ──
-  const glowWrap = hero.querySelector('.cah-glow-wrap');
-  let ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const rect = hero.getBoundingClientRect();
-      const heroHeight = rect.height || 1;
-      const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
-
-      gsap.set(hero.querySelector('.cah-bg'), { y: progress * 36 });
-      if (glowWrap) gsap.set(glowWrap, { opacity: 1 - progress * .7 });
-      if (visual) gsap.set(visual, { y: progress * -22 });
-
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
 })();

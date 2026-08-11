@@ -1,9 +1,9 @@
 /* ════════════════════════════════════════════════════════════════════
    OUR PROCESS — Cinematic Hero behavior
    Isolated component. Drives the one-time entrance sequence (photo
-   reveal → eyebrow → headline lines → copy → CTA → five-stage timeline
-   → connecting line draw) and an extremely subtle scroll parallax on
-   the background photo only — text never moves. Falls back to a
+   reveal → eyebrow → headline lines → copy → CTA → mobile five-stage
+   strip) and an extremely subtle scroll parallax on the background
+   photo only — text never moves. Falls back to a
    static, unanimated reveal if GSAP failed to load or the user prefers
    reduced motion.
    ════════════════════════════════════════════════════════════════════ */
@@ -18,9 +18,6 @@
   const headingLines = hero.querySelectorAll('.op-hero-heading .line');
   const desc = hero.querySelector('.op-hero-desc');
   const cta = hero.querySelector('.op-hero-cta');
-  const arc = hero.querySelector('.op-hero-arc');
-  const arcPath = hero.querySelector('.op-arc-path');
-  const arcNodes = hero.querySelectorAll('.op-arc-node');
   const mobileTimeline = hero.querySelector('.op-hero-timeline-mobile');
   const mobileSteps = hero.querySelectorAll('.op-mobile-step');
 
@@ -31,8 +28,7 @@
   function playEntrance() {
     if (!gsapReady || reduceMotion) {
       if (photo) { photo.style.opacity = 1; photo.style.transform = 'scale(1.02)'; }
-      [eyebrow, ...headingLines, desc, cta, arc, mobileTimeline].forEach((el) => { if (el) el.style.opacity = 1; });
-      arcNodes.forEach((el) => { el.style.opacity = 1; });
+      [eyebrow, ...headingLines, desc, cta, mobileTimeline].forEach((el) => { if (el) el.style.opacity = 1; });
       mobileSteps.forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
       return;
     }
@@ -44,20 +40,14 @@
     if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .6 }, .4);
     if (cta) tl.fromTo(cta, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .6 }, .55);
 
-    if (arc) tl.set(arc, { opacity: 1 }, .7);
-    if (arcPath) tl.fromTo(arcPath, { opacity: 0 }, { opacity: .85, duration: .9 }, .7);
-    arcNodes.forEach((el, i) => tl.fromTo(el, { opacity: 0, scale: .85, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: .5 }, .78 + i * .13));
-
     if (mobileTimeline) tl.set(mobileTimeline, { opacity: 1 }, .7);
     mobileSteps.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 }, .7 + i * .1));
   }
 
   if (gsapReady && !reduceMotion) {
-    gsap.set([eyebrow, cta, arc, mobileTimeline].filter(Boolean), { opacity: 0 });
+    gsap.set([eyebrow, cta, mobileTimeline].filter(Boolean), { opacity: 0 });
     if (headingLines.length) gsap.set(headingLines, { opacity: 0 });
     if (desc) gsap.set(desc, { opacity: 0 });
-    if (arcPath) gsap.set(arcPath, { opacity: 0 });
-    gsap.set(Array.from(arcNodes), { opacity: 0 });
     gsap.set(Array.from(mobileSteps), { opacity: 0 });
   }
   requestAnimationFrame(playEntrance);

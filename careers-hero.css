@@ -1,573 +1,453 @@
 /* ════════════════════════════════════════════════════════════════════
-   CAREERS — Cinematic Recruitment Hero
-   Isolated component (see careers-hero.js). Replaces the plain
-   .page-header banner on careers.html only — the nav, the logo and
-   everything from "Why Join Us" downward are untouched. Dark scoped
-   tokens mirror the site's existing .hero / .page-header / .clh
-   convention, so this reads as the same premium theme, not a new one.
+   CAREERS — "Build Your Future With Us." Hero
+   Isolated component (see careers-hero.js). Replaces the previous .cah
+   cinematic-illustration hero on careers.html only — the nav, the logo
+   and everything from "Why Join Us" downward are untouched. Full-bleed
+   photographic composition of a professional walking a staircase
+   toward a sunrise skyline (Hero/Career.*) — the plate already carries
+   the dark navy field on the left, the orange stair-light strips, the
+   skyline, sunrise and the bottom orange curve, so none of those are
+   redrawn separately — one full-inset photo + one scrim, matching the
+   site's established hero convention (.cnh in clientele-hero.css,
+   .op-hero in process-hero.css, .sush in sustainability-hero.css), not
+   a boxed image stitched against a separately drawn background. Five
+   compact career-value features span the full-width lower band.
 
-   Motion contract: only transform / opacity / filter are animated.
-   Width, height, margin, left and top are never transitioned.
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
    ════════════════════════════════════════════════════════════════════ */
 
 .cah {
-  --bg: #0A0B0E;
-  --surface: #14161C;
-  --border: #262A34;
-  --ink: #EEEAE1;
-  --ink-dim: #9C9A90;
-  --accent: #FF6A1F;
+  --navy: #08265C;
+  --navy-mid: #061B49;
+  --navy-deep: #020814;
+  --ink: #F5F7FB;
+  --ink-dim: #B8C4D4;
+  --accent: #FF6B00;
+  --accent-2: #FF7518;
   --accent-hot: #FFC24B;
-  --accent-deep: #E23B1F;
   position: relative;
-  min-height: clamp(680px, 96vh, 1000px);
+  height: 92vh;
+  min-height: 760px;
+  max-height: 1120px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: calc(var(--nav-h) + 3rem) 1.75rem 4.5rem;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 18% 108%, rgba(255, 106, 31, .3), transparent 55%),
-    radial-gradient(ellipse at 84% 10%, rgba(255, 194, 75, .14), transparent 50%),
-    var(--bg);
+  background: var(--navy);
+  color: var(--ink);
 }
 
-/* cursor-following spotlight */
-.cah::after {
-  content: '';
+@media (max-width: 900px) {
+  .cah { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.cah-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo ══ */
+.cah-visual { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
+
+.cah-visual picture,
+.cah-visual-img {
   position: absolute;
   inset: 0;
-  z-index: 4;
-  background: radial-gradient(circle 380px at var(--mx, 50%) var(--my, 40%), rgba(255, 194, 75, .12), transparent 70%);
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cah-visual-img {
+  object-fit: cover;
+  object-position: 66% 50%;
+  transform: scale(1.05);
   opacity: 0;
-  transition: opacity .6s ease;
-  pointer-events: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  animation: cahIdleFloat 6.5s ease-in-out 1.8s infinite;
 }
 
-.cah:hover::after {
-  opacity: 1;
+@media (max-width: 1100px) {
+  .cah-visual-img { object-position: 72% 50%; }
 }
 
-.cah-bg {
+/* single scrim reinforcing the plate's own navy field on the left so
+   the headline stays readable, plus a bottom band so the feature row
+   stays legible wherever it lands over the photo ── */
+.cah-scrim {
   position: absolute;
   inset: 0;
-  z-index: 0;
-}
-
-/* ── gradient mesh ── */
-.cah-mesh {
-  position: absolute;
-  inset: -6%;
+  z-index: 1;
   background:
-    radial-gradient(ellipse 50% 42% at 20% 20%, rgba(255, 106, 31, .16), transparent 60%),
-    radial-gradient(ellipse 46% 40% at 82% 70%, rgba(255, 194, 75, .12), transparent 62%),
-    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(226, 59, 31, .14), transparent 65%);
+    linear-gradient(100deg, var(--navy-deep) 0%, rgba(2, 8, 20, .94) 22%, rgba(2, 8, 20, .76) 38%, rgba(2, 8, 20, .4) 54%, rgba(2, 8, 20, .1) 70%, transparent 84%),
+    linear-gradient(180deg, rgba(2, 8, 20, .25) 0%, transparent 16%, transparent 56%, rgba(2, 8, 20, .55) 82%, rgba(2, 8, 20, .8) 100%);
 }
 
-/* ── faint engineering grid ── */
+@media (max-width: 900px) {
+  .cah-scrim { display: none; }
+}
+
+/* ── faint technical grid, low opacity, confined to the content field ── */
 .cah-grid-lines {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  opacity: .04;
   background-image:
-    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
-  background-size: 58px 58px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 40%, transparent 92%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 40%, transparent 92%);
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 42px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, .5) 1px, transparent 1px, transparent 42px);
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, #000 36%, transparent 58%);
+  mask-image: linear-gradient(100deg, #000 0%, #000 36%, transparent 58%);
+  animation: cahGridDrift 22s linear infinite;
 }
 
-/* ── volumetric orange lighting, breathing slowly ── */
-.cah-glow-wrap {
-  position: absolute;
-  inset: -15%;
+@keyframes cahGridDrift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 84px 0, 0 84px; }
 }
+
+@media (max-width: 900px) {
+  .cah-grid-lines { display: none; }
+}
+
+/* ── faint career-network lines + pulsing orange nodes over the dark
+   navy field, communicating global connections/opportunity ── */
+.cah-network {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, #000 34%, transparent 54%);
+  mask-image: linear-gradient(100deg, #000 0%, #000 34%, transparent 54%);
+}
+
+.cah-network svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; }
+
+.cah-network-node {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--accent-hot);
+  box-shadow: 0 0 8px 2px rgba(255, 194, 75, .5);
+  opacity: .25;
+  transform: scale(.85);
+  animation: cahNodePulse var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes cahNodePulse {
+  0%, 100% { opacity: .25; transform: scale(.85); }
+  50% { opacity: .7; transform: scale(1.15); }
+}
+
+@media (max-width: 900px) {
+  .cah-network { display: none; }
+}
+
+/* ── soft breathing ambient glow echoing the sunrise already baked
+   into the plate — the only motion added to the still photo's own
+   lighting ── */
+.cah-glow-wrap { position: absolute; inset: 0; z-index: 1; will-change: transform; }
 
 .cah-glow {
   position: absolute;
-  inset: 0;
+  left: 62%;
+  top: 30%;
+  width: clamp(220px, 26vw, 440px);
+  height: clamp(220px, 26vw, 440px);
+  border-radius: 50%;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 15% 100%, rgba(255, 106, 31, .45), transparent 42%),
-    radial-gradient(circle at 85% 15%, rgba(255, 194, 75, .28), transparent 40%);
-  filter: blur(8px);
-  animation: cahBreathe 9s ease-in-out infinite;
-  transform-origin: 50% 100%;
-}
-
-@keyframes cahBreathe {
-  0%, 100% { transform: scale(1); opacity: .75; }
-  50% { transform: scale(1.12); opacity: 1; }
-}
-
-.cah-rays {
-  position: absolute;
-  left: 50%;
-  bottom: -12%;
-  width: 140%;
-  height: 90%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  background:
-    conic-gradient(from 250deg at 50% 100%,
-      transparent 0deg, rgba(255, 194, 75, .05) 8deg, transparent 16deg,
-      transparent 42deg, rgba(255, 122, 26, .045) 52deg, transparent 62deg,
-      transparent 102deg, rgba(255, 194, 75, .04) 110deg, transparent 120deg);
-  animation: cahRaysSway 19s ease-in-out infinite;
+  filter: blur(24px);
   mix-blend-mode: screen;
+  background: radial-gradient(circle, rgba(255, 197, 90, .34) 0%, rgba(255, 107, 0, .14) 55%, transparent 75%);
+  animation: cahSunBreathe 7s ease-in-out infinite;
 }
 
-@keyframes cahRaysSway {
-  0%, 100% { transform: translateX(-50%) rotate(-1.4deg); }
-  50% { transform: translateX(-50%) rotate(1.4deg); }
+@keyframes cahSunBreathe {
+  0%, 100% { opacity: .65; }
+  50% { opacity: .8; }
 }
 
-/* ── floating geometric shapes ── */
-.cah-shapes {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  mask-image: radial-gradient(ellipse 60% 70% at 50% 40%, transparent 20%, #000 78%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 40%, transparent 20%, #000 78%);
+@media (max-width: 1100px) {
+  .cah-glow { display: none; }
 }
 
-.cah-shape {
-  position: absolute;
-  border: 1.5px solid rgba(255, 194, 75, .22);
-  opacity: .5;
-  animation: cahShapeFloat 12s ease-in-out infinite;
-  will-change: transform;
+@media (prefers-reduced-motion: reduce) {
+  .cah-visual-img { animation: none !important; }
+  .cah-grid-lines, .cah-glow, .cah-network-node { animation: none !important; }
+  .cah-network-node { opacity: .45; }
+  .cah-glow { opacity: .7; }
 }
 
-.cah-shape.tri {
-  top: 16%;
-  left: 6%;
-  width: 70px;
-  height: 70px;
-  border: none;
-  background: linear-gradient(135deg, rgba(255, 106, 31, .1), transparent);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  outline: 1.5px solid rgba(255, 106, 31, .2);
-}
-
-.cah-shape.hex {
-  top: 68%;
-  left: 4%;
-  width: 90px;
-  height: 90px;
-  border: none;
-  background: rgba(255, 194, 75, .06);
-  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
-  animation-delay: 2s;
-}
-
-.cah-shape.ring {
-  top: 12%;
-  right: 30%;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  animation-delay: 4s;
-}
-
-.cah-shape.square {
-  bottom: 10%;
-  right: 32%;
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
-  transform: rotate(18deg);
-  animation-delay: 6s;
-}
-
-@keyframes cahShapeFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-22px) rotate(6deg); }
-}
-
-.cah-scanlines {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: .03;
-  background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
-}
-
-.cah-noise {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: .025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ── glowing dust + floating embers ── */
-.cah-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.cah-particle {
-  position: absolute;
-  bottom: -6%;
-  left: var(--px, 50%);
-  width: var(--ps, 3px);
-  height: var(--ps, 3px);
-  border-radius: 50%;
-  background: var(--pc, var(--accent-hot));
-  box-shadow: 0 0 6px 1px var(--pc, var(--accent-hot));
-  opacity: 0;
-  animation: cahParticleDrift var(--pd, 12s) ease-in var(--pdelay, 0s) infinite;
-}
-
-.cah-particle.ember {
-  filter: blur(1px);
-  box-shadow: 0 0 12px 3px var(--pc, var(--accent));
-}
-
-@keyframes cahParticleDrift {
-  0% { transform: translate(0, 0); opacity: 0; }
-  8% { opacity: .85; }
-  85% { opacity: .3; }
-  100% { transform: translate(var(--pdx, 20px), -108vh); opacity: 0; }
-}
-
-/* ══ TWO-COLUMN CONTENT ══ */
+/* ══ content ══ */
 .cah-inner {
   position: relative;
   z-index: 5;
-  max-width: 1260px;
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
+  flex: 1;
+  display: flex;
   align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 1.5rem) 1.75rem 0;
 }
 
-@media (max-width: 980px) {
-  .cah-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-}
-
-.cah-content {
-  max-width: 640px;
-}
-
-@media (max-width: 980px) {
-  .cah-content {
-    max-width: 100%;
-    margin: 0 auto;
-  }
-}
+.cah-content { max-width: min(44%, 620px); }
 
 .cah-badge {
   display: inline-flex;
   align-items: center;
   gap: .6rem;
-  padding: .55rem 1.2rem;
-  border: 1px solid rgba(255, 106, 31, .35);
-  border-radius: 2rem;
-  background: rgba(255, 106, 31, .07);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   font-family: var(--font-mono);
-  font-size: .72rem;
+  font-size: .78rem;
   font-weight: 700;
-  letter-spacing: .3em;
-  color: var(--accent-hot);
-  animation: cahBadgeGlow 3s ease-in-out infinite;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
 }
 
-@keyframes cahBadgeGlow {
-  0%, 100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 14px rgba(255, 106, 31, .1); }
-  50% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 22px rgba(255, 106, 31, .28); }
-}
+.cah-badge-icon { display: flex; flex-shrink: 0; color: var(--accent); }
+.cah-badge-icon svg { width: 17px; height: 17px; }
 
-.cah-badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-hot);
-  box-shadow: 0 0 8px 2px var(--accent-hot);
-  flex-shrink: 0;
-  animation: cahDotPulse 1.8s ease-in-out infinite;
-}
-
-@keyframes cahDotPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .6; }
-}
+.cah-badge-line { width: 34px; height: 1.5px; background: linear-gradient(90deg, var(--accent), rgba(255, 107, 0, 0)); }
 
 .cah-heading {
-  margin-top: 1.4rem;
-  font-size: clamp(2.4rem, 5.6vw, 4.4rem);
+  margin-top: .9rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.4rem, 4.6vw + 1vh, 4.7rem);
   font-weight: 800;
-  line-height: 1.06;
+  line-height: 1.08;
   letter-spacing: -.01em;
-  color: var(--ink);
 }
 
-.cah-line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: .08em;
-}
-
-.cah-line-inner {
-  display: block;
-}
-
-.cah-heading .grad {
-  background: linear-gradient(100deg, var(--accent-hot), var(--accent) 60%, var(--accent-deep));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  background-size: 200% 100%;
-  animation: cahEmberShift 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px rgba(255, 106, 31, .3));
-}
-
-@keyframes cahEmberShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+.cah-heading .line { display: block; opacity: 0; }
+.cah-heading .ink { color: #fff; }
+.cah-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 30px rgba(255, 107, 0, .35));
 }
 
 .cah-desc {
-  margin-top: 1.4rem;
-  max-width: 560px;
-  font-size: 1.08rem;
-  line-height: 1.8;
+  margin-top: 1.3rem;
+  max-width: 44ch;
+  font-size: 1.04rem;
+  line-height: 1.7;
   color: var(--ink-dim);
+  opacity: 0;
 }
 
-@media (max-width: 980px) {
-  .cah-desc {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+/* ── CTA: orange pill, white text, arrow badge ── */
+.cah-cta-row { margin-top: 1.9rem; opacity: 0; }
 
-.cah-cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2.4rem;
-}
-
-@media (max-width: 980px) {
-  .cah-cta-row {
-    justify-content: center;
-  }
-}
-
-.cah-cta {
+.cah-cta-primary {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: .7rem;
-  padding: 1rem 2.1rem;
-  border-radius: 2.5rem;
+  gap: .9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
   overflow: hidden;
+  text-decoration: none;
+  color: #fff;
   font-family: var(--font-mono);
   font-size: .8rem;
   font-weight: 700;
-  letter-spacing: .1em;
+  letter-spacing: .08em;
   text-transform: uppercase;
-  text-decoration: none;
-  transition: box-shadow .35s ease, border-color .35s ease, color .35s ease;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 26px rgba(255, 107, 0, .3);
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease;
 }
 
-.cah-cta-primary {
-  color: #fff;
-  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
-  border: 1px solid rgba(255, 255, 255, .25);
-  box-shadow: 0 12px 28px rgba(255, 106, 31, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
+.cah-cta-primary:hover,
+.cah-cta-primary:focus-visible {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #E85D00, var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 107, 0, .42);
 }
 
-.cah-cta-primary:hover {
-  box-shadow: 0 18px 40px rgba(255, 106, 31, .5), inset 0 1px 0 rgba(255, 255, 255, .35);
-}
-
-.cah-cta-ghost {
-  color: var(--ink);
-  background: rgba(255, 255, 255, .04);
-  border: 1.5px solid var(--border);
-}
-
-.cah-cta-ghost:hover {
-  border-color: var(--accent);
-  color: var(--accent-hot);
-}
-
-.cah-cta-shine {
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
-  transform: translateX(0) skewX(-20deg);
-  transition: transform .6s ease;
-  pointer-events: none;
-}
-
-.cah-cta:hover .cah-cta-shine {
-  transform: translateX(444%) skewX(-20deg);
+.cah-cta-primary:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
 }
 
 .cah-cta-arrow {
-  display: inline-block;
-  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
 }
 
-.cah-cta:hover .cah-cta-arrow {
+.cah-cta-arrow svg { width: 16px; height: 16px; }
+
+.cah-cta-primary:hover .cah-cta-arrow,
+.cah-cta-primary:focus-visible .cah-cta-arrow {
   transform: translateX(5px);
 }
 
-.cah-ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .5);
-  transform: scale(0);
-  opacity: .55;
-  pointer-events: none;
-  animation: cahRippleAnim .6s ease-out forwards;
-}
-
-@keyframes cahRippleAnim {
-  to { transform: scale(2.6); opacity: 0; }
-}
-
-/* ══ RIGHT: industrial / workforce illustration ══ */
-.cah-visual {
+/* ══ five career-value features spanning the full-width lower band ══ */
+.cah-features {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (max-width: 980px) {
-  .cah-visual {
-    margin-top: 1rem;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.cah-visual-glow {
-  position: absolute;
-  inset: 8%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 122, 26, .22), transparent 68%);
-  filter: blur(20px);
-  animation: cahBreathe 8s ease-in-out infinite;
-}
-
-.cah-illustration {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .5));
-  will-change: transform;
-}
-
-.cah-illu-cog {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: cahCogSpin 30s linear infinite;
-}
-
-@keyframes cahCogSpin {
-  to { transform: rotate(360deg); }
-}
-
-.cah-illu-spark {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: cahSparkPulse 2.4s ease-in-out infinite;
-}
-
-@keyframes cahSparkPulse {
-  0%, 100% { opacity: .35; transform: scale(.85); }
-  50% { opacity: 1; transform: scale(1.15); }
-}
-
-.cah-illu-bar {
-  transform-origin: bottom;
-  transform-box: fill-box;
-  animation: cahBarRise 3.6s ease-in-out infinite;
-}
-
-@keyframes cahBarRise {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(1.04); }
-}
-
-/* ══ scroll indicator ══ */
-.cah-scroll-indicator {
-  position: absolute;
-  left: 50%;
-  bottom: 1.8rem;
-  transform: translateX(-50%);
   z-index: 5;
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 1.75rem clamp(2.4rem, 5.5vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+.cah-feature {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .6rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: .4rem;
-  animation: cahScrollBob 2.4s ease-in-out infinite;
+  align-items: flex-start;
+  gap: .65rem;
+  padding: 0 1rem;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+  outline: none;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
 }
 
-@keyframes cahScrollBob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
-}
+.cah-feature:first-child { border-left: none; padding-left: 0; }
 
-.cah-scroll-mouse {
-  width: 24px;
+.cah-feature-icon {
+  width: 38px;
   height: 38px;
-  border: 1.5px solid rgba(238, 234, 225, .4);
-  border-radius: 12px;
+  flex-shrink: 0;
+  border-radius: 50%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 6px;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 107, 0, .3), rgba(2, 8, 20, .05)), rgba(2, 8, 20, .68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 107, 0, .45);
+  color: var(--accent-hot);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .28s ease, box-shadow .28s ease, color .28s ease;
 }
 
-.cah-scroll-dot {
-  width: 4px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--accent-hot);
-  animation: cahScrollDot 1.6s ease-in-out infinite;
-}
+.cah-feature-icon svg { width: 18px; height: 18px; }
 
-@keyframes cahScrollDot {
-  0% { opacity: 1; transform: translateY(0); }
-  60%, 100% { opacity: 0; transform: translateY(10px); }
-}
+.cah-feature-body { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
 
-.cah-scroll-text {
-  font-family: var(--font-mono);
-  font-size: .62rem;
-  font-weight: 600;
-  letter-spacing: .18em;
+.cah-feature-title {
+  font-family: var(--font-display);
   text-transform: uppercase;
-  color: var(--ink-dim);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--ink);
+  text-shadow: 0 1px 8px rgba(2, 8, 20, .7);
+  transition: color .28s ease;
 }
+
+.cah-feature-sub {
+  font-size: .74rem;
+  line-height: 1.4;
+  color: var(--ink-dim);
+  text-shadow: 0 1px 8px rgba(2, 8, 20, .7);
+}
+
+.cah-feature:hover,
+.cah-feature:focus-visible { transform: translateY(-2px); }
+
+.cah-feature:hover .cah-feature-icon,
+.cah-feature:focus-visible .cah-feature-icon {
+  transform: scale(1.08);
+  border-color: var(--accent-hot);
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(255, 107, 0, .14), 0 0 18px rgba(255, 194, 75, .4);
+}
+
+.cah-feature:hover .cah-feature-title,
+.cah-feature:focus-visible .cah-feature-title { color: var(--accent-hot); }
 
 @media (prefers-reduced-motion: reduce) {
-  .cah-glow, .cah-rays, .cah-shape, .cah-badge, .cah-badge-dot,
-  .cah-particle, .cah-heading .grad, .cah-illu-cog, .cah-illu-spark,
-  .cah-illu-bar, .cah-scroll-indicator, .cah-scroll-dot {
-    animation: none !important;
+  .cah-feature, .cah-feature:hover, .cah-feature:focus-visible { transform: none !important; }
+}
+
+@media (max-width: 1280px) and (min-width: 901px) {
+  .cah-feature-sub { display: none; }
+  .cah-feature { padding: 0 .75rem; }
+  .cah-feature-icon { width: 32px; height: 32px; }
+  .cah-feature-icon svg { width: 15px; height: 15px; }
+}
+
+@media (max-width: 1024px) and (min-width: 901px) {
+  .cah-content { max-width: min(48%, 520px); }
+  .cah-heading { font-size: clamp(2.1rem, 4.4vw + 1vh, 3.4rem); }
+}
+
+/* ══ mobile: intentional vertical stack — badge, headline, copy, CTA,
+   then the photo as a contained, uncropped card, then the five
+   features as a compact 2-column grid beneath, matching the site's
+   established mobile hero pattern (.cnh / .op-hero / .sush) ══ */
+@media (max-width: 900px) {
+  .cah { display: flex; flex-direction: column; align-items: stretch; }
+
+  .cah-bg { position: relative; inset: auto; order: 2; }
+
+  .cah-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+
+  .cah-content { max-width: none; text-align: center; }
+
+  .cah-badge { justify-content: center; }
+
+  .cah-desc { margin-left: auto; margin-right: auto; }
+
+  .cah-cta-row { display: flex; justify-content: center; }
+
+  .cah-visual {
+    position: relative;
+    inset: auto;
+    margin: 2.2rem 1.25rem 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--navy-deep);
+    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
   }
+
+  .cah-visual picture,
+  .cah-visual-img { position: absolute; inset: 0; }
+
+  .cah-visual-img { object-fit: cover; object-position: 68% 44%; transform: scale(1); animation: none; }
+
+  .cah-features {
+    order: 3;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 1rem;
+    padding: 1.8rem 1.25rem 2.2rem;
+  }
+
+  .cah-feature {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: .55rem;
+    border-left: none;
+    padding: 0;
+  }
+
+  .cah-feature:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: 220px; margin: 0 auto; }
+
+  .cah-feature-body { align-items: center; }
+}
+
+@keyframes cahIdleFloat {
+  0%, 100% { transform: scale(1.05) translateY(0); }
+  50% { transform: scale(1.05) translateY(-5px); }
 }
