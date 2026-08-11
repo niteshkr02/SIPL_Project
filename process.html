@@ -146,7 +146,7 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
 
 .stage-visual{ display:flex; align-items:center; justify-content:center; }
 .visual-panel{
-  position:relative; width:100%; max-width:380px; aspect-ratio:1/1;
+  position:relative; width:100%; max-width:540px; aspect-ratio:16/9;
   border-radius:1.4rem;
   background:
     linear-gradient(155deg, rgba(255,255,255,.8), rgba(255,255,255,0) 40%),
@@ -175,6 +175,13 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
   position:absolute; bottom:-2.2rem; left:0; right:0; text-align:center;
   font-family:var(--font-mono); font-size:.74rem; font-weight:600; letter-spacing:.1em; color:var(--ink);
 }
+
+/* ── video-sequence: multiple clips stacked in ONE panel, playing one after another ── */
+.visual-panel.video-sequence .seq-video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .5s ease; z-index:0;
+}
+.visual-panel.video-sequence .seq-video.active{ opacity:1; z-index:1; }
 
 /* ══ PRODUCT CARD PHOTOS ══ */
 .prod-card{ overflow:hidden; }
@@ -251,7 +258,6 @@ main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 1
   transition:opacity .2s cubic-bezier(.16,.84,.44,1), transform .28s cubic-bezier(.16,.84,.44,1);
 }
 .spec-hovercard.visible{ opacity:1; transform:scale(1) translateY(0); pointer-events:auto; }
-.spec-hovercard-img{ width:100%; height:140px; object-fit:cover; display:block; background:#DDE1E6; }
 .spec-hovercard-body{ padding:1.3rem 1.4rem; }
 .spec-hovercard-badge{
   display:inline-block; font-family:var(--font-mono); font-size:.65rem; font-weight:700; letter-spacing:.08em;
@@ -465,7 +471,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li class="has-dropdown">
-      <a href="about.html" class="dropdown-label">About</a>
+      <a href="journey.html" class="dropdown-label">About</a>
       <div class="dropdown">
         <a href="journey.html">Our Journey</a>
         <a href="vision.html">Mission, Vision &amp; Values</a>
@@ -1055,10 +1061,10 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
     <div class="stage-text reveal-left">
       <div class="stage-code">CHAPTER II</div>
       <h2>Shaped for Purpose</h2>
-      <h3>Pelletization, SIPL Rukni</h3>
-      <p>Raw ore fines alone are unruly, too fine, too inconsistent for the kiln ahead. At SIPL Rukni they're agglomerated into uniform spherical pellets, engineered for the <span class="hl">permeability</span> that clean, efficient reduction demands.</p>
+      <h3>Pelletization</h3>
+      <p>Raw ore fines alone are unruly, too fine, too inconsistent for the kiln ahead. They're agglomerated into uniform spherical pellets, engineered for the <span class="hl">permeability</span> that clean, efficient reduction demands.</p>
       <div class="chips">
-        <div class="chip">SIPL Rukni</div>
+        <div class="chip">Pellet Plant</div>
         <div class="chip">Spherical Pellets</div>
       </div>
     </div>
@@ -1066,7 +1072,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       <div class="visual-panel">
         <video class="stage-video" muted loop playsinline preload="none"
           poster="optimized-images/images/process/s2-pellet-pouring-poster.jpg"
-          data-src="optimized-videos/process/s2-pellet-pouring.mp4" aria-label="Iron ore pellets pouring at the SIPL Rukni pelletization plant"></video>
+          data-src="optimized-videos/process/s2-pellet-pouring.mp4" aria-label="Iron ore pellets pouring at the pelletization plant"></video>
         <div class="visual-caption">PELLET PLANT</div>
       </div>
     </div>
@@ -1088,10 +1094,13 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       </div>
     </div>
     <div class="stage-visual reveal-right">
-      <div class="visual-panel">
-        <video class="stage-video" muted loop playsinline preload="none"
+      <div class="visual-panel video-sequence">
+        <video class="seq-video active" muted playsinline preload="none" data-caption="ROTARY KILN"
           poster="optimized-images/images/process/s3-rotary-kiln-poster.jpg"
           data-src="optimized-videos/process/s3-rotary-kiln.mp4" aria-label="Industrial rotary kiln rotating during direct reduction"></video>
+        <video class="seq-video" muted playsinline preload="none" data-caption="KILN INTERIOR"
+          poster="optimized-images/images/process/s3b-rotary-kiln-interior-poster.jpg"
+          data-src="optimized-videos/process/s3b-rotary-kiln-interior.mp4" aria-label="Interior view of the rotary kiln glowing during reduction"></video>
         <div class="visual-caption">ROTARY KILN</div>
       </div>
     </div>
@@ -1119,10 +1128,13 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       </div>
     </div>
     <div class="stage-visual reveal-right">
-      <div class="visual-panel">
-        <video class="stage-video" muted loop playsinline preload="none"
+      <div class="visual-panel video-sequence">
+        <video class="seq-video active" muted playsinline preload="none" data-caption="INDUCTION FURNACE"
           poster="optimized-images/images/process/s4-induction-furnace-poster.jpg"
           data-src="optimized-videos/process/s4-induction-furnace.mp4" aria-label="Steel making inside the induction furnace"></video>
+        <video class="seq-video" muted playsinline preload="none" data-caption="SCRAP &amp; PIG IRON YARD"
+          poster="optimized-images/images/process/s4b-raw-materials-yard-poster.jpg"
+          data-src="optimized-videos/process/s4b-raw-materials-yard.mp4" aria-label="Scrap, pig iron and sponge iron staged in the raw materials yard"></video>
         <div class="visual-caption">INDUCTION FURNACE</div>
       </div>
     </div>
@@ -1143,10 +1155,13 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       </div>
     </div>
     <div class="stage-visual reveal-right">
-      <div class="visual-panel">
-        <video class="stage-video" muted loop playsinline preload="none"
+      <div class="visual-panel video-sequence">
+        <video class="seq-video active" muted playsinline preload="none" data-caption="CASTING MACHINE"
           poster="optimized-images/images/process/s5-continuous-casting-pour-poster.jpg"
           data-src="optimized-videos/process/s5-continuous-casting-pour.mp4" aria-label="Molten steel being poured during continuous casting"></video>
+        <video class="seq-video" muted playsinline preload="none" data-caption="BILLET EMERGING"
+          poster="optimized-images/images/process/s5b-billet-emerging-caster-poster.jpg"
+          data-src="optimized-videos/process/s5b-billet-emerging-caster.mp4" aria-label="A glowing billet emerging from the continuous caster onto the runout rollers"></video>
         <div class="visual-caption">CASTING MACHINE</div>
       </div>
     </div>
@@ -1167,11 +1182,14 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       </div>
     </div>
     <div class="stage-visual reveal-right">
-      <div class="visual-panel">
-        <video class="stage-video" muted loop playsinline preload="none"
-          poster="optimized-images/images/process/s6-structural-steel-skyline-poster.jpg"
-          data-src="optimized-videos/process/s6-structural-steel-skyline.mp4" aria-label="Structural steel framing rising above the city skyline"></video>
-        <div class="visual-caption">STRUCTURAL STEEL, IN USE</div>
+      <div class="visual-panel video-sequence">
+        <video class="seq-video active" muted playsinline preload="none" data-caption="BILLET UNDER PRESSURE"
+          poster="optimized-images/images/process/s6b-billet-rolling-poster.jpg"
+          data-src="optimized-videos/process/s6b-billet-rolling.mp4" aria-label="A red-hot billet driven through the rolling mill under pressure"></video>
+        <video class="seq-video" muted playsinline preload="none" data-caption="STRUCTURAL STEEL, WELDING"
+          poster="optimized-images/images/process/s6c-structural-steel-welding-poster.jpg"
+          data-src="optimized-videos/process/s6c-structural-steel-welding.mp4" aria-label="Workers welding structural steel framing on a high-rise construction site"></video>
+        <div class="visual-caption">BILLET UNDER PRESSURE</div>
       </div>
     </div>
   </section>
@@ -1197,15 +1215,9 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
       <div class="prod-badge">Core Product</div>
     </div>
     <div class="prod-card reveal">
-      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="32" width="44" height="7" rx="2" fill="url(#barGrad)"/>
-        <rect x="6" y="24" width="44" height="7" rx="2" fill="url(#barGrad)" opacity=".85"/>
-        <rect x="6" y="16" width="44" height="7" rx="2" fill="url(#barGrad)" opacity=".7"/>
-        <ellipse cx="44" cy="46" rx="7" ry="5" fill="none" stroke="#8792A2" stroke-width="1.5"/>
-        <rect x="37" y="41" width="14" height="10" fill="none" stroke="#545C6B" stroke-width="1"/>
-      </svg>
+      <img src="optimized-images/images/process/product-narrow-strips-slitting.jpg" alt="Rotary slitting line cutting a wide steel coil into narrow strips" class="prod-card-photo" loading="lazy">
       <h4>Narrow Strips (Hot Rolled)</h4>
-      <p>Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.</p>
+      <p>Flat hot-rolled strips feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.</p>
       <div class="prod-badge">Semi-Finished</div>
     </div>
     <div class="prod-card reveal">
@@ -1319,7 +1331,6 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
 
 <!-- SPEC HOVER CARD -->
 <div class="spec-hovercard" id="specHoverCard" role="tooltip">
-  <img class="spec-hovercard-img" id="hcImg" alt="" style="display:none;">
   <div class="spec-hovercard-body">
     <span class="spec-hovercard-badge" id="hcBadge"></span>
     <h4 id="hcTitle"></h4>
@@ -1334,7 +1345,7 @@ footer .accent-text{ color:var(--accent-ink); font-weight:700; }
   <div class="pdm-panel" role="dialog" aria-modal="true" aria-labelledby="pdmTitle">
     <div class="pdm-head">
       <div>
-        <div class="kicker" style="margin-bottom:.4rem;">SIPL RUKNI, SUB-PROCESS</div>
+        <div class="kicker" style="margin-bottom:.4rem;">PELLET PLANT, SUB-PROCESS</div>
         <h3 id="pdmTitle">The Pelletisation Flowchart</h3>
         <p>Eight stages between a pile of ore fines and a hardened, kiln-ready sphere, one continuous, closed-loop line.</p>
       </div>
@@ -1478,6 +1489,51 @@ stages.forEach(s=> s && stageObs.observe(s));
   videos.forEach(v=> videoObs.observe(v));
 })();
 
+// ── video-sequence panels: multiple clips in one box, playing one after another ──
+(function(){
+  const panels = document.querySelectorAll('.visual-panel.video-sequence');
+  if(!panels.length) return;
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  panels.forEach(panel=>{
+    const clips = Array.from(panel.querySelectorAll('.seq-video'));
+    const captionEl = panel.querySelector('.visual-caption');
+    let active = clips.findIndex(v=> v.classList.contains('active'));
+    if(active < 0) active = 0;
+    let started = false;
+
+    function playIndex(i){
+      clips.forEach((v,idx)=>{
+        if(idx === i){ v.classList.add('active'); }
+        else { v.classList.remove('active'); v.pause(); }
+      });
+      const next = clips[i];
+      if(captionEl && next.dataset.caption) captionEl.textContent = next.dataset.caption;
+      if(!next.src && next.dataset.src) next.src = next.dataset.src;
+      if(!noMotion) next.play().catch(()=>{});
+    }
+
+    clips.forEach((v,idx)=>{
+      v.addEventListener('ended', ()=>{
+        active = (idx + 1) % clips.length;
+        playIndex(active);
+      });
+    });
+
+    const panelObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          if(!started){ started = true; playIndex(active); }
+          else { const v = clips[active]; if(!noMotion) v.play().catch(()=>{}); }
+        } else {
+          clips.forEach(v=> v.pause());
+        }
+      });
+    },{ threshold:.35 });
+    panelObs.observe(panel);
+  });
+})();
+
 // ── flowchart node spec modal ──
 (function setupSpecModal(){
   const specData = {
@@ -1492,69 +1548,58 @@ stages.forEach(s=> s && stageObs.observe(s));
       tags: ['Own Mines']
     },
     'pellet-plant': {
-      category: 'machine', title: 'Pellet Plant, SIPL Rukni',
-      img: 'images/Rukni_Unit.png',
-      desc: 'Raw ore fines alone are too fine and inconsistent for the kiln ahead. At SIPL Rukni they\'re agglomerated into uniform spherical pellets, engineered for the permeability that clean, efficient reduction demands.',
-      tags: ['SIPL Rukni', 'Spherical Pellets', 'Commercial Since 2003'],
+      category: 'machine', title: 'Pellet Plant',
+      desc: 'Raw ore fines alone are too fine and inconsistent for the kiln ahead. They\'re agglomerated into uniform spherical pellets, engineered for the permeability that clean, efficient reduction demands.',
+      tags: ['Spherical Pellets', 'Commercial Since 2003'],
       detail: 'pelletization'
     },
     'rotary-kiln': {
       category: 'machine', title: 'Rotary Kiln',
-      img: 'images/Madandih_Unit.png',
       desc: 'At roughly 950°C, pellets and mined coal meet inside the rotary kiln. Oxygen is stripped away; only metallic iron remains, no coking, no blast furnace.',
       tags: ['~950°C', 'Non-Coking Coal', 'No Blast Furnace']
     },
     'sponge-iron': {
       category: 'product', title: 'Sponge Iron',
-      img: 'images/Sponge_Iron.jpeg',
       desc: 'Solid-state direct reduced metallic iron, made by removing oxygen from raw ore. India is the world\'s largest producer of this, and it\'s the primary feed for our induction furnace route.',
       tags: ['Coal-Based DRI', 'High Metallisation']
     },
     'induction-furnace': {
       category: 'machine', title: 'Induction Furnace',
-      img: 'images/Madandih_Unit.png',
       desc: 'Sponge iron meets externally sourced scrap and pig iron, and silicomanganese made entirely in-house, three sources, melted at roughly 1600°C into one liquid steel.',
       tags: ['~1600°C', 'Continuous Casting Feed']
     },
     'scrap-simn': {
       category: 'product', title: 'Scrap + Pig Iron + In-House SiMn',
-      img: 'images/Ferro_Alloys.png',
-      desc: 'Externally sourced scrap and pig iron combine with silicomanganese produced entirely in-house at Eloquent Steel, almost nothing here was bought as a finished input we simply had to have.',
+      desc: 'Externally sourced scrap and pig iron combine with silicomanganese produced entirely in-house, almost nothing here was bought as a finished input we simply had to have.',
       tags: ['External Scrap & Pig Iron', 'In-House SiMn']
     },
     'continuous-casting': {
       category: 'machine', title: 'Continuous Casting',
-      img: 'images/Madandih_Unit.png',
       desc: 'Liquid steel is poured into water-cooled molds and drawn out continuously, no batch, no interruption, producing a billet with a homogeneous grain structure.',
       tags: ['Water-Cooled Molds', 'Homogeneous Structure']
     },
     'billets': {
       category: 'product', title: 'M.S. / CRS Billets',
-      img: 'images/MS_Billets.jpeg',
       desc: 'High-grade semi-finished feed for rolling mills, produced by melting sponge iron, pig iron and select ferro alloys at ~1600°C, then shaped via continuous casting.',
       tags: ['100mm–160mm', 'IS 2830:2012']
     },
     'rolling-mill': {
       category: 'machine', title: 'Rolling Mill',
-      img: 'images/Durgapur.png',
       desc: 'Billets are reheated and driven through rolling mills under enormous pressure, elongating and refining into three distinct finished products, distributed pan-India.',
       tags: ['3 Finished Products', 'Pan-India Distribution']
     },
     'tmt-bars': {
       category: 'product', title: 'TMT Bars',
-      img: 'images/elegant_qst_bar.jpeg',
       desc: 'Thermomechanically treated reinforcement bars for RCC construction, marketed as Elegant Steel / QST TMT Bars, quenched and self-tempered via our TEMPCORE system.',
       tags: ['6–32mm', 'Fe 500D / 550D / CRS', 'ISI 1786:2008']
     },
     'strips': {
       category: 'product', title: 'Narrow Strips (Hot Rolled)',
-      img: 'images/hot strip coils.jpeg',
-      desc: 'Flat hot-rolled strips from SIPL Dhukuma, feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.',
+      desc: 'Flat hot-rolled strips feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.',
       tags: ['Semi-Finished', 'Pipe Manufacturing Feed']
     },
     'structural-steel': {
       category: 'product', title: 'Structural Steel',
-      img: 'images/Structural steel.jpeg',
       desc: 'Angles, channels, joists, H-beams and I-beams, tested against precise chemical, mechanical and visual benchmarks. Sold under the Elegant and Elecart brands.',
       tags: ['Elegant', 'Elecart']
     },
@@ -1625,7 +1670,6 @@ stages.forEach(s=> s && stageObs.observe(s));
     },
     'dispatch-truck': {
       category: 'product', title: 'Dispatch, Silicomanganese',
-      img: 'images/Ferro_Alloy_Photo.jpeg',
       desc: 'Finished silicomanganese lots leave the plant by road, a portion kept for captive use in our own steel-making furnace, the surplus sold externally to other producers.',
       tags: ['Captive Use', 'External Sale']
     },
@@ -1647,7 +1691,6 @@ stages.forEach(s=> s && stageObs.observe(s));
   };
 
   const card = document.getElementById('specHoverCard');
-  const imgEl = document.getElementById('hcImg');
   const badgeEl = document.getElementById('hcBadge');
   const titleEl = document.getElementById('hcTitle');
   const descEl = document.getElementById('hcDesc');
@@ -1659,8 +1702,6 @@ stages.forEach(s=> s && stageObs.observe(s));
   let hideTimer = null;
 
   function render(d){
-    if(d.img){ imgEl.src = d.img; imgEl.alt = d.title; imgEl.style.display = 'block'; }
-    else { imgEl.style.display = 'none'; imgEl.removeAttribute('src'); }
     badgeEl.textContent = d.category === 'machine' ? 'MACHINE / DIVISION' : 'MATERIAL / PRODUCT';
     badgeEl.className = 'spec-hovercard-badge ' + d.category;
     titleEl.textContent = d.title;
@@ -1764,5 +1805,6 @@ stages.forEach(s=> s && stageObs.observe(s));
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="process-hero.js"></script>
+<script src="wa-float.js"></script>
 </body>
 </html>
