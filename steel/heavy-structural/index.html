@@ -35,6 +35,10 @@
 .spec-extra-table th{ background:linear-gradient(135deg,var(--accent-hot),var(--accent)); color:#fff; font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:.74rem; letter-spacing:.04em; padding:.8rem 1rem; text-align:left; white-space:nowrap; }
 .spec-extra-table td{ padding:.75rem 1rem; border-top:1px solid var(--border); font-size:.9rem; color:var(--ink); font-family:var(--font-mono); }
 .spec-extra-table tr:nth-child(even) td{ background:var(--surface-2); }
+.usecase-item{ display:block; padding:0 0 1.4rem; overflow:hidden; }
+.usecase-photo{ width:100%; height:170px; object-fit:cover; border-radius:.9rem 0.9rem 0 0; display:block; margin-bottom:1.1rem; }
+.usecase-item-row{ display:grid; grid-template-columns:130px 1fr; gap:1.2rem; align-items:start; padding:0 1.7rem; }
+@media(max-width:700px){ .usecase-item-row{ grid-template-columns:1fr; gap:.5rem; } }
 </style>
 </head>
 <body>
@@ -185,16 +189,25 @@
   </div>
   <div class="usecase-grid">
     <div class="usecase-item panel reveal">
-      <div class="usecase-size">Light (50×50 MM to 65×65 MM)</div>
-      <p>Best for window grills, door frames, metal shelving units, and light roof trusses.</p>
+      <img src="/images/product page/structural steel page/Welding_steel_window_frame_202608101221.jpeg" alt="Welding a light steel window grill frame" class="usecase-photo" loading="lazy">
+      <div class="usecase-item-row">
+        <div class="usecase-size">Light (50×50 MM to 65×65 MM)</div>
+        <p>Best for window grills, door frames, metal shelving units, and light roof trusses.</p>
+      </div>
     </div>
     <div class="usecase-item panel reveal">
-      <div class="usecase-size">Medium (75×75 MM to 90×90 MM)</div>
-      <p>Best for industrial warehouse roof frames, factory shed purlins, and solar panel racking.</p>
+      <img src="/images/product page/structural steel page/Solar_panel_racking_factory_shed_202608101222.jpeg" alt="Structural steel solar panel racking outside a factory shed" class="usecase-photo" loading="lazy">
+      <div class="usecase-item-row">
+        <div class="usecase-size">Medium (75×75 MM to 90×90 MM)</div>
+        <p>Best for industrial warehouse roof frames, factory shed purlins, and solar panel racking.</p>
+      </div>
     </div>
     <div class="usecase-item panel reveal">
-      <div class="usecase-size">Heavy (100×100 MM to 130×130 MM)</div>
-      <p>Best for high-voltage electricity transmission towers, telecom towers, crane supports, and heavy machinery chassis.</p>
+      <img src="/images/product page/structural steel page/Structural_steel_framing_skylines_202608101224.jpeg" alt="Heavy structural steel framing rising above a city skyline" class="usecase-photo" loading="lazy">
+      <div class="usecase-item-row">
+        <div class="usecase-size">Heavy (100×100 MM to 130×130 MM)</div>
+        <p>Best for high-voltage electricity transmission towers, telecom towers, crane supports, and heavy machinery chassis.</p>
+      </div>
     </div>
   </div>
 </section>
