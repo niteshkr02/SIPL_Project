@@ -575,12 +575,12 @@
   }
 }
 
-/* ── India drill-down: state head card + zone/district panel ──
+/* ── India drill-down: state head card ──
    Additive only, reuses .mpp / .mpp-mini / .mpp-btn / .mpp-actions from
    above for the glass card language and CTA buttons — these rules only
-   cover the pieces that don't already exist: the compact head card under
-   the map, the breadcrumb bar, and the two grid layouts (zone badges /
-   district cards) that swap inside #idpGrid. */
+   cover the piece that doesn't already exist: the state head card in the
+   right-hand panel's header. One state is always selected (no "all
+   states" list, no history/breadcrumb), so this is the only view. */
 
 .state-head-card {
   margin-top: 1rem;
@@ -640,12 +640,213 @@
   margin-top: .15rem;
 }
 
-.state-head-card .mpp-mini {
-  background: rgba(255, 255, 255, .7);
-}
-
 .state-head-card .mpp-actions {
   margin-top: .85rem;
+}
+
+/* ── location card (replaces the old phone/email info boxes) — a compact
+   clickable pill showing "District, State"; opens the district popup ── */
+.shc-location-card {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 106, 31, .08);
+  border: 1px solid rgba(255, 106, 31, .2);
+  border-radius: 14px;
+  padding: .7rem .85rem;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease, transform .2s ease;
+}
+
+.shc-location-card:hover,
+.shc-location-card:focus-visible {
+  border-color: rgba(255, 106, 31, .45);
+  background: rgba(255, 106, 31, .13);
+  transform: translateY(-1px);
+}
+
+.shc-location-card:disabled {
+  cursor: default;
+  opacity: .8;
+}
+
+.shc-location-card:disabled:hover {
+  transform: none;
+  background: rgba(255, 106, 31, .08);
+  border-color: rgba(255, 106, 31, .2);
+}
+
+.shc-location-icon {
+  flex-shrink: 0;
+  font-size: .95rem;
+}
+
+.shc-location-text {
+  flex: 1;
+  min-width: 0;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.shc-location-chevron {
+  flex-shrink: 0;
+  color: var(--accent-ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ── district popup — floating overlay opened from the location card ── */
+.district-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(15, 18, 24, .45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease, visibility 0s linear .2s;
+}
+
+.district-popup-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .2s ease, visibility 0s linear 0s;
+}
+
+.district-popup {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  max-height: min(560px, 80vh);
+  display: flex;
+  flex-direction: column;
+  background: #FFF;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 30px 70px rgba(15, 18, 24, .25);
+  transform: scale(.94) translateY(8px);
+  transition: transform .22s cubic-bezier(.16, .84, .44, 1);
+}
+
+.district-popup-overlay.open .district-popup {
+  transform: scale(1) translateY(0);
+}
+
+.district-popup-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.district-popup-title {
+  margin: 0;
+  font-size: .82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink);
+}
+
+.district-popup-close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(20, 22, 28, .04);
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.district-popup-close:hover,
+.district-popup-close:focus-visible {
+  border-color: rgba(255, 106, 31, .5);
+  color: var(--accent-ink);
+  background: rgba(255, 106, 31, .08);
+  transform: rotate(90deg);
+}
+
+.district-popup-grid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .6rem;
+  padding: 1.2rem 1.3rem;
+  scrollbar-width: thin;
+}
+
+.district-popup-grid::-webkit-scrollbar {
+  width: 5px;
+}
+
+.district-popup-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 106, 31, .4);
+  border-radius: 4px;
+}
+
+/* plain, read-only display card — no click affordance, just the name */
+.district-pop-card {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  background: #FFF;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .65rem .75rem;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.district-pop-icon {
+  flex-shrink: 0;
+  font-size: .78rem;
+  color: var(--accent-ink);
+}
+
+.district-pop-name {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .district-popup-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.district-popup-locked {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .district-popup-overlay,
+  .district-popup,
+  .shc-location-card,
+  .district-popup-close {
+    transition: none;
+  }
 }
 
 /* ── India drill-down panel (right column, sibling of #vendorLiveCard) ── */
@@ -654,191 +855,73 @@
   grid-row: 1;
 }
 
-.mpp-breadcrumb {
+/* ── all-covered-states list, below the state head card — plain list of
+   names rather than the old card grid, click any one to jump to it ── */
+.idp-state-list {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  margin-bottom: 1.1rem;
+  margin-top: 1.1rem;
 }
 
-.mpp-crumb-btn {
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, .6);
-  color: var(--ink);
-  font-size: 1rem;
+.idp-state-list-title {
+  font-size: .68rem;
   font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
-  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .2s ease;
-}
-
-.mpp-crumb-btn:not(:disabled):hover {
-  border-color: rgba(255, 106, 31, .5);
-  color: var(--accent-ink);
-  background: rgba(255, 106, 31, .08);
-  transform: translateY(-1px);
-}
-
-.mpp-crumb-btn:disabled {
-  opacity: .35;
-  cursor: not-allowed;
-}
-
-.mpp-crumb-trail {
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  font-size: .8rem;
-  flex-wrap: wrap;
-}
-
-.crumb-link {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: var(--accent-ink);
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.crumb-sep {
+  text-transform: uppercase;
+  letter-spacing: .08em;
   color: var(--ink-soft);
+  margin-bottom: .6rem;
 }
 
-.crumb-current {
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.idp-hq-actions:empty {
-  display: none;
-}
-
-.idp-hq-actions:not(:empty) {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 1.1rem;
-}
-
-.idp-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: .65rem;
-  margin-top: .9rem;
-  max-height: 420px;
+.idp-state-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  max-height: 260px;
   overflow-y: auto;
   padding-right: .25rem;
   scrollbar-width: thin;
 }
 
-.idp-grid::-webkit-scrollbar {
+.idp-state-list-items::-webkit-scrollbar {
   width: 4px;
 }
 
-.idp-grid::-webkit-scrollbar-thumb {
+.idp-state-list-items::-webkit-scrollbar-thumb {
   background: rgba(255, 106, 31, .4);
   border-radius: 4px;
 }
 
-.idp-grid-zones {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.idp-grid-districts {
-  grid-template-columns: 1fr;
-}
-
-.zone-badge {
+.idp-state-item {
   text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: .3rem;
-  background: rgba(255, 255, 255, .55);
+  background: rgba(255, 255, 255, .5);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: .85rem .9rem;
-  cursor: pointer;
+  border-radius: 10px;
+  padding: .55rem .75rem;
   font: inherit;
+  font-size: .82rem;
+  font-weight: 600;
   color: var(--ink);
-  transition: transform .25s cubic-bezier(.16, .84, .44, 1), box-shadow .25s ease, border-color .25s ease, background .25s ease;
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease, color .25s ease, transform .2s ease;
 }
 
-.zone-badge:hover,
-.zone-badge:focus-visible {
-  transform: translateY(-3px);
+.idp-state-item:hover,
+.idp-state-item:focus-visible {
   border-color: rgba(255, 106, 31, .45);
   background: rgba(255, 255, 255, .85);
-  box-shadow: 0 14px 30px rgba(20, 22, 28, .1);
+  transform: translateX(2px);
 }
 
-.zone-badge-name {
-  font-weight: 800;
-  font-size: .92rem;
+.idp-state-item.active {
+  background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+  border-color: transparent;
+  color: #FFF;
 }
 
-.zone-badge-count {
-  font-size: .68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--accent-ink);
-}
-
-.zone-badge-head {
-  font-size: .72rem;
-  color: var(--ink-soft);
-  overflow-wrap: anywhere;
-}
-
-.district-card {
-  background: rgba(255, 255, 255, .55);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: .85rem .95rem;
-}
-
-.dc-cluster {
-  font-size: .64rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--accent-ink);
-  margin-bottom: .3rem;
-}
-
-.dc-name {
-  font-weight: 800;
-  font-size: .92rem;
-  color: var(--ink);
-}
-
-.dc-role {
-  font-size: .78rem;
-  color: var(--ink-soft);
-  margin: .1rem 0 .3rem;
-}
-
-.dc-districts {
-  font-size: .76rem;
-  color: var(--ink-soft);
-  line-height: 1.4;
-}
-
-.district-card .mpp-actions {
-  margin-top: .7rem;
+@media (prefers-reduced-motion: reduce) {
+  .idp-state-item {
+    transition: none;
+  }
 }
 
 /* covered states get a pointer cursor; everything else on the India map
@@ -857,25 +940,6 @@
   .mp-india-panel {
     max-width: none;
     padding: 1.4rem 1.25rem;
-  }
-
-  .idp-hq-actions:not(:empty) > .mpp-actions,
-  .district-card .mpp-actions {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .idp-grid-zones {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .zone-badge,
-  .mpp-crumb-btn {
-    transition: none;
   }
 }
 
@@ -919,4 +983,20 @@ html[data-theme="dark"] .quick-location-item:hover {
 
 html[data-theme="dark"] .ql-code {
   background: rgba(27, 31, 38, .7);
+}
+
+html[data-theme="dark"] .shc-location-card {
+  background: rgba(255, 106, 31, .12);
+}
+
+html[data-theme="dark"] .district-popup {
+  background: #1B1F26;
+}
+
+html[data-theme="dark"] .district-popup-close {
+  background: rgba(255, 255, 255, .06);
+}
+
+html[data-theme="dark"] .district-pop-card {
+  background: rgba(27, 31, 38, .65);
 }

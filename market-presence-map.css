@@ -17,13 +17,6 @@
    top are never transitioned.
    ════════════════════════════════════════════════════════════════════ */
 
-/* ── tighter section padding than the site default (.section's 5rem) —
-   this component is already visually dense with its own map cards ── */
-#market-presence {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 /* ── ambient section background (same recipe as Group / Trusted By / Awards) ── */
 .mp-mesh {
   position: absolute;
@@ -136,7 +129,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 
@@ -172,17 +165,19 @@
    .market-full-wrapper already carries class="panel" in the markup, so
    the white glass background/border/radius/shadow/hover-lift all come
    from styles.css .panel — only layout properties belong here.
-   The 3D cursor-tilt part of .panel:hover is switched off below: with
-   a card this large, the rotateX/rotateY swing was very noticeable
-   near the corners. */
+   The 3D cursor-tilt part of .panel:hover is dampened below: at the
+   site-wide panel's full ±3deg, a card this large swung very visibly near
+   the corners, so this card gets a wider perspective and ~35% of the
+   rotation — enough to still feel alive under the cursor without the
+   disorienting swing. */
 .market-full-wrapper {
   position: relative;
   z-index: 1;
-  padding: 1.4rem 1.5rem;
+  padding: 2rem 1.5rem;
   overflow: visible;
 }
 .market-full-wrapper.panel:hover {
-  transform: translateY(-8px);
+  transform: perspective(1800px) rotateX(calc(var(--rx, 0deg) * .35)) rotateY(calc(var(--ry, 0deg) * .35)) translateY(-8px);
 }
 
 .market-dashboard-grid {
@@ -204,7 +199,7 @@
   background: linear-gradient(160deg, rgba(255, 255, 255, .85) 0%, rgba(237, 240, 243, .55) 100%);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 1.1rem;
+  padding: 1.5rem;
   position: relative;
   overflow: visible;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 1px 2px rgba(20, 22, 28, .04);
@@ -214,7 +209,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1.25rem;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
@@ -593,8 +588,8 @@
   background: rgba(255, 255, 255, .95);
   border: 1px solid var(--border);
   color: var(--ink);
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.15rem 0.55rem;
+  border-radius: 8px;
   font-size: 0.68rem;
   font-weight: 700;
   margin-top: 3px;

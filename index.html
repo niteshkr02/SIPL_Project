@@ -2681,11 +2681,6 @@
                   <span class="legend-item"><span class="legend-dot HQ"></span> Corporate HQ &amp; Primary Steel
                     Complex</span>
                 </div>
-
-                <!-- STATE HEAD INFO CARD (left column, updates on zone selection) -->
-                <div class="state-head-card is-empty" id="stateHeadCard">
-                  <p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>
-                </div>
               </div>
             </div>
 
@@ -2756,7 +2751,10 @@
 
           <!-- INDIA DRILL-DOWN PANEL: sibling of #vendorLiveCard, occupies the
                same grid cell (see .mp-india-panel in market-presence-panel.css),
-               shown only while the India tab is active. -->
+               shown only while the India tab is active. No "all states" list
+               and no back/forward history — one state is always selected
+               (defaults to West Bengal/HQ), so there's nothing to navigate
+               back to. -->
           <div class="mpp mp-india-panel reveal" id="indiaDrillPanel" role="region" aria-label="Domestic distribution zone details">
             <div class="mpp-ambient" aria-hidden="true"></div>
             <div class="mpp-texture" aria-hidden="true"></div>
@@ -2768,23 +2766,19 @@
               <span class="mpp-status-label">Domestic Personnel Directory</span>
             </div>
 
-            <div class="mpp-breadcrumb">
-              <button type="button" class="mpp-crumb-btn" id="idpBackBtn" aria-label="Back" disabled>‹</button>
-              <button type="button" class="mpp-crumb-btn" id="idpForwardBtn" aria-label="Forward" disabled>›</button>
-              <nav class="mpp-crumb-trail" id="idpCrumbTrail" aria-label="Breadcrumb">
-                <span class="crumb-current">All States</span>
-              </nav>
-            </div>
-
             <div class="mpp-header">
-              <div class="mpp-state" id="idpTitle"><span aria-hidden="true">🇮🇳</span> All States</div>
-              <div class="mpp-company" id="idpSubtitle"></div>
+              <div class="mpp-state" id="idpTitle"><span aria-hidden="true">📍</span> West Bengal</div>
+              <div class="mpp-company" id="idpSubtitle">State Head</div>
             </div>
 
-            <div class="idp-hq-actions" id="idpHqActions"></div>
+            <!-- STATE HEAD INFO CARD, updates whenever a state is selected on the map -->
+            <div class="state-head-card is-empty" id="stateHeadCard">
+              <p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>
+            </div>
 
-            <div class="idp-grid idp-grid-zones" id="idpGrid">
-              <!-- zone badges or district cards, rendered by JS -->
+            <!-- ALL COVERED STATES, list view — click any name to jump straight to it -->
+            <div class="idp-state-list" id="idpStateList">
+              <!-- state name buttons, rendered by JS -->
             </div>
           </div>
 
@@ -2812,6 +2806,23 @@
         </div>
       </div>
     </section>
+
+    <!-- DISTRICT POPUP: floating overlay opened from the location card inside
+         the India state-head card. Kept outside .market-full-wrapper (which
+         has a hover 3D-tilt transform) so this stays truly viewport-fixed —
+         a transformed ancestor would turn position:fixed into "fixed to that
+         ancestor" instead of the viewport. -->
+    <div class="district-popup-overlay" id="districtPopupOverlay" aria-hidden="true">
+      <div class="district-popup" role="dialog" aria-modal="true" aria-labelledby="districtPopupTitle">
+        <div class="district-popup-header">
+          <h3 class="district-popup-title" id="districtPopupTitle">Districts</h3>
+          <button type="button" class="district-popup-close" id="districtPopupClose" aria-label="Close">&times;</button>
+        </div>
+        <div class="district-popup-grid" id="districtPopupGrid">
+          <!-- district cards, rendered by JS -->
+        </div>
+      </div>
+    </div>
 
     <!-- TRUSTED BY: PREMIUM CLIENT CREDIBILITY SHOWCASE (isolated component,
          see trusted-by-section.css / trusted-by-section.js) -->
@@ -4660,7 +4671,7 @@
         {
           "key": "north-bengal",
           "zoneState": "North Bengal",
-          "totalCount": 19,
+          "totalCount": 20,
           "stateHead": {
             "slNo": 113,
             "empName": "RANJAN SAHU",
@@ -4881,6 +4892,18 @@
               "phonePersonal": "",
               "primaryEmail": "",
               "groupEmail": ""
+            },
+            {
+              "slNo": 114,
+              "empName": "AKASH AGARWAL",
+              "designation": "",
+              "cluster": "North Bengal",
+              "districts": "",
+              "phoneOfficial": "6293149735",
+              "phonePersonal": "8100660990",
+              "primaryEmail": "",
+              "groupEmail": "operation.roi@shakambharigroup.in",
+              "isStateHead": true
             }
           ]
         }
@@ -4950,6 +4973,53 @@
         { slug: 'meghalaya', code: 'ML', name: 'Meghalaya', left: '79.5%', top: '38.9%' }
       ];
 
+      // ── District names for the district picker, derived from the
+      // existing personnel "districts" free-text field — no new data, just
+      // cleaned-up parsing of what's already there. That field is messy
+      // source-spreadsheet text: abbreviations ("APD-COB-DARJ-JALP"),
+      // parenthetical notes ("Ropar (Rupnagar)"), and — for the multi-state
+      // zone heads — whole-state/whole-region descriptions ("ALL, haryana &
+      // rajasthan...") instead of real districts. This is a best-effort
+      // clean: strip notes, split on common separators, drop anything that
+      // isn't a plausible district name (a known state name, a short
+      // ALL-CAPS code, or a generic word like "ALL"/"retail"). A few source
+      // rows use non-standard spellings for the same place (e.g.
+      // "Sonepat"/"Sonipat") and surface as two separate entries since
+      // there's no reliable way to know they're the same place from the
+      // text alone.
+      const DISTRICT_TOKEN_BLOCKLIST = new Set(['all', 'retail', 'project', 'north east', 'ne', 'mp', 'up', 'wb', 'hr', 'pb', 'rj', 'jh', 'or', 'od', 'as', 'tr', 'ml', 'hp', 'jk', 'uk', 'ua', 'br', 'ncr']);
+      const STATE_NAMES_LOWER = new Set(COVERED_STATE_MARKERS.map((m) => m.name.toLowerCase()));
+
+      function toDistrictTitleCase(s) {
+        return s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+      }
+
+      function parseDistrictTokens(str) {
+        if (!str) return [];
+        const cleaned = str.replace(/\([^)]*\)/g, ''); // strip parenthetical notes first, before splitting
+        return cleaned
+          .split(/[,&/;]| and | new district /gi)
+          .map((t) => t.replace(/^\s*n\.?b\.?\s*-\s*/i, ''))
+          .map((t) => t.replace(/\./g, '').trim())
+          .filter(Boolean)
+          .filter((t) => !DISTRICT_TOKEN_BLOCKLIST.has(t.toLowerCase()))
+          .filter((t) => !/^[A-Z]{2,6}(-[A-Z]{2,6}){1,}$/.test(t))
+          .filter((t) => !STATE_NAMES_LOWER.has(t.toLowerCase()))
+          .filter((t) => t.split(/\s+/).length <= 4)
+          .map(toDistrictTitleCase);
+      }
+
+      function buildStateDistricts(personnel) {
+        const map = new Map();
+        personnel.forEach((p) => {
+          parseDistrictTokens(p.districts).forEach((d) => {
+            const key = d.toLowerCase().replace(/\s+/g, '');
+            if (!map.has(key)) map.set(key, d);
+          });
+        });
+        return Array.from(map.values()).sort((a, b) => a.localeCompare(b));
+      }
+
       function buildIndiaStatesFlat() {
         const personnelBySlug = {};
         COVERED_STATE_MARKERS.forEach((m) => { personnelBySlug[m.slug] = []; });
@@ -4964,8 +5034,13 @@
         return COVERED_STATE_MARKERS
           .map((m) => {
             const personnel = personnelBySlug[m.slug] || [];
-            const head = personnel.find((p) => isHeadDesignation(p.designation)) || personnel[0] || null;
-            return { slug: m.slug, code: m.code, name: m.name, left: m.left, top: m.top, stateHead: head, districtPersonnel: personnel };
+            // an explicit isStateHead flag on a person overrides the
+            // designation-keyword guess below — used when the featured
+            // contact for a state isn't the one holding the "senior-most"
+            // title (e.g. a hand-off to a new state head)
+            const head = personnel.find((p) => p.isStateHead) || personnel.find((p) => isHeadDesignation(p.designation)) || personnel[0] || null;
+            const districts = buildStateDistricts(personnel);
+            return { slug: m.slug, code: m.code, name: m.name, left: m.left, top: m.top, stateHead: head, districtPersonnel: personnel, districts };
           })
           .filter((s) => s.districtPersonnel.length > 0);
       }
@@ -4988,6 +5063,10 @@
       }
 
       // ── LEFT: state head card, updates whenever a state is selected ──
+      // Contact details (phone/email) are no longer shown as boxed text —
+      // they're wired invisibly into the Call/Email buttons instead. The
+      // old phone/email area is now a single clickable location card that
+      // opens the district popup below.
       const stateHeadCard = document.getElementById('stateHeadCard');
 
       function renderStateHeadCard(state) {
@@ -4999,125 +5078,133 @@
         }
         stateHeadCard.classList.remove('is-empty');
         const head = state.stateHead;
-        const rows = [];
-        if (head.phoneOfficial) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📞</span><div class="mpp-mini-text"><span class="mpp-label">Office Phone</span><span class="mpp-value">${head.phoneOfficial}</span></div></div>`);
-        if (head.phonePersonal) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📱</span><div class="mpp-mini-text"><span class="mpp-label">Personal Phone</span><span class="mpp-value">${head.phonePersonal}</span></div></div>`);
-        if (head.primaryEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">✉️</span><div class="mpp-mini-text"><span class="mpp-label">Email</span><span class="mpp-value">${head.primaryEmail}</span></div></div>`);
-        if (head.groupEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">🏢</span><div class="mpp-mini-text"><span class="mpp-label">Group Email</span><span class="mpp-value">${head.groupEmail}</span></div></div>`);
+        const hasDistricts = !!(state.districts && state.districts.length);
+        // just the first district alphabetically — the location card is a
+        // display label, not a per-state "current selection" (the popup it
+        // opens is read-only, see renderDistrictPopupGrid below)
+        const locationText = hasDistricts ? `${state.districts[0]} District, ${state.name}` : state.name;
         stateHeadCard.innerHTML = `
           <div class="shc-row">
             <span class="shc-avatar" aria-hidden="true">⭐</span>
             <div class="shc-id">
               <div class="shc-name">${head.empName}</div>
-              <div class="shc-role">${head.designation || 'State Head'} · ${state.name}</div>
+              <div class="shc-role">${head.designation || 'State Head'}</div>
             </div>
           </div>
-          ${rows.join('')}
+          <button type="button" class="shc-location-card"${hasDistricts ? '' : ' disabled'}>
+            <span class="shc-location-icon" aria-hidden="true">📍</span>
+            <span class="shc-location-text">${locationText}</span>
+            ${hasDistricts ? '<span class="shc-location-chevron" aria-hidden="true">›</span>' : ''}
+          </button>
           ${personActionsHtml(head, 'Call', 'Email')}
         `;
+        if (hasDistricts) {
+          const locBtn = stateHeadCard.querySelector('.shc-location-card');
+          if (locBtn) locBtn.addEventListener('click', () => openDistrictPopup(state.slug));
+        }
       }
 
-      // ── RIGHT: breadcrumb + back/forward history + state/personnel grid ──
+      // ── DISTRICT POPUP: floating overlay listing every district for the
+      // currently open state, opened from the location card above. Read-
+      // only display — the district names inside are not clickable, there's
+      // no "select a district" interaction, just the full list. ──
+      const districtPopupOverlay = document.getElementById('districtPopupOverlay');
+      const districtPopupTitle = document.getElementById('districtPopupTitle');
+      const districtPopupGrid = document.getElementById('districtPopupGrid');
+      const districtPopupClose = document.getElementById('districtPopupClose');
+      let districtPopupLastFocus = null;
+
+      function renderDistrictPopupGrid(state) {
+        if (!districtPopupGrid) return;
+        districtPopupGrid.innerHTML = state.districts.map((d) => `
+          <div class="district-pop-card">
+            <span class="district-pop-icon" aria-hidden="true">📍</span>
+            <span class="district-pop-name">${d}</span>
+          </div>
+        `).join('');
+      }
+
+      function openDistrictPopup(stateSlug) {
+        const state = findState(stateSlug);
+        if (!state || !state.districts || !state.districts.length || !districtPopupOverlay) return;
+        if (districtPopupTitle) districtPopupTitle.textContent = `Districts in ${state.name}`;
+        renderDistrictPopupGrid(state);
+        districtPopupLastFocus = document.activeElement;
+        districtPopupOverlay.classList.add('open');
+        districtPopupOverlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('district-popup-locked');
+        if (districtPopupClose) districtPopupClose.focus();
+      }
+
+      function closeDistrictPopup() {
+        if (!districtPopupOverlay || !districtPopupOverlay.classList.contains('open')) return;
+        districtPopupOverlay.classList.remove('open');
+        districtPopupOverlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('district-popup-locked');
+        if (districtPopupLastFocus && districtPopupLastFocus.focus) districtPopupLastFocus.focus();
+      }
+
+      if (districtPopupClose) districtPopupClose.addEventListener('click', closeDistrictPopup);
+      if (districtPopupOverlay) {
+        districtPopupOverlay.addEventListener('click', (e) => {
+          if (e.target === districtPopupOverlay) closeDistrictPopup();
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && districtPopupOverlay && districtPopupOverlay.classList.contains('open')) closeDistrictPopup();
+      });
+
+      // ── RIGHT PANEL: state head card + a plain list of every covered
+      // state below it (click a name to jump straight there) — no more
+      // "all states" grid screen and no back/forward history, since the
+      // list makes every state reachable in one click already ──
       const vendorLiveCard = document.getElementById('vendorLiveCard');
       const indiaDrillPanel = document.getElementById('indiaDrillPanel');
       const idpTitle = document.getElementById('idpTitle');
       const idpSubtitle = document.getElementById('idpSubtitle');
-      const idpHqActions = document.getElementById('idpHqActions');
-      const idpGrid = document.getElementById('idpGrid');
-      const idpCrumbTrail = document.getElementById('idpCrumbTrail');
-      const idpBackBtn = document.getElementById('idpBackBtn');
-      const idpForwardBtn = document.getElementById('idpForwardBtn');
+      const idpStateList = document.getElementById('idpStateList');
 
-      // simple two-level history: an array of state slugs (null = root "All
-      // States"), with a pointer — selecting a new state truncates any
-      // forward entries, same as browser history
-      const idpHistory = { stack: [null], pointer: 0 };
+      // Default landing state: West Bengal (HQ) state-head details, instead
+      // of an empty "hover a marker" hint, so the panel never loads blank.
+      let currentStateSlug = 'west-bengal';
 
-      function idpNavigateTo(stateSlug) {
-        if (idpHistory.stack[idpHistory.pointer] === stateSlug) return;
-        idpHistory.stack = idpHistory.stack.slice(0, idpHistory.pointer + 1);
-        idpHistory.stack.push(stateSlug);
-        idpHistory.pointer = idpHistory.stack.length - 1;
-        renderCurrentIdpView();
+      function renderStateList() {
+        if (!idpStateList) return;
+        const sorted = indiaStatesFlat.slice().sort((a, b) => a.name.localeCompare(b.name));
+        idpStateList.innerHTML = `
+          <div class="idp-state-list-title">All Covered States</div>
+          <div class="idp-state-list-items">
+            ${sorted.map((s) => `<button type="button" class="idp-state-item" data-state="${s.slug}">${s.name}</button>`).join('')}
+          </div>
+        `;
+        idpStateList.querySelectorAll('.idp-state-item').forEach((btn) => {
+          btn.addEventListener('click', () => { selectState(btn.dataset.state); syncIndiaPinActiveState(btn.dataset.state); });
+        });
+        syncStateListActive(currentStateSlug);
       }
 
-      function idpGoBack() {
-        if (idpHistory.pointer === 0) return;
-        idpHistory.pointer -= 1;
-        renderCurrentIdpView();
-      }
-
-      function idpGoForward() {
-        if (idpHistory.pointer >= idpHistory.stack.length - 1) return;
-        idpHistory.pointer += 1;
-        renderCurrentIdpView();
-      }
-
-      function selectState(stateSlug) {
-        idpNavigateTo(stateSlug);
-      }
-
-      const TOTAL_UNIQUE_PERSONNEL = indiaZonesData.reduce((n, z) => n + z.totalCount, 0);
-
-      function renderStateGrid() {
-        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">🇮🇳</span> All States`;
-        if (idpSubtitle) idpSubtitle.textContent = `${indiaStatesFlat.length} states · ${TOTAL_UNIQUE_PERSONNEL} active personnel`;
-        if (idpHqActions) idpHqActions.innerHTML = '';
-        if (!idpGrid) return;
-        idpGrid.className = 'idp-grid idp-grid-zones';
-        idpGrid.innerHTML = indiaStatesFlat.map((state) => `
-          <button type="button" class="zone-badge" data-state="${state.slug}">
-            <span class="zone-badge-name">${state.name}</span>
-            <span class="zone-badge-count">${state.districtPersonnel.length} team members</span>
-            <span class="zone-badge-head">${state.stateHead ? state.stateHead.empName + ' · ' + (state.stateHead.designation || 'State Head') : ''}</span>
-          </button>
-        `).join('');
-        idpGrid.querySelectorAll('.zone-badge').forEach((btn) => {
-          btn.addEventListener('click', () => selectState(btn.dataset.state));
+      function syncStateListActive(stateSlug) {
+        if (!idpStateList) return;
+        idpStateList.querySelectorAll('.idp-state-item').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.state === stateSlug);
         });
       }
 
-      function renderDistrictGrid(stateSlug) {
+      function renderStatePanel(stateSlug) {
         const state = findState(stateSlug);
-        if (!state) { renderStateGrid(); return; }
-
-        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">📍</span> ${state.name}`;
-        if (idpSubtitle) idpSubtitle.textContent = `${state.districtPersonnel.length} team members in ${state.name}`;
-        if (idpHqActions) idpHqActions.innerHTML = state.stateHead ? personActionsHtml(state.stateHead, 'Call State Head', 'Email State Office') : '';
-
-        if (!idpGrid) return;
-        idpGrid.className = 'idp-grid idp-grid-districts';
-        idpGrid.innerHTML = state.districtPersonnel.map((person) => `
-          <div class="district-card">
-            <div class="dc-cluster">${person.cluster || state.name}</div>
-            <div class="dc-name">${person.empName}</div>
-            <div class="dc-role">${person.designation || 'Team Member'}</div>
-            <div class="dc-districts">${person.districts || ''}</div>
-            ${personActionsHtml(person, 'Call', 'Email')}
-          </div>
-        `).join('');
+        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">📍</span> ${state ? state.name : 'Select a State'}`;
+        if (idpSubtitle) idpSubtitle.textContent = state && state.stateHead ? 'State Head' : '';
+        renderStateHeadCard(state);
+        setStateHighlight(stateSlug);
+        syncStateListActive(stateSlug);
       }
 
-      function renderCurrentIdpView() {
-        const stateSlug = idpHistory.stack[idpHistory.pointer];
-
-        if (idpBackBtn) idpBackBtn.disabled = idpHistory.pointer === 0;
-        if (idpForwardBtn) idpForwardBtn.disabled = idpHistory.pointer >= idpHistory.stack.length - 1;
-        if (idpCrumbTrail) {
-          const state = stateSlug ? findState(stateSlug) : null;
-          idpCrumbTrail.innerHTML = state
-            ? `<button type="button" class="crumb-link" data-crumb="root">All States</button><span class="crumb-sep" aria-hidden="true">›</span><span class="crumb-current">${state.name}</span>`
-            : `<span class="crumb-current">All States</span>`;
-          const rootLink = idpCrumbTrail.querySelector('[data-crumb="root"]');
-          if (rootLink) rootLink.addEventListener('click', () => idpNavigateTo(null));
-        }
-
-        paintIdpState(stateSlug);
-        syncIndiaPinActiveState(stateSlug);
+      function selectState(stateSlug) {
+        if (!stateSlug || stateSlug === currentStateSlug) return;
+        currentStateSlug = stateSlug;
+        closeDistrictPopup();
+        renderStatePanel(stateSlug);
       }
-
-      if (idpBackBtn) idpBackBtn.addEventListener('click', idpGoBack);
-      if (idpForwardBtn) idpForwardBtn.addEventListener('click', idpGoForward);
 
       function setStateHighlight(stateSlug) {
         if (!statesGroupEl) return;
@@ -5134,22 +5221,15 @@
         });
       }
 
-      function paintIdpState(stateSlug) {
-        if (stateSlug) renderDistrictGrid(stateSlug);
-        else renderStateGrid();
-        renderStateHeadCard(stateSlug ? findState(stateSlug) : null);
-        setStateHighlight(stateSlug);
-      }
-
-      // hover = temporary preview, does not touch history/breadcrumb/back-
-      // forward, reverts to whatever is actually locked in on mouse-leave
-      // (same hover-vs-lock split the World tab already uses)
+      // hover = temporary preview, reverts to whichever state is actually
+      // locked in (currentStateSlug) on mouse-leave — same hover-vs-lock
+      // split the World tab already uses
       function previewIdpState(stateSlug) {
-        paintIdpState(stateSlug);
+        renderStatePanel(stateSlug);
       }
 
       function clearIdpPreview() {
-        paintIdpState(idpHistory.stack[idpHistory.pointer]);
+        renderStatePanel(currentStateSlug);
       }
 
       function renderIndiaMarkers() {
@@ -5636,10 +5716,11 @@
         }
       });
 
-      // Default landing view: the "All States" grid + empty state-head
-      // hint, nothing pre-selected on the map until the user actually
-      // hovers or clicks a covered state.
-      renderCurrentIdpView();
+      // Default landing view: West Bengal (HQ) state-head/vendor details,
+      // pre-selected on the map, instead of the empty "All States" grid.
+      renderStateList();
+      renderStatePanel(currentStateSlug);
+      syncIndiaPinActiveState(currentStateSlug);
 
       const tabWorldBtn = document.getElementById('tabWorldBtn');
       const tabIndiaBtn = document.getElementById('tabIndiaBtn');
@@ -5658,6 +5739,7 @@
           updateVendorCard(current);
           if (vendorLiveCard) vendorLiveCard.style.display = '';
           if (indiaDrillPanel) indiaDrillPanel.style.display = 'none';
+          closeDistrictPopup();
         });
 
         tabIndiaBtn.addEventListener('click', () => {
@@ -5667,7 +5749,8 @@
           else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
           if (vendorLiveCard) vendorLiveCard.style.display = 'none';
           if (indiaDrillPanel) indiaDrillPanel.style.display = '';
-          renderCurrentIdpView();
+          renderStatePanel(currentStateSlug);
+          syncIndiaPinActiveState(currentStateSlug);
         });
       }
     })();

@@ -34,9 +34,11 @@
     });
   }
 
-  // Hide the nav on scroll-down, bring it back on scroll-up (or near the top).
-  // Never hide while the mobile menu or a dropdown is open, and never while
-  // the nav itself holds keyboard focus (handled in CSS via :focus-within).
+  // Auto-hide the nav on scroll-down, bring it back on scroll-up (or near
+  // the top) — from anywhere on the page, not just the very top (see
+  // OVERLAY NAVIGATION in styles.css). Never hide while the mobile menu or
+  // a dropdown is open, and never while the nav itself holds keyboard focus
+  // (handled in CSS via :focus-within).
   let lastScrollY = window.scrollY;
   function onScroll(){
     if(!nav) return;
