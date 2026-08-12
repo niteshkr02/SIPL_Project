@@ -407,7 +407,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: .5rem;
-  max-height: 240px;
+  max-height: 260px;
   overflow-y: auto;
   padding-right: .25rem;
   scrollbar-width: thin;
@@ -438,6 +438,7 @@
   display: flex;
   align-items: center;
   gap: .55rem;
+  min-width: 0;
   background: rgba(255, 255, 255, .55);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -445,13 +446,16 @@
   font-size: .8rem;
   color: var(--ink-soft);
   cursor: pointer;
+  /* No transform here: shifting the box under the cursor on :hover made the
+     pointer land outside the shifted box, which re-fired mouseleave/mouseenter
+     in a loop and made the hovered state name flicker instead of holding. */
   transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
 }
 
 .quick-location-item:hover {
   background: rgba(255, 255, 255, .85);
   border-color: rgba(255, 106, 31, .35);
-  box-shadow: 0 6px 16px rgba(255, 106, 31, .1);
+  box-shadow: 0 6px 16px rgba(255, 106, 31, .12);
   color: var(--ink);
 }
 

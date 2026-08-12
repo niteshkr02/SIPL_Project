@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node analyze_all.js)",
+      "Bash(start \"\" \"d:\\\\Shakambhari\\\\SIPL_Project\\\\contact.html\")",
+      "Bash(rm -f /tmp/market_section.html /tmp/contact_backup_*.html)"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
+    ]
+  }
+}
