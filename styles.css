@@ -77,26 +77,38 @@ a{ color:inherit; }
   *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
 }
 
-/* ══ GLASS NAVIGATION ══
-   Kept intentionally light/glass regardless of the light/dark content
-   toggle below — it reads as persistent chrome for the premium
-   industrial theme rather than page content. */
+/* ══ OVERLAY NAVIGATION ══
+   Auto-hiding, not sticky-pinned: the bar rides up out of view as the user
+   scrolls down (transform, .nav-hidden — see site.js) instead of squatting
+   over content the whole way down the page, then slides back the instant
+   they scroll up, from anywhere on the page. That reveal-from-anywhere
+   requirement is why this stays position:fixed rather than absolute — an
+   absolutely-positioned bar scrolls away with the document and can't spring
+   back into view mid-page.
+   At the very top it's transparent: every hero on the site is a dark-navy/
+   near-black plate (see *-hero.css) with padding already reserving --nav-h
+   of clear space at its own top, so a transparent, light-text bar blends
+   directly into the hero artwork instead of sitting on top of it as a
+   separate slab. Past that (.scrolled) it firms up into a solid dark plate
+   so it stays legible when it reappears over arbitrary (often light) page
+   content further down. Kept intentionally dark/theme-independent regardless
+   of the light/dark content toggle below — it reads as chrome, not page
+   content. */
 .site-nav{
   position:fixed; top:0; left:0; right:0; z-index:1000;
   height:var(--nav-h);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 2rem;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(18px) saturate(140%);
-  -webkit-backdrop-filter:blur(18px) saturate(140%);
-  border-bottom:1px solid rgba(255,106,31,.18);
-  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 8px 30px rgba(15,23,42,.1);
-  transition:background .3s ease, box-shadow .3s ease, border-color .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
+  background:linear-gradient(to bottom, rgba(4,10,22,.6) 0%, rgba(4,10,22,.28) 65%, transparent 100%);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:background .3s ease, box-shadow .3s ease, transform .35s cubic-bezier(.16,.84,.44,1);
 }
 .site-nav.scrolled{
-  background:rgba(255,255,255,.94);
-  border-bottom-color:rgba(255,106,31,.32);
-  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 12px 34px rgba(15,23,42,.14), 0 1px 16px rgba(255,106,31,.1);
+  background:rgba(4,10,22,.92);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom-color:rgba(255,255,255,.1);
+  box-shadow:0 8px 30px rgba(0,0,0,.35);
 }
 .site-nav.nav-hidden{ transform:translateY(-100%); }
 .site-nav:focus-within{ transform:translateY(0) !important; }
@@ -104,21 +116,21 @@ a{ color:inherit; }
 .nav-brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; }
 .nav-brand svg{ width:52px; height:52px; flex-shrink:0; }
 .nav-brand-logo{ width:56px; height:56px; flex-shrink:0; object-fit:contain; }
-.nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#1B1F26; line-height:1.3; }
-.nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:var(--accent-ink); }
+.nav-brand-text{ font-family:var(--font-mono); font-weight:700; font-size:.78rem; letter-spacing:.16em; color:#F2F4F7; line-height:1.3; }
+.nav-brand-text span{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.14em; color:#FFC24B; }
 .nav-links{ display:flex; align-items:center; gap:1.3rem; list-style:none; }
 .nav-links > li{ position:relative; }
 .nav-links a, .nav-links .dropdown-label{
   font-family:var(--font-mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-  text-decoration:none; color:#2A2D34; position:relative; padding:.4rem 0;
+  text-decoration:none; color:#F2F4F7; position:relative; padding:.4rem 0;
   display:inline-flex; align-items:center; gap:.3rem; cursor:pointer; white-space:nowrap;
 }
 .nav-links > li > a::after{
-  content:''; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--accent);
+  content:''; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--accent-hot);
   transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
 }
 .nav-links > li > a:hover::after, .nav-links > li > a.active::after{ transform:scaleX(1); }
-.nav-links a.active{ color:var(--accent-ink); }
+.nav-links a.active{ color:var(--accent-hot); }
 .has-dropdown > a::before, .has-dropdown > .dropdown-label::before{
   content:''; width:0; height:0;
   border-left:3.5px solid transparent; border-right:3.5px solid transparent; border-top:4px solid currentColor;
@@ -196,18 +208,18 @@ a{ color:inherit; }
 .theme-toggle{
   display:inline-flex; align-items:center; justify-content:center;
   width:32px; height:32px; border-radius:50%;
-  border:1px solid rgba(15,23,42,.14); background:rgba(15,23,42,.04); color:#2A2D34;
+  border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.06); color:#F2F4F7;
   cursor:pointer; flex-shrink:0;
   transition:transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
 }
-.theme-toggle:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+.theme-toggle:hover{ border-color:var(--accent-hot); color:var(--accent-hot); transform:translateY(-2px); }
 .theme-toggle-icon{ width:15px; height:15px; }
 .theme-toggle-icon--moon{ display:none; }
 html[data-theme="dark"] .theme-toggle-icon--sun{ display:none; }
 html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 
 .nav-toggle{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:.5rem; }
-.nav-toggle span{ width:24px; height:2px; background:#2A2D34; border-radius:2px; transition:all .3s ease; }
+.nav-toggle span{ width:24px; height:2px; background:#F2F4F7; border-radius:2px; transition:all .3s ease; }
 .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2){ opacity:0; }
 .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
@@ -223,7 +235,10 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
   }
   .nav-links.open{ max-height:calc(100vh - var(--nav-h)); }
   .nav-links > li{ width:100%; }
-  .nav-links > li > a, .nav-links > li > .dropdown-label{ display:flex; width:100%; padding:1.1rem 2rem; justify-content:space-between; }
+  /* the collapsed panel is an opaque white sheet, not the transparent bar —
+     links need dark ink here regardless of the light-on-hero color set above */
+  .nav-links > li > a, .nav-links > li > .dropdown-label{ display:flex; width:100%; padding:1.1rem 2rem; justify-content:space-between; color:#2A2D34; }
+  .nav-links a.active{ color:var(--accent-ink); }
   .nav-links > li > a::after{ display:none; }
   .nav-links > li.has-dropdown > a::before, .nav-links > li.has-dropdown > .dropdown-label::before{ transform:rotate(180deg); }
   /* Re-state at equal specificity to the desktop rules (styles.css:141): a tap
