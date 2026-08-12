@@ -17,13 +17,19 @@
   padding: 5rem 1.75rem 6rem;
 }
 
-/* ── ambient background: mesh + dots + blueprint + wave + glow + noise ── */
+/* ── ambient background: mesh + dots + blueprint + wave + glow + noise ──
+   full-viewport-width so the section's own light background always meets
+   the hero/CTA band above and below flush, with no boxed column edge
+   showing the page's diagonal hatch pattern on either side ── */
 .cli-mesh {
   position: absolute;
-  inset: -4% -2%;
+  top: 0;
+  bottom: -4%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   z-index: 0;
   pointer-events: none;
-  border-radius: 2rem;
   background:
     radial-gradient(ellipse 55% 48% at 18% 12%, rgba(255, 145, 40, .05), transparent 60%),
     radial-gradient(ellipse 55% 50% at 84% 18%, rgba(241, 243, 246, .85), transparent 60%),
@@ -33,7 +39,11 @@
 
 .cli-dots {
   position: absolute;
-  inset: -4% -2%;
+  top: 0;
+  bottom: -4%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   z-index: 0;
   pointer-events: none;
   background-image: radial-gradient(rgba(15, 23, 42, .055) 1px, transparent 1px);
@@ -44,7 +54,11 @@
 
 .cli-blueprint {
   position: absolute;
-  inset: -4% -2%;
+  top: 0;
+  bottom: -4%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   z-index: 0;
   pointer-events: none;
   background-image:
@@ -144,7 +158,11 @@
 
 .cli-noise {
   position: absolute;
-  inset: -4% -2%;
+  top: 0;
+  bottom: -4%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   z-index: 0;
   pointer-events: none;
   opacity: .02;

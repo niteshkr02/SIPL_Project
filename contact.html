@@ -264,6 +264,7 @@
       <div class="ch-node ch-node-email" style="--dur:4.6s;"></div>
       <div class="ch-node ch-node-msg" style="--dur:3.8s;"></div>
     </div>
+    <div class="ch-particles" id="chParticles"></div>
   </div>
 
   <div class="ch-inner">
@@ -378,8 +379,8 @@
         <span class="mp-kicker-glow" aria-hidden="true"></span>
         <h2>Market Presence Across 29+ Countries &amp; India</h2>
         <p style="text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem;">
-          Hover over or tap any pinpoint marker on the maps below to view regional channel partner, depot, and vendor
-          contact details.
+          Hover over any pinpoint marker on the world map, or click a state on the India map, to view regional
+          channel partner, depot, and team contact details.
         </p>
       </div>
 
@@ -389,7 +390,7 @@
           🌐 International Presence (29+ Countries)
         </button>
         <button class="map-tab-btn active" id="tabIndiaBtn" data-target="indiaMapWrap">
-          🇮🇳 Domestic Network (20 Indian States)
+          🇮🇳 Domestic Network (15 States · 113 Team Members)
         </button>
       </div>
 
@@ -671,7 +672,7 @@
             <div class="map-tab-content active" id="indiaMapWrap">
               <div class="india-map-container">
                 <div class="map-header">
-                  <span class="map-badge"><span class="pulse-dot"></span> 20 STATES COVERED</span>
+                  <span class="map-badge"><span class="pulse-dot"></span> 15 STATES · 113 PERSONNEL</span>
                   <span class="map-subtitle">Interactive Domestic Distribution Network</span>
                 </div>
 
@@ -759,6 +760,11 @@
                   <span class="legend-item"><span class="legend-dot HQ"></span> Corporate HQ &amp; Primary Steel
                     Complex</span>
                 </div>
+
+                <!-- STATE HEAD INFO CARD (left column, updates on zone selection) -->
+                <div class="state-head-card is-empty" id="stateHeadCard">
+                  <p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>
+                </div>
               </div>
             </div>
 
@@ -766,7 +772,7 @@
 
           <!-- RIGHT COLUMN: PREMIUM ENTERPRISE INFO CONSOLE
                (isolated component, see market-presence-panel.css) -->
-          <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details">
+          <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details" style="display:none;">
             <div class="mpp-ambient" aria-hidden="true"></div>
             <div class="mpp-texture" aria-hidden="true"></div>
             <div class="mpp-noise" aria-hidden="true"></div>
@@ -825,6 +831,40 @@
               </div>
             </div>
 
+          </div>
+
+          <!-- INDIA DRILL-DOWN PANEL: sibling of #vendorLiveCard, occupies the
+               same grid cell (see .mp-india-panel in market-presence-panel.css),
+               shown only while the India tab is active. -->
+          <div class="mpp mp-india-panel reveal" id="indiaDrillPanel" role="region" aria-label="Domestic distribution zone details">
+            <div class="mpp-ambient" aria-hidden="true"></div>
+            <div class="mpp-texture" aria-hidden="true"></div>
+            <div class="mpp-noise" aria-hidden="true"></div>
+
+            <div class="mpp-status">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span class="mpp-status-live">LIVE</span>
+              <span class="mpp-status-label">Domestic Personnel Directory</span>
+            </div>
+
+            <div class="mpp-breadcrumb">
+              <button type="button" class="mpp-crumb-btn" id="idpBackBtn" aria-label="Back" disabled>‹</button>
+              <button type="button" class="mpp-crumb-btn" id="idpForwardBtn" aria-label="Forward" disabled>›</button>
+              <nav class="mpp-crumb-trail" id="idpCrumbTrail" aria-label="Breadcrumb">
+                <span class="crumb-current">All States</span>
+              </nav>
+            </div>
+
+            <div class="mpp-header">
+              <div class="mpp-state" id="idpTitle"><span aria-hidden="true">🇮🇳</span> All States</div>
+              <div class="mpp-company" id="idpSubtitle"></div>
+            </div>
+
+            <div class="idp-hq-actions" id="idpHqActions"></div>
+
+            <div class="idp-grid idp-grid-zones" id="idpGrid">
+              <!-- zone badges or district cards, rendered by JS -->
+            </div>
           </div>
 
         </div>
@@ -1209,129 +1249,1736 @@
         }
       ];
 
-      // 2. DOMESTIC INDIAN STATES DATA
-      const indiaStatesData = [
+      // 2. DOMESTIC PERSONNEL DATA (zones ⇄ districts/clusters)
+      // Real active manpower directory — mirrors manpower_directory.json at
+      // the repo root (kept in sync by hand; see generate_directory.py to
+      // regenerate both from the master Excel sheet). Embedded inline
+      // rather than fetched: this is a static site with no build step, and
+      // fetch() of a local JSON file fails under file://.
+      const indiaZonesData = [
         {
-          id: "wb", name: "West Bengal", code: "WB", left: "68.1%", top: "48.0%", isHQ: true,
-          hubType: "Corporate HQ & Primary Steel Complex", partner: "Shakambhari Corporate & Central Depot",
-          officer: "Rajesh Sharma (VP - Sales East)", phone: "+91 98300 12345", email: "wb.sales@shakambharigroup.com",
-          address: "10, Princep Street, Kolkata & Durgapur Plant"
+          "key": "north-india",
+          "zoneState": "North India",
+          "totalCount": 23,
+          "stateHead": {
+            "slNo": 1,
+            "empName": "VISHWAMBHAR JAIMAN",
+            "designation": "GM",
+            "cluster": "Haryana, Punjab, Rajasthan, Uttrakhand, Himachal, J&K.",
+            "districts": "ALL, haryana & rajasthan (retail) & punjab (project)",
+            "phoneOfficial": "7605057738",
+            "phonePersonal": "",
+            "primaryEmail": "vbhjaiman@gmail.com",
+            "groupEmail": "marketing.jaipur@shakambharigroup.in"
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 1,
+              "empName": "VISHWAMBHAR JAIMAN",
+              "designation": "GM",
+              "cluster": "Haryana, Punjab, Rajasthan, Uttrakhand, Himachal, J&K.",
+              "districts": "ALL, haryana & rajasthan (retail) & punjab (project)",
+              "phoneOfficial": "7605057738",
+              "phonePersonal": "",
+              "primaryEmail": "vbhjaiman@gmail.com",
+              "groupEmail": "marketing.jaipur@shakambharigroup.in"
+            },
+            {
+              "slNo": 2,
+              "empName": "AJAY KUMAR",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Haryana",
+              "districts": "Jhajjhar, Sonipat",
+              "phoneOfficial": "7596014912",
+              "phonePersonal": "9621701648",
+              "primaryEmail": "ajvj00007@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 3,
+              "empName": "RAVI KUMAR",
+              "designation": "ASO",
+              "cluster": "Haryana",
+              "districts": "Sirsa",
+              "phoneOfficial": "9147413396",
+              "phonePersonal": "9050133006",
+              "primaryEmail": "ravisidhmukhiya1593@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 4,
+              "empName": "KHAGENDAR YADAV",
+              "designation": "Senior Technical Executive",
+              "cluster": "Haryana",
+              "districts": "Karnal, Pundri & Sonepat",
+              "phoneOfficial": "9147763619",
+              "phonePersonal": "7206604516",
+              "primaryEmail": "khagender11009@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 5,
+              "empName": "SACHIN VERMA",
+              "designation": "ASO",
+              "cluster": "Haryana",
+              "districts": "Rohtak",
+              "phoneOfficial": "9748995559",
+              "phonePersonal": "9996439264",
+              "primaryEmail": "kundanpura55@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 6,
+              "empName": "NIRAJ (NEW JOINER)",
+              "designation": "ASO",
+              "cluster": "Haryana",
+              "districts": "Hasi & Jind",
+              "phoneOfficial": "8053383862",
+              "phonePersonal": "",
+              "primaryEmail": "vermaneeraj0013@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 7,
+              "empName": "MOHIT GILL",
+              "designation": "Senior Manager",
+              "cluster": "Haryana",
+              "districts": "Haryana",
+              "phoneOfficial": "9038414747",
+              "phonePersonal": "7015279997",
+              "primaryEmail": "",
+              "groupEmail": "elegant.haryana@shakambharigroup.in"
+            },
+            {
+              "slNo": 8,
+              "empName": "SOHAN LAL",
+              "designation": "ASM",
+              "cluster": "Haryana",
+              "districts": "AMBALA & YAMUNA NAGAR",
+              "phoneOfficial": "9147767625",
+              "phonePersonal": "7206719492",
+              "primaryEmail": "sohan.gyasiya@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 9,
+              "empName": "ANIL DOGRA",
+              "designation": "ASM",
+              "cluster": "Punjab",
+              "districts": "Patiala, Ludhiana, Jalandhar, Amritsar, Tarn Taran Sahib, Chandigarh, Mohali, Panchkula, Ropar (Rupnagar), Shahid Bhagat Singh Nagar (nawanshahr)",
+              "phoneOfficial": "9147104665",
+              "phonePersonal": "9888755595",
+              "primaryEmail": "anildogra.chd@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 10,
+              "empName": "ANIL KATARIA",
+              "designation": "Technical Executive",
+              "cluster": "Punjab",
+              "districts": "Mohali, Chandigarh, Panchkula",
+              "phoneOfficial": "8981220768",
+              "phonePersonal": "8968883665",
+              "primaryEmail": "lalitkumardimpy44@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 11,
+              "empName": "RAJESH SINGHLA",
+              "designation": "ASM",
+              "cluster": "Punjab",
+              "districts": "Bhatinda, Fazilka, Muktsar, Faridkot, Mansa & Ferozepur.",
+              "phoneOfficial": "9147104666",
+              "phonePersonal": "9814421115",
+              "primaryEmail": "rajeshsingla0106@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 12,
+              "empName": "LALIT KUMAR CHOUDHURY",
+              "designation": "ASO",
+              "cluster": "Punjab",
+              "districts": "Bhatinda & Muktsar",
+              "phoneOfficial": "8981228649",
+              "phonePersonal": "9872583808",
+              "primaryEmail": "lalitkumardimpy44@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 13,
+              "empName": "MUKESH SONI",
+              "designation": "ASM",
+              "cluster": "Punjab",
+              "districts": "Patiala, Sangrur, Barnala (South Punjab) new district Malerkotla.",
+              "phoneOfficial": "",
+              "phonePersonal": "9781800208",
+              "primaryEmail": "mukeshsonimicky@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 14,
+              "empName": "SURESH KUMAR MAHALA",
+              "designation": "ASO",
+              "cluster": "Rajasthan",
+              "districts": "SIKAR, NAWALGARH",
+              "phoneOfficial": "9748929991",
+              "phonePersonal": "8696800057",
+              "primaryEmail": "kps1997suresh@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 15,
+              "empName": "LALIT SHARMA",
+              "designation": "Technical Executive",
+              "cluster": "Rajasthan",
+              "districts": "BHARATPUR",
+              "phoneOfficial": "9007549944",
+              "phonePersonal": "8619379633",
+              "primaryEmail": "lalitsharma3039@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 16,
+              "empName": "DINESH CHAND JAIMAN",
+              "designation": "ASO",
+              "cluster": "Rajasthan",
+              "districts": "DAUSA",
+              "phoneOfficial": "9007303633",
+              "phonePersonal": "8890661856",
+              "primaryEmail": "dinesh8890661856@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 17,
+              "empName": "VIKASH KUMAR CHOUDHURY",
+              "designation": "ASO",
+              "cluster": "Rajasthan",
+              "districts": "JHUNJHUNU",
+              "phoneOfficial": "9038417441",
+              "phonePersonal": "9610076210",
+              "primaryEmail": "vk076210@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 18,
+              "empName": "SHASHANK SHARMA",
+              "designation": "ASO",
+              "cluster": "Rajasthan",
+              "districts": "HANUMANGARH",
+              "phoneOfficial": "9007967596",
+              "phonePersonal": "9001550500",
+              "primaryEmail": "vinusharma50@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 19,
+              "empName": "VIJENDRA SAINI",
+              "designation": "Manager",
+              "cluster": "Rajasthan",
+              "districts": "JHUNJHUNU, CHURU, SIKAR, BIKANER, GANGANAGAR, HANUMAN GARH",
+              "phoneOfficial": "9831648447",
+              "phonePersonal": "9414272021",
+              "primaryEmail": "viju0721@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 20,
+              "empName": "VIKAS SARASWAT",
+              "designation": "Manager",
+              "cluster": "Rajasthan",
+              "districts": "JAIPUR",
+              "phoneOfficial": "9007968296",
+              "phonePersonal": "8003698711",
+              "primaryEmail": "vikassaraswat123@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 21,
+              "empName": "MANU JAIMAN",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Rajasthan",
+              "districts": "ALWAR, DAUSA, DHOLPUR, BHARATPUR, KARAULI, TONK, SAWAI MADHOPUR.",
+              "phoneOfficial": "9007959578",
+              "phonePersonal": "9928172922",
+              "primaryEmail": "manu.jaiman7@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 22,
+              "empName": "SANJAY SINGH",
+              "designation": "SO",
+              "cluster": "UTTARAKHAND",
+              "districts": "DEHRADUN",
+              "phoneOfficial": "",
+              "phonePersonal": "9639535352",
+              "primaryEmail": "sanjugariya72@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 51,
+              "empName": "VIKRAM SINGH",
+              "designation": "ASO",
+              "cluster": "Rajasthan",
+              "districts": "ALWAR",
+              "phoneOfficial": "9038416868",
+              "phonePersonal": "7597576016",
+              "primaryEmail": "vikramsingh7576@gmail.com",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "br", name: "Bihar", code: "BR", left: "57.7%", top: "38.8%",
-          hubType: "Regional Distribution Hub", partner: "Patliputra Steel Depot & Partners",
-          officer: "Amit Kumar Roy", phone: "+91 94310 98765", email: "bihar.depot@shakambharigroup.com",
-          address: "Exhibition Road, Patna - 800001"
+          "key": "jharkhand",
+          "zoneState": "Jharkhand",
+          "totalCount": 9,
+          "stateHead": {
+            "slNo": 23,
+            "empName": "MANOJ SHARMA",
+            "designation": "Senior GM",
+            "cluster": "JHARKHAND, MP & UP",
+            "districts": "JHARKHAND, MP & UP",
+            "phoneOfficial": "9748322412",
+            "phonePersonal": "",
+            "primaryEmail": "manoj.sharma@shakambharigroup.in",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 23,
+              "empName": "MANOJ SHARMA",
+              "designation": "Senior GM",
+              "cluster": "JHARKHAND, MP & UP",
+              "districts": "JHARKHAND, MP & UP",
+              "phoneOfficial": "9748322412",
+              "phonePersonal": "",
+              "primaryEmail": "manoj.sharma@shakambharigroup.in",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 24,
+              "empName": "RAVI KUMAR YADAV (DSO)",
+              "designation": "Distributor Sales Officer",
+              "cluster": "Jharkhand",
+              "districts": "Koderma",
+              "phoneOfficial": "9748989998",
+              "phonePersonal": "8340156934",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 25,
+              "empName": "RAJNI KANT JHA",
+              "designation": "Sales Manager",
+              "cluster": "Jharkhand",
+              "districts": "Khunti, Simdega, Lohardaga, Gumla, Latehar, Ramgarh & Ranchi.",
+              "phoneOfficial": "9097283759",
+              "phonePersonal": "7250239611",
+              "primaryEmail": "rajnikant.jha@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 26,
+              "empName": "PARITOSH DANGI",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Jharkhand",
+              "districts": "Hazaribagh, Chatra, Koderma & Giridih",
+              "phoneOfficial": "9534982177",
+              "phonePersonal": "7004313360",
+              "primaryEmail": "paritosh.dangi@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 27,
+              "empName": "JANAK YADAV",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Jharkhand",
+              "districts": "Gumla & Lohardaga",
+              "phoneOfficial": "9147747859",
+              "phonePersonal": "9110190117",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 28,
+              "empName": "MANOJ KUMAR",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Jharkhand",
+              "districts": "Koderma, Chatra & Hazaribagh",
+              "phoneOfficial": "9147747870",
+              "phonePersonal": "9507914066",
+              "primaryEmail": "manojsinghhaz@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 29,
+              "empName": "SANTOSH KUMAR",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Jharkhand",
+              "districts": "Hazaribagh",
+              "phoneOfficial": "9147747872",
+              "phonePersonal": "9934149866",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 30,
+              "empName": "Binod Bedi",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Jharkhand",
+              "districts": "RANCHI",
+              "phoneOfficial": "9147747874",
+              "phonePersonal": "7004245785",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 31,
+              "empName": "Roshan Kumar Singh",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Jharkhand",
+              "districts": "CHATRA",
+              "phoneOfficial": "9147747875",
+              "phonePersonal": "8210356166",
+              "primaryEmail": "rajraushann999@gmail.com",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "jh", name: "Jharkhand", code: "JH", left: "58.3%", top: "45.7%",
-          hubType: "Industrial Depot & Channel Hub", partner: "Chota Nagpur Iron & Steel Distributors",
-          officer: "Vikash Agarwal", phone: "+91 93341 54321", email: "jharkhand.sales@shakambharigroup.com",
-          address: "Main Road, Ranchi & Jamshedpur Link"
+          "key": "madhya-pradesh",
+          "zoneState": "Madhya Pradesh",
+          "totalCount": 2,
+          "stateHead": {
+            "slNo": 32,
+            "empName": "DEEPAK UPADHYAY",
+            "designation": "ASM",
+            "cluster": "Madhya Pradesh",
+            "districts": "Madhya Pradesh",
+            "phoneOfficial": "9147380807",
+            "phonePersonal": "9755502693",
+            "primaryEmail": "du350011@live.com",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 32,
+              "empName": "DEEPAK UPADHYAY",
+              "designation": "ASM",
+              "cluster": "Madhya Pradesh",
+              "districts": "Madhya Pradesh",
+              "phoneOfficial": "9147380807",
+              "phonePersonal": "9755502693",
+              "primaryEmail": "du350011@live.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 33,
+              "empName": "Arun Jatav",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Madhya Pradesh",
+              "districts": "Shivpuri, Sheopur, Rajgarh, Vidisha, Morena, Bhind, Gwalior, Ashoknagar.",
+              "phoneOfficial": "9147422959",
+              "phonePersonal": "9179836367",
+              "primaryEmail": "arun.jatav2008@gmail.com",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "od", name: "Odisha", code: "OD", left: "59.9%", top: "54.9%",
-          hubType: "Coastal & Mining Steel Depot", partner: "Kalinga Infrastructure Suppliers",
-          officer: "Subhashish Panda", phone: "+91 97770 23456", email: "odisha.sales@shakambharigroup.com",
-          address: "Cuttack Road, Bhubaneswar - 751006"
+          "key": "north-east",
+          "zoneState": "North East",
+          "totalCount": 17,
+          "stateHead": {
+            "slNo": 34,
+            "empName": "DEBASHIS DUTTA",
+            "designation": "DGM",
+            "cluster": "North East",
+            "districts": "North East",
+            "phoneOfficial": "7605042475",
+            "phonePersonal": "",
+            "primaryEmail": "4mdebashis@gmail.com",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 34,
+              "empName": "DEBASHIS DUTTA",
+              "designation": "DGM",
+              "cluster": "North East",
+              "districts": "North East",
+              "phoneOfficial": "7605042475",
+              "phonePersonal": "",
+              "primaryEmail": "4mdebashis@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 35,
+              "empName": "RANJEET KR SINGH",
+              "designation": "GM",
+              "cluster": "North East",
+              "districts": "ASSAM",
+              "phoneOfficial": "9147999502",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 36,
+              "empName": "PRADIP KR. DEB",
+              "designation": "Senior Marketing Executive",
+              "cluster": "BarakValley (BKV)",
+              "districts": "Karimganj, Hailakandi, Cachar",
+              "phoneOfficial": "9147157105",
+              "phonePersonal": "9435073012",
+              "primaryEmail": "lock0112@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 37,
+              "empName": "SURAJ MUNDA",
+              "designation": "Distributor Sales Officer",
+              "cluster": "BarakValley (BKV)",
+              "districts": "Cachar",
+              "phoneOfficial": "9163478800",
+              "phonePersonal": "7002572202",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 38,
+              "empName": "DEBASHISH ACHARJEE",
+              "designation": "ASO",
+              "cluster": "BarakValley (BKV)",
+              "districts": "Hailakandi",
+              "phoneOfficial": "7596036736",
+              "phonePersonal": "9401377855",
+              "primaryEmail": "bittuvirus@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 39,
+              "empName": "DIGANTA DEKA",
+              "designation": "ASM",
+              "cluster": "Lower Assam",
+              "districts": "BARPETA, KOKRAJHAR, KAMRUP, NALBARI",
+              "phoneOfficial": "9147164285",
+              "phonePersonal": "9864276189",
+              "primaryEmail": "diganta2u1989@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 40,
+              "empName": "NAZRUL ISLAM",
+              "designation": "ASO",
+              "cluster": "Lower Assam",
+              "districts": "BARPETA & NALBARI",
+              "phoneOfficial": "8420048233",
+              "phonePersonal": "7002636402",
+              "primaryEmail": "n.islam0550@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 41,
+              "empName": "KANAK DEY",
+              "designation": "ASM",
+              "cluster": "Central Assam",
+              "districts": "MORIGAON, HOJAI, NAGAON, LUMDING, DIMA, HASAO, ANGLONG",
+              "phoneOfficial": "7596014919",
+              "phonePersonal": "9854378120",
+              "primaryEmail": "kanakdey0052@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 42,
+              "empName": "PAWAN CHAWDHURY",
+              "designation": "ASO",
+              "cluster": "Lower Assam",
+              "districts": "KOKRAJHAR",
+              "phoneOfficial": "9147163566",
+              "phonePersonal": "8638641977",
+              "primaryEmail": "munna121choudhary@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 43,
+              "empName": "SAMARJEET SINHA",
+              "designation": "ASM",
+              "cluster": "Tripura",
+              "districts": "KHOWAI, DHALAI",
+              "phoneOfficial": "",
+              "phonePersonal": "9774390089",
+              "primaryEmail": "samarjitsinha01@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 44,
+              "empName": "RAKESH DEBNATH",
+              "designation": "SO",
+              "cluster": "Tripura",
+              "districts": "Dharmanagar, Dhalai & North Tripura",
+              "phoneOfficial": "",
+              "phonePersonal": "8794828113",
+              "primaryEmail": "rakeshmaplst1234@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 45,
+              "empName": "SUJAN BANIK",
+              "designation": "ASM",
+              "cluster": "Tripura",
+              "districts": "Agartala, West Tripura, North Tripura",
+              "phoneOfficial": "",
+              "phonePersonal": "9436489392",
+              "primaryEmail": "sams.banik@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 46,
+              "empName": "SINTU SAIKIA",
+              "designation": "ASM",
+              "cluster": "Kamrup",
+              "districts": "KAMRUP",
+              "phoneOfficial": "",
+              "phonePersonal": "8011295982",
+              "primaryEmail": "sintusaikia999@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 47,
+              "empName": "SAAN SAIKIA",
+              "designation": "ASM",
+              "cluster": "Upper Assam",
+              "districts": "JORHAT",
+              "phoneOfficial": "",
+              "phonePersonal": "8638148090",
+              "primaryEmail": "saan0908@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 48,
+              "empName": "DILIP Shah",
+              "designation": "ASM",
+              "cluster": "Upper Assam",
+              "districts": "NB - Sonitpur, North Lakhimpur, Upper Assam",
+              "phoneOfficial": "",
+              "phonePersonal": "9864239864",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 49,
+              "empName": "Golam Rahman",
+              "designation": "SO",
+              "cluster": "Kamrup",
+              "districts": "KAMRUP",
+              "phoneOfficial": "",
+              "phonePersonal": "7002167732",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 50,
+              "empName": "TARUN HAZARIKA",
+              "designation": "ASM",
+              "cluster": "Meghalaya",
+              "districts": "Meghalaya",
+              "phoneOfficial": "",
+              "phonePersonal": "8638139588",
+              "primaryEmail": "",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "rj", name: "Rajasthan", code: "RJ", left: "27.6%", top: "34.8%",
-          hubType: "Western Region Depot", partner: "Marwar Steel Trading Co.",
-          officer: "Mahendra Singh Rathore", phone: "+91 98290 87654", email: "raj.sales@shakambharigroup.com",
-          address: "VKIA Industrial Area, Jaipur - 302013"
+          "key": "uttar-pradesh",
+          "zoneState": "Uttar Pradesh",
+          "totalCount": 6,
+          "stateHead": {
+            "slNo": 52,
+            "empName": "SUJIT BAJPAI",
+            "designation": "SH",
+            "cluster": "Uttar Pradesh",
+            "districts": "UP",
+            "phoneOfficial": "",
+            "phonePersonal": "9838382222",
+            "primaryEmail": "",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 52,
+              "empName": "SUJIT BAJPAI",
+              "designation": "SH",
+              "cluster": "Uttar Pradesh",
+              "districts": "UP",
+              "phoneOfficial": "",
+              "phonePersonal": "9838382222",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 53,
+              "empName": "SIDDHARTH PANDEY",
+              "designation": "",
+              "cluster": "Uttar Pradesh",
+              "districts": "Deoria, Kushinagar",
+              "phoneOfficial": "",
+              "phonePersonal": "9415886915",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 54,
+              "empName": "ARUN KUMAR",
+              "designation": "Deputy Manager",
+              "cluster": "Uttar Pradesh",
+              "districts": "Gorakhpur, Basti, Sant Kabir Nagar, Maharajganj, Siddharth Nagar.",
+              "phoneOfficial": "9748969998",
+              "phonePersonal": "8887752175",
+              "primaryEmail": "ararun755@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 55,
+              "empName": "VARUN TIWARI",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Uttar Pradesh",
+              "districts": "Kanpur, Unnao, Fatehpur, Etawah, Auraiya & Orai.",
+              "phoneOfficial": "9748130708",
+              "phonePersonal": "7007421370",
+              "primaryEmail": "varun.tivari@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 56,
+              "empName": "AVINESH JAISWAL",
+              "designation": "Senior Manager",
+              "cluster": "Uttar Pradesh",
+              "districts": "Azamgarh, Ballia, Mau, Ghazipur, Varanasi, Jaunpur, Mirzapur, Ambedkar Nagar, chandauli, sonbhadra, sultanpur.",
+              "phoneOfficial": "9147026877",
+              "phonePersonal": "8004928373",
+              "primaryEmail": "rajjournalist01@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 57,
+              "empName": "SHIVJEET MISHRA",
+              "designation": "Senior ASM",
+              "cluster": "Uttar Pradesh",
+              "districts": "PRAYAGRAJ, PRATAPGARH, Banda, chitrakoot, Kaushambi.",
+              "phoneOfficial": "",
+              "phonePersonal": "9140411332",
+              "primaryEmail": "shivjitmishra@gmail.com",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "as", name: "Assam", code: "AS", left: "78.9%", top: "37.2%",
-          hubType: "North-East Gateway Hub", partner: "Brahmaputra Steel Distributors",
-          officer: "Dipankar Baruah", phone: "+91 94350 11223", email: "assam.sales@shakambharigroup.com",
-          address: "GS Road, Dispur, Guwahati - 781005"
+          "key": "odisha",
+          "zoneState": "Odisha",
+          "totalCount": 7,
+          "stateHead": {
+            "slNo": 58,
+            "empName": "Pradyut Chakraborty",
+            "designation": "DGM",
+            "cluster": "Odisha",
+            "districts": "Odisha",
+            "phoneOfficial": "7606002213",
+            "phonePersonal": "",
+            "primaryEmail": "pradyut0310@gmail.com",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 58,
+              "empName": "Pradyut Chakraborty",
+              "designation": "DGM",
+              "cluster": "Odisha",
+              "districts": "Odisha",
+              "phoneOfficial": "7606002213",
+              "phonePersonal": "",
+              "primaryEmail": "pradyut0310@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 59,
+              "empName": "Sheikh Noor Ifteqar",
+              "designation": "ASM",
+              "cluster": "Odisha",
+              "districts": "Jagatsinghpur, Cuttack, Nayagarh, Khordah & Puri.",
+              "phoneOfficial": "",
+              "phonePersonal": "9438014855",
+              "primaryEmail": "Iftekhar4855@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 60,
+              "empName": "Pratap Singh",
+              "designation": "ASO",
+              "cluster": "Odisha",
+              "districts": "Jajpur",
+              "phoneOfficial": "",
+              "phonePersonal": "8280208226",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 61,
+              "empName": "Shekhar Nayak",
+              "designation": "ASM",
+              "cluster": "Odisha",
+              "districts": "Jajpur, Bhadrak, Kendrapara, Keonjar, Mayurbhanj & Balasore.",
+              "phoneOfficial": "",
+              "phonePersonal": "9090623635",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 62,
+              "empName": "Amit Das",
+              "designation": "",
+              "cluster": "Odisha",
+              "districts": "Balasore",
+              "phoneOfficial": "",
+              "phonePersonal": "7008133503",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 63,
+              "empName": "Swaroop Ranjan Patnayak",
+              "designation": "",
+              "cluster": "Odisha",
+              "districts": "Berhampore",
+              "phoneOfficial": "",
+              "phonePersonal": "8249826362",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 64,
+              "empName": "Pankaj Panda",
+              "designation": "",
+              "cluster": "Odisha",
+              "districts": "Angul",
+              "phoneOfficial": "",
+              "phonePersonal": "8917228941",
+              "primaryEmail": "",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "tp", name: "Tripura", code: "TR", left: "77.5%", top: "44.2%",
-          hubType: "Regional Channel Partner", partner: "Eastern Horizon Metals & Alloys",
-          officer: "Biplab Debnath", phone: "+91 94361 44556", email: "tripura.sales@shakambharigroup.com",
-          address: "Akhaura Road, Agartala - 799001"
+          "key": "bihar",
+          "zoneState": "Bihar",
+          "totalCount": 30,
+          "stateHead": {
+            "slNo": 66,
+            "empName": "PRIYESH PRIYAM",
+            "designation": "AGM",
+            "cluster": "Bihar",
+            "districts": "BIHAR",
+            "phoneOfficial": "9931318677",
+            "phonePersonal": "",
+            "primaryEmail": "priyeshpriyam@gmail.com",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 65,
+              "empName": "DHIRAJ KUMAR SINHA",
+              "designation": "ACCOUNTANT",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "8083422361",
+              "phonePersonal": "",
+              "primaryEmail": "dhirajkumar427@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 66,
+              "empName": "PRIYESH PRIYAM",
+              "designation": "AGM",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "9931318677",
+              "phonePersonal": "",
+              "primaryEmail": "priyeshpriyam@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 67,
+              "empName": "AMANJEET KUMAR SUNNY",
+              "designation": "ASM",
+              "cluster": "Bihar",
+              "districts": "VAISHALI & SAMASTIPUR",
+              "phoneOfficial": "9147106704",
+              "phonePersonal": "9199341071",
+              "primaryEmail": "amanjeet.sunny@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 68,
+              "empName": "DEEPAK SINHA",
+              "designation": "ASM",
+              "cluster": "Bihar",
+              "districts": "GAYA GT ROAD",
+              "phoneOfficial": "9147106688",
+              "phonePersonal": "9572793135",
+              "primaryEmail": "sinhaji.gaya@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 69,
+              "empName": "KUNAL KAUSHIK",
+              "designation": "ASM",
+              "cluster": "Bihar",
+              "districts": "PATNA, BEGUSARIA, ARA & KHAGARIA",
+              "phoneOfficial": "9147106700",
+              "phonePersonal": "9386737525",
+              "primaryEmail": "kunalkaushik007@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 70,
+              "empName": "ASHISH KUMAR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "PATNA",
+              "phoneOfficial": "9147106701",
+              "phonePersonal": "9304381831",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 71,
+              "empName": "SANTOSH KUMAR",
+              "designation": "DRIVER",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "9006440644",
+              "phonePersonal": "",
+              "primaryEmail": "santoshkumarneha2@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 72,
+              "empName": "SREE RAM KAUSHIK",
+              "designation": "GM",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "6207086601",
+              "phonePersonal": "",
+              "primaryEmail": "shreeramkaushik06@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 73,
+              "empName": "NIRBHAY KUMAR SINGH",
+              "designation": "MANAGER & CO-ORDINATOR (BRANDING & LOGISTICS)",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "9708888829",
+              "phonePersonal": "",
+              "primaryEmail": "nirbhay4patna@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 74,
+              "empName": "RAHUL TIWARI",
+              "designation": "Manager",
+              "cluster": "Bihar",
+              "districts": "ROHTAS, SASARAM",
+              "phoneOfficial": "9525520730",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 75,
+              "empName": "RAJNISH KUMAR",
+              "designation": "Manager",
+              "cluster": "Bihar",
+              "districts": "MUZAFFARPUR, SITAMARHI",
+              "phoneOfficial": "9147106692",
+              "phonePersonal": "9113110292",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 76,
+              "empName": "RITESH KUMAR RITURAJ",
+              "designation": "OFFICE BOY",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "7677181373",
+              "phonePersonal": "",
+              "primaryEmail": "riteshgorgama@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 77,
+              "empName": "CHANDAN KUMAR KARN",
+              "designation": "PROJECT MANAGER (MARKETING)",
+              "cluster": "Bihar",
+              "districts": "BIHAR",
+              "phoneOfficial": "9147106687",
+              "phonePersonal": "9835069796",
+              "primaryEmail": "ckkarn2009@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 78,
+              "empName": "RAKESH KUMAR SINHA",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "ROHTAS, KAIMUR & AURANGABAD",
+              "phoneOfficial": "9147106694",
+              "phonePersonal": "7903513292",
+              "primaryEmail": "rakesh.sinha132@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 79,
+              "empName": "RAVI KUMAR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "GAYA",
+              "phoneOfficial": "9147106689",
+              "phonePersonal": "9334336040",
+              "primaryEmail": "ravinayan2k9@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 80,
+              "empName": "PRAMOD KUMAR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "VAISHALI",
+              "phoneOfficial": "9147106690",
+              "phonePersonal": "7979848143",
+              "primaryEmail": "pramod.sri2014@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 81,
+              "empName": "SUNIL SINGH",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "ROHTAS, KAIMUR",
+              "phoneOfficial": "8409948622",
+              "phonePersonal": "",
+              "primaryEmail": "sunilsinghg001@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 82,
+              "empName": "SINTU KUMAR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "GAYA",
+              "phoneOfficial": "9147106702",
+              "phonePersonal": "9570535316",
+              "primaryEmail": "sintusintugudiya@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 83,
+              "empName": "BHASKAR KUMAR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "BEGHUSARAI",
+              "phoneOfficial": "9508610910",
+              "phonePersonal": "",
+              "primaryEmail": "singhbhaskar961@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 84,
+              "empName": "GAUTAM KHAN (Vicky Singh)",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "JEHANABAD",
+              "phoneOfficial": "9147163570",
+              "phonePersonal": "7004443904",
+              "primaryEmail": "gautamkhan786@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 85,
+              "empName": "SUBODH KUMAR",
+              "designation": "Technical Executive",
+              "cluster": "Bihar",
+              "districts": "MUZAFFARPUR",
+              "phoneOfficial": "7258889285",
+              "phonePersonal": "",
+              "primaryEmail": "subodhkum456sin@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 86,
+              "empName": "RAJESH RANJAN",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "DARBHANGA",
+              "phoneOfficial": "8051870207",
+              "phonePersonal": "",
+              "primaryEmail": "rrjha1992@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 87,
+              "empName": "BHANU KUMAR THAKUR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "SAHARSA & MADHEPURA",
+              "phoneOfficial": "6204830189",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 88,
+              "empName": "SHARAT KIRAN",
+              "designation": "Senior Manager",
+              "cluster": "Bihar",
+              "districts": "MOTIHARI (E/W-CHAMAPARAN), MADHUBANI, DARBHANGA, MUZAFFARPUR, SITAMARHI, SHEOHAR.",
+              "phoneOfficial": "9147106703",
+              "phonePersonal": "9955511011",
+              "primaryEmail": "sharatkiran9@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 89,
+              "empName": "SARVESH KUMAR",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Bihar",
+              "districts": "LAKHISARAI, JAMUI, SOME PART OF PATNA EAST (BARH TO LAKHISARAI).",
+              "phoneOfficial": "9038949476",
+              "phonePersonal": "9006093400",
+              "primaryEmail": "sarveshkumarpaharpur@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 90,
+              "empName": "DILIP KUMAR",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "SAHARSA, MADHEPURA & SUPAUL",
+              "phoneOfficial": "9147106699",
+              "phonePersonal": "9122822839",
+              "primaryEmail": "dilipkumar73391@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 91,
+              "empName": "DHIRAJ BHARDWAJ",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "BEGHUSARAI, KHAGARIA",
+              "phoneOfficial": "7044103139",
+              "phonePersonal": "7277259021",
+              "primaryEmail": "dhrj.bharadwaj@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 92,
+              "empName": "GUNJAN KUMAR SHARMA",
+              "designation": "Senior Marketing Executive",
+              "cluster": "Bihar",
+              "districts": "NALANDA, NAWADA",
+              "phoneOfficial": "9147106697",
+              "phonePersonal": "8789823671",
+              "primaryEmail": "gunjan98760@gmail.com",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 93,
+              "empName": "VIKASH KUMAR SINGH",
+              "designation": "ASO",
+              "cluster": "Bihar",
+              "districts": "SITAMARHI, SHEOHAR",
+              "phoneOfficial": "7488743845",
+              "phonePersonal": "",
+              "primaryEmail": "vikashsolanki983@yahoo.in",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 94,
+              "empName": "ASFAQUE AHAMAD",
+              "designation": "Technical Executive",
+              "cluster": "Bihar",
+              "districts": "SAHARSA",
+              "phoneOfficial": "9147106698",
+              "phonePersonal": "7903264639",
+              "primaryEmail": "asfaque05mit@gmail.com",
+              "groupEmail": ""
+            }
+          ]
         },
         {
-          id: "pb", name: "Punjab", code: "PB", left: "27.8%", top: "22.7%",
-          hubType: "Northern Structural Hub", partner: "Malwa Steel Suppliers",
-          officer: "Harpreet Singh Grewal", phone: "+91 98140 33445", email: "pb.sales@shakambharigroup.com",
-          address: "Focal Point, Ludhiana - 141010"
-        },
-        {
-          id: "hr", name: "Haryana", code: "HR", left: "31.6%", top: "30.1%",
-          hubType: "NCR Infrastructure Depot", partner: "NCR Infra Steel Links",
-          officer: "Ritu Raj Yadav", phone: "+91 98120 55667", email: "haryana.sales@shakambharigroup.com",
-          address: "Udyog Vihar, Phase V, Gurugram - 122016"
-        },
-        {
-          id: "up", name: "Uttar Pradesh", code: "UP", left: "44.2%", top: "35.0%",
-          hubType: "Central Northern Logistics Hub", partner: "Awadh Steel & Structures",
-          officer: "Sanjay Srivastava", phone: "+91 94150 77889", email: "up.sales@shakambharigroup.com",
-          address: "Transport Nagar, Lucknow - 226012"
-        },
-        {
-          id: "hp", name: "Himachal Pradesh", code: "HP", left: "30.8%", top: "22.6%",
-          hubType: "Hill States Industrial Partner", partner: "Mountain Steel Logistics",
-          officer: "Sunil Thakur", phone: "+91 98160 88990", email: "hp.sales@shakambharigroup.com",
-          address: "Industrial Area, Baddi - 173205"
-        },
-        {
-          id: "jk", name: "Jammu & Kashmir", code: "JK", left: "24.6%", top: "17.2%",
-          hubType: "Northern Border Infrastructure Depot", partner: "Valley Infrastructure Metals",
-          officer: "Tariq Ahmad Shah", phone: "+91 94191 22334", email: "jk.sales@shakambharigroup.com",
-          address: "Gangyal Industrial Complex, Jammu - 180010"
-        },
-        {
-          id: "mn", name: "Manipur", code: "MN", left: "86.0%", top: "41.2%",
-          hubType: "Eastern Regional Depot", partner: "Manipur Steel Trade House",
-          officer: "N. Radheshyam Singh", phone: "+91 98620 11998", email: "manipur.sales@shakambharigroup.com",
-          address: "Thangal Bazar, Imphal - 795001"
-        },
-        {
-          id: "nl", name: "Nagaland", code: "NL", left: "85.4%", top: "37.9%",
-          hubType: "Hill Region Channel Partner", partner: "Naga Hills Metals Network",
-          officer: "Kevisezo Kense", phone: "+91 94360 22881", email: "nagaland.sales@shakambharigroup.com",
-          address: "Circular Road, Dimapur - 797112"
-        },
-        {
-          id: "ml", name: "Meghalaya", code: "ML", left: "79.5%", top: "38.9%",
-          hubType: "Sub-Himalayan Distribution", partner: "Khasi Hills Steel Agencies",
-          officer: "Banrap Lyngdoh", phone: "+91 94363 33445", email: "meghalaya.sales@shakambharigroup.com",
-          address: "Mawlai Phudmuri, Shillong - 793008"
-        },
-        {
-          id: "sk", name: "Sikkim", code: "SK", left: "68.9%", top: "33.6%",
-          hubType: "Mountain Projects Partner", partner: "Himalayan Steel Suppliers",
-          officer: "Tashi Bhutia", phone: "+91 94340 77112", email: "sikkim.sales@shakambharigroup.com",
-          address: "Deorali, Gangtok - 737102"
-        },
-        {
-          id: "mh", name: "Maharashtra", code: "MH", left: "18.7%", top: "58.8%",
-          hubType: "Western Commercial Hub", partner: "Western India Steel Corp.",
-          officer: "Nitin Deshmukh", phone: "+91 98200 44556", email: "mh.sales@shakambharigroup.com",
-          address: "Kalamboli Steel Market, Navi Mumbai - 410218"
-        },
-        {
-          id: "mp", name: "Madhya Pradesh", code: "MP", left: "27.8%", top: "47.6%",
-          hubType: "Central India Distribution Hub", partner: "Central India Steel Links",
-          officer: "Alok Sharma", phone: "+91 98260 66778", email: "mp.sales@shakambharigroup.com",
-          address: "Sanwer Road Industrial Area, Indore - 452015"
-        },
-        {
-          id: "gj", name: "Gujarat", code: "GJ", left: "17.3%", top: "46.7%",
-          hubType: "Industrial & Port Logistics Depot", partner: "Gujarat Heavy Steel Depot",
-          officer: "Chirag Patel", phone: "+91 98250 99112", email: "guj.sales@shakambharigroup.com",
-          address: "GIDC Naroda, Ahmedabad - 382330"
-        },
-        {
-          id: "tn", name: "Tamil Nadu", code: "TN", left: "42.0%", top: "76.8%",
-          hubType: "Southern Infrastructure Depot", partner: "Deccan Steel Partners",
-          officer: "K. Venkatesh", phone: "+91 98400 88221", email: "tn.sales@shakambharigroup.com",
-          address: "Ambattur Industrial Estate, Chennai - 600058"
+          "key": "north-bengal",
+          "zoneState": "North Bengal",
+          "totalCount": 19,
+          "stateHead": {
+            "slNo": 113,
+            "empName": "RANJAN SAHU",
+            "designation": "AGM",
+            "cluster": "North Bengal",
+            "districts": "APD-COB-DARJ-JALP",
+            "phoneOfficial": "9337240385",
+            "phonePersonal": "",
+            "primaryEmail": "",
+            "groupEmail": ""
+          },
+          "districtPersonnel": [
+            {
+              "slNo": 95,
+              "empName": "Vikram Narsaria",
+              "designation": "",
+              "cluster": "North Bengal",
+              "districts": "SILIGURI",
+              "phoneOfficial": "",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 96,
+              "empName": "BINOY JHA",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "ALIPURDUAR",
+              "phoneOfficial": "8918486044",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 97,
+              "empName": "ANIRUDHYA DEY",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "ALIPURDUAR",
+              "phoneOfficial": "7605083445",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 98,
+              "empName": "CHANCHAL DEY",
+              "designation": "Technical Executive",
+              "cluster": "North Bengal",
+              "districts": "ALIPURDUAR",
+              "phoneOfficial": "8420161646",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 99,
+              "empName": "RAKESH SARKAR",
+              "designation": "Deputy Manager",
+              "cluster": "North Bengal",
+              "districts": "ALIPURDUAR & COOCHBEHAR",
+              "phoneOfficial": "8420161687",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 100,
+              "empName": "RATUL ROY",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "COOCHBEHAR",
+              "phoneOfficial": "9147106683",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 101,
+              "empName": "KARTIK DEY",
+              "designation": "Senior Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "COOCHBEHAR",
+              "phoneOfficial": "9147114714",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 102,
+              "empName": "SURESH SHIL",
+              "designation": "Technical Executive",
+              "cluster": "North Bengal",
+              "districts": "COOCHBEHAR",
+              "phoneOfficial": "9147157110",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 103,
+              "empName": "SUVANKAR DHAR",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "COOCHBEHAR",
+              "phoneOfficial": "9831648291",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 104,
+              "empName": "SUBARNA SARKHEL",
+              "designation": "Technical Executive",
+              "cluster": "North Bengal",
+              "districts": "COOCHBEHAR",
+              "phoneOfficial": "9147114712",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 105,
+              "empName": "ANIMESH KARMAKAR",
+              "designation": "Distributor Sales Officer",
+              "cluster": "North Bengal",
+              "districts": "COOCHBEHAR",
+              "phoneOfficial": "6293149698",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 106,
+              "empName": "DIPANKAR PAUL",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "DARJEELING",
+              "phoneOfficial": "9163512277",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 107,
+              "empName": "SANJEEB BARMAN",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "DARJEELING",
+              "phoneOfficial": "9147106676",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 108,
+              "empName": "CHIRNJEET CHAKRABORTY",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "DARJEELING",
+              "phoneOfficial": "7605085436",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 109,
+              "empName": "BIMAN SANYAL",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "JALPAIGURI",
+              "phoneOfficial": "8695612047",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 110,
+              "empName": "AVIJIT DAS",
+              "designation": "Marketing Executive",
+              "cluster": "North Bengal",
+              "districts": "JALPAIGURI",
+              "phoneOfficial": "9163263311",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 111,
+              "empName": "SUBHJIT ROY",
+              "designation": "Distributor Sales Officer",
+              "cluster": "North Bengal",
+              "districts": "JALPAIGURI",
+              "phoneOfficial": "6293149697",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 112,
+              "empName": "AGNIVA DUTTA",
+              "designation": "Technical Manager",
+              "cluster": "North Bengal",
+              "districts": "APD-COB-DARJ-JALP",
+              "phoneOfficial": "7596036703",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            },
+            {
+              "slNo": 113,
+              "empName": "RANJAN SAHU",
+              "designation": "AGM",
+              "cluster": "North Bengal",
+              "districts": "APD-COB-DARJ-JALP",
+              "phoneOfficial": "9337240385",
+              "phonePersonal": "",
+              "primaryEmail": "",
+              "groupEmail": ""
+            }
+          ]
         }
       ];
+
+      // Some personnel zones in the source PDF bundle several states under one
+      // regional head (North India covers 6 states, North East covers 3);
+      // showing them as one shared bubble/card meant every state in that
+      // zone lit up together and stacked identical popovers on screen. So
+      // the site view is state-based instead: every covered state gets its
+      // own independent card, bubble and popover, built here by splitting
+      // each zone's roster to the actual state each person's cluster/
+      // district text belongs to (a regional GM/DGM with no single
+      // assigned state — e.g. slNo 1 covers all of North India — appears
+      // under every state in their zone, since they're the only contact
+      // for the ones with no dedicated local rep, like Himachal Pradesh
+      // and J&K here).
+      const REGION_MEMBER_STATE_MAP = {
+        1: ['haryana', 'punjab', 'rajasthan', 'uttarakhand', 'himachal-pradesh', 'jammu-and-kashmir'],
+        2: ['haryana'], 3: ['haryana'], 4: ['haryana'], 5: ['haryana'], 6: ['haryana'], 7: ['haryana'], 8: ['haryana'],
+        9: ['punjab'], 10: ['punjab'], 11: ['punjab'], 12: ['punjab'], 13: ['punjab'],
+        14: ['rajasthan'], 15: ['rajasthan'], 16: ['rajasthan'], 17: ['rajasthan'], 18: ['rajasthan'],
+        19: ['rajasthan'], 20: ['rajasthan'], 21: ['rajasthan'], 51: ['rajasthan'],
+        22: ['uttarakhand'],
+        34: ['assam', 'tripura', 'meghalaya'],
+        35: ['assam'], 36: ['assam'], 37: ['assam'], 38: ['assam'], 39: ['assam'], 40: ['assam'],
+        41: ['assam'], 42: ['assam'], 46: ['assam'], 47: ['assam'], 48: ['assam'], 49: ['assam'],
+        43: ['tripura'], 44: ['tripura'], 45: ['tripura'],
+        50: ['meghalaya']
+      };
+
+      // every zone not listed above maps entirely onto one state (North
+      // Bengal's coverage is only part of West Bengal on the map, hence the
+      // 'west-bengal' slug)
+      const ZONE_SINGLE_STATE = {
+        'jharkhand': 'jharkhand',
+        'madhya-pradesh': 'madhya-pradesh',
+        'uttar-pradesh': 'uttar-pradesh',
+        'odisha': 'odisha',
+        'bihar': 'bihar',
+        'north-bengal': 'west-bengal'
+      };
+
+      function isHeadDesignation(desig) {
+        const d = (desig || '').toUpperCase();
+        return ['GM', 'DGM', 'SH', 'AGM', 'SENIOR MANAGER'].some((k) => d.includes(k));
+      }
+
+      // bubble coordinates reused from the original (pre-refactor) fake
+      // per-state data; Uttarakhand never had its own entry there, so its
+      // position is estimated from the map's own geography
+      const COVERED_STATE_MARKERS = [
+        { slug: 'rajasthan', code: 'RJ', name: 'Rajasthan', left: '27.6%', top: '34.8%' },
+        { slug: 'haryana', code: 'HR', name: 'Haryana', left: '31.6%', top: '30.1%' },
+        { slug: 'punjab', code: 'PB', name: 'Punjab', left: '27.8%', top: '22.7%' },
+        { slug: 'uttarakhand', code: 'UK', name: 'Uttarakhand', left: '37.5%', top: '27.5%' },
+        { slug: 'himachal-pradesh', code: 'HP', name: 'Himachal Pradesh', left: '30.8%', top: '22.6%' },
+        { slug: 'jammu-and-kashmir', code: 'JK', name: 'Jammu & Kashmir', left: '24.6%', top: '17.2%' },
+        { slug: 'uttar-pradesh', code: 'UP', name: 'Uttar Pradesh', left: '44.2%', top: '35.0%' },
+        { slug: 'madhya-pradesh', code: 'MP', name: 'Madhya Pradesh', left: '27.8%', top: '47.6%' },
+        { slug: 'bihar', code: 'BR', name: 'Bihar', left: '57.7%', top: '38.8%' },
+        { slug: 'jharkhand', code: 'JH', name: 'Jharkhand', left: '58.3%', top: '45.7%' },
+        { slug: 'west-bengal', code: 'WB', name: 'West Bengal', left: '68.1%', top: '48.0%' },
+        { slug: 'odisha', code: 'OD', name: 'Odisha', left: '59.9%', top: '54.9%' },
+        { slug: 'assam', code: 'AS', name: 'Assam', left: '78.9%', top: '37.2%' },
+        { slug: 'tripura', code: 'TR', name: 'Tripura', left: '77.5%', top: '44.2%' },
+        { slug: 'meghalaya', code: 'ML', name: 'Meghalaya', left: '79.5%', top: '38.9%' }
+      ];
+
+      function buildIndiaStatesFlat() {
+        const personnelBySlug = {};
+        COVERED_STATE_MARKERS.forEach((m) => { personnelBySlug[m.slug] = []; });
+
+        indiaZonesData.forEach((zone) => {
+          zone.districtPersonnel.forEach((person) => {
+            const slugs = REGION_MEMBER_STATE_MAP[person.slNo] || (ZONE_SINGLE_STATE[zone.key] ? [ZONE_SINGLE_STATE[zone.key]] : []);
+            slugs.forEach((slug) => { if (personnelBySlug[slug]) personnelBySlug[slug].push(person); });
+          });
+        });
+
+        return COVERED_STATE_MARKERS
+          .map((m) => {
+            const personnel = personnelBySlug[m.slug] || [];
+            const head = personnel.find((p) => isHeadDesignation(p.designation)) || personnel[0] || null;
+            return { slug: m.slug, code: m.code, name: m.name, left: m.left, top: m.top, stateHead: head, districtPersonnel: personnel };
+          })
+          .filter((s) => s.districtPersonnel.length > 0);
+      }
+
+      const indiaStatesFlat = buildIndiaStatesFlat();
+      function findState(slug) { return indiaStatesFlat.find((s) => s.slug === slug) || null; }
+
+      // blank/"-" contact fields should simply not render a dead tel:/mailto:
+      // button, rather than link to nothing
+      function telHref(num) { return num && num.trim() ? `tel:${num.replace(/\s+/g, '')}` : null; }
+      function mailHref(addr) { return addr && addr.trim() ? `mailto:${addr.trim()}` : null; }
+
+      function personActionsHtml(person, primaryLabel, secondaryLabel) {
+        const callHref = telHref(person.phoneOfficial) || telHref(person.phonePersonal);
+        const mailHrefVal = mailHref(person.groupEmail) || mailHref(person.primaryEmail);
+        const btns = [];
+        if (callHref) btns.push(`<a href="${callHref}" class="mpp-btn mpp-btn-primary"><span class="mpp-btn-icon" aria-hidden="true">📞</span> ${primaryLabel}</a>`);
+        if (mailHrefVal) btns.push(`<a href="${mailHrefVal}" class="mpp-btn mpp-btn-secondary"><span class="mpp-btn-icon" aria-hidden="true">✉️</span> ${secondaryLabel}</a>`);
+        return btns.length ? `<div class="mpp-actions">${btns.join('')}</div>` : '';
+      }
+
+      // ── LEFT: state head card, updates whenever a state is selected ──
+      const stateHeadCard = document.getElementById('stateHeadCard');
+
+      function renderStateHeadCard(state) {
+        if (!stateHeadCard) return;
+        if (!state || !state.stateHead) {
+          stateHeadCard.classList.add('is-empty');
+          stateHeadCard.innerHTML = `<p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>`;
+          return;
+        }
+        stateHeadCard.classList.remove('is-empty');
+        const head = state.stateHead;
+        const rows = [];
+        if (head.phoneOfficial) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📞</span><div class="mpp-mini-text"><span class="mpp-label">Office Phone</span><span class="mpp-value">${head.phoneOfficial}</span></div></div>`);
+        if (head.phonePersonal) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">📱</span><div class="mpp-mini-text"><span class="mpp-label">Personal Phone</span><span class="mpp-value">${head.phonePersonal}</span></div></div>`);
+        if (head.primaryEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">✉️</span><div class="mpp-mini-text"><span class="mpp-label">Email</span><span class="mpp-value">${head.primaryEmail}</span></div></div>`);
+        if (head.groupEmail) rows.push(`<div class="mpp-mini"><span class="mpp-mini-icon" aria-hidden="true">🏢</span><div class="mpp-mini-text"><span class="mpp-label">Group Email</span><span class="mpp-value">${head.groupEmail}</span></div></div>`);
+        stateHeadCard.innerHTML = `
+          <div class="shc-row">
+            <span class="shc-avatar" aria-hidden="true">⭐</span>
+            <div class="shc-id">
+              <div class="shc-name">${head.empName}</div>
+              <div class="shc-role">${head.designation || 'State Head'} · ${state.name}</div>
+            </div>
+          </div>
+          ${rows.join('')}
+          ${personActionsHtml(head, 'Call', 'Email')}
+        `;
+      }
+
+      // ── RIGHT: breadcrumb + back/forward history + state/personnel grid ──
+      const vendorLiveCard = document.getElementById('vendorLiveCard');
+      const indiaDrillPanel = document.getElementById('indiaDrillPanel');
+      const idpTitle = document.getElementById('idpTitle');
+      const idpSubtitle = document.getElementById('idpSubtitle');
+      const idpHqActions = document.getElementById('idpHqActions');
+      const idpGrid = document.getElementById('idpGrid');
+      const idpCrumbTrail = document.getElementById('idpCrumbTrail');
+      const idpBackBtn = document.getElementById('idpBackBtn');
+      const idpForwardBtn = document.getElementById('idpForwardBtn');
+
+      // simple two-level history: an array of state slugs (null = root "All
+      // States"), with a pointer — selecting a new state truncates any
+      // forward entries, same as browser history
+      const idpHistory = { stack: [null], pointer: 0 };
+
+      function idpNavigateTo(stateSlug) {
+        if (idpHistory.stack[idpHistory.pointer] === stateSlug) return;
+        idpHistory.stack = idpHistory.stack.slice(0, idpHistory.pointer + 1);
+        idpHistory.stack.push(stateSlug);
+        idpHistory.pointer = idpHistory.stack.length - 1;
+        renderCurrentIdpView();
+      }
+
+      function idpGoBack() {
+        if (idpHistory.pointer === 0) return;
+        idpHistory.pointer -= 1;
+        renderCurrentIdpView();
+      }
+
+      function idpGoForward() {
+        if (idpHistory.pointer >= idpHistory.stack.length - 1) return;
+        idpHistory.pointer += 1;
+        renderCurrentIdpView();
+      }
+
+      function selectState(stateSlug) {
+        idpNavigateTo(stateSlug);
+      }
+
+      const TOTAL_UNIQUE_PERSONNEL = indiaZonesData.reduce((n, z) => n + z.totalCount, 0);
+
+      function renderStateGrid() {
+        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">🇮🇳</span> All States`;
+        if (idpSubtitle) idpSubtitle.textContent = `${indiaStatesFlat.length} states · ${TOTAL_UNIQUE_PERSONNEL} active personnel`;
+        if (idpHqActions) idpHqActions.innerHTML = '';
+        if (!idpGrid) return;
+        idpGrid.className = 'idp-grid idp-grid-zones';
+        idpGrid.innerHTML = indiaStatesFlat.map((state) => `
+          <button type="button" class="zone-badge" data-state="${state.slug}">
+            <span class="zone-badge-name">${state.name}</span>
+            <span class="zone-badge-count">${state.districtPersonnel.length} team members</span>
+            <span class="zone-badge-head">${state.stateHead ? state.stateHead.empName + ' · ' + (state.stateHead.designation || 'State Head') : ''}</span>
+          </button>
+        `).join('');
+        idpGrid.querySelectorAll('.zone-badge').forEach((btn) => {
+          btn.addEventListener('click', () => selectState(btn.dataset.state));
+        });
+      }
+
+      function renderDistrictGrid(stateSlug) {
+        const state = findState(stateSlug);
+        if (!state) { renderStateGrid(); return; }
+
+        if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">📍</span> ${state.name}`;
+        if (idpSubtitle) idpSubtitle.textContent = `${state.districtPersonnel.length} team members in ${state.name}`;
+        if (idpHqActions) idpHqActions.innerHTML = state.stateHead ? personActionsHtml(state.stateHead, 'Call State Head', 'Email State Office') : '';
+
+        if (!idpGrid) return;
+        idpGrid.className = 'idp-grid idp-grid-districts';
+        idpGrid.innerHTML = state.districtPersonnel.map((person) => `
+          <div class="district-card">
+            <div class="dc-cluster">${person.cluster || state.name}</div>
+            <div class="dc-name">${person.empName}</div>
+            <div class="dc-role">${person.designation || 'Team Member'}</div>
+            <div class="dc-districts">${person.districts || ''}</div>
+            ${personActionsHtml(person, 'Call', 'Email')}
+          </div>
+        `).join('');
+      }
+
+      function renderCurrentIdpView() {
+        const stateSlug = idpHistory.stack[idpHistory.pointer];
+
+        if (idpBackBtn) idpBackBtn.disabled = idpHistory.pointer === 0;
+        if (idpForwardBtn) idpForwardBtn.disabled = idpHistory.pointer >= idpHistory.stack.length - 1;
+        if (idpCrumbTrail) {
+          const state = stateSlug ? findState(stateSlug) : null;
+          idpCrumbTrail.innerHTML = state
+            ? `<button type="button" class="crumb-link" data-crumb="root">All States</button><span class="crumb-sep" aria-hidden="true">›</span><span class="crumb-current">${state.name}</span>`
+            : `<span class="crumb-current">All States</span>`;
+          const rootLink = idpCrumbTrail.querySelector('[data-crumb="root"]');
+          if (rootLink) rootLink.addEventListener('click', () => idpNavigateTo(null));
+        }
+
+        paintIdpState(stateSlug);
+        syncIndiaPinActiveState(stateSlug);
+      }
+
+      if (idpBackBtn) idpBackBtn.addEventListener('click', idpGoBack);
+      if (idpForwardBtn) idpForwardBtn.addEventListener('click', idpGoForward);
+
+      function setStateHighlight(stateSlug) {
+        if (!statesGroupEl) return;
+        statesGroupEl.classList.toggle('has-active', !!stateSlug);
+        stateShapeEls.forEach((s) => {
+          s.classList.toggle('state-active', !!stateSlug && s.dataset.state === stateSlug);
+        });
+      }
+
+      function syncIndiaPinActiveState(stateSlug) {
+        if (!indiaPinsLayer) return;
+        indiaPinsLayer.querySelectorAll('.map-pin').forEach((p) => {
+          p.classList.toggle('active', !!stateSlug && p.dataset.slug === stateSlug);
+        });
+      }
+
+      function paintIdpState(stateSlug) {
+        if (stateSlug) renderDistrictGrid(stateSlug);
+        else renderStateGrid();
+        renderStateHeadCard(stateSlug ? findState(stateSlug) : null);
+        setStateHighlight(stateSlug);
+      }
+
+      // hover = temporary preview, does not touch history/breadcrumb/back-
+      // forward, reverts to whatever is actually locked in on mouse-leave
+      // (same hover-vs-lock split the World tab already uses)
+      function previewIdpState(stateSlug) {
+        paintIdpState(stateSlug);
+      }
+
+      function clearIdpPreview() {
+        paintIdpState(idpHistory.stack[idpHistory.pointer]);
+      }
+
+      function renderIndiaMarkers() {
+        if (!indiaPinsLayer) return {};
+        indiaPinsLayer.innerHTML = '';
+        const pinsBySlug = {};
+
+        indiaStatesFlat.forEach((state) => {
+          const marker = COVERED_STATE_MARKERS.find((m) => m.slug === state.slug);
+          if (!marker || !state.stateHead) return;
+          const head = state.stateHead;
+
+          const pin = document.createElement('div');
+          pin.className = 'map-pin';
+          pin.style.left = marker.left;
+          pin.style.top = marker.top;
+          pin.dataset.slug = state.slug;
+          pin.setAttribute('role', 'button');
+          pin.setAttribute('tabindex', '0');
+          pin.setAttribute('aria-label', `${state.name}, ${state.districtPersonnel.length} team members. Press Enter to view details.`);
+          pin.style.setProperty('--breathe-dur', (2.6 + Math.random() * 1.6).toFixed(2) + 's');
+          pin.style.setProperty('--breathe-delay', (Math.random() * 2).toFixed(2) + 's');
+          pin.style.setProperty('--pulse-jitter', (Math.random() * 1.4).toFixed(2) + 's');
+
+          const topVal = parseFloat(marker.top);
+          const leftVal = parseFloat(marker.left);
+          let popoverClasses = 'pin-popover';
+          if (topVal < 26) popoverClasses += ' popover-below';
+          if (leftVal > 76) popoverClasses += ' popover-left';
+
+          const callHref = telHref(head.phoneOfficial) || telHref(head.phonePersonal);
+          const callNum = head.phoneOfficial || head.phonePersonal;
+          const mailHrefVal = mailHref(head.groupEmail) || mailHref(head.primaryEmail);
+          const mailAddr = head.groupEmail || head.primaryEmail;
+
+          pin.innerHTML = `
+            <div class="pin-beacon">
+              <div class="pin-pulse"></div>
+              <div class="pin-ripple"></div>
+              <div class="pin-core"></div>
+            </div>
+            <div class="pin-tag">${marker.code}</div>
+            <div class="${popoverClasses}">
+              <div class="pop-state">
+                <span>📍 ${state.name.toUpperCase()}</span>
+                <span class="pop-badge-type">${state.districtPersonnel.length} Personnel</span>
+              </div>
+              <div class="pop-vendor">${state.name} Regional Team</div>
+              <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text"><strong>State Head:</strong> ${head.empName}${head.designation ? ` (${head.designation})` : ''}</span></div>
+              ${callHref ? `<div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><strong>Phone:</strong> <a class="pop-link" href="${callHref}">${callNum}</a></span></div>` : ''}
+              ${mailHrefVal ? `<div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><strong>Email:</strong> <a class="pop-link" href="${mailHrefVal}">${mailAddr}</a></span></div>` : ''}
+              <div class="pop-cta">Click to view details →</div>
+            </div>
+          `;
+
+          pin.addEventListener('mouseenter', () => { previewIdpState(state.slug); });
+          pin.addEventListener('mouseleave', () => { clearIdpPreview(); });
+          pin.addEventListener('focus', () => { previewIdpState(state.slug); });
+          pin.addEventListener('blur', () => { clearIdpPreview(); });
+          pin.addEventListener('click', (e) => { e.stopPropagation(); selectState(state.slug); syncIndiaPinActiveState(state.slug); });
+          pin.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectState(state.slug); syncIndiaPinActiveState(state.slug); }
+          });
+
+          pinsBySlug[state.slug] = pin;
+          indiaPinsLayer.appendChild(pin);
+        });
+
+        return pinsBySlug;
+      }
 
       // 3. ACTIVE VENDOR SIDE CARD & QUICK LIST CONTROLLER
       const cardStateName = document.getElementById('cardStateName');
@@ -1352,7 +2999,7 @@
       const mppHeaderEl = document.querySelector('.mpp-header');
       const routeEls = Array.from(document.querySelectorAll('.mp-route[data-target], .mp-route-particle[data-target]'));
 
-      let activeDataset = indiaStatesData;
+      let activeDataset = worldCountriesData;
 
       // ── shared selection state machine ──
       // "locked" = the last clicked/activated item per dataset (persists);
@@ -1382,14 +3029,6 @@
       // before the class-toggle write below, i.e. read-after-write thrashing).
       const statesGroupEl = document.querySelector('.states-group');
       const stateShapeEls = statesGroupEl ? Array.from(statesGroupEl.querySelectorAll('.state-shape')) : [];
-
-      function setIndiaHighlight(id) {
-        if (!statesGroupEl) return;
-        statesGroupEl.classList.toggle('has-active', !!id);
-        stateShapeEls.forEach((s) => {
-          s.classList.toggle('state-active', !!id && STATE_SLUG_TO_ID[s.dataset.state] === id);
-        });
-      }
 
       function focusMapOnItem(item, dataList) {
         if (!window.gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1437,7 +3076,6 @@
           pin.classList.add('preview');
           scaleBeacon(pin, 1.25);
         }
-        if (dataList === indiaStatesData) setIndiaHighlight(item.id);
       }
 
       function clearPreview(item, dataList) {
@@ -1448,14 +3086,13 @@
           pin.classList.remove('preview');
           scaleBeacon(pin, 1);
         }
-        if (dataList === indiaStatesData) setIndiaHighlight(lockedSelection.india);
 
         // details are hover-only, once the mouse leaves, fall back to
-        // whichever item is actually locked in, or (India only) the default
-        // West Bengal card, instead of the empty hint.
+        // whichever item is actually locked in (World tab only now —
+        // India uses its own drill-down panel, not this dataset), instead
+        // of the empty hint.
         const lockedId = lockedSelection[key];
-        let lockedItem = lockedId ? dataList.find(d => d.id === lockedId) : null;
-        if (!lockedItem && dataList === indiaStatesData) lockedItem = defaultIndiaItem;
+        const lockedItem = lockedId ? dataList.find(d => d.id === lockedId) : null;
         scheduleVendorCardUpdate(lockedItem);
       }
 
@@ -1478,7 +3115,6 @@
           el.classList.toggle('active', el.dataset.id === item.id);
         });
 
-        if (dataList === indiaStatesData) setIndiaHighlight(item.id);
         updateVendorCard(item);
         focusMapOnItem(item, dataList);
       }
@@ -1722,25 +3358,17 @@
       const worldPinsLayer = document.getElementById('worldPinsLayer');
       const indiaPinsLayer = document.getElementById('pinsLayer');
       renderPins(worldCountriesData, worldPinsLayer);
-      renderPins(indiaStatesData, indiaPinsLayer);
-      renderQuickList(indiaStatesData);
 
       // 5. STATE / COUNTRY SHAPE HOVER: native tooltip with the region's
       // name (India's <path> shapes have no <title>, unlike the world
       // map's) + sync the info panel & active pin when a shape maps to a
       // known depot, so the whole colored region is interactive, not just
       // the small pin dot inside it.
-      const STATE_SLUG_TO_ID = {
-        'west-bengal': 'wb', 'bihar': 'br', 'jharkhand': 'jh', 'odisha': 'od', 'rajasthan': 'rj',
-        'assam': 'as', 'tripura': 'tp', 'punjab': 'pb', 'haryana': 'hr', 'uttar-pradesh': 'up',
-        'himachal-pradesh': 'hp', 'jammu-and-kashmir': 'jk', 'manipur': 'mn', 'nagaland': 'nl',
-        'meghalaya': 'ml', 'sikkim': 'sk', 'maharashtra': 'mh', 'madhya-pradesh': 'mp',
-        'gujarat': 'gj', 'tamil-nadu': 'tn'
-      };
-
       function slugToStateName(slug) {
         return slug.split('-').map(w => w === 'and' ? 'and' : w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
       }
+
+            const indiaPinsBySlug = renderIndiaMarkers();
 
       document.querySelectorAll('.state-shape[data-state]').forEach((shape) => {
         const slug = shape.dataset.state;
@@ -1748,30 +3376,29 @@
         titleEl.textContent = slugToStateName(slug);
         shape.insertBefore(titleEl, shape.firstChild);
 
-        const id = STATE_SLUG_TO_ID[slug];
-        if (id) {
+        const state = findState(slug);
+        if (state) {
+          shape.classList.add('state-covered');
+          // hovering the shape previews the state AND shows its matching
+          // bubble's popover, so map-shape hover and pin hover read as the
+          // same interaction no matter which one the pointer is actually over
+          const pin = indiaPinsBySlug[slug];
           shape.addEventListener('mouseenter', () => {
-            const item = indiaStatesData.find(s => s.id === id);
-            if (item) previewItem(item, indiaStatesData);
+            previewIdpState(slug);
+            if (pin && !pin.classList.contains('active')) pin.classList.add('preview');
           });
           shape.addEventListener('mouseleave', () => {
-            const item = indiaStatesData.find(s => s.id === id);
-            if (item) clearPreview(item, indiaStatesData);
+            clearIdpPreview();
+            if (pin) pin.classList.remove('preview');
           });
-          shape.addEventListener('click', () => {
-            const item = indiaStatesData.find(s => s.id === id);
-            if (item) lockItem(item, indiaStatesData);
-          });
+          shape.addEventListener('click', () => { selectState(slug); syncIndiaPinActiveState(slug); });
         }
       });
 
-      // Default landing state: show West Bengal (HQ) vendor details in the
-      // info card as soon as the domestic map loads, instead of the empty
-      // "hover a marker" hint, card only. The map itself (state tint, pin,
-      // quick-list row) stays unhighlighted until the user actually hovers
-      // or clicks, so nothing looks pre-selected on the map.
-      const defaultIndiaItem = indiaStatesData.find(s => s.id === 'wb');
-      if (defaultIndiaItem) updateVendorCard(defaultIndiaItem);
+      // Default landing view: the "All States" grid + empty state-head
+      // hint, nothing pre-selected on the map until the user actually
+      // hovers or clicks a covered state.
+      renderCurrentIdpView();
 
       const tabWorldBtn = document.getElementById('tabWorldBtn');
       const tabIndiaBtn = document.getElementById('tabIndiaBtn');
@@ -1788,6 +3415,8 @@
           renderQuickList(worldCountriesData);
           const current = lockedSelection.world ? worldCountriesData.find(d => d.id === lockedSelection.world) : null;
           updateVendorCard(current);
+          if (vendorLiveCard) vendorLiveCard.style.display = '';
+          if (indiaDrillPanel) indiaDrillPanel.style.display = 'none';
         });
 
         tabIndiaBtn.addEventListener('click', () => {
@@ -1795,11 +3424,9 @@
           tabWorldBtn.classList.remove('active');
           if (window.mpSwitchMapTab) window.mpSwitchMapTab(indiaMapWrap, worldMapWrap);
           else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
-          activeDataset = indiaStatesData;
-          renderQuickList(indiaStatesData);
-          const current = lockedSelection.india ? indiaStatesData.find(d => d.id === lockedSelection.india) : defaultIndiaItem;
-          updateVendorCard(current);
-          setIndiaHighlight(lockedSelection.india);
+          if (vendorLiveCard) vendorLiveCard.style.display = 'none';
+          if (indiaDrillPanel) indiaDrillPanel.style.display = '';
+          renderCurrentIdpView();
         });
       }
     })();
