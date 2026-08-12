@@ -27,9 +27,8 @@
   --accent-2: #FF8A00;
   --accent-hot: #FFC24B;
   position: relative;
-  height: 88vh;
+  height: 100vh;
   min-height: 700px;
-  max-height: 1080px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -276,7 +275,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0;
-  margin-top: 2.4rem;
+  margin-top: 3.6rem;
 }
 
 .cnh-feature {
@@ -370,7 +369,7 @@
     justify-content: center;
     flex-wrap: wrap;
     row-gap: 1.6rem;
-    margin-top: 1.8rem;
+    margin-top: 2.6rem;
     margin-bottom: 2.2rem;
   }
 

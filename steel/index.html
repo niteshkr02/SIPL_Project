@@ -24,7 +24,7 @@
 .steel-hub-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.6rem; }
 @media(max-width:860px){ .steel-hub-grid{ grid-template-columns:1fr; } }
 .steel-hub-card{ display:flex; flex-direction:column; padding:0; overflow:hidden; text-decoration:none; }
-.steel-hub-card-photo-wrap{ position:relative; height:170px; overflow:hidden; }
+.steel-hub-card-photo-wrap{ position:relative; aspect-ratio:16/9; overflow:hidden; }
 .steel-hub-card-photo{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
 .steel-hub-card:hover .steel-hub-card-photo{ transform:scale(1.06); }
 .steel-hub-num{ position:absolute; top:1rem; left:1rem; font-family:var(--font-mono); font-weight:800; font-size:.85rem; letter-spacing:.05em; color:#fff; background:rgba(10,11,14,.55); backdrop-filter:blur(6px); padding:.35rem .7rem; border-radius:.5rem; }
