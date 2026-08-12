@@ -27,9 +27,8 @@
   --accent-2: #FF8A00;
   --accent-hot: #FFC24B;
   position: relative;
-  height: 88vh;
+  height: 100vh;
   min-height: 700px;
-  max-height: 1080px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
