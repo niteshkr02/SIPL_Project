@@ -132,6 +132,7 @@
 }
 
 /* ══ PRIMARY CTA ══ */
+.fh-cta-row { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; }
 .fh-cta {
   position: relative; display: inline-flex; align-items: center; gap: .95rem;
   padding: .28rem .28rem .28rem 1.5rem; border-radius: 3rem; text-decoration: none;
@@ -152,21 +153,50 @@
 .fh-cta:hover .fh-cta-arrow { transform: translateX(4px); }
 .fh-cta:focus-visible { outline: 2px solid var(--fh-white); outline-offset: 3px; }
 
+.fh-cta-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .95rem 1.7rem; border-radius: 3rem; text-decoration: none;
+  font-family: var(--font-mono); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--fh-white); background: rgba(2, 11, 28, .55); border: 1.5px solid rgba(255, 255, 255, .14);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease;
+}
+.fh-cta-secondary:hover { transform: translateY(-2px); border-color: var(--fh-orange); box-shadow: 0 0 16px rgba(255, 106, 0, .25); }
+.fh-cta-secondary:focus-visible { outline: 2px solid var(--fh-white); outline-offset: 3px; }
+
 /* ══ TRUST / FEATURE ROW ══ */
-.fh-features { display: flex; align-items: flex-start; gap: 1.3rem; margin-top: 1.9rem; }
-.fh-feature { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; flex: 1; min-width: 0; }
-.fh-feature-sep { width: 1px; align-self: stretch; background: linear-gradient(180deg, transparent, rgba(255, 106, 0, .38), transparent); flex-shrink: 0; }
+.fh-features { display: flex; align-items: center; gap: .7rem; margin-top: 2.1rem; flex-wrap: wrap; }
+.fh-feature {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .55rem 1.15rem .55rem .55rem; min-width: 0;
+  background: linear-gradient(135deg, rgba(7, 26, 58, .6), rgba(7, 26, 58, .32));
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 106, 0, .2); border-radius: 3rem;
+  box-shadow: 0 6px 18px rgba(2, 11, 28, .28);
+  transition: transform .32s cubic-bezier(.16, .84, .44, 1), border-color .32s ease, box-shadow .32s ease, background .32s ease;
+}
+.fh-feature:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 106, 0, .55);
+  background: linear-gradient(135deg, rgba(7, 26, 58, .78), rgba(7, 26, 58, .46));
+  box-shadow: 0 12px 26px rgba(255, 106, 0, .18);
+}
 .fh-feature-icon {
-  display: flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; border-radius: 50%;
-  border: 1.5px solid rgba(255, 106, 0, .5); box-shadow: 0 0 14px rgba(255, 106, 0, .16);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 106, 0, .32), rgba(255, 106, 0, .08));
+  border: 1.5px solid rgba(255, 106, 0, .55);
+  box-shadow: 0 0 16px rgba(255, 106, 0, .22), inset 0 0 8px rgba(255, 106, 0, .14);
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1), box-shadow .35s ease;
 }
-.fh-feature-icon svg { width: 18px; height: 18px; stroke: var(--fh-orange); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.fh-feature:hover .fh-feature-icon {
+  transform: scale(1.1) rotate(-6deg);
+  box-shadow: 0 0 22px rgba(255, 106, 0, .4), inset 0 0 10px rgba(255, 106, 0, .2);
+}
+.fh-feature-icon svg { width: 19px; height: 19px; stroke: var(--fh-orange); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .fh-feature h4 {
-  text-transform: uppercase; font-family: var(--font-mono); font-size: .7rem; font-weight: 700;
-  letter-spacing: .05em; color: var(--fh-white); margin: 0;
+  text-transform: uppercase; font-family: var(--font-mono); font-size: .72rem; font-weight: 700;
+  letter-spacing: .05em; color: var(--fh-white); margin: 0; white-space: nowrap;
 }
-.fh-feature p { font-size: .76rem; line-height: 1.45; color: var(--fh-gray); opacity: .82; margin: 0; }
 
 /* ══ SECONDARY CTA PANEL — floating control panel ══ */
 .fh-panel {
@@ -187,15 +217,6 @@
   transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, background .28s ease;
 }
 .fh-panel-btn svg { width: 15px; height: 15px; flex-shrink: 0; transition: transform .28s ease; }
-
-.fh-panel-row-1 .fh-panel-btn { flex: 1 1 0; }
-
-.fh-panel-explore { color: #fff; background: linear-gradient(135deg, var(--fh-orange-hot), var(--fh-orange)); box-shadow: 0 6px 18px rgba(255, 106, 0, .3); }
-.fh-panel-explore:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255, 106, 0, .42); }
-.fh-panel-explore:hover svg { transform: translateX(3px); }
-
-.fh-panel-contact { color: var(--fh-white); background: rgba(2, 11, 28, .55); border-color: rgba(255, 255, 255, .14); }
-.fh-panel-contact:hover { border-color: var(--fh-orange); box-shadow: 0 0 16px rgba(255, 106, 0, .25); }
 
 .fh-panel-row-2 .fh-panel-btn { flex: 1 1 auto; padding: .55rem .8rem; font-size: .68rem; }
 
@@ -252,7 +273,7 @@
 .fh-curve path { fill: none; stroke: var(--fh-orange); stroke-width: 2; filter: drop-shadow(0 0 8px rgba(255, 106, 0, .55)); }
 
 /* ══ ENTRANCE (JS flips .fh-loaded on .fh-hero) ══ */
-.fh-label, .fh-eyebrow, .fh-line-inner, .fh-desc, .fh-cta, .fh-feature, .fh-panel {
+.fh-label, .fh-eyebrow, .fh-line-inner, .fh-desc, .fh-cta, .fh-cta-secondary, .fh-feature, .fh-panel {
   opacity: 0; transform: translateY(16px);
   transition: opacity .65s cubic-bezier(.22, 1, .36, 1), transform .65s cubic-bezier(.22, 1, .36, 1);
 }
@@ -262,9 +283,10 @@
 .fh-loaded .fh-line:nth-child(2) .fh-line-inner { opacity: 1; transform: none; transition-delay: .38s; }
 .fh-loaded .fh-desc { opacity: 1; transform: none; transition-delay: .48s; }
 .fh-loaded .fh-cta { opacity: 1; transform: none; transition-delay: .6s; }
+.fh-loaded .fh-cta-secondary { opacity: 1; transform: none; transition-delay: .66s; }
 .fh-loaded .fh-feature:nth-child(1) { opacity: 1; transform: none; transition-delay: .72s; }
-.fh-loaded .fh-feature:nth-child(3) { opacity: 1; transform: none; transition-delay: .8s; }
-.fh-loaded .fh-feature:nth-child(5) { opacity: 1; transform: none; transition-delay: .88s; }
+.fh-loaded .fh-feature:nth-child(2) { opacity: 1; transform: none; transition-delay: .8s; }
+.fh-loaded .fh-feature:nth-child(3) { opacity: 1; transform: none; transition-delay: .88s; }
 .fh-loaded .fh-panel { opacity: 1; transform: none; transition-delay: 1s; }
 
 .fh-visual { opacity: 0; transform: translateX(18px) scale(1.03); transition: opacity 1.6s cubic-bezier(.22, 1, .36, 1), transform 1.6s cubic-bezier(.22, 1, .36, 1); }
@@ -289,7 +311,7 @@
       linear-gradient(180deg, rgba(2, 11, 28, .4) 0%, transparent 16%, transparent 74%, rgba(2, 11, 28, .5) 100%);
   }
 
-  .fh-features { gap: 1rem; }
+  .fh-features { gap: .6rem; }
   .fh-feature h4 { font-size: .68rem; }
 }
 
@@ -302,14 +324,15 @@
   .fh-desc { margin-bottom: 1.4rem; max-width: none; }
   .fh-cta { margin-bottom: 0; }
 
-  .fh-features { flex-direction: column; align-items: stretch; gap: 0; margin-top: 1.6rem; }
-  .fh-feature { flex-direction: row; align-items: center; gap: 1rem; padding: .85rem 0; border-top: 1px solid rgba(255, 106, 0, .18); }
-  .fh-feature:first-child { border-top: none; }
-  .fh-feature-sep { display: none; }
-  .fh-feature-icon { flex-shrink: 0; }
+  .fh-cta-row { flex-direction: column; align-items: stretch; }
+  .fh-cta, .fh-cta-secondary { width: 100%; }
+  .fh-cta-label { flex: 1; text-align: center; }
+
+  .fh-features { gap: .55rem; margin-top: 1.6rem; }
+  .fh-feature { padding: .5rem 1rem .5rem .5rem; }
+  .fh-feature-icon { width: 36px; height: 36px; }
 
   .fh-panel { margin-top: 1.5rem; }
-  .fh-panel-row-1 { flex-direction: column; }
   .fh-panel-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
   .fh-panel-row-2 .fh-panel-btn { width: 100%; }
 
@@ -319,7 +342,7 @@
 
 /* ══ ACCESSIBILITY: reduced motion ══ */
 @media (prefers-reduced-motion: reduce) {
-  .fh-label, .fh-eyebrow, .fh-line-inner, .fh-desc, .fh-cta, .fh-feature, .fh-panel, .fh-visual {
+  .fh-label, .fh-eyebrow, .fh-line-inner, .fh-desc, .fh-cta, .fh-cta-secondary, .fh-feature, .fh-panel, .fh-visual {
     transition: opacity .4s ease !important; transform: none !important;
   }
   .fh-sweep, .fh-particle, .fh-glow-a, .fh-map-pulse { animation: none !important; }
