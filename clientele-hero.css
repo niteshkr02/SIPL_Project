@@ -275,7 +275,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0;
-  margin-top: 2.4rem;
+  margin-top: 3.6rem;
 }
 
 .cnh-feature {
@@ -369,7 +369,7 @@
     justify-content: center;
     flex-wrap: wrap;
     row-gap: 1.6rem;
-    margin-top: 1.8rem;
+    margin-top: 2.6rem;
     margin-bottom: 2.2rem;
   }
 
