@@ -433,6 +433,21 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
 .usecase-size{ font-family:var(--font-mono); font-weight:800; font-size:.92rem; color:var(--accent-ink); line-height:1.4; }
 .usecase-item p{ color:var(--ink-soft); font-size:.92rem; line-height:1.65; margin:0; }
 
+/* ══ USE-CASE GRID — icon-card variant (no photos) ══ */
+.usecase-grid.usecase-grid-icons{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+@media(max-width:860px){ .usecase-grid.usecase-grid-icons{ grid-template-columns:1fr; } }
+.usecase-card{ display:flex; flex-direction:column; padding:2.2rem 1.9rem; }
+.usecase-card .icon-wrap{
+  width:60px; height:60px; border-radius:1rem; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface));
+  border:1px solid var(--border); margin-bottom:1.4rem;
+  transition:border-color .4s ease, background .4s ease;
+}
+.usecase-card .icon-wrap svg{ width:30px; height:30px; color:var(--accent-ink); }
+.usecase-card:hover .icon-wrap{ border-color:var(--accent); background:linear-gradient(135deg, rgba(255,106,31,.16), rgba(255,194,75,.08)); }
+.usecase-card .usecase-size{ font-size:.98rem; margin-bottom:.7rem; }
+.usecase-card p{ color:var(--ink-soft); font-size:.92rem; line-height:1.68; margin:0; }
+
 /* ══ CROSS-LINK NOTE (category/sub-product pages) ══ */
 .cross-link-note{ max-width:640px; margin:0 auto; text-align:center; padding:1.3rem 1.6rem; border-radius:.9rem; font-size:.9rem; color:var(--ink-soft); }
 .cross-link-note a{ color:var(--accent-ink); font-weight:700; }

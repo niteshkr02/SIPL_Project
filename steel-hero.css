@@ -1,0 +1,292 @@
+/* ════════════════════════════════════════════════════════════════════
+   STEEL HUB HERO — cinematic industrial split (Steel hub page only).
+   Isolated component: scoped tokens on .sh-hero, own markup, own
+   entrance system. Mirrors ferro-hero.css / aluminium-hero.css's proven
+   technique — one real photo (Hero/Steel.jpeg: steel coils, rebar,
+   hollow sections, beams, blue wire coils, industrial bay) bleeds
+   edge-to-edge on desktop behind a single scrim, weighted right so the
+   left text column reads clean; on mobile it becomes a contained card
+   that flows in after the CTA panel.
+   ════════════════════════════════════════════════════════════════════ */
+
+.sh-hero {
+  --sh-navy-deep: #05070C;
+  --sh-navy: #0E121C;
+  --sh-navy2: #171C29;
+  --sh-orange: #FF6A1F;
+  --sh-orange-hot: #FFA23D;
+  --sh-white: #FFFFFF;
+  --sh-gray: #D8DEE8;
+
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--nav-h) + 2.5rem) 1.75rem 3.25rem;
+  min-height: clamp(680px, 100svh, 1040px);
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 84% 20%, rgba(255, 106, 31, .16), transparent 62%),
+    linear-gradient(150deg, var(--sh-navy-deep) 0%, var(--sh-navy) 55%, var(--sh-navy2) 100%);
+  color: var(--sh-white);
+}
+
+/* ══ BACKGROUND LAYERS ══ */
+.sh-bg { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+
+.sh-particles { position: absolute; inset: 0; overflow: hidden; }
+.sh-particle {
+  position: absolute; bottom: -5%; left: var(--x, 70%);
+  width: var(--size, 3px); height: var(--size, 3px); border-radius: 50%;
+  background: var(--hue, var(--sh-orange-hot));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 162, 61, .6));
+  opacity: 0;
+  animation: shParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+@keyframes shParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .75; }
+  85% { opacity: .3; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 16px)); opacity: 0; }
+}
+
+.sh-glow { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+.sh-glow-a { top: 4%; right: 6%; width: 32vw; height: 32vw; background: rgba(255, 106, 31, .18); animation: shFlicker 6s ease-in-out infinite; }
+.sh-glow-b { bottom: -8%; left: 14%; width: 26vw; height: 26vw; background: rgba(14, 18, 28, .6); }
+
+@keyframes shFlicker {
+  0%, 100% { opacity: 1; }
+  38% { opacity: .82; }
+  52% { opacity: 1; }
+  70% { opacity: .88; }
+}
+
+/* ══ LAYOUT — left ~43% / right ~57% ══ */
+.sh-inner { position: relative; z-index: 5; width: 100%; max-width: 1400px; margin: 0 auto; }
+.sh-content { min-width: 0; }
+@media (min-width: 960px) { .sh-content { max-width: 43%; } }
+
+/* ══ LABEL ══ */
+.sh-label { display: inline-flex; align-items: center; gap: .55rem; margin-bottom: .6rem; }
+.sh-label-icon {
+  width: 22px; height: 22px; flex-shrink: 0;
+  stroke: var(--sh-orange); fill: none; stroke-width: 1.6;
+  filter: drop-shadow(0 0 5px rgba(255, 106, 31, .5));
+}
+.sh-label-text {
+  font-family: var(--font-mono); font-size: .76rem; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase; color: var(--sh-orange-hot);
+}
+.sh-label-rule { width: 30px; height: 2px; margin-left: .2rem; background: linear-gradient(90deg, var(--sh-orange), var(--sh-orange-hot)); border-radius: 2px; }
+
+/* ══ HEADLINE ══ */
+.sh-hero h1.sh-heading {
+  text-transform: none; font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.1rem, 3.35vw, 3rem); line-height: 1.1; letter-spacing: -.01em;
+  margin: 0 0 1.05rem;
+}
+.sh-line { display: block; overflow: hidden; padding-bottom: .08em; }
+.sh-line-inner { display: block; color: var(--sh-white); }
+.sh-line-inner.sh-accent { color: var(--sh-orange); }
+
+.sh-desc {
+  color: var(--sh-gray); font-size: clamp(.98rem, 1.05vw, 1.12rem); line-height: 1.65;
+  max-width: 42ch; margin: 0 0 1.6rem; font-weight: 500;
+}
+
+/* ══ PRIMARY CTA ══ */
+.sh-cta {
+  position: relative; display: inline-flex; align-items: center; gap: .95rem;
+  padding: .28rem .28rem .28rem 1.5rem; border-radius: 3rem; text-decoration: none;
+  background: linear-gradient(135deg, var(--sh-orange-hot), var(--sh-orange));
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 10px 28px rgba(255, 106, 31, .38), 0 0 0 1px rgba(255, 255, 255, .05) inset;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
+}
+.sh-cta-label { font-family: var(--font-mono); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+.sh-cta-arrow {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255, 255, 255, .18); color: #fff; flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+.sh-cta-arrow svg { width: 16px; height: 16px; }
+.sh-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(255, 106, 31, .5), 0 0 0 1px rgba(255, 255, 255, .07) inset; }
+.sh-cta:hover .sh-cta-arrow { transform: translateX(5px); }
+.sh-cta:focus-visible { outline: 2px solid var(--sh-white); outline-offset: 3px; }
+
+/* ══ FOUR FEATURE PILLS — fixed 2-up grid ══ */
+.sh-features { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 1.9rem; }
+.sh-feature {
+  display: flex; align-items: center; gap: .7rem; min-width: 0;
+  padding: .5rem 1.15rem .5rem .5rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 106, 31, .28); border-radius: 3rem;
+  box-shadow: 0 6px 16px rgba(2, 3, 6, .28);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.sh-feature-icon {
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 106, 31, .35), rgba(255, 106, 31, .1));
+  border: 1.5px solid rgba(255, 106, 31, .55);
+  box-shadow: 0 0 14px rgba(255, 106, 31, .22), inset 0 0 8px rgba(255, 106, 31, .14);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
+}
+.sh-feature-icon svg { width: 18px; height: 18px; stroke: var(--sh-orange-hot); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.sh-feature h4 {
+  text-transform: none; font-family: var(--font-body); font-size: .82rem; font-weight: 700;
+  letter-spacing: .01em; color: var(--sh-white); margin: 0; line-height: 1.2; transition: color .3s ease;
+}
+
+.sh-feature:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 106, 31, .6);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .04));
+  box-shadow: 0 12px 26px rgba(255, 106, 31, .2);
+}
+.sh-feature:hover .sh-feature-icon { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 106, 31, .4), inset 0 0 10px rgba(255, 106, 31, .2); }
+.sh-feature:hover h4 { color: var(--sh-orange-hot); }
+
+/* ══ SECONDARY CTA PANEL — floating control panel ══ */
+.sh-panel {
+  margin-top: 1.7rem; padding: 1rem 1.1rem;
+  background: rgba(14, 18, 28, .5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 106, 31, .22); border-radius: 1.1rem;
+  box-shadow: 0 18px 40px rgba(2, 3, 6, .4);
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.sh-panel-row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.sh-panel-row-2 { gap: .5rem; }
+
+.sh-panel-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  font-family: var(--font-mono); font-size: .7rem; font-weight: 700; letter-spacing: .04em;
+  text-decoration: none; border-radius: 2rem; padding: .62rem 1rem;
+  border: 1.5px solid transparent; white-space: nowrap;
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, background .28s ease;
+}
+.sh-panel-btn svg { width: 15px; height: 15px; flex-shrink: 0; transition: transform .28s ease; }
+
+.sh-panel-row-2 .sh-panel-btn { flex: 1 1 auto; padding: .55rem .8rem; font-size: .68rem; }
+
+.sh-panel-whatsapp { color: #fff; background: #25D366; }
+.sh-panel-whatsapp:hover { box-shadow: 0 0 16px rgba(37, 211, 102, .5); }
+.sh-panel-whatsapp:hover svg { transform: scale(1.12); }
+
+.sh-panel-call { color: #fff; background: var(--sh-orange); }
+.sh-panel-call:hover { background: var(--sh-orange-hot); box-shadow: 0 0 16px rgba(255, 106, 31, .4); }
+.sh-panel-call:hover svg { transform: rotate(-8deg); }
+
+.sh-panel-email { color: var(--sh-white); background: rgba(2, 3, 6, .55); border-color: rgba(255, 255, 255, .14); }
+.sh-panel-email:hover { border-color: var(--sh-orange); box-shadow: 0 0 14px rgba(255, 106, 31, .22); }
+.sh-panel-email:hover svg { transform: translateY(-2px); }
+
+.sh-panel-book { color: var(--sh-white); background: rgba(2, 3, 6, .55); border-color: rgba(255, 255, 255, .14); }
+.sh-panel-book:hover { border-color: var(--sh-orange); box-shadow: 0 0 14px rgba(255, 106, 31, .22); }
+.sh-panel-book:hover svg { transform: rotate(-6deg); }
+
+/* ══ HERO VISUAL: full-bleed photo + single scrim ══ */
+.sh-visual { position: relative; overflow: hidden; margin: 0; }
+.sh-visual-frame { position: absolute; inset: 0; transition: transform .4s ease-out; }
+.sh-visual-frame img {
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 66% 42%;
+  filter: saturate(1.05) contrast(1.03);
+}
+.sh-visual-scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(100deg, var(--sh-navy-deep) 0%, rgba(5, 7, 12, .94) 15%, rgba(14, 18, 28, .66) 30%, rgba(14, 18, 28, .24) 45%, transparent 60%),
+    linear-gradient(180deg, rgba(5, 7, 12, .5) 0%, transparent 14%, transparent 78%, rgba(5, 7, 12, .55) 100%);
+}
+.sh-sweep {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 218, 180, .13) 49%, rgba(255, 218, 180, .22) 50%, rgba(255, 218, 180, .13) 51%, transparent 58%);
+  background-size: 260% 260%; background-position: 120% 0%;
+  animation: shSweep 8s ease-in-out infinite; mix-blend-mode: screen;
+}
+@keyframes shSweep { 0%, 100% { background-position: 120% 0%; } 50% { background-position: -20% 100%; } }
+
+@media (min-width: 960px) { .sh-visual { position: absolute; inset: 0; z-index: 0; } }
+
+/* ══ DECORATIVE CURVES ══ */
+.sh-curve-under {
+  position: absolute; left: 0; right: 0; bottom: -1px; width: 100%;
+  height: clamp(50px, 8vw, 96px); z-index: 3; pointer-events: none; opacity: .5;
+}
+.sh-curve-under path { fill: none; stroke: var(--sh-navy2); stroke-width: 10; }
+
+.sh-curve {
+  position: absolute; left: 0; right: 0; bottom: -1px; width: 100%;
+  height: clamp(30px, 5vw, 56px); z-index: 4; pointer-events: none;
+}
+.sh-curve path { fill: none; stroke: var(--sh-orange); stroke-width: 2; filter: drop-shadow(0 0 8px rgba(255, 106, 31, .55)); }
+
+/* ══ ENTRANCE (JS flips .sh-loaded on .sh-hero) ══ */
+.sh-label, .sh-line-inner, .sh-desc, .sh-cta, .sh-feature, .sh-panel {
+  opacity: 0; transform: translateY(15px);
+  transition: opacity .65s cubic-bezier(.22, 1, .36, 1), transform .65s cubic-bezier(.22, 1, .36, 1);
+}
+.sh-loaded .sh-label { opacity: 1; transform: none; transition-delay: .1s; }
+.sh-loaded .sh-line:nth-child(1) .sh-line-inner { opacity: 1; transform: none; transition-delay: .2s; }
+.sh-loaded .sh-line:nth-child(2) .sh-line-inner { opacity: 1; transform: none; transition-delay: .3s; }
+.sh-loaded .sh-desc { opacity: 1; transform: none; transition-delay: .4s; }
+.sh-loaded .sh-cta { opacity: 1; transform: none; transition-delay: .55s; }
+.sh-loaded .sh-feature:nth-child(1) { opacity: 1; transform: none; transition-delay: .7s; }
+.sh-loaded .sh-feature:nth-child(2) { opacity: 1; transform: none; transition-delay: .78s; }
+.sh-loaded .sh-feature:nth-child(3) { opacity: 1; transform: none; transition-delay: .86s; }
+.sh-loaded .sh-feature:nth-child(4) { opacity: 1; transform: none; transition-delay: .94s; }
+.sh-loaded .sh-panel { opacity: 1; transform: none; transition-delay: 1.12s; }
+
+.sh-visual { opacity: 0; transform: translateX(25px) scale(1.04); transition: opacity 1.6s cubic-bezier(.22, 1, .36, 1), transform 1.6s cubic-bezier(.22, 1, .36, 1); }
+.sh-loaded .sh-visual { opacity: 1; transform: none; }
+
+.sh-bg, .sh-visual-frame, .sh-curve { transition: transform .4s ease-out; will-change: transform; }
+
+/* ══ TABLET / MOBILE: .sh-visual flows in normal document order after
+   .sh-inner once it drops out of absolute full-bleed mode ══ */
+@media (max-width: 959px) {
+  .sh-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 3.25rem; min-height: auto; }
+  .sh-content { max-width: none; }
+
+  .sh-visual {
+    max-width: 640px; margin: 2.2rem auto 0; aspect-ratio: 1 / 1; min-height: 360px;
+    border-radius: 1.25rem; box-shadow: 0 18px 44px rgba(2, 3, 6, .45);
+  }
+  .sh-visual-frame img { object-position: 72% 44%; }
+  .sh-visual-scrim {
+    background:
+      linear-gradient(100deg, rgba(5, 7, 12, .5) 0%, transparent 26%),
+      linear-gradient(180deg, rgba(5, 7, 12, .4) 0%, transparent 16%, transparent 74%, rgba(5, 7, 12, .5) 100%);
+  }
+
+  .sh-features { gap: .6rem; }
+}
+
+@media (max-width: 640px) {
+  .sh-hero { padding: calc(var(--nav-h) + 1.6rem) 1.15rem 3rem; }
+  .sh-hero h1.sh-heading { font-size: clamp(1.95rem, 8.5vw, 2.5rem); }
+
+  .sh-label { margin-bottom: .7rem; }
+  .sh-desc { margin-bottom: 1.4rem; max-width: none; }
+  .sh-cta { margin-bottom: 0; }
+
+  .sh-features { margin-top: 1.6rem; }
+
+  .sh-panel { margin-top: 1.5rem; }
+  .sh-panel-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .sh-panel-row-2 .sh-panel-btn { width: 100%; }
+
+  .sh-visual { aspect-ratio: .95 / 1; min-height: 300px; margin-top: 2rem; }
+  .sh-visual-frame img { object-position: 78% 50%; }
+}
+
+/* ══ ACCESSIBILITY: reduced motion ══ */
+@media (prefers-reduced-motion: reduce) {
+  .sh-label, .sh-line-inner, .sh-desc, .sh-cta, .sh-feature, .sh-panel, .sh-visual {
+    transition: opacity .4s ease !important; transform: none !important;
+  }
+  .sh-sweep, .sh-particle, .sh-glow-a { animation: none !important; }
+  .sh-bg, .sh-visual-frame, .sh-curve { transition: none !important; }
+  .sh-feature:hover, .sh-feature:hover .sh-feature-icon { transform: none !important; }
+}
