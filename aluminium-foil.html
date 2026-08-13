@@ -27,6 +27,21 @@
 .product-group-head h3{ font-size:1.3rem; font-weight:700; font-family:var(--font-display); text-transform:none; }
 .product-group{ margin-bottom:2.6rem; }
 .product-group:last-child{ margin-bottom:0; }
+.spec-grid-3{ grid-template-columns:repeat(3,1fr); }
+@media(max-width:900px){ .spec-grid-3{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .spec-grid-3{ grid-template-columns:1fr; } }
+
+/* ══ SINGLE-ITEM PRODUCT FEATURE (avoids an orphan half-width card) ══ */
+.spec-feature{ display:grid; grid-template-columns:1fr 1.15fr; align-items:stretch; }
+.spec-feature-photo{ width:100%; height:100%; min-height:260px; object-fit:cover; display:block; }
+.spec-feature-body{ padding:2.3rem 2.5rem; display:flex; flex-direction:column; justify-content:center; }
+.spec-feature-body h4{ font-size:1.32rem; font-weight:700; font-family:var(--font-body); margin-bottom:.7rem; }
+.spec-feature-body p{ font-size:.98rem; color:var(--ink-soft); line-height:1.72; margin-bottom:1.2rem; }
+@media(max-width:760px){
+  .spec-feature{ grid-template-columns:1fr; }
+  .spec-feature-photo{ min-height:220px; }
+  .spec-feature-body{ padding:1.7rem 1.8rem 2rem; }
+}
 
 /* ══ ABOUT / FOOTPRINT TWO-COL ══ */
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
@@ -498,7 +513,7 @@ html[data-theme="dark"] .alu-form-status.success{ color:#8CE0A0; }
       <div class="kicker">FOOD &amp; FMCG FOIL</div>
       <h3>Kitchen, Container &amp; Lidding Foil</h3>
     </div>
-    <div class="spec-grid">
+    <div class="spec-grid spec-grid-3">
       <div class="spec-card panel reveal">
         <img src="images/product page/Alluminium foil/household foil.jpeg" alt="Household Foil" class="spec-card-photo" loading="lazy">
         <div class="spec-top"><h4>Household Foil</h4></div>
@@ -525,10 +540,10 @@ html[data-theme="dark"] .alu-form-status.success{ color:#8CE0A0; }
       <div class="kicker">INDUSTRIAL &amp; CLOSURE FOIL</div>
       <h3>Bottle Caps &amp; Closures</h3>
     </div>
-    <div class="spec-grid">
-      <div class="spec-card panel reveal">
-        <img src="images/product page/Alluminium foil/tagger foil.jpeg" alt="Tagger Foil" class="spec-card-photo" loading="lazy">
-        <div class="spec-top"><h4>Tagger Foil</h4></div>
+    <div class="spec-feature panel reveal">
+      <img src="images/product page/Alluminium foil/tagger foil.jpeg" alt="Tagger Foil" class="spec-feature-photo" loading="lazy">
+      <div class="spec-feature-body">
+        <h4>Tagger Foil</h4>
         <p>Hard-temper foil for bottle caps and closures, wine and spirit closures, and tagger lids, available with or without NC coating.</p>
         <div class="spec-tags"><span class="spec-tag">AA8011 / AA1235</span><span class="spec-tag">Hard / Semi-Hard</span><span class="spec-tag">50–100 Micron</span><span class="spec-tag">50–1025mm</span></div>
       </div>
@@ -825,6 +840,7 @@ html[data-theme="dark"] .alu-form-status.success{ color:#8CE0A0; }
 </footer>
 
 <script src="site.js"></script>
+<script src="career-benefits-carousel.js"></script>
 <script src="aluminium-hero.js" defer></script>
 <script src="career-benefits-carousel.js"></script>
 <script>
