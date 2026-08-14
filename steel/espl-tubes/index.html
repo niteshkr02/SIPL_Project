@@ -27,26 +27,101 @@
 .split p:last-child{ margin-bottom:0; }
 .split-photo{ width:100%; height:100%; min-height:280px; object-fit:cover; border-radius:1.2rem; border:1px solid var(--border); }
 
-/* ══ PRODUCT ACCORDION ══ */
-.subprod-accordion-list{ display:flex; flex-direction:column; gap:1.4rem; max-width:960px; margin:0 auto; }
-.subprod-accordion{ border:1px solid var(--border); border-radius:1.2rem; background:var(--surface); overflow:hidden; }
-.subprod-accordion summary{ display:flex; align-items:center; gap:1.4rem; padding:1.7rem 2rem; cursor:pointer; list-style:none; }
+/* ══ PRODUCTS IN THIS CATEGORY ══ */
+#products{
+  --pn-rgb:7,63,115;
+  position:relative;
+  background-color:var(--surface-2);
+  background-image:
+    linear-gradient(rgba(var(--pn-rgb),.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--pn-rgb),.05) 1px, transparent 1px);
+  background-size:44px 44px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+html[data-theme="dark"] #products{
+  --pn-rgb:242,244,247;
+  background-image:
+    linear-gradient(rgba(var(--pn-rgb),.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--pn-rgb),.035) 1px, transparent 1px);
+}
+#products .section-head{ margin-bottom:2.6rem; }
+#products .section-head h2{ font-size:clamp(1.6rem,3vw,2.15rem); color:var(--brand-blue-ink); font-weight:800; letter-spacing:-.01em; }
+#products .section-head h2::after{ content:''; display:block; width:46px; height:3px; margin:.9rem auto 0; border-radius:2px; background:linear-gradient(90deg,var(--accent-hot),var(--accent)); }
+#products .section-head p{ margin-top:.9rem; }
+
+.subprod-accordion-list{ display:flex; flex-direction:column; gap:1.2rem; max-width:1000px; margin:0 auto; position:relative; z-index:1; }
+.subprod-accordion{
+  position:relative; border:1px solid var(--border); border-radius:20px; background:var(--surface); overflow:hidden;
+  box-shadow:0 1px 2px rgba(var(--pn-rgb),.05);
+  transition:box-shadow .35s ease, border-color .35s ease, transform .3s ease;
+}
+.subprod-accordion::before{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background:linear-gradient(180deg,var(--accent-hot),var(--accent)); opacity:.4; transition:opacity .3s ease;
+}
+.subprod-accordion:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(var(--pn-rgb),.09); border-color:rgba(255,106,31,.32); }
+.subprod-accordion:hover::before, .subprod-accordion[open]::before{ opacity:1; }
+.subprod-accordion[open]{ box-shadow:0 18px 40px rgba(var(--pn-rgb),.12); }
+
+.subprod-accordion summary{ display:grid; grid-template-columns:auto auto 1fr auto; align-items:center; gap:1.3rem; padding:1.5rem 1.9rem; cursor:pointer; list-style:none; }
 .subprod-accordion summary::-webkit-details-marker{ display:none; }
-.subprod-accordion summary .icon-wrap{ width:52px; height:52px; flex-shrink:0; margin-bottom:0; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
-.subprod-accordion summary .icon-wrap svg{ width:28px; height:28px; }
-.subprod-accordion summary .accordion-head-text{ flex:1; min-width:0; }
-.subprod-accordion summary .accordion-head-text h3{ font-size:1.15rem; margin-bottom:.35rem; }
-.subprod-accordion summary .accordion-head-text p{ color:var(--ink-soft); font-size:.9rem; line-height:1.6; margin:0; }
-.subprod-accordion[open] summary{ border-bottom:1px solid var(--border); }
-.accordion-toggle-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-ink); border:1px solid var(--border); border-radius:999px; padding:.6rem 1.2rem; white-space:nowrap; transition:border-color .2s, background .2s; }
-.subprod-accordion:hover .accordion-toggle-btn{ border-color:var(--accent); }
-.accordion-toggle-btn .chev{ width:13px; height:13px; transition:transform .25s ease; }
-.subprod-accordion[open] .accordion-toggle-btn .chev{ transform:rotate(180deg); }
+
+.prod-num{ font-family:var(--font-mono); font-size:2.1rem; font-weight:800; line-height:1; color:rgba(var(--pn-rgb),.16); transition:color .3s ease; user-select:none; }
+.subprod-accordion:hover .prod-num, .subprod-accordion[open] .prod-num{ color:rgba(var(--pn-rgb),.4); }
+
+.subprod-accordion summary .icon-wrap{ width:54px; height:54px; flex-shrink:0; margin-bottom:0; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--surface); border:1px solid var(--border); box-shadow:0 2px 6px rgba(var(--pn-rgb),.06); transition:border-color .3s ease, transform .3s ease; }
+.subprod-accordion summary .icon-wrap svg{ width:26px; height:26px; }
+.subprod-accordion:hover summary .icon-wrap, .subprod-accordion[open] summary .icon-wrap{ border-color:var(--accent); transform:scale(1.04); }
+
+.subprod-accordion summary .accordion-head-text{ min-width:0; }
+.subprod-accordion summary .accordion-head-text h3{ font-size:clamp(1.05rem,1.6vw,1.3rem); font-weight:800; text-transform:uppercase; letter-spacing:.01em; color:var(--brand-blue-ink); margin-bottom:.4rem; }
+.subprod-accordion summary .accordion-head-text p{ color:var(--ink-soft); font-size:.94rem; line-height:1.6; margin:0 0 .8rem; max-width:56ch; }
+
+.spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.spec-tag{ display:inline-flex; align-items:center; gap:.35rem; font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--brand-blue-ink); background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:.32rem .62rem .32rem .55rem; white-space:nowrap; }
+.spec-tag .tag-ic{ color:var(--accent-ink); font-weight:800; }
+
+.accordion-toggle-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:.85rem; border:1.5px solid rgba(255,106,31,.35); border-radius:999px; background:transparent; padding:.4rem .4rem .4rem 1.15rem; white-space:nowrap; transition:border-color .3s ease, background .3s ease, box-shadow .3s ease; }
+.accordion-toggle-btn .label-closed, .accordion-toggle-btn .label-open{ font-family:var(--font-mono); font-size:.72rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--accent-ink); }
 .accordion-toggle-btn .label-open{ display:none; }
 .subprod-accordion[open] .accordion-toggle-btn .label-closed{ display:none; }
 .subprod-accordion[open] .accordion-toggle-btn .label-open{ display:inline; }
-.accordion-body{ padding:.4rem 2rem 2.4rem; }
-.accordion-body .tagline{ color:var(--accent-hot); font-weight:700; font-size:.98rem; margin:1.6rem 0 0; }
+.accordion-toggle-btn .chev-wrap{ width:34px; height:34px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--brand-blue-ink); transition:background .3s ease, transform .35s ease, box-shadow .3s ease; }
+.accordion-toggle-btn .chev-wrap svg{ width:14px; height:14px; }
+.accordion-toggle-btn .chev{ stroke:#fff; }
+.subprod-accordion:hover .accordion-toggle-btn{ border-color:var(--accent); box-shadow:0 6px 18px rgba(255,106,31,.18); }
+.subprod-accordion:hover .accordion-toggle-btn .chev-wrap{ background:var(--accent); }
+.subprod-accordion[open] .accordion-toggle-btn{ background:rgba(255,106,31,.08); border-color:var(--accent); }
+.subprod-accordion[open] .accordion-toggle-btn .chev-wrap{ background:var(--accent); transform:rotate(180deg); box-shadow:0 6px 16px rgba(255,106,31,.3); }
+
+.subprod-accordion[open] summary{ border-bottom:1px solid var(--border); }
+
+.accordion-body{ padding:.4rem 2rem 2.4rem; animation:accBodyIn .4s ease; }
+@keyframes accBodyIn{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:translateY(0); } }
+
+.quick-summary-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; margin:1.7rem 0 2.4rem; padding:1.7rem 1.9rem; background:var(--surface-2); border:1px solid var(--border); border-radius:16px; }
+.qs-col{ min-width:0; }
+.qs-label{ font-family:var(--font-mono); font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.qs-col p{ color:var(--ink-soft); font-size:.92rem; line-height:1.6; margin:0; }
+.qs-chip-list{ display:flex; flex-direction:column; gap:.45rem; }
+.qs-chip{ font-family:var(--font-mono); font-size:.78rem; color:var(--brand-blue-ink); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:.4rem .6rem; }
+.qs-chip b{ color:var(--ink-soft); font-weight:600; }
+.qs-checklist{ list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+.qs-checklist li{ display:flex; align-items:baseline; gap:.5rem; font-size:.92rem; color:var(--ink-soft); }
+.qs-checklist li::before{ content:'✓'; color:var(--accent); font-weight:800; flex-shrink:0; }
+
+@media(max-width:720px){
+  .quick-summary-grid{ grid-template-columns:1fr; gap:1.4rem; }
+}
+@media(max-width:680px){
+  .subprod-accordion summary{ grid-template-columns:auto 1fr; grid-template-areas:"num icon" "head head" "action action"; row-gap:1rem; padding:1.4rem 1.5rem; }
+  .prod-num{ grid-area:num; font-size:1.6rem; align-self:center; }
+  .subprod-accordion summary .icon-wrap{ grid-area:icon; justify-self:end; }
+  .subprod-accordion summary .accordion-head-text{ grid-area:head; }
+  .accordion-toggle-btn{ grid-area:action; justify-content:center; }
+}
+
 .accordion-body .split{ margin-top:1.6rem; gap:2rem; }
 .accordion-body .split h4{ margin-bottom:1.1rem; font-size:1.4rem; }
 .accordion-body .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; }
@@ -203,25 +278,53 @@
   <div class="section-head reveal">
     <div class="kicker center">PRODUCTS IN THIS CATEGORY</div>
     <h2>4 Products in This Category</h2>
-    <p>Open "View Full Details" on any product to see use cases, specifications and FAQs right here, no separate page to load.</p>
+    <p>Select "View Specifications" on any product to see use cases, specifications and FAQs right here, no separate page to load.</p>
   </div>
   <div class="subprod-accordion-list">
 
-    <details class="subprod-accordion reveal" id="erw-round-tubes">
+    <details class="subprod-accordion reveal" id="erw-round-tubes" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
+        <span class="prod-num">01</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
         <div class="accordion-head-text">
           <h3>ERW Round Structural Tubes</h3>
           <p>32 OD to 76 OD, handrails, gates, scaffolding towers and heavy structural pillars.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>32 OD – 76 OD</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>ERW</span>
+            <span class="spec-tag">STRUCTURAL</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">Circles resist twisting and squeezing equally in every direction, the strongest shape for a load-bearing post.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>Circles resist twisting and squeezing equally in every direction, the strongest shape for a load-bearing post.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Diameter:</b> 32–76 OD</div>
+              <div class="qs-chip"><b>Thickness:</b> 1.2–3.2mm</div>
+              <div class="qs-chip"><b>Weight:</b> 7–28kg/pipe</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Handrails</li>
+              <li>Gates</li>
+              <li>Scaffolding Towers</li>
+              <li>Heavy Structural Pillars</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -296,21 +399,49 @@
       </div>
     </details>
 
-    <details class="subprod-accordion reveal" id="shs-box-pipes">
+    <details class="subprod-accordion reveal" id="shs-box-pipes" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="1"/></svg></div>
+        <span class="prod-num">02</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="1"/></svg></div>
         <div class="accordion-head-text">
           <h3>Square Hollow Sections (SHS)</h3>
           <p>25×25mm to 60×60mm box pipes, grills, gates, racking and warehouse shed columns.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>25×25 – 60×60 mm</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>SHS</span>
+            <span class="spec-tag">BOX SECTION</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">Hollow steel building blocks with four flat faces, easier to weld, drill and bolt than round pipe.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>Hollow steel building blocks with four flat faces, easier to weld, drill and bolt than round pipe.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Sizes:</b> 25×25–60×60mm</div>
+              <div class="qs-chip"><b>Thickness:</b> 1.2–3.2mm</div>
+              <div class="qs-chip"><b>Weight:</b> 5–28kg/pipe</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Grills</li>
+              <li>Gates</li>
+              <li>Racking</li>
+              <li>Warehouse Shed Columns</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -385,21 +516,49 @@
       </div>
     </details>
 
-    <details class="subprod-accordion reveal" id="rhs-box-pipes">
+    <details class="subprod-accordion reveal" id="rhs-box-pipes" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><rect x="4" y="7" width="16" height="10" rx="1"/></svg></div>
+        <span class="prod-num">03</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><rect x="4" y="7" width="16" height="10" rx="1"/></svg></div>
         <div class="accordion-head-text">
           <h3>Rectangular Hollow Sections (RHS)</h3>
           <p>25×50mm to 80×40mm box pipes, stringers, trailer beds, rack beams and roof purlins.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>25×50 – 80×40 mm</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>RHS</span>
+            <span class="spec-tag">STRUCTURAL</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">A brick-shaped profile that resists sagging far better than a square pipe of the same steel weight.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>A brick-shaped profile that resists sagging far better than a square pipe of the same steel weight.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Sizes:</b> 25×50–80×40mm</div>
+              <div class="qs-chip"><b>Thickness:</b> 1.2–2.8mm</div>
+              <div class="qs-chip"><b>Weight:</b> 8.5–30kg/pipe</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Stringers</li>
+              <li>Trailer Beds</li>
+              <li>Rack Beams</li>
+              <li>Roof Purlins</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -474,21 +633,49 @@
       </div>
     </details>
 
-    <details class="subprod-accordion reveal" id="scaffolding-systems">
+    <details class="subprod-accordion reveal" id="scaffolding-systems" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M5 3v18M19 3v18M5 9l14-3M5 15l14-3M5 21l14-3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="prod-num">04</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><path d="M5 3v18M19 3v18M5 9l14-3M5 15l14-3M5 21l14-3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="accordion-head-text">
           <h3>Scaffolding &amp; Staging Systems</h3>
           <p>1.5" &amp; 2" round and SHS staging pipe, 17 KG to 27 KG, tested against high axial loads for jobsite towers.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>1.5" &amp; 2" PIPE</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>17–27 KG</span>
+            <span class="spec-tag">HIGH AXIAL LOAD</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">The thick-walled steel that keeps workers safe every meter above the ground.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>The thick-walled steel that keeps workers safe every meter above the ground.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Sizes:</b> 1.5"/2" round, 2" SHS</div>
+              <div class="qs-chip"><b>Thickness:</b> 2.4–3.2mm</div>
+              <div class="qs-chip"><b>Weight:</b> 17–27kg/pipe</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Exterior Staging</li>
+              <li>Bricklaying &amp; Shuttering</li>
+              <li>Heavy Slab Propping</li>
+              <li>Modular Towers</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>

@@ -7,11 +7,12 @@
    hero pages read as one system, extended with a 2×2 feature grid, a
    translucent orange diagonal accent blended into the photo, and a
    bottom trust strip. Real photo (Hero/Concrete_Reinforcement.png:
-   rebar bundles + tied reinforcement cage + night construction site,
-   sparks, tower cranes, orange industrial light) bleeds edge-to-edge on
-   desktop behind a single continuous scrim, weighted right so the left
-   text column reads clean; on mobile it becomes a contained card that
-   flows in after the panel.
+   bundled TMT rebar + tied reinforcement mesh on a sunrise construction
+   site, with the skeleton of a building under construction in the
+   background) already bakes in its own dark-navy-to-sunrise gradient,
+   left to right, so it bleeds edge-to-edge on desktop behind a single
+   continuous scrim, weighted right so the left text column reads clean;
+   on mobile it becomes a contained card that flows in after the panel.
    ════════════════════════════════════════════════════════════════════ */
 
 .cr-hero {
@@ -89,11 +90,11 @@
   letter-spacing: .16em; text-transform: uppercase; color: var(--cr-orange-hot);
 }
 
-/* ══ HEADLINE — 4 lines, two-tone ══ */
+/* ══ HEADLINE — 2 lines, two-tone ══ */
 .cr-hero h1.cr-heading {
   text-transform: none; font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(1.85rem, 3.2vw, 2.9rem); line-height: .98; letter-spacing: -.01em;
-  margin: 0 0 .9rem;
+  font-size: clamp(2.3rem, 4.4vw, 3.75rem); line-height: .94; letter-spacing: -.01em;
+  margin: 0 0 1rem;
 }
 .cr-line { display: block; overflow: hidden; padding-bottom: .1em; }
 .cr-line-inner { display: block; color: var(--cr-white); }
@@ -102,9 +103,23 @@
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
+/* ══ SUPPORTING HEADLINE — sits between the main heading and the
+   description, short orange underline accent beneath ══ */
+.cr-subhead {
+  position: relative; display: inline-block;
+  font-family: var(--font-display); font-weight: 700; color: var(--cr-white);
+  font-size: clamp(1.05rem, 1.7vw, 1.45rem); line-height: 1.3;
+  margin: 0 0 1.1rem; padding-bottom: .55rem;
+}
+.cr-subhead::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 44px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--cr-orange), var(--cr-orange-hot));
+}
+.cr-loaded .cr-subhead { opacity: 1; transform: none; transition-delay: .34s; }
+
 .cr-desc {
   color: var(--cr-gray); font-size: clamp(.88rem, .95vw, 1rem); line-height: 1.6;
-  max-width: 44ch; margin: 0 0 1.3rem; font-weight: 500;
+  max-width: 480px; margin: 0 0 1.3rem; font-weight: 500;
 }
 
 /* ══ FOUR FEATURES — compact 2×2 grid ══ */
@@ -215,7 +230,7 @@
 .cr-visual { position: relative; overflow: hidden; margin: 0; }
 .cr-visual-frame { position: absolute; inset: 0; transition: transform .4s ease-out; }
 .cr-visual-frame img {
-  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 62% 46%;
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 58% 42%;
   filter: saturate(1.06) contrast(1.04);
   transform: scale(var(--cr-img-scale, 1));
 }
@@ -245,21 +260,15 @@
 
 @media (min-width: 960px) {
   .cr-visual { position: absolute; inset: 0; z-index: 0; }
-  /* pull the camera back a little on desktop: the source photo already
-     fills its own frame edge-to-edge (subject dominates the full-bleed
-     crop), so a modest scale-down + widened vignette is the only way to
-     give it breathing room without introducing a seamed second image or
-     a hard-edged inset card */
-  .cr-visual-frame img {
-    --cr-img-scale: .88; transform-origin: 60% 42%;
-    -webkit-mask-image: radial-gradient(ellipse 78% 78% at 60% 42%, #000 62%, transparent 100%);
-    mask-image: radial-gradient(ellipse 78% 78% at 60% 42%, #000 62%, transparent 100%);
-  }
+  /* the source photo (Hero/Concrete_Reinforcement.png) already bakes in
+     its own dark-navy-to-sunrise gradient left-to-right, so it runs
+     full-bleed and uncropped at edge-to-edge scale — no scale-down/mask
+     vignette needed, that would only risk a visible seam against the
+     page background. Readability comes entirely from the scrim below. */
   .cr-visual-scrim {
     background:
-      linear-gradient(100deg, var(--cr-navy-deep) 0%, rgba(2, 8, 20, .94) 15%, rgba(7, 26, 58, .68) 30%, rgba(7, 26, 58, .26) 45%, transparent 60%),
-      linear-gradient(180deg, rgba(2, 8, 20, .55) 0%, transparent 16%, transparent 72%, rgba(2, 8, 20, .62) 100%),
-      linear-gradient(260deg, rgba(2, 8, 20, .55) 0%, transparent 14%);
+      linear-gradient(90deg, var(--cr-navy-deep) 0%, rgba(3, 8, 22, .92) 12%, rgba(3, 8, 22, .76) 24%, rgba(3, 8, 22, .42) 46%, rgba(3, 8, 22, .08) 70%, transparent 100%),
+      linear-gradient(180deg, rgba(2, 8, 20, .4) 0%, transparent 14%, transparent 76%, rgba(2, 8, 20, .48) 100%);
   }
 }
 
@@ -293,23 +302,21 @@
 .cr-curve path { fill: none; stroke: var(--cr-orange); stroke-width: 2; filter: drop-shadow(0 0 8px rgba(255, 106, 31, .55)); }
 
 /* ══ ENTRANCE (JS flips .cr-loaded on .cr-hero) ══ */
-.cr-eyebrow, .cr-line-inner, .cr-desc, .cr-feature, .cr-cta, .cr-cta-secondary, .cr-panel {
+.cr-eyebrow, .cr-line-inner, .cr-subhead, .cr-desc, .cr-feature, .cr-cta, .cr-cta-secondary, .cr-panel {
   opacity: 0; transform: translateY(16px);
   transition: opacity .65s cubic-bezier(.22, 1, .36, 1), transform .65s cubic-bezier(.22, 1, .36, 1);
 }
 .cr-loaded .cr-eyebrow { opacity: 1; transform: none; transition-delay: .1s; }
 .cr-loaded .cr-line:nth-child(1) .cr-line-inner { opacity: 1; transform: none; transition-delay: .2s; }
 .cr-loaded .cr-line:nth-child(2) .cr-line-inner { opacity: 1; transform: none; transition-delay: .28s; }
-.cr-loaded .cr-line:nth-child(3) .cr-line-inner { opacity: 1; transform: none; transition-delay: .36s; }
-.cr-loaded .cr-line:nth-child(4) .cr-line-inner { opacity: 1; transform: none; transition-delay: .44s; }
-.cr-loaded .cr-desc { opacity: 1; transform: none; transition-delay: .56s; }
-.cr-loaded .cr-feature:nth-child(1) { opacity: 1; transform: none; transition-delay: .68s; }
-.cr-loaded .cr-feature:nth-child(2) { opacity: 1; transform: none; transition-delay: .74s; }
-.cr-loaded .cr-feature:nth-child(3) { opacity: 1; transform: none; transition-delay: .8s; }
-.cr-loaded .cr-feature:nth-child(4) { opacity: 1; transform: none; transition-delay: .86s; }
-.cr-loaded .cr-cta { opacity: 1; transform: none; transition-delay: .96s; }
-.cr-loaded .cr-cta-secondary { opacity: 1; transform: none; transition-delay: 1.02s; }
-.cr-loaded .cr-panel { opacity: 1; transform: none; transition-delay: 1.12s; }
+.cr-loaded .cr-desc { opacity: 1; transform: none; transition-delay: .46s; }
+.cr-loaded .cr-feature:nth-child(1) { opacity: 1; transform: none; transition-delay: .58s; }
+.cr-loaded .cr-feature:nth-child(2) { opacity: 1; transform: none; transition-delay: .64s; }
+.cr-loaded .cr-feature:nth-child(3) { opacity: 1; transform: none; transition-delay: .7s; }
+.cr-loaded .cr-feature:nth-child(4) { opacity: 1; transform: none; transition-delay: .76s; }
+.cr-loaded .cr-cta { opacity: 1; transform: none; transition-delay: .88s; }
+.cr-loaded .cr-cta-secondary { opacity: 1; transform: none; transition-delay: .94s; }
+.cr-loaded .cr-panel { opacity: 1; transform: none; transition-delay: 1.04s; }
 
 .cr-visual { opacity: 0; transform: translateX(20px) scale(1.04); transition: opacity 1.6s cubic-bezier(.22, 1, .36, 1), transform 1.6s cubic-bezier(.22, 1, .36, 1); }
 .cr-loaded .cr-visual { opacity: 1; transform: none; }
@@ -379,7 +386,7 @@
 
 /* ══ ACCESSIBILITY: reduced motion ══ */
 @media (prefers-reduced-motion: reduce) {
-  .cr-eyebrow, .cr-line-inner, .cr-desc, .cr-feature, .cr-cta, .cr-cta-secondary, .cr-panel, .cr-visual, .cr-trust {
+  .cr-eyebrow, .cr-line-inner, .cr-subhead, .cr-desc, .cr-feature, .cr-cta, .cr-cta-secondary, .cr-panel, .cr-visual, .cr-trust {
     transition: opacity .4s ease !important; transform: none !important;
   }
   .cr-sweep, .cr-particle, .cr-glow-a, .cr-loaded .cr-visual-frame img { animation: none !important; }
