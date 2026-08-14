@@ -37,12 +37,16 @@
 .map-link{ display:inline-flex; align-items:center; gap:.4rem; margin-top:1rem; font-family:var(--font-mono); font-size:.7rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; text-decoration:none; }
 .map-link:hover{ text-decoration:underline; }
 
-.link-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+.link-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.6rem; max-width:820px; margin:0 auto; }
 @media(max-width:800px){ .link-grid{ grid-template-columns:1fr; } }
-.link-card{ padding:1.7rem 1.6rem; text-decoration:none; display:block; color:inherit; }
-.link-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.5rem; }
-.link-card p{ font-size:.86rem; color:var(--ink-soft); margin-bottom:.8rem; }
-.link-card .go{ font-family:var(--font-mono); font-size:.7rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; word-break:break-all; }
+.link-card{ padding:2.5rem 2.2rem; text-decoration:none; display:flex; flex-direction:column; align-items:flex-start; color:inherit; }
+.link-card .icon-wrap{ width:58px; height:58px; border-radius:1.1rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.4rem; transition:transform .35s ease, border-color .35s ease; }
+.link-card:hover .icon-wrap{ transform:scale(1.08) rotate(-4deg); border-color:var(--accent); }
+.link-card .icon-wrap svg{ width:26px; height:26px; }
+.link-card .tag{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.link-card h4{ font-size:1.2rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; }
+.link-card p{ font-size:.9rem; color:var(--ink-soft); line-height:1.6; margin-bottom:1.6rem; flex:1; }
+.link-card .btn{ align-self:flex-start; }
 
 /* ══ THREE WAYS TO REACH US ══ */
 .reach-section{ max-width:1400px; }
@@ -1003,32 +1007,32 @@
 </section>
 
 <!-- INSTITUTIONAL LINKS -->
-<section class="section">
+<section class="section" style="padding-bottom:2rem;">
   <div class="section-head reveal">
     <div class="kicker center">VENDORS &amp; INVESTORS</div>
     <h2>Institutional Access Points</h2>
+    <p>Dedicated portals for sourcing partners and stakeholders to register, verify, and access group documentation.</p>
   </div>
   <div class="link-grid">
     <div class="link-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M3 9a2 2 0 0 1 2-2h3V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" stroke="url(#steelGrad)" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7V5h6v2M3 13h18" stroke="url(#steelGrad)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="tag">SAP Ariba Portal</div>
       <h4>Vendor Registration</h4>
       <p>Register as a supplier through our SAP Ariba portal. Sourcing enquiries and RFP response guidance available on request.</p>
-      <span class="go">BravoSpongeIron.sourcing3.ariba.com</span>
+      <a href="http://BravoSpongeIron.sourcing3.ariba.com/ad/selfRegistration" target="_blank" rel="noopener" class="btn btn-primary">Register Now →</a>
     </div>
     <div class="link-card panel reveal">
-      <h4>Investor Relations</h4>
-      <p>Financial statements, corporate filings, and shareholder information for Shakambhari Group entities.</p>
-      <span class="go">shakambharigroup.in/investors</span>
-    </div>
-    <div class="link-card panel reveal">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="5" stroke="url(#steelGrad)" stroke-width="1.5"/><path d="M8.5 12.5 7 22l5-3 5 3-1.5-9.5" stroke="url(#steelGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="tag">Compliance &amp; Quality</div>
       <h4>Certificates Portal</h4>
       <p>All group certifications, quality accreditations and compliance documents in one place.</p>
-      <span class="go">certificates.shakambharigroup.in</span>
+      <a href="awards.html" class="btn btn-primary">View Awards &amp; Certifications →</a>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="section" style="text-align:center;">
+<section class="section" style="text-align:center; padding-top:1rem;">
   <a href="process.html" class="btn btn-primary reveal">Explore Our Process First →</a>
 </section>
 
