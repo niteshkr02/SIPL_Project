@@ -75,14 +75,17 @@
       position: relative;
       z-index: 4;
       display: flex;
-      align-items: center;
-      padding: 2.5rem 1.5rem;
+      align-items: flex-start;
+      padding: 1.75rem 1.5rem;
+      min-width: 0;
     }
 
     .hero-content {
       position: relative;
       z-index: 5;
+      width: 100%;
       max-width: 620px;
+      min-width: 0;
     }
 
     /* Entrance (badge / headline lines / lede / CTAs / trust bar / visual /
@@ -1314,6 +1317,27 @@
             <a href="journey.html" class="btn btn-ghost hero-btn-secondary">About the Group <span
                 class="hero-btn-arrow" aria-hidden="true">→</span></a>
           </div>
+
+          <div class="hero-brands">
+            <div class="hero-brands-row">
+              <a class="hero-brand-card" href="https://www.elegantsteels.com/" target="_blank" rel="noopener">
+                <span class="hero-brand-logo-wrap"><img src="images/Elegant_Steel_Logo.jpeg"
+                    alt="Elegant Steel logo" class="hero-brand-logo" decoding="async"></span>
+                <span class="hero-brand-name">Elegant Steel</span>
+              </a>
+              <a class="hero-brand-card" href="https://www.facebook.com/ThermoconTMT/" target="_blank"
+                rel="noopener">
+                <span class="hero-brand-logo-wrap"><img src="images/Thermocon_TMT_Logo.jpeg"
+                    alt="Thermocon TMT logo" class="hero-brand-logo" decoding="async"></span>
+                <span class="hero-brand-name">Thermocon TMT</span>
+              </a>
+              <a class="hero-brand-card" href="https://www.indiafoils.net/" target="_blank" rel="noopener">
+                <span class="hero-brand-logo-wrap"><img src="images/India_Foils_Logo.jpeg" alt="India Foils logo"
+                    class="hero-brand-logo" decoding="async"></span>
+                <span class="hero-brand-name">India Foils</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -2316,7 +2340,7 @@
       </div>
 
       <div class="market-full-wrapper panel reveal">
-        <div class="market-dashboard-grid">
+        <div class="market-dashboard-grid" id="marketDashboardGrid">
 
           <!-- LEFT COLUMN: MAP VIEWPORTS -->
           <div class="map-main-column">
@@ -2587,6 +2611,56 @@
                     India)</span>
                 </div>
               </div>
+
+              <!-- BOTTOM CARDS: country-name chips (left) + HQ record (right) —
+                   replaces the old hover-driven vendor-details sidebar -->
+              <div class="world-bottom-grid">
+                <div class="mpp world-bottom-card">
+                  <div class="mpp-ambient" aria-hidden="true"></div>
+                  <div class="mpp-texture" aria-hidden="true"></div>
+                  <div class="mpp-noise" aria-hidden="true"></div>
+                  <div class="mpp-header">
+                    <div class="mpp-state"><span aria-hidden="true">🌍</span> Countries We Export To</div>
+                    <div class="mpp-company">29+ international destinations across 5 continents</div>
+                  </div>
+                  <div class="world-country-chips" id="worldCountryChips">
+                    <!-- country name chips, rendered by JS from worldCountriesData -->
+                  </div>
+                </div>
+
+                <div class="mpp world-bottom-card">
+                  <div class="mpp-ambient" aria-hidden="true"></div>
+                  <div class="mpp-texture" aria-hidden="true"></div>
+                  <div class="mpp-noise" aria-hidden="true"></div>
+                  <div class="mpp-header">
+                    <div class="mpp-state"><span aria-hidden="true">⭐</span> Corporate HQ</div>
+                    <div class="mpp-company">Global manufacturing &amp; export headquarters</div>
+                  </div>
+                  <div class="mpp-body">
+                    <div class="mpp-mini">
+                      <span class="mpp-mini-icon" aria-hidden="true">🏬</span>
+                      <div class="mpp-mini-text">
+                        <span class="mpp-label">Head Office Address</span>
+                        <span class="mpp-value" id="worldHqAddress"></span>
+                      </div>
+                    </div>
+                    <div class="mpp-mini">
+                      <span class="mpp-mini-icon" aria-hidden="true">📞</span>
+                      <div class="mpp-mini-text">
+                        <span class="mpp-label">Phone</span>
+                        <span class="mpp-value" id="worldHqPhone"></span>
+                      </div>
+                    </div>
+                    <div class="mpp-mini">
+                      <span class="mpp-mini-icon" aria-hidden="true">✉️</span>
+                      <div class="mpp-mini-text">
+                        <span class="mpp-label">Email</span>
+                        <span class="mpp-value" id="worldHqEmail"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- 2. DOMESTIC INDIA MAP CONTAINER -->
@@ -2686,75 +2760,11 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: PREMIUM ENTERPRISE INFO CONSOLE
-               (isolated component, see market-presence-panel.css) -->
-          <div class="mpp reveal" id="vendorLiveCard" role="region" aria-label="Active distribution center details" style="display:none;">
-            <div class="mpp-ambient" aria-hidden="true"></div>
-            <div class="mpp-texture" aria-hidden="true"></div>
-            <div class="mpp-noise" aria-hidden="true"></div>
-
-            <div class="mpp-status">
-              <span class="pulse-dot" aria-hidden="true"></span>
-              <span class="mpp-status-live">LIVE</span>
-              <span class="mpp-status-label">Active Distribution Center</span>
-            </div>
-
-            <div class="mpp-search" role="search">
-              <span class="mpp-search-icon" aria-hidden="true">🔍</span>
-              <input type="text" id="mapSearchInput" class="mpp-search-input"
-                placeholder="Search state or vendor..." aria-label="Search state or vendor" />
-            </div>
-
-            <div class="mpp-header">
-              <div class="mpp-state" id="cardStateName" aria-live="polite">
-                <span class="mpp-empty-icon" aria-hidden="true">🗺️</span> Hover a Marker
-              </div>
-              <div class="mpp-company" id="cardPartnerName"></div>
-            </div>
-
-            <div class="mpp-body is-empty" id="mppBody">
-              <p class="mpp-empty-hint" id="mppEmptyHint">Hover over any marker, state, or directory entry below to
-                view its regional channel partner, depot, and vendor contact details.</p>
-
-              <div class="mpp-mini">
-                <span class="mpp-mini-icon" aria-hidden="true">👤</span>
-                <div class="mpp-mini-text">
-                  <span class="mpp-label">Regional Sales Officer</span>
-                  <span class="mpp-value" id="cardOfficer"></span>
-                </div>
-              </div>
-
-              <div class="mpp-mini">
-                <span class="mpp-mini-icon" aria-hidden="true">🏬</span>
-                <div class="mpp-mini-text">
-                  <span class="mpp-label">Hub Depot Address</span>
-                  <span class="mpp-value" id="cardAddress"></span>
-                </div>
-              </div>
-
-              <div class="mpp-actions">
-                <a id="cardPhoneBtn" href="#" class="mpp-btn mpp-btn-primary">
-                  <span class="mpp-btn-icon" aria-hidden="true">📞</span> Call Officer</a>
-                <a id="cardEmailBtn" href="#" class="mpp-btn mpp-btn-secondary">
-                  <span class="mpp-btn-icon" aria-hidden="true">✉️</span> Email Support</a>
-              </div>
-            </div>
-
-            <div class="mpp-directory">
-              <div class="mpp-directory-title"><span aria-hidden="true">⚡</span> Direct Jump Directory</div>
-              <div class="mpp-directory-list" id="quickLocationList">
-                <!-- Location Items dynamically loaded -->
-              </div>
-            </div>
-
-          </div>
-
-          <!-- INDIA DRILL-DOWN PANEL: sibling of #vendorLiveCard, occupies the
-               same grid cell (see .mp-india-panel in market-presence-panel.css),
-               shown only while the India tab is active. No "all states" list
-               and no back/forward history — one state is always selected
-               (defaults to West Bengal/HQ), so there's nothing to navigate
-               back to. -->
+          <!-- INDIA DRILL-DOWN PANEL: right-hand grid column, domestic
+               (India) tab only — see .mp-india-panel in market-presence-panel.css.
+               No "all states" list and no back/forward history — one state
+               is always selected (defaults to West Bengal/HQ), so there's
+               nothing to navigate back to. -->
           <div class="mpp mp-india-panel reveal" id="indiaDrillPanel" role="region" aria-label="Domestic distribution zone details">
             <div class="mpp-ambient" aria-hidden="true"></div>
             <div class="mpp-texture" aria-hidden="true"></div>
@@ -5158,7 +5168,6 @@
       // state below it (click a name to jump straight there) — no more
       // "all states" grid screen and no back/forward history, since the
       // list makes every state reachable in one click already ──
-      const vendorLiveCard = document.getElementById('vendorLiveCard');
       const indiaDrillPanel = document.getElementById('indiaDrillPanel');
       const idpTitle = document.getElementById('idpTitle');
       const idpSubtitle = document.getElementById('idpSubtitle');
@@ -5310,8 +5319,6 @@
       const cardPhoneBtn = document.getElementById('cardPhoneBtn');
       const cardEmailBtn = document.getElementById('cardEmailBtn');
       const mppBody = document.getElementById('mppBody');
-      const quickLocationList = document.getElementById('quickLocationList');
-      const mapSearchInput = document.getElementById('mapSearchInput');
 
       // PERF: these are all static/persistent elements (rule 3), resolving
       // them once avoids re-querying the DOM from inside updateVendorCard(),
@@ -5466,16 +5473,20 @@
       }
 
       function updateVendorCard(item) {
+        // route highlighting runs regardless of whether a details card is
+        // present — the international map no longer has one (see the
+        // removed #vendorLiveCard / .world-bottom-grid), but its markers
+        // should still light up the matching logistics route on hover.
+        routeEls.forEach(r => {
+          r.classList.toggle('is-active-route', !!item && r.dataset.target === item.id);
+        });
+
         if (!cardStateName) return;
         // a direct/immediate call (click-lock, tab switch) always wins over
         // whatever transient hover was still pending
         clearTimeout(panelUpdateTimer);
         panelUpdateTimer = null;
         const myToken = ++vendorCardToken;
-
-        routeEls.forEach(r => {
-          r.classList.toggle('is-active-route', !!item && r.dataset.target === item.id);
-        });
 
         const applyContent = () => {
           if (myToken !== vendorCardToken) return;
@@ -5500,91 +5511,6 @@
         const targets = [mppHeaderEl, mppBody].filter(Boolean);
         if (window.gsap && targets.length) gsap.killTweensOf(targets);
         applyContent();
-      }
-
-      function renderQuickList(dataList, filterQuery = '') {
-        if (!quickLocationList) return;
-        quickLocationList.innerHTML = '';
-
-        const filtered = dataList.filter(item => {
-          if (!filterQuery) return true;
-          const q = filterQuery.toLowerCase();
-          return item.name.toLowerCase().includes(q) ||
-            item.partner.toLowerCase().includes(q) ||
-            item.code.toLowerCase().includes(q);
-        });
-
-        if (filtered.length === 0) {
-          quickLocationList.innerHTML = `<div class="mpp-empty">No matching locations found</div>`;
-          return;
-        }
-
-        filtered.forEach(item => {
-          const itemEl = document.createElement('div');
-          const isLocked = item.id === lockedSelection[datasetKey(dataList)];
-          itemEl.className = 'quick-location-item' + (isLocked ? ' active' : '');
-          itemEl.dataset.id = item.id;
-          itemEl.setAttribute('role', 'button');
-          itemEl.setAttribute('tabindex', '0');
-          itemEl.setAttribute('aria-label', `${item.name} (${item.code}), view depot details`);
-          itemEl.innerHTML = `<span class="ql-indicator" aria-hidden="true"></span><span class="ql-icon" aria-hidden="true">${item.isHQ ? '⭐' : '📍'}</span><span class="ql-name">${item.name}</span><span class="ql-code">${item.code}</span>`;
-
-          // hover/focus previews the marker + state tint without disturbing
-          // whichever item is actually locked in; click/Enter locks it in,
-          // "trigger exactly the same interaction as clicking the marker".
-          itemEl.addEventListener('mouseenter', () => previewItem(item, dataList));
-          itemEl.addEventListener('mouseleave', () => clearPreview(item, dataList));
-          itemEl.addEventListener('focus', () => previewItem(item, dataList));
-          itemEl.addEventListener('blur', () => clearPreview(item, dataList));
-
-          const activate = () => lockItem(item, dataList);
-
-          itemEl.addEventListener('click', activate);
-          itemEl.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              activate();
-            }
-          });
-
-          quickLocationList.appendChild(itemEl);
-        });
-      }
-
-      if (mapSearchInput) {
-        mapSearchInput.addEventListener('input', (e) => {
-          const query = e.target.value.trim();
-          renderQuickList(activeDataset, query);
-          applySearchDim(activeDataset, query);
-        });
-      }
-
-      // dim markers that don't match the live search query; when exactly
-      // one remains, automatically select it ("focus on the selected result")
-      function applySearchDim(dataList, query) {
-        const layer = pinLayerFor(dataList);
-        if (!layer) return;
-        const q = query.toLowerCase();
-        const pins = Array.from(layer.querySelectorAll('.map-pin'));
-
-        if (!q) {
-          pins.forEach(p => p.classList.remove('search-dim'));
-          return;
-        }
-
-        const matches = [];
-        pins.forEach(p => {
-          const item = dataList.find(d => d.id === p.dataset.id);
-          const isMatch = item && (
-            item.name.toLowerCase().includes(q) ||
-            item.partner.toLowerCase().includes(q) ||
-            item.code.toLowerCase().includes(q)
-          );
-          p.classList.toggle('search-dim', !isMatch);
-          if (isMatch) matches.push(item);
-        });
-
-        if (matches.length === 1) lockItem(matches[0], dataList);
       }
 
       // 4. RENDER MAP OVERLAY PINS
@@ -5680,6 +5606,53 @@
       const indiaPinsLayer = document.getElementById('pinsLayer');
       renderPins(worldCountriesData, worldPinsLayer);
 
+      // 4b. WORLD BOTTOM CARDS: static country-name chip list (reuses the
+      // .quick-location-item markup/interaction so hovering or clicking a
+      // chip still highlights its marker + route on the map) plus the map's
+      // one real HQ record (in_hq) — the lighter replacement for the old
+      // hover-driven vendor-details sidebar (#vendorLiveCard).
+      const worldCountryChips = document.getElementById('worldCountryChips');
+
+      function renderWorldCountryChips() {
+        if (!worldCountryChips) return;
+        worldCountriesData.filter((item) => !item.isHQ).forEach((item) => {
+          const chip = document.createElement('div');
+          chip.className = 'quick-location-item';
+          chip.dataset.id = item.id;
+          chip.setAttribute('role', 'button');
+          chip.setAttribute('tabindex', '0');
+          chip.setAttribute('aria-label', `${item.name} (${item.code}), highlight on map`);
+          chip.innerHTML = `<span class="ql-indicator" aria-hidden="true"></span><span class="ql-icon" aria-hidden="true">📍</span><span class="ql-name">${item.name}</span><span class="ql-code">${item.code}</span>`;
+
+          chip.addEventListener('mouseenter', () => previewItem(item, worldCountriesData));
+          chip.addEventListener('mouseleave', () => clearPreview(item, worldCountriesData));
+          chip.addEventListener('focus', () => previewItem(item, worldCountriesData));
+          chip.addEventListener('blur', () => clearPreview(item, worldCountriesData));
+
+          const activate = () => lockItem(item, worldCountriesData);
+          chip.addEventListener('click', activate);
+          chip.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              activate();
+            }
+          });
+
+          worldCountryChips.appendChild(chip);
+        });
+      }
+      renderWorldCountryChips();
+
+      const worldHqEntry = worldCountriesData.find((item) => item.isHQ);
+      if (worldHqEntry) {
+        const worldHqAddress = document.getElementById('worldHqAddress');
+        const worldHqPhone = document.getElementById('worldHqPhone');
+        const worldHqEmail = document.getElementById('worldHqEmail');
+        if (worldHqAddress) worldHqAddress.textContent = worldHqEntry.address;
+        if (worldHqPhone) worldHqPhone.textContent = worldHqEntry.phone;
+        if (worldHqEmail) worldHqEmail.textContent = worldHqEntry.email;
+      }
+
       // 5. STATE / COUNTRY SHAPE HOVER: native tooltip with the region's
       // name (India's <path> shapes have no <title>, unlike the world
       // map's) + sync the info panel & active pin when a shape maps to a
@@ -5726,6 +5699,7 @@
       const tabIndiaBtn = document.getElementById('tabIndiaBtn');
       const worldMapWrap = document.getElementById('worldMapWrap');
       const indiaMapWrap = document.getElementById('indiaMapWrap');
+      const marketDashboardGrid = document.getElementById('marketDashboardGrid');
 
       if (tabWorldBtn && tabIndiaBtn) {
         tabWorldBtn.addEventListener('click', () => {
@@ -5734,10 +5708,11 @@
           if (window.mpSwitchMapTab) window.mpSwitchMapTab(worldMapWrap, indiaMapWrap);
           else { worldMapWrap.style.display = 'block'; indiaMapWrap.style.display = 'none'; }
           activeDataset = worldCountriesData;
-          renderQuickList(worldCountriesData);
           const current = lockedSelection.world ? worldCountriesData.find(d => d.id === lockedSelection.world) : null;
           updateVendorCard(current);
-          if (vendorLiveCard) vendorLiveCard.style.display = '';
+          // international tab has no side console anymore, let the map
+          // column take the full grid width (domestic tab is untouched)
+          if (marketDashboardGrid) marketDashboardGrid.classList.add('mp-tab-world');
           if (indiaDrillPanel) indiaDrillPanel.style.display = 'none';
           closeDistrictPopup();
         });
@@ -5747,7 +5722,7 @@
           tabWorldBtn.classList.remove('active');
           if (window.mpSwitchMapTab) window.mpSwitchMapTab(indiaMapWrap, worldMapWrap);
           else { indiaMapWrap.style.display = 'block'; worldMapWrap.style.display = 'none'; }
-          if (vendorLiveCard) vendorLiveCard.style.display = 'none';
+          if (marketDashboardGrid) marketDashboardGrid.classList.remove('mp-tab-world');
           if (indiaDrillPanel) indiaDrillPanel.style.display = '';
           renderStatePanel(currentStateSlug);
           syncIndiaPinActiveState(currentStateSlug);

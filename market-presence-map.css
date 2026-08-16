@@ -187,10 +187,49 @@
   align-items: start;
 }
 
+/* International tab has no side console anymore (see .world-bottom-grid
+   below) — the map column takes the full card width instead of sharing it
+   with a 440px sidebar. Toggled by the tab click handlers in the shared
+   inline script. Domestic (India) tab is untouched. */
+.market-dashboard-grid.mp-tab-world {
+  grid-template-columns: 1fr;
+}
+
 @media (max-width: 992px) {
   .market-dashboard-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── international bottom cards: country-name chips + HQ record ──
+   replaces the old hover-driven vendor-details sidebar (#vendorLiveCard).
+   Reuses the .mpp premium-card look from market-presence-panel.css so the
+   two cards read as the same design language as the India drill-down panel. */
+.world-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .world-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.world-bottom-card.mpp {
+  max-width: none;
+  margin: 0;
+}
+
+.world-country-chips {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
 }
 
 /* ── map viewport card ── */
@@ -276,6 +315,11 @@
 .map-viewport-box.world-box {
   aspect-ratio: 1000 / 500;
   max-height: 460px;
+  /* keeps the 2:1 aspect ratio intact once the international tab drops the
+     440px sidebar and this box can grow past ~920px wide — past that point
+     max-height would otherwise clamp the height while width kept growing,
+     stretching the map instead of just enlarging it */
+  max-width: 920px;
 }
 
 .india-svg,

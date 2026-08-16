@@ -265,6 +265,7 @@
   z-index: 5;
   width: 100%;
   max-width: 1400px;
+  min-width: 0;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -290,7 +291,8 @@
   }
 
   .hero-kicker,
-  .hero-cta-row {
+  .hero-cta-row,
+  .hero-brands-row {
     justify-content: flex-start;
   }
 }
@@ -436,6 +438,126 @@
   }
 }
 
+/* ══ OUR BRANDS MINI SHOWCASE ══
+   Compact glass strip anchored under the hero CTAs: just the brand
+   logo + name, clickable through to each brand's own site. Mirrors the
+   existing .hero-btn-secondary glass recipe (rgba white fill + rgba
+   white border + backdrop-blur, orange on hover) rather than the light
+   .brand-showcase cards used on companies.html — those are opaque white
+   plates meant for a light page background and would read as pasted-in
+   rectangles here. Brand data (name / logo / URL) is mirrored 1:1 from
+   the companies.html #brands section, the closest thing this static
+   site has to a shared source — there's no template/data layer to
+   import from directly. */
+.hero-brands {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+}
+
+.hero-brands-row {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  justify-content: center;
+}
+
+@media (max-width: 639.98px) {
+  .hero-brands-row {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: .2rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hero-brands-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.hero-brand-card {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .55rem .95rem .55rem .55rem;
+  border-radius: 14px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, .04);
+  border: 1.5px solid rgba(255, 255, 255, .16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+@media (max-width: 639.98px) {
+  .hero-brand-card {
+    flex: 0 0 auto;
+    width: 150px;
+    scroll-snap-align: start;
+  }
+}
+
+.hero-brand-card:hover,
+.hero-brand-card:focus-visible {
+  transform: scale(1.03);
+  border-color: rgba(255, 106, 31, .55);
+  background: rgba(255, 106, 31, .07);
+  box-shadow: 0 0 22px rgba(255, 106, 31, .16);
+}
+
+.hero-brand-card:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
+}
+
+.hero-brand-logo-wrap {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
+}
+
+.hero-brand-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.hero-brand-card:hover .hero-brand-logo,
+.hero-brand-card:focus-visible .hero-brand-logo {
+  transform: scale(1.06);
+}
+
+.hero-brand-name {
+  font-family: var(--font-display);
+  font-size: .86rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .01em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-brand-card,
+  .hero-brand-logo {
+    transition: none !important;
+  }
+}
+
 /* ══ TRUSTED-BY LOGO STRIP ══ */
 /* ── redesigned scroll indicator: mouse icon + moving line + arrow ── */
 .scroll-cue-icon {
@@ -495,7 +617,8 @@
 .hero-kicker,
 .hero-line-inner,
 .lede,
-.hero-cta-row {
+.hero-cta-row,
+.hero-brands {
   opacity: 0;
   transition: opacity .8s cubic-bezier(.16, .84, .44, 1), transform .8s cubic-bezier(.16, .84, .44, 1), filter .8s ease;
 }
@@ -514,6 +637,10 @@
 }
 
 .hero-cta-row {
+  transform: translateY(16px);
+}
+
+.hero-brands {
   transform: translateY(16px);
 }
 
@@ -549,6 +676,12 @@
   transition-delay: .68s;
 }
 
+.hero-loaded .hero-brands {
+  opacity: 1;
+  transform: none;
+  transition-delay: .82s;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .hero h1 .grad,
@@ -561,7 +694,8 @@
   .hero-kicker,
   .hero-line-inner,
   .lede,
-  .hero-cta-row {
+  .hero-cta-row,
+  .hero-brands {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
