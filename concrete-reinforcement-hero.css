@@ -142,6 +142,28 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
 }
 .cr-feature-icon svg { width: 15px; height: 15px; stroke: var(--cr-orange-hot); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.cr-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--cr-orange-hot);
+  box-shadow: 0 0 0 0 rgba(255, 106, 31, .5);
+  opacity: 0;
+  animation: crIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.cr-feature:nth-child(1) .cr-feature-icon::after { animation-delay: 0s; }
+.cr-feature:nth-child(2) .cr-feature-icon::after { animation-delay: .65s; }
+.cr-feature:nth-child(3) .cr-feature-icon::after { animation-delay: 1.3s; }
+.cr-feature:nth-child(4) .cr-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes crIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
 .cr-feature-num {
   position: absolute; top: -5px; left: -5px;
   font-family: var(--font-mono); font-size: .5rem; font-weight: 800; color: var(--cr-navy-deep);
@@ -389,6 +411,7 @@
   .cr-eyebrow, .cr-line-inner, .cr-subhead, .cr-desc, .cr-feature, .cr-cta, .cr-cta-secondary, .cr-panel, .cr-visual, .cr-trust {
     transition: opacity .4s ease !important; transform: none !important;
   }
+  .cr-feature-icon::after { animation: none !important; display: none; }
   .cr-sweep, .cr-particle, .cr-glow-a, .cr-loaded .cr-visual-frame img { animation: none !important; }
   .cr-bg, .cr-visual-frame, .cr-curve, .cr-diagonal { transition: none !important; }
   .cr-feature:hover, .cr-feature:hover .cr-feature-icon { transform: none !important; }

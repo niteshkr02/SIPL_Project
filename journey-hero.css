@@ -269,6 +269,7 @@
 }
 
 .oj-hero-feature-icon {
+  position: relative;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -282,6 +283,32 @@
 }
 
 .oj-hero-feature-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.oj-hero-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-hot);
+  box-shadow: 0 0 0 0 rgba(255, 194, 75, .5);
+  opacity: 0;
+  animation: ojHeroIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.oj-hero-feature:nth-child(1) .oj-hero-feature-icon::after { animation-delay: 0s; }
+.oj-hero-feature:nth-child(2) .oj-hero-feature-icon::after { animation-delay: .65s; }
+.oj-hero-feature:nth-child(3) .oj-hero-feature-icon::after { animation-delay: 1.3s; }
+.oj-hero-feature:nth-child(4) .oj-hero-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes ojHeroIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oj-hero-feature-icon::after { animation: none !important; display: none; }
+}
 
 .oj-hero-feature-text { display: flex; flex-direction: column; gap: .16rem; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
 

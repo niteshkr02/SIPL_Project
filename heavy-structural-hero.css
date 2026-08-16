@@ -154,6 +154,7 @@
   box-shadow: 0 12px 26px rgba(255, 106, 0, .18);
 }
 .hst-feature-icon {
+  position: relative;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   width: 40px; height: 40px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, rgba(255, 106, 0, .32), rgba(255, 106, 0, .08));
@@ -166,6 +167,28 @@
   box-shadow: 0 0 22px rgba(255, 106, 0, .4), inset 0 0 10px rgba(255, 106, 0, .2);
 }
 .hst-feature-icon svg { width: 19px; height: 19px; stroke: var(--hst-orange); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.hst-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--hst-orange);
+  box-shadow: 0 0 0 0 rgba(255, 106, 0, .5);
+  opacity: 0;
+  animation: hstIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.hst-feature:nth-child(1) .hst-feature-icon::after { animation-delay: 0s; }
+.hst-feature:nth-child(2) .hst-feature-icon::after { animation-delay: .65s; }
+.hst-feature:nth-child(3) .hst-feature-icon::after { animation-delay: 1.3s; }
+.hst-feature:nth-child(4) .hst-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes hstIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
 .hst-feature h4 {
   text-transform: uppercase; font-family: var(--font-mono); font-size: .72rem; font-weight: 700;
   letter-spacing: .05em; color: var(--hst-white); margin: 0; white-space: nowrap;
@@ -319,6 +342,7 @@
   .hst-label, .hst-eyebrow, .hst-line-inner, .hst-desc, .hst-cta, .hst-cta-secondary, .hst-feature, .hst-panel, .hst-visual {
     transition: opacity .4s ease !important; transform: none !important;
   }
+  .hst-feature-icon::after { animation: none !important; display: none; }
   .hst-sweep, .hst-particle, .hst-glow-a { animation: none !important; }
   .hst-bg, .hst-visual-frame, .hst-curve { transition: none !important; }
 }

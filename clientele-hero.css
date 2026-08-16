@@ -293,6 +293,7 @@
 .cnh-feature:first-child { border-left: none; padding-left: 0; }
 
 .cnh-feature-icon {
+  position: relative;
   width: 40px;
   height: 40px;
   flex-shrink: 0;
@@ -309,6 +310,28 @@
 }
 
 .cnh-feature-icon svg { width: 19px; height: 19px; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.cnh-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-hot);
+  box-shadow: 0 0 0 0 rgba(255, 194, 75, .5);
+  opacity: 0;
+  animation: cnhIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.cnh-feature:nth-child(1) .cnh-feature-icon::after { animation-delay: 0s; }
+.cnh-feature:nth-child(2) .cnh-feature-icon::after { animation-delay: .65s; }
+.cnh-feature:nth-child(3) .cnh-feature-icon::after { animation-delay: 1.3s; }
+.cnh-feature:nth-child(4) .cnh-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes cnhIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
 
 .cnh-feature-text {
   display: block;
@@ -339,6 +362,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .cnh-feature, .cnh-feature:hover, .cnh-feature:focus-visible { transform: none !important; }
+  .cnh-feature-icon::after { animation: none !important; display: none; }
 }
 
 @media (max-width: 1280px) and (min-width: 901px) {

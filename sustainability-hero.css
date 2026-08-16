@@ -398,6 +398,7 @@
 .sush-feature:first-child { border-left: none; padding-left: 0; }
 
 .sush-feature-icon {
+  position: relative;
   width: 40px;
   height: 40px;
   flex-shrink: 0;
@@ -414,6 +415,28 @@
 }
 
 .sush-feature-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.sush-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-hot);
+  box-shadow: 0 0 0 0 rgba(255, 194, 75, .5);
+  opacity: 0;
+  animation: sushIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.sush-feature:nth-child(1) .sush-feature-icon::after { animation-delay: 0s; }
+.sush-feature:nth-child(2) .sush-feature-icon::after { animation-delay: .65s; }
+.sush-feature:nth-child(3) .sush-feature-icon::after { animation-delay: 1.3s; }
+.sush-feature:nth-child(4) .sush-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes sushIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
 
 .sush-feature-title {
   display: block;
@@ -459,6 +482,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sush-feature, .sush-feature:hover, .sush-feature:focus-visible { transform: none !important; }
+  .sush-feature-icon::after { animation: none !important; display: none; }
 }
 
 /* below 900px the hero switches to the stacked mobile layout, where

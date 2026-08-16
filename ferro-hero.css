@@ -181,6 +181,7 @@
   box-shadow: 0 12px 26px rgba(255, 106, 0, .18);
 }
 .fh-feature-icon {
+  position: relative;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   width: 40px; height: 40px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, rgba(255, 106, 0, .32), rgba(255, 106, 0, .08));
@@ -193,6 +194,28 @@
   box-shadow: 0 0 22px rgba(255, 106, 0, .4), inset 0 0 10px rgba(255, 106, 0, .2);
 }
 .fh-feature-icon svg { width: 19px; height: 19px; stroke: var(--fh-orange); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.fh-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--fh-orange);
+  box-shadow: 0 0 0 0 rgba(255, 106, 0, .5);
+  opacity: 0;
+  animation: fhIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.fh-feature:nth-child(1) .fh-feature-icon::after { animation-delay: 0s; }
+.fh-feature:nth-child(2) .fh-feature-icon::after { animation-delay: .65s; }
+.fh-feature:nth-child(3) .fh-feature-icon::after { animation-delay: 1.3s; }
+.fh-feature:nth-child(4) .fh-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes fhIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
 .fh-feature h4 {
   text-transform: uppercase; font-family: var(--font-mono); font-size: .72rem; font-weight: 700;
   letter-spacing: .05em; color: var(--fh-white); margin: 0; white-space: nowrap;
@@ -345,6 +368,7 @@
   .fh-label, .fh-eyebrow, .fh-line-inner, .fh-desc, .fh-cta, .fh-cta-secondary, .fh-feature, .fh-panel, .fh-visual {
     transition: opacity .4s ease !important; transform: none !important;
   }
+  .fh-feature-icon::after { animation: none !important; display: none; }
   .fh-sweep, .fh-particle, .fh-glow-a, .fh-map-pulse { animation: none !important; }
   .fh-bg, .fh-visual-frame, .fh-curve { transition: none !important; }
 }
