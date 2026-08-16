@@ -181,7 +181,25 @@
     const panelBadge = document.getElementById('ccjPanelBadge');
     const panelTitle = document.getElementById('ccjPanelTitle');
     const panelList = document.getElementById('ccjPanelList');
+    const panelWatermark = document.getElementById('ccjPanelWatermark');
+    const panelProgress = document.getElementById('ccjPanelProgress');
+    const prevBtn = document.getElementById('ccjPrev');
+    const nextBtn = document.getElementById('ccjNext');
     if (!steps.length || !panelIcon || !panelTier || !panelBadge || !panelTitle || !panelList) return;
+
+    // ── panel-footer dots: one per tier, click jumps straight to it ──
+    let dots = [];
+    if (panelProgress) {
+      dots = steps.map((step, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'ccj-progress-dot';
+        dot.setAttribute('aria-label', step.querySelector('.ccj-step-title').textContent.trim());
+        dot.addEventListener('click', () => select(i));
+        panelProgress.appendChild(dot);
+        return dot;
+      });
+    }
 
     // ── click (or arrow-key) selects a tier: updates node states + swaps the content panel ──
     function select(index) {
@@ -196,7 +214,8 @@
       });
 
       panelIcon.innerHTML = step.querySelector('.ccj-step-icon').innerHTML;
-      panelTier.textContent = step.querySelector('.ccj-step-tier').textContent.trim();
+      const tierText = step.querySelector('.ccj-step-tier').textContent.trim();
+      panelTier.textContent = tierText;
       panelBadge.textContent = step.dataset.badge || '';
       panelTitle.textContent = step.querySelector('.ccj-step-title').textContent.trim();
       panel.setAttribute('aria-labelledby', step.id);
@@ -206,6 +225,10 @@
         item.textContent = li.textContent;
         panelList.appendChild(item);
       });
+      if (panelWatermark) panelWatermark.textContent = tierText.replace(/[^0-9]/g, '') || String(index + 1).padStart(2, '0');
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index === steps.length - 1;
 
       if (!reduceMotion) {
         panel.classList.remove('ccj-anim');
@@ -227,36 +250,18 @@
         target.focus();
         select(steps.indexOf(target));
       });
-      // "Timeline subtly brightens" while hovering any milestone.
-      step.addEventListener('mouseenter', () => timeline.classList.add('ccj-bright'));
-      step.addEventListener('mouseleave', () => timeline.classList.remove('ccj-bright'));
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+      const current = steps.findIndex((s) => s.classList.contains('is-selected'));
+      if (current > 0) select(current - 1);
+    });
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+      const current = steps.findIndex((s) => s.classList.contains('is-selected'));
+      if (current < steps.length - 1) select(current + 1);
     });
 
     select(0);
-
-    // ── scroll-linked progress: fills the track and marks passed tiers "completed" ──
-    // A single IntersectionObserver with 101 thresholds fires on every ~1% change
-    // in visibility, giving continuous updates without a manual scroll listener.
-    function applyProgress(progress) {
-      timeline.style.setProperty('--ccj-progress', progress);
-      const reachedIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length));
-      steps.forEach((step, i) => step.classList.toggle('is-completed', i < reachedIndex));
-    }
-
-    if ('IntersectionObserver' in window && !reduceMotion) {
-      const thresholds = Array.from({ length: 101 }, (_, i) => i / 100);
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const rect = entry.boundingClientRect;
-          const vh = window.innerHeight;
-          const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
-          applyProgress(progress);
-        });
-      }, { threshold: thresholds });
-      obs.observe(timeline);
-    } else {
-      applyProgress(1);
-    }
 
     // ── sequential reveal: milestones + icons pop in once the timeline enters view ──
     if ('IntersectionObserver' in window) {

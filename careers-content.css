@@ -317,31 +317,8 @@ html[data-theme="dark"] .cld-tooltip-list { color: rgba(238, 234, 225, .75); }
 .ccj-highlight { color: #ff6b2c; }
 html[data-theme="dark"] .ccj-head h2 { color: var(--ink); }
 
-/* -- track + steps -- */
+/* -- steps -- */
 .ccj-timeline { margin-top: 4.5rem; }
-.ccj-track {
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  top: 26px;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--border);
-  overflow: hidden;
-  z-index: 0;
-  transition: filter .3s ease;
-}
-.ccj-timeline.ccj-bright .ccj-track { filter: brightness(1.15); }
-.ccj-track-fill {
-  position: absolute;
-  inset: 0;
-  display: block;
-  background: linear-gradient(90deg, var(--accent-hot), var(--accent));
-  border-radius: 999px;
-  transform-origin: left center;
-  transform: scaleX(var(--ccj-progress, 0));
-  transition: transform .2s linear;
-}
 .ccj-steps { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: .4rem; }
 
 .ccj-step {
@@ -364,6 +341,37 @@ html[data-theme="dark"] .ccj-head h2 { color: var(--ink); }
 }
 .ccj-step.visible { opacity: 1; transform: translateY(0); }
 .ccj-step:focus-visible { outline: 2px solid #ff6b2c; outline-offset: 8px; }
+
+/* card backdrop on hover/selected — an absolutely-positioned layer behind the
+   icon/node/label so it never shifts their layout (which the track's fixed
+   top offset depends on) */
+.ccj-step::after {
+  content: '';
+  position: absolute;
+  inset: -.5rem -.6rem -.7rem;
+  border-radius: 1.2rem;
+  background: var(--surface);
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px rgba(20, 22, 28, .04);
+  opacity: 0;
+  transform: scale(.94);
+  transition: opacity .3s ease, transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.ccj-step:hover::after,
+.ccj-step:focus-visible::after,
+.ccj-step.is-selected::after {
+  opacity: 1;
+  transform: scale(1);
+  border-color: rgba(255, 107, 44, .22);
+  box-shadow: 0 14px 32px rgba(20, 22, 28, .08);
+}
+.ccj-step.is-selected::after {
+  background: linear-gradient(155deg, rgba(255, 107, 44, .1), rgba(255, 107, 44, .02));
+  border-color: rgba(255, 107, 44, .35);
+  box-shadow: 0 16px 34px rgba(255, 107, 44, .14);
+}
 
 /* -- icon above node -- */
 .ccj-step-icon {
@@ -395,38 +403,16 @@ html[data-theme="dark"] .ccj-head h2 { color: var(--ink); }
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
 }
 .ccj-node-num { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 800; transition: font-size .3s ease; }
-.ccj-node-check {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 20px;
-  height: 20px;
-  padding: 4px;
-  border-radius: 50%;
-  background: #fff;
-  color: #ff6b2c;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
-  opacity: 0;
-  scale: 0;
-  transition: opacity .3s ease, scale .35s cubic-bezier(.34, 1.56, .64, 1);
-}
 
-/* completed: reached and passed while scrolling — filled orange, white number, checkmark badge */
-.ccj-step.is-completed .ccj-node {
+/* selected: the single tier currently shown in the content panel — filled orange, white number, double ring + pulse */
+.ccj-step.is-selected .ccj-node {
   background: linear-gradient(135deg, var(--accent-hot), #ff6b2c);
   border-color: #ff6b2c;
   color: #fff;
-  box-shadow: 0 10px 24px rgba(255, 107, 44, .3);
-}
-.ccj-step.is-completed .ccj-node-check { opacity: 1; scale: 1; }
-
-/* selected: the tier currently shown in the content panel — double ring + pulse */
-.ccj-step.is-selected .ccj-node {
   transform: scale(1.08);
   box-shadow: 0 0 0 4px #fff, 0 0 0 8px rgba(255, 107, 44, .35), 0 0 0 14px rgba(255, 107, 44, .14), 0 18px 34px rgba(255, 107, 44, .28);
   animation: ccjPulse 1.8s ease-in-out infinite;
 }
-.ccj-step.is-selected:not(.is-completed) .ccj-node { border-color: #ff6b2c; color: #ff6b2c; }
 .ccj-step.is-selected .ccj-node-num { font-size: 1.2rem; }
 @keyframes ccjPulse {
   0%, 100% { box-shadow: 0 0 0 4px #fff, 0 0 0 8px rgba(255, 107, 44, .35), 0 0 0 14px rgba(255, 107, 44, .14), 0 18px 34px rgba(255, 107, 44, .28); }
@@ -458,10 +444,49 @@ html[data-theme="dark"] .ccj-head h2 { color: var(--ink); }
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 24px;
-  padding: 2.6rem 3rem;
+  padding: 2.6rem 4.6rem;
   box-shadow: 0 30px 70px rgba(20, 22, 28, .08);
   overflow: hidden;
 }
+.ccj-panel-watermark {
+  position: absolute;
+  top: -1rem;
+  right: 1.6rem;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: clamp(6rem, 13vw, 9.5rem);
+  line-height: 1;
+  color: rgba(255, 107, 44, .06);
+  pointer-events: none;
+  user-select: none;
+}
+html[data-theme="dark"] .ccj-panel-watermark { color: rgba(255, 107, 44, .1); }
+.ccj-panel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.ccj-panel-nav svg { width: 18px; height: 18px; }
+.ccj-panel-prev { left: 1rem; }
+.ccj-panel-next { right: 1rem; }
+.ccj-panel-nav:hover:not(:disabled), .ccj-panel-nav:focus-visible:not(:disabled) {
+  border-color: #ff6b2c;
+  color: #ff6b2c;
+  box-shadow: 0 10px 22px rgba(255, 107, 44, .22);
+  transform: translateY(-50%) scale(1.08);
+}
+.ccj-panel-nav:disabled { opacity: .3; cursor: default; }
 .ccj-panel.ccj-anim { animation: ccjPanelSwap .35s cubic-bezier(.16, .84, .44, 1); }
 @keyframes ccjPanelSwap {
   from { opacity: 0; transform: translateY(14px) scale(.97); }
@@ -502,6 +527,10 @@ html[data-theme="dark"] .ccj-head h2 { color: var(--ink); }
 .ccj-panel-list { list-style: none; margin: 0; padding: 0; font-size: 15.5px; color: #555; line-height: 1.8; display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.6rem; }
 .ccj-panel-list li { position: relative; padding-left: 1.3rem; }
 .ccj-panel-list li::before { content: ''; position: absolute; left: 0; top: .68em; width: 6px; height: 6px; border-radius: 50%; background: #ff6b2c; }
+.ccj-panel-progress { display: flex; gap: .5rem; margin-top: 1.6rem; }
+.ccj-progress-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; padding: 0; cursor: pointer; transition: background .25s ease, transform .25s ease; }
+.ccj-progress-dot:hover { background: rgba(255, 107, 44, .5); }
+.ccj-progress-dot.is-active { background: #ff6b2c; transform: scale(1.4); }
 html[data-theme="dark"] .ccj-panel { background: rgba(27, 31, 38, .85); }
 html[data-theme="dark"] .ccj-panel-title { color: #fff; }
 html[data-theme="dark"] .ccj-panel-badge { color: rgba(238, 234, 225, .75); }
@@ -567,11 +596,13 @@ html[data-theme="dark"] .ccj-cta-text h3 { color: #fff; }
 @media (max-width: 980px) {
   .ccj-node { width: 54px; height: 54px; }
   .ccj-node-num { font-size: .92rem; }
-  .ccj-track { top: 23px; }
   .ccj-step-title { font-size: .74rem; }
   .ccj-panel { flex-direction: column; text-align: center; padding: 2.2rem; gap: 1.6rem; }
   .ccj-panel-top { justify-content: center; }
   .ccj-panel-divider { margin-left: auto; margin-right: auto; }
+  .ccj-panel-nav { display: none; }
+  .ccj-panel-watermark { display: none; }
+  .ccj-panel-progress { justify-content: center; }
   .ccj-cta { flex-direction: column; text-align: center; }
 }
 
@@ -595,8 +626,6 @@ html[data-theme="dark"] .ccj-cta-text h3 { color: #fff; }
   }
   .ccj-node { flex-shrink: 0; }
   .ccj-step-label { margin-top: 0; padding: 0; }
-  .ccj-track { left: 27px; right: auto; top: 0; bottom: 0; width: 4px; height: auto; }
-  .ccj-track-fill { transform: scaleY(var(--ccj-progress, 0)); transform-origin: top center; }
   .ccj-panel-list { grid-template-columns: 1fr; }
 }
 
