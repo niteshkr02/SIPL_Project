@@ -360,3 +360,21 @@
   .ah-bg, .ah-visual-frame, .ah-curve { transition: none !important; }
   .ah-feature:hover, .ah-feature:hover .ah-feature-icon { transform: none !important; }
 }
+
+/* ══ DARK MODE: ambient intensification (additive only, see styles.css
+   PREMIUM DARK MODE section for the sitewide layer) ══ */
+html[data-theme="dark"] .ah-hero {
+  background:
+    radial-gradient(ellipse 60% 50% at 84% 20%, rgba(255, 107, 0, .22), transparent 62%),
+    linear-gradient(150deg, #01050C 0%, var(--ah-navy) 55%, var(--ah-navy2) 100%);
+}
+html[data-theme="dark"] .ah-glow-a {
+  background: rgba(255, 107, 0, .26);
+  animation: ahFlicker 6s ease-in-out infinite, ahDriftDark 26s ease-in-out infinite alternate;
+}
+html[data-theme="dark"] .ah-glow-b { background: rgba(6, 27, 73, .75); }
+html[data-theme="dark"] .ah-particle { box-shadow: 0 0 9px 2px var(--hue, rgba(255, 138, 46, .75)); }
+@keyframes ahDriftDark {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-3%, 2%, 0); }
+}
