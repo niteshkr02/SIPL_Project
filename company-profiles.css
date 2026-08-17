@@ -28,7 +28,7 @@
   box-shadow:0 20px 45px rgba(20,22,28,.14), 0 0 35px rgba(255,106,31,.12);
   outline:none;
 }
-.cp-card-photo-wrap{ width:100%; height:190px; position:relative; overflow:hidden; flex-shrink:0; background:#14161C; }
+.cp-card-photo-wrap{ width:100%; aspect-ratio:16/9; position:relative; overflow:hidden; flex-shrink:0; background:#14161C; }
 .cp-card-photo-wrap img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.16,.84,.44,1); }
 .cp-card:hover .cp-card-photo-wrap img{ transform:scale(1.08); }
 .cp-card-photo-wrap::after{
@@ -40,6 +40,60 @@
   font-family:var(--font-mono); font-weight:800; font-size:.78rem; letter-spacing:.05em; color:#fff;
   background:rgba(10,11,14,.55); backdrop-filter:blur(6px); padding:.3rem .65rem; border-radius:.5rem;
 }
+.cp-card-photo-wrap--gallery{ display:grid; grid-template-columns:1.6fr 1fr; gap:2px; }
+.cp-card-photo-wrap--gallery .cp-gallery-main{ grid-row:1 / 3; height:100%; }
+.cp-card-photo-wrap--gallery .cp-gallery-side{ display:grid; grid-template-rows:1fr 1fr; gap:2px; height:100%; }
+.cp-card-photo-wrap--gallery picture{ display:block; width:100%; height:100%; }
+.cp-card-photo-wrap--gallery img{ object-fit:cover; }
+
+/* Pure-CSS crossfade carousel: every image gets equal screen time, full-bleed,
+   nothing squeezed into a mosaic tile. --cp-carousel-n sets the slide count so
+   the keyframe timing divides evenly regardless of how many photos are in it. */
+.cp-card-photo-wrap--carousel{ --cp-carousel-n:3; }
+.cp-card-photo-wrap--carousel picture{ position:absolute; inset:0; display:block; width:100%; height:100%; }
+.cp-card-photo-wrap--carousel img{
+  width:100%; height:100%; object-fit:cover; opacity:0;
+  animation:cpCarouselFade calc(var(--cp-carousel-n) * 3.4s) infinite;
+}
+.cp-card-photo-wrap--carousel picture:nth-child(1) img{ animation-delay:0s; }
+.cp-card-photo-wrap--carousel picture:nth-child(2) img{ animation-delay:3.4s; }
+.cp-card-photo-wrap--carousel picture:nth-child(3) img{ animation-delay:6.8s; }
+.cp-card-photo-wrap--carousel picture:nth-child(4) img{ animation-delay:10.2s; }
+@keyframes cpCarouselFade{
+  0%{ opacity:0; }
+  4%{ opacity:1; }
+  27%{ opacity:1; }
+  33%{ opacity:0; }
+  100%{ opacity:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .cp-card-photo-wrap--carousel img{ animation:none; opacity:1; }
+  .cp-card-photo-wrap--carousel picture:not(:first-child) img{ opacity:0; }
+}
+.cp-carousel-dots{
+  position:absolute; left:50%; bottom:.7rem; z-index:1; transform:translateX(-50%);
+  display:flex; gap:.35rem;
+}
+.cp-carousel-dots span{
+  width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.4);
+  animation:cpCarouselDot calc(var(--cp-carousel-n) * 3.4s) infinite;
+}
+.cp-carousel-dots span:nth-child(1){ animation-delay:0s; }
+.cp-carousel-dots span:nth-child(2){ animation-delay:3.4s; }
+.cp-carousel-dots span:nth-child(3){ animation-delay:6.8s; }
+@keyframes cpCarouselDot{
+  0%{ background:rgba(255,255,255,.4); transform:scale(1); }
+  4%{ background:#fff; transform:scale(1.3); }
+  27%{ background:#fff; transform:scale(1.3); }
+  33%{ background:rgba(255,255,255,.4); transform:scale(1); }
+  100%{ background:rgba(255,255,255,.4); transform:scale(1); }
+}
+.cp-card-contact{
+  display:flex; align-items:center; gap:.4rem; margin-top:-.3rem; margin-bottom:1rem;
+  font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.02em;
+  color:var(--ink-soft);
+}
+.cp-card-contact svg{ width:14px; height:14px; color:var(--accent-ink); flex-shrink:0; }
 .cp-card-body{ padding:1.3rem 1.4rem 1.5rem; flex:1; display:flex; flex-direction:column; }
 .cp-card-tag{ font-family:var(--font-mono); font-size:.64rem; font-weight:700; letter-spacing:.09em; color:var(--accent-ink); margin-bottom:.5rem; }
 .cp-card-body h4{ font-size:1.05rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.5rem; color:var(--ink); }
@@ -63,7 +117,7 @@
 @media(min-width:761px){ .cp-overlay{ align-items:center; padding:2rem; } }
 
 .cp-sheet{
-  position:relative; width:100%; max-width:880px; max-height:92vh; max-height:92dvh; z-index:1;
+  position:relative; width:100%; max-width:880px; height:92vh; height:92dvh; max-height:92vh; max-height:92dvh; z-index:1;
   background:var(--surface); border-radius:1.5rem 1.5rem 0 0; overflow:hidden;
   display:flex; flex-direction:column;
   transform:translateY(100%); transition:transform .38s cubic-bezier(.16,.84,.44,1);
@@ -71,7 +125,7 @@
 }
 .cp-overlay.open .cp-sheet{ transform:translateY(0); }
 @media(min-width:761px){
-  .cp-sheet{ border-radius:1.5rem; max-height:88vh; }
+  .cp-sheet{ border-radius:1.5rem; height:88vh; max-height:88vh; }
 }
 
 /* Only the active profile renders — the rest sit hidden until their card
@@ -83,7 +137,7 @@
 .cp-sheet-drag span{ width:36px; height:4px; border-radius:2px; background:var(--border); }
 @media(min-width:761px){ .cp-sheet-drag{ display:none; } }
 
-.cp-sheet-hero{ position:relative; height:180px; flex-shrink:0; overflow:hidden; }
+.cp-sheet-hero{ position:relative; width:100%; height:50%; flex:0 0 50%; overflow:hidden; background:#14161C; }
 .cp-sheet-hero img{ width:100%; height:100%; object-fit:cover; display:block; }
 .cp-sheet-hero::after{
   content:''; position:absolute; inset:0;
