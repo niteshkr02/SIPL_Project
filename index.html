@@ -2224,8 +2224,7 @@
         <span class="mp-kicker-glow" aria-hidden="true"></span>
         <h2>Market Presence Across 24 Countries &amp; India</h2>
         <p style="text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem;">
-          Hover over any pinpoint marker on the world map, or click a state on the India map, to view regional
-          channel partner, depot, and team contact details.
+          Explore the active locations where our teams operate
         </p>
       </div>
 
@@ -2565,7 +2564,6 @@
             <div class="map-tab-content active" id="indiaMapWrap">
               <div class="india-map-container">
                 <div class="map-header">
-                  <span class="map-badge"><span class="pulse-dot"></span> 15 STATES · 113 PERSONNEL</span>
                   <span class="map-subtitle">Interactive Domestic Distribution Network</span>
                 </div>
 
@@ -4834,7 +4832,7 @@
             {
               "slNo": 114,
               "empName": "AKASH AGARWAL",
-              "designation": "",
+              "designation": "Head Office",
               "cluster": "North Bengal",
               "districts": "",
               "phoneOfficial": "6293149735",
@@ -4947,7 +4945,23 @@
           .map(toDistrictTitleCase);
       }
 
-      function buildStateDistricts(personnel) {
+      // Explicit district lists for states where the full administrative
+      // district set is wider than what current personnel records happen to
+      // cover — keeps the map showing every district even if we don't yet
+      // have a named contact posted in each one.
+      const STATE_DISTRICT_OVERRIDE = {
+        'west-bengal': [
+          'Alipurduar', 'Bankura', 'Birbhum', 'Cooch Behar', 'Dakshin Dinajpur',
+          'Darjeeling', 'Hooghly', 'Howrah', 'Jalpaiguri', 'Jhargram',
+          'Kalimpong', 'Kolkata', 'Malda', 'Murshidabad', 'Nadia',
+          'North 24 Parganas', 'Paschim Bardhaman', 'Paschim Medinipur',
+          'Purba Bardhaman', 'Purba Medinipur', 'Purulia', 'South 24 Parganas',
+          'Uttar Dinajpur'
+        ]
+      };
+
+      function buildStateDistricts(personnel, slug) {
+        if (STATE_DISTRICT_OVERRIDE[slug]) return STATE_DISTRICT_OVERRIDE[slug].slice().sort((a, b) => a.localeCompare(b));
         const map = new Map();
         personnel.forEach((p) => {
           parseDistrictTokens(p.districts).forEach((d) => {
@@ -4977,7 +4991,7 @@
             // contact for a state isn't the one holding the "senior-most"
             // title (e.g. a hand-off to a new state head)
             const head = personnel.find((p) => p.isStateHead) || personnel.find((p) => isHeadDesignation(p.designation)) || personnel[0] || null;
-            const districts = buildStateDistricts(personnel);
+            const districts = buildStateDistricts(personnel, m.slug);
             return { slug: m.slug, code: m.code, name: m.name, left: m.left, top: m.top, stateHead: head, districtPersonnel: personnel, districts };
           })
           .filter((s) => s.districtPersonnel.length > 0);
