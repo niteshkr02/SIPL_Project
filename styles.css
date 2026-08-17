@@ -41,6 +41,10 @@ html[data-theme="dark"]{
   --brand-blue:#3E9FD8;
   --brand-blue-ink:#7EC3EA;
   --brand-blue-light:#5FB2E0;
+  --glow-orange: 255,122,51;
+  --glow-blue: 62,159,216;
+  --glow-orange-soft: rgba(var(--glow-orange), .10);
+  --glow-blue-soft: rgba(var(--glow-blue), .08);
 }
 html{ scroll-behavior:smooth; scroll-padding-top:var(--nav-h); overflow-x:hidden; max-width:100%; }
 body{
@@ -677,3 +681,125 @@ html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h3, html[data-t
 .qc-btn.qc-whatsapp:hover{ background:#20BD5A; border-color:#20BD5A; }
 .qc-btn.qc-call{ background:var(--accent); border-color:var(--accent); color:#fff; }
 .qc-btn.qc-call:hover{ background:var(--accent-deep); border-color:var(--accent-deep); }
+
+/* ══════════════════════════════════════════════════════════════════
+   PREMIUM DARK MODE — ambient background, navbar glass/glow, button
+   and card hover polish, cursor glow, smooth theme-switch transition.
+   Purely additive: every rule below is scoped to
+   html[data-theme="dark"] and has no effect (and no DOM/paint cost)
+   in light mode. Uses the --glow-orange/--glow-blue tokens defined in
+   the html[data-theme="dark"]{} root block near the top of this file.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* smooth light↔dark cross-fade for the base page color itself */
+body{ transition:background-color .4s ease, color .4s ease; }
+@media(prefers-reduced-motion: reduce){ body{ transition:none; } }
+
+/* slow, low-opacity ambient blue/orange glow drifting behind all content */
+html[data-theme="dark"] body::after{
+  content:''; position:fixed; inset:-10%; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 45% 35% at 18% 22%, var(--glow-blue-soft), transparent 60%),
+    radial-gradient(ellipse 40% 32% at 85% 78%, var(--glow-orange-soft), transparent 60%);
+  opacity:.7;
+  animation:dmAmbientDrift 32s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes dmAmbientDrift{
+  0%{ transform:translate3d(0,0,0) scale(1); }
+  100%{ transform:translate3d(2.5%,-3%,0) scale(1.04); }
+}
+@media(prefers-reduced-motion: reduce){
+  html[data-theme="dark"] body::after{ animation:none; }
+}
+
+/* navbar — extra glass/glow once it firms up into its scrolled plate */
+html[data-theme="dark"] .site-nav.scrolled{
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+  border-bottom-color:rgba(var(--glow-blue),.18);
+  box-shadow:0 8px 30px rgba(0,0,0,.45), 0 1px 0 rgba(var(--glow-orange),.08) inset;
+}
+html[data-theme="dark"] .nav-links > li > a::after{
+  box-shadow:0 0 8px rgba(var(--glow-orange),.6);
+}
+html[data-theme="dark"] .nav-links > li > a:hover,
+html[data-theme="dark"] .nav-links a.active{
+  text-shadow:0 0 12px rgba(var(--glow-orange),.35);
+}
+html[data-theme="dark"] .theme-toggle:hover{
+  box-shadow:0 0 14px rgba(var(--glow-orange),.4);
+}
+
+/* buttons — glow, lift, subtle shine-sweep on hover */
+html[data-theme="dark"] .btn{ position:relative; overflow:hidden; }
+html[data-theme="dark"] .btn::after{
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(100deg, transparent 30%, rgba(255,255,255,.18) 48%, transparent 66%);
+  transform:translateX(-120%);
+  transition:transform .6s cubic-bezier(.16,.84,.44,1);
+}
+html[data-theme="dark"] .btn:hover::after{ transform:translateX(120%); }
+html[data-theme="dark"] .btn > *{ position:relative; z-index:1; }
+html[data-theme="dark"] .btn-primary:hover{
+  transform:translateY(-2px) scale(1.015);
+  box-shadow:0 14px 34px rgba(var(--glow-orange),.4), 0 0 22px rgba(var(--glow-orange),.25);
+}
+html[data-theme="dark"] .btn-ghost{ border-color:rgba(var(--glow-blue),.28); }
+html[data-theme="dark"] .btn-ghost:hover{
+  border-color:var(--accent);
+  box-shadow:0 10px 26px rgba(0,0,0,.35), 0 0 16px rgba(var(--glow-orange),.22);
+}
+@media(prefers-reduced-motion: reduce){
+  html[data-theme="dark"] .btn::after{ transition:none; }
+}
+
+/* cards — .panel (orange glow) plus the two other shared card
+   families, .usecase-card / .subprod-card (blue glow), on hover */
+html[data-theme="dark"] .panel{ border-color:rgba(255,255,255,.09); }
+html[data-theme="dark"] .panel:hover{
+  border-color:rgba(var(--glow-orange),.55);
+  box-shadow:0 20px 46px rgba(0,0,0,.45), 0 0 30px rgba(var(--glow-orange),.16), 0 0 0 1px rgba(var(--glow-blue),.12);
+}
+html[data-theme="dark"] .panel::before{
+  background:radial-gradient(circle 220px at var(--mx,50%) var(--my,0%), rgba(var(--glow-orange),.22), transparent 70%);
+}
+html[data-theme="dark"] .usecase-card,
+html[data-theme="dark"] .subprod-card{
+  border-color:rgba(255,255,255,.09);
+  transition:transform .35s cubic-bezier(.16,.84,.44,1), border-color .35s ease, box-shadow .35s ease;
+}
+html[data-theme="dark"] .usecase-card:hover,
+html[data-theme="dark"] .subprod-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(var(--glow-blue),.5);
+  box-shadow:0 18px 40px rgba(0,0,0,.4), 0 0 26px rgba(var(--glow-blue),.15);
+}
+@media(prefers-reduced-motion: reduce){
+  html[data-theme="dark"] .usecase-card, html[data-theme="dark"] .subprod-card{ transition:none; }
+}
+
+/* section dividers pick up a faint ambient glow; .dark-mode-ambient is an
+   opt-in utility (thin gradient rule) available for future manual placement
+   between sections without requiring markup changes on every page */
+html[data-theme="dark"] .divider::before{
+  background:radial-gradient(ellipse at center, rgba(var(--glow-orange),.14), transparent 72%);
+}
+.dark-mode-ambient{ position:relative; }
+html[data-theme="dark"] .dark-mode-ambient::before{
+  content:''; position:absolute; left:50%; top:0; width:min(600px,80%); height:1px; transform:translateX(-50%);
+  background:linear-gradient(90deg, transparent, rgba(var(--glow-blue),.4), rgba(var(--glow-orange),.4), transparent);
+  opacity:.5; pointer-events:none;
+}
+
+/* sitewide cursor-following ambient glow — element created by site.js,
+   desktop/dark-mode/motion-safe only; see dm-cursor-glow logic there */
+.dm-cursor-glow{
+  position:fixed; top:0; left:0; width:520px; height:520px; margin:-260px 0 0 -260px;
+  border-radius:50%; z-index:0; pointer-events:none;
+  background:radial-gradient(circle, rgba(var(--glow-orange,255,122,51),.10), rgba(var(--glow-blue,62,159,216),.05) 55%, transparent 72%);
+  opacity:0; transition:opacity .5s ease;
+  will-change:transform;
+}
+.dm-glow-active{ opacity:1; }
+@media(prefers-reduced-motion: reduce){ .dm-cursor-glow{ transition:none; } }

@@ -7,19 +7,8 @@
 <title>Wire Rods & Industrial Wires, Torkari, HB & Binding Wire | Shakambhari Group</title>
 <meta name="description" content="Primary wire rod stock, Torkari commercial wire rod, Hard Bright (HB) wire and thermal annealed binding wire, the full Shakambhari wire product range.">
 <link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/page-header-particles.css">
+<link rel="stylesheet" href="/wire-rods-hero.css">
 <style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 3rem) 1.75rem 4rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.2rem); max-width:24ch; margin:0 auto; }
-.page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
-.page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
 @media(max-width:860px){ .split{ grid-template-columns:1fr; } }
 .split h2{ margin-bottom:1.1rem; }
@@ -29,26 +18,101 @@
 .split-icon{ width:100%; min-height:280px; border-radius:1.2rem; border:1px solid var(--border); background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); display:flex; align-items:center; justify-content:center; }
 .split-icon svg{ width:140px; height:140px; color:var(--accent-ink); opacity:.85; }
 
-/* ══ PRODUCT ACCORDION ══ */
-.subprod-accordion-list{ display:flex; flex-direction:column; gap:1.4rem; max-width:960px; margin:0 auto; }
-.subprod-accordion{ border:1px solid var(--border); border-radius:1.2rem; background:var(--surface); overflow:hidden; }
-.subprod-accordion summary{ display:flex; align-items:center; gap:1.4rem; padding:1.7rem 2rem; cursor:pointer; list-style:none; }
+/* ══ PRODUCTS IN THIS CATEGORY ══ */
+#products{
+  --pn-rgb:7,63,115;
+  position:relative;
+  background-color:var(--surface-2);
+  background-image:
+    linear-gradient(rgba(var(--pn-rgb),.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--pn-rgb),.05) 1px, transparent 1px);
+  background-size:44px 44px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+html[data-theme="dark"] #products{
+  --pn-rgb:242,244,247;
+  background-image:
+    linear-gradient(rgba(var(--pn-rgb),.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--pn-rgb),.035) 1px, transparent 1px);
+}
+#products .section-head{ margin-bottom:2.6rem; }
+#products .section-head h2{ font-size:clamp(1.6rem,3vw,2.15rem); color:var(--brand-blue-ink); font-weight:800; letter-spacing:-.01em; }
+#products .section-head h2::after{ content:''; display:block; width:46px; height:3px; margin:.9rem auto 0; border-radius:2px; background:linear-gradient(90deg,var(--accent-hot),var(--accent)); }
+#products .section-head p{ margin-top:.9rem; }
+
+.subprod-accordion-list{ display:flex; flex-direction:column; gap:1.2rem; max-width:1000px; margin:0 auto; position:relative; z-index:1; }
+.subprod-accordion{
+  position:relative; border:1px solid var(--border); border-radius:20px; background:var(--surface); overflow:hidden;
+  box-shadow:0 1px 2px rgba(var(--pn-rgb),.05);
+  transition:box-shadow .35s ease, border-color .35s ease, transform .3s ease;
+}
+.subprod-accordion::before{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background:linear-gradient(180deg,var(--accent-hot),var(--accent)); opacity:.4; transition:opacity .3s ease;
+}
+.subprod-accordion:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(var(--pn-rgb),.09); border-color:rgba(255,106,31,.32); }
+.subprod-accordion:hover::before, .subprod-accordion[open]::before{ opacity:1; }
+.subprod-accordion[open]{ box-shadow:0 18px 40px rgba(var(--pn-rgb),.12); }
+
+.subprod-accordion summary{ display:grid; grid-template-columns:auto auto 1fr auto; align-items:center; gap:1.3rem; padding:1.5rem 1.9rem; cursor:pointer; list-style:none; }
 .subprod-accordion summary::-webkit-details-marker{ display:none; }
-.subprod-accordion summary .icon-wrap{ width:52px; height:52px; flex-shrink:0; margin-bottom:0; border-radius:.9rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
-.subprod-accordion summary .icon-wrap svg{ width:28px; height:28px; }
-.subprod-accordion summary .accordion-head-text{ flex:1; min-width:0; }
-.subprod-accordion summary .accordion-head-text h3{ font-size:1.15rem; margin-bottom:.35rem; }
-.subprod-accordion summary .accordion-head-text p{ color:var(--ink-soft); font-size:.9rem; line-height:1.6; margin:0; }
-.subprod-accordion[open] summary{ border-bottom:1px solid var(--border); }
-.accordion-toggle-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:.5rem; font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-ink); border:1px solid var(--border); border-radius:999px; padding:.6rem 1.2rem; white-space:nowrap; transition:border-color .2s, background .2s; }
-.subprod-accordion:hover .accordion-toggle-btn{ border-color:var(--accent); }
-.accordion-toggle-btn .chev{ width:13px; height:13px; transition:transform .25s ease; }
-.subprod-accordion[open] .accordion-toggle-btn .chev{ transform:rotate(180deg); }
+
+.prod-num{ font-family:var(--font-mono); font-size:2.1rem; font-weight:800; line-height:1; color:rgba(var(--pn-rgb),.16); transition:color .3s ease; user-select:none; }
+.subprod-accordion:hover .prod-num, .subprod-accordion[open] .prod-num{ color:rgba(var(--pn-rgb),.4); }
+
+.subprod-accordion summary .icon-wrap{ width:54px; height:54px; flex-shrink:0; margin-bottom:0; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--surface); border:1px solid var(--border); box-shadow:0 2px 6px rgba(var(--pn-rgb),.06); transition:border-color .3s ease, transform .3s ease; }
+.subprod-accordion summary .icon-wrap svg{ width:26px; height:26px; }
+.subprod-accordion:hover summary .icon-wrap, .subprod-accordion[open] summary .icon-wrap{ border-color:var(--accent); transform:scale(1.04); }
+
+.subprod-accordion summary .accordion-head-text{ min-width:0; }
+.subprod-accordion summary .accordion-head-text h3{ font-size:clamp(1.05rem,1.6vw,1.3rem); font-weight:800; text-transform:uppercase; letter-spacing:.01em; color:var(--brand-blue-ink); margin-bottom:.4rem; }
+.subprod-accordion summary .accordion-head-text p{ color:var(--ink-soft); font-size:.94rem; line-height:1.6; margin:0 0 .8rem; max-width:56ch; }
+
+.spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.spec-tag{ display:inline-flex; align-items:center; gap:.35rem; font-family:var(--font-mono); font-size:.7rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--brand-blue-ink); background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:.32rem .62rem .32rem .55rem; white-space:nowrap; }
+.spec-tag .tag-ic{ color:var(--accent-ink); font-weight:800; }
+
+.accordion-toggle-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:.85rem; border:1.5px solid rgba(255,106,31,.35); border-radius:999px; background:transparent; padding:.4rem .4rem .4rem 1.15rem; white-space:nowrap; transition:border-color .3s ease, background .3s ease, box-shadow .3s ease; }
+.accordion-toggle-btn .label-closed, .accordion-toggle-btn .label-open{ font-family:var(--font-mono); font-size:.72rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--accent-ink); }
 .accordion-toggle-btn .label-open{ display:none; }
 .subprod-accordion[open] .accordion-toggle-btn .label-closed{ display:none; }
 .subprod-accordion[open] .accordion-toggle-btn .label-open{ display:inline; }
-.accordion-body{ padding:.4rem 2rem 2.4rem; }
-.accordion-body .tagline{ color:var(--accent-hot); font-weight:700; font-size:.98rem; margin:1.6rem 0 0; }
+.accordion-toggle-btn .chev-wrap{ width:34px; height:34px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--brand-blue-ink); transition:background .3s ease, transform .35s ease, box-shadow .3s ease; }
+.accordion-toggle-btn .chev-wrap svg{ width:14px; height:14px; }
+.accordion-toggle-btn .chev{ stroke:#fff; }
+.subprod-accordion:hover .accordion-toggle-btn{ border-color:var(--accent); box-shadow:0 6px 18px rgba(255,106,31,.18); }
+.subprod-accordion:hover .accordion-toggle-btn .chev-wrap{ background:var(--accent); }
+.subprod-accordion[open] .accordion-toggle-btn{ background:rgba(255,106,31,.08); border-color:var(--accent); }
+.subprod-accordion[open] .accordion-toggle-btn .chev-wrap{ background:var(--accent); transform:rotate(180deg); box-shadow:0 6px 16px rgba(255,106,31,.3); }
+
+.subprod-accordion[open] summary{ border-bottom:1px solid var(--border); }
+
+.accordion-body{ padding:.4rem 2rem 2.4rem; animation:accBodyIn .4s ease; }
+@keyframes accBodyIn{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:translateY(0); } }
+
+.quick-summary-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; margin:1.7rem 0 2.4rem; padding:1.7rem 1.9rem; background:var(--surface-2); border:1px solid var(--border); border-radius:16px; }
+.qs-col{ min-width:0; }
+.qs-label{ font-family:var(--font-mono); font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.qs-col p{ color:var(--ink-soft); font-size:.92rem; line-height:1.6; margin:0; }
+.qs-chip-list{ display:flex; flex-direction:column; gap:.45rem; }
+.qs-chip{ font-family:var(--font-mono); font-size:.78rem; color:var(--brand-blue-ink); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:.4rem .6rem; }
+.qs-chip b{ color:var(--ink-soft); font-weight:600; }
+.qs-checklist{ list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+.qs-checklist li{ display:flex; align-items:baseline; gap:.5rem; font-size:.92rem; color:var(--ink-soft); }
+.qs-checklist li::before{ content:'✓'; color:var(--accent); font-weight:800; flex-shrink:0; }
+
+@media(max-width:720px){
+  .quick-summary-grid{ grid-template-columns:1fr; gap:1.4rem; }
+}
+@media(max-width:680px){
+  .subprod-accordion summary{ grid-template-columns:auto 1fr; grid-template-areas:"num icon" "head head" "action action"; row-gap:1rem; padding:1.4rem 1.5rem; }
+  .prod-num{ grid-area:num; font-size:1.6rem; align-self:center; }
+  .subprod-accordion summary .icon-wrap{ grid-area:icon; justify-self:end; }
+  .subprod-accordion summary .accordion-head-text{ grid-area:head; }
+  .accordion-toggle-btn{ grid-area:action; justify-content:center; }
+}
+
 .accordion-body .split{ margin-top:1.6rem; gap:2rem; }
 .accordion-body .split h4{ margin-bottom:1.1rem; font-size:1.4rem; }
 .accordion-body .split p{ color:var(--ink-soft); font-size:.98rem; line-height:1.72; }
@@ -163,23 +227,79 @@
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<header class="page-header">
-  <div class="page-header-particles" aria-hidden="true"></div>
-  <nav class="breadcrumb reveal" aria-label="Breadcrumb">
-    <a href="/index.html">Home</a><span class="bc-sep">/</span><a href="/steel/">Steel</a><span class="bc-sep">/</span><span class="bc-current">Wire Rods & Wires</span>
-  </nav>
-  <div class="kicker reveal">CATEGORY 6</div>
-  <h1 class="reveal">Wire Rods &amp; Industrial Wires</h1>
-  <p class="reveal">A wire rod is a long, hot steel rod rolled down from a solid billet and wound into a heavy coil, the pure raw material behind every wire, nail and bolt a factory makes.</p>
-  <div class="page-header-cta reveal">
-    <a href="#products" class="btn btn-primary">View Products</a>
-    <a href="/contact.html" class="btn btn-ghost">Contact Sales</a>
+<!-- WIRE RODS & WIRES HERO -->
+<header class="wr-hero">
+  <div class="wr-bg" aria-hidden="true"></div>
+
+  <div class="wr-inner">
+    <div class="wr-content">
+      <div class="wr-eyebrow">
+        <span class="wr-eyebrow-rule"></span>
+        <span class="wr-eyebrow-text">Built on Strength. Built for the Future.</span>
+      </div>
+
+      <h1 class="wr-heading">
+        <span class="wr-line"><span class="wr-line-inner">Wire Rods</span></span>
+        <span class="wr-line"><span class="wr-line-inner wr-accent">&amp; Wires</span></span>
+      </h1>
+
+      <p class="wr-subhead">Stronger Connections. Endless Possibilities.</p>
+
+      <p class="wr-desc">High quality wire rods and wires engineered for durability, flexibility and superior performance across every industrial application.</p>
+
+      <div class="wr-features">
+        <div class="wr-feature">
+          <div class="wr-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h4>High Strength</h4>
+        </div>
+        <div class="wr-feature">
+          <div class="wr-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16c2.5-6.5 5.5-6.5 8-2s5.5 4.5 8-2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Superior Ductility</h4>
+        </div>
+        <div class="wr-feature">
+          <div class="wr-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+          <h4>Corrosion Resistant</h4>
+        </div>
+        <div class="wr-feature">
+          <div class="wr-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></div>
+          <h4>Consistent Quality</h4>
+        </div>
+      </div>
+
+      <div class="wr-cta-row">
+        <a href="#products" class="wr-cta">
+          <span class="wr-cta-label">Explore Products</span>
+          <span class="wr-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="/contact.html" class="wr-cta-secondary">Contact Us</a>
+      </div>
+    </div>
   </div>
-  <div class="qc-bar reveal">
-    <a href="https://wa.me/916293149735?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20products." target="_blank" rel="noopener" class="qc-btn qc-whatsapp"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.25.62 4.36 1.7 6.16L4 29l7.99-1.66a12 12 0 0 0 4.03.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3Zm7.03 17.13c-.3.85-1.72 1.63-2.38 1.73-.62.1-1.38.14-2.22-.14-.51-.16-1.17-.38-2.02-.75-3.55-1.53-5.87-5.1-6.05-5.34-.18-.24-1.44-1.92-1.44-3.66s.9-2.6 1.23-2.96c.3-.32.65-.4.87-.4.22 0 .43 0 .62.01.2.01.47-.08.73.56l.9 2.16c.08.18.13.38.03.6-.1.24-.15.38-.3.58-.15.2-.32.45-.46.6-.15.16-.31.34-.14.66.18.32.78 1.28 1.67 2.07 1.15 1.03 2.12 1.35 2.44 1.5.33.16.52.14.71-.08.2-.21.83-.94 1.04-1.27.21-.32.42-.27.71-.16.3.1 1.88.88 2.2 1.04.33.16.54.24.62.38.08.14.08.79-.22 1.62Z"/></svg>WhatsApp</a>
-    <a href="tel:+916293149735" class="qc-btn qc-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>Call</a>
-    <a href="mailto:operation.roi@shakambharigroup.in" class="qc-btn qc-email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6l8 6 8-6"/></svg>Email</a>
-    <a href="/contact.html" class="qc-btn qc-book" data-booking-link="pending"><!-- TODO: replace with real booking/scheduling link --><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a Meeting</a>
+  <figure class="wr-visual">
+    <div class="wr-visual-frame">
+      <img src="/Hero/Wire_Rods&amp;Wires.jpg" alt="Large steel wire rod coils stacked in a dark industrial mill, with welding sparks flying and an orange diagonal light accent" loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="wr-visual-scrim"></div>
+    <div class="wr-sweep"></div>
+  </figure>
+
+  <div class="wr-trust">
+    <div class="wr-trust-item">
+      <svg class="wr-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V10l4.5 3V10l4.5 3V8l5 3.5V5h2v16"/><path d="M4 21h17"/></svg>
+      <span class="wr-trust-text">Advanced<strong>Manufacturing</strong></span>
+    </div>
+    <div class="wr-trust-item">
+      <svg class="wr-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="m9 8.5 2 2 3-3"/><path d="M9 13.5 7 21l5-2.5L17 21l-2-7.5"/></svg>
+      <span class="wr-trust-text">Consistent<strong>Quality</strong></span>
+    </div>
+    <div class="wr-trust-item">
+      <svg class="wr-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><path d="m9.5 13 2 2 4-4"/></svg>
+      <span class="wr-trust-text">Rigorously<strong>Tested</strong></span>
+    </div>
+    <div class="wr-trust-item">
+      <svg class="wr-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.4.4 4.3 2.4 4.5 5.3"/></svg>
+      <span class="wr-trust-text">Trusted By<strong>Professionals</strong></span>
+    </div>
   </div>
 </header>
 
@@ -205,25 +325,53 @@
   <div class="section-head reveal">
     <div class="kicker center">PRODUCTS IN THIS CATEGORY</div>
     <h2>4 Products in This Category</h2>
-    <p>Open "View Full Details" on any product to see use cases, specifications and FAQs right here, no separate page to load.</p>
+    <p>Select "View Specifications" on any product to see use cases, specifications and FAQs right here, no separate page to load.</p>
   </div>
   <div class="subprod-accordion-list">
 
-    <details class="subprod-accordion reveal" id="primary-wire-rods">
+    <details class="subprod-accordion reveal" id="primary-wire-rods" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <span class="prod-num">01</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/></svg></div>
         <div class="accordion-head-text">
           <h3>Primary Industrial Wire Rod Stock</h3>
           <p>5.5mm to 10mm coils, raw material for binding wire, HB wire, mesh and cold-forged bolts.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>5.5MM – 10MM</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>WIRE ROD</span>
+            <span class="spec-tag">RAW MATERIAL</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">The raw coil every wire, nail and bolt in our range is drawn from.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>The raw coil every wire, nail and bolt in our range is drawn from.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Diameter:</b> 5.5–10mm</div>
+              <div class="qs-chip"><b>Coil Weight:</b> 1.5–2.5 MT</div>
+              <div class="qs-chip"><b>Grades:</b> Low &amp; High Carbon</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Binding Wire</li>
+              <li>HB Wire</li>
+              <li>Mesh</li>
+              <li>Cold-Forged Bolts</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -298,21 +446,48 @@
       </div>
     </details>
 
-    <details class="subprod-accordion reveal" id="torkari-rods">
+    <details class="subprod-accordion reveal" id="torkari-rods" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M12 3v18M6 8l6-5 6 5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="prod-num">02</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><path d="M12 3v18M6 8l6-5 6 5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="accordion-head-text">
           <h3>Commercial Wire Rods (Torkari Rods)</h3>
           <p>5.5mm and 6mm commercial-grade rods for local workshop drawing and light ironwork.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>5.5MM &amp; 6MM</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>TORKARI</span>
+            <span class="spec-tag">COMMERCIAL GRADE</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">Cost-effective, re-rolled commercial-grade rod for everyday local fabrication.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>Cost-effective, re-rolled commercial-grade rod for everyday local fabrication.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Diameter:</b> 5.5mm &amp; 6mm</div>
+              <div class="qs-chip"><b>Category:</b> Commercial / Re-rolled</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Workshop Drawing</li>
+              <li>Agricultural Tie Rods</li>
+              <li>Bucket Handles</li>
+              <li>Decorative Ironwork</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -378,21 +553,49 @@
       </div>
     </details>
 
-    <details class="subprod-accordion reveal" id="hb-wires">
+    <details class="subprod-accordion reveal" id="hb-wires" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M4 12h16M4 7h16M4 17h16" stroke-linecap="round"/></svg></div>
+        <span class="prod-num">03</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><path d="M4 12h16M4 7h16M4 17h16" stroke-linecap="round"/></svg></div>
         <div class="accordion-head-text">
           <h3>Hard Bright (HB) Rigid Wires</h3>
           <p>4 SWG to 11 SWG polished, unannealed wire for grilles, fencing and concrete nails.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>4 – 11 SWG</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>HB WIRE</span>
+            <span class="spec-tag">RIGID</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">Cold-drawn stiff and shiny, a wire that holds its shape under pressure.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>Cold-drawn stiff and shiny, a wire that holds its shape under pressure.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Gauge:</b> 4–11 SWG</div>
+              <div class="qs-chip"><b>Finish:</b> Bright Polished</div>
+              <div class="qs-chip"><b>Packing:</b> 50–500kg</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Security Grilles</li>
+              <li>Chain-Link Fencing</li>
+              <li>Concrete Nails</li>
+              <li>Floor Gratings</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -467,21 +670,49 @@
       </div>
     </details>
 
-    <details class="subprod-accordion reveal" id="binding-wires">
+    <details class="subprod-accordion reveal" id="binding-wires" name="products-accordion">
       <summary>
-        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8"><path d="M6 12c0-3 2-5 5-5M6 12c0 3 2 5 5 5M17 5v14" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="prod-num">04</span>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue-ink)" stroke-width="1.8"><path d="M6 12c0-3 2-5 5-5M6 12c0 3 2 5 5 5M17 5v14" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="accordion-head-text">
           <h3>Thermal Annealed Binding Wires</h3>
           <p>16 SWG to 23 SWG soft matte-black wire for tying TMT rebar joints on-site.</p>
+          <div class="spec-tags">
+            <span class="spec-tag"><span class="tag-ic">↗</span>16 – 23 SWG</span>
+            <span class="spec-tag"><span class="tag-ic">•</span>BINDING WIRE</span>
+            <span class="spec-tag">SOFT ANNEALED</span>
+          </div>
         </div>
         <span class="accordion-toggle-btn">
-          <span class="label-closed">View Full Details</span>
-          <span class="label-open">Hide Details</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span class="label-closed">View Specifications</span>
+          <span class="label-open">Hide Specifications</span>
+          <span class="chev-wrap"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </span>
       </summary>
       <div class="accordion-body">
-        <p class="tagline">The soft, matte-black wire that knots rebar joints tight, twist after twist.</p>
+        <div class="quick-summary-grid">
+          <div class="qs-col">
+            <div class="qs-label">Product Overview</div>
+            <p>The soft, matte-black wire that knots rebar joints tight, twist after twist.</p>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Key Specifications</div>
+            <div class="qs-chip-list">
+              <div class="qs-chip"><b>Gauge:</b> 16–23 SWG</div>
+              <div class="qs-chip"><b>Pre-Cut:</b> 12" &amp; 14" (20 SWG)</div>
+              <div class="qs-chip"><b>Finish:</b> Matte Black</div>
+            </div>
+          </div>
+          <div class="qs-col">
+            <div class="qs-label">Common Applications</div>
+            <ul class="qs-checklist">
+              <li>Rebar Tying</li>
+              <li>Foundation Bundling</li>
+              <li>Slab &amp; Column Joints</li>
+              <li>Box Strapping</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="split">
           <div>
@@ -631,7 +862,7 @@
 </footer>
 
 <script src="/site.js"></script>
-<script src="/page-header-particles.js" defer></script>
+<script src="/wire-rods-hero.js" defer></script>
 <script>
 (function(){
   function openTargetAccordion(){

@@ -183,4 +183,31 @@
       });
     });
   }
+
+  // Sitewide ambient cursor glow (dark mode only) — one fixed div, created
+  // once on eligible devices, moved via translate3d and coalesced through
+  // rAF exactly like the .panel spotlight above. Visibility (not existence)
+  // toggles with theme/viewport so switching themes or resizing never has
+  // to recreate the element — it just fades via the CSS opacity transition.
+  if(canHover && !reduceMotion && window.innerWidth > 860){
+    const glow = document.createElement('div');
+    glow.className = 'dm-cursor-glow';
+    document.body.appendChild(glow);
+    let gx = window.innerWidth/2, gy = window.innerHeight/2, graf = null;
+    document.addEventListener('mousemove', e=>{
+      gx = e.clientX; gy = e.clientY;
+      if(graf) return;
+      graf = requestAnimationFrame(()=>{
+        graf = null;
+        glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
+      });
+    }, { passive:true });
+    const syncGlowVisibility = ()=>{
+      const active = document.documentElement.getAttribute('data-theme') === 'dark' && window.innerWidth > 860;
+      glow.classList.toggle('dm-glow-active', active);
+    };
+    syncGlowVisibility();
+    window.addEventListener('resize', syncGlowVisibility, { passive:true });
+    if(themeToggle) themeToggle.addEventListener('click', syncGlowVisibility);
+  }
 })();

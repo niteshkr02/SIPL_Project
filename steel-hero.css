@@ -126,6 +126,7 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
 }
 .sh-feature-icon {
+  position: relative;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   width: 36px; height: 36px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, rgba(255, 106, 31, .35), rgba(255, 106, 31, .1));
@@ -134,6 +135,28 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
 }
 .sh-feature-icon svg { width: 18px; height: 18px; stroke: var(--sh-orange-hot); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
+.sh-feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--sh-orange-hot);
+  box-shadow: 0 0 0 0 rgba(255, 106, 31, .5);
+  opacity: 0;
+  animation: shIconFlex 2.6s cubic-bezier(.22, 1, .36, 1) infinite;
+}
+.sh-feature:nth-child(1) .sh-feature-icon::after { animation-delay: 0s; }
+.sh-feature:nth-child(2) .sh-feature-icon::after { animation-delay: .65s; }
+.sh-feature:nth-child(3) .sh-feature-icon::after { animation-delay: 1.3s; }
+.sh-feature:nth-child(4) .sh-feature-icon::after { animation-delay: 1.95s; }
+
+@keyframes shIconFlex {
+  0% { transform: scale(1); opacity: .9; }
+  75% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
 .sh-feature h4 {
   text-transform: none; font-family: var(--font-body); font-size: .82rem; font-weight: 700;
   letter-spacing: .01em; color: var(--sh-white); margin: 0; line-height: 1.2; transition: color .3s ease;
@@ -286,6 +309,7 @@
   .sh-label, .sh-line-inner, .sh-desc, .sh-cta, .sh-feature, .sh-panel, .sh-visual {
     transition: opacity .4s ease !important; transform: none !important;
   }
+  .sh-feature-icon::after { animation: none !important; display: none; }
   .sh-sweep, .sh-particle, .sh-glow-a { animation: none !important; }
   .sh-bg, .sh-visual-frame, .sh-curve { transition: none !important; }
   .sh-feature:hover, .sh-feature:hover .sh-feature-icon { transform: none !important; }
