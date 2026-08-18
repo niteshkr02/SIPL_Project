@@ -439,16 +439,14 @@
 }
 
 /* ══ OUR BRANDS MINI SHOWCASE ══
-   Compact glass strip anchored under the hero CTAs: just the brand
-   logo + name, clickable through to each brand's own site. Mirrors the
-   existing .hero-btn-secondary glass recipe (rgba white fill + rgba
-   white border + backdrop-blur, orange on hover) rather than the light
-   .brand-showcase cards used on companies.html — those are opaque white
-   plates meant for a light page background and would read as pasted-in
-   rectangles here. Brand data (name / logo / URL) is mirrored 1:1 from
-   the companies.html #brands section, the closest thing this static
-   site has to a shared source — there's no template/data layer to
-   import from directly. */
+   One glass-framed strip anchored under the hero CTAs, matching the
+   .hero-btn-secondary glass recipe (rgba white fill + rgba white
+   border + backdrop-blur, orange on hover). The three source logos
+   have wildly different native aspect ratios (Elegant Steel is a
+   solid square, Thermocon/India Foils are wide letterboxed
+   rectangles), so each gets a full-width, fixed-height slot inside
+   one shared frame rather than a fixed square — that keeps every
+   logo readably sized instead of swimming in mismatched whitespace. */
 .hero-brands {
   margin-top: 2.2rem;
   padding-top: 1.75rem;
@@ -456,86 +454,60 @@
 }
 
 .hero-brands-row {
-  min-width: 0;
   display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 1rem;
-  justify-content: center;
-}
-
-@media (max-width: 639.98px) {
-  .hero-brands-row {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: .2rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .hero-brands-row::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.hero-brand-card {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  padding: .7rem;
-  border-radius: 16px;
-  text-decoration: none;
+  align-items: stretch;
+  gap: .4rem;
+  width: 100%;
+  padding: .5rem;
+  border-radius: 20px;
   background: rgba(255, 255, 255, .05);
   border: 1.5px solid rgba(255, 255, 255, .18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .4);
-  transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, background .3s ease, box-shadow .3s ease;
 }
 
-@media (max-width: 639.98px) {
-  .hero-brand-card {
-    scroll-snap-align: start;
-  }
+.hero-brand-card {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .3rem;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), background .3s ease;
 }
 
 .hero-brand-card:hover,
 .hero-brand-card:focus-visible {
-  transform: scale(1.04) translateY(-2px);
-  border-color: rgba(255, 106, 31, .6);
-  background: rgba(255, 106, 31, .09);
-  box-shadow: 0 12px 30px -10px rgba(255, 106, 31, .3), 0 0 26px rgba(255, 106, 31, .18);
+  transform: translateY(-2px);
+  background: rgba(255, 106, 31, .1);
 }
 
 .hero-brand-card:focus-visible {
   outline: 2px solid var(--accent-hot);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .hero-brand-logo-wrap {
-  flex-shrink: 0;
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 100%;
+  height: 52px;
+  border-radius: 10px;
   overflow: hidden;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7px;
+  padding: 7px 9px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
 }
 
 @media (min-width: 640px) {
   .hero-brand-logo-wrap {
-    width: 72px;
-    height: 72px;
-    border-radius: 14px;
-    padding: 8px;
+    height: 64px;
+    border-radius: 12px;
+    padding: 9px 12px;
   }
 }
 
