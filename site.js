@@ -1,4 +1,3 @@
-// Developed by Nitesh Kr. Gupta & Amar Sankar Kar — © 2026
 // Shared site behavior: glass nav scroll state, mobile menu, dark mode, reveal-on-scroll.
 (function(){
   const nav = document.querySelector('.site-nav');
@@ -212,3 +211,5 @@
     if(themeToggle) themeToggle.addEventListener('click', syncGlowVisibility);
   }
 })();
+
+// Developed & Maintained by Nitesh Kr. Gupta & Amar Sankar Kar — © 2026
