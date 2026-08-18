@@ -6,10 +6,12 @@
    ONE visual layer: the reference photo (Hero/Wire_Rods&Wires.png —
    stacked steel wire rod coils inside a dark industrial mill, welding
    sparks, with its own baked-in orange diagonal light beam) already is
-   the finished cinematic composition, so no second photo, particle
-   field, glow orb or synthetic diagonal is layered on top of it — only
-   a readability scrim, a light sweep across the existing diagonal, and
-   a bottom trust strip.
+   the finished cinematic composition, so no second photo, glow orb or
+   synthetic diagonal is layered on top of it — only a readability
+   scrim, a light sweep across the existing diagonal, a bottom trust
+   strip, and a drifting ember-particle field kept over the plain navy
+   content side (not the photo, which already has its own baked-in
+   sparks).
    ════════════════════════════════════════════════════════════════════ */
 
 .wr-hero {
@@ -34,6 +36,27 @@
 }
 
 .wr-bg { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* ── drifting ember particles: same floating-pulse technique as the
+   home hero / other product heroes, but kept over the plain navy content
+   side (left ~55%) rather than the photo — the photo already has its
+   own baked-in sparks, so this reads as ambient atmosphere behind the
+   text instead of a duplicate spark layer ── */
+.wr-particles { position: absolute; inset: 0; overflow: hidden; }
+.wr-particle {
+  position: absolute; bottom: -5%; left: var(--x, 30%);
+  width: var(--size, 3px); height: var(--size, 3px); border-radius: 50%;
+  background: var(--hue, var(--wr-orange-hot));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 162, 61, .6));
+  opacity: 0;
+  animation: wrParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+@keyframes wrParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .7; }
+  85% { opacity: .3; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 16px)); opacity: 0; }
+}
 
 /* ══ LAYOUT — content column ~40%, visual takes the rest full-bleed ══ */
 .wr-inner { position: relative; z-index: 5; width: 100%; max-width: 1400px; margin: 0 auto; }
@@ -74,6 +97,11 @@
 .wr-desc {
   color: var(--wr-silver); font-size: clamp(.92rem, .95vw, 1.02rem); line-height: 1.65;
   max-width: 500px; margin: 0 0 1.7rem; font-weight: 500;
+  padding: .85rem 1.1rem;
+  background: linear-gradient(135deg, rgba(7, 26, 58, .55), rgba(7, 26, 58, .24));
+  backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 106, 31, .22); border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(2, 8, 20, .32), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 /* ══ FOUR FEATURES — compact 2×2 grid ══ */
@@ -289,7 +317,8 @@
     transition: opacity .4s ease !important; transform: none !important;
   }
   .wr-feature-icon::after { animation: none !important; display: none; }
-  .wr-sweep, .wr-loaded .wr-visual-frame img { animation: none !important; }
+  .wr-sweep, .wr-loaded .wr-visual-frame img, .wr-particle { animation: none !important; }
+  .wr-particles { display: none; }
   .wr-bg, .wr-visual-frame, .wr-content { transition: none !important; }
   .wr-feature:hover, .wr-feature:hover .wr-feature-icon { transform: none !important; }
 }

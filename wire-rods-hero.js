@@ -1,10 +1,11 @@
 /* ════════════════════════════════════════════════════════════════════
    WIRE RODS & WIRES HERO — vanilla JS, no animation library. Owns:
    entrance reveal (single .wr-loaded class flip, CSS does the
-   animating) and a very subtle mouse parallax across the background
-   gradient, the reference photo and the text column. Desktop only —
-   skipped on touch/no-hover devices and whenever prefers-reduced-motion
-   is set. Mirrors structural-tubes-hero.js / concrete-reinforcement-hero.js.
+   animating), a drifting ember-particle field biased toward the text
+   side, and a very subtle mouse parallax across the background
+   gradient, the reference photo and the text column. Particles and
+   parallax are desktop/no-reduced-motion only. Mirrors structural-
+   tubes-hero.js / concrete-reinforcement-hero.js / steel-strip-hero.js.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -15,6 +16,7 @@
   const bg = hero.querySelector('.wr-bg');
   const frame = hero.querySelector('.wr-visual-frame');
   const content = hero.querySelector('.wr-content');
+  const particleHost = hero.querySelector('#wrParticles');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover)').matches;
@@ -22,6 +24,30 @@
   requestAnimationFrame(() => {
     hero.classList.add('wr-loaded');
   });
+
+  // ── drifting ember particles: same floating-pulse technique as the
+  // home hero / other product heroes, but biased toward the left/content
+  // side (5%-55%) rather than the photo — the photo already has its own
+  // baked-in sparks, so this reads as ambient atmosphere behind the text
+  // instead of a duplicate spark layer ──
+  if (particleHost && !reduceMotion) {
+    const COUNT = 14;
+    const hues = ['#FF6A1F', '#FFA23D'];
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < COUNT; i++) {
+      const span = document.createElement('span');
+      span.className = 'wr-particle';
+      const dur = 13 + Math.random() * 11;
+      span.style.setProperty('--x', (5 + Math.random() * 50) + '%');
+      span.style.setProperty('--size', (2 + Math.random() * 2.5) + 'px');
+      span.style.setProperty('--dur', dur + 's');
+      span.style.setProperty('--delay', (-Math.random() * dur) + 's');
+      span.style.setProperty('--drift', (Math.random() * 36 - 18) + 'px');
+      span.style.setProperty('--hue', hues[i % 2]);
+      frag.appendChild(span);
+    }
+    particleHost.appendChild(frag);
+  }
 
   // ── subtle mouse parallax: background gradient (2-4px), reference
   // photo (opposite direction, slightly stronger for depth), text
