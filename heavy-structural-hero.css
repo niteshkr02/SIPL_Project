@@ -102,6 +102,11 @@
 .hst-desc {
   color: var(--hst-gray); font-size: clamp(.98rem, 1.05vw, 1.12rem); line-height: 1.65;
   max-width: 42ch; margin: 0 0 1.6rem; font-weight: 500;
+  padding: .85rem 1.1rem;
+  background: linear-gradient(135deg, rgba(7, 26, 58, .55), rgba(7, 26, 58, .24));
+  backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 106, 31, .22); border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(2, 8, 20, .32), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 /* ══ PRIMARY CTA ══ */

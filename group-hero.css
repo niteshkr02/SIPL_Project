@@ -229,6 +229,13 @@
   font-size: 1.04rem;
   line-height: 1.75;
   color: var(--ink-dim);
+  padding: .95rem 1.3rem;
+  background: linear-gradient(165deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 1rem;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
   opacity: 0;
 }
 
@@ -291,20 +298,30 @@
   transform: translateX(5px);
 }
 
-/* ── bottom feature row: compact indicators, not cards ── */
+/* ── bottom feature row: compact pill chips ── */
 .gc-hero-features {
   display: flex;
+  flex-wrap: nowrap;
   align-items: stretch;
-  gap: 1.6rem;
+  gap: .5rem;
+  max-width: 600px;
   margin-top: 2.6rem;
   opacity: 0;
 }
 
 .gc-hero-feature {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: .75rem;
-  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
+  flex: 1 1 0;
+  gap: .55rem;
+  min-width: 0;
+  padding: .5rem .7rem .5rem .45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .045);
+  border: 1px solid rgba(255, 255, 255, .09);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), background .28s ease, border-color .28s ease, box-shadow .28s ease;
 }
 
 .gc-hero-feature-icon {
@@ -313,15 +330,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 194, 75, .16), rgba(255, 117, 24, .05));
   border: 1.5px solid rgba(255, 117, 24, .4);
   color: var(--accent-hot);
   transition: transform .28s cubic-bezier(.22, 1, .36, 1), color .28s ease, box-shadow .28s ease, border-color .28s ease;
 }
 
-.gc-hero-feature-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.gc-hero-feature-icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
 .gc-hero-feature-icon::after {
@@ -349,26 +367,26 @@
   .gc-hero-feature-icon::after { animation: none !important; display: none; }
 }
 
-.gc-hero-feature-text { display: flex; flex-direction: column; gap: .2rem; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
+.gc-hero-feature-text { display: flex; flex-direction: column; min-width: 0; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
 
 .gc-hero-feature-title {
   font-family: var(--font-display);
-  font-size: .82rem;
+  font-size: .66rem;
   font-weight: 700;
-  letter-spacing: .04em;
+  letter-spacing: .02em;
   text-transform: uppercase;
   color: var(--ink);
+  line-height: 1.25;
+  white-space: normal;
   transition: color .28s ease;
 }
 
-.gc-hero-feature-sub {
-  font-size: .72rem;
-  line-height: 1.4;
-  max-width: 15ch;
-  color: var(--ink-dim);
+.gc-hero-feature:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 117, 24, .08);
+  border-color: rgba(255, 117, 24, .35);
+  box-shadow: 0 8px 20px -8px rgba(255, 117, 24, .3);
 }
-
-.gc-hero-feature:hover { transform: translateY(-2px); }
 
 .gc-hero-feature:hover .gc-hero-feature-icon {
   transform: scale(1.08);
@@ -379,22 +397,18 @@
 
 .gc-hero-feature:hover .gc-hero-feature-title { color: var(--accent-hot); }
 
-.gc-hero-feature-div {
-  width: 1px;
-  align-self: stretch;
-  background: rgba(255, 255, 255, .14);
-}
+.gc-hero-feature-div { display: none; }
 
 @media (max-width: 1100px) {
   .gc-hero-content { max-width: 520px; }
-  .gc-hero-features { gap: 1.2rem; margin-top: 2.2rem; }
-  .gc-hero-feature-sub { max-width: 13ch; }
+  .gc-hero-features { max-width: 520px; gap: .4rem; margin-top: 2.2rem; }
+  .gc-hero-feature { padding: .45rem .55rem .45rem .4rem; }
 }
 
-@media (max-width: 560px) {
-  .gc-hero-features { flex-wrap: wrap; row-gap: 1.4rem; column-gap: 1.1rem; justify-content: center; }
-  .gc-hero-feature-div { display: none; }
-  .gc-hero-feature-sub { max-width: 20ch; }
+@media (max-width: 640px) {
+  .gc-hero-features { flex-wrap: wrap; max-width: 360px; margin-left: auto; margin-right: auto; }
+  .gc-hero-feature { flex: 1 1 calc(50% - .25rem); padding: .45rem .8rem .45rem .45rem; }
+  .gc-hero-feature-title { font-size: .72rem; }
 }
 
 /* ── bottom curved transition: dark navy fill + thin orange accent line ── */

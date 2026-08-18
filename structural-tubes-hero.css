@@ -6,10 +6,12 @@
    ONE visual layer: the reference photo (Hero/Structural_Tubes&Pipes.png
    — stacked square tubes and round pipes inside a sunlit steel-frame
    structure, with its own baked-in orange diagonal light beam) already
-   is the finished cinematic composition, so no second photo, particle
-   field, glow orb or synthetic diagonal is layered on top of it — only a
-   readability scrim, a light sweep across the existing diagonal, and a
-   bottom trust strip.
+   is the finished cinematic composition, so no second photo, glow orb
+   or synthetic diagonal is layered on top of it — only a readability
+   scrim, a light sweep across the existing diagonal, a bottom trust
+   strip, and a drifting ember-particle field kept over the plain navy
+   content side (not the photo, which already has its own baked-in
+   sparks).
    ════════════════════════════════════════════════════════════════════ */
 
 .stp-hero {
@@ -34,6 +36,27 @@
 }
 
 .stp-bg { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* ── drifting ember particles: same floating-pulse technique as the
+   home hero / other product heroes, but kept over the plain navy content
+   side (left ~55%) rather than the photo — the photo already has its
+   own baked-in sparks, so this reads as ambient atmosphere behind the
+   text instead of a duplicate spark layer ── */
+.stp-particles { position: absolute; inset: 0; overflow: hidden; }
+.stp-particle {
+  position: absolute; bottom: -5%; left: var(--x, 30%);
+  width: var(--size, 3px); height: var(--size, 3px); border-radius: 50%;
+  background: var(--hue, var(--stp-orange-hot));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 162, 61, .6));
+  opacity: 0;
+  animation: stpParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+@keyframes stpParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .7; }
+  85% { opacity: .3; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 16px)); opacity: 0; }
+}
 
 /* ══ LAYOUT — content column ~40%, visual takes the rest full-bleed ══ */
 .stp-inner { position: relative; z-index: 5; width: 100%; max-width: 1400px; margin: 0 auto; }
@@ -74,6 +97,11 @@
 .stp-desc {
   color: var(--stp-silver); font-size: clamp(.92rem, .95vw, 1.02rem); line-height: 1.65;
   max-width: 500px; margin: 0 0 1.7rem; font-weight: 500;
+  padding: .85rem 1.1rem;
+  background: linear-gradient(135deg, rgba(7, 26, 58, .55), rgba(7, 26, 58, .24));
+  backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 106, 31, .22); border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(2, 8, 20, .32), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 /* ══ FOUR FEATURES — compact 2×2 grid ══ */
@@ -289,7 +317,8 @@
     transition: opacity .4s ease !important; transform: none !important;
   }
   .stp-feature-icon::after { animation: none !important; display: none; }
-  .stp-sweep, .stp-loaded .stp-visual-frame img { animation: none !important; }
+  .stp-sweep, .stp-loaded .stp-visual-frame img, .stp-particle { animation: none !important; }
+  .stp-particles { display: none; }
   .stp-bg, .stp-visual-frame, .stp-content { transition: none !important; }
   .stp-feature:hover, .stp-feature:hover .stp-feature-icon { transform: none !important; }
 }

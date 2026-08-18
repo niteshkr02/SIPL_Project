@@ -1,4 +1,5 @@
 
+<!-- Developed by Nitesh Kr. Gupta & Amar Sankar Kar — © 2026 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,6 +147,13 @@
       font-size: 1.1rem;
       color: var(--ink-dim);
       text-shadow: 0 2px 16px rgba(0, 0, 0, .65);
+      padding: .95rem 1.4rem;
+      background: linear-gradient(165deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03));
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 1rem;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
     }
 
     .hero-cta-row {
@@ -1080,9 +1088,11 @@
   <!-- loaded after the inline hero styles above so it wins the cascade for
        the couple of rules it deliberately extends (e.g. .hero h1 .grad) -->
   <link rel="stylesheet" href="hero-cinematic.css">
+  <link rel="preload" as="image" href="optimized-images/images/home_hero_img.jpg" fetchpriority="high">
 </head>
 
 <body>
+<script src="/loading-bar.js"></script>
   <div class="sheen"></div>
 
   <svg class="defs" aria-hidden="true">
@@ -1137,7 +1147,7 @@
   <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
   <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo" width="219" height="252" decoding="async">
 </picture>
-      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span><span class="nav-brand-tag">#SteelWithin</span></div>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
@@ -1241,7 +1251,7 @@
         <picture>
           <source type="image/avif" srcset="optimized-images/images/home_hero_img.avif">
           <source type="image/webp" srcset="optimized-images/images/home_hero_img.webp">
-          <img src="optimized-images/images/home_hero_img.jpg" alt="" fetchpriority="high" decoding="async">
+          <img height="1227" width="2200" src="optimized-images/images/home_hero_img.jpg" alt="" fetchpriority="high" decoding="async">
         </picture>
         <div class="hero-photo-scrim"></div>
       </div>
@@ -1320,21 +1330,20 @@
 
           <div class="hero-brands">
             <div class="hero-brands-row">
-              <a class="hero-brand-card" href="https://www.elegantsteels.com/" target="_blank" rel="noopener">
-                <span class="hero-brand-logo-wrap"><img src="images/Elegant_Steel_Logo.jpeg"
+              <a class="hero-brand-card" href="https://www.elegantsteels.com/" target="_blank" rel="noopener"
+                aria-label="Elegant Steel (opens in new tab)">
+                <span class="hero-brand-logo-wrap"><img height="447" width="447" src="images/Elegant_Steel_Logo.jpeg"
                     alt="Elegant Steel logo" class="hero-brand-logo" decoding="async"></span>
-                <span class="hero-brand-name">Elegant Steel</span>
               </a>
               <a class="hero-brand-card" href="https://www.facebook.com/ThermoconTMT/" target="_blank"
-                rel="noopener">
-                <span class="hero-brand-logo-wrap"><img src="images/Thermocon_TMT_Logo.jpeg"
+                rel="noopener" aria-label="Thermocon TMT (opens in new tab)">
+                <span class="hero-brand-logo-wrap"><img height="293" width="447" src="images/Thermocon_TMT_Logo.jpeg"
                     alt="Thermocon TMT logo" class="hero-brand-logo" decoding="async"></span>
-                <span class="hero-brand-name">Thermocon TMT</span>
               </a>
-              <a class="hero-brand-card" href="https://www.indiafoils.net/" target="_blank" rel="noopener">
-                <span class="hero-brand-logo-wrap"><img src="images/India_Foils_Logo.jpeg" alt="India Foils logo"
+              <a class="hero-brand-card" href="https://www.indiafoils.net/" target="_blank" rel="noopener"
+                aria-label="India Foils (opens in new tab)">
+                <span class="hero-brand-logo-wrap"><img height="254" width="759" src="images/India_Foils_Logo.jpeg" alt="India Foils logo"
                     class="hero-brand-logo" decoding="async"></span>
-                <span class="hero-brand-name">India Foils</span>
               </a>
             </div>
           </div>
@@ -1657,7 +1666,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp1-chemist-analyzing-sample.webp">
-                      <img src="optimized-images/images/quality/cp1-chemist-analyzing-sample.jpg" alt="Chemist analyzing a steel sample in the lab" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp1-chemist-analyzing-sample.jpg" alt="Chemist analyzing a steel sample in the lab" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1676,7 +1685,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp2-monitoring-feed-rate.webp">
-                      <img src="optimized-images/images/quality/cp2-monitoring-feed-rate.jpg" alt="Control room monitoring live DRI feed rate and kiln temperature" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp2-monitoring-feed-rate.jpg" alt="Control room monitoring live DRI feed rate and kiln temperature" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1695,7 +1704,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp3-inspector-examining-pig-iron.webp">
-                      <img src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="SMS lab inspector examining incoming pig iron" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp3-inspector-examining-pig-iron.jpg" alt="SMS lab inspector examining incoming pig iron" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1714,7 +1723,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp4-steelworkers-skimming-slag.webp">
-                      <img src="optimized-images/images/quality/cp4-steelworkers-skimming-slag.jpg" alt="Steelworkers skimming slag off the melt" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp4-steelworkers-skimming-slag.jpg" alt="Steelworkers skimming slag off the melt" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1733,7 +1742,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp5-billets-emerging-from-machine.webp">
-                      <img src="optimized-images/images/quality/cp5-billets-emerging-from-machine.jpg" alt="Billets emerging from the casting machine for inspection" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp5-billets-emerging-from-machine.jpg" alt="Billets emerging from the casting machine for inspection" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1752,7 +1761,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp6-technician-operating-rolling-mill.webp">
-                      <img src="optimized-images/images/quality/cp6-technician-operating-rolling-mill.jpg" alt="Technician operating the rolling mill" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp6-technician-operating-rolling-mill.jpg" alt="Technician operating the rolling mill" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1771,7 +1780,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.webp">
-                      <img src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="Engineer inspecting finished TMT bars in the materials testing lab" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp7-engineer-inspecting-tmt-bars.jpg" alt="Engineer inspecting finished TMT bars in the materials testing lab" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -1790,7 +1799,7 @@
                     <picture>
                       <source type="image/avif" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.avif">
                       <source type="image/webp" srcset="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.webp">
-                      <img src="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.jpg" alt="Warehouse worker tagging steel bars" loading="lazy">
+                      <img height="768" width="1376" src="optimized-images/images/quality/cp8-warehouse-worker-tagging-bars.jpg" alt="Warehouse worker tagging steel bars" loading="lazy" decoding="async">
                     </picture>
                   </div>
                   <div class="pillar-body">
@@ -3176,7 +3185,7 @@
           <picture>
   <source type="image/avif" srcset="optimized-images/images/Shakambhari_icon.avif">
   <source type="image/webp" srcset="optimized-images/images/Shakambhari_icon.webp">
-  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async">
+  <img src="optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async" loading="lazy">
 </picture>
           <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
         </a>
@@ -5550,12 +5559,13 @@
       }
     })();
   </script>
+  <script src="market-presence-international-data.js"></script>
 
   <!-- CERTIFICATE LIGHTBOX MODAL OVERLAY -->
   <div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">
     <div class="cert-modal-content" onclick="event.stopPropagation()">
       <button class="cert-modal-close" onclick="closeCertModal()">&times;</button>
-      <img id="certModalImg" src="" alt="Official Certificate Document" class="cert-modal-img">
+      <img id="certModalImg" src="" alt="Official Certificate Document" class="cert-modal-img" decoding="async" loading="lazy">
       <div id="certModalTitle" class="cert-modal-title"></div>
     </div>
   </div>
@@ -5644,7 +5654,7 @@
   <!-- GSAP powers the Beyond Steel slider, Market Presence panel, Trusted By
        showcase and Awards gallery; each falls back to plain CSS transitions
        if this CDN request ever fails. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="gsap.min.js"></script>
   <script src="beyond-steel-slider.js"></script>
   <script src="market-presence-panel.js"></script>
   <script src="market-presence-map.js"></script>

@@ -1,3 +1,4 @@
+<!-- Developed by Nitesh Kr. Gupta & Amar Sankar Kar — © 2026 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,19 +8,8 @@
 <title>Upstream & Intermediate Products, Iron Pellets, Sponge Iron, M.S. Billets | Shakambhari Group</title>
 <meta name="description" content="Iron Pellets, Sponge Iron and M.S. Billets from Shakambhari Group, the upstream and intermediate products that feed every furnace and rolling mill downstream.">
 <link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/page-header-particles.css">
+<link rel="stylesheet" href="/raw-materials-hero.css">
 <style>
-.page-header{
-  --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
-  --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
-  position:relative; padding:calc(var(--nav-h) + 3rem) 1.75rem 4rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
-}
-.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
-.page-header .kicker::before{ background:var(--accent); }
-.page-header h1{ color:var(--ink); font-size:clamp(2.1rem,5vw,3.2rem); max-width:26ch; margin:0 auto; }
-.page-header p{ color:var(--ink-dim); max-width:62ch; margin:1.2rem auto 0; font-size:1.08rem; }
-.page-header-cta{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.2rem; }
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
 @media(max-width:860px){ .split{ grid-template-columns:1fr; } }
 .split h2{ margin-bottom:1.1rem; }
@@ -135,8 +125,10 @@ html[data-theme="dark"] #products{
 .accordion-callout p{ color:var(--ink-soft); font-size:.95rem; line-height:1.75; margin:0; }
 .accordion-body .cta-btn-row{ margin-top:2.2rem; }
 </style>
+  <link rel="preload" as="image" href="/Hero/Raw&amp;Intermediate_Metarials.png" fetchpriority="high">
 </head>
 <body>
+<script src="/loading-bar.js"></script>
 <div class="sheen"></div>
 
 <nav class="site-nav">
@@ -146,7 +138,7 @@ html[data-theme="dark"] #products{
   <source type="image/webp" srcset="/optimized-images/images/Shakambhari_icon.webp">
   <img src="/optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="nav-brand-logo" width="219" height="252" decoding="async">
 </picture>
-      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span></div>
+      <div class="nav-brand-text">SHAKAMBHARI<span>GROUP</span><span class="nav-brand-tag">#SteelWithin</span></div>
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="/index.html">Home</a></li>
@@ -236,23 +228,92 @@ html[data-theme="dark"] #products{
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
-<header class="page-header">
-  <div class="page-header-particles" aria-hidden="true"></div>
-  <nav class="breadcrumb reveal" aria-label="Breadcrumb">
-    <a href="/index.html">Home</a><span class="bc-sep">/</span><a href="/steel/">Steel</a><span class="bc-sep">/</span><span class="bc-current">Upstream &amp; Intermediate</span>
-  </nav>
-  <div class="kicker reveal">CATEGORY 8</div>
-  <h1 class="reveal">Upstream &amp; Intermediate Products</h1>
-  <p class="reveal">Most of these never reach a customer directly. Iron Pellets feed the kiln, Sponge Iron feeds the furnace, and M.S. Billets feed the rolling mill, three steps that make everything downstream possible.</p>
-  <div class="page-header-cta reveal">
-    <a href="#products" class="btn btn-primary">View Products</a>
-    <a href="/contact.html" class="btn btn-ghost">Contact Sales</a>
+<!-- RAW & INTERMEDIATE MATERIALS HERO -->
+<header class="rm-hero">
+  <div class="rm-bg" aria-hidden="true">
+    <div class="rm-particles" id="rmParticles"></div>
   </div>
   <div class="qc-bar reveal">
     <a href="https://wa.me/916293149735?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20products." target="_blank" rel="noopener" class="qc-btn qc-whatsapp"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.25.62 4.36 1.7 6.16L4 29l7.99-1.66a12 12 0 0 0 4.03.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3Zm7.03 17.13c-.3.85-1.72 1.63-2.38 1.73-.62.1-1.38.14-2.22-.14-.51-.16-1.17-.38-2.02-.75-3.55-1.53-5.87-5.1-6.05-5.34-.18-.24-1.44-1.92-1.44-3.66s.9-2.6 1.23-2.96c.3-.32.65-.4.87-.4.22 0 .43 0 .62.01.2.01.47-.08.73.56l.9 2.16c.08.18.13.38.03.6-.1.24-.15.38-.3.58-.15.2-.32.45-.46.6-.15.16-.31.34-.14.66.18.32.78 1.28 1.67 2.07 1.15 1.03 2.12 1.35 2.44 1.5.33.16.52.14.71-.08.2-.21.83-.94 1.04-1.27.21-.32.42-.27.71-.16.3.1 1.88.88 2.2 1.04.33.16.54.24.62.38.08.14.08.79-.22 1.62Z"/></svg>WhatsApp</a>
     <a href="tel:+916293149735" class="qc-btn qc-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>Call</a>
     <a href="mailto:operation.roi@shakambharigroup.in" class="qc-btn qc-email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6l8 6 8-6"/></svg>Email</a>
     <a href="/contact.html" class="qc-btn qc-book" data-booking-link="pending"><!-- TODO: replace with real booking/scheduling link --><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a Meeting</a>
+
+  <div class="rm-inner">
+    <div class="rm-content">
+      <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a><span class="bc-sep">/</span><a href="/steel/">Steel</a><span class="bc-sep">/</span><span class="bc-current">Raw &amp; Intermediate Materials</span>
+      </nav>
+
+      <div class="rm-eyebrow">
+        <span class="rm-eyebrow-rule"></span>
+        <span class="rm-eyebrow-text">Foundation of Strength. Fuel for Industry.</span>
+      </div>
+
+      <h1 class="rm-heading">
+        <span class="rm-line"><span class="rm-line-inner">Raw &amp;</span></span>
+        <span class="rm-line"><span class="rm-line-inner rm-accent">Intermediate</span></span>
+        <span class="rm-line"><span class="rm-line-inner">Materials</span></span>
+      </h1>
+
+      <p class="rm-subhead">Essential Materials. Endless Possibilities.</p>
+
+      <p class="rm-desc">High quality raw and intermediate materials that drive strength, durability and performance across every industrial application.</p>
+
+      <div class="rm-features">
+        <div class="rm-feature">
+          <div class="rm-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v6c0 4.5 3 8.5 7 9.5 4-1 7-5 7-9.5V6z"/><path d="m9.2 12 2 2 3.6-3.6"/></svg></div>
+          <h4>Superior Quality</h4>
+        </div>
+        <div class="rm-feature">
+          <div class="rm-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="6" height="6" rx="1.4"/><rect x="15" y="10" width="6" height="6" rx="1.4"/><path d="M9 13h6" stroke-linecap="round"/></svg></div>
+          <h4>Consistent Supply</h4>
+        </div>
+        <div class="rm-feature">
+          <div class="rm-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M21 12h-2.5M5.5 12H3M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8M18.4 18.4l-1.8-1.8M7.4 7.4 5.6 5.6" stroke-linecap="round"/></svg></div>
+          <h4>Precise Standards</h4>
+        </div>
+        <div class="rm-feature">
+          <div class="rm-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V10l4.5 3V10l4.5 3V8l5 3.5V5h2v16"/><path d="M4 21h17"/></svg></div>
+          <h4>Industry Grade</h4>
+        </div>
+      </div>
+
+      <div class="rm-cta-row">
+        <a href="#products" class="rm-cta">
+          <span class="rm-cta-label">Explore Products</span>
+          <span class="rm-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="/contact.html" class="rm-cta-secondary">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+  <figure class="rm-visual">
+    <div class="rm-visual-frame">
+      <img height="1536" width="2752" src="/Hero/Raw&amp;Intermediate_Metarials.png" alt="Metallic sponge iron pellets, crushed raw material and stacked steel billets with an orange diagonal light accent" loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="rm-visual-scrim"></div>
+    <div class="rm-sweep"></div>
+  </figure>
+
+  <div class="rm-trust">
+    <div class="rm-trust-item">
+      <svg class="rm-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4Z"/></svg>
+      <span class="rm-trust-text">Selected<strong>Raw Materials</strong></span>
+    </div>
+    <div class="rm-trust-item">
+      <svg class="rm-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v6c0 5 3.5 9 7 10 3.5-1 7-5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
+      <span class="rm-trust-text">Tested For<strong>Reliability</strong></span>
+    </div>
+    <div class="rm-trust-item">
+      <svg class="rm-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18a8 8 0 0 1 16 0" /><path d="M12 18V9M9 12l3-3 3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="rm-trust-text">Performance<strong>Assured</strong></span>
+    </div>
+    <div class="rm-trust-item">
+      <svg class="rm-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.4.4 4.3 2.4 4.5 5.3"/></svg>
+      <span class="rm-trust-text">Trusted By<strong>Industries</strong></span>
+    </div>
   </div>
 </header>
 
@@ -264,7 +325,7 @@ html[data-theme="dark"] #products{
       <p class="reveal">Before a bar is rolled or a beam is cast, raw ore has to become something a kiln can reduce, a furnace can melt, and a rolling mill can shape. That chain runs through three intermediate products: pelletised ore, direct-reduced sponge iron, and continuously cast billets.</p>
       <p class="reveal">Each one is produced in-house across our own plants, SIPL Rukni, our rotary kilns and induction furnaces, and our continuous casting lines, so the quality of what reaches the rolling mill is something we control end to end, not something we source and hope for.</p>
     </div>
-    <img src="/images/Sponge_Iron.jpeg" alt="Upstream & Intermediate Products" class="split-photo reveal">
+    <img height="1024" width="1024" src="/images/Sponge_Iron.jpeg" alt="Upstream & Intermediate Products" class="split-photo reveal" decoding="async">
   </div>
 </section>
 
@@ -327,7 +388,7 @@ html[data-theme="dark"] #products{
             <p>Raw iron ore fines alone are too fine and inconsistent to feed a reduction kiln directly, they choke airflow and reduce unevenly. At our SIPL Rukni pellet plant, those fines are mixed with limestone, dolomite and bentonite binders, agglomerated into uniform spherical pellets, and thermally hardened.</p>
             <p>The result is a spheroid engineered specifically for the permeability that clean, efficient reduction demands, the first manufactured step in a chain that ends in a finished steel bar.</p>
           </div>
-          <img src="/images/Iron_Pellets.jpeg" alt="Iron Pellets" class="split-photo">
+          <img height="768" width="1376" src="/images/Iron_Pellets.jpeg" alt="Iron Pellets" class="split-photo" decoding="async" loading="lazy">
         </div>
 
         <div class="section-head">
@@ -437,7 +498,7 @@ html[data-theme="dark"] #products{
             <p>Sponge iron is solid-state direct reduced metallic iron, made by removing oxygen from raw ore rather than melting it out. Inside our rotary kiln, iron pellets and coal meet at roughly 950°C, oxygen is stripped away, leaving only metallic iron behind.</p>
             <p>No coking, no blast furnace: a shorter, cleaner process chain than traditional ironmaking. India is the world's largest producer of sponge iron, and it is the primary feed for our own induction furnace route.</p>
           </div>
-          <img src="/images/Sponge_Iron.jpeg" alt="Sponge Iron" class="split-photo">
+          <img height="1024" width="1024" src="/images/Sponge_Iron.jpeg" alt="Sponge Iron" class="split-photo" decoding="async" loading="lazy">
         </div>
 
         <div class="section-head">
@@ -548,7 +609,7 @@ html[data-theme="dark"] #products{
             <p>M.S. Billets are high-grade semi-finished steel, produced by melting sponge iron, pig iron and select ferro alloys at roughly 1600°C in an induction furnace, then continuously cast: poured into water-cooled molds and drawn out without interruption.</p>
             <p>That continuous process, no batch, no stopping, is what gives every billet a homogeneous grain structure, the difference between a rolling mill that runs clean and one that fights inconsistent feedstock.</p>
           </div>
-          <img src="/images/MS_Billets.jpeg" alt="M.S. Billets" class="split-photo">
+          <img height="896" width="1200" src="/images/MS_Billets.jpeg" alt="M.S. Billets" class="split-photo" decoding="async" loading="lazy">
         </div>
 
         <div class="section-head">
@@ -637,7 +698,7 @@ html[data-theme="dark"] #products{
         <picture>
   <source type="image/avif" srcset="/optimized-images/images/Shakambhari_icon.avif">
   <source type="image/webp" srcset="/optimized-images/images/Shakambhari_icon.webp">
-  <img src="/optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async">
+  <img src="/optimized-images/images/Shakambhari_icon.png" alt="Shakambhari Group" class="footer-brand-logo" width="219" height="252" decoding="async" loading="lazy">
 </picture>
           <div class="footer-brand-text">SHAKAMBHARI GROUP</div>
       </a>
@@ -683,7 +744,7 @@ html[data-theme="dark"] #products{
 </footer>
 
 <script src="/site.js"></script>
-<script src="/page-header-particles.js" defer></script>
+<script src="/raw-materials-hero.js" defer></script>
 <script>
 (function(){
   function openTargetAccordion(){
