@@ -400,10 +400,6 @@
   line-height: 1.5;
   color: var(--ink-soft);
   margin-bottom: .85rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .grp-explore {
