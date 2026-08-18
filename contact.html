@@ -407,7 +407,6 @@
             <div class="map-tab-content" id="worldMapWrap" style="display:none;">
               <div class="world-map-container">
                 <div class="map-header">
-                  <span class="map-badge"><span class="pulse-dot"></span> 24 COUNTRIES • 5 CONTINENTS</span>
                   <span class="map-subtitle">Interactive Global Export &amp; Distribution Network</span>
                 </div>
 
@@ -677,7 +676,6 @@
                   <div class="mpp-noise" aria-hidden="true"></div>
                   <div class="mpp-header">
                     <div class="mpp-state"><span aria-hidden="true">🌍</span> Countries We Export To</div>
-                    <div class="mpp-company">24 international destinations across 5 continents</div>
                   </div>
                   <div class="world-country-chips" id="worldCountryChips">
                     <!-- country name chips, rendered by JS from worldCountriesData -->
@@ -1123,156 +1121,40 @@
   <script>
     (function () {
       // 1. INTERNATIONAL DESTINATIONS DATA
+      // Export destinations — marker positions only. No per-country office,
+      // contact or partner data is published here since we don't have a
+      // verified local office/contact for these markets; the only real
+      // contact record is the Kolkata HQ entry below.
       const worldCountriesData = [
-        {
-          id: "jp", name: "Japan", code: "JP", left: "88.8%", top: "30.2%",
-          hubType: "Far East Trade Hub", partner: "Nippon Shakambhari Metals Hub",
-          officer: "Kenji Takahashi", phone: "+81 3 5540 1122", email: "japan.sales@shakambharigroup.com",
-          address: "Chiyoda-ku Industrial Hub, Tokyo"
-        },
-        {
-          id: "vn", name: "Vietnam", code: "VN", left: "79.6%", top: "44.0%",
-          hubType: "ASEAN Trade Hub", partner: "ASEAN Structural Steel Corp.",
-          officer: "Nguyen Van Hung", phone: "+84 24 3934 5678", email: "vietnam.sales@shakambharigroup.com",
-          address: "Ho Chi Minh Port Complex"
-        },
-        {
-          id: "th", name: "Thailand", code: "TH", left: "77.9%", top: "42.4%",
-          hubType: "Southeast Asian Trade Hub", partner: "Siam Metals & Alloys Co., Ltd.",
-          officer: "Somchai Charoensuk", phone: "+66 2 105 4400", email: "thailand.trade@shakambharigroup.com",
-          address: "Sathorn Business District, Bangkok"
-        },
-        {
-          id: "bd", name: "Bangladesh", code: "BD", left: "75.1%", top: "36.8%",
-          hubType: "Neighboring Exports Hub", partner: "Bengal Delta Metals & Infra",
-          officer: "Rafiqul Islam", phone: "+880 2 988 4433", email: "bd.trade@shakambharigroup.com",
-          address: "Gulshan Commercial Area, Dhaka"
-        },
-        {
-          id: "np", name: "Nepal", code: "NP", left: "73.7%", top: "34.6%",
-          hubType: "SAARC Regional Partner", partner: "Himalayan Infra Steel Suppliers",
-          officer: "Ramesh Adhikari", phone: "+977 1 422 5566", email: "nepal.sales@shakambharigroup.com",
-          address: "Lazimpat, Kathmandu"
-        },
-        {
-          id: "hk", name: "Hong Kong", code: "HK", left: "81.7%", top: "37.6%",
-          hubType: "Asia-Pacific Financial & Trade Hub", partner: "Victoria Harbour Metals Trading Ltd.",
-          officer: "Samuel Chan", phone: "+852 2523 4400", email: "hongkong.trade@shakambharigroup.com",
-          address: "Central Business District, Hong Kong"
-        },
-        {
-          id: "sa", name: "Saudi Arabia", code: "SA", left: "63.0%", top: "36.3%",
-          hubType: "Middle East Mega-Projects Hub", partner: "GCC Heavy Infra Supplies",
-          officer: "Faisal Al-Mansoor", phone: "+966 11 460 3344", email: "ksa.sales@shakambharigroup.com",
-          address: "King Fahd Road, Riyadh"
-        },
-        {
-          id: "ae", name: "UAE", code: "AE", left: "65.4%", top: "36.0%",
-          hubType: "Gulf Regional Export Center", partner: "Gulf Commercial Steel Logistics",
-          officer: "Rashid Al-Maktoum", phone: "+971 4 321 9876", email: "uae.trade@shakambharigroup.com",
-          address: "Jebel Ali Free Zone, Dubai"
-        },
-        {
-          id: "bh", name: "Bahrain", code: "BH", left: "64.1%", top: "35.4%",
-          hubType: "Gulf Financial & Trade Hub", partner: "Pearl Coast Metals W.L.L.",
-          officer: "Ahmed Al-Khalifa", phone: "+973 17 588 900", email: "bahrain.trade@shakambharigroup.com",
-          address: "Bahrain Financial Harbour, Manama"
-        },
-        {
-          id: "eg", name: "Egypt", code: "EG", left: "58.7%", top: "33.3%",
-          hubType: "North African Logistics Partner", partner: "Nile Infra Metals Co.",
-          officer: "Tariq El-Sayed", phone: "+20 2 2735 6789", email: "egypt.trade@shakambharigroup.com",
-          address: "New Cairo Business District, Cairo"
-        },
-        {
-          id: "ma", name: "Morocco", code: "MA", left: "47.9%", top: "31.4%",
-          hubType: "North African Trade Gateway", partner: "Atlas Métaux du Maghreb S.A.R.L.",
-          officer: "Youssef El Amrani", phone: "+212 5 2242 9900", email: "morocco.trade@shakambharigroup.com",
-          address: "Casablanca Finance City, Casablanca"
-        },
-        {
-          id: "za", name: "South Africa", code: "ZA", left: "57.8%", top: "64.6%",
-          hubType: "Southern African Hub", partner: "Southern Cross Metals (Pty) Ltd",
-          officer: "Johan van der Merwe", phone: "+27 11 800 1234", email: "sa.sales@shakambharigroup.com",
-          address: "Sandton City, Johannesburg"
-        },
-        {
-          id: "it", name: "Italy", code: "IT", left: "52.6%", top: "24.7%",
-          hubType: "Southern European Hub", partner: "Lombardia Steel Europe S.r.l.",
-          officer: "Marco Rossi", phone: "+39 02 8901 2345", email: "europe.sales@shakambharigroup.com",
-          address: "Via Montenapoleone, Milan"
-        },
-        {
-          id: "fr", name: "France", code: "FR", left: "50.7%", top: "22.9%",
-          hubType: "Western European Distribution Hub", partner: "Gaulois Métaux Industriels S.A.",
-          officer: "Jean-Luc Moreau", phone: "+33 1 5836 4400", email: "france.sales@shakambharigroup.com",
-          address: "La Défense Business District, Paris"
-        },
-        {
-          id: "de", name: "Germany", code: "DE", left: "52.4%", top: "22.2%",
-          hubType: "Central European Hub", partner: "Rheinland Heavy Metals GmbH",
-          officer: "Stefan Müller", phone: "+49 69 9754 0000", email: "germany.sales@shakambharigroup.com",
-          address: "Frankfurt Industrial Park"
-        },
-        {
-          id: "nl", name: "Netherlands", code: "NL", left: "51.2%", top: "21.2%",
-          hubType: "European Port & Logistics Gateway", partner: "Rotterdam Staal & Metalen B.V.",
-          officer: "Willem de Groot", phone: "+31 10 217 6600", email: "netherlands.trade@shakambharigroup.com",
-          address: "Europoort Trade Center, Rotterdam"
-        },
-        {
-          id: "gb", name: "England", code: "GB", left: "50.0%", top: "21.4%",
-          hubType: "UK & European Logistics", partner: "Albion Metals Trading UK Ltd",
-          officer: "David Sterling", phone: "+44 20 7946 0912", email: "uk.sales@shakambharigroup.com",
-          address: "Canary Wharf, London"
-        },
-        {
-          id: "sk", name: "Slovakia", code: "SK", left: "54.8%", top: "23.3%",
-          hubType: "Central European Steel Corridor", partner: "Karpaty Kovové Materiály s.r.o.",
-          officer: "Peter Novák", phone: "+421 2 5710 4400", email: "slovakia.trade@shakambharigroup.com",
-          address: "Business Center Eurovea, Bratislava"
-        },
-        {
-          id: "us", name: "United States", code: "US", left: "23.5%", top: "33.5%",
-          hubType: "North American Trade Station", partner: "Trans-Atlantic Steel Alliance",
-          officer: "Robert Vance", phone: "+1 212 555 0199", email: "usa.sales@shakambharigroup.com",
-          address: "Houston Steel Terminal, Texas"
-        },
-        {
-          id: "ca", name: "Canada", code: "CA", left: "27.9%", top: "25.8%",
-          hubType: "North American Trade Gateway", partner: "Maple Ridge Steel & Metals Inc.",
-          officer: "Michael Bennett", phone: "+1 416 555 0142", email: "canada.trade@shakambharigroup.com",
-          address: "Bay Street Financial District, Toronto"
-        },
-        {
-          id: "br", name: "Brazil", code: "BR", left: "37.1%", top: "63.1%",
-          hubType: "South American Distribution Hub", partner: "Cruzeiro do Sul Metais Ltda.",
-          officer: "Rafael Souza", phone: "+55 11 4002 8922", email: "brazil.trade@shakambharigroup.com",
-          address: "Avenida Paulista, São Paulo"
-        },
-        {
-          id: "ar", name: "Argentina", code: "AR", left: "33.8%", top: "69.2%",
-          hubType: "Southern Cone Trade Partner", partner: "Pampas Acero y Metales S.A.",
-          officer: "Martín Fernández", phone: "+54 11 4310 2200", email: "argentina.trade@shakambharigroup.com",
-          address: "Puerto Madero Business District, Buenos Aires"
-        },
-        {
-          id: "pe", name: "Peru", code: "PE", left: "28.6%", top: "56.7%",
-          hubType: "Andean Region Logistics Partner", partner: "Inca Metales del Pacífico S.A.C.",
-          officer: "Jorge Ramírez", phone: "+51 1 610 3300", email: "peru.trade@shakambharigroup.com",
-          address: "San Isidro Business Center, Lima"
-        },
-        {
-          id: "co", name: "Colombia", code: "CO", left: "29.4%", top: "47.4%",
-          hubType: "Andean-Caribbean Trade Hub", partner: "Andes Acero Comercial S.A.S.",
-          officer: "Camilo Restrepo", phone: "+57 1 508 4400", email: "colombia.trade@shakambharigroup.com",
-          address: "Zona Financiera, Bogotá"
-        },
+        { id: "jp", name: "Japan", code: "JP", left: "88.8%", top: "30.2%" },
+        { id: "vn", name: "Vietnam", code: "VN", left: "79.6%", top: "44.0%" },
+        { id: "th", name: "Thailand", code: "TH", left: "77.9%", top: "42.4%" },
+        { id: "bd", name: "Bangladesh", code: "BD", left: "75.1%", top: "36.8%" },
+        { id: "np", name: "Nepal", code: "NP", left: "73.7%", top: "34.6%" },
+        { id: "hk", name: "Hong Kong", code: "HK", left: "81.7%", top: "37.6%" },
+        { id: "sa", name: "Saudi Arabia", code: "SA", left: "63.0%", top: "36.3%" },
+        { id: "ae", name: "UAE", code: "AE", left: "65.4%", top: "36.0%" },
+        { id: "bh", name: "Bahrain", code: "BH", left: "64.1%", top: "35.4%" },
+        { id: "eg", name: "Egypt", code: "EG", left: "58.7%", top: "33.3%" },
+        { id: "ma", name: "Morocco", code: "MA", left: "47.9%", top: "31.4%" },
+        { id: "za", name: "South Africa", code: "ZA", left: "57.8%", top: "64.6%" },
+        { id: "it", name: "Italy", code: "IT", left: "52.6%", top: "24.7%" },
+        { id: "fr", name: "France", code: "FR", left: "50.7%", top: "22.9%" },
+        { id: "de", name: "Germany", code: "DE", left: "52.4%", top: "22.2%" },
+        { id: "nl", name: "Netherlands", code: "NL", left: "51.2%", top: "21.2%" },
+        { id: "gb", name: "England", code: "GB", left: "50.0%", top: "21.4%" },
+        { id: "sk", name: "Slovakia", code: "SK", left: "54.8%", top: "23.3%" },
+        { id: "us", name: "United States", code: "US", left: "23.5%", top: "33.5%" },
+        { id: "ca", name: "Canada", code: "CA", left: "27.9%", top: "25.8%" },
+        { id: "br", name: "Brazil", code: "BR", left: "37.1%", top: "63.1%" },
+        { id: "ar", name: "Argentina", code: "AR", left: "33.8%", top: "69.2%" },
+        { id: "pe", name: "Peru", code: "PE", left: "28.6%", top: "56.7%" },
+        { id: "co", name: "Colombia", code: "CO", left: "29.4%", top: "47.4%" },
         {
           id: "in_hq", name: "India HQ", code: "IN", left: "74.5%", top: "37.5%", isHQ: true,
-          hubType: "Global Manufacturing & Corporate HQ", partner: "Shakambhari Corporate HQ",
-          officer: "Rajesh Sharma (Global Export Sales)", phone: "+91 98300 12345", email: "export.sales@shakambharigroup.com",
-          address: "10, Princep Street, Kolkata, India"
+          hubType: "Corporate HQ",
+          address: "Diamond Prestige, 7th & 8th Floor, Room No. 801, 41A A.J.C. Bose Road, Kolkata 700017, West Bengal, India",
+          phone: "+91 33 6625 5252", email: "info@shakambharigroup.in"
         }
       ];
 
@@ -3308,7 +3190,7 @@
           pin.dataset.id = item.id;
           pin.setAttribute('role', 'button');
           pin.setAttribute('tabindex', '0');
-          pin.setAttribute('aria-label', `${item.name}, ${item.hubType || 'Regional Hub'}. Press Enter to view details.`);
+          pin.setAttribute('aria-label', item.name);
 
           // independent animation timing per marker so the map "breathes"
           // organically rather than every beacon pulsing in lockstep
@@ -3337,15 +3219,11 @@
             <div class="${popoverClasses}">
               <div class="pop-state">
                 <span>📍 ${item.name}</span>
-                <span class="pop-badge-type">${item.hubType || 'Regional Hub'}</span>
+                ${item.hubType ? `<span class="pop-badge-type">${item.hubType}</span>` : ''}
               </div>
-              <div class="pop-vendor">${item.partner}</div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text"><strong>Officer:</strong> ${item.officer}</span></div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></span></div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></span></div>
-              <div class="pop-detail-line" style="border-top:1px solid var(--border); padding-top:0.35rem; margin-top:0.35rem;"><span class="pop-detail-icon">🏬</span><span class="pop-detail-text"><strong>Hub:</strong> ${item.address}</span></div>
-              <div class="pop-icons" aria-hidden="true" title="Rail · Manufacturing · Power Grid">🚂 🏭 ⚡</div>
-              <div class="pop-cta">Click to view details →</div>
+              ${item.phone ? `<div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></span></div>` : ''}
+              ${item.email ? `<div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><a class="pop-link" href="mailto:${item.email}">${item.email}</a></span></div>` : ''}
+              ${item.address ? `<div class="pop-detail-line"><span class="pop-detail-icon">🏬</span><span class="pop-detail-text">${item.address}</span></div>` : ''}
             </div>
           `;
 
