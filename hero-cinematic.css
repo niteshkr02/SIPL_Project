@@ -450,16 +450,17 @@
    site has to a shared source — there's no template/data layer to
    import from directly. */
 .hero-brands {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+  margin-top: 2.2rem;
+  padding-top: 1.75rem;
   border-top: 1px solid rgba(255, 255, 255, .09);
 }
 
 .hero-brands-row {
   min-width: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: .7rem;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
   justify-content: center;
 }
 
@@ -482,32 +483,32 @@
 
 .hero-brand-card {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
-  gap: .65rem;
-  padding: .55rem .95rem .55rem .55rem;
-  border-radius: 14px;
+  justify-content: center;
+  padding: .7rem;
+  border-radius: 16px;
   text-decoration: none;
-  background: rgba(255, 255, 255, .04);
-  border: 1.5px solid rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .05);
+  border: 1.5px solid rgba(255, 255, 255, .18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .4);
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, background .3s ease, box-shadow .3s ease;
 }
 
 @media (max-width: 639.98px) {
   .hero-brand-card {
-    flex: 0 0 auto;
-    width: 150px;
     scroll-snap-align: start;
   }
 }
 
 .hero-brand-card:hover,
 .hero-brand-card:focus-visible {
-  transform: scale(1.03);
-  border-color: rgba(255, 106, 31, .55);
-  background: rgba(255, 106, 31, .07);
-  box-shadow: 0 0 22px rgba(255, 106, 31, .16);
+  transform: scale(1.04) translateY(-2px);
+  border-color: rgba(255, 106, 31, .6);
+  background: rgba(255, 106, 31, .09);
+  box-shadow: 0 12px 30px -10px rgba(255, 106, 31, .3), 0 0 26px rgba(255, 106, 31, .18);
 }
 
 .hero-brand-card:focus-visible {
@@ -517,16 +518,25 @@
 
 .hero-brand-logo-wrap {
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
-  border-radius: 9px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
   overflow: hidden;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px;
+  padding: 7px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
+}
+
+@media (min-width: 640px) {
+  .hero-brand-logo-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+    padding: 8px;
+  }
 }
 
 .hero-brand-logo {
@@ -538,17 +548,7 @@
 
 .hero-brand-card:hover .hero-brand-logo,
 .hero-brand-card:focus-visible .hero-brand-logo {
-  transform: scale(1.06);
-}
-
-.hero-brand-name {
-  font-family: var(--font-display);
-  font-size: .86rem;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: .01em;
-  line-height: 1.2;
-  white-space: nowrap;
+  transform: scale(1.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
