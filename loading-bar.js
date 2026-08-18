@@ -19,8 +19,8 @@
   bar.style.cssText =
     'position:fixed;top:0;left:0;height:3px;width:0%;z-index:99999;' +
     'pointer-events:none;' +
-    'background:linear-gradient(90deg,#FF6A1F 0%,#0B2554 100%);' +
-    'box-shadow:0 0 10px 1px rgba(255,106,31,.5),0 0 5px rgba(11,37,84,.55);' +
+    'background:linear-gradient(90deg,#ED660A 0%,#185DAA 100%);' +
+    'box-shadow:0 0 10px 1px rgba(237,102,10,.5),0 0 5px rgba(24,93,170,.55);' +
     'transition:width .25s ease-out,opacity .4s ease .1s;' +
     'opacity:1;';
 
