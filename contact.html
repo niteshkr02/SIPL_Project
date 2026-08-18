@@ -390,10 +390,10 @@
       <!-- MAP TABS SWITCHER -->
       <div class="map-tab-controls reveal">
         <button class="map-tab-btn" id="tabWorldBtn" data-target="worldMapWrap">
-          🌐 International Presence (24 Countries)
+          🌐 International Presence
         </button>
         <button class="map-tab-btn active" id="tabIndiaBtn" data-target="indiaMapWrap">
-          🇮🇳 Domestic Network (15 States · 113 Team Members)
+          🇮🇳 Domestic Network
         </button>
       </div>
 
@@ -2870,10 +2870,10 @@
         stateHeadCard.classList.remove('is-empty');
         const head = state.stateHead;
         const hasDistricts = !!(state.districts && state.districts.length);
-        // just the first district alphabetically — the location card is a
-        // display label, not a per-state "current selection" (the popup it
-        // opens is read-only, see renderDistrictPopupGrid below)
-        const locationText = hasDistricts ? `${state.districts[0]} District, ${state.name}` : state.name;
+        // the location card is a call-to-action into the district popup
+        // below, not a per-state "current selection" — always shows the
+        // same prompt regardless of which state is selected
+        const locationText = 'Explore the active locations where our teams operate.';
         stateHeadCard.innerHTML = `
           <div class="shc-row">
             <span class="shc-avatar" aria-hidden="true">⭐</span>
