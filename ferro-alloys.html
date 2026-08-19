@@ -22,6 +22,10 @@
 .spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
 .spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
 .spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
+.spec-chem{ display:flex; flex-direction:column; gap:.45rem; margin:0 0 1rem; padding:.9rem 1rem; border-radius:.7rem; background:var(--surface-2); border:1px solid var(--border); }
+.spec-chem-row{ display:flex; justify-content:space-between; gap:1rem; font-size:.85rem; }
+.spec-chem-row span:first-child{ font-weight:700; color:var(--ink); }
+.spec-chem-row span:last-child{ color:var(--ink-soft); text-align:right; }
 
 /* ══ ABOUT / FOOTPRINT TWO-COL ══ */
 .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
@@ -422,40 +426,48 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
       <picture>
         <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.avif">
         <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.webp">
-        <img height="896" width="1200" src="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.jpg" alt="Silico Manganese SiMn 65/16 Grade lumps" class="spec-card-photo" loading="lazy" decoding="async">
+        <img height="896" width="1200" src="optimized-images/images/ferro-alloys/product-simn-65-16-lumps.jpg" alt="High Carbon Silico Manganese lumps" class="spec-card-photo" loading="lazy" decoding="async">
       </picture>
-      <div class="spec-top"><h4>Silico Manganese (SiMn) 65/16 Grade</h4></div>
+      <div class="spec-top"><h4>High Carbon Silico Manganese</h4></div>
       <p>Our flagship product, providing a highly effective combination of silicon and manganese for steel purification and strength.</p>
+      <div class="spec-chem">
+        <div class="spec-chem-row"><span>Mn</span><span>60–65% min</span></div>
+        <div class="spec-chem-row"><span>Si</span><span>14–16% min</span></div>
+        <div class="spec-chem-row"><span>C</span><span>2.5% max</span></div>
+        <div class="spec-chem-row"><span>Phos, Sulphur, Boron</span><span>Standard &amp; Low</span></div>
+      </div>
       <div class="spec-tags"><span class="spec-tag">Flagship Grade</span><span class="spec-tag">Deoxidation</span></div>
-    </div>
-    <div class="spec-card panel reveal">
-      <picture>
-        <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-low-boron-simn.avif">
-        <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-low-boron-simn.webp">
-        <img height="768" width="1376" src="optimized-images/images/ferro-alloys/product-low-boron-simn.jpg" alt="Low Boron Silico Manganese lumps" class="spec-card-photo" loading="lazy" decoding="async">
-      </picture>
-      <div class="spec-top"><h4>Low Boron Silico Manganese</h4></div>
-      <p>A highly refined, specialized grade engineered specifically for continuous export to the Japanese market.</p>
-      <div class="spec-tags"><span class="spec-tag">Export Grade</span><span class="spec-tag">Japan</span></div>
     </div>
     <div class="spec-card panel reveal">
       <picture>
         <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-high-carbon-femn.avif">
         <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-high-carbon-femn.webp">
-        <img height="768" width="1376" src="optimized-images/images/ferro-alloys/product-high-carbon-femn.jpg" alt="High Carbon Ferro Manganese 70-75 Grade lumps" class="spec-card-photo" loading="lazy" decoding="async">
+        <img height="768" width="1376" src="optimized-images/images/ferro-alloys/product-high-carbon-femn.jpg" alt="High Carbon Ferro Manganese lumps" class="spec-card-photo" loading="lazy" decoding="async">
       </picture>
-      <div class="spec-top"><h4>High Carbon Ferro Manganese (70–75 Grade)</h4></div>
+      <div class="spec-top"><h4>High Carbon Ferro Manganese</h4></div>
       <p>Delivering high manganese content to improve the tensile strength, workability, and wear resistance of steel.</p>
-      <div class="spec-tags"><span class="spec-tag">70–75 Grade</span><span class="spec-tag">Tensile Strength</span></div>
+      <div class="spec-chem">
+        <div class="spec-chem-row"><span>Mn</span><span>70–76% min</span></div>
+        <div class="spec-chem-row"><span>Si</span><span>1.5% max</span></div>
+        <div class="spec-chem-row"><span>C</span><span>6–8%</span></div>
+        <div class="spec-chem-row"><span>Phos, Sulphur, Boron</span><span>Standard &amp; Low</span></div>
+      </div>
+      <div class="spec-tags"><span class="spec-tag">High Carbon Grade</span><span class="spec-tag">Tensile Strength</span></div>
     </div>
     <div class="spec-card panel reveal">
       <picture>
         <source type="image/avif" srcset="optimized-images/images/ferro-alloys/product-mc-simn.avif">
         <source type="image/webp" srcset="optimized-images/images/ferro-alloys/product-mc-simn.webp">
-        <img height="1024" width="1024" src="optimized-images/images/ferro-alloys/product-mc-simn.jpg" alt="Medium Carbon MC Silico Manganese lumps" class="spec-card-photo" loading="lazy" decoding="async">
+        <img height="1024" width="1024" src="optimized-images/images/ferro-alloys/product-mc-simn.jpg" alt="Medium Carbon Silico Manganese lumps" class="spec-card-photo" loading="lazy" decoding="async">
       </picture>
-      <div class="spec-top"><h4>Medium Carbon (MC) Silico Manganese</h4></div>
+      <div class="spec-top"><h4>Medium Carbon Silico Manganese</h4></div>
       <p>Carefully processed to meet the rigorous demands of specialized low-carbon steel production.</p>
+      <div class="spec-chem">
+        <div class="spec-chem-row"><span>Mn</span><span>55%</span></div>
+        <div class="spec-chem-row"><span>Si</span><span>20–22%</span></div>
+        <div class="spec-chem-row"><span>C</span><span>0.5% max</span></div>
+        <div class="spec-chem-row"><span>Phos, Sulphur, Boron</span><span>Standard &amp; Low</span></div>
+      </div>
       <div class="spec-tags"><span class="spec-tag">MC Grade</span><span class="spec-tag">Low-Carbon Steel</span></div>
     </div>
   </div>
@@ -658,10 +670,9 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
           <label for="fcProduct">Product Required</label>
           <select id="fcProduct" name="product" required>
             <option value="" disabled selected>Select a product</option>
-            <option value="Silico Manganese (SiMn) 65/16">Silico Manganese (SiMn) 65/16 Grade</option>
-            <option value="Low Boron Silico Manganese">Low Boron Silico Manganese</option>
-            <option value="High Carbon Ferro Manganese (70-75)">High Carbon Ferro Manganese (70–75 Grade)</option>
-            <option value="Medium Carbon (MC) Silico Manganese">Medium Carbon (MC) Silico Manganese</option>
+            <option value="High Carbon Silico Manganese">High Carbon Silico Manganese</option>
+            <option value="High Carbon Ferro Manganese">High Carbon Ferro Manganese</option>
+            <option value="Medium Carbon Silico Manganese">Medium Carbon Silico Manganese</option>
             <option value="Other / Not Sure">Other / Not Sure</option>
           </select>
         </div>
