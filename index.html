@@ -2229,7 +2229,7 @@
       <div class="section-head mp-head reveal">
         <div class="kicker center">GLOBAL &amp; DOMESTIC FOOTPRINT</div>
         <span class="mp-kicker-glow" aria-hidden="true"></span>
-        <h2>Market Presence Across 24 Countries &amp; India</h2>
+        <h2>Market Presence Across Multiple Countries &amp; India</h2>
         <p style="text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem;">
           Explore the active locations where our teams operate
         </p>
@@ -2832,15 +2832,15 @@
             <div class="stat-label">States Served</div>
           </div>
           <div class="stat">
-            <div class="stat-num counter" data-target="100" data-suffix="+">0+</div>
+            <div class="stat-num counter" data-target="1000" data-suffix="+">0+</div>
             <div class="stat-label">Enterprise Clients</div>
           </div>
           <div class="stat">
-            <div class="stat-num counter" data-target="15" data-suffix="+">0+</div>
+            <div class="stat-num counter" data-target="32" data-suffix="+">0+</div>
             <div class="stat-label">Government Organizations</div>
           </div>
           <div class="stat">
-            <div class="stat-num counter" data-target="500" data-suffix="+">0+</div>
+            <div class="stat-num counter" data-target="1000" data-suffix="+">0+</div>
             <div class="stat-label">Major Infrastructure Projects</div>
           </div>
         </div>
@@ -5366,17 +5366,6 @@
           pin.style.setProperty('--breathe-delay', (Math.random() * 2).toFixed(2) + 's');
           pin.style.setProperty('--pulse-jitter', (Math.random() * 1.4).toFixed(2) + 's');
 
-          const topVal = parseFloat(item.top);
-          const leftVal = parseFloat(item.left);
-
-          let popoverClasses = 'pin-popover';
-          if (topVal < 26) {
-            popoverClasses += ' popover-below';
-          }
-          if (leftVal > 76) {
-            popoverClasses += ' popover-left';
-          }
-
           pin.innerHTML = `
             <div class="pin-beacon">
               <div class="pin-pulse"></div>
@@ -5384,15 +5373,6 @@
               <div class="pin-core"></div>
             </div>
             <div class="pin-tag">${item.code}</div>
-            <div class="${popoverClasses}">
-              <div class="pop-state">
-                <span>📍 ${item.name}</span>
-                ${item.hubType ? `<span class="pop-badge-type">${item.hubType}</span>` : ''}
-              </div>
-              ${item.phone ? `<div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></span></div>` : ''}
-              ${item.email ? `<div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><a class="pop-link" href="mailto:${item.email}">${item.email}</a></span></div>` : ''}
-              ${item.address ? `<div class="pop-detail-line"><span class="pop-detail-icon">🏬</span><span class="pop-detail-text">${item.address}</span></div>` : ''}
-            </div>
           `;
 
           pin.addEventListener('mouseenter', () => previewItem(item, dataList));
@@ -5557,7 +5537,6 @@
       }
     })();
   </script>
-  <script src="market-presence-international-data.js"></script>
 
   <!-- CERTIFICATE LIGHTBOX MODAL OVERLAY -->
   <div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">

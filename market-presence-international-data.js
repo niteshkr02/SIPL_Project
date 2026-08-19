@@ -2147,17 +2147,6 @@
           pin.style.setProperty('--breathe-delay', (Math.random() * 2).toFixed(2) + 's');
           pin.style.setProperty('--pulse-jitter', (Math.random() * 1.4).toFixed(2) + 's');
 
-          const topVal = parseFloat(item.top);
-          const leftVal = parseFloat(item.left);
-
-          let popoverClasses = 'pin-popover';
-          if (topVal < 26) {
-            popoverClasses += ' popover-below';
-          }
-          if (leftVal > 76) {
-            popoverClasses += ' popover-left';
-          }
-
           pin.innerHTML = `
             <div class="pin-beacon">
               <div class="pin-pulse"></div>
@@ -2165,19 +2154,6 @@
               <div class="pin-core"></div>
             </div>
             <div class="pin-tag">${item.code}</div>
-            <div class="${popoverClasses}">
-              <div class="pop-state">
-                <span>📍 ${item.name}</span>
-                <span class="pop-badge-type">${item.hubType || 'Regional Hub'}</span>
-              </div>
-              <div class="pop-vendor">${item.partner}</div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text"><strong>Officer:</strong> ${item.officer}</span></div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><strong>Phone:</strong> <a class="pop-link" href="tel:${item.phone.replace(/\s+/g, '')}">${item.phone}</a></span></div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><strong>Email:</strong> <a class="pop-link" href="mailto:${item.email}">${item.email}</a></span></div>
-              <div class="pop-detail-line" style="border-top:1px solid var(--border); padding-top:0.35rem; margin-top:0.35rem;"><span class="pop-detail-icon">🏬</span><span class="pop-detail-text"><strong>Hub:</strong> ${item.address}</span></div>
-              <div class="pop-icons" aria-hidden="true" title="Rail · Manufacturing · Power Grid">🚂 🏭 ⚡</div>
-              <div class="pop-cta">Click to view details →</div>
-            </div>
           `;
 
           pin.addEventListener('mouseenter', () => previewItem(item, dataList));
