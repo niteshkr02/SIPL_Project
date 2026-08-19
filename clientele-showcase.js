@@ -275,3 +275,39 @@
     }
   }
 })();
+
+/* ── "VIEW ALL CLIENTS" toggle: reveals the no-logo organization list in
+   place, no navigation. Height is animated purely in CSS (grid-template-rows
+   0fr -> 1fr on .cli-more-wrap); this script only flips state, updates the
+   accessible name/count and staggers each item's own fade-in delay. ── */
+(function () {
+  'use strict';
+
+  const toggle = document.getElementById('cliMoreToggle');
+  const wrap = document.getElementById('cliMoreWrap');
+  const countEl = document.getElementById('cliMoreCount');
+  const labelEl = toggle ? toggle.querySelector('.cli-more-toggle-label') : null;
+  if (!toggle || !wrap || !labelEl) return;
+
+  const items = Array.from(wrap.querySelectorAll('.cli-more-item'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const defaultLabel = labelEl.textContent;
+
+  if (countEl && items.length) countEl.textContent = `+ ${items.length} More Organizations`;
+
+  let expanded = false;
+
+  toggle.addEventListener('click', () => {
+    expanded = !expanded;
+
+    toggle.setAttribute('aria-expanded', String(expanded));
+    toggle.classList.toggle('is-expanded', expanded);
+    wrap.classList.toggle('is-expanded', expanded);
+    wrap.setAttribute('aria-hidden', String(!expanded));
+    labelEl.textContent = expanded ? 'Show Less' : defaultLabel;
+
+    items.forEach((item, i) => {
+      item.style.transitionDelay = expanded && !reduceMotion ? `${i * 25}ms` : '0ms';
+    });
+  });
+})();
