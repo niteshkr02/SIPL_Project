@@ -39,7 +39,7 @@
 }
 
 @media (max-width: 900px) {
-  .csrh { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+  .csrh { height: auto; min-height: 0; max-height: none; }
 }
 
 .csrh-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -85,7 +85,11 @@
 }
 
 @media (max-width: 900px) {
-  .csrh-scrim { display: none; }
+  .csrh-scrim {
+    background:
+      linear-gradient(180deg, rgba(6, 27, 73, .72) 0%, rgba(6, 27, 73, .36) 20%, rgba(6, 27, 73, .3) 36%, rgba(2, 8, 20, .62) 58%, rgba(2, 8, 20, .93) 76%, var(--navy-deep) 100%),
+      linear-gradient(90deg, rgba(6, 27, 73, .45) 0%, transparent 45%, transparent 60%, rgba(6, 27, 73, .3) 100%);
+  }
 }
 
 /* ── faint technical grid, low opacity, confined to the content field ── */
@@ -445,16 +449,12 @@
   .csrh-features { display: none; }
 }
 
-/* ══ mobile: vertical stack — badge, headline, copy, CTA, then the
-   photo as a contained, uncropped card, then the four commitments as a
-   compact 2×2 grid beneath, matching the site's established mobile
-   hero pattern (.op-hero / .awh / .ins-hero) ══ */
+/* ══ mobile: text stacks centered over the same full-bleed photo, which
+   deepens to solid navy toward the bottom so the four commitments read
+   clearly beneath it — no separate boxed card, matching the homepage /
+   leadership hero ══ */
 @media (max-width: 900px) {
-  .csrh { display: flex; flex-direction: column; align-items: stretch; }
-
-  .csrh-bg { position: relative; inset: auto; order: 2; }
-
-  .csrh-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .csrh-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
 
   .csrh-content { max-width: none; text-align: center; padding-bottom: 0; }
 
@@ -464,21 +464,7 @@
 
   .csrh-cta { margin-left: auto; margin-right: auto; }
 
-  .csrh-visual {
-    position: relative;
-    inset: auto;
-    margin: 2.2rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
-  }
-
-  .csrh-visual picture,
-  .csrh-visual-img { position: absolute; inset: 0; }
-
-  .csrh-visual-img { object-fit: cover; object-position: 70% 38%; transform: scale(1); }
+  .csrh-visual-img { object-position: 70% 30%; transform: scale(1); }
 }
 
 .csrh-features-mobile {

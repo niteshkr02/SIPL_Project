@@ -342,12 +342,10 @@
   50% { background-position: -20% 100%; }
 }
 
-@media (min-width: 960px) {
-  .ph-visual {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
+.ph-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
 /* ══ BOTTOM ORANGE CURVE ══ */
@@ -404,30 +402,23 @@
    after all text content and the three categories — with no order/
    flex tricks required. ══ */
 @media (max-width: 959px) {
-  /* .ph-visual becomes a normal-flow sibling of .ph-inner here (see the
-     ≥960px rule above that pulls it out via position:absolute); without
-     this, .product-hero's own display:flex (row, used to vertically
-     center .ph-inner on desktop) would lay the two out side by side
-     instead of stacked. */
-  .product-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 4rem; min-height: auto; }
+  /* text and categories stack centered over the same full-bleed photo,
+     no separate boxed card — matches the homepage / leadership hero */
+  .product-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 4rem; min-height: auto; text-align: center; }
   .ph-content { max-width: none; }
 
-  .ph-visual {
-    max-width: 620px;
-    margin: 2.4rem auto 0;
-    aspect-ratio: 1.15 / 1;
-    min-height: 300px;
-    border-radius: 1.25rem;
-    box-shadow: 0 18px 44px rgba(2, 8, 20, .45);
-  }
-  .ph-visual-frame img { object-position: 70% 44%; }
+  .ph-kicker { justify-content: center; }
+  .ph-desc { margin-left: auto; margin-right: auto; }
+
+  .ph-visual-frame img { object-position: 60% 30%; }
   .ph-visual-scrim {
     background:
-      linear-gradient(100deg, rgba(2, 8, 20, .55) 0%, transparent 28%),
-      linear-gradient(180deg, rgba(2, 8, 20, .4) 0%, transparent 16%, transparent 76%, rgba(2, 8, 20, .5) 100%);
+      linear-gradient(180deg, rgba(6, 27, 73, .74) 0%, rgba(6, 27, 73, .38) 20%, rgba(2, 8, 20, .3) 38%, rgba(2, 8, 20, .6) 60%, rgba(2, 8, 20, .92) 78%, var(--ph-dark) 96%),
+      linear-gradient(90deg, rgba(6, 27, 73, .46) 0%, transparent 45%, transparent 60%, rgba(6, 27, 73, .3) 100%);
   }
 
   .ph-categories { gap: 1.1rem; }
+  .ph-cat { align-items: center; text-align: center; }
   .ph-cat h3 { font-size: .78rem; }
   .ph-cat p { font-size: .76rem; }
 }
@@ -454,6 +445,7 @@
   .ph-cat {
     flex-direction: row;
     align-items: center;
+    text-align: left;
     gap: 1rem;
     padding: .9rem 0;
     border-top: 1px solid rgba(255, 107, 0, .18);
@@ -464,8 +456,7 @@
   .ph-sep { display: none; }
   .ph-cat-icon { flex-shrink: 0; }
 
-  .ph-visual { max-width: 100%; aspect-ratio: 1.25 / 1; min-height: 240px; margin-top: 2rem; }
-  .ph-visual-frame img { object-position: 76% 46%; }
+  .ph-visual-frame img { object-position: 68% 28%; }
 }
 
 /* ══ ACCESSIBILITY: reduced motion ══ */

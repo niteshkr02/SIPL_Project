@@ -50,12 +50,8 @@
 
 .mvv-feature-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1rem;
-}
-
-@media (max-width: 560px) {
-  .mvv-feature-grid { grid-template-columns: 1fr; }
 }
 
 .mvv-feature {
@@ -86,7 +82,7 @@
 
 .mvv-feature.visible:hover .mvv-feature-icon { transform: scale(1.1) rotate(-4deg); box-shadow: 0 14px 30px rgba(255, 106, 31, .42); }
 
-.mvv-feature h4 { font-size: 1rem; font-weight: 700; text-transform: none; font-family: var(--font-body); margin-bottom: .45rem; color: var(--ink); }
+.mvv-feature h4 { font-size: 1rem; font-weight: 700; text-transform: none; font-family: var(--font-body); margin-bottom: .45rem; color: var(--ink); overflow-wrap: break-word; }
 
 .mvv-feature p { font-size: .88rem; color: var(--ink-soft); line-height: 1.55; }
 

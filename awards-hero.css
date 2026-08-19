@@ -39,7 +39,7 @@
 }
 
 @media (max-width: 900px) {
-  .awh { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+  .awh { height: auto; min-height: 0; max-height: none; }
 }
 
 .awh-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -124,7 +124,11 @@
 }
 
 @media (max-width: 900px) {
-  .awh-scrim { display: none; }
+  .awh-scrim {
+    background:
+      linear-gradient(180deg, rgba(6, 27, 73, .72) 0%, rgba(6, 27, 73, .36) 20%, rgba(6, 27, 73, .3) 36%, rgba(2, 8, 20, .62) 58%, rgba(2, 8, 20, .93) 76%, var(--navy-deep) 100%),
+      linear-gradient(90deg, rgba(6, 27, 73, .45) 0%, transparent 45%, transparent 60%, rgba(6, 27, 73, .3) 100%);
+  }
 }
 
 /* ── faint technical grid + slowly rotating HUD ring — low opacity ── */
@@ -480,32 +484,18 @@
 
 @media (max-width: 900px) { .awh-wave { display: none; } }
 
-/* ══ mobile: vertical stack — badge, headline, copy, CTA, then the
-   photo as a contained, uncropped card, then the four features as a
-   compact 2×2 grid beneath, matching the site's established mobile
-   hero pattern (.op-hero / .ins-hero) ══ */
+/* ══ mobile: badge, headline, copy, CTA stack centered over the same
+   full-bleed photo, which deepens to solid navy toward the bottom so
+   the four achievements read clearly beneath it — no separate boxed
+   card, matching the homepage / leadership hero ══ */
 @media (max-width: 900px) {
-  .awh { display: flex; flex-direction: column; align-items: stretch; }
-  .awh-bg { position: relative; inset: auto; order: 2; }
-  .awh-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .awh-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
   .awh-content { max-width: none; text-align: center; padding-bottom: 0; }
   .awh-badge { justify-content: center; }
   .awh-desc { margin-left: auto; margin-right: auto; }
   .awh-cta { margin-left: auto; margin-right: auto; }
 
-  .awh-visual {
-    position: relative;
-    inset: auto;
-    margin: 2.2rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
-  }
-
-  .awh-visual picture, .awh-visual-img { position: absolute; inset: 0; }
-  .awh-visual-img { object-fit: cover; object-position: 70% 36%; transform: scale(1); }
+  .awh-visual-img { object-position: 70% 28%; transform: scale(1); }
   .awh-glow { display: none; }
 }
 

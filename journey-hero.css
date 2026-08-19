@@ -35,7 +35,7 @@
 }
 
 @media (max-width: 900px) {
-  .oj-hero { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+  .oj-hero { height: auto; min-height: 100svh; max-height: none; padding-bottom: 2.5rem; }
 }
 
 .oj-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -82,7 +82,11 @@
 }
 
 @media (max-width: 900px) {
-  .oj-hero-scrim { display: none; }
+  .oj-hero-scrim {
+    background:
+      linear-gradient(180deg, rgba(4, 15, 44, .78) 0%, rgba(4, 15, 44, .4) 24%, rgba(4, 15, 44, .3) 44%, rgba(4, 15, 44, .58) 66%, rgba(4, 15, 44, .95) 100%),
+      linear-gradient(90deg, rgba(4, 15, 44, .5) 0%, transparent 45%, transparent 60%, rgba(4, 15, 44, .35) 100%);
+  }
 }
 
 /* ── very subtle atmospheric glow pulsing around the horizon/sun ── */
@@ -391,16 +395,10 @@
   .oj-hero-features { gap: 1.3rem; margin-top: 2.2rem; }
 }
 
-/* ══ mobile: vertical stack — eyebrow, headline, copy, CTA, features,
-   then the road visual as a contained, uncropped card, matching the
-   recommended mobile order and the site's established .mvv-hero
-   mobile pattern ══ */
+/* ══ mobile: text stacks centered over the same full-bleed photo, no
+   separate boxed card — matches the homepage / leadership hero ══ */
 @media (max-width: 900px) {
-  .oj-hero { display: flex; flex-direction: column; align-items: stretch; }
-
-  .oj-hero-bg { position: relative; inset: auto; order: 2; }
-
-  .oj-hero-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; }
+  .oj-hero-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 2.5rem; }
 
   .oj-hero-content { max-width: none; text-align: center; }
 
@@ -411,22 +409,6 @@
   .oj-hero-cta { margin-left: auto; margin-right: auto; }
 
   .oj-hero-features { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; }
-
-  .oj-hero-visual {
-    position: relative;
-    inset: auto;
-    margin: 2.2rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(4, 15, 44, .35);
-  }
-
-  .oj-hero-visual picture,
-  .oj-hero-visual-img { position: absolute; inset: 0; }
-
-  .oj-hero-visual-img { object-fit: cover; }
 
   .oj-hero-glow { right: 8%; top: 8%; }
 }

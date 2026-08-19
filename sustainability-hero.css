@@ -40,7 +40,7 @@
 }
 
 @media (max-width: 900px) {
-  .sush { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+  .sush { height: auto; min-height: 0; max-height: none; }
 }
 
 .sush-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -87,7 +87,11 @@
 }
 
 @media (max-width: 900px) {
-  .sush-scrim { display: none; }
+  .sush-scrim {
+    background:
+      linear-gradient(180deg, rgba(6, 27, 73, .68) 0%, rgba(6, 27, 73, .34) 18%, rgba(2, 8, 20, .28) 34%, rgba(2, 8, 20, .6) 56%, rgba(2, 8, 20, .9) 74%, var(--navy-deep) 94%),
+      linear-gradient(90deg, rgba(6, 27, 73, .42) 0%, transparent 45%, transparent 60%, rgba(6, 27, 73, .28) 100%);
+  }
 }
 
 /* ── faint technical grid, low opacity, confined to the content field ── */
@@ -498,16 +502,12 @@
   .sush-features { display: none; }
 }
 
-/* ══ mobile: vertical stack — badge, headline, copy, CTA, then the
-   photo as a contained, uncropped card, then the five commitments as a
-   compact 2-column grid beneath, matching the site's established
-   mobile hero pattern (.csrh / .op-hero / .awh) ══ */
+/* ══ mobile: badge, headline, copy, CTA stack centered over the same
+   full-bleed photo, which deepens to solid navy toward the bottom so
+   the five commitments read clearly beneath it — no separate boxed
+   card, matching the homepage / leadership hero ══ */
 @media (max-width: 900px) {
-  .sush { display: flex; flex-direction: column; align-items: stretch; }
-
-  .sush-bg { position: relative; inset: auto; order: 2; }
-
-  .sush-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .sush-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
 
   .sush-content { max-width: none; text-align: center; padding-bottom: 0; }
 
@@ -517,21 +517,7 @@
 
   .sush-cta { margin-left: auto; margin-right: auto; }
 
-  .sush-visual {
-    position: relative;
-    inset: auto;
-    margin: 2.2rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
-  }
-
-  .sush-visual picture,
-  .sush-visual-img { position: absolute; inset: 0; }
-
-  .sush-visual-img { object-fit: cover; object-position: 68% 46%; transform: scale(1); }
+  .sush-visual-img { object-position: 60% 32%; transform: scale(1); }
 }
 
 .sush-features-mobile {

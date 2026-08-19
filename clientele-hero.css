@@ -37,7 +37,7 @@
 }
 
 @media (max-width: 900px) {
-  .cnh { height: auto; min-height: 0; max-height: none; padding-bottom: 2.5rem; }
+  .cnh { height: auto; min-height: 0; max-height: none; }
 }
 
 .cnh-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -80,7 +80,11 @@
 }
 
 @media (max-width: 900px) {
-  .cnh-scrim { display: none; }
+  .cnh-scrim {
+    background:
+      linear-gradient(180deg, rgba(3, 20, 43, .7) 0%, rgba(3, 20, 43, .34) 20%, rgba(2, 11, 28, .28) 38%, rgba(2, 11, 28, .58) 58%, rgba(2, 11, 28, .9) 76%, var(--navy-deep) 96%),
+      linear-gradient(90deg, rgba(3, 20, 43, .45) 0%, transparent 45%, transparent 60%, rgba(3, 20, 43, .3) 100%);
+  }
 }
 
 /* ── faint technical grid, low opacity, confined to the content field ── */
@@ -379,16 +383,11 @@
   .cnh-feature-text { font-size: .68rem; }
 }
 
-/* ══ mobile: vertical stack — eyebrow, headline, underline, copy,
-   three features, then the photo as a contained, uncropped card,
-   matching the site's established mobile hero pattern
-   (.op-hero / .sush / .q-hero) ══ */
+/* ══ mobile: eyebrow, headline, underline, copy and the three features
+   stack centered over the same full-bleed photo, no separate boxed
+   card — matches the homepage / leadership hero ══ */
 @media (max-width: 900px) {
-  .cnh { display: flex; flex-direction: column; align-items: stretch; }
-
-  .cnh-bg { position: relative; inset: auto; order: 2; }
-
-  .cnh-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .cnh-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 2.5rem; display: block; }
 
   .cnh-content { max-width: none; text-align: center; }
 
@@ -401,7 +400,7 @@
     flex-wrap: wrap;
     row-gap: 1.6rem;
     margin-top: 2.6rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: 0;
   }
 
   .cnh-feature {
@@ -416,21 +415,7 @@
   }
   .cnh-feature-text { font-size: .68rem; }
 
-  .cnh-visual {
-    position: relative;
-    inset: auto;
-    margin: 0 1.25rem 2rem;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
-  }
-
-  .cnh-visual picture,
-  .cnh-visual-img { position: absolute; inset: 0; }
-
-  .cnh-visual-img { object-fit: cover; object-position: 66% 46%; transform: scale(1); animation: none; }
+  .cnh-visual-img { object-position: 62% 32%; animation: none; }
 }
 
 @keyframes cnhIdleFloat {

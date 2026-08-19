@@ -285,7 +285,7 @@
 }
 @keyframes fhSweep { 0%, 100% { background-position: 120% 0%; } 50% { background-position: -20% 100%; } }
 
-@media (min-width: 960px) { .fh-visual { position: absolute; inset: 0; z-index: 0; } }
+.fh-visual { position: absolute; inset: 0; z-index: 0; }
 
 /* ══ DECORATIVE CURVES ══ */
 .fh-curve-under {
@@ -325,18 +325,22 @@
 /* ══ TABLET / MOBILE: .fh-visual flows in normal document order after
    .fh-inner once it drops out of absolute full-bleed mode ══ */
 @media (max-width: 959px) {
-  .fh-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 3.25rem; min-height: auto; }
+  /* text and features stack centered over the same full-bleed photo, no
+     separate boxed card — matches the homepage / leadership hero */
+  .fh-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 3.25rem; min-height: auto; text-align: center; }
   .fh-content { max-width: none; }
 
-  .fh-visual {
-    max-width: 640px; margin: 2.2rem auto 0; aspect-ratio: 1.2 / 1; min-height: 300px;
-    border-radius: 1.25rem; box-shadow: 0 18px 44px rgba(2, 11, 28, .45);
-  }
-  .fh-visual-frame img { object-position: 72% 42%; }
+  .fh-label { justify-content: center; }
+  .fh-eyebrow { justify-content: center; }
+  .fh-desc { margin-left: auto; margin-right: auto; }
+  .fh-cta-row { justify-content: center; }
+  .fh-features { justify-content: center; }
+
+  .fh-visual-frame img { object-position: 66% 28%; }
   .fh-visual-scrim {
     background:
-      linear-gradient(100deg, rgba(2, 11, 28, .5) 0%, transparent 26%),
-      linear-gradient(180deg, rgba(2, 11, 28, .4) 0%, transparent 16%, transparent 74%, rgba(2, 11, 28, .5) 100%);
+      linear-gradient(180deg, rgba(2, 11, 28, .74) 0%, rgba(2, 11, 28, .38) 20%, rgba(7, 26, 58, .3) 38%, rgba(7, 26, 58, .6) 60%, rgba(2, 11, 28, .92) 78%, var(--fh-navy-deep) 96%),
+      linear-gradient(90deg, rgba(2, 11, 28, .46) 0%, transparent 45%, transparent 60%, rgba(2, 11, 28, .3) 100%);
   }
 
   .fh-features { gap: .6rem; }
@@ -364,8 +368,7 @@
   .fh-panel-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
   .fh-panel-row-2 .fh-panel-btn { width: 100%; }
 
-  .fh-visual { aspect-ratio: 1.15 / 1; min-height: 240px; margin-top: 2rem; }
-  .fh-visual-frame img { object-position: 76% 44%; }
+  .fh-visual-frame img { object-position: 70% 26%; }
 }
 
 /* ══ ACCESSIBILITY: reduced motion ══ */

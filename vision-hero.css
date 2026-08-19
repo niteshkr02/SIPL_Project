@@ -34,7 +34,7 @@
 }
 
 @media (max-width: 900px) {
-  .mvv-hero { height: auto; min-height: 0; padding-bottom: 2.5rem; }
+  .mvv-hero { height: auto; min-height: 100svh; padding-bottom: 2.5rem; }
 }
 
 /* cursor-following spotlight — fixed-size glow translated via transform
@@ -329,43 +329,32 @@
   .mvv-hero-orbit { left: 70%; width: min(64vw, 620px); height: min(64vw, 620px); }
 }
 
-/* ══ mobile: vertical stack, image becomes a contained, uncropped card ══ */
+/* ══ mobile: text stacks centered over the same full-bleed photo, no
+   separate boxed card — matches the homepage / leadership hero ══ */
 @media (max-width: 900px) {
-  .mvv-hero { display: flex; flex-direction: column; align-items: stretch; }
+  .mvv-hero-visual-img { object-position: 62% 28%; animation-duration: 7s; }
 
-  .mvv-hero-bg { position: relative; inset: auto; order: 2; }
-
-  .mvv-hero-inner { order: 1; }
-
-  .mvv-hero-visual {
-    position: relative;
-    inset: auto;
-    margin: 2.4rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(4, 15, 44, .35);
+  .mvv-hero-scrim {
+    background:
+      linear-gradient(180deg, rgba(4, 15, 44, .78) 0%, rgba(4, 15, 44, .4) 24%, rgba(4, 15, 44, .3) 44%, rgba(4, 15, 44, .58) 66%, rgba(4, 15, 44, .95) 100%),
+      linear-gradient(90deg, rgba(4, 15, 44, .5) 0%, transparent 45%, transparent 60%, rgba(4, 15, 44, .35) 100%);
   }
 
-  .mvv-hero-visual picture,
-  .mvv-hero-visual-img { position: absolute; inset: 0; }
-
-  .mvv-hero-visual-img {
-    object-fit: contain;
-    object-position: 50% 50%;
-    animation-duration: 7s;
-  }
-
-  .mvv-hero-scrim { display: none; }
-
-  .mvv-hero-orbit { left: 50%; top: 50%; width: 92%; height: 92%; opacity: .6; }
+  .mvv-hero-orbit { left: 50%; top: 38%; width: 92%; height: 92%; opacity: .45; }
 
   .mvv-hero-particles { display: none; }
 
-  .mvv-hero-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; }
+  .mvv-hero-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 2.5rem; }
 
-  .mvv-hero-content { max-width: none; }
+  .mvv-hero-content { max-width: none; text-align: center; }
+
+  .mvv-hero-eyebrow { justify-content: center; }
+
+  .mvv-hero-desc { margin-left: auto; margin-right: auto; }
+
+  .mvv-hero-rule { margin-left: auto; margin-right: auto; }
+
+  .mvv-hero-pillars { justify-content: center; }
 }
 
 /* ══ entrance state hooks (see vision-hero.js) ══ */

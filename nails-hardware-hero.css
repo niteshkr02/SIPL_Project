@@ -223,9 +223,7 @@
 }
 @keyframes nhSweep { 0%, 100% { background-position: 120% 0%; } 50% { background-position: -20% 100%; } }
 
-@media (min-width: 960px) {
-  .nh-visual { position: absolute; inset: 0; z-index: 0; }
-}
+.nh-visual { position: absolute; inset: 0; z-index: 0; }
 
 /* ══ BOTTOM TRUST STRIP ══ */
 .nh-trust {
@@ -279,18 +277,20 @@
 /* ══ TABLET / MOBILE: .nh-visual flows in normal document order after
    .nh-inner once it drops out of absolute full-bleed mode ══ */
 @media (max-width: 959px) {
-  .nh-hero { display: block; padding: calc(var(--nav-h) + 1.75rem) 1.5rem 8rem; min-height: auto; }
+  /* text and features stack centered over the same full-bleed photo, no
+     separate boxed card — matches the homepage / leadership hero */
+  .nh-hero { display: block; padding: calc(var(--nav-h) + 1.75rem) 1.5rem 8rem; min-height: auto; text-align: center; }
   .nh-content { max-width: none; }
 
-  .nh-visual {
-    max-width: 640px; margin: 2rem auto 0; aspect-ratio: 1.2 / 1; min-height: 280px;
-    border-radius: 1.15rem; box-shadow: 0 18px 44px rgba(2, 8, 20, .45);
-  }
-  .nh-visual-frame img { object-position: 68% 38%; }
+  .nh-eyebrow { justify-content: center; }
+  .nh-desc { margin-left: auto; margin-right: auto; }
+  .nh-cta-row { justify-content: center; }
+
+  .nh-visual-frame img { object-position: 62% 30%; }
   .nh-visual-scrim {
     background:
-      linear-gradient(100deg, rgba(2, 8, 20, .48) 0%, transparent 26%),
-      linear-gradient(180deg, rgba(2, 8, 20, .4) 0%, transparent 16%, transparent 74%, rgba(2, 8, 20, .5) 100%);
+      linear-gradient(180deg, rgba(2, 8, 20, .74) 0%, rgba(2, 8, 20, .38) 20%, rgba(3, 8, 22, .3) 38%, rgba(3, 8, 22, .6) 60%, rgba(2, 8, 20, .92) 78%, var(--nh-navy-deep) 96%),
+      linear-gradient(90deg, rgba(2, 8, 20, .46) 0%, transparent 45%, transparent 60%, rgba(2, 8, 20, .3) 100%);
   }
 
   .nh-features { gap: .55rem; }
@@ -313,8 +313,7 @@
   .nh-cta, .nh-cta-secondary { width: 100%; }
   .nh-cta-label { flex: 1; text-align: center; }
 
-  .nh-visual { aspect-ratio: 1.05 / 1; min-height: 220px; margin-top: 1.8rem; }
-  .nh-visual-frame img { object-position: 74% 40%; }
+  .nh-visual-frame img { object-position: 68% 28%; }
 
   .nh-trust { flex-direction: column; align-items: flex-start; gap: .75rem; padding: .9rem 1.15rem; }
 }

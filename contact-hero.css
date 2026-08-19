@@ -86,7 +86,11 @@
 }
 
 @media (max-width: 900px) {
-  .ch-scrim { display: none; }
+  .ch-scrim {
+    background:
+      linear-gradient(180deg, rgba(6, 27, 73, .7) 0%, rgba(6, 27, 73, .34) 18%, rgba(2, 8, 20, .28) 34%, rgba(2, 8, 20, .6) 54%, rgba(2, 8, 20, .9) 72%, var(--navy-black) 92%),
+      linear-gradient(90deg, rgba(6, 27, 73, .45) 0%, transparent 45%, transparent 60%, rgba(6, 27, 73, .3) 100%);
+  }
 }
 
 /* ── faint technical grid, low opacity, confined to the content field ── */
@@ -481,16 +485,11 @@
   .ch-commit-sep { display: none; }
 }
 
-/* ══ mobile / tablet: vertical stack — eyebrow, headline, copy, cards,
-   then the photo as a contained, uncropped card, then the commitment
-   strip, matching the site's established mobile hero pattern
-   (.op-hero-visual / .sush-visual) ══ */
+/* ══ mobile / tablet: text and cards stack centered over the same
+   full-bleed photo, no separate boxed card — matches the homepage /
+   leadership hero ══ */
 @media (max-width: 900px) {
-  .ch-hero { display: flex; flex-direction: column; align-items: stretch; }
-
-  .ch-bg { position: relative; inset: auto; order: 3; }
-
-  .ch-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .ch-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
 
   .ch-content { max-width: none; text-align: center; padding-bottom: 0; }
 
@@ -498,29 +497,15 @@
 
   .ch-desc { margin-left: auto; margin-right: auto; }
 
-  .ch-lower { order: 2; padding: 1.8rem 1.25rem 0; }
+  .ch-lower { padding: 1.8rem 1.25rem 0; }
 
   .ch-cards { grid-template-columns: 1fr 1fr; }
   .ch-cards .ch-card:last-child { grid-column: 1 / -1; max-width: 320px; margin: 0 auto; }
   .ch-card-desc { display: block; }
 
-  .ch-visual {
-    position: relative;
-    inset: auto;
-    margin: 2rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
-  }
+  .ch-visual-img { object-position: 62% 30%; transform: scale(1); }
 
-  .ch-visual picture,
-  .ch-visual-img { position: absolute; inset: 0; }
-
-  .ch-visual-img { object-fit: cover; object-position: 62% 38%; transform: scale(1); }
-
-  .ch-commit { order: 4; margin: 1.8rem 1.25rem 0; padding-top: 1.4rem; }
+  .ch-commit { margin-top: 1.8rem; padding-top: 1.4rem; }
 }
 
 @media (max-width: 560px) {

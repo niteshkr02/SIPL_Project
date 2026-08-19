@@ -83,7 +83,11 @@
 }
 
 @media (max-width: 900px) {
-  .cah-scrim { display: none; }
+  .cah-scrim {
+    background:
+      linear-gradient(180deg, rgba(2, 8, 20, .72) 0%, rgba(2, 8, 20, .36) 18%, rgba(2, 8, 20, .3) 34%, rgba(2, 8, 20, .6) 54%, rgba(2, 8, 20, .9) 72%, var(--navy-deep) 92%),
+      linear-gradient(90deg, rgba(2, 8, 20, .5) 0%, transparent 45%, transparent 60%, rgba(2, 8, 20, .35) 100%);
+  }
 }
 
 /* ── faint technical grid, low opacity, confined to the content field ── */
@@ -453,16 +457,11 @@
   .cah-heading { font-size: clamp(2.1rem, 4.4vw + 1vh, 3.4rem); }
 }
 
-/* ══ mobile: intentional vertical stack — badge, headline, copy, CTA,
-   then the photo as a contained, uncropped card, then the five
-   features as a compact 2-column grid beneath, matching the site's
-   established mobile hero pattern (.cnh / .op-hero / .sush) ══ */
+/* ══ mobile: badge, headline, copy, CTA and the five features stack
+   centered over the same full-bleed photo, no separate boxed card —
+   matches the homepage / leadership hero ══ */
 @media (max-width: 900px) {
-  .cah { display: flex; flex-direction: column; align-items: stretch; }
-
-  .cah-bg { position: relative; inset: auto; order: 2; }
-
-  .cah-inner { order: 1; padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
+  .cah-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 0; display: block; }
 
   .cah-content { max-width: none; text-align: center; }
 
@@ -472,24 +471,9 @@
 
   .cah-cta-row { display: flex; justify-content: center; }
 
-  .cah-visual {
-    position: relative;
-    inset: auto;
-    margin: 2.2rem 1.25rem 0;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--navy-deep);
-    box-shadow: 0 20px 44px rgba(2, 8, 20, .4);
-  }
-
-  .cah-visual picture,
-  .cah-visual-img { position: absolute; inset: 0; }
-
-  .cah-visual-img { object-fit: cover; object-position: 68% 44%; transform: scale(1); animation: none; }
+  .cah-visual-img { object-position: 68% 32%; animation: none; }
 
   .cah-features {
-    order: 3;
     grid-template-columns: 1fr 1fr;
     gap: 1.6rem 1rem;
     padding: 1.8rem 1.25rem 2.2rem;
