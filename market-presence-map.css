@@ -878,6 +878,60 @@
   .map-tab-btn {
     padding: 0.85rem 1.3rem;
   }
+
+  /* the outer card + inner map card both carried their full desktop
+     padding down to phone width, eating into the already-narrow map —
+     tighten both so the SVG gets more room to breathe */
+  .market-full-wrapper {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .world-map-container,
+  .india-map-container {
+    padding: 1.1rem;
+  }
+}
+
+/* narrow phones: the two-pill tab switcher and the 2:1 world map both
+   need dedicated handling below ~480px rather than just scaling down */
+@media (max-width: 480px) {
+  .market-full-wrapper {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .world-map-container,
+  .india-map-container {
+    padding: 0.85rem;
+  }
+
+  .map-header {
+    margin-bottom: 1rem;
+  }
+
+  /* side-by-side pills were wrapping unevenly once labels no longer fit
+     one row at this width — stack them full-width instead */
+  .map-tab-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .map-tab-btn {
+    justify-content: center;
+  }
+
+  /* the world map's 2:1 aspect ratio left it only ~150px tall at phone
+     widths, crowding pins/routes into an unusably thin strip — let it
+     go taller here; the SVG's own viewBox keeps proportions via its
+     default preserveAspectRatio (letterboxes instead of stretching) */
+  .map-viewport-box.world-box {
+    aspect-ratio: 4 / 3;
+    max-height: 340px;
+  }
+
+  .map-legend {
+    gap: 0.85rem;
+    font-size: 0.7rem;
+  }
 }
 
 /* ── accessibility ── */

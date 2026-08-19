@@ -840,6 +840,17 @@
   }
 }
 
+@media (max-width: 400px) {
+  .district-popup-overlay {
+    padding: 1rem;
+  }
+
+  .district-popup-header,
+  .district-popup-grid {
+    padding: 1rem;
+  }
+}
+
 body.district-popup-locked {
   overflow: hidden;
 }
@@ -937,6 +948,15 @@ body.district-popup-locked {
 @media (max-width: 992px) {
   .mp-india-panel {
     max-width: 380px;
+    /* .market-dashboard-grid collapses to a single column at this
+       breakpoint (market-presence-map.css), but the base rule above still
+       hard-places this panel in column 2 — with no explicit column 2 left
+       in the template, grid auto-generates an implicit one sized to
+       content, so the map and this panel end up squeezed side by side
+       into two narrow columns instead of stacking. Release the explicit
+       placement so it falls into the single remaining column. */
+    grid-column: 1;
+    grid-row: auto;
   }
 }
 
