@@ -302,7 +302,7 @@
 }
 
 .sush-desc {
-  margin-top: 1.2rem;
+  margin-top: 1.75rem;
   max-width: 46ch;
   font-size: 1.04rem;
   line-height: 1.75;
@@ -323,7 +323,7 @@
   display: inline-flex;
   align-items: center;
   gap: .9rem;
-  margin-top: 1.9rem;
+  margin-top: 2.4rem;
   padding: .5rem .5rem .5rem 1.55rem;
   border-radius: 3rem;
   overflow: hidden;

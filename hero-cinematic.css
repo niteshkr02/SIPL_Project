@@ -272,6 +272,10 @@
   align-items: center;
 }
 
+.hero p.lede {
+  color: #fff;
+}
+
 @media (min-width: 960px) {
   .hero-inner {
     display: grid;

@@ -344,7 +344,7 @@
   max-width: 420px;
   font-size: 1.05rem;
   line-height: 1.75;
-  color: var(--ink-dim);
+  color: #fff;
   padding: .95rem 1.3rem;
   background: linear-gradient(165deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03));
   backdrop-filter: blur(14px) saturate(140%);
